@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MetaModel xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <IconsList>
+    <ModelIcon>
+      <Name>button_ok</Name>
+      <Title>Done</Title>
+      <Shortcut>D</Shortcut>
+    </ModelIcon>
+    <ModelIcon>
+      <Name>ksmiletris</Name>
+      <Title>Feeling good about it</Title>
+      <Shortcut>F</Shortcut>
+    </ModelIcon>
+    <ModelIcon>
+      <Name>idea</Name>
+      <Title>My Own</Title>
+      <Shortcut>M</Shortcut>
+    </ModelIcon>
+    <ModelIcon>
+      <Name>desktop_new</Name>
+      <Title>Task</Title>
+      <Shortcut>T</Shortcut>
+    </ModelIcon>
+    <ModelIcon>
+      <Name>stop</Name>
+      <Title>Subtle Point</Title>
+      <Shortcut>P</Shortcut>
+    </ModelIcon>
+    <ModelIcon>
+      <Name>korn</Name>
+      <Title>Book</Title>
+      <Shortcut>B</Shortcut>
+    </ModelIcon>
+    <ModelIcon>
+      <Name>Mail</Name>
+      <Title>Website</Title>
+      <Shortcut>W</Shortcut>
+    </ModelIcon>
+    <ModelIcon>
+      <Name>wizard</Name>
+      <Title>Source</Title>
+      <Shortcut>S</Shortcut>
+    </ModelIcon>
+    <ModelIcon>
+      <Name>penguin</Name>
+      <Title>Software Project</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>male1</Name>
+      <Title>Personality</Title>
+      <Shortcut>Y</Shortcut>
+    </ModelIcon>
+    <ModelIcon>
+      <Name>help</Name>
+      <Title>help</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>yes</Name>
+      <Title>yes</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>messagebox_warning</Name>
+      <Title>messagebox_warning</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>stop-sign</Name>
+      <Title>stop-sign</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>closed</Name>
+      <Title>closed</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>info</Name>
+      <Title>info</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>button_cancel</Name>
+      <Title>button_cancel</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>full-1</Name>
+      <Title>full-1</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>full-2</Name>
+      <Title>full-2</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>full-3</Name>
+      <Title>full-3</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>full-4</Name>
+      <Title>full-4</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>full-5</Name>
+      <Title>full-5</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>full-6</Name>
+      <Title>full-6</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>full-7</Name>
+      <Title>full-7</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>full-8</Name>
+      <Title>full-8</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>full-9</Name>
+      <Title>full-9</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>full-0</Name>
+      <Title>full-0</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>prepare</Name>
+      <Title>prepare</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>go</Name>
+      <Title>go</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>back</Name>
+      <Title>back</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>forward</Name>
+      <Title>forward</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>up</Name>
+      <Title>up</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>down</Name>
+      <Title>down</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>attach</Name>
+      <Title>attach</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>smiley-angry</Name>
+      <Title>smiley-angry</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>smiley-neutral</Name>
+      <Title>smiley-neutral</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>smiley-oh</Name>
+      <Title>smiley-oh</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>smily_bad</Name>
+      <Title>smily_bad</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>clanbomber</Name>
+      <Title>clanbomber</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>gohome</Name>
+      <Title>gohome</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>folder</Name>
+      <Title>folder</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>kmail</Name>
+      <Title>kmail</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>list</Name>
+      <Title>list</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>edit</Name>
+      <Title>edit</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>kaddressbook</Name>
+      <Title>kaddressbook</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>knotify</Name>
+      <Title>knotify</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>password</Name>
+      <Title>password</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>pencil</Name>
+      <Title>pencil</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>xmag</Name>
+      <Title>xmag</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>bell</Name>
+      <Title>bell</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>bookmark</Name>
+      <Title>bookmark</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>licq</Name>
+      <Title>licq</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>freemind_butterfly</Name>
+      <Title>freemind_butterfly</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>broken-line</Name>
+      <Title>broken-line</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>calendar</Name>
+      <Title>calendar</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>clock</Name>
+      <Title>clock</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>hourglass</Name>
+      <Title>hourglass</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>launch</Name>
+      <Title>launch</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>flag-black</Name>
+      <Title>flag-black</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>flag-blue</Name>
+      <Title>flag-blue</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>flag-green</Name>
+      <Title>flag-green</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>flag-orange</Name>
+      <Title>flag-orange</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>flag-pink</Name>
+      <Title>flag-pink</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>flag-yellow</Name>
+      <Title>flag-yellow</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>flag</Name>
+      <Title>flag</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>family</Name>
+      <Title>family</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>fema</Name>
+      <Title>fema</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>female1</Name>
+      <Title>female1</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>female2</Name>
+      <Title>female2</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>group</Name>
+      <Title>group</Title>
+      <Shortcut />
+    </ModelIcon>
+    <ModelIcon>
+      <Name>male2</Name>
+      <Title>male2</Title>
+      <Shortcut />
+    </ModelIcon>
+  </IconsList>
+</MetaModel>
