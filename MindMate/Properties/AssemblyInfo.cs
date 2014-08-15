@@ -1,6 +1,6 @@
 ﻿/* Author: Syed Umar Anis (mail@umaranis.com)                    
  * Copyright (c) 2014 Syed Umar Anis                             
- * This software is license under MIT license (see LICENSE.txt)    
+ * This software is licensedd under MIT license (see LICENSE.txt)    
  */
 
 using System.Reflection;
