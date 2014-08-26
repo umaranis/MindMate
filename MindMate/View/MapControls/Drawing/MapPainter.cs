@@ -147,7 +147,9 @@ namespace MindMate.View.MapControls.Drawing
                 }
                 pos1Y = parentView.Top + ((node.Parent.Pos == NodePosition.Root) ? (int)(parentView.Height / 2) : parentView.Height) - 1;
 
-                pos2Y = nodeView.Top + nodeView.Height - 1;
+                pos2Y = node.Shape == NodeShape.Fork || node.Shape == NodeShape.None ?
+                    nodeView.Top + nodeView.Height - 1 :
+                    nodeView.Top + nodeView.Height / 2;
 
                 
                 if (node.HasChildren && node.Folded)
