@@ -17,7 +17,7 @@ namespace MindMate.View.MapControls.Drawing
     /// </summary>
     static class MapPainter
     {
-        
+
         internal static void DrawTree(MapView mapView, System.Drawing.Graphics g)
         {
             //Draw root node
@@ -42,7 +42,7 @@ namespace MindMate.View.MapControls.Drawing
 
         internal static void DrawNode(NodeView node, bool bDrawChildren, MapView mapView, System.Drawing.Graphics g)
         {
-            
+
             DrawNode(node, g);
 
             if (bDrawChildren)
@@ -64,7 +64,7 @@ namespace MindMate.View.MapControls.Drawing
             }
             if (nodeView.Selected)
                 g.FillRectangle(Brushes.LightGray, new RectangleF(nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height));
-            TextRenderer.DrawText(g, node.Text, nodeView.Font, 
+            TextRenderer.DrawText(g, node.Text, nodeView.Font,
                 new RectangleF(nodeView.RecText.Left, nodeView.RecText.Top, NodeView.MAXIMUM_TEXT_WIDTH, 5000),
                 nodeView.TextColor);
             for (int i = 0; i < nodeView.RecIcons.Count; i++)
@@ -104,14 +104,14 @@ namespace MindMate.View.MapControls.Drawing
 
             Pen p = Pens.Gray;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-                        
+
             g.DrawPath(p, path);
 
-            
-            
+
+
         }
 
-        
+
         /// <summary>
         /// Draw node linker for the node and all its children
         /// </summary>
@@ -126,16 +126,14 @@ namespace MindMate.View.MapControls.Drawing
         {
             if (node.Parent != null)
             {
-                
+
                 NodeView nodeView = mapView.GetNodeView(node);
                 NodeView parentView = mapView.GetNodeView(node.Parent);
                 if (nodeView == null || parentView == null) return;
 
-                //var oLink = null;
                 float pos1X, pos1Y, pos2X, pos2Y;
-                //int toX, toY;
                 float control1X, control1Y, control2X, control2Y;
-                float tipLen = 0;
+
 
                 if (node.Pos == NodePosition.Right)
                 {
@@ -151,11 +149,7 @@ namespace MindMate.View.MapControls.Drawing
                     nodeView.Top + nodeView.Height - 1 :
                     nodeView.Top + nodeView.Height / 2;
 
-                
-                if (node.HasChildren && node.Folded)
-                {
-                    tipLen = 2;	// add dot
-                }
+
 
                 if (node.Pos == NodePosition.Right)
                 {
@@ -172,7 +166,7 @@ namespace MindMate.View.MapControls.Drawing
                 control2X = pos1X;
                 control2Y = pos2Y;
 
-                
+
                 Pen p = Pens.Gray;
                 bool disposePen = false;
                 if (!node.LineColor.IsEmpty)
@@ -183,14 +177,14 @@ namespace MindMate.View.MapControls.Drawing
 
                 if (node.LineWidth != 0 && node.LineWidth != 1)
                 {
-                    if(disposePen == false) 
+                    if (disposePen == false)
                         p = new Pen(Color.Gray, node.LineWidth);
                     else
                         p.Width = node.LineWidth;
                     disposePen = true;
                 }
 
-                if(node.LinePattern != System.Drawing.Drawing2D.DashStyle.Solid && 
+                if (node.LinePattern != System.Drawing.Drawing2D.DashStyle.Solid &&
                     node.LinePattern != System.Drawing.Drawing2D.DashStyle.Custom)
                 {
                     if (disposePen == false) p = new Pen(Color.Gray);
@@ -199,57 +193,22 @@ namespace MindMate.View.MapControls.Drawing
                     disposePen = true;
                 }
 
-                
+
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
                 g.DrawBezier(p, new PointF(pos1X, pos1Y), new PointF(control1X, control1Y),
                     new PointF(control2X, control2Y), new PointF(pos2X, pos2Y));
 
-                float x = 0;
-                if (node.Pos == NodePosition.Right)
-                {
-                    x = (pos2X + nodeView.Width + tipLen);
-                }
-                else
-                {
-                    x = (pos2X - nodeView.Width - tipLen);
-                }
 
-                //p.EndCap = System.Drawing.Drawing2D.LineCap.RoundAnchor;
+                DrawNodeShape(nodeView, g, p);
 
-                switch (node.Shape)
-                {
-                    case NodeShape.None:
-                    case NodeShape.Fork:
-                        g.DrawLine(p, new PointF(pos2X, pos2Y), new PointF(x, pos2Y));
-                        break;
-                    case NodeShape.Bubble:
-                        System.Drawing.Drawing2D.GraphicsPath path = RoundedRectangle.Create((int)nodeView.Left, (int)nodeView.Top, (int)nodeView.Width, (int)nodeView.Height);
-                        g.DrawPath(p, path);
-                        break;
-                    case NodeShape.Box:
-                        g.DrawRectangle(p, nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height);
-                        break;
-                }
-                
+                DrawFoldedIndicator(nodeView, g, p);
 
-                if (tipLen > 0)
-                {
-                    if (node.Pos == NodePosition.Right)
-                    {
-                        g.DrawEllipse(p, new RectangleF(new PointF(x, pos2Y - 3), new Size(6, 6)));
-                    }
-                    else
-                    {
-                        g.DrawEllipse(p, new RectangleF(new PointF(x - 6, pos2Y - 3), new Size(6, 6)));
-                    }
-                }
+                if (disposePen) p.Dispose();
 
-                if(disposePen) p.Dispose();
+            }
 
-            }           
- 
-            
+
 
             // recursive
             if (drawChildren && !node.Folded)
@@ -260,5 +219,54 @@ namespace MindMate.View.MapControls.Drawing
                 }
             }
         }
+
+        private static void DrawNodeShape(NodeView nodeView, Graphics g, Pen p)
+        {
+            switch (nodeView.Node.Shape)
+            {
+                case NodeShape.None:
+                case NodeShape.Fork:
+                    float y = nodeView.Top + nodeView.Height - 1;
+                    g.DrawLine(p, nodeView.Left, y, nodeView.Left + nodeView.Width, y);
+                    break;
+                case NodeShape.Bubble:
+                    System.Drawing.Drawing2D.GraphicsPath path = RoundedRectangle.Create((int)nodeView.Left, (int)nodeView.Top, (int)nodeView.Width, (int)nodeView.Height);
+                    g.DrawPath(p, path);
+                    break;
+                case NodeShape.Box:
+                    g.DrawRectangle(p, nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height);
+                    break;
+            }
+        }
+
+        private static void DrawFoldedIndicator(NodeView nodeView, Graphics g, Pen p)
+        {
+            if (nodeView.Node.HasChildren && nodeView.Node.Folded)
+            {
+                const int INDICATOR_MARGIN = 2;
+
+                float x;
+                float y = nodeView.Node.Shape == NodeShape.Fork || nodeView.Node.Shape == NodeShape.None ?
+                    y = nodeView.Top + nodeView.Height - 1 : // draw folded indicator at bottom
+                    y = nodeView.Top + nodeView.Height / 2;  // draw folded indicator at mid point
+                
+                if (nodeView.Node.Pos == NodePosition.Right)
+                {
+                    x = nodeView.Left + nodeView.Width + INDICATOR_MARGIN;                    
+
+                    g.DrawEllipse(p, new RectangleF(new PointF(x, y - 3), new Size(6, 6))); // draw folded indicator
+                    if (nodeView.Node.Shape == NodeShape.Fork || nodeView.Node.Shape == NodeShape.None) g.DrawLine(p, x, y, x - INDICATOR_MARGIN, y); // draw link between folded indicator and node shape
+                }
+                else
+                {
+                    x = nodeView.Left - INDICATOR_MARGIN; 
+                    
+                    g.DrawEllipse(p, new RectangleF(new PointF(x - 6, y - 3), new Size(6, 6)));
+                    if (nodeView.Node.Shape == NodeShape.Fork || nodeView.Node.Shape == NodeShape.None) g.DrawLine(p, x, y, x + INDICATOR_MARGIN, y);
+                }
+            }
+        }
+
+
     }
 }
