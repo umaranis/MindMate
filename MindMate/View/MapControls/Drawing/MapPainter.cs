@@ -204,6 +204,8 @@ namespace MindMate.View.MapControls.Drawing
 
                 DrawFoldedIndicator(nodeView, g, p);
 
+                DrawFoldedIndicatorToNodeConnector(nodeView, g, p);
+
                 if (disposePen) p.Dispose();
 
             }
@@ -239,12 +241,12 @@ namespace MindMate.View.MapControls.Drawing
             }
         }
 
+        const int INDICATOR_MARGIN = 2;
+
         private static void DrawFoldedIndicator(NodeView nodeView, Graphics g, Pen p)
         {
             if (nodeView.Node.HasChildren && nodeView.Node.Folded)
             {
-                const int INDICATOR_MARGIN = 2;
-
                 float x;
                 float y = nodeView.Node.Shape == NodeShape.Fork || nodeView.Node.Shape == NodeShape.None ?
                     y = nodeView.Top + nodeView.Height - 1 : // draw folded indicator at bottom
@@ -255,16 +257,36 @@ namespace MindMate.View.MapControls.Drawing
                     x = nodeView.Left + nodeView.Width + INDICATOR_MARGIN;                    
 
                     g.DrawEllipse(p, new RectangleF(new PointF(x, y - 3), new Size(6, 6))); // draw folded indicator
-                    if (nodeView.Node.Shape == NodeShape.Fork || nodeView.Node.Shape == NodeShape.None) g.DrawLine(p, x, y, x - INDICATOR_MARGIN, y); // draw link between folded indicator and node shape
+                    
                 }
                 else
                 {
                     x = nodeView.Left - INDICATOR_MARGIN; 
                     
                     g.DrawEllipse(p, new RectangleF(new PointF(x - 6, y - 3), new Size(6, 6)));
-                    if (nodeView.Node.Shape == NodeShape.Fork || nodeView.Node.Shape == NodeShape.None) g.DrawLine(p, x, y, x + INDICATOR_MARGIN, y);
+                    
                 }
             }
+        }
+
+        private static void DrawFoldedIndicatorToNodeConnector(NodeView nodeView, Graphics g, Pen p)
+        {
+            if (nodeView.Node.Shape == NodeShape.Fork || nodeView.Node.Shape == NodeShape.None)
+            {
+                float x, y;
+                y = nodeView.Top + nodeView.Height - 1;
+                if (nodeView.Node.Pos == NodePosition.Right)
+                {
+                    x = nodeView.Left + nodeView.Width;
+                    g.DrawLine(p, x, y, x + INDICATOR_MARGIN, y); // draw link between folded indicator and node shape
+                }
+                else
+                {
+                    x = nodeView.Left;
+                    g.DrawLine(p, x, y, x - INDICATOR_MARGIN, y);
+                }
+            }
+ 
         }
 
 
