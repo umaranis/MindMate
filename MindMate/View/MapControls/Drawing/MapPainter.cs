@@ -271,7 +271,8 @@ namespace MindMate.View.MapControls.Drawing
 
         private static void DrawFoldedIndicatorToNodeConnector(NodeView nodeView, Graphics g, Pen p)
         {
-            if (nodeView.Node.Shape == NodeShape.Fork || nodeView.Node.Shape == NodeShape.None)
+            if (nodeView.Node.HasChildren && nodeView.Node.Folded && // only if node is folded
+                (nodeView.Node.Shape == NodeShape.Fork || nodeView.Node.Shape == NodeShape.None)) // only if shape is fork
             {
                 float x, y;
                 y = nodeView.Top + nodeView.Height - 1;
