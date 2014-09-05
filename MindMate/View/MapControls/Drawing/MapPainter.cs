@@ -131,7 +131,9 @@ namespace MindMate.View.MapControls.Drawing
                 NodeView parentView = mapView.GetNodeView(node.Parent);
                 if (nodeView == null || parentView == null) return;
 
-                float pos1X, pos1Y, pos2X, pos2Y;
+                float pos1X, pos1Y, // connector start point on parent node
+                    pos2X, pos2Y;   // connector end point on current/child node
+
                 float control1X, control1Y, control2X, control2Y;
 
 
@@ -143,8 +145,12 @@ namespace MindMate.View.MapControls.Drawing
                 {
                     pos1X = parentView.Left;
                 }
-                pos1Y = parentView.Top + ((node.Parent.Pos == NodePosition.Root) ? (int)(parentView.Height / 2) : parentView.Height) - 1;
 
+                pos1Y = node.Parent.Pos == NodePosition.Root || node.Parent.Shape == NodeShape.Bullet ?
+                    parentView.Top + (int)(parentView.Height / 2) - 1 :
+                    parentView.Top + parentView.Height - 1;
+                
+                
                 pos2Y = node.Shape == NodeShape.Fork || node.Shape == NodeShape.None ?
                     nodeView.Top + nodeView.Height - 1 :
                     nodeView.Top + nodeView.Height / 2;
@@ -237,6 +243,13 @@ namespace MindMate.View.MapControls.Drawing
                     break;
                 case NodeShape.Box:
                     g.DrawRectangle(p, nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height);
+                    break;  
+                case NodeShape.Bullet:
+                    float x = nodeView.Node.Pos == NodePosition.Right ? nodeView.Left : nodeView.Left + nodeView.Width;
+                    using (Pen penBullet = new Pen(p.Color, 2f))
+                    {
+                        g.DrawLine(penBullet, x, nodeView.Top + 1, x, nodeView.Top + nodeView.Height - 1);
+                    }
                     break;
             }
         }
@@ -254,16 +267,32 @@ namespace MindMate.View.MapControls.Drawing
                 
                 if (nodeView.Node.Pos == NodePosition.Right)
                 {
-                    x = nodeView.Left + nodeView.Width + INDICATOR_MARGIN;                    
+                    x = nodeView.Left + nodeView.Width + INDICATOR_MARGIN;
 
-                    g.DrawEllipse(p, new RectangleF(new PointF(x, y - 3), new Size(6, 6))); // draw folded indicator
+                    // draw folded indicator
+                    if(nodeView.Node.Shape != NodeShape.Bullet)
+                        g.DrawEllipse(p, new RectangleF(new PointF(x, y - 3), new Size(6, 6))); 
+                    else
+                        g.FillPolygon(p.Brush, new PointF[3] {
+                            new PointF(x, y - 5),
+                            new PointF(x, y + 5),
+                            new PointF(x + 6, y)
+                        });
                     
                 }
                 else
                 {
                     x = nodeView.Left - INDICATOR_MARGIN; 
                     
-                    g.DrawEllipse(p, new RectangleF(new PointF(x - 6, y - 3), new Size(6, 6)));
+                    // draw folded indicator
+                    if (nodeView.Node.Shape != NodeShape.Bullet)
+                        g.DrawEllipse(p, new RectangleF(new PointF(x - 6, y - 3), new Size(6, 6)));
+                    else
+                        g.FillPolygon(p.Brush, new PointF[3] {
+                                new PointF(x, y - 5),
+                                new PointF(x, y + 5),
+                                new PointF(x - 6, y)
+                            });
                     
                 }
             }

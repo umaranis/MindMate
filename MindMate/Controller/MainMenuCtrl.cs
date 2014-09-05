@@ -44,6 +44,7 @@ namespace MindMate.Controller
             form.mShapeFork.Click += mStyleFork_Click;
             form.mShapeBubble.Click += mStyleBubble_Click;
             form.mShapeBox.Click += mShapeBox_Click;
+            form.mShapeBullet.Click += mShapeBullet_Click;
             form.mShape.DropDownOpening += mShape_DropDownOpening;
 
             form.mLineThick1.Click += mLineThick1_Click;
@@ -60,6 +61,7 @@ namespace MindMate.Controller
             form.mAbout.Click += mAbout_Click;
         }
 
+        
         void mAbout_Click(object sender, EventArgs e)
         {
             mainCtrl.ShowAboutBox();
@@ -301,6 +303,11 @@ namespace MindMate.Controller
         void mStyleFork_Click(object sender, EventArgs e)
         {
             mapCtrl.MakeSelectedNodeShapeFork();
+        }
+
+        void mShapeBullet_Click(object sender, EventArgs e)
+        {
+            mapCtrl.MakeSelectedNodeShapeBullet();
         }
 
         void mItalic_Click(object sender, EventArgs e)

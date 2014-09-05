@@ -23,6 +23,8 @@ namespace MindMate.Serialization
                     return NodeShape.Bubble;
                 case "box":
                     return NodeShape.Box;
+                case "bullet":
+                    return NodeShape.Bullet;
                 default:
                     return NodeShape.None;
 
@@ -39,6 +41,8 @@ namespace MindMate.Serialization
                     return "bubble";
                 case NodeShape.Fork:
                     return "fork";
+                case NodeShape.Bullet:
+                    return "bullet";
                 default:
                     return "none";
             }

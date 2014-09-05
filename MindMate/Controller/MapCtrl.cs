@@ -691,6 +691,16 @@ namespace MindMate.Controller
             this.MapView.Canvas.Invalidate();
         }
 
+        public void MakeSelectedNodeShapeBullet()
+        {
+            for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
+            {
+                MapNode node = this.MapView.SelectedNodes[i];
+                node.Shape = NodeShape.Bullet;
+            }
+            this.MapView.Canvas.Invalidate();
+        }
+
         public void MakeSelectedNodeItalic()
         {
             for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
@@ -860,6 +870,6 @@ namespace MindMate.Controller
             this.MapView.Canvas.Invalidate();            
         }
 
-              
+        
     }
 }

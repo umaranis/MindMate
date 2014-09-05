@@ -61,6 +61,8 @@
             this.mLineColor = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -68,8 +70,7 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.mShapeBullet = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -210,7 +211,8 @@
             this.mShape.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mShapeFork,
             this.mShapeBubble,
-            this.mShapeBox});
+            this.mShapeBox,
+            this.mShapeBullet});
             this.mShape.Name = "mShape";
             this.mShape.Size = new System.Drawing.Size(182, 22);
             this.mShape.Text = "Shape";
@@ -220,19 +222,19 @@
             this.mShapeFork.Checked = true;
             this.mShapeFork.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mShapeFork.Name = "mShapeFork";
-            this.mShapeFork.Size = new System.Drawing.Size(111, 22);
+            this.mShapeFork.Size = new System.Drawing.Size(152, 22);
             this.mShapeFork.Text = "Fork";
             // 
             // mShapeBubble
             // 
             this.mShapeBubble.Name = "mShapeBubble";
-            this.mShapeBubble.Size = new System.Drawing.Size(111, 22);
+            this.mShapeBubble.Size = new System.Drawing.Size(152, 22);
             this.mShapeBubble.Text = "Bubble";
             // 
             // mShapeBox
             // 
             this.mShapeBox.Name = "mShapeBox";
-            this.mShapeBox.Size = new System.Drawing.Size(111, 22);
+            this.mShapeBox.Size = new System.Drawing.Size(152, 22);
             this.mShapeBox.Text = "Box";
             // 
             // mLineStyle
@@ -314,8 +316,22 @@
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.preferencesToolStripMenuItem.Text = "Preferences ...";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mAbout});
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.aboutToolStripMenuItem.Text = "Help";
+            // 
+            // mAbout
+            // 
+            this.mAbout.Name = "mAbout";
+            this.mAbout.Size = new System.Drawing.Size(180, 22);
+            this.mAbout.Text = "About Mind Mate ...";
             // 
             // fileToolStripMenuItem1
             // 
@@ -369,19 +385,11 @@
             this.splitContainer1.SplitterDistance = 424;
             this.splitContainer1.TabIndex = 4;
             // 
-            // aboutToolStripMenuItem
+            // mShapeBullet
             // 
-            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mAbout});
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.aboutToolStripMenuItem.Text = "Help";
-            // 
-            // mAbout
-            // 
-            this.mAbout.Name = "mAbout";
-            this.mAbout.Size = new System.Drawing.Size(180, 22);
-            this.mAbout.Text = "About Mind Mate ...";
+            this.mShapeBullet.Name = "mShapeBullet";
+            this.mShapeBullet.Size = new System.Drawing.Size(152, 22);
+            this.mShapeBullet.Text = "Bullet";
             // 
             // MainForm
             // 
@@ -450,6 +458,7 @@
         public System.Windows.Forms.ToolStripMenuItem mBackColor;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem mAbout;
+        public System.Windows.Forms.ToolStripMenuItem mShapeBullet;
     }
 }
 

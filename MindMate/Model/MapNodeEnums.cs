@@ -12,7 +12,7 @@ namespace MindMate.Model
 {
     public enum NodeRichContentType { NONE, NODE, NOTE }
 
-    public enum NodeShape { None, Fork, Bubble, Box }
+    public enum NodeShape { None, Fork, Bubble, Box, Bullet }
 
     public enum NodePosition : int { Root = 0, Left = 1, Right = 2, Undefined = -1 };
 
