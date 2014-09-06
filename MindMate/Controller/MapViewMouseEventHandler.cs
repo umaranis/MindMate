@@ -15,7 +15,7 @@ using MindMate.View.MapControls;
 namespace MindMate.Controller
 {
     /// <summary>
-    /// Event Handler for MapView. Handles mouse events and passes them to the Controller
+    /// Event Handler for MapView. Handles mouse events and passes them to the Controller.
     /// </summary>
     public class MapViewMouseEventHandler
     {
@@ -55,7 +55,7 @@ namespace MindMate.Controller
             else if (mapCtrl.MapView.SelectedNodes.Count > 1 && mapCtrl.MapView.SelectedNodes.Contains(node) && ctrlKeyDown)
             {
                 mapCtrl.MapView.SelectedNodes.Remove(node);
-                mapCtrl.MapView.Canvas.Invalidate();
+                mapCtrl.MapView.Canvas.Invalidate(); //TODO: shouldn't only be called from MapCtrl.
             }
             else
             {
@@ -77,6 +77,14 @@ namespace MindMate.Controller
                 mapCtrl.MapView.Canvas.Invalidate();
             }
 
+        }
+
+
+        public void CanvasClick(MouseEventArgs e)
+        {
+            mapCtrl.MapView.SelectedNodes.Add(mapCtrl.MapView.SelectedNodes.Last, false);
+            mapCtrl.MapView.Canvas.Invalidate(); //TODO: shouldn't only be called from MapCtrl.
+            
         }
 
         

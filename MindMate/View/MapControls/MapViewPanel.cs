@@ -26,6 +26,8 @@ namespace MindMate.View.MapControls
         public delegate void NodeClickDelegate(MapNode node, NodeMouseEventArgs args);
         public event NodeClickDelegate NodeClick = delegate { };
 
+        public event Action<MouseEventArgs> CanvasClick = delegate { };
+
         public delegate void NodeMouseOverDelegate(MapNode node, NodeMouseEventArgs args);
         public event NodeMouseOverDelegate NodeMouseOver = delegate { };
 
@@ -109,6 +111,7 @@ namespace MindMate.View.MapControls
                 {
                     mapView.Canvas.Focus();
                 }
+                
             }
 
             //base.OnMouseDown(e);
@@ -158,15 +161,16 @@ namespace MindMate.View.MapControls
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
+            if (mouseOverNode == null && this.Cursor == Cursors.Default) // IF 'event is not over node' AND 'canvas is not dragged'
+                CanvasClick(e);
+
             this.dragObject = null;
             this.Cursor = Cursors.Default;
                         
             //base.OnMouseUp(e);            
         }
 
-        
-
-                            
+                                   
 
     }
 }

@@ -49,6 +49,7 @@ namespace MindMate.Controller
                        
             MapView = new MindMate.View.MapControls.MapView(tree);
             MapView.Canvas.NodeClick += map.MapNodeClick;
+            MapView.Canvas.CanvasClick += map.CanvasClick;
             MapView.Canvas.NodeMouseOver += map.MapNodeMouseOver;
             MapView.Canvas.NodeMouseExit += map.NodeMouseExit;
             MapView.Canvas.KeyDown += new MapViewKeyEventHandler(this).canvasKeyDown;
