@@ -53,7 +53,7 @@ namespace MindMate.Serialization
         public static Bitmap GetIcon(string icon)
         {
 #if ! DEBUG 
-            string path = Application.StartupPath + "\\" + MapCtrl.ICON_PATH + "\\";
+            string path = Application.StartupPath + "\\" + ICON_PATH + "\\";
 #else
             string path = System.IO.Directory.GetCurrentDirectory() + "\\" + ICON_PATH + "\\";
 #endif
