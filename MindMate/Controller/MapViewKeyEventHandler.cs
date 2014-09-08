@@ -47,8 +47,6 @@ namespace MindMate.Controller
         private void HandleKey(object sender, KeyEventArgs args)
         {
             
-            MapNode node = null;
-
             switch (args.KeyCode)
             {
                 case Keys.Left:
@@ -79,7 +77,7 @@ namespace MindMate.Controller
                     mapCtrl.BeginCurrentNodeEdit(TextCursorPosition.End);
                     break;
                 case Keys.Home:
-                    mapCtrl.BeginNodeEdit(node, TextCursorPosition.Start);
+                    mapCtrl.BeginCurrentNodeEdit(TextCursorPosition.Start);
                     break;                
                 //case Keys.Insert:
                 case Keys.Tab:
