@@ -82,9 +82,12 @@ namespace MindMate.Controller
 
         public void CanvasClick(MouseEventArgs e)
         {
-            mapCtrl.MapView.SelectedNodes.Add(mapCtrl.MapView.SelectedNodes.Last, false);
-            mapCtrl.MapView.Canvas.Invalidate(); //TODO: shouldn't only be called from MapCtrl.
-            
+            MapNode lastSelectedNode = mapCtrl.MapView.SelectedNodes.Last;
+            if (lastSelectedNode != null)
+            {
+                mapCtrl.MapView.SelectedNodes.Add(lastSelectedNode, false);
+                mapCtrl.MapView.Canvas.Invalidate(); //TODO: shouldn't only be called from MapCtrl.
+            }            
         }
 
         
