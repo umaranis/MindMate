@@ -69,9 +69,15 @@ namespace MindMate.Model
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="node">if node is null, nothing happens</param>
+        /// <param name="expandSelection"></param>
         public void Add(MapNode node, bool expandSelection)
         {
             System.Diagnostics.Debug.Assert(node != null, "node parameter is null.");
+            if (node == null) return;
 
             if(selectedNodes.Contains(node)) // node already selected
             {
