@@ -3,7 +3,7 @@
  * This software is licensed under MIT (see LICENSE.txt)    
  */
 
-#define TextRenderer
+//#define TextRenderer
 using System;
 using System.Collections.Generic;
 using System.Drawing;
