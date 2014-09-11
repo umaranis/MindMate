@@ -20,7 +20,9 @@ namespace MindMate.Controller
     {
         private View.MainForm mainForm;
         private Control lastFocused;
+
         private MapCtrl mapCtrl;
+        private bool unsavedChanges = true;
 
         public WinFormsStatusBarCtrl statusBarCtrl;
         private NoteCtrl noteCrtl;
@@ -28,7 +30,7 @@ namespace MindMate.Controller
         private ColorDialog colorDialog;
         private CustomFontDialog.FontDialog fontDialog;
 
-        public const string APPLICATION_NAME = "Mind Mapper";
+        public const string APPLICATION_NAME = "Mind Mate";
 
         
         public MainForm LaunchMindMate()
@@ -62,6 +64,50 @@ namespace MindMate.Controller
             // moving splitter makes it the focused control, below event focuses the last control again
             mainForm.splitContainer1.SplitterMoved += (a, b) => this.lastFocused.Focus();
             mainForm.splitContainer1.Click += (a, b) => this.lastFocused.Focus();
+
+            UpdateTitleBar();
+            RegisterForMapChangedNotification();
+
+            mainForm.FormClosing += mainForm_FormClosing;
+        }
+
+        void mainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (unsavedChanges)
+            {
+                DialogResult result = MessageBox.Show("Do you want to save changes before exit?", "Unsaved Changes",
+                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        SaveMap();
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                }
+            }
+        }
+
+        
+        private void RegisterForMapChangedNotification()
+        {
+            mapCtrl.MapView.tree.NodePropertyChanged += (a, b) => MapChanged();
+            mapCtrl.MapView.tree.TreeStructureChanged += (a, b) => MapChanged();
+            mapCtrl.MapView.tree.IconChanged += (a, b) => MapChanged();
+        }
+
+        private void UnregisterForMapChangedNotification()
+        {
+            mapCtrl.MapView.tree.NodePropertyChanged -= (a, b) => MapChanged();
+            mapCtrl.MapView.tree.TreeStructureChanged -= (a, b) => MapChanged();
+            mapCtrl.MapView.tree.IconChanged -= (a, b) => MapChanged();
+        }
+
+        private void MapChanged()
+        {
+            unsavedChanges = true;
+            UpdateTitleBar();
         }
 
         public void AddMainPanel(View.MapControls.MapViewPanel mapViewPanel)
@@ -90,6 +136,7 @@ namespace MindMate.Controller
 
             Debugging.Utility.EndTimeCounter("Loading Map");
 
+            unsavedChanges = false;
             UpdateTitleBar();
         }
 
@@ -97,6 +144,7 @@ namespace MindMate.Controller
         {
             noteCrtl.Unregister(this.mapCtrl.MapView.tree);
             statusBarCtrl.Unregister(this.mapCtrl.MapView.tree);
+            UnregisterForMapChangedNotification();
 
             string xmlString = System.IO.File.ReadAllText(fileName);
             MapTree tree = new MindMapSerializer().Deserialize(xmlString);
@@ -106,6 +154,7 @@ namespace MindMate.Controller
 
             noteCrtl.Register(tree);
             statusBarCtrl.Register(tree);
+            RegisterForMapChangedNotification();
             
         }
 
@@ -117,30 +166,28 @@ namespace MindMate.Controller
             file.Filter = "MindMap files (*.mm)|*.mm|All files (*.*)|*.*|Text (*.txt)|*.txt";
             if (file.ShowDialog() == DialogResult.OK)
             {
-                SaveAsMap(file.FileName);
-            }
-            UpdateTitleBar();
+                mapCtrl.MindMateFile = file.FileName;
+                SaveMap(mapCtrl.MindMateFile);                
+            }            
         }
 
         
-        public void SaveAsMap(string fileName)
+        private void SaveMap(string fileName)
         {
             var serializer = new MindMapSerializer();
             var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write);
             serializer.Serialize(fileStream, this.mapCtrl.MapView.tree);
             fileStream.Close();
 
-            mapCtrl.MindMateFile = fileName;
+            unsavedChanges = false;
+            UpdateTitleBar();
         }
 
         public void SaveMap()
         {
             if (mapCtrl.MindMateFile != "")
             {
-                var serializer = new MindMapSerializer();
-                FileStream file = new FileStream(mapCtrl.MindMateFile, FileMode.Create);
-                serializer.Serialize(file, mapCtrl.MapView.tree);
-                file.Close();
+                SaveMap(mapCtrl.MindMateFile);                
             }
             else
             {
@@ -152,6 +199,8 @@ namespace MindMate.Controller
         void UpdateTitleBar()
         {
             mainForm.Text = mapCtrl.MapView.tree.RootNode.Text + " - " + APPLICATION_NAME + " - " + mapCtrl.MindMateFile;
+
+            if(unsavedChanges) mainForm.Text += "*";
         }
 
         public void ExportAsBMP()
