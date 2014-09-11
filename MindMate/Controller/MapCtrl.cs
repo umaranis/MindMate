@@ -143,7 +143,7 @@ namespace MindMate.Controller
 
             MapNode node = this.MapView.SelectedNodes.First;            
 
-            this.BeginNodeEdit(node, TextCursorPosition.Undefined);
+            this.BeginNodeEdit(node, org);
         }
         
         public void BeginNodeEdit(MapNode node, TextCursorPosition org)
@@ -169,7 +169,7 @@ namespace MindMate.Controller
 
             MindMate.View.Dialogs.MultiLineNodeEdit frm = new MindMate.View.Dialogs.MultiLineNodeEdit();
             frm.txt.Text = node.Text;
-             if (org == TextCursorPosition.End)
+             if (org == TextCursorPosition.End || org == TextCursorPosition.Undefined)
             {
                 frm.txt.SelectionStart = node.Text.Length;                
             }

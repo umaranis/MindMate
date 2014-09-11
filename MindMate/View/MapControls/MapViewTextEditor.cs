@@ -99,7 +99,7 @@ namespace MindMate.View.MapControls
             this.editBox.Tag = node;
             this.editBox.Visible = true;
             this.editBox.BringToFront();
-            if (org == TextCursorPosition.End)
+            if (org == TextCursorPosition.End || org == TextCursorPosition.Undefined)
             {
                 this.editBox.SelectionStart = node.Text.Length;
             }
