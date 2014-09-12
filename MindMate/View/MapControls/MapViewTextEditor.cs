@@ -38,10 +38,11 @@ namespace MindMate.View.MapControls
         /// </summary>
         private TextUpdateCallBack textUpdateCallBack;
 
-        public MapViewTextEditor(Control canvas)
+        public MapViewTextEditor(Control canvas, Font font)
         {
             this.canvas = canvas;
             editBox = new TextBox();
+            editBox.Font = font;
             editBox.Visible = false;
             canvas.Controls.Add(editBox);
 
@@ -78,7 +79,7 @@ namespace MindMate.View.MapControls
 
             this.editBox.Location = new Point(
                 (int)nView.RecText.X,
-                (int)nView.RecText.Y
+                (int)nView.RecText.Y - 3
                 );
 
             if (!node.HasChildren && node.Text == "")

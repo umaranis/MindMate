@@ -55,15 +55,13 @@ namespace MindMate.View.MapControls
             this.tree = tree;
             this.Canvas = new MapViewPanel();
             this.Canvas.MapView = this;
-            // 
-            // canvas
-            // 
+            
             this.Canvas.BackColor = System.Drawing.Color.White;
             this.Canvas.Location = new System.Drawing.Point(0, 0);
             this.Canvas.Size = new System.Drawing.Size(200, 300);
             this.Canvas.TabIndex = 0;
 
-            this.nodeTextEditor = new MapViewTextEditor(this.Canvas);                     
+            this.nodeTextEditor = new MapViewTextEditor(this.Canvas, NodeView.DefaultFont);             
 
         }
 
