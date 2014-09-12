@@ -15,20 +15,25 @@ using System.Xml;
 
 namespace MindMate.MetaModel
 {
-
+    
     /// <summary>
     /// MetaModel is the data about icon names, shortcuts and other meta-data/meta-map information.
     /// </summary>
+    [ProtoBuf.ProtoContract]
     public class MetaModel
     {
 
+        const string FILE_NAME = "Settings.bin";
+
+
         #region Singleton
 
-        private MetaModel() 
+        public MetaModel() 
         {            
             
         }
 
+        
         /// <summary>
         /// Static constructor is not getting called sometimes before the Instance variable is used. To get around the problem, Initialize method is invoked during initial setup of the application.
         /// </summary>
@@ -61,7 +66,7 @@ namespace MindMate.MetaModel
 
         private Dictionary<string, ModelIcon> iconsHashMap;
 
-        [@XmlIgnoreAttribute]
+        //[@XmlIgnoreAttribute]
         public Dictionary<string, ModelIcon> IconsHashMap
         {
             get { return iconsHashMap; }
@@ -71,6 +76,7 @@ namespace MindMate.MetaModel
         private List<ModelIcon> iconsList;
 
         //TODO: Why two data structures are maintained (iconsList and iconsHashMap)
+        [ProtoBuf.ProtoMember(1)]
         public List<ModelIcon> IconsList
         {
             get { return iconsList;  }
@@ -83,9 +89,14 @@ namespace MindMate.MetaModel
 
             try
             {
-                XmlSerializer formatter = new XmlSerializer(typeof(MetaModel));
-                model = (MetaModel)formatter.Deserialize(new StreamReader(Application.UserAppDataPath + "/" +
-                     "Settings.xml"));
+                //XmlSerializer formatter = new XmlSerializer(typeof(MetaModel));
+                //model = (MetaModel)formatter.Deserialize(new StreamReader(MetaModel.GetFilePath()));
+
+
+                using (var file = File.OpenRead(MetaModel.GetFilePath()))
+                {
+                    model = ProtoBuf.Serializer.Deserialize<MetaModel>(file);
+                }
             }
             catch (FileNotFoundException)
             {
@@ -107,15 +118,22 @@ namespace MindMate.MetaModel
         {
 #if ! DEBUG
             string path = Application.ExecutablePath;
-            path = path.Substring(0, path.LastIndexOf("\\") + 1) + "Settings.xml";
+            path = path.Substring(0, path.LastIndexOf("\\") + 1) + FILE_NAME;
 #else
-            string path = System.IO.Directory.GetCurrentDirectory() + "\\Settings.xml";
+            string path = System.IO.Directory.GetCurrentDirectory() + "\\" + FILE_NAME;
 #endif
             
-            XmlSerializer formatter = new XmlSerializer(typeof(MetaModel));
-            MetaModel  model = (MetaModel)formatter.Deserialize(new StreamReader(path));
+            //XmlSerializer formatter = new XmlSerializer(typeof(MetaModel));
+            //MetaModel  model = (MetaModel)formatter.Deserialize(new StreamReader(path));
 
-            System.IO.File.Copy(path, Application.UserAppDataPath + "/" + "Settings.xml");
+            MetaModel model;
+            using (var file = File.OpenRead(path))
+            {
+                model = ProtoBuf.Serializer.Deserialize<MetaModel>(file);
+            }
+
+            System.IO.Directory.CreateDirectory(GetFileDirectory());
+            System.IO.File.Copy(path, MetaModel.GetFilePath(), true);
 
             return model;
         }
@@ -129,19 +147,32 @@ namespace MindMate.MetaModel
                 model.iconsHashMap.Add(icon.Name, icon);
             }
 
-
         }
 
         public void Save()
         {
-            XmlSerializer formatter = new XmlSerializer(typeof(MetaModel));            
-            formatter.Serialize(new StreamWriter(Application.UserAppDataPath + "/" + 
-                 "Settings.xml"),this);           
+            //XmlSerializer formatter = new XmlSerializer(typeof(MetaModel));            
+            //formatter.Serialize(new StreamWriter(Application.UserAppDataPath + "/" + 
+            //     "Settings.xml"),this);   
+
+            using (var file = File.Create(MetaModel.GetFilePath()))
+            {
+                ProtoBuf.Serializer.Serialize<MetaModel>(file, this);
+            }
 
         }
 
 
-        
+        private static string GetFilePath()
+        {
+            return GetFileDirectory() + "\\" + FILE_NAME;            
+        }
+
+        private static string GetFileDirectory()
+        {
+            return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
+                "\\" + MindMate.Controller.MainCtrl.APPLICATION_NAME;
+        }
 
     }
 }
