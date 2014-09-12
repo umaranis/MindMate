@@ -29,9 +29,22 @@ namespace MindMate.MetaModel
             
         }
 
-        static MetaModel()
+        /// <summary>
+        /// Static constructor is not getting called sometimes before the Instance variable is used. To get around the problem, Initialize method is invoked during initial setup of the application.
+        /// </summary>
+        //static MetaModel()
+        //{
+        //    if(instance == null)
+        //        instance = MetaModel.Load();
+        //}
+
+        /// <summary>
+        /// Static constructor is not getting called sometimes before the Instance variable is used. To get around the problem, Initialize method is invoked during initial setup of the application.
+        /// </summary>
+        public static void Initialize()
         {
-            instance = MetaModel.Load();
+            if (instance == null)
+                instance = MetaModel.Load();
         }
 
         private static MetaModel instance;

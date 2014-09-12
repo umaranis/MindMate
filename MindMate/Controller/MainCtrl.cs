@@ -35,6 +35,7 @@ namespace MindMate.Controller
         
         public MainForm LaunchMindMate()
         {
+            MetaModel.MetaModel.Initialize();
             mainForm = new MainForm();   
             mainForm.Load += mainForm_Load;
 
@@ -69,6 +70,7 @@ namespace MindMate.Controller
             RegisterForMapChangedNotification();
 
             mainForm.FormClosing += mainForm_FormClosing;
+            
         }
 
         void mainForm_FormClosing(object sender, FormClosingEventArgs e)
