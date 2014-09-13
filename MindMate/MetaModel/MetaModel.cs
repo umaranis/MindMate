@@ -167,6 +167,7 @@ namespace MindMate.MetaModel
             return icon;
         }
 
+        private static void FillIconsCache(MetaModel model)
         {
             foreach (ModelIcon icon in model.iconsList)
             {
