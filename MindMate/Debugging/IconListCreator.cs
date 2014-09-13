@@ -88,8 +88,7 @@ namespace MindMate.Debugging
                 if (fileName == "Thumb")
                     continue;
 
-                MetaModel.MetaModel.Instance.IconsHashMap.Add(fileName,
-                    new MetaModel.ModelIcon(fileName, fileName, ""));
+                MetaModel.MetaModel.Instance.IconsList.Add(new MetaModel.ModelIcon(fileName, fileName, ""));
 
             }
 

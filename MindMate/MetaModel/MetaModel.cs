@@ -23,9 +23,7 @@ namespace MindMate.MetaModel
     public class MetaModel
     {
 
-        const string FILE_NAME = "Settings.bin";
-
-
+        
         #region Singleton
 
         public MetaModel() 
@@ -64,15 +62,6 @@ namespace MindMate.MetaModel
 
         #endregion
 
-        private Dictionary<string, ModelIcon> iconsHashMap;
-
-        //[@XmlIgnoreAttribute]
-        public Dictionary<string, ModelIcon> IconsHashMap
-        {
-            get { return iconsHashMap; }
-            //set { icons = value; }
-        }
-
         private List<ModelIcon> iconsList;
 
         //TODO: Why two data structures are maintained (iconsList and iconsHashMap)
@@ -107,9 +96,8 @@ namespace MindMate.MetaModel
                 model = LoadDefaultMetaModel();                
             }
 
-            CreateHashMap(model);
-
-
+            FillIconsCache(model);
+            
             return model;            
 
         }
@@ -138,17 +126,7 @@ namespace MindMate.MetaModel
             return model;
         }
 
-        private static void CreateHashMap(MetaModel model)
-        {
-            model.iconsHashMap = new Dictionary<string, ModelIcon>();
-
-            foreach (ModelIcon icon in model.iconsList)
-            {
-                model.iconsHashMap.Add(icon.Name, icon);
-            }
-
-        }
-
+        
         public void Save()
         {
             //XmlSerializer formatter = new XmlSerializer(typeof(MetaModel));            
@@ -162,6 +140,42 @@ namespace MindMate.MetaModel
 
         }
 
+        private Dictionary<string, ModelIcon> iconsCache = new Dictionary<string, ModelIcon>();
+
+        //[@XmlIgnoreAttribute]
+        //public Dictionary<string, ModelIcon> IconsHashMap
+        //{
+        //    get { return iconsCache; }
+        //    //set { icons = value; }
+        //}
+
+        public ModelIcon GetIcon(string name)
+        {
+            ModelIcon icon;
+
+            if(!iconsCache.TryGetValue(name, out icon))
+            {
+                icon = iconsList.Find(a => a.Name == name);
+                if(icon == null)
+                {
+                    System.Diagnostics.Trace.TraceError("Icon (" + name + ") not found. Warning icon shown instead. [" + DateTime.Now.ToString() + "]");
+                    icon = new ModelIcon("messagebox_warning", "messagebox_warning", "");
+                }
+                iconsCache[name] = icon;
+            }
+
+            return icon;
+        }
+
+        {
+            foreach (ModelIcon icon in model.iconsList)
+            {
+                model.iconsCache[icon.Name] = icon;
+            }
+
+        }
+
+        const string FILE_NAME = "Settings.bin";
 
         private static string GetFilePath()
         {

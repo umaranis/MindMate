@@ -21,7 +21,7 @@ namespace MindMate.View.MapControls
 
         public Icon(string icon)
         {
-            modelIcon = MetaModel.MetaModel.Instance.IconsHashMap[icon];
+            modelIcon = MetaModel.MetaModel.Instance.GetIcon(icon);
         }
 
         PointF location;
