@@ -48,6 +48,7 @@ namespace MindMate.Controller
             new MapNode(tree.RootNode, "Karachi", NodePosition.Left);
             new MapNode(tree.RootNode, "Lahore", NodePosition.Right);
             new MapNode(tree.RootNode, "Sind", NodePosition.Left);
+            tree.SelectedNodes.Add(tree.RootNode);
                       
 
             mapCtrl = new MapCtrl(tree, this);
