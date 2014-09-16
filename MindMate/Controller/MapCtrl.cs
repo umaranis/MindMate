@@ -545,9 +545,12 @@ namespace MindMate.Controller
         /// <param name="node"></param>
         public void ToggleNode(MapNode node)
         {
-            node.Folded = !node.Folded;
-            MapView.RefreshChildNodePositions(tree.RootNode, node.Pos);
-            MapView.Canvas.Invalidate();
+            if (node.Pos != NodePosition.Root)
+            {
+                node.Folded = !node.Folded;
+                MapView.RefreshChildNodePositions(tree.RootNode, node.Pos);
+                MapView.Canvas.Invalidate(); 
+            }
         }
 
         public void removeLastIcon()
