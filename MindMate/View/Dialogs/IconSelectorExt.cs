@@ -39,33 +39,18 @@ namespace MindMate.View.Dialogs
             }
             listView.SmallImageList = imageList;
             listView.LargeImageList = imageList;
-                        
+
+            listView.ItemActivate += listView_ItemActivate;
+                                    
             Debugging.Utility.EndTimeCounter("Loading icons");
         }
 
-        
-
-        private Button CreateIconButton(ModelIcon icon)
+        void listView_ItemActivate(object sender, EventArgs e)
         {
-            Button b = new Button();
-            b.Name = icon.Name;
-            b.FlatStyle = FlatStyle.Standard;
-            b.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            b.Image = icon.Bitmap;
-            b.Size = new Size(80, 27);
-            b.Text = icon.Title.Length > 8 ? icon.Title.Substring(0, 8) : icon.Title;
-            b.ImageAlign = ContentAlignment.MiddleLeft;
-            b.TextAlign = ContentAlignment.MiddleRight;
-            toolTip1.SetToolTip(b, icon.Title + ", " + icon.Shortcut.ToString());
-            b.Margin = new Padding(0);
-            //b.Tag = icon.Shortcut;
-            b.MouseHover += new EventHandler(b_MouseHover);
-            b.Click += new EventHandler(b_Click);
-            b.GotFocus += b_GotFocus;
-            b.LostFocus += b_LostFocus;
-                        
-            return b;
-        }
+            if (listView.SelectedItems.Count > 0)
+                CloseForm(MetaModel.MetaModel.Instance.IconsList[listView.SelectedItems[0].ImageIndex].Name);
+        }        
+
 
         void b_LostFocus(object sender, EventArgs e)
         {
@@ -85,8 +70,7 @@ namespace MindMate.View.Dialogs
 
         void b_Click(object sender, EventArgs e)
         {
-            this.SelectedIcon = ((Button)sender).Name;
-            this.DialogResult = DialogResult.OK;
+            CloseForm(((Button)sender).Name);
         }
 
         
@@ -136,12 +120,10 @@ namespace MindMate.View.Dialogs
             switch(e.KeyCode)
             {
                 case Keys.Back: //Backspace key pressed
-                    SelectedIcon = REMOVE_ICON_NAME;
-                    this.DialogResult = DialogResult.OK;
+                    CloseForm(REMOVE_ICON_NAME);                    
                     break;
                 case Keys.Delete: //Delete key pressed    
-                    SelectedIcon = REMOVE_ALL_ICON_NAME;
-                    this.DialogResult = DialogResult.OK;
+                    CloseForm(REMOVE_ALL_ICON_NAME);
                     break;           
                 case Keys.Escape:
                     this.DialogResult = DialogResult.Cancel;
@@ -151,14 +133,37 @@ namespace MindMate.View.Dialogs
                     {
                         if (icon.Shortcut == ((char)e.KeyValue).ToString().ToUpper())
                         {
-                            this.SelectedIcon = icon.Name;
-                            this.DialogResult = DialogResult.OK;
+                            CloseForm(icon.Name);
                         }
                     }
                     break;
             }
             //e.SuppressKeyPress = true;
             //e.Handled = true;
-        }        
+        }   
+     
+        private void CloseForm(string selectedIcon)
+        {
+            this.SelectedIcon = selectedIcon;
+            this.DialogResult = DialogResult.OK;
+        }
+
+        private void IconSelectorExt_Activated(object sender, EventArgs e)
+        {
+            if (listView.SelectedItems.Count > 0)
+                listView.FocusedItem = listView.SelectedItems[0]; 
+        }
+
+        private void tbnRemoveLast_Click(object sender, EventArgs e)
+        {
+            CloseForm(IconSelectorExt.REMOVE_ICON_NAME);
+        }
+
+        private void tbnRemoveAll_Click(object sender, EventArgs e)
+        {
+            CloseForm(IconSelectorExt.REMOVE_ALL_ICON_NAME);
+        }
+
+        
     }
 }

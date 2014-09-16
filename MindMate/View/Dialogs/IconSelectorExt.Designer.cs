@@ -33,7 +33,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.tbnRemove = new System.Windows.Forms.ToolStripButton();
+            this.tbnRemoveLast = new System.Windows.Forms.ToolStripButton();
             this.tbnRemoveAll = new System.Windows.Forms.ToolStripButton();
             this.listView = new System.Windows.Forms.ListView();
             this.statusStrip1.SuspendLayout();
@@ -60,7 +60,7 @@
             // 
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tbnRemove,
+            this.tbnRemoveLast,
             this.tbnRemoveAll});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -68,14 +68,15 @@
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // tbnRemove
+            // tbnRemoveLast
             // 
-            this.tbnRemove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbnRemove.Image = global::MindMate.Properties.Resources.remove;
-            this.tbnRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tbnRemove.Name = "tbnRemove";
-            this.tbnRemove.Size = new System.Drawing.Size(23, 22);
-            this.tbnRemove.Text = "toolStripButton1";
+            this.tbnRemoveLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbnRemoveLast.Image = global::MindMate.Properties.Resources.remove;
+            this.tbnRemoveLast.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbnRemoveLast.Name = "tbnRemoveLast";
+            this.tbnRemoveLast.Size = new System.Drawing.Size(23, 22);
+            this.tbnRemoveLast.Text = "Remove Last Icon";
+            this.tbnRemoveLast.Click += new System.EventHandler(this.tbnRemoveLast_Click);
             // 
             // tbnRemoveAll
             // 
@@ -84,7 +85,9 @@
             this.tbnRemoveAll.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbnRemoveAll.Name = "tbnRemoveAll";
             this.tbnRemoveAll.Size = new System.Drawing.Size(23, 22);
-            this.tbnRemoveAll.Text = "toolStripButton1";
+            this.tbnRemoveAll.Text = "Remove All Icons";
+            this.tbnRemoveAll.ToolTipText = "Remove all Icons for selected node";
+            this.tbnRemoveAll.Click += new System.EventHandler(this.tbnRemoveAll_Click);
             // 
             // listView
             // 
@@ -113,6 +116,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Select an Icon...";
+            this.Activated += new System.EventHandler(this.IconSelectorExt_Activated);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IconSelector_KeyDown);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -129,7 +133,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton tbnRemove;
+        private System.Windows.Forms.ToolStripButton tbnRemoveLast;
         private System.Windows.Forms.ToolStripButton tbnRemoveAll;
         private System.Windows.Forms.ListView listView;
     }
