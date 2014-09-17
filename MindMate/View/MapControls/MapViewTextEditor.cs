@@ -46,8 +46,15 @@ namespace MindMate.View.MapControls
             editBox.Visible = false;
             canvas.Controls.Add(editBox);
 
+            editBox.PreviewKeyDown += editBox_PreviewKeyDown;
             editBox.LostFocus += new EventHandler(editBoxLostFocus);
             editBox.KeyDown += new KeyEventHandler(editBoxKeyDown);
+        }
+
+        void editBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyValue == 9)
+                e.IsInputKey = true;
         }
 
        
@@ -154,6 +161,10 @@ namespace MindMate.View.MapControls
         {
             switch (e.KeyValue)
             {
+                case 9: //TAB key pressed
+                    this.EndNodeEdit(true, true);
+                    SendKeys.Send("{TAB}");
+                    break;
                 case 13: //Enter key pressed
                 case 27: //Esc key pressed
                     this.EndNodeEdit(e.KeyValue == 13 ? true : false,
