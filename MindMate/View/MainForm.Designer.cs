@@ -49,6 +49,7 @@
             this.mShapeFork = new System.Windows.Forms.ToolStripMenuItem();
             this.mShapeBubble = new System.Windows.Forms.ToolStripMenuItem();
             this.mShapeBox = new System.Windows.Forms.ToolStripMenuItem();
+            this.mShapeBullet = new System.Windows.Forms.ToolStripMenuItem();
             this.mLineStyle = new System.Windows.Forms.ToolStripMenuItem();
             this.mLineThick1 = new System.Windows.Forms.ToolStripMenuItem();
             this.mLineThick2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,7 +71,6 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.mShapeBullet = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -186,6 +186,7 @@
             // mFont
             // 
             this.mFont.Name = "mFont";
+            this.mFont.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
             this.mFont.Size = new System.Drawing.Size(182, 22);
             this.mFont.Text = "Font ...";
             // 
@@ -222,20 +223,26 @@
             this.mShapeFork.Checked = true;
             this.mShapeFork.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mShapeFork.Name = "mShapeFork";
-            this.mShapeFork.Size = new System.Drawing.Size(152, 22);
+            this.mShapeFork.Size = new System.Drawing.Size(111, 22);
             this.mShapeFork.Text = "Fork";
             // 
             // mShapeBubble
             // 
             this.mShapeBubble.Name = "mShapeBubble";
-            this.mShapeBubble.Size = new System.Drawing.Size(152, 22);
+            this.mShapeBubble.Size = new System.Drawing.Size(111, 22);
             this.mShapeBubble.Text = "Bubble";
             // 
             // mShapeBox
             // 
             this.mShapeBox.Name = "mShapeBox";
-            this.mShapeBox.Size = new System.Drawing.Size(152, 22);
+            this.mShapeBox.Size = new System.Drawing.Size(111, 22);
             this.mShapeBox.Text = "Box";
+            // 
+            // mShapeBullet
+            // 
+            this.mShapeBullet.Name = "mShapeBullet";
+            this.mShapeBullet.Size = new System.Drawing.Size(111, 22);
+            this.mShapeBullet.Text = "Bullet";
             // 
             // mLineStyle
             // 
@@ -384,12 +391,6 @@
             this.splitContainer1.Size = new System.Drawing.Size(564, 402);
             this.splitContainer1.SplitterDistance = 424;
             this.splitContainer1.TabIndex = 4;
-            // 
-            // mShapeBullet
-            // 
-            this.mShapeBullet.Name = "mShapeBullet";
-            this.mShapeBullet.Size = new System.Drawing.Size(152, 22);
-            this.mShapeBullet.Text = "Bullet";
             // 
             // MainForm
             // 
