@@ -36,7 +36,7 @@ namespace MindMate.Controller
         
         public MindMate.View.MapControls.MapView MapView;
         
-        public string MindMateFile = "";
+        public string MindMateFile;
         
         private MapTree tree = null;
 

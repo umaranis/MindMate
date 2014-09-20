@@ -44,14 +44,25 @@ namespace MindMate.Controller
 
         void mainForm_Load(object sender, EventArgs e)
         {
-            MapTree tree = new MapTree("Node");
-            new MapNode(tree.RootNode, "Karachi", NodePosition.Left);
-            new MapNode(tree.RootNode, "Lahore", NodePosition.Right);
-            new MapNode(tree.RootNode, "Sind", NodePosition.Left);
-            tree.SelectedNodes.Add(tree.RootNode);
-                      
+            MapTree tree;
+
+            if (MetaModel.MetaModel.Instance.LastOpenedFile == null)
+            {
+                tree = new MapTree("Node");
+                new MapNode(tree.RootNode, "Karachi", NodePosition.Left);
+                new MapNode(tree.RootNode, "Lahore", NodePosition.Right);
+                new MapNode(tree.RootNode, "Sind", NodePosition.Left);
+                tree.SelectedNodes.Add(tree.RootNode);
+            }
+            else
+            {
+                string xmlString = System.IO.File.ReadAllText(MetaModel.MetaModel.Instance.LastOpenedFile);
+                tree = new MindMapSerializer().Deserialize(xmlString);                
+                unsavedChanges = false;
+            }
 
             mapCtrl = new MapCtrl(tree, this);
+            mapCtrl.MindMateFile = MetaModel.MetaModel.Instance.LastOpenedFile;
 
             noteCrtl = new NoteCtrl(mainForm.NoteEditor);
             noteCrtl.Register(tree);
@@ -76,6 +87,13 @@ namespace MindMate.Controller
 
         void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            PromptForUnsavedChanges(e);
+
+            SaveLastOpenedFilePath();
+        }
+
+        private void PromptForUnsavedChanges(FormClosingEventArgs e)
+        {
             if (unsavedChanges)
             {
                 DialogResult result = MessageBox.Show("Do you want to save changes before exit?", "Unsaved Changes",
@@ -89,6 +107,15 @@ namespace MindMate.Controller
                         e.Cancel = true;
                         break;
                 }
+            }
+        }
+
+        private void SaveLastOpenedFilePath()
+        {
+            if(!string.Equals(mapCtrl.MindMateFile, MetaModel.MetaModel.Instance.LastOpenedFile))
+            {
+                MetaModel.MetaModel.Instance.LastOpenedFile = mapCtrl.MindMateFile;
+                MetaModel.MetaModel.Instance.Save();
             }
         }
 
@@ -188,7 +215,7 @@ namespace MindMate.Controller
 
         public void SaveMap()
         {
-            if (mapCtrl.MindMateFile != "")
+            if (mapCtrl.MindMateFile != null)
             {
                 SaveMap(mapCtrl.MindMateFile);                
             }

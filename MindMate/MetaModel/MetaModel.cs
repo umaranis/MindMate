@@ -64,13 +64,15 @@ namespace MindMate.MetaModel
 
         private List<ModelIcon> iconsList;
 
-        //TODO: Why two data structures are maintained (iconsList and iconsHashMap)
         [ProtoBuf.ProtoMember(1)]
         public List<ModelIcon> IconsList
         {
             get { return iconsList;  }
             set { iconsList = value; }
         }
+
+        [ProtoBuf.ProtoMember(2)]
+        public string LastOpenedFile { get; set; }
 
         private static MetaModel Load()
         {
