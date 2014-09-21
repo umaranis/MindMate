@@ -51,8 +51,7 @@ namespace MindMate.Controller
                 tree = new MapTree("Node");
                 new MapNode(tree.RootNode, "Karachi", NodePosition.Left);
                 new MapNode(tree.RootNode, "Lahore", NodePosition.Right);
-                new MapNode(tree.RootNode, "Sind", NodePosition.Left);
-                tree.SelectedNodes.Add(tree.RootNode);
+                new MapNode(tree.RootNode, "Sind", NodePosition.Left);                
             }
             else
             {
@@ -60,6 +59,7 @@ namespace MindMate.Controller
                 tree = new MindMapSerializer().Deserialize(xmlString);                
                 unsavedChanges = false;
             }
+            tree.SelectedNodes.Add(tree.RootNode);
 
             mapCtrl = new MapCtrl(tree, this);
             mapCtrl.MindMateFile = MetaModel.MetaModel.Instance.LastOpenedFile;
