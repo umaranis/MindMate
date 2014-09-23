@@ -48,10 +48,7 @@ namespace MindMate.Controller
 
             if (MetaModel.MetaModel.Instance.LastOpenedFile == null)
             {
-                tree = new MapTree("Node");
-                new MapNode(tree.RootNode, "Karachi", NodePosition.Left);
-                new MapNode(tree.RootNode, "Lahore", NodePosition.Right);
-                new MapNode(tree.RootNode, "Sind", NodePosition.Left);                
+                tree = CreateNewMapTree();          
             }
             else
             {
@@ -83,6 +80,16 @@ namespace MindMate.Controller
 
             mainForm.FormClosing += mainForm_FormClosing;
             
+        }
+
+        private MapTree CreateNewMapTree()
+        {
+            MapTree tree = new MapTree("Node");
+            new MapNode(tree.RootNode, "Karachi", NodePosition.Left);
+            new MapNode(tree.RootNode, "Lahore", NodePosition.Right);
+            new MapNode(tree.RootNode, "Sind", NodePosition.Left);
+
+            return tree;
         }
 
         void mainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -129,6 +136,7 @@ namespace MindMate.Controller
 
         private void UnregisterForMapChangedNotification()
         {
+            //TODO: check if this works with lambda expressions
             mapCtrl.MapView.tree.NodePropertyChanged -= (a, b) => MapChanged();
             mapCtrl.MapView.tree.TreeStructureChanged -= (a, b) => MapChanged();
             mapCtrl.MapView.tree.IconChanged -= (a, b) => MapChanged();
@@ -151,6 +159,25 @@ namespace MindMate.Controller
         {
             Options frm = new Options();
             frm.ShowDialog();
+        }
+
+        public void NewMap()
+        {
+            noteCrtl.Unregister(this.mapCtrl.MapView.tree);
+            statusBarCtrl.Unregister(this.mapCtrl.MapView.tree);
+            UnregisterForMapChangedNotification();
+
+            MapTree tree = CreateNewMapTree();
+
+            mapCtrl.MindMateFile = null;
+            mapCtrl.ChangeTree(tree);
+            
+            noteCrtl.Register(tree);
+            statusBarCtrl.Register(tree);
+            RegisterForMapChangedNotification();
+
+            unsavedChanges = true;
+            UpdateTitleBar();
         }
 
         public void OpenMap()

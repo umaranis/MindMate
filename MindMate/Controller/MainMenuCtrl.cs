@@ -28,6 +28,8 @@ namespace MindMate.Controller
             this.mainCtrl = mainCtrl;
 
             form.mSelectIcon.Click += mSelectIcon_Click;
+
+            form.newToolStripMenuItem.Click += newToolStripMenuItem_Click;
             form.openToolStripMenuItem.Click += this.openToolStripMenuItem_Click;
             form.saveToolStripMenuItem.Click += this.saveToolStripMenuItem_Click;
             form.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
@@ -61,7 +63,7 @@ namespace MindMate.Controller
             form.mAbout.Click += mAbout_Click;
         }
 
-        
+               
         void mAbout_Click(object sender, EventArgs e)
         {
             mainCtrl.ShowAboutBox();
@@ -323,6 +325,11 @@ namespace MindMate.Controller
         void mSelectIcon_Click(object sender, EventArgs e)
         {
             mapCtrl.appendIconFromIconSelector();
+        }
+
+        void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mainCtrl.NewMap();
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
