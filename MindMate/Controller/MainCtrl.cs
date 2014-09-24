@@ -94,16 +94,19 @@ namespace MindMate.Controller
 
         void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            PromptForUnsavedChanges(e);
+            if(PromptForUnsavedChanges() == ContinueOperation.Cancel)
+                e.Cancel = true;
 
             SaveLastOpenedFilePath();
         }
 
-        private void PromptForUnsavedChanges(FormClosingEventArgs e)
+        private enum ContinueOperation { Continue, Cancel };
+
+        private ContinueOperation PromptForUnsavedChanges()
         {
             if (unsavedChanges)
             {
-                DialogResult result = MessageBox.Show("Do you want to save changes before exit?", "Unsaved Changes",
+                DialogResult result = MessageBox.Show("Do you want to save changes?", "Unsaved Changes",
                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
                 switch (result)
                 {
@@ -111,10 +114,11 @@ namespace MindMate.Controller
                         SaveMap();
                         break;
                     case DialogResult.Cancel:
-                        e.Cancel = true;
-                        break;
+                        return ContinueOperation.Cancel;
                 }
             }
+
+            return ContinueOperation.Continue;
         }
 
         private void SaveLastOpenedFilePath()
@@ -163,6 +167,9 @@ namespace MindMate.Controller
 
         public void NewMap()
         {
+            if (PromptForUnsavedChanges() == ContinueOperation.Cancel)
+                return;
+
             noteCrtl.Unregister(this.mapCtrl.MapView.tree);
             statusBarCtrl.Unregister(this.mapCtrl.MapView.tree);
             UnregisterForMapChangedNotification();
@@ -182,6 +189,9 @@ namespace MindMate.Controller
 
         public void OpenMap()
         {
+            if (PromptForUnsavedChanges() == ContinueOperation.Cancel)
+                return;
+
             OpenFileDialog file = new OpenFileDialog();
             file.Filter = "MindMap files (*.mm)|*.mm|All files (*.*)|*.*|Text (*.txt)|*.txt";
             if (file.ShowDialog() != DialogResult.OK)
