@@ -83,6 +83,16 @@ namespace MindMate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap filenew {
+            get {
+                object obj = ResourceManager.GetObject("filenew", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap fileopen {
             get {
                 object obj = ResourceManager.GetObject("fileopen", resourceCulture);
