@@ -52,9 +52,18 @@ namespace MindMate.Controller
             }
             else
             {
-                string xmlString = System.IO.File.ReadAllText(MetaModel.MetaModel.Instance.LastOpenedFile);
-                tree = new MindMapSerializer().Deserialize(xmlString);                
-                unsavedChanges = false;
+                try
+                {
+                    string xmlString = System.IO.File.ReadAllText(MetaModel.MetaModel.Instance.LastOpenedFile);
+                    tree = new MindMapSerializer().Deserialize(xmlString);
+                    unsavedChanges = false;
+                }
+                catch(Exception exp)
+                {
+                    tree = CreateNewMapTree();
+                    MetaModel.MetaModel.Instance.LastOpenedFile = null;
+                    System.Diagnostics.Trace.TraceWarning(DateTime.Now.ToString() + ": Couldn't load last opened file. " + exp.Message);
+                }
             }
             tree.SelectedNodes.Add(tree.RootNode);
 
