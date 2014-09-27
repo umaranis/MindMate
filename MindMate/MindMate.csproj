@@ -458,6 +458,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="LICENSE.txt" />
+    <None Include="Resources\application_view_columns.png" />
+    <None Include="Resources\application_view_detail.png" />
+    <None Include="Resources\application_view_icons.png" />
+    <None Include="Resources\application_view_list.png" />
+    <None Include="Resources\application_view_tile.png" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

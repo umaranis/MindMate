@@ -36,6 +36,13 @@
             this.tbnRemoveLast = new System.Windows.Forms.ToolStripButton();
             this.tbnRemoveAll = new System.Windows.Forms.ToolStripButton();
             this.listView = new System.Windows.Forms.ListView();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tbnViewLargeIcons = new System.Windows.Forms.ToolStripButton();
+            this.tbnViewSmallIcons = new System.Windows.Forms.ToolStripButton();
+            this.tbnViewList = new System.Windows.Forms.ToolStripButton();
+            this.tbnViewTile = new System.Windows.Forms.ToolStripButton();
+            this.tbnViewDetail = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -61,7 +68,14 @@
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tbnRemoveLast,
-            this.tbnRemoveAll});
+            this.tbnRemoveAll,
+            this.toolStripSeparator1,
+            this.tbnViewLargeIcons,
+            this.tbnViewSmallIcons,
+            this.tbnViewList,
+            this.tbnViewTile,
+            this.tbnViewDetail,
+            this.toolStripSeparator2});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(305, 25);
@@ -100,6 +114,66 @@
             this.listView.TabIndex = 3;
             this.listView.UseCompatibleStateImageBehavior = false;
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tbnViewLargeIcons
+            // 
+            this.tbnViewLargeIcons.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbnViewLargeIcons.Image = global::MindMate.Properties.Resources.application_view_tile;
+            this.tbnViewLargeIcons.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbnViewLargeIcons.Name = "tbnViewLargeIcons";
+            this.tbnViewLargeIcons.Size = new System.Drawing.Size(23, 22);
+            this.tbnViewLargeIcons.Text = "Large Icon";
+            this.tbnViewLargeIcons.Click += new System.EventHandler(this.tbnViewLargeIcons_Click);
+            // 
+            // tbnViewSmallIcons
+            // 
+            this.tbnViewSmallIcons.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbnViewSmallIcons.Image = global::MindMate.Properties.Resources.application_view_icons;
+            this.tbnViewSmallIcons.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbnViewSmallIcons.Name = "tbnViewSmallIcons";
+            this.tbnViewSmallIcons.Size = new System.Drawing.Size(23, 22);
+            this.tbnViewSmallIcons.Text = "Small Icon";
+            this.tbnViewSmallIcons.Click += new System.EventHandler(this.tbnViewSmallIcons_Click);
+            // 
+            // tbnViewList
+            // 
+            this.tbnViewList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbnViewList.Image = global::MindMate.Properties.Resources.application_view_columns;
+            this.tbnViewList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbnViewList.Name = "tbnViewList";
+            this.tbnViewList.Size = new System.Drawing.Size(23, 22);
+            this.tbnViewList.Text = "List";
+            this.tbnViewList.Click += new System.EventHandler(this.tbnViewList_Click);
+            // 
+            // tbnViewTile
+            // 
+            this.tbnViewTile.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbnViewTile.Image = global::MindMate.Properties.Resources.application_view_list;
+            this.tbnViewTile.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbnViewTile.Name = "tbnViewTile";
+            this.tbnViewTile.Size = new System.Drawing.Size(23, 22);
+            this.tbnViewTile.Text = "Tile";
+            this.tbnViewTile.Click += new System.EventHandler(this.tbnViewTile_Click);
+            // 
+            // tbnViewDetail
+            // 
+            this.tbnViewDetail.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbnViewDetail.Image = global::MindMate.Properties.Resources.application_view_detail;
+            this.tbnViewDetail.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbnViewDetail.Name = "tbnViewDetail";
+            this.tbnViewDetail.Size = new System.Drawing.Size(23, 22);
+            this.tbnViewDetail.Text = "Detail";
+            this.tbnViewDetail.Click += new System.EventHandler(this.tbnViewDetail_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
             // IconSelectorExt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -136,5 +210,12 @@
         private System.Windows.Forms.ToolStripButton tbnRemoveLast;
         private System.Windows.Forms.ToolStripButton tbnRemoveAll;
         private System.Windows.Forms.ListView listView;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton tbnViewLargeIcons;
+        private System.Windows.Forms.ToolStripButton tbnViewSmallIcons;
+        private System.Windows.Forms.ToolStripButton tbnViewList;
+        private System.Windows.Forms.ToolStripButton tbnViewTile;
+        private System.Windows.Forms.ToolStripButton tbnViewDetail;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
