@@ -45,6 +45,7 @@ namespace MindMate.Debugging
             StartTimeCounter(counterName, "");
         }
 
+        [System.Diagnostics.Conditional("DEBUG")]
         public static void StartTimeCounter(string counterName, string description)
         {
             WriteToFile("Start time counter ..." + counterName + " (" + description + ")");
