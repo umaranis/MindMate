@@ -240,6 +240,7 @@ namespace MindMate.Controller
             file.AddExtension = true;
             file.DefaultExt = "mm";
             file.Filter = "MindMap files (*.mm)|*.mm|All files (*.*)|*.*|Text (*.txt)|*.txt";
+            file.FileName = mapCtrl.MindMateFile;
             if (file.ShowDialog() == DialogResult.OK)
             {
                 mapCtrl.MindMateFile = file.FileName;
@@ -247,7 +248,10 @@ namespace MindMate.Controller
             }            
         }
 
-        
+        /// <summary>
+        /// Method which actually saves the file to disk. Other methods like SaveAsMap and SaveMap use this.
+        /// </summary>
+        /// <param name="fileName"></param>
         private void SaveMap(string fileName)
         {
             var serializer = new MindMapSerializer();
