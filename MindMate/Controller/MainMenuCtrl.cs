@@ -35,6 +35,7 @@ namespace MindMate.Controller
             form.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             form.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
             form.asBMPToolStripMenuItem.Click += asBMPToolStripMenuItem_Click;
+            form.exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             
             form.mBold.Click += mBold_Click;
             form.mItalic.Click += mItalic_Click;
@@ -63,7 +64,7 @@ namespace MindMate.Controller
             form.mAbout.Click += mAbout_Click;
         }
 
-               
+                       
         void mAbout_Click(object sender, EventArgs e)
         {
             mainCtrl.ShowAboutBox();
@@ -82,6 +83,11 @@ namespace MindMate.Controller
         void asBMPToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainCtrl.ExportAsBMP();
+        }
+
+        void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.Exit();
         }
 
 
