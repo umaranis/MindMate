@@ -81,8 +81,7 @@ namespace MindMate.Controller
             statusBarCtrl.Register(tree);
 
             // moving splitter makes it the focused control, below event focuses the last control again
-            mainForm.splitContainer1.SplitterMoved += (a, b) => this.lastFocused.Focus();
-            mainForm.splitContainer1.Click += (a, b) => this.lastFocused.Focus();
+            mainForm.splitContainer1.GotFocus += (a, b) => this.lastFocused.Focus();
 
             UpdateTitleBar();
             RegisterForMapChangedNotification();
