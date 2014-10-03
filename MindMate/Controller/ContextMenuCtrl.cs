@@ -29,8 +29,12 @@ namespace MindMate.Controller
             mapCtrl.MapView.Canvas.mEditNode.Click += new EventHandler(mEditNode_Click);
             mapCtrl.MapView.Canvas.mInsertChild.Click += mInsertChild_Click;
             mapCtrl.MapView.Canvas.mDeleteNode.Click += mDeleteNode_Click;
+            mapCtrl.MapView.Canvas.mSelectIcon.Click += mSelectIcon_Click;
+
+            mapCtrl.MapView.Canvas.mSelectIcon.Image = MindMate.Properties.Resources.kalzium;
         }
 
+        
         private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
             Point p = new Point(mapCtrl.MapView.Canvas.contextMenu.Left, mapCtrl.MapView.Canvas.contextMenu.Top);
@@ -55,6 +59,11 @@ namespace MindMate.Controller
         private void mInsertChild_Click(object sender, EventArgs e)
         {
             mapCtrl.appendChildNodeAndEdit();
+        }
+
+        void mSelectIcon_Click(object sender, EventArgs e)
+        {
+            mapCtrl.appendIconFromIconSelector();
         }
 
     }
