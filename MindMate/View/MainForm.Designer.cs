@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mFileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -37,7 +37,7 @@
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.asBMPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.mSepRecentFilesStart = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.formatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mSelectIcon = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,6 +73,7 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.mSepRecentFilesEnd = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -82,7 +83,7 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
+            this.mFileMenu,
             this.formatToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.aboutToolStripMenuItem});
@@ -92,20 +93,21 @@
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // fileToolStripMenuItem
+            // mFileMenu
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mFileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
             this.openToolStripMenuItem,
             this.toolStripSeparator1,
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.exportToolStripMenuItem,
-            this.toolStripSeparator4,
+            this.mSepRecentFilesStart,
+            this.mSepRecentFilesEnd,
             this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
+            this.mFileMenu.Name = "mFileMenu";
+            this.mFileMenu.Size = new System.Drawing.Size(37, 20);
+            this.mFileMenu.Text = "File";
             // 
             // newToolStripMenuItem
             // 
@@ -156,10 +158,10 @@
             this.asBMPToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
             this.asBMPToolStripMenuItem.Text = "as BMP ...";
             // 
-            // toolStripSeparator4
+            // mSepRecentFilesStart
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(149, 6);
+            this.mSepRecentFilesStart.Name = "mSepRecentFilesStart";
+            this.mSepRecentFilesStart.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
@@ -347,7 +349,7 @@
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.preferencesToolStripMenuItem.Text = "Preferences ...";
             // 
             // aboutToolStripMenuItem
@@ -416,6 +418,11 @@
             this.splitContainer1.SplitterDistance = 424;
             this.splitContainer1.TabIndex = 4;
             // 
+            // mSepRecentFilesEnd
+            // 
+            this.mSepRecentFilesEnd.Name = "mSepRecentFilesEnd";
+            this.mSepRecentFilesEnd.Size = new System.Drawing.Size(149, 6);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -443,7 +450,6 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem formatToolStripMenuItem;
@@ -485,8 +491,10 @@
         public System.Windows.Forms.ToolStripMenuItem mAbout;
         public System.Windows.Forms.ToolStripMenuItem mShapeBullet;
         public System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         public System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem mFileMenu;
+        public System.Windows.Forms.ToolStripSeparator mSepRecentFilesStart;
+        public System.Windows.Forms.ToolStripSeparator mSepRecentFilesEnd;
     }
 }
 

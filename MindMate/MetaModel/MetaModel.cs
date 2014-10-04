@@ -62,17 +62,25 @@ namespace MindMate.MetaModel
 
         #endregion
 
-        private List<ModelIcon> iconsList;
+        private List<ModelIcon> iconsList = new List<ModelIcon>();
 
         [ProtoBuf.ProtoMember(1)]
         public List<ModelIcon> IconsList
         {
             get { return iconsList;  }
-            set { iconsList = value; }
         }
 
         [ProtoBuf.ProtoMember(2)]
         public string LastOpenedFile { get; set; }
+
+        private CustomFontDialog.RecentlyUsedList<string> recentFiles = new CustomFontDialog.RecentlyUsedList<string>(8);
+        [ProtoBuf.ProtoMember(3)]
+        public CustomFontDialog.RecentlyUsedList<string> RecentFiles { 
+            get
+            {
+                return recentFiles;
+            }
+        }
 
         private static MetaModel Load()
         {
@@ -86,8 +94,8 @@ namespace MindMate.MetaModel
 
                 using (var file = File.OpenRead(MetaModel.GetFilePath()))
                 {
-                    model = ProtoBuf.Serializer.Deserialize<MetaModel>(file);
-                }
+                    model = ProtoBuf.Serializer.Deserialize<MetaModel>(file);                    
+                }                
             }
             catch (FileNotFoundException)
             {
@@ -97,6 +105,7 @@ namespace MindMate.MetaModel
             {
                 model = LoadDefaultMetaModel();                
             }
+            model.RecentFiles.Reverse();
 
             FillIconsCache(model);
             

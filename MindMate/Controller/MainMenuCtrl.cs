@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MindMate.View;
+using System.Windows.Forms;
 
 namespace MindMate.Controller
 {
@@ -62,6 +63,8 @@ namespace MindMate.Controller
             form.mLineColor.Click += mLineColor_Click;
 
             form.mAbout.Click += mAbout_Click;
+
+            CreateRecentFilesMenuItems();
         }
 
                        
@@ -358,6 +361,85 @@ namespace MindMate.Controller
             mainCtrl.SaveAsMap();
         }
 
-        
+
+        #region Recent Files Menu Items
+
+        private void CreateRecentFilesMenuItems()
+        {
+            int index = form.mFileMenu.DropDownItems.IndexOf(form.mSepRecentFilesStart);
+            for(int i =0; i < MetaModel.MetaModel.Instance.RecentFiles.Count; i++)
+            {
+                ToolStripMenuItem menuItem;
+
+                // setting file path for menu item
+                string filePath = MetaModel.MetaModel.Instance.RecentFiles[i];
+                if(filePath.Length <= 50)
+                {
+                    menuItem = new ToolStripMenuItem(filePath);
+                }
+                else
+                {
+                    menuItem = new ToolStripMenuItem(filePath.Substring(0, 5) + 
+                        "..." + 
+                        filePath.Substring(filePath.Length - 42));
+                    menuItem.ToolTipText = MetaModel.MetaModel.Instance.RecentFiles[i];
+                }                
+                // setting event handler
+                menuItem.Click += RecentFiles_Click;
+                
+                // adding menu item to File Menu
+                form.mFileMenu.DropDownItems.Insert(index + i + 1, menuItem);
+            }
+        }
+
+        public void RefreshRecentFilesMenuItems()
+        {
+            int index = form.mFileMenu.DropDownItems.IndexOf(form.mSepRecentFilesStart);
+            int indexEnd = form.mFileMenu.DropDownItems.IndexOf(form.mSepRecentFilesEnd);
+            
+            for (int i = 0; i < MetaModel.MetaModel.Instance.RecentFiles.Count; i++)
+            {
+                ToolStripMenuItem menuItem;
+
+                if (index + i + 1 >= indexEnd)
+                {
+                    menuItem = new ToolStripMenuItem();
+                    menuItem.Click += RecentFiles_Click;
+                    form.mFileMenu.DropDownItems.Insert(index + i + 1, menuItem);
+                }
+                else
+                {
+                    menuItem = (ToolStripMenuItem)form.mFileMenu.DropDownItems[index + i + 1];
+                }
+
+                // setting file path for menu item
+                string filePath = MetaModel.MetaModel.Instance.RecentFiles[i];
+                if (filePath.Length <= 50)
+                {
+                    menuItem.Text = filePath;
+                    menuItem.ToolTipText = null;
+                }
+                else
+                {
+                    menuItem.Text = filePath.Substring(0, 5) + "..." + filePath.Substring(filePath.Length - 42);
+                    menuItem.ToolTipText = MetaModel.MetaModel.Instance.RecentFiles[i];
+                }               
+
+                
+            }
+
+        }
+
+
+        private void RecentFiles_Click(object sender, EventArgs e)
+        {
+            ToolStripMenuItem menuItem = (ToolStripMenuItem)sender;
+            string filePath = menuItem.ToolTipText != null ? menuItem.ToolTipText : menuItem.Text;
+
+            mainCtrl.OpenMap(filePath);
+        }
+
+        #endregion
+
     }
 }

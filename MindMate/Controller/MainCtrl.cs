@@ -22,6 +22,7 @@ namespace MindMate.Controller
         private Control lastFocused;
 
         private MapCtrl mapCtrl;
+        private MainMenuCtrl mainMenuCtrl;
         private bool unsavedChanges = true;
 
         public WinFormsStatusBarCtrl statusBarCtrl;
@@ -76,7 +77,7 @@ namespace MindMate.Controller
 
             new ContextMenuCtrl(mapCtrl);
             
-            new MainMenuCtrl(mainForm, mapCtrl, this);
+            mainMenuCtrl = new MainMenuCtrl(mainForm, mapCtrl, this);
             statusBarCtrl = new WinFormsStatusBarCtrl(mainForm.statusStrip1);
             statusBarCtrl.Register(tree);
 
@@ -105,7 +106,7 @@ namespace MindMate.Controller
             if(PromptForUnsavedChanges() == ContinueOperation.Cancel)
                 e.Cancel = true;
 
-            SaveLastOpenedFilePath();
+            SaveSettingsAtClose();
         }
 
         private enum ContinueOperation { Continue, Cancel };
@@ -129,13 +130,11 @@ namespace MindMate.Controller
             return ContinueOperation.Continue;
         }
 
-        private void SaveLastOpenedFilePath()
+        private void SaveSettingsAtClose()
         {
-            if(!string.Equals(mapCtrl.MindMateFile, MetaModel.MetaModel.Instance.LastOpenedFile))
-            {
-                MetaModel.MetaModel.Instance.LastOpenedFile = mapCtrl.MindMateFile;
-                MetaModel.MetaModel.Instance.Save();
-            }
+            //TODO: Save changes only when a new file is saved or opened
+            MetaModel.MetaModel.Instance.LastOpenedFile = mapCtrl.MindMateFile;
+            MetaModel.MetaModel.Instance.Save();
         }
 
         
@@ -195,28 +194,23 @@ namespace MindMate.Controller
             UpdateTitleBar();
         }
 
-        public void OpenMap()
+        public void OpenMap(string fileName = null)
         {
             if (PromptForUnsavedChanges() == ContinueOperation.Cancel)
                 return;
 
-            OpenFileDialog file = new OpenFileDialog();
-            file.Filter = "MindMap files (*.mm)|*.mm|All files (*.*)|*.*|Text (*.txt)|*.txt";
-            if (file.ShowDialog() != DialogResult.OK)
-                return;
+            if (fileName == null)
+            {
+                OpenFileDialog file = new OpenFileDialog();
+                file.Filter = "MindMap files (*.mm)|*.mm|All files (*.*)|*.*|Text (*.txt)|*.txt";
+                if (file.ShowDialog() != DialogResult.OK)
+                    return;
+                else
+                    fileName = file.FileName;
+            }            
 
-            Debugging.Utility.StartTimeCounter("Loading Map", file.FileName);
+            Debugging.Utility.StartTimeCounter("Loading Map", fileName);
 
-            LoadMap(file.FileName);
-
-            Debugging.Utility.EndTimeCounter("Loading Map");
-
-            unsavedChanges = false;
-            UpdateTitleBar();
-        }
-
-        public void LoadMap(string fileName)
-        {
             noteCrtl.Unregister(this.mapCtrl.MapView.tree);
             statusBarCtrl.Unregister(this.mapCtrl.MapView.tree);
             UnregisterForMapChangedNotification();
@@ -230,7 +224,13 @@ namespace MindMate.Controller
             noteCrtl.Register(tree);
             statusBarCtrl.Register(tree);
             RegisterForMapChangedNotification();
-            
+
+            Debugging.Utility.EndTimeCounter("Loading Map");
+
+            unsavedChanges = false;
+            UpdateTitleBar();
+            MetaModel.MetaModel.Instance.RecentFiles.Add(fileName);
+            mainMenuCtrl.RefreshRecentFilesMenuItems();
         }
 
         public void SaveAsMap()
@@ -260,6 +260,8 @@ namespace MindMate.Controller
 
             unsavedChanges = false;
             UpdateTitleBar();
+            MetaModel.MetaModel.Instance.RecentFiles.Add(fileName);
+            mainMenuCtrl.RefreshRecentFilesMenuItems();
         }
 
         public void SaveMap()
