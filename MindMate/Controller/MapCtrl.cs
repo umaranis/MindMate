@@ -877,8 +877,24 @@ namespace MindMate.Controller
 
         public void Copy()
         {
-            ClipboardCtrl.Copy(tree);
-        }        
-        
+            ClipboardManager.Copy(tree.SelectedNodes);
+        }
+
+        internal void Paste()
+        {
+            if (tree.SelectedNodes.Count == 1)
+            {
+                MapNode pasteLocation = tree.SelectedNodes[0];
+                ClipboardManager.Paste(pasteLocation);
+                if(pasteLocation.Folded) pasteLocation.Folded = false;
+                MapView.RefreshChildNodePositions(tree.RootNode, pasteLocation.Pos);
+                this.MapView.Canvas.Invalidate();
+            }
+            else
+            {
+                MessageBox.Show("Paste operation cannot be performed if more than one nodes are selected.", "Can't Paste");
+            }
+            
+        }
     }
 }

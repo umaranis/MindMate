@@ -592,9 +592,9 @@ namespace MindMate.Model
                     this.Next.Previous = this.Previous;
                 }
 
-                //this.Parent = null;
-                //this.Previous = null;
-                //this.Next = null;
+                this.Parent = null;
+                this.Previous = null;
+                this.Next = null;
 
                 Parent.modified = DateTime.Now;
                 Tree.FireEvent(this, TreeStructureChange.Detach);
@@ -830,6 +830,57 @@ namespace MindMate.Model
                 node = node.Parent;
             }
             return depth;
+        }
+
+        /// <summary>
+        /// Copy node properties on to the node passed as parameter
+        /// </summary>
+        /// <param name="node"></param>
+        public void CopyNodePropertiesTo(MapNode node)
+        {
+            node.backColor = this.backColor;
+            node.bold = this.bold;
+            node.color = this.color;
+            foreach(KeyValuePair<string, object> pair in this.extendedProperties)
+            {
+                node.extendedProperties.Add(pair.Key, pair.Value);
+            }
+            node.folded = this.folded;
+            node.fontName = this.fontName;
+            node.fontSize = this.fontSize;
+            foreach(string icon in this.Icons)
+            {
+                node.Icons.Add(icon);
+            }
+            // node.Id, node.Created, node.Modified, node.Pos -- shouldn't be copied
+            node.italic = this.italic;
+            node.lineColor = this.lineColor;
+            node.linePattern = this.linePattern;
+            node.lineWidth = this.lineWidth;
+            node.link = this.link;
+            node.richContentText = this.richContentText;
+            node.richContentType = this.richContentType;
+            node.shape = this.shape;
+            node.text = this.text;            
+        }
+
+        /// <summary>
+        /// Copy this node with descendents and attach it to the location (parameter)
+        /// </summary>
+        /// <param name="location"></param>
+        /// <param name="includeDescendents"></param>
+        public void CopyTo(MapNode location, bool includeDescendents = true)
+        {
+            var newNode = new MapNode(location, null);
+            this.CopyNodePropertiesTo(newNode);
+
+            if (includeDescendents)
+            {
+                foreach (MapNode childNode in this.ChildNodes)
+                {
+                    childNode.CopyTo(newNode);
+                }
+            }
         }
 
         public override string ToString()

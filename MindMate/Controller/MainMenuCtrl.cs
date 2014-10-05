@@ -39,6 +39,7 @@ namespace MindMate.Controller
             form.exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
 
             form.mCopy.Click += mCopy_Click;
+            form.mPaste.Click += mPaste_Click;
             
             form.mBold.Click += mBold_Click;
             form.mItalic.Click += mItalic_Click;
@@ -69,7 +70,7 @@ namespace MindMate.Controller
             CreateRecentFilesMenuItems();
         }
 
-                               
+                                       
         void mAbout_Click(object sender, EventArgs e)
         {
             mainCtrl.ShowAboutBox();
@@ -98,6 +99,11 @@ namespace MindMate.Controller
         void mCopy_Click(object sender, EventArgs e)
         {
             mapCtrl.Copy();
+        }
+
+        void mPaste_Click(object sender, EventArgs e)
+        {
+            mapCtrl.Paste();
         }
 
 
