@@ -38,6 +38,7 @@
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.asBMPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mSepRecentFilesStart = new System.Windows.Forms.ToolStripSeparator();
+            this.mSepRecentFilesEnd = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.formatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mSelectIcon = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,7 +74,8 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.mSepRecentFilesEnd = new System.Windows.Forms.ToolStripSeparator();
+            this.mEditMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.mCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -84,6 +86,7 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mFileMenu,
+            this.mEditMenu,
             this.formatToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.aboutToolStripMenuItem});
@@ -162,6 +165,11 @@
             // 
             this.mSepRecentFilesStart.Name = "mSepRecentFilesStart";
             this.mSepRecentFilesStart.Size = new System.Drawing.Size(149, 6);
+            // 
+            // mSepRecentFilesEnd
+            // 
+            this.mSepRecentFilesEnd.Name = "mSepRecentFilesEnd";
+            this.mSepRecentFilesEnd.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
@@ -349,7 +357,7 @@
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.preferencesToolStripMenuItem.Text = "Preferences ...";
             // 
             // aboutToolStripMenuItem
@@ -418,10 +426,20 @@
             this.splitContainer1.SplitterDistance = 424;
             this.splitContainer1.TabIndex = 4;
             // 
-            // mSepRecentFilesEnd
+            // mEditMenu
             // 
-            this.mSepRecentFilesEnd.Name = "mSepRecentFilesEnd";
-            this.mSepRecentFilesEnd.Size = new System.Drawing.Size(149, 6);
+            this.mEditMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mCopy});
+            this.mEditMenu.Name = "mEditMenu";
+            this.mEditMenu.Size = new System.Drawing.Size(39, 20);
+            this.mEditMenu.Text = "Edit";
+            // 
+            // mCopy
+            // 
+            this.mCopy.Name = "mCopy";
+            this.mCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.mCopy.Size = new System.Drawing.Size(152, 22);
+            this.mCopy.Text = "Copy";
             // 
             // MainForm
             // 
@@ -495,6 +513,8 @@
         public System.Windows.Forms.ToolStripMenuItem mFileMenu;
         public System.Windows.Forms.ToolStripSeparator mSepRecentFilesStart;
         public System.Windows.Forms.ToolStripSeparator mSepRecentFilesEnd;
+        private System.Windows.Forms.ToolStripMenuItem mEditMenu;
+        public System.Windows.Forms.ToolStripMenuItem mCopy;
     }
 }
 

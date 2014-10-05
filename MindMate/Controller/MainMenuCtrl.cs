@@ -37,6 +37,8 @@ namespace MindMate.Controller
             form.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
             form.asBMPToolStripMenuItem.Click += asBMPToolStripMenuItem_Click;
             form.exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
+
+            form.mCopy.Click += mCopy_Click;
             
             form.mBold.Click += mBold_Click;
             form.mItalic.Click += mItalic_Click;
@@ -67,7 +69,7 @@ namespace MindMate.Controller
             CreateRecentFilesMenuItems();
         }
 
-                       
+                               
         void mAbout_Click(object sender, EventArgs e)
         {
             mainCtrl.ShowAboutBox();
@@ -91,6 +93,11 @@ namespace MindMate.Controller
         void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Application.Exit();
+        }
+
+        void mCopy_Click(object sender, EventArgs e)
+        {
+            mapCtrl.Copy();
         }
 
 

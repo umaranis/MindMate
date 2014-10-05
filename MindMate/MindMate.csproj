@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\ClipboardCtrl.cs" />
     <Compile Include="Controller\ContextMenuCtrl.cs" />
     <Compile Include="Controller\IMainCtrl.cs" />
     <Compile Include="Controller\MainMenuCtrl.cs" />
@@ -96,6 +97,7 @@
     <Compile Include="Model\NodeChangedEventArgs.cs" />
     <Compile Include="Serialization\Convert.cs" />
     <Compile Include="Serialization\MindMapSerializer.cs" />
+    <Compile Include="Serialization\MapTextSerializer.cs" />
     <Compile Include="View\Dialogs\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -197,6 +199,7 @@
     <Compile Include="Model\MapNode.cs" />
     <Compile Include="Model\MapTree.cs" />
     <Compile Include="Controller\MapCtrl.cs" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="Settings.bin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

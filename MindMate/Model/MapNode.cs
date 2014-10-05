@@ -601,10 +601,26 @@ namespace MindMate.Model
             }
         }
 
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="node">node to be tested for being ancestor of 'this' node</param>
+        /// <returns></returns>
         public bool isDescendent(MapNode node)
         {
-            return Find(n => node == n) != null;            
+            if(this.Parent != null)
+            {
+                if (this.Parent == node)
+                    return true;
+                else
+                {
+                    return this.Parent.isDescendent(node);
+                }
+            }    
+            else
+            {
+                return false;
+            }
         }
         
 
@@ -802,6 +818,18 @@ namespace MindMate.Model
             }
 
             return linkType;
+        }
+
+        public int GetNodeDepth()
+        {
+            int depth = 0;
+            MapNode node = this;
+            while(node.Parent != null)
+            {
+                depth++;
+                node = node.Parent;
+            }
+            return depth;
         }
 
         public override string ToString()

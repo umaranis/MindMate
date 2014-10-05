@@ -871,9 +871,14 @@ namespace MindMate.Controller
                     MapView.RefreshChildNodePositions(tree.RootNode, node.Pos);
                 }                
             }
-            this.MapView.Canvas.Invalidate();            
+            this.MapView.Canvas.Invalidate();
         }
 
+
+        public void Copy()
+        {
+            ClipboardCtrl.Copy(tree);
+        }        
         
     }
 }
