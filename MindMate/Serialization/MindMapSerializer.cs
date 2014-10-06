@@ -129,7 +129,7 @@ namespace MindMate.Serialization
                 xml.WriteStartElement("richcontent");
                 xml.WriteAttributeString("TYPE",
                     (mapNode.RichContentType == NodeRichContentType.NODE ? "NODE" : "NOTE"));
-                xml.WriteRaw(mapNode.RichContentText);
+                xml.WriteString(mapNode.RichContentText);
                 xml.WriteEndElement();
             }
 
@@ -270,7 +270,7 @@ namespace MindMate.Serialization
                         else
                             node.RichContentType = NodeRichContentType.NOTE;
 
-                        node.RichContentText = tmpXNode.InnerXml;
+                        node.RichContentText = tmpXNode.InnerText;
                     }
                 }
             }
