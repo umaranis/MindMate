@@ -22,7 +22,7 @@ namespace MindMate.View
     public partial class MainForm : Form
     {
         
-        public Design.Editor notesEditor;
+        public NoteEditor notesEditor;
 
         public MainForm()
         {
@@ -31,13 +31,13 @@ namespace MindMate.View
             //mainUICtrl = new MainCtrl(this);
 
             
-            notesEditor = new Design.Editor();
+            notesEditor = new NoteEditor();
             notesEditor.Dock = DockStyle.Fill;
             this.splitContainer1.Panel2.Controls.Add(notesEditor);
         }
 
         
-        public Design.Editor NoteEditor
+        public NoteEditor NoteEditor
         {
             get { return this.notesEditor; }
         }                

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using MindMate.Model;
 using MindMate.View.MapControls;
+using MindMate.View;
 
 namespace MindMate.Controller
 {
@@ -18,9 +19,9 @@ namespace MindMate.Controller
     class NoteCtrl
     {
         private bool isNodeWindowEmpty = true;
-        private Design.Editor editor;
+        private NoteEditor editor;
 
-        public NoteCtrl(Design.Editor editor)
+        public NoteCtrl(NoteEditor editor)
         {
             this.editor = editor;
             this.editor.BackColor = System.Drawing.Color.LightYellow;            
@@ -43,7 +44,7 @@ namespace MindMate.Controller
             if (selectedNodes.First.RichContentType == NodeRichContentType.NOTE &&
                 selectedNodes.Count == 1)
             {
-                editor.Document.Body.InnerHtml = selectedNodes.First.RichContentText; 
+                editor.HTML = selectedNodes.First.RichContentText; 
                 isNodeWindowEmpty = false;
             }
             else 
@@ -58,10 +59,10 @@ namespace MindMate.Controller
 
         void MapView_nodeDeselected(MapNode node, SelectedNodes selectedNodes) 
         {
-            if (!isNodeWindowEmpty || editor.Document.Body.InnerHtml != null) 
+            if (!isNodeWindowEmpty || editor.HTML != null) 
             {
                 node.RichContentType = NodeRichContentType.NOTE;
-                node.RichContentText = "<HTML>" + editor.Document.Body.OuterHtml + "</HTML>";
+                node.RichContentText = "<HTML>" + editor.HTML + "</HTML>";
                 isNodeWindowEmpty = false; 
             }
         }

@@ -55,9 +55,8 @@
     <Reference Include="CustomFontDialog">
       <HintPath>..\..\..\FontDialog\CustomFontDialog\bin\Release\CustomFontDialog.dll</HintPath>
     </Reference>
-    <Reference Include="Design, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\MindMateTest\Design\bin\Debug\Design.dll</HintPath>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="protobuf-net">
       <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
@@ -150,6 +149,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\MapControls\TextCursorPosition.cs" />
+    <Compile Include="View\NoteEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\NoteEditor.Designer.cs">
+      <DependentUpon>NoteEditor.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="View\Dialogs\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -187,6 +192,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="View\NoteEditor.resx">
+      <DependentUpon>NoteEditor.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <Compile Include="Debugging\Utility.cs" />
     <Compile Include="View\Dialogs\Options.cs">
