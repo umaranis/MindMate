@@ -257,6 +257,20 @@ namespace MindMate.View.MapControls
             this.RefreshNodeViewSize();
         }
 
+        public void RefreshNoteIcon()
+        {
+            if(node.RichContentType == NodeRichContentType.NOTE && this.noteIcon == null)
+            {
+                this.noteIcon = new NoteIcon();
+                this.RefreshNodeViewSize();
+            }
+            else if(node.RichContentType != NodeRichContentType.NOTE && this.noteIcon != null)
+            {
+                this.noteIcon = null;
+                this.RefreshNodeViewSize();
+            }
+        }
+
 
         private void CreateNodeViewContent()
         {

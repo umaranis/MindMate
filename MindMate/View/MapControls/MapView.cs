@@ -24,14 +24,26 @@ namespace MindMate.View.MapControls
         public const int HOR_MARGIN = 20;
         public const int VER_MARGIN = 3;
 
-        public MapTree tree;
+        private MapTree tree;
+        public MapTree Tree
+        {
+            get { return tree; }            
+        }
+
+        public void ChangeTree(MapTree tree)
+        {
+            if (this.tree != null) this.tree.NodePropertyChanged -= tree_NodePropertyChanged;
+            this.tree = tree;
+            this.tree.NodePropertyChanged += tree_NodePropertyChanged;            
+        }
+
         public MapViewPanel Canvas { get; set; }
 
         public SelectedNodes SelectedNodes
         {
             get
             {
-                return tree.SelectedNodes;
+                return Tree.SelectedNodes;
             }
         }        
 
@@ -52,7 +64,7 @@ namespace MindMate.View.MapControls
         /// <param name="tree"></param>
         public MapView(MapTree tree)
         {
-            this.tree = tree;
+            this.ChangeTree(tree);
             this.Canvas = new MapViewPanel();
             this.Canvas.MapView = this;
             
@@ -61,8 +73,21 @@ namespace MindMate.View.MapControls
             this.Canvas.Size = new System.Drawing.Size(200, 300);
             this.Canvas.TabIndex = 0;
 
-            this.nodeTextEditor = new MapViewTextEditor(this.Canvas, NodeView.DefaultFont);             
+            this.nodeTextEditor = new MapViewTextEditor(this.Canvas, NodeView.DefaultFont);                     
 
+        }
+
+        //TODO: all updates to the view should handled this way (rather than relying on controller) 
+        void tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
+        {
+            if(e.ChangedProperty == NodeProperties.RichContentText)
+            {
+                node.NodeView.RefreshNoteIcon();
+                if (node == Tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
+                RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+
+                Canvas.Invalidate();
+            }
         }
 
         
@@ -71,7 +96,7 @@ namespace MindMate.View.MapControls
         /// </summary>
         public void RefreshNodePositions()
         {
-            NodeView nodeView = this.GetNodeView(tree.RootNode);
+            NodeView nodeView = this.GetNodeView(Tree.RootNode);
 
             //var left = this.rootPosX;
             var left = this.Canvas.Width / 2;
@@ -82,7 +107,7 @@ namespace MindMate.View.MapControls
 
             nodeView.RefreshPosition(left - (nodeView.Width / 2), top);
 
-            RefreshChildNodePositions(tree.RootNode, NodePosition.Undefined);
+            RefreshChildNodePositions(Tree.RootNode, NodePosition.Undefined);
 
         }
 
@@ -202,7 +227,7 @@ namespace MindMate.View.MapControls
         {
             if (node == null)
             {
-                return this.tree.RootNode;
+                return this.Tree.RootNode;
             }
 
             var parentNode = node.Parent;
@@ -245,7 +270,7 @@ namespace MindMate.View.MapControls
         
         public MapNode GetMapNodeFromPoint(System.Drawing.Point point)
         {
-            MapNode node = this.tree.RootNode;
+            MapNode node = this.Tree.RootNode;
             return GetMapNodeFromPoint(point, node);
 
         }
@@ -324,6 +349,9 @@ namespace MindMate.View.MapControls
             return new Point(mousePos.X - docPos.X, mousePos.Y - docPos.Y);
 
         }
+
+
+
 
     }
 

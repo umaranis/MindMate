@@ -21,7 +21,7 @@ namespace MindMate.View.MapControls.Drawing
         internal static void DrawTree(MapView mapView, System.Drawing.Graphics g)
         {
             //Draw root node
-            NodeView nView = mapView.GetNodeView(mapView.tree.RootNode);
+            NodeView nView = mapView.GetNodeView(mapView.Tree.RootNode);
             DrawRootNode(nView, g);
 
             //Draw rest

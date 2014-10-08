@@ -52,10 +52,10 @@ namespace MindMate.View.MapControls
         protected override void OnPaint(PaintEventArgs pe)
         {
             
-            if (mapView != null && mapView.tree != null)
+            if (mapView != null && mapView.Tree != null)
             {
                 MapControls.Drawing.MapPainter.DrawTree(mapView, pe.Graphics);
-                MapControls.Drawing.MapPainter.drawNodeLinker(mapView.tree.RootNode, mapView, pe.Graphics);                
+                MapControls.Drawing.MapPainter.drawNodeLinker(mapView.Tree.RootNode, mapView, pe.Graphics);                
             }
             ////base.OnPaint(pe);            
         }

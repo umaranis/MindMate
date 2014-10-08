@@ -18,25 +18,71 @@ namespace MindMate.Controller
     /// </summary>
     class NoteCtrl
     {
-        private bool isNodeWindowEmpty = true;
+        
         private NoteEditor editor;
-
+        
         public NoteCtrl(NoteEditor editor)
         {
             this.editor = editor;
             this.editor.BackColor = System.Drawing.Color.LightYellow;            
         }
 
-        public void Register(MapTree tree)
+        private MapTree tree;
+        public MapTree MapTree
         {
-            tree.SelectedNodes.NodeSelected += MapView_nodeSelected;
-            tree.SelectedNodes.NodeDeselected += MapView_nodeDeselected;
+            get { return tree; }
+            set
+            {
+                Unregister();
+                tree = value;
+                Register();
+            }
         }
 
-        public void Unregister(MapTree tree)
+
+        /// <summary>
+        /// Only one MapTree should be registered at a time
+        /// </summary>
+        /// <param name="tree"></param>
+        private void Register()
         {
-            tree.SelectedNodes.NodeSelected -= MapView_nodeSelected;
-            tree.SelectedNodes.NodeDeselected -= MapView_nodeDeselected;
+            if (tree != null)
+            {
+                
+                if (editor.DocumentReady)
+                {
+                    MapView_nodeSelected(tree.SelectedNodes.First, tree.SelectedNodes); // setup the NoteEditor for already selected node
+                    editor.Document.Body.LostFocus += editor_LostFocus; // setup editor lost focus event
+                }
+                else // same as above block in case the document is not ready yet
+                {
+                    editor.Ready += (obj) => { 
+                        if (tree.SelectedNodes.Count == 1) MapView_nodeSelected(tree.SelectedNodes.First, tree.SelectedNodes); 
+                        editor.Document.Body.LostFocus += editor_LostFocus;
+                    };
+                }
+
+                // events for nodes selected in future
+                tree.SelectedNodes.NodeSelected += MapView_nodeSelected;
+                tree.SelectedNodes.NodeDeselected += MapView_nodeDeselected;
+
+                
+            }            
+        }
+
+        void editor_LostFocus(object sender, EventArgs e)
+        {
+            SaveEditorChanges();
+        }
+        
+
+        private void Unregister()
+        {
+            if (tree != null)
+            {
+                tree.SelectedNodes.NodeSelected -= MapView_nodeSelected;
+                tree.SelectedNodes.NodeDeselected -= MapView_nodeDeselected;                
+            }
         }
 
         void MapView_nodeSelected(Model.MapNode node, SelectedNodes selectedNodes)
@@ -44,27 +90,55 @@ namespace MindMate.Controller
             if (selectedNodes.First.RichContentType == NodeRichContentType.NOTE &&
                 selectedNodes.Count == 1)
             {
-                editor.HTML = selectedNodes.First.RichContentText; 
-                isNodeWindowEmpty = false;
+                editor.Enabled = true;
+                editor.HTML = selectedNodes.First.RichContentText;
+
             }
-            else 
+            else if(selectedNodes.Count > 1)
             {
-                if (!isNodeWindowEmpty)
-                {
-                    editor.Clear();
-                    isNodeWindowEmpty = true;
-                }
+                editor.Enabled = false;
+                editor.Clear();
+            }
+            else if (!editor.Empty) 
+            {
+                editor.Enabled = true;
+                editor.Clear();
             }
         }
 
         void MapView_nodeDeselected(MapNode node, SelectedNodes selectedNodes) 
         {
-            if (!isNodeWindowEmpty || editor.HTML != null) 
+            UpdateNodeFromEditor(node);
+
+            if (selectedNodes.Count == 1)
             {
-                node.RichContentType = NodeRichContentType.NOTE;
-                node.RichContentText = "<HTML>" + editor.HTML + "</HTML>";
-                isNodeWindowEmpty = false; 
+                editor.Enabled = true;
+                MapView_nodeSelected(selectedNodes.First, selectedNodes);
             }
+        }
+
+        private void UpdateNodeFromEditor(MapNode node)
+        {
+            if (editor.Dirty)
+            {
+                if (!editor.Empty)
+                {
+                    node.RichContentType = NodeRichContentType.NOTE;
+                    node.RichContentText = editor.HTML;
+                }
+                else
+                {
+                    node.RichContentType = NodeRichContentType.NONE;
+                    node.RichContentText = null;
+                }
+                editor.Dirty = false;
+            }
+        }
+
+        public void SaveEditorChanges()
+        {
+            if (tree.SelectedNodes.Count == 1)
+                UpdateNodeFromEditor(tree.SelectedNodes.First);
         }
 
     }

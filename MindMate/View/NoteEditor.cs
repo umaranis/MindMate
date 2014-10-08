@@ -10,7 +10,7 @@ using mshtml;
 
 namespace MindMate.View
 {
-    public partial class NoteEditor : UserControl
+    public partial class NoteEditor : WebBrowser, IHTMLChangeSink
     {
         private IHTMLDocument2 htmlDoc;
 
@@ -19,14 +19,26 @@ namespace MindMate.View
             InitializeComponent();
 
             // setting up WebBrowser for editing
-            webBrowser.DocumentText = "<html><body></body></html>";
-            htmlDoc = webBrowser.Document.DomDocument as IHTMLDocument2;
+            this.DocumentText = "<html><body></body></html>";
+            htmlDoc = this.Document.DomDocument as IHTMLDocument2;
             htmlDoc.designMode = "On";
 
             // events
-            webBrowser.Navigated += new WebBrowserNavigatedEventHandler(webBrowser_Navigated);
-            webBrowser.GotFocus += new EventHandler(webBrowser_GotFocus);
+            this.Navigated += new WebBrowserNavigatedEventHandler(this_Navigated);
+            this.GotFocus += new EventHandler(this_GotFocus);            
         }
+
+                
+        /// <summary>
+        /// Event is fired after initlal document loading is cmplete and document is editable. (ReadyState = Complete)
+        /// </summary>
+        public event Action<object> Ready = delegate { };
+
+        public event Action<object> OnDirty = delegate { };
+
+        private bool ignoreDirtyNotification = false;               // ignore when body as HTML property is set
+        private bool ignoreInitialDirtyNotification = true;         // ignore initial dirty notification due to initially setting DocumentText 
+        public bool Dirty { get ; set; }            
 
         
         /// <summary>
@@ -36,9 +48,28 @@ namespace MindMate.View
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">navigation args</param>
-        void webBrowser_Navigated(object sender, WebBrowserNavigatedEventArgs e)
+        void this_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
             SetBackgroundColor(BackColor);
+
+            IMarkupContainer2 cont2 = (IMarkupContainer2)htmlDoc;
+            uint m_cookie;
+            cont2.RegisterForDirtyRange(this, out m_cookie);
+
+            Ready(sender);
+        }
+
+        void IHTMLChangeSink.Notify()
+        {
+           if (ignoreDirtyNotification)
+                ignoreDirtyNotification = false;
+            else if (ignoreInitialDirtyNotification)
+                ignoreInitialDirtyNotification = false;
+            else
+            {
+                Dirty = true;
+                OnDirty(this);
+            }            
         }
 
 
@@ -48,7 +79,6 @@ namespace MindMate.View
         /// complete, the navigated event handler will set the body's 
         /// background color based on the state of BackColor.
         /// </summary>
-        [Browsable(true)]
         public override Color BackColor
         {
             get
@@ -71,8 +101,8 @@ namespace MindMate.View
         /// <param name="value">the color to use for the background</param>
         private void SetBackgroundColor(Color value)
         {
-            if (webBrowser.Document != null && webBrowser.Document.Body != null)
-                webBrowser.Document.Body.Style = "background-color: " + value.Name;
+            if (this.Document != null && this.Document.Body != null)
+                this.Document.Body.Style = "background-color: " + value.Name;
         }
 
         /// <summary>
@@ -80,16 +110,31 @@ namespace MindMate.View
         /// </summary>
         /// <param name="sender">the sender</param>
         /// <param name="e">EventArgs</param>
-        private void webBrowser_GotFocus(object sender, EventArgs e)
+        private void this_GotFocus(object sender, EventArgs e)
         {
-            if (webBrowser.Document != null && webBrowser.Document.Body != null)
-                webBrowser.Document.Body.Focus();
+            if (this.Document != null && this.Document.Body != null)
+                this.Document.Body.Focus();
         }
 
+        /// <summary>
+        /// Get / Set / Clear editor contents.
+        /// Should not be called more than once from a single event. This will increment ignoreDirtyNotification multiple times but only one dirty event will be called.
+        /// </summary>
         public string HTML
         {
-            get { return "<HTML>" + webBrowser.Document.Body.OuterHtml + "</HTML>"; } //TOOD: Why enclosed in HTML tag
-            set { webBrowser.Document.Body.InnerHtml = value; }
+            get { return this.Document.Body.InnerHtml; } 
+            set 
+            {
+                Dirty = false;
+                ignoreDirtyNotification = true;
+                this.Document.Body.InnerHtml = value;
+            }
+        }
+
+        public new bool Enabled
+        {
+            get { return ((Control)this).Enabled; }
+            set { ((Control)this).Enabled = value; }
         }
 
         /// <summary>
@@ -97,8 +142,7 @@ namespace MindMate.View
         /// </summary>
         public void Clear()
         {
-            if (webBrowser.Document.Body != null)
-                webBrowser.Document.Body.InnerHtml = "";
+            HTML = null;
         }
 
         public bool CanExecuteCommand(NoteEditorCommand command)
@@ -131,6 +175,11 @@ namespace MindMate.View
             get { return htmlDoc.readyState.Equals("complete", StringComparison.OrdinalIgnoreCase); }
         }
 
+        public bool Empty
+        {
+            get { return htmlDoc.body.innerHTML == null || htmlDoc.body.innerHTML == "<P>&nbsp;</P>"; }
+        }
+
         /// <summary>
         /// Current font name
         /// </summary>
@@ -147,7 +196,7 @@ namespace MindMate.View
             set
             {
                 if (value != null)
-                    webBrowser.Document.ExecCommand("FontName", false, value.Name);
+                    this.Document.ExecCommand("FontName", false, value.Name);
             }
         }
 
@@ -186,7 +235,7 @@ namespace MindMate.View
             {
                 string colorstr =
                     string.Format("#{0:X2}{1:X2}{2:X2}", value.R, value.G, value.B);
-                webBrowser.Document.ExecCommand("BackColor", false, colorstr);
+                this.Document.ExecCommand("BackColor", false, colorstr);
             }
         }
 
@@ -219,10 +268,10 @@ namespace MindMate.View
         public bool Search(string text, bool forward, bool matchWholeWord, bool matchCase)
         {
             bool success = false;
-            if (webBrowser.Document != null)
+            if (this.Document != null)
             {
                 IHTMLDocument2 doc =
-                    webBrowser.Document.DomDocument as IHTMLDocument2;
+                    this.Document.DomDocument as IHTMLDocument2;
                 IHTMLBodyElement body = doc.body as IHTMLBodyElement;
                 if (body != null)
                 {
@@ -261,6 +310,8 @@ namespace MindMate.View
             }
             return success;
         }
+
+                
     }
 
     public sealed class NoteEditorCommand

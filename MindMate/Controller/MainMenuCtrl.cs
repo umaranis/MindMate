@@ -208,7 +208,7 @@ namespace MindMate.Controller
                         break;
                 }
             }
-            else if (mapCtrl.MapView.SelectedNodes.Contains(mapCtrl.MapView.tree.RootNode) || mapCtrl.MapView.SelectedNodes.First == null)
+            else if (mapCtrl.MapView.SelectedNodes.Contains(mapCtrl.MapView.Tree.RootNode) || mapCtrl.MapView.SelectedNodes.First == null)
             {
                 form.mLineThick1.Enabled = false;
                 form.mLineThick2.Enabled = false;
@@ -293,7 +293,7 @@ namespace MindMate.Controller
                         break;
                 }
             }
-            else if (mapCtrl.MapView.SelectedNodes.Contains(mapCtrl.MapView.tree.RootNode) || mapCtrl.MapView.SelectedNodes.First == null)
+            else if (mapCtrl.MapView.SelectedNodes.Contains(mapCtrl.MapView.Tree.RootNode) || mapCtrl.MapView.SelectedNodes.First == null)
             {
                 form.mShapeBubble.Enabled = false;
                 form.mShapeBox.Enabled = false;

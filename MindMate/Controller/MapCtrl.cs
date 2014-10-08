@@ -76,7 +76,7 @@ namespace MindMate.Controller
         public void ChangeTree(MapTree tree)
         {
             this.tree = tree;
-            this.MapView.tree = tree;
+            this.MapView.ChangeTree(tree);
             MapView.RefreshNodePositions();
             MapView.SelectedNodes.Add(tree.RootNode, false);
             this.MapView.Canvas.Invalidate();

@@ -72,7 +72,7 @@ namespace MindMate.Controller
             mapCtrl.MindMateFile = MetaModel.MetaModel.Instance.LastOpenedFile;
 
             noteCrtl = new NoteCtrl(mainForm.NoteEditor);
-            noteCrtl.Register(tree);
+            noteCrtl.MapTree = tree;
             mainForm.NoteEditor.LostFocus += (a, b) => this.lastFocused = mainForm.NoteEditor;
 
             new ContextMenuCtrl(mapCtrl);
@@ -85,7 +85,8 @@ namespace MindMate.Controller
             mainForm.splitContainer1.GotFocus += (a, b) => this.lastFocused.Focus();
 
             UpdateTitleBar();
-            RegisterForMapChangedNotification();
+            RegisterForMapChangedNotification();                 // register for map changes (register/unregister with tree)
+            mainForm.notesEditor.OnDirty += (a) => MapChanged(); // register for NoteEditor changes
 
             mainForm.FormClosing += mainForm_FormClosing;
             
@@ -140,17 +141,17 @@ namespace MindMate.Controller
         
         private void RegisterForMapChangedNotification()
         {
-            mapCtrl.MapView.tree.NodePropertyChanged += (a, b) => MapChanged();
-            mapCtrl.MapView.tree.TreeStructureChanged += (a, b) => MapChanged();
-            mapCtrl.MapView.tree.IconChanged += (a, b) => MapChanged();
+            mapCtrl.MapView.Tree.NodePropertyChanged += (a, b) => MapChanged();
+            mapCtrl.MapView.Tree.TreeStructureChanged += (a, b) => MapChanged();
+            mapCtrl.MapView.Tree.IconChanged += (a, b) => MapChanged();            
         }
 
         private void UnregisterForMapChangedNotification()
         {
             //TODO: check if this works with lambda expressions
-            mapCtrl.MapView.tree.NodePropertyChanged -= (a, b) => MapChanged();
-            mapCtrl.MapView.tree.TreeStructureChanged -= (a, b) => MapChanged();
-            mapCtrl.MapView.tree.IconChanged -= (a, b) => MapChanged();
+            mapCtrl.MapView.Tree.NodePropertyChanged -= (a, b) => MapChanged();
+            mapCtrl.MapView.Tree.TreeStructureChanged -= (a, b) => MapChanged();
+            mapCtrl.MapView.Tree.IconChanged -= (a, b) => MapChanged();
         }
 
         private void MapChanged()
@@ -177,8 +178,7 @@ namespace MindMate.Controller
             if (PromptForUnsavedChanges() == ContinueOperation.Cancel)
                 return;
 
-            noteCrtl.Unregister(this.mapCtrl.MapView.tree);
-            statusBarCtrl.Unregister(this.mapCtrl.MapView.tree);
+            statusBarCtrl.Unregister(this.mapCtrl.MapView.Tree);
             UnregisterForMapChangedNotification();
 
             MapTree tree = CreateNewMapTree();
@@ -186,7 +186,7 @@ namespace MindMate.Controller
             mapCtrl.MindMateFile = null;
             mapCtrl.ChangeTree(tree);
             
-            noteCrtl.Register(tree);
+            noteCrtl.MapTree = tree;
             statusBarCtrl.Register(tree);
             RegisterForMapChangedNotification();
 
@@ -211,8 +211,7 @@ namespace MindMate.Controller
 
             Debugging.Utility.StartTimeCounter("Loading Map", fileName);
 
-            noteCrtl.Unregister(this.mapCtrl.MapView.tree);
-            statusBarCtrl.Unregister(this.mapCtrl.MapView.tree);
+            statusBarCtrl.Unregister(this.mapCtrl.MapView.Tree);
             UnregisterForMapChangedNotification();
 
             string xmlString = System.IO.File.ReadAllText(fileName);
@@ -221,7 +220,7 @@ namespace MindMate.Controller
             mapCtrl.MindMateFile = fileName;
             mapCtrl.ChangeTree(tree);
 
-            noteCrtl.Register(tree);
+            noteCrtl.MapTree = tree;
             statusBarCtrl.Register(tree);
             RegisterForMapChangedNotification();
 
@@ -253,9 +252,11 @@ namespace MindMate.Controller
         /// <param name="fileName"></param>
         private void SaveMap(string fileName)
         {
+            noteCrtl.SaveEditorChanges();
+
             var serializer = new MindMapSerializer();
             var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write);
-            serializer.Serialize(fileStream, this.mapCtrl.MapView.tree);
+            serializer.Serialize(fileStream, this.mapCtrl.MapView.Tree);
             fileStream.Close();
 
             unsavedChanges = false;
@@ -279,7 +280,7 @@ namespace MindMate.Controller
         
         void UpdateTitleBar()
         {
-            mainForm.Text = mapCtrl.MapView.tree.RootNode.Text + " - " + APPLICATION_NAME + " - " + mapCtrl.MindMateFile;
+            mainForm.Text = mapCtrl.MapView.Tree.RootNode.Text + " - " + APPLICATION_NAME + " - " + mapCtrl.MindMateFile;
 
             if(unsavedChanges) mainForm.Text += "*";
         }
