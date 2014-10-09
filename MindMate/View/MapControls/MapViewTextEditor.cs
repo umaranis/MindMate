@@ -20,7 +20,8 @@ namespace MindMate.View.MapControls
     {
 
         private const int TEXTBOX_DEFAULT_WIDTH = 150;
-        public bool IsTextEditing = false;
+
+        public bool IsTextEditing { get; private set; }
 
         private TextBox editBox;
         private Control canvas;
@@ -76,7 +77,10 @@ namespace MindMate.View.MapControls
             this.textUpdateCallBack = null;
         }     
 
-        
+        public void PasteFromClipboard()
+        {
+            this.editBox.Paste();
+        }
 
         public void BeginNodeEdit(NodeView nView, TextCursorPosition org)
         {
