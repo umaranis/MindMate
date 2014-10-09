@@ -43,11 +43,23 @@ namespace MindMate.Model
 
     public enum TreeStructureChange
     {
-        New,
-        MoveLeft, // applicable only to childs of root node
-        MoveRight, // applicable only to childs of root node
-        Detach,
+        /// <summary>
+        /// Not invoked if existing node is attached. 
+        /// </summary>
+        New,       
+        /// <summary>
+        /// Applicable only to childs of root node
+        /// </summary>
+        MoveLeft,  
+        /// <summary>
+        /// Applicable only to childs of root node
+        /// </summary>
+        MoveRight, 
+        /// <summary>
+        /// Invoked when new tree node is created or existing node is attached.
+        /// </summary>
         Attach,
+        Detach,
         Delete,
         MoveUp,
         MoveDown

@@ -54,13 +54,13 @@ namespace MindMate.Model
             {
                 foreach(MapNode node in internalClipboard)
                 {
-                    if(node.Parent == null && node.Pos != NodePosition.Root) // cut & paste (detached nodes are attached)
+                    if (node.Detached)                                  // cut & paste (detached nodes are attached)
                     {
                         node.AttachTo(pasteLocation);
                     }
-                    else                                                     // copy & paste (nodes are copied)   
+                    else                                                // copy & paste (nodes are copied)   
                     {
-                        node.CopyTo(pasteLocation);
+                        node.Clone().AttachTo(pasteLocation);
                     }
                 }
             }

@@ -327,12 +327,13 @@ namespace MindMate.Model
         #region Constructors
 
         /// <summary>
-        /// Creates root node.
+        /// Creates root node
         /// </summary>
         /// <param name="tree"></param>
         /// <param name="text"></param>
         /// <param name="id"></param>
-        public MapNode(MapTree tree, string text, string id = null) 
+        /// <param name="detached">Detached node doesn't have a parent but it is not set as the MapTree.RootNode</param>
+        public MapNode(MapTree tree, string text, string id = null, bool detached = false) 
         {
             this.Id = id;
             this.text = text;
@@ -346,7 +347,7 @@ namespace MindMate.Model
             
             // attaching to tree
             this.Tree = tree;
-            tree.RootNode = this;
+            if(!detached) tree.RootNode = this;
 
             Tree.FireEvent(this, TreeStructureChange.New);           
         }
@@ -370,16 +371,9 @@ namespace MindMate.Model
             this.modified = DateTime.Now;
             this.richContentType = NodeRichContentType.NONE;
             this.Icons = new IconList(this);
-
-            // setting NodePosition
-            if      (pos != NodePosition.Undefined)         this.pos = pos;            
-            else if (parent == null)                        this.pos = NodePosition.Root;         
-            else if (appendAfter != null)                   this.pos = appendAfter.Pos;
-            else if (parent.Pos == NodePosition.Root)       this.pos = parent.GetNodePositionToBalance();            
-            else                                            this.pos = parent.Pos;
-
+                        
             // attaching to tree
-            AttachTo(parent, appendAfter, true);
+            AttachTo(parent, appendAfter, true, pos);
 
             Tree.FireEvent(this, TreeStructureChange.New);        
         }
@@ -525,11 +519,17 @@ namespace MindMate.Model
             Tree.FireEvent(this, pos == NodePosition.Left? TreeStructureChange.MoveLeft : TreeStructureChange.MoveRight);
         }
 
-        public void AttachTo(MapNode parent, MapNode adjacentToSib = null, bool insertAfterSib = true)
+        public void AttachTo(MapNode parent, MapNode adjacentToSib = null, bool insertAfterSib = true, NodePosition pos = NodePosition.Undefined)
         {
             this.Parent = parent;
             this.Tree = parent.Tree;
 
+            // setting NodePosition
+            if (pos != NodePosition.Undefined) this.pos = pos;
+            else if (parent == null) this.pos = NodePosition.Root;
+            else if (adjacentToSib != null) this.pos = adjacentToSib.Pos;
+            else if (parent.Pos == NodePosition.Root) this.pos = parent.GetNodePositionToBalance();
+            else this.pos = parent.Pos;
             
             // get the last sib if appendAfter is not given
             if (adjacentToSib == null) adjacentToSib = parent.GetLastChild(this.Pos);
@@ -569,6 +569,9 @@ namespace MindMate.Model
             if (this.Previous == null) parent.FirstChild = this;
             if (this.Next == null) parent.LastChild = this;
 
+            if (this.HasChildren)
+                ForEach(n => n.pos = this.pos);
+
             parent.modified = DateTime.Now;
             Tree.FireEvent(this, TreeStructureChange.Attach);
                     
@@ -599,6 +602,11 @@ namespace MindMate.Model
                 Parent.modified = DateTime.Now;
                 Tree.FireEvent(this, TreeStructureChange.Detach);
             }
+        }
+
+        public bool Detached
+        {
+            get { return this.Parent == null && this != this.Tree.RootNode; }
         }
 
         /// <summary>
@@ -869,7 +877,7 @@ namespace MindMate.Model
         /// </summary>
         /// <param name="location"></param>
         /// <param name="includeDescendents"></param>
-        public void CopyTo(MapNode location, bool includeDescendents = true)
+        public void CloneTo(MapNode location, bool includeDescendents = true)
         {
             var newNode = new MapNode(location, null);
             this.CopyNodePropertiesTo(newNode);
@@ -878,9 +886,25 @@ namespace MindMate.Model
             {
                 foreach (MapNode childNode in this.ChildNodes)
                 {
-                    childNode.CopyTo(newNode);
+                    childNode.CloneTo(newNode);
                 }
             }
+        }
+
+        public MapNode Clone(bool includeDescendents = true)
+        {
+            var newNode = new MapNode(Tree, null, null, true);
+            this.CopyNodePropertiesTo(newNode);
+
+            if (includeDescendents)
+            {
+                foreach (MapNode childNode in this.ChildNodes)
+                {
+                    childNode.CloneTo(newNode);
+                }
+            }
+
+            return newNode;
         }
 
         public override string ToString()
