@@ -37,7 +37,6 @@ namespace MindMate.View
         public event Action<object> OnDirty = delegate { };
 
         private bool ignoreDirtyNotification = false;               // ignore when body as HTML property is set
-        private bool ignoreInitialDirtyNotification = true;         // ignore initial dirty notification due to initially setting DocumentText 
         public bool Dirty { get ; set; }            
 
         
@@ -48,23 +47,22 @@ namespace MindMate.View
         /// </summary>
         /// <param name="sender">sender</param>
         /// <param name="e">navigation args</param>
-        void this_Navigated(object sender, WebBrowserNavigatedEventArgs e)
+        private void this_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
             SetBackgroundColor(BackColor);
 
+            Ready(sender);
+
+            // register for change notification
             IMarkupContainer2 cont2 = (IMarkupContainer2)htmlDoc;
             uint m_cookie;
             cont2.RegisterForDirtyRange(this, out m_cookie);
-
-            Ready(sender);
         }
 
         void IHTMLChangeSink.Notify()
         {
-           if (ignoreDirtyNotification)
+            if (ignoreDirtyNotification)
                 ignoreDirtyNotification = false;
-            else if (ignoreInitialDirtyNotification)
-                ignoreInitialDirtyNotification = false;
             else
             {
                 Dirty = true;
