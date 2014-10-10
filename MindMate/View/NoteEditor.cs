@@ -36,7 +36,7 @@ namespace MindMate.View
 
         public event Action<object> OnDirty = delegate { };
 
-        private bool ignoreDirtyNotification = true;               // ignore when body as HTML property is set
+        private bool ignoreDirtyNotification = true;               // Ignore when body as HTML property is set. Initialized by true to skip initial setup notification.
         public bool Dirty { get ; set; }            
 
         

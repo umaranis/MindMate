@@ -1,6 +1,7 @@
 ﻿using MindMate.Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -17,6 +18,52 @@ namespace MindMate.Serialization
             {
                 Serialize(childNode, str, indent + 1);
             }
+        }
+
+        public void Deserialize(string text, MapNode location)
+        {
+            string line;
+            int indent = 0, previousIndent = 0;
+            MapNode node, previousNode = null;
+            StringReader str = new StringReader(text);
+
+            while((line = str.ReadLine()) != null)
+            {
+                indent = GetIndent(line);
+                
+                if(previousNode == null)
+                {
+                    node = new MapNode(location, line.Trim());                    
+                }                
+                else
+                {
+                    if(indent <= previousIndent)
+                    {
+                        int backIndent = previousIndent - indent + 1;
+                        while(backIndent != 0)
+                        {
+                            previousNode = previousNode.Parent;
+                            if (previousNode == location) break;
+                            backIndent--;
+                        }
+                        
+                    }
+
+                    node = new MapNode(previousNode, line.Trim());
+                }
+                previousNode = node;
+                previousIndent = indent;        
+            }
+        }
+
+        private int GetIndent(string line)
+        {
+            int indent = 0;
+            while (indent < line.Length && line[indent] == '\t')
+            {
+                indent++;
+            }
+            return indent;
         }
     }
 }

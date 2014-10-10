@@ -64,6 +64,11 @@ namespace MindMate.Model
                     }
                 }
             }
+            else if(Clipboard.ContainsText())
+            {
+                MapTextSerializer serializer = new MapTextSerializer();
+                serializer.Deserialize(Clipboard.GetText(TextDataFormat.Text), pasteLocation);
+            }
         }
 
         private static bool[] ExcludeNodesAlreadyPartOfHierarchy(SelectedNodes nodes)
