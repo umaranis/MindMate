@@ -32,9 +32,14 @@ namespace MindMate.View.MapControls
 
         public void ChangeTree(MapTree tree)
         {
-            if (this.tree != null) this.tree.NodePropertyChanged -= tree_NodePropertyChanged;
+            if (this.tree != null) 
+            {
+                this.tree.NodePropertyChanged -= tree_NodePropertyChanged;
+                this.tree.TreeStructureChanged -= tree_TreeStructureChanged;
+            }
             this.tree = tree;
-            this.tree.NodePropertyChanged += tree_NodePropertyChanged;            
+            this.tree.NodePropertyChanged += tree_NodePropertyChanged;
+            this.tree.TreeStructureChanged += tree_TreeStructureChanged;
         }
 
         public MapViewPanel Canvas { get; set; }
@@ -80,13 +85,29 @@ namespace MindMate.View.MapControls
         //TODO: all updates to the view should handled this way (rather than relying on controller) 
         void tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
         {
-            if(e.ChangedProperty == NodeProperties.RichContentText)
+            switch (e.ChangedProperty)
             {
-                node.NodeView.RefreshNoteIcon();
-                if (node == Tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+                case NodeProperties.RichContentText:
 
-                Canvas.Invalidate();
+                    node.NodeView.RefreshNoteIcon();
+                    if (node == Tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
+                    RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+
+                    Canvas.Invalidate();
+                    break;              
+            }
+            
+        }
+
+        void tree_TreeStructureChanged(MapNode node, TreeStructureChangedEventArgs e)
+        {
+            switch(e.ChangeType)
+            {
+                case TreeStructureChange.Detach:
+                case TreeStructureChange.Delete:
+                    if (node.Parent != null && node.Parent.NodeView != null && node.Parent.NodeView.LastSelectedChild == node)
+                        node.Parent.NodeView.LastSelectedChild = null; // clear LastSelectedChild in case it is deleted or detached
+                    break;
             }
         }
 
