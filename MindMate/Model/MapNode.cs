@@ -595,11 +595,12 @@ namespace MindMate.Model
                     this.Next.Previous = this.Previous;
                 }
 
+                Parent.modified = DateTime.Now;
+
                 this.Parent = null;
                 this.Previous = null;
                 this.Next = null;
-
-                Parent.modified = DateTime.Now;
+                
                 Tree.FireEvent(this, TreeStructureChange.Detach);
             }
         }
