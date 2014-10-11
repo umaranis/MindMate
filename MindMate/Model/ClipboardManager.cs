@@ -14,6 +14,17 @@ namespace MindMate.Model
 
         public const string MindMateTextFormat = "MindMateText";
 
+        /// <summary>
+        /// Clipboard contains cut node (detached node)
+        /// </summary>
+        public static bool HasCutNode
+        {
+            get
+            {
+                return internalClipboard.Count > 0 && internalClipboard[0].Detached;
+            }
+        }
+
         public static void Copy(SelectedNodes nodes)
         {
             if (nodes.Count > 0)

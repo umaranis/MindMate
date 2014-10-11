@@ -104,12 +104,17 @@ namespace MindMate.Controller
 
         void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(PromptForUnsavedChanges() == ContinueOperation.Cancel)
+            if (PromptForUnsavedChanges() == ContinueOperation.Continue && 
+                PromptForLosingClipboardData() == ContinueOperation.Continue)
+            {
+                SaveSettingsAtClose();
+            }
+            else
+            {
                 e.Cancel = true;
-
-            SaveSettingsAtClose();
+            }
         }
-
+        
         private enum ContinueOperation { Continue, Cancel };
 
         private ContinueOperation PromptForUnsavedChanges()
@@ -129,6 +134,21 @@ namespace MindMate.Controller
             }
 
             return ContinueOperation.Continue;
+        }
+
+        private ContinueOperation PromptForLosingClipboardData()
+        {
+            if (ClipboardManager.HasCutNode &&
+                MessageBox.Show("You will lose data cut to clipboard. Are you sure you want to exit?",
+                    "Unsaved Changes", MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2) == DialogResult.No)
+            {
+                return ContinueOperation.Cancel;
+            }
+            else
+            {
+                return ContinueOperation.Continue;
+            }
         }
 
         private void SaveSettingsAtClose()
