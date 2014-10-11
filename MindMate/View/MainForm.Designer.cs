@@ -41,7 +41,9 @@
             this.mSepRecentFilesEnd = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mEditMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.mCut = new System.Windows.Forms.ToolStripMenuItem();
             this.mCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.mPaste = new System.Windows.Forms.ToolStripMenuItem();
             this.formatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mSelectIcon = new System.Windows.Forms.ToolStripMenuItem();
             this.mBold = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,7 +78,6 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.mPaste = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -182,11 +183,19 @@
             // mEditMenu
             // 
             this.mEditMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mCut,
             this.mCopy,
             this.mPaste});
             this.mEditMenu.Name = "mEditMenu";
             this.mEditMenu.Size = new System.Drawing.Size(39, 20);
             this.mEditMenu.Text = "Edit";
+            // 
+            // mCut
+            // 
+            this.mCut.Name = "mCut";
+            this.mCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.mCut.Size = new System.Drawing.Size(152, 22);
+            this.mCut.Text = "Cut";
             // 
             // mCopy
             // 
@@ -194,6 +203,13 @@
             this.mCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.mCopy.Size = new System.Drawing.Size(152, 22);
             this.mCopy.Text = "Copy";
+            // 
+            // mPaste
+            // 
+            this.mPaste.Name = "mPaste";
+            this.mPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.mPaste.Size = new System.Drawing.Size(152, 22);
+            this.mPaste.Text = "Paste";
             // 
             // formatToolStripMenuItem
             // 
@@ -443,13 +459,6 @@
             this.splitContainer1.SplitterDistance = 424;
             this.splitContainer1.TabIndex = 4;
             // 
-            // mPaste
-            // 
-            this.mPaste.Name = "mPaste";
-            this.mPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.mPaste.Size = new System.Drawing.Size(152, 22);
-            this.mPaste.Text = "Paste";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -525,6 +534,7 @@
         private System.Windows.Forms.ToolStripMenuItem mEditMenu;
         public System.Windows.Forms.ToolStripMenuItem mCopy;
         public System.Windows.Forms.ToolStripMenuItem mPaste;
+        public System.Windows.Forms.ToolStripMenuItem mCut;
     }
 }
 

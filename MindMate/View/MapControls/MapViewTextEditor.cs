@@ -82,6 +82,22 @@ namespace MindMate.View.MapControls
             this.editBox.Paste();
         }
 
+        /// <summary>
+        /// Cut selection to clipboard
+        /// </summary>
+        public void CutToClipboard()
+        {
+            this.editBox.Cut();
+        }
+
+        /// <summary>
+        /// Copy selection to clipboard
+        /// </summary>
+        public void CopyToClipboard()
+        {
+            this.editBox.Copy();
+        }
+
         public void BeginNodeEdit(NodeView nView, TextCursorPosition org)
         {
             if (textUpdateCallBack == null) return;

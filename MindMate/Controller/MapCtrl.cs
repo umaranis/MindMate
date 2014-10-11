@@ -877,10 +877,13 @@ namespace MindMate.Controller
 
         public void Copy()
         {
-            ClipboardManager.Copy(tree.SelectedNodes);
+            if (MapView.NodeTextEditor.IsTextEditing)
+                MapView.NodeTextEditor.CopyToClipboard();
+            else
+                ClipboardManager.Copy(tree.SelectedNodes);
         }
 
-        internal void Paste()
+        public void Paste()
         {
             if(MapView.NodeTextEditor.IsTextEditing)
             {
@@ -899,6 +902,42 @@ namespace MindMate.Controller
                 MessageBox.Show("Paste operation cannot be performed if more than one nodes are selected.", "Can't Paste");
             }
             
+        }
+
+        public void Cut()
+        {
+            if (MapView.NodeTextEditor.IsTextEditing)
+            {
+                MapView.NodeTextEditor.CutToClipboard();
+            }
+            else
+            {
+                if (this.MapView.SelectedNodes.Last == null || this.MapView.SelectedNodes.Contains(tree.RootNode)) return;
+
+                // 1) copy to clipboard
+                ClipboardManager.Copy(tree.SelectedNodes);
+
+                // 2) detach nodes from tree
+                var selNode = this.MapView.getNearestUnSelectedNode(MapView.SelectedNodes.Last);
+
+                for (var i = this.MapView.SelectedNodes.Count - 1; i >= 0; i--)
+                {
+                    MapNode node = this.MapView.SelectedNodes[i];
+                    this.MapView.SelectedNodes.Remove(node);
+
+                    if (node == null)
+                    {
+                        continue;
+                    }
+
+                    node.Detach();
+                    Debug.Assert(node.Detached, "Detached property is false for node just detached.");
+                }
+
+                MapView.RefreshChildNodePositions(tree.RootNode, NodePosition.Undefined);
+                this.MapView.SelectedNodes.Add(selNode, false);
+                MapView.Canvas.Invalidate();
+            }
         }
     }
 }

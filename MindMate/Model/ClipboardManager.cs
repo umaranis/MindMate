@@ -16,10 +16,10 @@ namespace MindMate.Model
 
         public static void Copy(SelectedNodes nodes)
         {
-            internalClipboard.Clear();
-
             if (nodes.Count > 0)
             {
+                internalClipboard.Clear();
+
                 StringBuilder str = new StringBuilder();
                 MapTextSerializer serializer = new MapTextSerializer();
                 if (nodes.Count > 1)
