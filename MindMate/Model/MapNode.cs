@@ -516,7 +516,7 @@ namespace MindMate.Model
         {
             ForEach(n => n.pos = pos);
             modified = DateTime.Now;
-            Tree.FireEvent(this, pos == NodePosition.Left? TreeStructureChange.MoveLeft : TreeStructureChange.MoveRight);
+            Tree.FireEvent(this, pos == NodePosition.Left? TreeStructureChange.MovedLeft : TreeStructureChange.MovedRight);
         }
 
         public void AttachTo(MapNode parent, MapNode adjacentToSib = null, bool insertAfterSib = true, NodePosition pos = NodePosition.Undefined)
@@ -573,7 +573,7 @@ namespace MindMate.Model
                 ForEach(n => n.pos = this.pos);
 
             parent.modified = DateTime.Now;
-            Tree.FireEvent(this, TreeStructureChange.Attach);
+            Tree.FireEvent(this, TreeStructureChange.Attached);
                     
 
         }
@@ -582,6 +582,8 @@ namespace MindMate.Model
         {
             if (Parent != null)
             {
+                Tree.FireEvent(this, TreeStructureChange.Detaching);
+
                 if (Parent.FirstChild == this) Parent.FirstChild = this.Next;
                 if (Parent.LastChild == this) Parent.LastChild = this.Previous;
 
@@ -599,9 +601,8 @@ namespace MindMate.Model
 
                 this.Parent = null;
                 this.Previous = null;
-                this.Next = null;
+                this.Next = null;               
                 
-                Tree.FireEvent(this, TreeStructureChange.Detach);
             }
         }
 
@@ -637,6 +638,8 @@ namespace MindMate.Model
         {
             if (this.Parent == null)    return;
 
+            Tree.FireEvent(this, TreeStructureChange.Deleting);
+
             if (Parent.FirstChild == this) Parent.FirstChild = this.Next;
             if (Parent.LastChild == this) Parent.LastChild = this.Previous;
             
@@ -649,8 +652,7 @@ namespace MindMate.Model
                 this.Next.Previous = this.Previous;
             }
 
-            Parent.modified = DateTime.Now;
-            Tree.FireEvent(this, TreeStructureChange.Delete);
+            Parent.modified = DateTime.Now;            
         }
 
                         
@@ -692,7 +694,7 @@ namespace MindMate.Model
             if (Parent.LastChild == this) Parent.LastChild = this.Next;
 
             Parent.modified = DateTime.Now;
-            Tree.FireEvent(this, TreeStructureChange.MoveUp);
+            Tree.FireEvent(this, TreeStructureChange.MovedUp);
 
             return true;
         }
@@ -736,7 +738,7 @@ namespace MindMate.Model
             if (this.Next == null) Parent.LastChild = this;
 
             Parent.modified = DateTime.Now;
-            Tree.FireEvent(this, TreeStructureChange.MoveDown);
+            Tree.FireEvent(this, TreeStructureChange.MovedDown);
 
             return true;
         }

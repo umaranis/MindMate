@@ -50,19 +50,25 @@ namespace MindMate.Model
         /// <summary>
         /// Applicable only to childs of root node
         /// </summary>
-        MoveLeft,  
+        MovedLeft,  
         /// <summary>
         /// Applicable only to childs of root node
         /// </summary>
-        MoveRight, 
+        MovedRight, 
         /// <summary>
-        /// Invoked when new tree node is created or existing node is attached.
+        /// Invoked after new tree node is created or existing node is attached. 
         /// </summary>
-        Attach,
-        Detach,
-        Delete,
-        MoveUp,
-        MoveDown
+        Attached,
+        /// <summary>
+        /// Before a node is detached
+        /// </summary>
+        Detaching,
+        /// <summary>
+        /// Before a node is deleted
+        /// </summary>
+        Deleting,
+        MovedUp,
+        MovedDown
     }
 
 

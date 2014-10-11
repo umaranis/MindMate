@@ -103,8 +103,8 @@ namespace MindMate.View.MapControls
         {
             switch(e.ChangeType)
             {
-                case TreeStructureChange.Detach:
-                case TreeStructureChange.Delete:
+                case TreeStructureChange.Detaching:
+                case TreeStructureChange.Deleting:
                     if (node.Parent != null && node.Parent.NodeView != null && node.Parent.NodeView.LastSelectedChild == node)
                         node.Parent.NodeView.LastSelectedChild = null; // clear LastSelectedChild in case it is deleted or detached
                     break;
