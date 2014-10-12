@@ -889,7 +889,7 @@ namespace MindMate.Controller
             {
                 MapView.NodeTextEditor.PasteFromClipboard();
             }
-            else if (tree.SelectedNodes.Count == 1)
+            else if (tree.SelectedNodes.Count == 1 && ClipboardManager.CanPaste)
             {
                 MapNode pasteLocation = tree.SelectedNodes[0];
                 ClipboardManager.Paste(pasteLocation);

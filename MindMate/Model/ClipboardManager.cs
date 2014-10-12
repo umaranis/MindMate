@@ -25,6 +25,14 @@ namespace MindMate.Model
             }
         }
 
+        public static bool CanPaste
+        {
+            get
+            {
+                return Clipboard.ContainsData(MindMateTextFormat) || Clipboard.ContainsText();
+            }
+        }
+
         public static void Copy(SelectedNodes nodes)
         {
             if (nodes.Count > 0)
