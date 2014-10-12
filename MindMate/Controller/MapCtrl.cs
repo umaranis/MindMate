@@ -914,7 +914,14 @@ namespace MindMate.Controller
             {
                 if (this.MapView.SelectedNodes.Last == null || this.MapView.SelectedNodes.Contains(tree.RootNode)) return;
 
-                // 1) copy to clipboard
+                // confirm with user if he wants to overwrite existing cut nodes in clipboard
+                if (ClipboardManager.HasCutNode &&
+                    MessageBox.Show("You will lose data cut to clipboard earlier. Are you sure you want to overwrite?",
+                    "Overwrite Clipboard Data!", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation,
+                    MessageBoxDefaultButton.Button2) == DialogResult.No)
+                    return;
+
+                // 1) copy to system clipboard as text
                 ClipboardManager.Copy(tree.SelectedNodes);
 
                 // 2) detach nodes from tree
