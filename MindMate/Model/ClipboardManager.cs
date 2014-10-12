@@ -29,7 +29,9 @@ namespace MindMate.Model
         {
             get
             {
-                return Clipboard.ContainsData(MindMateTextFormat) || Clipboard.ContainsText();
+                return Clipboard.ContainsData(MindMateTextFormat) || 
+                       Clipboard.ContainsText() ||
+                       Clipboard.ContainsFileDropList();
             }
         }
 
@@ -88,7 +90,22 @@ namespace MindMate.Model
                 MapTextSerializer serializer = new MapTextSerializer();
                 serializer.Deserialize(Clipboard.GetText(TextDataFormat.Text), pasteLocation);
             }
+            else if(Clipboard.ContainsFileDropList())
+            {
+                PasteFileDropList(pasteLocation);
+            }
         }
+
+        private static void PasteFileDropList(MapNode pasteLocation)
+        {
+            var fileList = Clipboard.GetFileDropList();
+            foreach(string file in fileList)
+            {
+                new MapNode(pasteLocation, file) { Link = file };
+            }
+        }
+
+        
 
         private static bool[] ExcludeNodesAlreadyPartOfHierarchy(SelectedNodes nodes)
         {
