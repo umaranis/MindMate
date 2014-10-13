@@ -231,11 +231,28 @@ namespace MindMate.Controller
 
             Debugging.Utility.StartTimeCounter("Loading Map", fileName);
 
+            string xmlString;
+            try
+            {
+                xmlString = System.IO.File.ReadAllText(fileName);                
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("File not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debugging.Utility.EndTimeCounter("Loading Map");
+                return;
+            }
+            catch(DirectoryNotFoundException)
+            {
+                MessageBox.Show("File not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Debugging.Utility.EndTimeCounter("Loading Map");
+                return;
+            }
+
+            MapTree tree = new MindMapSerializer().Deserialize(xmlString);
+
             statusBarCtrl.Unregister(this.mapCtrl.MapView.Tree);
             UnregisterForMapChangedNotification();
-
-            string xmlString = System.IO.File.ReadAllText(fileName);
-            MapTree tree = new MindMapSerializer().Deserialize(xmlString);
 
             mapCtrl.MindMateFile = fileName;
             mapCtrl.ChangeTree(tree);
