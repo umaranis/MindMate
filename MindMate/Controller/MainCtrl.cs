@@ -23,7 +23,7 @@ namespace MindMate.Controller
 
         private MapCtrl mapCtrl;
         private MainMenuCtrl mainMenuCtrl;
-        private bool unsavedChanges = true;
+        private bool unsavedChanges = false;
 
         public WinFormsStatusBarCtrl statusBarCtrl;
         private NoteCtrl noteCrtl;
@@ -57,7 +57,6 @@ namespace MindMate.Controller
                 {
                     string xmlString = System.IO.File.ReadAllText(MetaModel.MetaModel.Instance.LastOpenedFile);
                     tree = new MindMapSerializer().Deserialize(xmlString);
-                    unsavedChanges = false;
                 }
                 catch(Exception exp)
                 {
@@ -210,7 +209,7 @@ namespace MindMate.Controller
             statusBarCtrl.Register(tree);
             RegisterForMapChangedNotification();
 
-            unsavedChanges = true;
+            unsavedChanges = false;
             UpdateTitleBar();
         }
 
