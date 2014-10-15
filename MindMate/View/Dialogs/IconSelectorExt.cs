@@ -191,6 +191,78 @@ namespace MindMate.View.Dialogs
             }
         }
 
+        private void tbnCustomize_Click(object sender, EventArgs e)
+        {
+            toolStrip1.Hide();
+            toolStrip2.Show();
+        }
+
+        private void tbnMoveUp_Click(object sender, EventArgs e)
+        {
+            ListViewItem item1 = listView.SelectedItems[0];
+
+            if(listView.SelectedItems.Count == 1 && item1.Index != 0)
+            {
+                listView.BeginUpdate();
+
+                ListViewItem item2 = listView.Items[item1.Index - 1];
+                SwapListItem(item1, item2);
+                item1.Selected = false; 
+                item2.Selected = true;
+                item2.Focused = true;
+                item1.EnsureVisible();
+                
+                listView.EndUpdate();
+
+                //Action[] a = new Action[10];
+                //a[0] = () => MetaModel.MetaModel.Instance.IconsList.Insert(item2.Index, MetaModel.MetaModel.Instance.IconsList[item1.Index]);
+            }
+        }
+
+        private void tnMoveDown_Click(object sender, EventArgs e)
+        {
+            ListViewItem item1 = listView.SelectedItems[0];
+
+            if (listView.SelectedItems.Count == 1 && item1.Index != listView.Items.Count - 1)
+            {
+                listView.BeginUpdate();
+
+                ListViewItem item2 = listView.Items[item1.Index + 1];
+                SwapListItem(item1, item2);
+                item1.Selected = false;
+                item2.Selected = true;
+                item2.Focused = true;
+                item1.EnsureVisible();
+
+                listView.EndUpdate();
+                
+            }
+        }
+
+        private void SwapListItem(ListViewItem item1, ListViewItem item2)
+        {
+            var title = item1.Text;
+            var shortcut = item1.SubItems[1].Text;
+            var imageIndex = item1.ImageIndex;
+
+            item1.Text = item2.Text;
+            item1.SubItems[1].Text = item2.SubItems[1].Text;
+            item1.ImageIndex = item2.ImageIndex;
+
+            item2.Text = title;
+            item2.SubItems[1].Text = shortcut;
+            item2.ImageIndex = imageIndex;
+            
+        }
+
+        private void tbnCancel_Click(object sender, EventArgs e)
+        {
+            toolStrip2.Hide();
+            toolStrip1.Show();            
+        }
+
+        
+
         
     }
 }

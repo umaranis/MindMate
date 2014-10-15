@@ -32,18 +32,28 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IconSelectorExt));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.listView = new System.Windows.Forms.ListView();
+            this.toolStrip2 = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tbnMoveUp = new System.Windows.Forms.ToolStripButton();
+            this.tnMoveDown = new System.Windows.Forms.ToolStripButton();
             this.tbnRemoveLast = new System.Windows.Forms.ToolStripButton();
             this.tbnRemoveAll = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tbnViewLargeIcons = new System.Windows.Forms.ToolStripButton();
             this.tbnViewSmallIcons = new System.Windows.Forms.ToolStripButton();
             this.tbnViewList = new System.Windows.Forms.ToolStripButton();
             this.tbnViewTile = new System.Windows.Forms.ToolStripButton();
             this.tbnViewDetail = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tbnShowTitle = new System.Windows.Forms.ToolStripButton();
-            this.listView = new System.Windows.Forms.ListView();
+            this.tbnCustomize = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.tbnSave = new System.Windows.Forms.ToolStripButton();
+            this.tbnCancel = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
+            this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -59,12 +69,76 @@
             this.tbnViewTile,
             this.tbnViewDetail,
             this.toolStripSeparator2,
-            this.tbnShowTitle});
+            this.tbnShowTitle,
+            this.toolStripSeparator3,
+            this.tbnCustomize});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(305, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(334, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // listView
+            // 
+            this.listView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView.Location = new System.Drawing.Point(10, 28);
+            this.listView.Name = "listView";
+            this.listView.Size = new System.Drawing.Size(311, 264);
+            this.listView.TabIndex = 3;
+            this.listView.UseCompatibleStateImageBehavior = false;
+            // 
+            // toolStrip2
+            // 
+            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tbnMoveUp,
+            this.tnMoveDown,
+            this.toolStripSeparator4,
+            this.tbnSave,
+            this.tbnCancel,
+            this.toolStripSeparator5});
+            this.toolStrip2.Location = new System.Drawing.Point(0, 25);
+            this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Size = new System.Drawing.Size(334, 25);
+            this.toolStrip2.TabIndex = 4;
+            this.toolStrip2.Text = "toolStrip2";
+            this.toolStrip2.Visible = false;
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tbnMoveUp
+            // 
+            this.tbnMoveUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbnMoveUp.Image = global::MindMate.Properties.Resources.arrow_090;
+            this.tbnMoveUp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbnMoveUp.Name = "tbnMoveUp";
+            this.tbnMoveUp.Size = new System.Drawing.Size(23, 22);
+            this.tbnMoveUp.Text = "Move Icon Up";
+            this.tbnMoveUp.Click += new System.EventHandler(this.tbnMoveUp_Click);
+            // 
+            // tnMoveDown
+            // 
+            this.tnMoveDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tnMoveDown.Image = global::MindMate.Properties.Resources.arrow_270;
+            this.tnMoveDown.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tnMoveDown.Name = "tnMoveDown";
+            this.tnMoveDown.Size = new System.Drawing.Size(23, 22);
+            this.tnMoveDown.Text = "Move Icon Down";
+            this.tnMoveDown.Click += new System.EventHandler(this.tnMoveDown_Click);
             // 
             // tbnRemoveLast
             // 
@@ -86,11 +160,6 @@
             this.tbnRemoveAll.Text = "Remove All Icons";
             this.tbnRemoveAll.ToolTipText = "Remove all Icons for selected node";
             this.tbnRemoveAll.Click += new System.EventHandler(this.tbnRemoveAll_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // tbnViewLargeIcons
             // 
@@ -142,11 +211,6 @@
             this.tbnViewDetail.Text = "Detail";
             this.tbnViewDetail.Click += new System.EventHandler(this.tbnViewDetail_Click);
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
             // tbnShowTitle
             // 
             this.tbnShowTitle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -158,22 +222,51 @@
             this.tbnShowTitle.ToolTipText = "Hide Icon Title";
             this.tbnShowTitle.Click += new System.EventHandler(this.tbnShowTitle_Click);
             // 
-            // listView
+            // tbnCustomize
             // 
-            this.listView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView.Location = new System.Drawing.Point(10, 28);
-            this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(282, 264);
-            this.listView.TabIndex = 3;
-            this.listView.UseCompatibleStateImageBehavior = false;
+            this.tbnCustomize.Image = global::MindMate.Properties.Resources.wrench;
+            this.tbnCustomize.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbnCustomize.Name = "tbnCustomize";
+            this.tbnCustomize.Size = new System.Drawing.Size(83, 22);
+            this.tbnCustomize.Text = "Customize";
+            this.tbnCustomize.ToolTipText = "Customize";
+            this.tbnCustomize.Click += new System.EventHandler(this.tbnCustomize_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // tbnSave
+            // 
+            this.tbnSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbnSave.Image = global::MindMate.Properties.Resources.filesave;
+            this.tbnSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbnSave.Name = "tbnSave";
+            this.tbnSave.Size = new System.Drawing.Size(23, 22);
+            this.tbnSave.Text = "Save Changes";
+            // 
+            // tbnCancel
+            // 
+            this.tbnCancel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbnCancel.Image = global::MindMate.Properties.Resources.edittrash;
+            this.tbnCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbnCancel.Name = "tbnCancel";
+            this.tbnCancel.Size = new System.Drawing.Size(23, 22);
+            this.tbnCancel.Text = "Cancel Changes";
+            this.tbnCancel.Click += new System.EventHandler(this.tbnCancel_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
             // 
             // IconSelectorExt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(305, 304);
+            this.ClientSize = new System.Drawing.Size(334, 304);
+            this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.listView);
             this.Controls.Add(this.toolStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -188,6 +281,8 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IconSelector_KeyDown);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.toolStrip2.ResumeLayout(false);
+            this.toolStrip2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -208,5 +303,14 @@
         private System.Windows.Forms.ToolStripButton tbnViewDetail;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton tbnShowTitle;
+        private System.Windows.Forms.ToolStrip toolStrip2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton tbnCustomize;
+        private System.Windows.Forms.ToolStripButton tbnMoveUp;
+        private System.Windows.Forms.ToolStripButton tnMoveDown;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripButton tbnSave;
+        private System.Windows.Forms.ToolStripButton tbnCancel;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
     }
 }

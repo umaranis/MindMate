@@ -463,6 +463,9 @@
     <None Include="Resources\application_view_icons.png" />
     <None Include="Resources\application_view_list.png" />
     <None Include="Resources\application_view_tile.png" />
+    <None Include="Resources\wrench.png" />
+    <None Include="Resources\arrow-090.png" />
+    <None Include="Resources\arrow-270.png" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
