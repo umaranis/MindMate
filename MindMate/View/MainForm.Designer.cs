@@ -78,6 +78,7 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.mDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -185,7 +186,8 @@
             this.mEditMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mCut,
             this.mCopy,
-            this.mPaste});
+            this.mPaste,
+            this.mDelete});
             this.mEditMenu.Name = "mEditMenu";
             this.mEditMenu.Size = new System.Drawing.Size(39, 20);
             this.mEditMenu.Text = "Edit";
@@ -459,6 +461,13 @@
             this.splitContainer1.SplitterDistance = 424;
             this.splitContainer1.TabIndex = 4;
             // 
+            // mDelete
+            // 
+            this.mDelete.Name = "mDelete";
+            this.mDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.mDelete.Size = new System.Drawing.Size(152, 22);
+            this.mDelete.Text = "Delete";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -535,6 +544,7 @@
         public System.Windows.Forms.ToolStripMenuItem mCopy;
         public System.Windows.Forms.ToolStripMenuItem mPaste;
         public System.Windows.Forms.ToolStripMenuItem mCut;
+        public System.Windows.Forms.ToolStripMenuItem mDelete;
     }
 }
 
