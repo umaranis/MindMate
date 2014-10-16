@@ -29,7 +29,7 @@ namespace MindMate.Controller
         public void canvasKeyDown(object sender, KeyEventArgs args)
         {
             args.Handled = true;
-            args.SuppressKeyPress = true;
+            args.SuppressKeyPress = !args.Alt; // don't suppres if Alt key is pressed to enable browsing main menu 
             
             if (args.Control && args.Shift)
                 HandleCtrlShiftPlusKey(sender, args);
