@@ -120,7 +120,7 @@
             this.newToolStripMenuItem.Image = global::MindMate.Properties.Resources.filenew;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.newToolStripMenuItem.Text = "New";
             // 
             // openToolStripMenuItem
@@ -128,27 +128,27 @@
             this.openToolStripMenuItem.Image = global::MindMate.Properties.Resources.fileopen;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Image = global::MindMate.Properties.Resources.filesave;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Image = global::MindMate.Properties.Resources.filesaveas;
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveAsToolStripMenuItem.Text = "Save As ...";
             // 
             // exportToolStripMenuItem
@@ -156,7 +156,7 @@
             this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.asBMPToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // asBMPToolStripMenuItem
@@ -168,18 +168,18 @@
             // mSepRecentFilesStart
             // 
             this.mSepRecentFilesStart.Name = "mSepRecentFilesStart";
-            this.mSepRecentFilesStart.Size = new System.Drawing.Size(149, 6);
+            this.mSepRecentFilesStart.Size = new System.Drawing.Size(143, 6);
             // 
             // mSepRecentFilesEnd
             // 
             this.mSepRecentFilesEnd.Name = "mSepRecentFilesEnd";
-            this.mSepRecentFilesEnd.Size = new System.Drawing.Size(149, 6);
+            this.mSepRecentFilesEnd.Size = new System.Drawing.Size(143, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // mEditMenu
@@ -197,26 +197,27 @@
             // 
             this.mCut.Name = "mCut";
             this.mCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.mCut.Size = new System.Drawing.Size(144, 22);
+            this.mCut.Size = new System.Drawing.Size(152, 22);
             this.mCut.Text = "Cut";
             // 
             // mCopy
             // 
             this.mCopy.Name = "mCopy";
             this.mCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.mCopy.Size = new System.Drawing.Size(144, 22);
+            this.mCopy.Size = new System.Drawing.Size(152, 22);
             this.mCopy.Text = "Copy";
             // 
             // mPaste
             // 
             this.mPaste.Name = "mPaste";
             this.mPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.mPaste.Size = new System.Drawing.Size(144, 22);
+            this.mPaste.Size = new System.Drawing.Size(152, 22);
             this.mPaste.Text = "Paste";
             // 
             // mDelete
             // 
             this.mDelete.Name = "mDelete";
+            this.mDelete.ShortcutKeyDisplayString = "Del";
             this.mDelete.Size = new System.Drawing.Size(152, 22);
             this.mDelete.Text = "Delete";
             // 
