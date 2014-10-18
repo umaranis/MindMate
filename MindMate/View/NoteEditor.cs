@@ -309,6 +309,13 @@ namespace MindMate.View
             return success;
         }
 
+
+        protected override void OnPreviewKeyDown(PreviewKeyDownEventArgs e)
+        {
+            if(e.Control && e.KeyCode == Keys.O)  e.IsInputKey = true;
+
+            base.OnPreviewKeyDown(e);
+        }
                 
     }
 
