@@ -103,6 +103,12 @@
     <Compile Include="View\Dialogs\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Dialogs\IconSelectorExt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Dialogs\IconSelectorExt.Designer.cs">
+      <DependentUpon>IconSelectorExt.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +163,10 @@
     </Compile>
     <EmbeddedResource Include="View\Dialogs\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Dialogs\IconSelectorExt.resx">
+      <DependentUpon>IconSelectorExt.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="View\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -459,6 +469,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="LICENSE.txt" />
+    <None Include="Resources\application_view_columns.png" />
+    <None Include="Resources\application_view_detail.png" />
+    <None Include="Resources\application_view_icons.png" />
+    <None Include="Resources\application_view_list.png" />
+    <None Include="Resources\application_view_tile.png" />
+    <None Include="Resources\wrench.png" />
+    <None Include="Resources\arrow-090.png" />
+    <None Include="Resources\arrow-270.png" />
+    <None Include="Resources\tick_button.png" />
+    <None Include="Resources\text_edit.png" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

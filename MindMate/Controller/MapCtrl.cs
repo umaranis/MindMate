@@ -643,6 +643,28 @@ namespace MindMate.Controller
 
         }
 
+        public void appendIconFromIconSelectorExt()
+        {
+
+            if (IconSelectorExt.Instance.ShowDialog() == DialogResult.OK)
+            {
+                switch (IconSelectorExt.Instance.SelectedIcon)
+                {
+                    case IconSelectorExt.REMOVE_ICON_NAME:
+                        removeLastIcon();
+                        break;
+                    case IconSelectorExt.REMOVE_ALL_ICON_NAME:
+                        removeAllIcon();
+                        break;
+                    default:
+                        appendIcon(IconSelectorExt.Instance.SelectedIcon);
+                        break;
+                }
+
+            }
+
+        }
+
         public void followLink(MapNode node)
         {
             switch (node.NodeView.Link.LinkType)

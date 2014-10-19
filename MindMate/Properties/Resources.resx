@@ -160,4 +160,34 @@
   <data name="filenew" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\filenew.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="application_view_columns" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\application_view_columns.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_detail" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\application_view_detail.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_icons" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\application_view_icons.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_list" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\application_view_list.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="application_view_tile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\application_view_tile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="arrow_090" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow-090.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="arrow_270" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arrow-270.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="wrench" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\wrench.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="tick_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\tick_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="text_edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\text_edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
