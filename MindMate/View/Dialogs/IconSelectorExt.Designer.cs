@@ -52,6 +52,9 @@
             this.tbnViewDetail = new System.Windows.Forms.ToolStripButton();
             this.tbnShowTitle = new System.Windows.Forms.ToolStripButton();
             this.tbnCustomize = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.ttbShortcut = new System.Windows.Forms.ToolStripTextBox();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -112,7 +115,10 @@
             this.tbnMoveUp,
             this.tnMoveDown,
             this.toolStripSeparator4,
-            this.tbnEditTitle});
+            this.tbnEditTitle,
+            this.toolStripSeparator5,
+            this.toolStripLabel1,
+            this.ttbShortcut});
             this.toolStrip2.Location = new System.Drawing.Point(0, 25);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(345, 25);
@@ -263,6 +269,25 @@
             this.tbnCustomize.ToolTipText = "Customize";
             this.tbnCustomize.Click += new System.EventHandler(this.tbnCustomize_Click);
             // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel1
+            // 
+            this.toolStripLabel1.Name = "toolStripLabel1";
+            this.toolStripLabel1.Size = new System.Drawing.Size(55, 22);
+            this.toolStripLabel1.Text = "Shortcut:";
+            // 
+            // ttbShortcut
+            // 
+            this.ttbShortcut.MaxLength = 1;
+            this.ttbShortcut.Name = "ttbShortcut";
+            this.ttbShortcut.Size = new System.Drawing.Size(35, 22);
+            this.ttbShortcut.ToolTipText = "Icon Shortcust";
+            this.ttbShortcut.TextChanged += new System.EventHandler(this.ttbShortcut_TextChanged);
+            // 
             // IconSelectorExt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -315,5 +340,8 @@
         private System.Windows.Forms.ToolStripButton tbnBack;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripButton tbnEditTitle;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripTextBox ttbShortcut;
     }
 }

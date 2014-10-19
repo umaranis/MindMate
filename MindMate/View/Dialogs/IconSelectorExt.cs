@@ -212,14 +212,16 @@ namespace MindMate.View.Dialogs
             toolStrip2.Show();
 
             listView.LabelEdit = true;
+            SetShortcutTextBox();
 
             this.KeyDown -= this.IconSelector_KeyDown;
             listView.ItemActivate -= this.listView_ItemActivate;
 
             this.KeyDown += Customization_KeyDown;
+            listView.SelectedIndexChanged += listView_SelectedIndexChanged;
         }
 
-        
+              
         private void EndCustomizing()
         {
             toolStrip2.Hide();
@@ -231,6 +233,7 @@ namespace MindMate.View.Dialogs
             listView.ItemActivate += this.listView_ItemActivate;
 
             this.KeyDown -= Customization_KeyDown;
+            listView.SelectedIndexChanged -= listView_SelectedIndexChanged;
 
             MetaModel.MetaModel.Instance.Save();
 
@@ -258,7 +261,29 @@ namespace MindMate.View.Dialogs
         void listView_AfterLabelEdit(object sender, LabelEditEventArgs e)
         {
             MetaModel.MetaModel.Instance.IconsList[e.Item].Title = e.Label;
-        }               
+        }
+
+        void listView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetShortcutTextBox();
+        }
+
+        private void SetShortcutTextBox()
+        {
+            if (listView.SelectedItems.Count == 1)
+                ttbShortcut.Text = listView.SelectedItems[0].SubItems[1].Text;
+        }
+
+        private void ttbShortcut_TextChanged(object sender, EventArgs e)
+        {
+            if(listView.SelectedItems.Count == 1)
+            {
+                var selectedItem = listView.SelectedItems[0];
+                ttbShortcut.Text = ttbShortcut.Text.ToUpper();
+                selectedItem.SubItems[1].Text = ttbShortcut.Text;
+                MetaModel.MetaModel.Instance.IconsList[selectedItem.Index].Shortcut = ttbShortcut.Text;
+            }
+        }
 
         private void tbnCustomize_Click(object sender, EventArgs e)
         {
