@@ -63,7 +63,7 @@ namespace MindMate.Controller
 
         void mSelectIcon_Click(object sender, EventArgs e)
         {
-            mapCtrl.appendIconFromIconSelector();
+            mapCtrl.appendIconFromIconSelectorExt();
         }
 
     }

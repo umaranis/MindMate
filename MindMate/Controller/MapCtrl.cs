@@ -621,27 +621,27 @@ namespace MindMate.Controller
             MapView.Canvas.Invalidate();
         }
 
-        public void appendIconFromIconSelector()
-        {
+        //public void appendIconFromIconSelector()
+        //{
 
-            if (IconSelector.Instance.ShowDialog() == DialogResult.OK)
-            {
-                switch (IconSelector.Instance.SelectedIcon)
-                {
-                    case IconSelector.REMOVE_ICON_NAME:
-                        removeLastIcon();
-                        break;
-                    case IconSelector.REMOVE_ALL_ICON_NAME:
-                        removeAllIcon();
-                        break;
-                    default:
-                        appendIcon(IconSelector.Instance.SelectedIcon);
-                        break;
-                }
+        //    if (IconSelector.Instance.ShowDialog() == DialogResult.OK)
+        //    {
+        //        switch (IconSelector.Instance.SelectedIcon)
+        //        {
+        //            case IconSelector.REMOVE_ICON_NAME:
+        //                removeLastIcon();
+        //                break;
+        //            case IconSelector.REMOVE_ALL_ICON_NAME:
+        //                removeAllIcon();
+        //                break;
+        //            default:
+        //                appendIcon(IconSelector.Instance.SelectedIcon);
+        //                break;
+        //        }
 
-            }
+        //    }
 
-        }
+        //}
 
         public void appendIconFromIconSelectorExt()
         {
