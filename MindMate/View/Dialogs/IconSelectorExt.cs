@@ -56,6 +56,9 @@ namespace MindMate.View.Dialogs
             Debugging.Utility.EndTimeCounter("Loading icons");
         }
 
+        /// <summary>
+        /// Event Handler for ListView Item Activation (double click, enter key)
+        /// </summary>
         void listView_ItemActivate(object sender, EventArgs e)
         {
             if (listView.SelectedItems.Count > 0)
@@ -96,6 +99,9 @@ namespace MindMate.View.Dialogs
             this.DialogResult = DialogResult.OK;
         }
 
+        /// <summary>
+        /// Event Handler for form activation
+        /// </summary>
         private void IconSelectorExt_Activated(object sender, EventArgs e)
         {
             if (listView.SelectedItems.Count > 0)
@@ -191,17 +197,55 @@ namespace MindMate.View.Dialogs
             }
         }
 
-        private void tbnCustomize_Click(object sender, EventArgs e)
+        #region Customize Icon Selector Dialog *********************************
+
+        public bool IsCustomizing
+        {
+            get { return toolStrip2.Visible; }
+        }
+
+        private void StartCustomizing()
         {
             toolStrip1.Hide();
             toolStrip2.Show();
+
+            this.KeyDown -= this.IconSelector_KeyDown;
+            listView.ItemActivate -= this.listView_ItemActivate;
+
+            this.KeyDown += Customization_KeyDown;
+        }
+
+        
+        private void EndCustomizing()
+        {
+            toolStrip2.Hide();
+            toolStrip1.Show();
+
+            this.KeyDown += IconSelector_KeyDown;
+            listView.ItemActivate += this.listView_ItemActivate;
+
+            this.KeyDown -= Customization_KeyDown;
+
+            MetaModel.MetaModel.Instance.Save();
+
+        }
+
+        void Customization_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) EndCustomizing();
+        }
+               
+
+        private void tbnCustomize_Click(object sender, EventArgs e)
+        {
+            StartCustomizing();
         }
 
         private void tbnMoveUp_Click(object sender, EventArgs e)
         {
-            ListViewItem item1 = listView.SelectedItems[0];
+            ListViewItem item1;
 
-            if(listView.SelectedItems.Count == 1 && item1.Index != 0)
+            if(listView.SelectedItems.Count == 1 && (item1 = listView.SelectedItems[0]).Index != 0)
             {
                 listView.BeginUpdate();
 
@@ -210,7 +254,7 @@ namespace MindMate.View.Dialogs
                 item1.Selected = false; 
                 item2.Selected = true;
                 item2.Focused = true;
-                item1.EnsureVisible();
+                item2.EnsureVisible();
                 
                 listView.EndUpdate();
 
@@ -221,9 +265,9 @@ namespace MindMate.View.Dialogs
 
         private void tnMoveDown_Click(object sender, EventArgs e)
         {
-            ListViewItem item1 = listView.SelectedItems[0];
+            ListViewItem item1;
 
-            if (listView.SelectedItems.Count == 1 && item1.Index != listView.Items.Count - 1)
+            if (listView.SelectedItems.Count == 1 && (item1 = listView.SelectedItems[0]).Index != listView.Items.Count - 1)
             {
                 listView.BeginUpdate();
 
@@ -232,37 +276,52 @@ namespace MindMate.View.Dialogs
                 item1.Selected = false;
                 item2.Selected = true;
                 item2.Focused = true;
-                item1.EnsureVisible();
+                item2.EnsureVisible();
 
                 listView.EndUpdate();
                 
             }
         }
 
+        /// <summary>
+        /// Couldn't find a way to move items so contents are swapped instead.
+        /// </summary>        
         private void SwapListItem(ListViewItem item1, ListViewItem item2)
         {
-            var title = item1.Text;
-            var shortcut = item1.SubItems[1].Text;
-            var imageIndex = item1.ImageIndex;
+            // switch images in ImageList, rather than swapping ImageIndex
+            var tempImage = listView.SmallImageList.Images[item1.Index];
+            listView.SmallImageList.Images[item1.Index] = listView.SmallImageList.Images[item2.Index];
+            listView.SmallImageList.Images[item2.Index] = tempImage;
+
+            var tempTitle = item1.Text;
+            var tempShortcut = item1.SubItems[1].Text;
 
             item1.Text = item2.Text;
             item1.SubItems[1].Text = item2.SubItems[1].Text;
-            item1.ImageIndex = item2.ImageIndex;
 
-            item2.Text = title;
-            item2.SubItems[1].Text = shortcut;
-            item2.ImageIndex = imageIndex;
+            item2.Text = tempTitle;
+            item2.SubItems[1].Text = tempShortcut;
+
+            var tempIcon = MetaModel.MetaModel.Instance.IconsList[item1.Index];
+            MetaModel.MetaModel.Instance.IconsList[item1.Index] = MetaModel.MetaModel.Instance.IconsList[item2.Index];
+            MetaModel.MetaModel.Instance.IconsList[item2.Index] = tempIcon;           
             
         }
 
-        private void tbnCancel_Click(object sender, EventArgs e)
+        
+        private void tbnBack_Click(object sender, EventArgs e)
         {
-            toolStrip2.Hide();
-            toolStrip1.Show();            
+            EndCustomizing();            
         }
 
         
+        private void IconSelectorExt_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (IsCustomizing) EndCustomizing();
+        }
 
-        
+        #endregion Customize Icon Selector Dialog *********************************
+
+
     }
 }
