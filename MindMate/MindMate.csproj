@@ -467,6 +467,7 @@
     <None Include="Resources\arrow-090.png" />
     <None Include="Resources\arrow-270.png" />
     <None Include="Resources\tick_button.png" />
+    <None Include="Resources\text_edit.png" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -52,6 +52,8 @@ namespace MindMate.View.Dialogs
 
             listView.ItemActivate += listView_ItemActivate;
             SetViewButtonEnable(listView.View, false);
+
+            listView.AfterLabelEdit += listView_AfterLabelEdit;
                                     
             Debugging.Utility.EndTimeCounter("Loading icons");
         }
@@ -209,6 +211,8 @@ namespace MindMate.View.Dialogs
             toolStrip1.Hide();
             toolStrip2.Show();
 
+            listView.LabelEdit = true;
+
             this.KeyDown -= this.IconSelector_KeyDown;
             listView.ItemActivate -= this.listView_ItemActivate;
 
@@ -221,6 +225,8 @@ namespace MindMate.View.Dialogs
             toolStrip2.Hide();
             toolStrip1.Show();
 
+            listView.LabelEdit = false;
+
             this.KeyDown += IconSelector_KeyDown;
             listView.ItemActivate += this.listView_ItemActivate;
 
@@ -232,9 +238,27 @@ namespace MindMate.View.Dialogs
 
         void Customization_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape) EndCustomizing();
+            if (e.KeyCode == Keys.Escape)
+                EndCustomizing();
+            else if (e.KeyCode == Keys.F2)
+                BeginIconTextEdit();
         }
-               
+
+        private void BeginIconTextEdit()
+        {
+            if(listView.SelectedItems.Count == 1)
+                listView.SelectedItems[0].BeginEdit();
+        }
+
+        private void tbnEditTitle_Click(object sender, EventArgs e)
+        {
+            BeginIconTextEdit();
+        }
+
+        void listView_AfterLabelEdit(object sender, LabelEditEventArgs e)
+        {
+            MetaModel.MetaModel.Instance.IconsList[e.Item].Title = e.Label;
+        }               
 
         private void tbnCustomize_Click(object sender, EventArgs e)
         {
