@@ -82,6 +82,24 @@ namespace MindMate.MetaModel
             }
         }
 
+        public System.Drawing.Color MapEditorBackColor { get; set; }
+
+        [ProtoBuf.ProtoMember(4, DataFormat = ProtoBuf.DataFormat.FixedSize)]
+        private int MapEditorBackColorSerialized
+        {
+            get { return MapEditorBackColor.ToArgb(); }
+            set { MapEditorBackColor = System.Drawing.Color.FromArgb(value); }
+        }
+
+        public System.Drawing.Color NoteEditorBackColor { get; set; }
+
+        [ProtoBuf.ProtoMember(5, DataFormat = ProtoBuf.DataFormat.FixedSize)]
+        private int NoteEditorBackColorSerialized
+        {
+            get { return NoteEditorBackColor.ToArgb(); }
+            set { NoteEditorBackColor = System.Drawing.Color.FromArgb(value); }
+        }
+
         private static MetaModel Load()
         {
             MetaModel model;

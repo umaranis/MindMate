@@ -56,6 +56,8 @@ namespace MindMate.Controller
             
             MapView.NodeTextEditor.Enable(this.UpdateNodeText);
 
+            MapView.Canvas.BackColor = MetaModel.MetaModel.Instance.MapEditorBackColor;
+
             mainCtrl.AddMainPanel(this.MapView.Canvas);
 
             //center Canvas
@@ -970,6 +972,12 @@ namespace MindMate.Controller
                 this.MapView.SelectedNodes.Add(selNode, false);
                 MapView.Canvas.Invalidate();
             }
+        }
+
+        public void SetMapViewBackColor(Color color)
+        {
+            if(!color.IsEmpty)
+                MapView.Canvas.BackColor = color;
         }
     }
 }

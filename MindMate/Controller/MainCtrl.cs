@@ -188,7 +188,7 @@ namespace MindMate.Controller
         
         public void ShowApplicationOptions()
         {
-            Options frm = new Options();
+            Options frm = new Options(this);
             frm.ShowDialog();
         }
 
@@ -381,6 +381,11 @@ namespace MindMate.Controller
         public void ShowAboutBox()
         {
             new AboutBox().ShowDialog();
+        }
+
+        public void SetMapViewBackColor(System.Drawing.Color color)
+        {
+            mapCtrl.SetMapViewBackColor(color);
         }
     }
 }
