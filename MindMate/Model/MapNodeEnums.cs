@@ -41,6 +41,13 @@ namespace MindMate.Model
         Removed
     }
 
+    public enum AttributeChange
+    {
+        Added,
+        Removed,
+        ValueUpdated
+    }
+
     public enum TreeStructureChange
     {
         /// <summary>
@@ -79,6 +86,6 @@ namespace MindMate.Model
         Executable,
         InternetLink,
         Empty
-    }    
+    }       
     
 }

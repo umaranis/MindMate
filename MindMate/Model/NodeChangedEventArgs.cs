@@ -27,4 +27,11 @@ namespace MindMate.Model
         public IconChange ChangeType { get; set; }
         public string Icon { get; set; }
     }
+
+    public class AttributeChangeEventArgs : EventArgs
+    {
+        public AttributeChange ChangeType { get; set; }
+        public MapNode.Attribute oldValue { get; set; }
+        public MapNode.Attribute newValue { get; set; }
+    }
 }

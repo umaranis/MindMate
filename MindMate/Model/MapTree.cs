@@ -14,7 +14,7 @@ using MindMate.Model;
 namespace MindMate.Model
 {
 
-    public class MapTree
+    public partial class MapTree
     {
         public MapTree(string rootNodeText) : this() 
         {
@@ -46,8 +46,35 @@ namespace MindMate.Model
             {
                 return selectedNodes;
             }
-        } 
+        }
 
+        #region AttributeSpec
+
+        private Dictionary<string, AttributeSpec> attributeSpecs = new Dictionary<string, AttributeSpec>();
+
+        public IEnumerable<AttributeSpec> AttributeSpecs
+        {
+            get { return attributeSpecs.Values; }
+        }
+
+        public AttributeSpec GetAttributeSpec(string attributeName)
+        {
+            return attributeSpecs[attributeName];
+        }
+                        
+        public int AttributeSpecCount { get { return attributeSpecs.Count; } }
+
+        public event Action<AttributeSpec, AttributeSpecEventArgs> AttributeSpecChangeEvent = delegate { };
+
+        private void FireEvent(AttributeSpec obj, AttributeSpecEventArgs args)
+        {
+            AttributeSpecChangeEvent(obj, args);
+        }
+        
+
+        #endregion AttributeSpec
+
+    
 
         private void ClearTree()
         {
@@ -82,6 +109,7 @@ namespace MindMate.Model
         public event Action<MapNode, NodePropertyChangedEventArgs> NodePropertyChanged = delegate { };
         public event Action<MapNode, TreeStructureChangedEventArgs> TreeStructureChanged = delegate { };
         public event Action<MapNode, IconChangedEventArgs> IconChanged = delegate { };
+        public event Action<MapNode, AttributeChangeEventArgs> AttributeChanged = delegate { };
 
         internal void FireEvent(MapNode node, NodeProperties property, object oldValue)
         {
@@ -113,6 +141,11 @@ namespace MindMate.Model
             };
 
             IconChanged(node, args);
+        }
+
+        internal void FireEvent(MapNode node, AttributeChangeEventArgs args)
+        {
+            AttributeChanged(node, args);
         }
 
         #endregion

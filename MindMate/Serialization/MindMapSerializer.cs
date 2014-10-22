@@ -41,8 +41,8 @@ namespace MindMate.Serialization
         /// <returns>Return the Root Node after constructing the hierarchy</returns>
         public MapTree Deserialize(string XMLString)
         {
-
-            System.Xml.XmlDocument xmlDoc = new System.Xml.XmlDocument();
+            
+            System.Xml.XmlDocument xmlDoc = new System.Xml.XmlDocument(); //TODO: Use XmlTextReader instead to speed up the code
             xmlDoc.LoadXml(XMLString);
             XmlElement x = xmlDoc.DocumentElement;
 

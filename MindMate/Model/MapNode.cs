@@ -294,6 +294,62 @@ namespace MindMate.Model
             }
         }
 
+        #region Attributes
+
+        public struct Attribute 
+        { 
+            public MapTree.AttributeSpec AttributeSpec; 
+            public string value; 
+        }
+
+        private List<Attribute> attributeList;
+        public IEnumerable<Attribute> Attributes { get { return attributeList; } }
+
+        public int AttributeCount { get { return attributeList == null ? 0 : attributeList.Count; } }
+
+        public Attribute GetAttribute(int index) { return attributeList[index]; }
+
+        public void AddAttribute(Attribute attribute)
+        {
+            EnsureAttributeListCreated();
+
+            attributeList.Add(attribute);
+
+            Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Added, newValue = attribute });
+        }
+
+        private void EnsureAttributeListCreated()
+        {
+            if (attributeList == null)
+                attributeList = new List<Attribute>();
+        }
+
+        public void InsertAttribute(int index, Attribute attribute)
+        {
+            attributeList.Insert(index, attribute);
+
+            Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Added, newValue = attribute });
+        }
+
+        public void DeleteAttribute(Attribute attribute)
+        {
+            attributeList.Remove(attribute);
+
+            Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Removed, oldValue = attribute });
+        }
+
+        public void UpdateAttribute(int index, string newValue)
+        {
+            Attribute oldAtt = attributeList[index];
+            Attribute newAtt = new Attribute() { AttributeSpec = oldAtt.AttributeSpec, value = newValue };
+            attributeList[index] = newAtt;
+
+            Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.ValueUpdated, newValue = newAtt, oldValue = oldAtt });
+        }
+                
+
+        #endregion Attributes
+
         #endregion
 
         #region Non-serializable
@@ -305,16 +361,6 @@ namespace MindMate.Model
         public MapNode LastChild { get; set; }
         
         #endregion
-
-        private Dictionary<string, object> extendedProperties = new Dictionary<string,object>();
-
-        public Dictionary<string, object> ExtendedProperties 
-        {
-            get
-            {
-                return extendedProperties;
-            }
-        }
 
         #endregion
 
@@ -852,18 +898,26 @@ namespace MindMate.Model
             node.backColor = this.backColor;
             node.bold = this.bold;
             node.color = this.color;
-            foreach(KeyValuePair<string, object> pair in this.extendedProperties)
+            
+            if(this.attributeList!= null && node.attributeList == null) node.EnsureAttributeListCreated();
+            node.attributeList.Clear();
+            foreach(Attribute att in attributeList)
             {
-                node.extendedProperties.Add(pair.Key, pair.Value);
+                node.attributeList.Add(att);
             }
+
             node.folded = this.folded;
             node.fontName = this.fontName;
             node.fontSize = this.fontSize;
+
+            node.Icons.Clear();
             foreach(string icon in this.Icons)
             {
                 node.Icons.Add(icon);
             }
+            
             // node.Id, node.Created, node.Modified, node.Pos -- shouldn't be copied
+            
             node.italic = this.italic;
             node.lineColor = this.lineColor;
             node.linePattern = this.linePattern;
