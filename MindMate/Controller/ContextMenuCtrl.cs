@@ -14,7 +14,7 @@ using MindMate.View.MapControls;
 
 namespace MindMate.Controller
 {
-    class ContextMenuCtrl
+    public class ContextMenuCtrl
     {
         private MapCtrl mapCtrl;
         
@@ -33,7 +33,20 @@ namespace MindMate.Controller
 
             mapCtrl.MapView.Canvas.mSelectIcon.Image = MindMate.Properties.Resources.kalzium;
         }
+        
+        public void InsertMenuItems(ToolStripMenuItem [] menuItems)
+        {
+            int index = mapCtrl.MapView.Canvas.contextMenu.Items.IndexOf(mapCtrl.MapView.Canvas.mSepPluginEnd);        
+  
+            ContextMenuStrip contextMenu = mapCtrl.MapView.Canvas.contextMenu;
 
+            contextMenu.Items.Insert(index++, new ToolStripSeparator());
+            
+            foreach(ToolStripMenuItem menu in menuItems)
+            {
+                contextMenu.Items.Insert(index++, menu);
+            }
+        }
         
         private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
