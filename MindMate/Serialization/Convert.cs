@@ -6,6 +6,7 @@
 using MindMate.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -97,6 +98,11 @@ namespace MindMate.Serialization
                 default:
                     return NodePosition.Undefined;
             }
+        }
+
+        public static string ToColorHexValue(Color c)
+        {
+            return "#" + c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
         }
     }
 }

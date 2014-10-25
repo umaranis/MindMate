@@ -10,13 +10,14 @@ using System.Text;
 using MindMate.Model;
 using MindMate.View.MapControls;
 using MindMate.View;
+using System.Drawing;
 
 namespace MindMate.Controller
 {
     /// <summary>
     /// Note Window Controlller
     /// </summary>
-    class NoteCtrl
+    public class NoteCtrl
     {
         
         private NoteEditor editor;
@@ -24,7 +25,7 @@ namespace MindMate.Controller
         public NoteCtrl(NoteEditor editor)
         {
             this.editor = editor;
-            this.editor.BackColor = System.Drawing.Color.LightYellow;            
+            this.editor.BackColor = MetaModel.MetaModel.Instance.NoteEditorBackColor; //System.Drawing.Color.LightYellow;            
         }
 
         private MapTree tree;
@@ -72,7 +73,7 @@ namespace MindMate.Controller
 
         void editor_LostFocus(object sender, EventArgs e)
         {
-            SaveEditorChanges();
+            UpdateNodeFromEditor();
         }
         
 
@@ -135,10 +136,15 @@ namespace MindMate.Controller
             }
         }
 
-        public void SaveEditorChanges()
+        public void UpdateNodeFromEditor()
         {
             if (tree.SelectedNodes.Count == 1)
                 UpdateNodeFromEditor(tree.SelectedNodes.First);
+        }
+
+        public void SetNoteEditorBackColor(Color color)
+        {
+            editor.BackColor = color;
         }
 
     }

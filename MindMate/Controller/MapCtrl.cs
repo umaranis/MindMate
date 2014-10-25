@@ -976,8 +976,7 @@ namespace MindMate.Controller
 
         public void SetMapViewBackColor(Color color)
         {
-            if(!color.IsEmpty)
-                MapView.Canvas.BackColor = color;
+            MapView.Canvas.BackColor = color;
         }
     }
 }

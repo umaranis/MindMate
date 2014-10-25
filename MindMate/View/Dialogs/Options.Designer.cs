@@ -32,6 +32,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.lblMapEditorBackColor = new System.Windows.Forms.Label();
+            this.lblNoteEditorBackColor = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnSave
@@ -75,11 +77,31 @@
             this.lblMapEditorBackColor.TabIndex = 5;
             this.lblMapEditorBackColor.Click += new System.EventHandler(this.lblMapEditorBackColor_Click);
             // 
+            // lblNoteEditorBackColor
+            // 
+            this.lblNoteEditorBackColor.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblNoteEditorBackColor.Location = new System.Drawing.Point(179, 44);
+            this.lblNoteEditorBackColor.Name = "lblNoteEditorBackColor";
+            this.lblNoteEditorBackColor.Size = new System.Drawing.Size(70, 15);
+            this.lblNoteEditorBackColor.TabIndex = 7;
+            this.lblNoteEditorBackColor.Click += new System.EventHandler(this.lblNoteEditorBackColor_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 45);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(149, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Map Editor Background Color:";
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(271, 222);
+            this.Controls.Add(this.lblNoteEditorBackColor);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.lblMapEditorBackColor);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnCancel);
@@ -97,5 +119,7 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblMapEditorBackColor;
+        private System.Windows.Forms.Label lblNoteEditorBackColor;
+        private System.Windows.Forms.Label label3;
     }
 }

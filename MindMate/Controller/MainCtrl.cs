@@ -188,7 +188,7 @@ namespace MindMate.Controller
         
         public void ShowApplicationOptions()
         {
-            Options frm = new Options(this);
+            Options frm = new Options(this, this.noteCrtl);
             frm.ShowDialog();
         }
 
@@ -288,7 +288,7 @@ namespace MindMate.Controller
         /// <param name="fileName"></param>
         private void SaveMap(string fileName)
         {
-            noteCrtl.SaveEditorChanges();
+            noteCrtl.UpdateNodeFromEditor();
 
             var serializer = new MindMapSerializer();
             var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write);

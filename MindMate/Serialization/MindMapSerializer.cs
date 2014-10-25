@@ -79,11 +79,9 @@ namespace MindMate.Serialization
             xml.WriteAttributeString("MODIFIED", ((long)(mapNode.Modified.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds)).ToString());
 
             if (!mapNode.BackColor.IsEmpty)
-                xml.WriteAttributeString("BACKGROUND_COLOR", "#" + mapNode.BackColor.R.ToString("x2") +
-                    mapNode.BackColor.G.ToString("x2") + mapNode.BackColor.B.ToString("x2"));
+                xml.WriteAttributeString("BACKGROUND_COLOR", Convert.ToColorHexValue(mapNode.BackColor));
             if (!mapNode.Color.IsEmpty)
-                xml.WriteAttributeString("COLOR", "#" + mapNode.Color.R.ToString("x2") +
-                    mapNode.Color.G.ToString("x2") + mapNode.Color.B.ToString("x2"));
+                xml.WriteAttributeString("COLOR", Convert.ToColorHexValue(mapNode.Color));
 
             if (!string.IsNullOrEmpty(mapNode.Id))
                 xml.WriteAttributeString("ID", mapNode.Id);
@@ -116,8 +114,7 @@ namespace MindMate.Serialization
                 !mapNode.LineColor.IsEmpty)
             {
                 xml.WriteStartElement("edge");
-                if (!mapNode.LineColor.IsEmpty) xml.WriteAttributeString("COLOR", "#" + mapNode.LineColor.R.ToString("x2") +
-                     mapNode.LineColor.G.ToString("x2") + mapNode.LineColor.B.ToString("x2"));
+                if (!mapNode.LineColor.IsEmpty) xml.WriteAttributeString("COLOR", Convert.ToColorHexValue(mapNode.LineColor));
                 if (mapNode.LineWidth != 0) xml.WriteAttributeString("WIDTH", mapNode.LineWidth.ToString());
                 if (mapNode.LinePattern != System.Drawing.Drawing2D.DashStyle.Custom)
                     xml.WriteAttributeString("PATTERN", Enum.GetName(mapNode.LinePattern.GetType(), mapNode.LinePattern).ToLower());

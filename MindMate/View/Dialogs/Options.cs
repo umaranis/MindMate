@@ -18,32 +18,48 @@ namespace MindMate.View.Dialogs
     public partial class Options : Form
     {
         private MainCtrl mainCtrl;
+        private NoteCtrl noteCtrl;
 
-        public Options(MainCtrl ctrl)
+        public Options(MainCtrl mainCtrl, NoteCtrl noteCtrl)
         {
             InitializeComponent();
-            mainCtrl = ctrl;
+            this.mainCtrl = mainCtrl;
+            this.noteCtrl = noteCtrl;
 
             lblMapEditorBackColor.BackColor = MetaModel.MetaModel.Instance.MapEditorBackColor;
+            lblNoteEditorBackColor.BackColor = MetaModel.MetaModel.Instance.NoteEditorBackColor;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (lblMapEditorBackColor.Tag != null)
             {
-                MetaModel.MetaModel.Instance.MapEditorBackColor = lblMapEditorBackColor.BackColor;
-                MetaModel.MetaModel.Instance.Save();
-
+                MetaModel.MetaModel.Instance.MapEditorBackColor = lblMapEditorBackColor.BackColor;                
                 mainCtrl.SetMapViewBackColor(lblMapEditorBackColor.BackColor);
             }
-
             lblMapEditorBackColor.Tag = null;
+
+
+            if(lblNoteEditorBackColor.Tag != null)
+            {
+                MetaModel.MetaModel.Instance.NoteEditorBackColor = lblNoteEditorBackColor.BackColor;
+                noteCtrl.SetNoteEditorBackColor(lblNoteEditorBackColor.BackColor);
+            }
+            lblNoteEditorBackColor.Tag = null;
+
+            MetaModel.MetaModel.Instance.Save();
         }
 
         private void lblMapEditorBackColor_Click(object sender, EventArgs e)
         {
             lblMapEditorBackColor.BackColor = mainCtrl.ShowColorPicker(lblMapEditorBackColor.BackColor);
             lblMapEditorBackColor.Tag = "d";  // mark dirty
+        }
+
+        private void lblNoteEditorBackColor_Click(object sender, EventArgs e)
+        {
+            lblNoteEditorBackColor.BackColor = mainCtrl.ShowColorPicker(lblNoteEditorBackColor.BackColor);
+            lblNoteEditorBackColor.Tag = "d"; // make dirty
         }
     }
 }

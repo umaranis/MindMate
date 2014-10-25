@@ -100,7 +100,7 @@ namespace MindMate.View
         private void SetBackgroundColor(Color value)
         {
             if (this.Document != null && this.Document.Body != null)
-                this.Document.Body.Style = "background-color: " + value.Name;
+                this.Document.Body.Style = "background-color: " + MindMate.Serialization.Convert.ToColorHexValue(value);
         }
 
         /// <summary>
