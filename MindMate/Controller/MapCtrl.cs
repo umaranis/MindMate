@@ -555,7 +555,7 @@ namespace MindMate.Controller
             }
         }
 
-        public void removeLastIcon()
+        public void RemoveLastIcon()
         {
             var nSelCnt = this.MapView.SelectedNodes.Count;
 
@@ -576,7 +576,7 @@ namespace MindMate.Controller
 
         }
 
-        public void removeAllIcon()
+        public void RemoveAllIcon()
         {
             int nSelCnt = this.MapView.SelectedNodes.Count;
 
@@ -600,7 +600,7 @@ namespace MindMate.Controller
 
         }
 
-        public void appendIcon(string iconSrc)
+        public void AppendIcon(string iconSrc)
         {
             int nSelCnt = this.MapView.SelectedNodes.Count;
 
@@ -645,7 +645,7 @@ namespace MindMate.Controller
 
         //}
 
-        public void appendIconFromIconSelectorExt()
+        public void AppendIconFromIconSelectorExt()
         {
 
             if (IconSelectorExt.Instance.ShowDialog() == DialogResult.OK)
@@ -653,13 +653,13 @@ namespace MindMate.Controller
                 switch (IconSelectorExt.Instance.SelectedIcon)
                 {
                     case IconSelectorExt.REMOVE_ICON_NAME:
-                        removeLastIcon();
+                        RemoveLastIcon();
                         break;
                     case IconSelectorExt.REMOVE_ALL_ICON_NAME:
-                        removeAllIcon();
+                        RemoveAllIcon();
                         break;
                     default:
-                        appendIcon(IconSelectorExt.Instance.SelectedIcon);
+                        AppendIcon(IconSelectorExt.Instance.SelectedIcon);
                         break;
                 }
 
@@ -667,7 +667,7 @@ namespace MindMate.Controller
 
         }
 
-        public void followLink(MapNode node)
+        public void FollowLink(MapNode node)
         {
             switch (node.NodeView.Link.LinkType)
             {

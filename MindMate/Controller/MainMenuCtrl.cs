@@ -358,7 +358,7 @@ namespace MindMate.Controller
 
         void mSelectIcon_Click(object sender, EventArgs e)
         {
-            mapCtrl.appendIconFromIconSelectorExt();
+            mapCtrl.AppendIconFromIconSelectorExt();
         }
 
         void newToolStripMenuItem_Click(object sender, EventArgs e)

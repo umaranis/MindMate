@@ -48,7 +48,7 @@ namespace MindMate.Controller
                 }
                 else
                 {
-                    mapCtrl.followLink(node);
+                    mapCtrl.FollowLink(node);
                 }
             }
             // (deselect already selected node)ctrl key + node already selected
@@ -71,7 +71,7 @@ namespace MindMate.Controller
                     }
                     else
                     {
-                        mapCtrl.followLink(node);
+                        mapCtrl.FollowLink(node);
                     }
                 }
                 mapCtrl.MapView.Canvas.Invalidate();

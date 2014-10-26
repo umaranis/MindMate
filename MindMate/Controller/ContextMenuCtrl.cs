@@ -44,6 +44,14 @@ namespace MindMate.Controller
 
         }
 
+        private void DisplayContextMenu()
+        {
+            if(mapCtrl.MapView.SelectedNodes.First != null)
+            {
+                NodeView nodeView = mapCtrl.MapView.GetNodeView(mapCtrl.MapView.SelectedNodes.First);
+                mapCtrl.MapView.Canvas.contextMenu.Show((int)nodeView.Left, (int)(nodeView.Top + nodeView.Height));
+            }
+        }
 
 
         private void mDeleteNode_Click(object sender, EventArgs e)
@@ -63,7 +71,7 @@ namespace MindMate.Controller
 
         void mSelectIcon_Click(object sender, EventArgs e)
         {
-            mapCtrl.appendIconFromIconSelectorExt();
+            mapCtrl.AppendIconFromIconSelectorExt();
         }
 
     }
