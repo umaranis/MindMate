@@ -15,7 +15,7 @@ namespace MindMate.View.MapControls
     public class NodeMouseEventArgs : MouseEventArgs
     {
         public NodeMouseEventArgs(MouseEventArgs e)  : 
-            base(e.Button, e.Clicks, e.Y, e.Y, e.Delta)
+            base(e.Button, e.Clicks, e.X, e.Y, e.Delta)
         {
             
         }

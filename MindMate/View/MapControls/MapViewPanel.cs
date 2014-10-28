@@ -26,6 +26,8 @@ namespace MindMate.View.MapControls
         public delegate void NodeClickDelegate(MapNode node, NodeMouseEventArgs args);
         public event NodeClickDelegate NodeClick = delegate { };
 
+        public event Action<MapNode, NodeMouseEventArgs> NodeRightClick = delegate { };
+
         public event Action<MouseEventArgs> CanvasClick = delegate { };
 
         public delegate void NodeMouseOverDelegate(MapNode node, NodeMouseEventArgs args);
@@ -166,6 +168,10 @@ namespace MindMate.View.MapControls
 
             this.dragObject = null;
             this.Cursor = Cursors.Default;
+
+            if (e.Button == System.Windows.Forms.MouseButtons.Right && mouseOverNode != null)
+                NodeRightClick(mouseOverNode, new NodeMouseEventArgs(e));
+
                         
             //base.OnMouseUp(e);            
         }

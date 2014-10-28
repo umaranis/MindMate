@@ -13,7 +13,7 @@ using MindMate.Controller;
 
 namespace MindMate.View.MapControls
 {
-    public enum NodePortion { Head, Body };
+    public enum NodePortion { Body, Head };
 
     public class NodeView
     {       

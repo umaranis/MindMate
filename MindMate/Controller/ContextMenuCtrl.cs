@@ -24,36 +24,32 @@ namespace MindMate.Controller
             this.mapCtrl = c;
             
 
-            mapCtrl.MapView.Canvas.contextMenu.Opening += contextMenu_Opening;
-
             mapCtrl.MapView.Canvas.mEditNode.Click += new EventHandler(mEditNode_Click);
             mapCtrl.MapView.Canvas.mInsertChild.Click += mInsertChild_Click;
             mapCtrl.MapView.Canvas.mDeleteNode.Click += mDeleteNode_Click;
             mapCtrl.MapView.Canvas.mSelectIcon.Click += mSelectIcon_Click;
 
             mapCtrl.MapView.Canvas.mSelectIcon.Image = MindMate.Properties.Resources.kalzium;
+
+            mapCtrl.MapView.Canvas.NodeRightClick += Canvas_NodeRightClick;
+            mapCtrl.MapView.Canvas.KeyDown += Canvas_KeyDown;
         }
 
-        
-        private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        void Canvas_KeyDown(object sender, KeyEventArgs e)
         {
-            Point p = new Point(mapCtrl.MapView.Canvas.contextMenu.Left, mapCtrl.MapView.Canvas.contextMenu.Top);
-            p = mapCtrl.MapView.Canvas.PointToClient(p);
-            MapNode node = mapCtrl.MapView.GetMapNodeFromPoint(p);
-            if (node == null) e.Cancel = true;
-
-        }
-
-        private void DisplayContextMenu()
-        {
-            if(mapCtrl.MapView.SelectedNodes.First != null)
+            if (e.KeyCode == Keys.Apps && mapCtrl.MapView.SelectedNodes.First != null)
             {
                 NodeView nodeView = mapCtrl.MapView.GetNodeView(mapCtrl.MapView.SelectedNodes.First);
-                mapCtrl.MapView.Canvas.contextMenu.Show((int)nodeView.Left, (int)(nodeView.Top + nodeView.Height));
+                mapCtrl.MapView.Canvas.contextMenu.Show(mapCtrl.MapView.Canvas, new Point((int)nodeView.Left + 2, (int)(nodeView.Top + nodeView.Height - 2)));                  
             }
         }
 
-
+        void Canvas_NodeRightClick(MapNode node, NodeMouseEventArgs args)
+        {
+            mapCtrl.MapView.Canvas.contextMenu.Show(mapCtrl.MapView.Canvas, args.Location);
+        }
+                        
+                
         private void mDeleteNode_Click(object sender, EventArgs e)
         {
             mapCtrl.DeleteSelectedNodes();
@@ -73,6 +69,6 @@ namespace MindMate.Controller
         {
             mapCtrl.AppendIconFromIconSelectorExt();
         }
-
+        
     }
 }
