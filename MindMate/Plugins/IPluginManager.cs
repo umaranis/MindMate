@@ -8,6 +8,6 @@ namespace MindMate.Plugins
 {
     interface IPluginManager
     {
-        MapTree CurrentMapTree { get; }
+        
     }
 }

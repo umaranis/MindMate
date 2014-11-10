@@ -31,16 +31,12 @@ namespace MindMate.Plugins
         {
             foreach(IPlugin plugin in Plugins)
             {
-                contextMenuCtrl.InsertMenuItems(plugin.CreateContextMenuItemsForNode());
+                var menu = plugin.CreateContextMenuItemsForNode();
+                if(menu != null)
+                    contextMenuCtrl.InsertMenuItems(menu);
             }
         }
 
-        public Model.MapTree CurrentMapTree
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }            
-        }
+        
     }
 }

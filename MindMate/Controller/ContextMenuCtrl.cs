@@ -36,10 +36,10 @@ namespace MindMate.Controller
         
         public void InsertMenuItems(ToolStripMenuItem [] menuItems)
         {
-            int index = mapCtrl.MapView.Canvas.contextMenu.Items.IndexOf(mapCtrl.MapView.Canvas.mSepPluginEnd);        
-  
             ContextMenuStrip contextMenu = mapCtrl.MapView.Canvas.contextMenu;
 
+            int index = contextMenu.Items.IndexOf(mapCtrl.MapView.Canvas.mSepPluginEnd);        
+  
             contextMenu.Items.Insert(index++, new ToolStripSeparator());
             
             foreach(ToolStripMenuItem menu in menuItems)

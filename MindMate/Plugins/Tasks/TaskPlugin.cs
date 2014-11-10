@@ -9,35 +9,38 @@ namespace MindMate.Plugins.Tasks
 {
     public class TaskPlugin : IPlugin
     {
-        private IPluginManager pluginMgr;
         public void Initialize(PluginManager pluginMgr)
         {
-            this.pluginMgr = pluginMgr;
         }
 
-        public ToolStripMenuItem[] CreateContextMenuItemsForNode()
+        public MenuItem[] CreateContextMenuItemsForNode()
         {
-            var t2 = new ToolStripMenuItem("Quick Due Dates", null, 
-                new ToolStripMenuItem("Today"),
-                new ToolStripMenuItem("Tomorrow"),
-                new ToolStripMenuItem("This Week"),
-                new ToolStripMenuItem("Next Week"),
-                new ToolStripMenuItem("This Month"),
-                new ToolStripMenuItem("Next Month"),
-                new ToolStripMenuItem("No Date")
+            var t2 = new MenuItem("Quick Due Dates", null, 
+                new MenuItem("Today"),
+                new MenuItem("Tomorrow"),
+                new MenuItem("This Week"),
+                new MenuItem("Next Week"),
+                new MenuItem("This Month"),
+                new MenuItem("Next Month"),
+                new MenuItem("No Date")
                 );
             
 
-            ToolStripMenuItem[] menuItems = new ToolStripMenuItem[] 
+            MenuItem[] menuItems = new MenuItem[] 
             {
-                new ToolStripMenuItem("Set Due Date ..."),
+                new MenuItem("Set Due Date ...", null, SetDueDate_Click),
                 t2
             };
 
             return menuItems;
         }
-        
-        public void CreateMainMenuItems(out ToolStripMenuItem[] menuItems, out MainMenuLocation position, out int priority)
+
+        private void SetDueDate_Click(MenuItem menu, SelectedNodes nodes)
+        {
+            new DateTimePicker().ShowDialog();
+        }
+                        
+        public void CreateMainMenuItems(out MenuItem[] menuItems, out MainMenuLocation position)
         {
             throw new NotImplementedException();
         }

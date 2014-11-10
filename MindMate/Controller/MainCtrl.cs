@@ -189,7 +189,7 @@ namespace MindMate.Controller
             mapViewPanel.LostFocus += (sender, e) => this.lastFocused = mapViewPanel;
         }
 
-        
+                
         public void ShowApplicationOptions()
         {
             Options frm = new Options(this);

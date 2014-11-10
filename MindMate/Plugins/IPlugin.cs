@@ -14,12 +14,12 @@ namespace MindMate.Plugins
         /// <summary>
         /// Plugin to create and provide a list of menu items for MapNode context menu. Will be called only once by PluginManager.
         /// </summary>
-        ToolStripMenuItem[] CreateContextMenuItemsForNode();
+        MenuItem[] CreateContextMenuItemsForNode();
 
         /// <summary>
         /// Plugin to create and provide a list of menu items for main menu. Will be called only once by PluginManager.
         /// </summary>
-        void CreateMainMenuItems(out ToolStripMenuItem[] menuItems, out MainMenuLocation location);
+        void CreateMainMenuItems(out MenuItem[] menuItems, out MainMenuLocation location);
 
         /// <summary>
         /// Register for Node, SelectedNodes and Tree events
@@ -32,6 +32,7 @@ namespace MindMate.Plugins
         /// </summary>
         /// <param name="tree"></param>
         void UnregisterTreeEvents(MapTree tree);
+        
     }
 
     public enum MainMenuLocation { File, Edit, Format, Tools, Help, Separate}

@@ -97,7 +97,16 @@
     <Compile Include="Model\NodeChangedEventArgs.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Plugins\IPluginManager.cs" />
+    <Compile Include="Plugins\MenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Plugins\PluginManager.cs" />
+    <Compile Include="Plugins\Tasks\DateTimePicker.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Plugins\Tasks\DateTimePicker.Designer.cs">
+      <DependentUpon>DateTimePicker.cs</DependentUpon>
+    </Compile>
     <Compile Include="Plugins\Tasks\TaskPlugin.cs" />
     <Compile Include="Serialization\Convert.cs" />
     <Compile Include="Serialization\MindMapSerializer.cs" />
@@ -166,6 +175,9 @@
     <Compile Include="View\NoteEditor.Designer.cs">
       <DependentUpon>NoteEditor.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Plugins\Tasks\DateTimePicker.resx">
+      <DependentUpon>DateTimePicker.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Dialogs\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
