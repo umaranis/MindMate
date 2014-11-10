@@ -21,6 +21,8 @@ namespace MindMate.Controller
         private View.MainForm mainForm;
         private Control lastFocused;
 
+        private Plugins.PluginManager pluginManager;
+
         private MapCtrl mapCtrl;
         private MainMenuCtrl mainMenuCtrl;
         private bool unsavedChanges = false;
@@ -37,7 +39,8 @@ namespace MindMate.Controller
         public MainForm LaunchMindMate()
         {
             MetaModel.MetaModel.Initialize();
-            mainForm = new MainForm();   
+            mainForm = new MainForm();
+            pluginManager = new Plugins.PluginManager(this);
             mainForm.Load += mainForm_Load;
 
             return mainForm;
@@ -74,7 +77,8 @@ namespace MindMate.Controller
             noteCrtl.MapTree = tree;
             mainForm.NoteEditor.LostFocus += (a, b) => this.lastFocused = mainForm.NoteEditor;
 
-            new ContextMenuCtrl(mapCtrl);
+            ContextMenuCtrl cmCtrl = new ContextMenuCtrl(mapCtrl);
+            pluginManager.InitializeContextMenu(cmCtrl);
             
             mainMenuCtrl = new MainMenuCtrl(mainForm, mapCtrl, this);
             statusBarCtrl = new WinFormsStatusBarCtrl(mainForm.statusStrip1);
@@ -185,7 +189,7 @@ namespace MindMate.Controller
             mapViewPanel.LostFocus += (sender, e) => this.lastFocused = mapViewPanel;
         }
 
-        
+                
         public void ShowApplicationOptions()
         {
             Options frm = new Options(this, this.noteCrtl);

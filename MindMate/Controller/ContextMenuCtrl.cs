@@ -14,7 +14,7 @@ using MindMate.View.MapControls;
 
 namespace MindMate.Controller
 {
-    class ContextMenuCtrl
+    public class ContextMenuCtrl
     {
         private MapCtrl mapCtrl;
         
@@ -35,6 +35,19 @@ namespace MindMate.Controller
             mapCtrl.MapView.Canvas.KeyDown += Canvas_KeyDown;
         }
 
+        public void InsertMenuItems(ToolStripMenuItem [] menuItems)
+        {
+            ContextMenuStrip contextMenu = mapCtrl.MapView.Canvas.contextMenu;
+
+            int index = contextMenu.Items.IndexOf(mapCtrl.MapView.Canvas.mSepPluginEnd);        
+  
+            contextMenu.Items.Insert(index++, new ToolStripSeparator());
+            
+            foreach(ToolStripMenuItem menu in menuItems)
+            {
+                contextMenu.Items.Insert(index++, menu);
+            }
+        }
         void Canvas_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Apps && mapCtrl.MapView.SelectedNodes.First != null)
@@ -43,13 +56,13 @@ namespace MindMate.Controller
                 mapCtrl.MapView.Canvas.contextMenu.Show(mapCtrl.MapView.Canvas, new Point((int)nodeView.Left + 2, (int)(nodeView.Top + nodeView.Height - 2)));                  
             }
         }
-
+        
         void Canvas_NodeRightClick(MapNode node, NodeMouseEventArgs args)
         {
             mapCtrl.MapView.Canvas.contextMenu.Show(mapCtrl.MapView.Canvas, args.Location);
         }
-                        
-                
+
+
         private void mDeleteNode_Click(object sender, EventArgs e)
         {
             mapCtrl.DeleteSelectedNodes();
@@ -69,6 +82,6 @@ namespace MindMate.Controller
         {
             mapCtrl.AppendIconFromIconSelectorExt();
         }
-        
+
     }
 }
