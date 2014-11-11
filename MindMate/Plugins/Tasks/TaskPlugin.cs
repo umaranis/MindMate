@@ -15,15 +15,16 @@ namespace MindMate.Plugins.Tasks
 
         public MenuItem[] CreateContextMenuItemsForNode()
         {
-            var t2 = new MenuItem("Quick Due Dates", null, 
-                new MenuItem("Today"),
-                new MenuItem("Tomorrow"),
-                new MenuItem("This Week"),
-                new MenuItem("Next Week"),
-                new MenuItem("This Month"),
-                new MenuItem("Next Month"),
-                new MenuItem("No Date")
-                );
+            var t2 = new MenuItem("Quick Due Dates");
+ 
+            t2.AddDropDownItem(new MenuItem("Today"));
+            t2.AddDropDownItem(new MenuItem("Tomorrow"));
+            t2.AddDropDownItem(new MenuItem("This Week"));
+            t2.AddDropDownItem(new MenuItem("Next Week"));
+            t2.AddDropDownItem(new MenuItem("This Month"));
+            t2.AddDropDownItem(new MenuItem("Next Month"));
+            t2.AddDropDownItem(new MenuItem("No Date"));
+                
             
 
             MenuItem[] menuItems = new MenuItem[] 

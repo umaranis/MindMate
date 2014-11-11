@@ -35,17 +35,17 @@ namespace MindMate.Controller
             mapCtrl.MapView.Canvas.KeyDown += Canvas_KeyDown;
         }
 
-        public void InsertMenuItems(ToolStripMenuItem [] menuItems)
-        {
+        public void InsertMenuItems(Plugins.MenuItem [] menuItems)
+        {            
             ContextMenuStrip contextMenu = mapCtrl.MapView.Canvas.contextMenu;
 
             int index = contextMenu.Items.IndexOf(mapCtrl.MapView.Canvas.mSepPluginEnd);        
   
             contextMenu.Items.Insert(index++, new ToolStripSeparator());
             
-            foreach(ToolStripMenuItem menu in menuItems)
+            foreach(Plugins.MenuItem menu in menuItems)
             {
-                contextMenu.Items.Insert(index++, menu);
+                contextMenu.Items.Insert(index++, menu.UnderlyingMenuItem);
             }
         }
         void Canvas_KeyDown(object sender, KeyEventArgs e)
