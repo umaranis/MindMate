@@ -92,5 +92,17 @@ namespace MindMate.Plugins
         {
             UnderlyingMenuItem.DropDownItems.Add(new ToolStripSeparator());
         }
+
+        public bool Enabled 
+        {
+            get
+            {
+                return UnderlyingMenuItem.Enabled;
+            }
+            set
+            {
+                UnderlyingMenuItem.Enabled = value;
+            }
+        }
     }
 }

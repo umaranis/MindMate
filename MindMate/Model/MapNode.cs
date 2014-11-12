@@ -299,7 +299,9 @@ namespace MindMate.Model
         public struct Attribute 
         { 
             public MapTree.AttributeSpec AttributeSpec; 
-            public string value; 
+            public string value;
+
+            public bool IsEmpty() { return AttributeSpec == null; }
         }
 
         private List<Attribute> attributeList;
@@ -308,6 +310,20 @@ namespace MindMate.Model
         public int AttributeCount { get { return attributeList == null ? 0 : attributeList.Count; } }
 
         public Attribute GetAttribute(int index) { return attributeList[index]; }
+
+        public Attribute GetAttribute(string attributeName)
+        {
+            if (attributeList != null)
+            {
+                foreach (Attribute att in attributeList)
+                {
+                    if (att.AttributeSpec.Name == attributeName)
+                        return att;
+                }
+            }
+
+            return new Attribute() { AttributeSpec = null, value = null };
+        }
 
         public void AddAttribute(Attribute attribute)
         {

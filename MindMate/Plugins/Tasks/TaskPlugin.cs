@@ -9,6 +9,7 @@ namespace MindMate.Plugins.Tasks
 {
     public class TaskPlugin : IPlugin
     {
+        public const string ATT_DUE_DATE = "Due Date";
         public void Initialize(PluginManager pluginMgr)
         {
         }
@@ -24,16 +25,28 @@ namespace MindMate.Plugins.Tasks
             t2.AddDropDownItem(new MenuItem("This Month"));
             t2.AddDropDownItem(new MenuItem("Next Month"));
             t2.AddDropDownItem(new MenuItem("No Date"));
-                
-            
+
+            var t3 = new MenuItem("Complete Task");
+            t3.Opening = Complete_Opening;
 
             MenuItem[] menuItems = new MenuItem[] 
             {
                 new MenuItem("Set Due Date ...", null, SetDueDate_Click),
-                t2
+                t2,
+                t3
             };
 
             return menuItems;
+        }
+
+        private void Complete_Opening(MenuItem menuItem, SelectedNodes nodes)
+        {
+            for (int i = 0; i < nodes.Count; i++ )
+            {
+                if (!nodes[i].GetAttribute(ATT_DUE_DATE).IsEmpty())
+                    menuItem.Enabled = true;
+            }
+            menuItem.Enabled = false;
         }
 
         private void SetDueDate_Click(MenuItem menu, SelectedNodes nodes)
