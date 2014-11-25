@@ -915,11 +915,17 @@ namespace MindMate.Model
             node.bold = this.bold;
             node.color = this.color;
             
-            if(this.attributeList!= null && node.attributeList == null) node.EnsureAttributeListCreated();
-            node.attributeList.Clear();
-            foreach(Attribute att in attributeList)
+            if(this.attributeList != null)
             {
-                node.attributeList.Add(att);
+                node.EnsureAttributeListCreated();
+                foreach (Attribute att in attributeList)
+                {
+                    node.attributeList.Add(att);
+                }
+            }
+            else if(node.attributeList != null)
+            {
+                node.attributeList.Clear();
             }
 
             node.folded = this.folded;
