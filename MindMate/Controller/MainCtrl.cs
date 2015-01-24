@@ -48,6 +48,8 @@ namespace MindMate.Controller
 
         void mainForm_Load(object sender, EventArgs e)
         {
+            pluginManager.Initialize();
+
             MapTree tree;
 
             if (MetaModel.MetaModel.Instance.LastOpenedFile == null)

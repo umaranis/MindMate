@@ -15,5 +15,19 @@ namespace MindMate.Plugins.Tasks
         {
             InitializeComponent();
         }
+
+        public DateTime Value
+        {
+            get
+            {
+                return new DateTime(datePicker.SelectionStart.Year, datePicker.SelectionStart.Month, datePicker.SelectionStart.Day,
+                    timePicker.Value.Hour, timePicker.Value.Minute, timePicker.Value.Second);
+            }
+            set
+            {
+                datePicker.SelectionStart = value;
+                timePicker.Value = value;
+            }
+        }
     }
 }

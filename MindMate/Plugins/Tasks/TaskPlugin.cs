@@ -10,8 +10,12 @@ namespace MindMate.Plugins.Tasks
     public class TaskPlugin : IPlugin
     {
         public const string ATT_DUE_DATE = "Due Date";
+
+        private DateTimePicker dateTimePicker; 
+
         public void Initialize(PluginManager pluginMgr)
         {
+            dateTimePicker = new DateTimePicker();
         }
 
         public MenuItem[] CreateContextMenuItemsForNode()
@@ -51,7 +55,8 @@ namespace MindMate.Plugins.Tasks
 
         private void SetDueDate_Click(MenuItem menu, SelectedNodes nodes)
         {
-            new DateTimePicker().ShowDialog();
+            dateTimePicker.Value = DateTime.Today.Date;
+            dateTimePicker.ShowDialog();
         }
                         
         public void CreateMainMenuItems(out MenuItem[] menuItems, out MainMenuLocation position)

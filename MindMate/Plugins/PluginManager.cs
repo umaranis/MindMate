@@ -27,6 +27,11 @@ namespace MindMate.Plugins
             Plugins.Add(new Tasks.TaskPlugin());
         }
 
+        public void Initialize()
+        {
+            Plugins.ForEach(a => a.Initialize(this));
+        }
+
         public void InitializeContextMenu(ContextMenuCtrl contextMenuCtrl)
         {
             foreach(IPlugin plugin in Plugins)
