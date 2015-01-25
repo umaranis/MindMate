@@ -59,7 +59,11 @@ namespace MindMate.Model
 
         public AttributeSpec GetAttributeSpec(string attributeName)
         {
-            return attributeSpecs[attributeName];
+            AttributeSpec attSpec = null;
+            if (attributeSpecs.TryGetValue(attributeName, out attSpec))
+                return attSpec;
+            else
+                return null;
         }
                         
         public int AttributeSpecCount { get { return attributeSpecs.Count; } }

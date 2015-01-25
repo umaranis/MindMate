@@ -48,7 +48,10 @@ namespace MindMate.Plugins.Tasks
             for (int i = 0; i < nodes.Count; i++ )
             {
                 if (!nodes[i].GetAttribute(ATT_DUE_DATE).IsEmpty())
+                {
                     menuItem.Enabled = true;
+                    return;
+                }
             }
             menuItem.Enabled = false;
         }
@@ -56,7 +59,32 @@ namespace MindMate.Plugins.Tasks
         private void SetDueDate_Click(MenuItem menu, SelectedNodes nodes)
         {
             dateTimePicker.Value = DateTime.Today.Date;
-            dateTimePicker.ShowDialog();
+            if(dateTimePicker.ShowDialog() == DialogResult.OK)
+            {
+                for (int i = 0; i < nodes.Count; i++)
+                {
+                    MapNode node = nodes[i];
+
+                    MapTree.AttributeSpec aspec = node.Tree.GetAttributeSpec(ATT_DUE_DATE);
+                    if (aspec == null)
+                        aspec = CreateDueDateAttributeSpec(node.Tree);
+
+                    MapNode.Attribute att = node.GetAttribute(aspec);
+                    if (att.IsEmpty())
+                        att.AttributeSpec = aspec;
+
+                    att.value = dateTimePicker.Value.ToShortDateString();
+                    node.AddUpdateAttribute(att);
+
+                }
+            }
+        }
+
+        private MapTree.AttributeSpec CreateDueDateAttributeSpec(MapTree tree)
+        {
+            return new MapTree.AttributeSpec(
+                tree, ATT_DUE_DATE, true, MapTree.AttributeDataType.DateTime, 
+                MapTree.AttributeListOption.NoList, null, MapTree.AttributeType.System);
         }
                         
         public void CreateMainMenuItems(out MenuItem[] menuItems, out MainMenuLocation position)
@@ -78,6 +106,7 @@ namespace MindMate.Plugins.Tasks
         {
             throw new NotImplementedException();
         }
+        
         
     }
 }
