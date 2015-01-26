@@ -47,7 +47,7 @@ namespace MindMate.Plugins.Tasks
         {
             for (int i = 0; i < nodes.Count; i++ )
             {
-                if (!nodes[i].GetAttribute(ATT_DUE_DATE).IsEmpty())
+                if (nodes[i].ContainsAttribute(ATT_DUE_DATE))
                 {
                     menuItem.Enabled = true;
                     return;
@@ -69,8 +69,8 @@ namespace MindMate.Plugins.Tasks
                     if (aspec == null)
                         aspec = CreateDueDateAttributeSpec(node.Tree);
 
-                    MapNode.Attribute att = node.GetAttribute(aspec);
-                    if (att.IsEmpty())
+                    MapNode.Attribute att;
+                    if (!node.GetAttribute(aspec, out att))
                         att.AttributeSpec = aspec;
 
                     att.value = dateTimePicker.Value.ToShortDateString();

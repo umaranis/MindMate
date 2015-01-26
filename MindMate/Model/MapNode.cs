@@ -311,32 +311,72 @@ namespace MindMate.Model
 
         public Attribute GetAttribute(int index) { return attributeList[index]; }
 
-        public Attribute GetAttribute(string attributeName)
+        public bool GetAttribute(string attributeName, out Attribute attribute)
         {
             if (attributeList != null)
             {
                 foreach (Attribute att in attributeList)
                 {
                     if (att.AttributeSpec.Name == attributeName)
-                        return att;
+                    {
+                        attribute = att;
+                        return true; 
+                    }
                 }
             }
 
-            return new Attribute() { AttributeSpec = null, value = null };
+            attribute = new Attribute() { AttributeSpec = null, value = null };
+            return false;
         }
 
-        public Attribute GetAttribute(MapTree.AttributeSpec attSpec)
+        public bool GetAttribute(MapTree.AttributeSpec attSpec, out Attribute attribute)
         {
             if(attributeList != null)
             {
                 foreach (Attribute att in attributeList)
                 {
                     if (att.AttributeSpec == attSpec)
-                        return att;
+                    {
+                        attribute = att;
+                        return true;
+                    }
                 }
             }
 
-            return new Attribute() { AttributeSpec = null, value = null };
+            attribute = new Attribute() { AttributeSpec = null, value = null };
+            return false;
+        }
+
+        public bool ContainsAttribute(MapTree.AttributeSpec attSpec)
+        {
+            if (attributeList != null)
+            {
+                foreach (Attribute att in attributeList)
+                {
+                    if (att.AttributeSpec == attSpec)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public bool ContainsAttribute(string attributeName)
+        {
+            if (attributeList != null)
+            {
+                foreach (Attribute att in attributeList)
+                {
+                    if (att.AttributeSpec.Name == attributeName)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         public void AddAttribute(Attribute attribute)
