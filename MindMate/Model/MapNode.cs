@@ -311,18 +311,72 @@ namespace MindMate.Model
 
         public Attribute GetAttribute(int index) { return attributeList[index]; }
 
-        public Attribute GetAttribute(string attributeName)
+        public bool GetAttribute(string attributeName, out Attribute attribute)
         {
             if (attributeList != null)
             {
                 foreach (Attribute att in attributeList)
                 {
                     if (att.AttributeSpec.Name == attributeName)
-                        return att;
+                    {
+                        attribute = att;
+                        return true; 
+                    }
                 }
             }
 
-            return new Attribute() { AttributeSpec = null, value = null };
+            attribute = new Attribute() { AttributeSpec = null, value = null };
+            return false;
+        }
+
+        public bool GetAttribute(MapTree.AttributeSpec attSpec, out Attribute attribute)
+        {
+            if(attributeList != null)
+            {
+                foreach (Attribute att in attributeList)
+                {
+                    if (att.AttributeSpec == attSpec)
+                    {
+                        attribute = att;
+                        return true;
+                    }
+                }
+            }
+
+            attribute = new Attribute() { AttributeSpec = null, value = null };
+            return false;
+        }
+
+        public bool ContainsAttribute(MapTree.AttributeSpec attSpec)
+        {
+            if (attributeList != null)
+            {
+                foreach (Attribute att in attributeList)
+                {
+                    if (att.AttributeSpec == attSpec)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public bool ContainsAttribute(string attributeName)
+        {
+            if (attributeList != null)
+            {
+                foreach (Attribute att in attributeList)
+                {
+                    if (att.AttributeSpec.Name == attributeName)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         public void AddAttribute(Attribute attribute)
@@ -333,6 +387,38 @@ namespace MindMate.Model
 
             Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Added, newValue = attribute });
         }
+
+        public void UpdateAttribute(int index, string newValue)
+        {
+            Attribute oldAtt = attributeList[index];
+            Attribute newAtt = new Attribute() { AttributeSpec = oldAtt.AttributeSpec, value = newValue };
+            attributeList[index] = newAtt;
+
+            Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.ValueUpdated, newValue = newAtt, oldValue = oldAtt });
+        }
+
+        /// <summary>
+        /// Attribute is added if doesn't already exist. Otherwise it is updated.
+        /// </summary>
+        /// <param name="attribute"></param>
+        public void AddUpdateAttribute(Attribute attribute)
+        {
+            if (attributeList != null)
+            {
+                for (int i = 0; i < attributeList.Count; i++)
+                {
+                    Attribute att = attributeList[i];
+                    if (att.AttributeSpec == attribute.AttributeSpec)
+                    {
+                        UpdateAttribute(i, attribute.value);
+                        return;
+                    }
+                }
+            }
+            AddAttribute(attribute);
+        }
+
+        
 
         private void EnsureAttributeListCreated()
         {
@@ -354,14 +440,7 @@ namespace MindMate.Model
             Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Removed, oldValue = attribute });
         }
 
-        public void UpdateAttribute(int index, string newValue)
-        {
-            Attribute oldAtt = attributeList[index];
-            Attribute newAtt = new Attribute() { AttributeSpec = oldAtt.AttributeSpec, value = newValue };
-            attributeList[index] = newAtt;
-
-            Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.ValueUpdated, newValue = newAtt, oldValue = oldAtt });
-        }
+        
                 
 
         #endregion Attributes
