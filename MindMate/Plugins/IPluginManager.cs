@@ -6,7 +6,7 @@ using MindMate.Model;
 
 namespace MindMate.Plugins
 {
-    interface IPluginManager
+    public interface IPluginManager
     {
         
     }

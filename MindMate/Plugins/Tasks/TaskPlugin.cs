@@ -13,7 +13,7 @@ namespace MindMate.Plugins.Tasks
 
         private DateTimePicker dateTimePicker; 
 
-        public void Initialize(PluginManager pluginMgr)
+        public void Initialize(IPluginManager pluginMgr)
         {
             dateTimePicker = new DateTimePicker();
         }

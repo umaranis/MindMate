@@ -91,7 +91,7 @@ namespace MindMate.Controller
 
             UpdateTitleBar();
             RegisterForMapChangedNotification();                 // register for map changes (register/unregister with tree)
-            mainForm.notesEditor.OnDirty += (a) => MapChanged(); // register for NoteEditor changes
+            mainForm.NoteEditor.OnDirty += (a) => MapChanged(); // register for NoteEditor changes
 
             mainForm.FormClosing += mainForm_FormClosing;
             

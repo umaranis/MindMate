@@ -22,24 +22,41 @@ namespace MindMate.View
     public partial class MainForm : Form
     {
         
-        public NoteEditor notesEditor;
+        private NoteEditor notesEditor;
 
         public MainForm()
         {
             InitializeComponent();
 
-            //mainUICtrl = new MainCtrl(this);
+            SetupSideBar();
+        }
 
-            
+        private void SetupSideBar()
+        {
+            TabControl sideBarTabs = new TabControl();
+            sideBarTabs.Dock = DockStyle.Fill;
+
+            ImageList imageList = new ImageList();
+            imageList.Images.Add(MindMate.Properties.Resources.knotes);
+            sideBarTabs.ImageList = imageList;
+
+            TabPage tPage = new TabPage("Note Editor");
+            tPage.ImageIndex = 0;
             notesEditor = new NoteEditor();
             notesEditor.Dock = DockStyle.Fill;
-            this.splitContainer1.Panel2.Controls.Add(notesEditor);
+            tPage.Controls.Add(notesEditor);
+
+
+            sideBarTabs.TabPages.Add(tPage);
+            this.splitContainer1.Panel2.Controls.Add(sideBarTabs);
         }
 
         
         public NoteEditor NoteEditor
         {
             get { return this.notesEditor; }
-        }                
+        }       
+        
+        
     }
 }
