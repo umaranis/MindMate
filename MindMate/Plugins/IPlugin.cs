@@ -22,6 +22,14 @@ namespace MindMate.Plugins
         void CreateMainMenuItems(out MenuItem[] menuItems, out MainMenuLocation location);
 
         /// <summary>
+        /// Plugin to create and provide a list of controls to be displayed in the side bar.
+        /// 
+        /// Name of Side Bar will be set from Control.Text property.
+        /// </summary>
+        /// <returns>List of controls. Each control will be shown in a separate tab in Side Bar</returns>
+        Control[] CreateSideBarWindows();
+
+        /// <summary>
         /// Register for Node, SelectedNodes and Tree events
         /// </summary>
         /// <param name="tree"></param>

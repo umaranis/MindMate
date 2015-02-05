@@ -12,10 +12,12 @@ namespace MindMate.Plugins.Tasks
         public const string ATT_DUE_DATE = "Due Date";
 
         private DateTimePicker dateTimePicker; 
+        private TasksList taskList;
 
         public void Initialize(IPluginManager pluginMgr)
         {
             dateTimePicker = new DateTimePicker();
+            taskList = new TasksList();
         }
 
         public MenuItem[] CreateContextMenuItemsForNode()
@@ -76,6 +78,8 @@ namespace MindMate.Plugins.Tasks
                     att.value = dateTimePicker.Value.ToShortDateString();
                     node.AddUpdateAttribute(att);
 
+                    taskList.Add(node, dateTimePicker.Value);
+
                 }
             }
         }
@@ -90,6 +94,12 @@ namespace MindMate.Plugins.Tasks
         public void CreateMainMenuItems(out MenuItem[] menuItems, out MainMenuLocation position)
         {
             throw new NotImplementedException();
+        }
+
+        public Control[] CreateSideBarWindows()
+        {
+            taskList.Text = "Tasks";
+            return new Control [] { taskList };
         }
 
         public void RegisterTreeEvents(Model.MapTree tree)

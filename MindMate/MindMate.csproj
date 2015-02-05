@@ -97,17 +97,38 @@
     <Compile Include="Model\NodeChangedEventArgs.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Plugins\IPluginManager.cs" />
-    <Compile Include="Plugins\MenuItem.cs">
+    <Compile Include="Plugins\MenuItem.cs" />
+    <Compile Include="Plugins\PluginManager.cs" />
+    <Compile Include="Plugins\Tasks\CollapsiblePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Plugins\PluginManager.cs" />
+    <Compile Include="Plugins\Tasks\CollapsiblePanel.designer.cs">
+      <DependentUpon>CollapsiblePanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Plugins\Tasks\DateTimePicker.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Plugins\Tasks\DateTimePicker.Designer.cs">
       <DependentUpon>DateTimePicker.cs</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\Tasks\TaskRes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TaskRes.resx</DependentUpon>
+    </Compile>
     <Compile Include="Plugins\Tasks\TaskPlugin.cs" />
+    <Compile Include="Plugins\Tasks\TasksList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\Tasks\TasksList.designer.cs">
+      <DependentUpon>TasksList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Tasks\TaskView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Plugins\Tasks\TaskView.designer.cs">
+      <DependentUpon>TaskView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Serialization\Convert.cs" />
     <Compile Include="Serialization\MindMapSerializer.cs" />
     <Compile Include="Serialization\MapTextSerializer.cs" />
@@ -175,8 +196,21 @@
     <Compile Include="View\NoteEditor.Designer.cs">
       <DependentUpon>NoteEditor.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Plugins\Tasks\CollapsiblePanel.resx">
+      <DependentUpon>CollapsiblePanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Plugins\Tasks\DateTimePicker.resx">
       <DependentUpon>DateTimePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\Tasks\TaskRes.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TaskRes.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\Tasks\TasksList.resx">
+      <DependentUpon>TasksList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Plugins\Tasks\TaskView.resx">
+      <DependentUpon>TaskView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Dialogs\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
@@ -496,6 +530,10 @@
     <None Include="Resources\arrow-270.png" />
     <None Include="Resources\tick_button.png" />
     <None Include="Resources\text_edit.png" />
+    <None Include="Resources\collapse.gif" />
+    <None Include="Resources\collapse_hightlight.gif" />
+    <None Include="Resources\expand.gif" />
+    <None Include="Resources\expand_highlight.gif" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

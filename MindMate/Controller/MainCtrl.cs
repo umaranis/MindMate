@@ -81,6 +81,8 @@ namespace MindMate.Controller
 
             ContextMenuCtrl cmCtrl = new ContextMenuCtrl(mapCtrl);
             pluginManager.InitializeContextMenu(cmCtrl);
+
+            pluginManager.InitializeSideBarWindow(mainForm.SideBarTabs);
             
             mainMenuCtrl = new MainMenuCtrl(mainForm, mapCtrl, this);
             statusBarCtrl = new WinFormsStatusBarCtrl(mainForm.statusStrip1);

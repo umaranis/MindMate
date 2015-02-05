@@ -42,6 +42,23 @@ namespace MindMate.Plugins
             }
         }
 
+        public void InitializeSideBarWindow(TabControl sidebar)
+        {
+            foreach(IPlugin plugin in Plugins)
+            {
+                var controls = plugin.CreateSideBarWindows();
+                
+                foreach(Control ctrl in controls)
+                {
+                    TabPage tPage = new TabPage(ctrl.Text);
+                    ctrl.Dock = DockStyle.Fill;
+                    tPage.Controls.Add(ctrl);
+                    sidebar.TabPages.Add(tPage);
+                }
+            }            
+        }
+
+
         
     }
 }

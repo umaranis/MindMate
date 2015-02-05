@@ -23,6 +23,7 @@ namespace MindMate.View
     {
         
         private NoteEditor notesEditor;
+        private TabControl sideBarTabs;        
 
         public MainForm()
         {
@@ -33,7 +34,7 @@ namespace MindMate.View
 
         private void SetupSideBar()
         {
-            TabControl sideBarTabs = new TabControl();
+            sideBarTabs = new TabControl();
             sideBarTabs.Dock = DockStyle.Fill;
 
             ImageList imageList = new ImageList();
@@ -55,7 +56,12 @@ namespace MindMate.View
         public NoteEditor NoteEditor
         {
             get { return this.notesEditor; }
-        }       
+        }
+
+        public TabControl SideBarTabs
+        {
+            get { return sideBarTabs; }
+        }
         
         
     }
