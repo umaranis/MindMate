@@ -117,7 +117,7 @@
             this.tableLayoutToday.RowCount = 0;
             this.tableLayoutToday.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutToday.Size = new System.Drawing.Size(264, 120);
-            this.tableLayoutToday.TabIndex = 3;
+            this.tableLayoutToday.TabIndex = 3;            
             // 
             // collapsiblePanelTomorrow
             // 

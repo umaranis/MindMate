@@ -60,7 +60,7 @@ namespace MindMate.Plugins.Tasks
 
         private void SetDueDate_Click(MenuItem menu, SelectedNodes nodes)
         {
-            dateTimePicker.Value = DateTime.Today.Date;
+            dateTimePicker.Value = DateTime.Today.Date.AddHours(7);
             if(dateTimePicker.ShowDialog() == DialogResult.OK)
             {
                 for (int i = 0; i < nodes.Count; i++)

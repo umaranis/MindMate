@@ -105,6 +105,7 @@
     <Compile Include="Plugins\Tasks\CollapsiblePanel.designer.cs">
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\Tasks\DateHelper.cs" />
     <Compile Include="Plugins\Tasks\DateTimePicker.cs">
       <SubType>Form</SubType>
     </Compile>

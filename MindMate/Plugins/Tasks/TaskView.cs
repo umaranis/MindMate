@@ -29,6 +29,8 @@ namespace MindMate.Plugins.Tasks
             }
 
             DueDate = dueDate;
+
+            TaskDueOnText = dueOnText;
         }
 
         public string TaskTitle

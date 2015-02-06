@@ -19,25 +19,30 @@ namespace MindMate.Plugins.Tasks
 
         public void Add(MindMate.Model.MapNode node, DateTime dateTime)
         {
-            if(dateTime.Date == DateTime.Today)
+            if(DateHelper.IsToday(dateTime))
             {
-                AddTask(this.collapsiblePanelToday, this.tableLayoutToday, node, dateTime);
+                AddTask(this.collapsiblePanelToday, this.tableLayoutToday, node, dateTime,
+                    DateHelper.GetTimePartString(dateTime));
             }              
-            else if(dateTime.Date == (DateTime.Today.AddDays(1).Date))
+            else if(DateHelper.IsTomorrow(dateTime))
             {
-                AddTask(this.collapsiblePanelTomorrow, this.tableLayoutTomorrow, node, dateTime);
+                AddTask(this.collapsiblePanelTomorrow, this.tableLayoutTomorrow, node, dateTime,
+                    DateHelper.GetTimePartString(dateTime));
             }
-            else if(DateInThisWeek(dateTime))
+            else if(DateHelper.DateInThisWeek(dateTime))
             {
-                AddTask(this.collapsiblePanelThisWeek, this.tableLayoutThisWeek, node, dateTime);
+                AddTask(this.collapsiblePanelThisWeek, this.tableLayoutThisWeek, node, dateTime,
+                    DateHelper.GetWeekDayString(dateTime));
             }
-            else if(DateInThisMonth(dateTime))
+            else if(DateHelper.DateInThisMonth(dateTime))
             {
-                AddTask(this.collapsiblePanelThisMonth, this.tableLayoutThisMonth, node, dateTime);
+                AddTask(this.collapsiblePanelThisMonth, this.tableLayoutThisMonth, node, dateTime,
+                    DateHelper.GetDayOfMonthString(dateTime));
             }
-            else if(DateInNextMonth(dateTime))
+            else if (DateHelper.DateInNextMonth(dateTime))
             {
-                AddTask(this.collapsiblePanelNextMonth, this.tableLayoutNextMonth, node, dateTime);
+                AddTask(this.collapsiblePanelNextMonth, this.tableLayoutNextMonth, node, dateTime,
+                    DateHelper.GetDayOfMonthString(dateTime));
             }
 
             Control lastTaskGroup = GetLastTaskGroup();
@@ -46,70 +51,48 @@ namespace MindMate.Plugins.Tasks
 
         
         private void AddTask(MindMate.Plugins.Tasks.CollapsiblePanel collapsiblePanel, TableLayoutPanel tableLayout,
-            MindMate.Model.MapNode node, DateTime dateTime)
+            MindMate.Model.MapNode node, DateTime dateTime, string dueOnText)
         {
+            TaskView tv = new TaskView(node, dateTime, dueOnText);
+
             if (tableLayout.RowCount == 0) collapsiblePanel.Visible = true;
-            TaskView tv = new TaskView(node, dateTime, "");
-            tv.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
-            tableLayout.Controls.Add(tv, 0, tableLayout.RowCount);
-            tableLayout.RowCount += 1;
+            
+            InsertTaskView(tableLayout, tv);
+            
             tableLayout.Height = tableLayout.RowCount * tv.Height + (tableLayout.Margin.Bottom * tableLayout.RowCount * 2);
             collapsiblePanel.Height = tableLayout.Height + tableLayout.Top;
         }
 
-        
-        private int GetTaskListSize()
+        private void InsertTaskView(TableLayoutPanel tableLayout, TaskView taskView)
         {
-            int size = 0;
-
-            for(int i = 0; i < tablePanelMain.RowCount; i++)
+            if (tableLayout.RowCount == 0)
             {
-
-            }
-
-            return size;
-        }
-
-        private bool DateInThisWeek(DateTime dateTime)
-        {
-            DateTime beginning, end;
-            GetWeek(DateTime.Now, System.Globalization.CultureInfo.CurrentCulture, out beginning, out end);
-            return dateTime.Date <= end.Date;
-        }
-
-        private void GetWeek(DateTime now, System.Globalization.CultureInfo cultureInfo, out DateTime begining, out DateTime end)
-        {
-            if (now == null)
-                throw new ArgumentNullException("now");
-            if (cultureInfo == null)
-                throw new ArgumentNullException("cultureInfo");
-
-            var firstDayOfWeek = cultureInfo.DateTimeFormat.FirstDayOfWeek;
-
-            int offset = firstDayOfWeek - now.DayOfWeek;
-            if (offset != 1)
-            {
-                DateTime weekStart = now.AddDays(offset);
-                DateTime endOfWeek = weekStart.AddDays(6);
-                begining = weekStart;
-                end = endOfWeek;
+                tableLayout.Controls.Add(taskView, 0, 0); // add if list is empty
+                tableLayout.RowCount += 1;
+                return;
             }
             else
             {
-                begining = now.AddDays(-6);
-                end = now;
+                for (int i = tableLayout.RowCount - 1; i >= 0; i--)
+                {
+                    TaskView tv = (TaskView)tableLayout.GetControlFromPosition(0, i);
+                    if (tv.DueDate > taskView.DueDate)
+                    {
+                        tableLayout.SetRow(tv, i + 1);
+                    }
+                    else
+                    {
+                        tableLayout.Controls.Add(taskView, 0, i + 1); // add in the middle or end
+                        tableLayout.RowCount += 1;
+                        return;
+                    }
+                }
+
+                tableLayout.Controls.Add(taskView, 0, 0); // add at the top after all controls are moved down using loop
+                tableLayout.RowCount += 1;
+                return;
             }
-        }
-
-        private bool DateInThisMonth(DateTime dateTime)
-        {
-            return (dateTime.Year == DateTime.Now.Year && dateTime.Month == DateTime.Now.Month);
-        }
-
-        private bool DateInNextMonth(DateTime dateTime)
-        {
-            DateTime currentNextMonth = DateTime.Now.AddMonths(1);
-            return dateTime.Month == currentNextMonth.Month && dateTime.Year == currentNextMonth.Year;
+            
         }
 
         private Control GetLastTaskGroup()
