@@ -92,7 +92,7 @@ namespace MindMate.Plugins.Tasks
             btnRemove.Visible = true;
             btnComplete.Visible = true;
             BackColor = Color.AliceBlue;
-            BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.TaskView_Paint);
         }
 
         protected override void OnMouseLeave(EventArgs e)
@@ -100,7 +100,7 @@ namespace MindMate.Plugins.Tasks
             btnRemove.Visible = false;
             btnComplete.Visible = false;
             BackColor = SystemColors.ControlLight;
-            BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Paint -= new System.Windows.Forms.PaintEventHandler(this.TaskView_Paint);       
         }
 
         private void btnRemove_MouseEnter(object sender, EventArgs e)
@@ -113,6 +113,11 @@ namespace MindMate.Plugins.Tasks
         {
             btnRemove.Visible = false;
             btnComplete.Visible = false;
+        }
+
+        private void TaskView_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawRectangle(Pens.Black, 0, 0, this.Width - 1, this.Height - 1);
         }
 
         

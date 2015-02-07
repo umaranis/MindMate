@@ -30,13 +30,27 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskView));
-            this.btnRemove = new TransparentButton();
-            this.btnComplete = new TransparentButton();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnComplete = new MindMate.Plugins.Tasks.TransparentButton();
+            this.btnRemove = new MindMate.Plugins.Tasks.TransparentButton();
             this.lblTaskPath = new MindMate.Plugins.Tasks.TransparentLabel();
             this.lblDueOn = new MindMate.Plugins.Tasks.TransparentLabel();
             this.lblNodeName = new MindMate.Plugins.Tasks.TransparentLabel();
             this.SuspendLayout();
+            // 
+            // btnComplete
+            // 
+            this.btnComplete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnComplete.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnComplete.FlatAppearance.BorderSize = 0;
+            this.btnComplete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnComplete.Image = ((System.Drawing.Image)(resources.GetObject("btnComplete.Image")));
+            this.btnComplete.Location = new System.Drawing.Point(1200, 3);
+            this.btnComplete.Name = "btnComplete";
+            this.btnComplete.Size = new System.Drawing.Size(18, 18);
+            this.btnComplete.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.btnComplete, "Complete Task");
+            this.btnComplete.UseVisualStyleBackColor = false;
             // 
             // btnRemove
             // 
@@ -54,20 +68,6 @@
             this.btnRemove.MouseEnter += new System.EventHandler(this.btnRemove_MouseEnter);
             this.btnRemove.MouseLeave += new System.EventHandler(this.btnRemove_MouseLeave);
             // 
-            // btnComplete
-            // 
-            this.btnComplete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnComplete.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btnComplete.FlatAppearance.BorderSize = 0;
-            this.btnComplete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnComplete.Image = ((System.Drawing.Image)(resources.GetObject("btnComplete.Image")));
-            this.btnComplete.Location = new System.Drawing.Point(1200, 3);
-            this.btnComplete.Name = "btnComplete";
-            this.btnComplete.Size = new System.Drawing.Size(18, 18);
-            this.btnComplete.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.btnComplete, "Complete Task");
-            this.btnComplete.UseVisualStyleBackColor = false;
-            // 
             // lblTaskPath
             // 
             this.lblTaskPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -76,7 +76,7 @@
             this.lblTaskPath.ForeColor = System.Drawing.Color.Gray;
             this.lblTaskPath.Location = new System.Drawing.Point(7, 22);
             this.lblTaskPath.Name = "lblTaskPath";
-            this.lblTaskPath.Size = new System.Drawing.Size(1170, 23);
+            this.lblTaskPath.Size = new System.Drawing.Size(1170, 16);
             this.lblTaskPath.TabIndex = 2;
             this.lblTaskPath.Text = "Blogging -> My Tasks -> Important Ones -> My Mind";
             // 
@@ -86,7 +86,7 @@
             this.lblDueOn.ForeColor = System.Drawing.Color.Gray;
             this.lblDueOn.Location = new System.Drawing.Point(1183, 22);
             this.lblDueOn.Name = "lblDueOn";
-            this.lblDueOn.Size = new System.Drawing.Size(57, 23);
+            this.lblDueOn.Size = new System.Drawing.Size(57, 16);
             this.lblDueOn.TabIndex = 1;
             this.lblDueOn.Text = "12:00 AM";
             this.lblDueOn.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -114,7 +114,7 @@
             this.Controls.Add(this.lblDueOn);
             this.Controls.Add(this.lblNodeName);
             this.Name = "TaskView";
-            this.Size = new System.Drawing.Size(1243, 42);
+            this.Size = new System.Drawing.Size(1243, 42);            
             this.ResumeLayout(false);
 
         }
@@ -124,8 +124,8 @@
         private TransparentLabel lblNodeName;
         private TransparentLabel lblDueOn;
         private TransparentLabel lblTaskPath;
-        public System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.ToolTip toolTip1;
-        public System.Windows.Forms.Button btnComplete;
+        public TransparentButton btnRemove;
+        public TransparentButton btnComplete;
     }
 }
