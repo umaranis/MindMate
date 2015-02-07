@@ -16,6 +16,9 @@ namespace MindMate.Plugins.Tasks
         {
             InitializeComponent();
 
+            btnRemove.Visible = false;
+            btnComplete.Visible = false;
+
             TaskTitle = node.Text;
 
             //TODO: What will happen if node is moved or any of the ancestors is moved
@@ -82,6 +85,37 @@ namespace MindMate.Plugins.Tasks
         }
 
         public DateTime DueDate { get; set; }
+
+
+        protected override void OnMouseEnter(EventArgs e)
+        {
+            btnRemove.Visible = true;
+            btnComplete.Visible = true;
+            BackColor = Color.AliceBlue;
+            BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+        }
+
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            btnRemove.Visible = false;
+            btnComplete.Visible = false;
+            BackColor = SystemColors.ControlLight;
+            BorderStyle = System.Windows.Forms.BorderStyle.None;
+        }
+
+        private void btnRemove_MouseEnter(object sender, EventArgs e)
+        {
+            btnRemove.Visible = true;
+            btnComplete.Visible = true;
+        }
+
+        private void btnRemove_MouseLeave(object sender, EventArgs e)
+        {
+            btnRemove.Visible = false;
+            btnComplete.Visible = false;
+        }
+
+        
 
     }    
 }

@@ -130,6 +130,12 @@
     <Compile Include="Plugins\Tasks\TaskView.designer.cs">
       <DependentUpon>TaskView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\Tasks\TransparentButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Plugins\Tasks\TransparentLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Serialization\Convert.cs" />
     <Compile Include="Serialization\MindMapSerializer.cs" />
     <Compile Include="Serialization\MapTextSerializer.cs" />

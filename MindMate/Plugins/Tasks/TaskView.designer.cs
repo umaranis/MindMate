@@ -28,22 +28,57 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblNodeName = new System.Windows.Forms.Label();
-            this.lblDueOn = new System.Windows.Forms.Label();
-            this.lblTaskPath = new System.Windows.Forms.Label();
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskView));
+            this.btnRemove = new TransparentButton();
+            this.btnComplete = new TransparentButton();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblTaskPath = new MindMate.Plugins.Tasks.TransparentLabel();
+            this.lblDueOn = new MindMate.Plugins.Tasks.TransparentLabel();
+            this.lblNodeName = new MindMate.Plugins.Tasks.TransparentLabel();
             this.SuspendLayout();
             // 
-            // lblNodeName
+            // btnRemove
             // 
-            this.lblNodeName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemove.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnRemove.FlatAppearance.BorderSize = 0;
+            this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemove.Image = ((System.Drawing.Image)(resources.GetObject("btnRemove.Image")));
+            this.btnRemove.Location = new System.Drawing.Point(1221, 3);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(18, 18);
+            this.btnRemove.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.btnRemove, "Remove Task");
+            this.btnRemove.UseVisualStyleBackColor = false;
+            this.btnRemove.MouseEnter += new System.EventHandler(this.btnRemove_MouseEnter);
+            this.btnRemove.MouseLeave += new System.EventHandler(this.btnRemove_MouseLeave);
+            // 
+            // btnComplete
+            // 
+            this.btnComplete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnComplete.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnComplete.FlatAppearance.BorderSize = 0;
+            this.btnComplete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnComplete.Image = ((System.Drawing.Image)(resources.GetObject("btnComplete.Image")));
+            this.btnComplete.Location = new System.Drawing.Point(1200, 3);
+            this.btnComplete.Name = "btnComplete";
+            this.btnComplete.Size = new System.Drawing.Size(18, 18);
+            this.btnComplete.TabIndex = 4;
+            this.toolTip1.SetToolTip(this.btnComplete, "Complete Task");
+            this.btnComplete.UseVisualStyleBackColor = false;
+            // 
+            // lblTaskPath
+            // 
+            this.lblTaskPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblNodeName.AutoEllipsis = true;
-            this.lblNodeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNodeName.Location = new System.Drawing.Point(4, 4);
-            this.lblNodeName.Name = "lblNodeName";
-            this.lblNodeName.Size = new System.Drawing.Size(1192, 23);
-            this.lblNodeName.TabIndex = 0;
-            this.lblNodeName.Text = "Create a new Post on Animal Rights in Islam";
+            this.lblTaskPath.AutoEllipsis = true;
+            this.lblTaskPath.ForeColor = System.Drawing.Color.Gray;
+            this.lblTaskPath.Location = new System.Drawing.Point(7, 22);
+            this.lblTaskPath.Name = "lblTaskPath";
+            this.lblTaskPath.Size = new System.Drawing.Size(1170, 23);
+            this.lblTaskPath.TabIndex = 2;
+            this.lblTaskPath.Text = "Blogging -> My Tasks -> Important Ones -> My Mind";
             // 
             // lblDueOn
             // 
@@ -56,22 +91,25 @@
             this.lblDueOn.Text = "12:00 AM";
             this.lblDueOn.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // lblTaskPath
+            // lblNodeName
             // 
-            this.lblTaskPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblNodeName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTaskPath.AutoEllipsis = true;
-            this.lblTaskPath.ForeColor = System.Drawing.Color.Gray;
-            this.lblTaskPath.Location = new System.Drawing.Point(7, 22);
-            this.lblTaskPath.Name = "lblTaskPath";
-            this.lblTaskPath.Size = new System.Drawing.Size(1130, 23);
-            this.lblTaskPath.TabIndex = 2;
-            this.lblTaskPath.Text = "Blogging -> My Tasks -> Important Ones -> My Mind";
+            this.lblNodeName.AutoEllipsis = true;
+            this.lblNodeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNodeName.Location = new System.Drawing.Point(4, 4);
+            this.lblNodeName.Name = "lblNodeName";
+            this.lblNodeName.Size = new System.Drawing.Size(1235, 23);
+            this.lblNodeName.TabIndex = 0;
+            this.lblNodeName.Text = "Create a new Post on Animal Rights in Islam";
             // 
             // TaskView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.Controls.Add(this.btnComplete);
+            this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.lblTaskPath);
             this.Controls.Add(this.lblDueOn);
             this.Controls.Add(this.lblNodeName);
@@ -83,8 +121,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblNodeName;
-        private System.Windows.Forms.Label lblDueOn;
-        private System.Windows.Forms.Label lblTaskPath;
+        private TransparentLabel lblNodeName;
+        private TransparentLabel lblDueOn;
+        private TransparentLabel lblTaskPath;
+        public System.Windows.Forms.Button btnRemove;
+        private System.Windows.Forms.ToolTip toolTip1;
+        public System.Windows.Forms.Button btnComplete;
     }
 }
