@@ -435,9 +435,25 @@ namespace MindMate.Model
 
         public void DeleteAttribute(Attribute attribute)
         {
-            attributeList.Remove(attribute);
+            if (attributeList.Remove(attribute))
+            {
+                Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Removed, oldValue = attribute });
+            }
+        }
 
-            Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Removed, oldValue = attribute });
+        public void DeleteAttribute(string attributeName)
+        {
+            for(int i = 0; i < attributeList.Count; i++)
+            {
+                Attribute attribute = attributeList[i];
+                if (attribute.AttributeSpec.Name == attributeName)
+                {
+                    attributeList.RemoveAt(i);
+
+                    Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Removed, oldValue = attribute });
+                }
+            }
+            
         }
 
         

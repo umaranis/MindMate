@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskView));
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnComplete = new MindMate.Plugins.Tasks.TransparentButton();
-            this.btnRemove = new MindMate.Plugins.Tasks.TransparentButton();
+            this.btnComplete = new TransparentPictureBox();
+            this.btnRemove = new TransparentPictureBox();
             this.lblTaskPath = new MindMate.Plugins.Tasks.TransparentLabel();
             this.lblDueOn = new MindMate.Plugins.Tasks.TransparentLabel();
             this.lblNodeName = new MindMate.Plugins.Tasks.TransparentLabel();
@@ -42,31 +42,23 @@
             // 
             this.btnComplete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnComplete.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btnComplete.FlatAppearance.BorderSize = 0;
-            this.btnComplete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnComplete.Image = ((System.Drawing.Image)(resources.GetObject("btnComplete.Image")));
             this.btnComplete.Location = new System.Drawing.Point(1200, 3);
             this.btnComplete.Name = "btnComplete";
             this.btnComplete.Size = new System.Drawing.Size(18, 18);
             this.btnComplete.TabIndex = 4;
             this.toolTip1.SetToolTip(this.btnComplete, "Complete Task");
-            this.btnComplete.UseVisualStyleBackColor = false;
             // 
             // btnRemove
             // 
             this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemove.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btnRemove.FlatAppearance.BorderSize = 0;
-            this.btnRemove.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemove.Image = ((System.Drawing.Image)(resources.GetObject("btnRemove.Image")));
             this.btnRemove.Location = new System.Drawing.Point(1221, 3);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(18, 18);
             this.btnRemove.TabIndex = 3;
             this.toolTip1.SetToolTip(this.btnRemove, "Remove Task");
-            this.btnRemove.UseVisualStyleBackColor = false;
-            this.btnRemove.MouseEnter += new System.EventHandler(this.btnRemove_MouseEnter);
-            this.btnRemove.MouseLeave += new System.EventHandler(this.btnRemove_MouseLeave);
             // 
             // lblTaskPath
             // 
@@ -114,7 +106,8 @@
             this.Controls.Add(this.lblDueOn);
             this.Controls.Add(this.lblNodeName);
             this.Name = "TaskView";
-            this.Size = new System.Drawing.Size(1243, 42);            
+            this.Size = new System.Drawing.Size(1243, 42);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TaskView_MouseUp);
             this.ResumeLayout(false);
 
         }
@@ -125,7 +118,7 @@
         private TransparentLabel lblDueOn;
         private TransparentLabel lblTaskPath;
         private System.Windows.Forms.ToolTip toolTip1;
-        public TransparentButton btnRemove;
-        public TransparentButton btnComplete;
+        public TransparentPictureBox btnRemove;
+        public TransparentPictureBox btnComplete;
     }
 }

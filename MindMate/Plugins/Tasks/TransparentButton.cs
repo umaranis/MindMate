@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace MindMate.Plugins.Tasks
 {
-    public class TransparentButton : Button
+    public class TransparentPictureBox : PictureBox
     {
         protected override void WndProc(ref Message m)
         {

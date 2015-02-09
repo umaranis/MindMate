@@ -15,7 +15,9 @@ namespace MindMate.Plugins.Tasks
         public TasksList()
         {
             InitializeComponent();
-        }        
+        }
+
+        public event Action<TaskView, TaskView.TaskViewEvent> TaskViewEvent;
 
         public void Add(MindMate.Model.MapNode node, DateTime dateTime)
         {
@@ -53,7 +55,7 @@ namespace MindMate.Plugins.Tasks
         private void AddTask(MindMate.Plugins.Tasks.CollapsiblePanel collapsiblePanel, TableLayoutPanel tableLayout,
             MindMate.Model.MapNode node, DateTime dateTime, string dueOnText)
         {
-            TaskView tv = new TaskView(node, dateTime, dueOnText);
+            TaskView tv = new TaskView(node, dateTime, dueOnText, OnTaskViewEvent);
 
             if (tableLayout.RowCount == 0) collapsiblePanel.Visible = true;
             
@@ -63,6 +65,27 @@ namespace MindMate.Plugins.Tasks
             collapsiblePanel.Height = tableLayout.Height + tableLayout.Top;
         }
 
+        private void OnTaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
+        {
+            TaskViewEvent(tv, e);
+        }
+
+        public void RemoveTask(TaskView tv)
+        {
+            TableLayoutPanel panel = (TableLayoutPanel)tv.Parent;
+            int rowNum = panel.GetCellPosition(tv).Row;
+            panel.Controls.Remove(tv);
+
+            panel.RowCount -= 1;
+
+            for(int i = rowNum; i < panel.RowCount; i++)
+            {
+                panel.SetRow(panel.GetControlFromPosition(0, i + 1), i); // move one row up
+            }
+            
+        }
+
+        
         private void InsertTaskView(TableLayoutPanel tableLayout, TaskView taskView)
         {
             if (tableLayout.RowCount == 0)

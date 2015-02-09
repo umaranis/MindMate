@@ -12,12 +12,17 @@ namespace MindMate.Plugins.Tasks
 {
     public partial class TaskView : UserControl
     {
-        public TaskView(MapNode node, DateTime dueDate, string dueOnText)
+        public TaskView(MapNode node, DateTime dueDate, string dueOnText,
+            Action<TaskView, TaskViewEvent> onTaskViewEvent)
         {
             InitializeComponent();
 
+            OnTaskViewEvent = onTaskViewEvent;
+
             btnRemove.Visible = false;
             btnComplete.Visible = false;
+
+            MapNode = node;
 
             TaskTitle = node.Text;
 
@@ -86,6 +91,7 @@ namespace MindMate.Plugins.Tasks
 
         public DateTime DueDate { get; set; }
 
+        private Action<TaskView, TaskViewEvent> OnTaskViewEvent;
 
         protected override void OnMouseEnter(EventArgs e)
         {
@@ -103,24 +109,28 @@ namespace MindMate.Plugins.Tasks
             this.Paint -= new System.Windows.Forms.PaintEventHandler(this.TaskView_Paint);       
         }
 
-        private void btnRemove_MouseEnter(object sender, EventArgs e)
-        {
-            btnRemove.Visible = true;
-            btnComplete.Visible = true;
-        }
-
-        private void btnRemove_MouseLeave(object sender, EventArgs e)
-        {
-            btnRemove.Visible = false;
-            btnComplete.Visible = false;
-        }
-
+        
         private void TaskView_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawRectangle(Pens.Black, 0, 0, this.Width - 1, this.Height - 1);
+            e.Graphics.DrawRectangle(Pens.Black, 0, 0, this.Width - 1, this.Height - 1);            
         }
 
-        
+        private void TaskView_MouseUp(object sender, MouseEventArgs e)
+        {
+            if(e.X > btnRemove.Left && e.Y > btnRemove.Top
+                && e.X < btnRemove.Left + btnRemove.Width && e.Y < btnRemove.Top + btnRemove.Height)
+            {
+                OnTaskViewEvent(this, TaskViewEvent.Remove);
+            }
+
+            if (e.X > btnComplete.Left && e.Y > btnComplete.Top
+                && e.X < btnComplete.Left + btnComplete.Width && e.Y < btnComplete.Top + btnComplete.Height)
+            {
+                OnTaskViewEvent(this, TaskViewEvent.Complete);
+            }
+        }
+
+        public enum TaskViewEvent { Remove, Edit, Complete, MoveUp, MoveDown }             
 
     }    
 }

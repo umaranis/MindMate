@@ -18,6 +18,15 @@ namespace MindMate.Plugins.Tasks
         {
             dateTimePicker = new DateTimePicker();
             taskList = new TasksList();
+            taskList.TaskViewEvent += taskList_TaskViewEvent;
+        }
+
+        void taskList_TaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
+        {
+            if(e == TaskView.TaskViewEvent.Remove)
+            {
+                RemoveTask(tv);
+            }
         }
 
         public MenuItem[] CreateContextMenuItemsForNode()
@@ -82,6 +91,12 @@ namespace MindMate.Plugins.Tasks
 
                 }
             }
+        }
+
+        public void RemoveTask(TaskView tv)
+        {
+            tv.MapNode.DeleteAttribute(ATT_DUE_DATE);
+            taskList.RemoveTask(tv);            
         }
 
         private MapTree.AttributeSpec CreateDueDateAttributeSpec(MapTree tree)
