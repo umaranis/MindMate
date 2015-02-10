@@ -16,11 +16,7 @@ namespace MindMate.Model
 
     public partial class MapTree
     {
-        public MapTree(string rootNodeText) : this() 
-        {
-            new MapNode(this, rootNodeText); // creates root node
-        }
-
+        
         public MapTree() 
         {
             selectedNodes = new SelectedNodes();
