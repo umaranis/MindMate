@@ -170,7 +170,8 @@ namespace MindMate.Controller
         {
             mapCtrl.MapView.Tree.NodePropertyChanged += (a, b) => MapChanged();
             mapCtrl.MapView.Tree.TreeStructureChanged += (a, b) => MapChanged();
-            mapCtrl.MapView.Tree.IconChanged += (a, b) => MapChanged();            
+            mapCtrl.MapView.Tree.IconChanged += (a, b) => MapChanged();
+            mapCtrl.MapView.Tree.AttributeChanged += (a, b) => MapChanged(); 
         }
 
         private void UnregisterForMapChangedNotification()
@@ -179,6 +180,7 @@ namespace MindMate.Controller
             mapCtrl.MapView.Tree.NodePropertyChanged -= (a, b) => MapChanged();
             mapCtrl.MapView.Tree.TreeStructureChanged -= (a, b) => MapChanged();
             mapCtrl.MapView.Tree.IconChanged -= (a, b) => MapChanged();
+            mapCtrl.MapView.Tree.AttributeChanged -= (a, b) => MapChanged(); 
         }
 
         private void MapChanged()
