@@ -73,5 +73,17 @@ namespace MindMate.Plugins.Tasks
         {
             return dateTime.ToString("dd-MMM");
         }
+
+        public static DateTime ToDateTime(string dateTimeString)
+        {
+            DateTime dateTime;
+            DateTime.TryParse(dateTimeString, out dateTime);
+            return dateTime;
+        }
+
+        public static string ToString(DateTime dateTime)
+        {
+            return dateTime.ToString();
+        }
     }
 }

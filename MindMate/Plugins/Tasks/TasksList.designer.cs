@@ -47,7 +47,6 @@
             this.panelMain.SuspendLayout();
             this.collapsiblePanelThisMonth.SuspendLayout();
             this.collapsiblePanelNextMonth.SuspendLayout();
-            this.tableLayoutNextMonth.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMain
@@ -262,7 +261,6 @@
             this.collapsiblePanelToday.ResumeLayout(false);            
             this.collapsiblePanelThisMonth.ResumeLayout(false);
             this.collapsiblePanelNextMonth.ResumeLayout(false);
-            this.tableLayoutNextMonth.ResumeLayout(false);
             this.panelMain.ResumeLayout(false);
             this.ResumeLayout(false);
 

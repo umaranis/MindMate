@@ -96,7 +96,10 @@ namespace MindMate.Plugins.Tasks
         private void AdjustMainPanelHeight()
         {
             Control lastTaskGroup = GetLastTaskGroup();
-            this.tablePanelMain.Height = lastTaskGroup.Location.Y + lastTaskGroup.Size.Height + lastTaskGroup.Margin.Bottom;
+            if (lastTaskGroup != null)
+                this.tablePanelMain.Height = lastTaskGroup.Location.Y + lastTaskGroup.Size.Height + lastTaskGroup.Margin.Bottom;
+            else
+                this.tablePanelMain.Height = 20;
         }
 
         
@@ -188,8 +191,16 @@ namespace MindMate.Plugins.Tasks
             for(int i = this.tablePanelMain.RowCount - 1; i >= 0; i--)
             {
                 Control ctrl = this.tablePanelMain.GetControlFromPosition(0, i);
-                if (ctrl != null)
+
+                // check for ctrl is the last visible Task Group
+                if (ctrl != null // control is null in case when it is never made visible  
+                    &&
+                    (ctrl.Visible || // visible is false when it is the first control ever made visible in TaskList
+                    ((TableLayoutPanel)ctrl.Controls[1]).RowCount > 0) // finds if there is any rows inside
+                    )
+                {
                     return ctrl;
+                }
             }
 
             return null;
