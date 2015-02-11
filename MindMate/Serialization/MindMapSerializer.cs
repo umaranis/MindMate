@@ -39,7 +39,7 @@ namespace MindMate.Serialization
         /// </summary>
         /// <param name="XMLString"></param>
         /// <returns>Return the Root Node after constructing the hierarchy</returns>
-        public MapTree Deserialize(string XMLString)
+        public void Deserialize(string XMLString, MapTree tree)
         {
             
             System.Xml.XmlDocument xmlDoc = new System.Xml.XmlDocument(); //TODO: Use XmlTextReader instead to speed up the code
@@ -51,11 +51,9 @@ namespace MindMate.Serialization
                 XmlNode xnode = x.ChildNodes[i];
                 if (xnode.Name == "node")
                 {
-                    return this.Deserialize(xnode).Tree;                    
+                    this.Deserialize(xnode, tree);                    
                 }
             }
-
-            return null;
         }
 
         /// <summary>
@@ -144,7 +142,7 @@ namespace MindMate.Serialization
         /// <param name="xmlElement">Should be 'node' the element</param>
         /// <param name="parent">Parent to which deserialized MapNode is attached</param>
         /// <returns></returns>
-        public MapNode Deserialize(XmlNode xmlElement, MapNode parent = null)
+        public MapNode Deserialize(XmlNode xmlElement, MapTree tree, MapNode parent = null)
         {
             // temp for holding Xml Attributes
             XmlAttribute att;
@@ -157,7 +155,7 @@ namespace MindMate.Serialization
             string id = (att = xmlElement.Attributes["ID"]) != null ? att.Value : null;
 
             MapNode node = (parent != null ? 
-                new MapNode(parent, text, pos, id) : new MapNode(new MapTree(), text, id) );
+                new MapNode(parent, text, pos, id) : new MapNode(tree, text, id) );
 
             string folded;
             if ((att = xmlElement.Attributes["FOLDED"]) != null)
@@ -196,7 +194,7 @@ namespace MindMate.Serialization
                 XmlNode tmpXNode = xmlElement.ChildNodes[i];
                 if (tmpXNode.Name == "node")
                 {
-                    this.Deserialize(tmpXNode, node);
+                    this.Deserialize(tmpXNode, tree, node);
                 }
                 else if (tmpXNode.Name == "icon")
                 {

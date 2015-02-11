@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MindMate.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -47,8 +48,7 @@ namespace MindMate.Plugins.Tasks
                     DateHelper.GetDayOfMonthString(dateTime));
             }
 
-            Control lastTaskGroup = GetLastTaskGroup();
-            this.tablePanelMain.Height = lastTaskGroup.Location.Y + lastTaskGroup.Size.Height + lastTaskGroup.Margin.Bottom;
+            AdjustMainPanelHeight();
         }
 
         
@@ -73,6 +73,8 @@ namespace MindMate.Plugins.Tasks
         public void RemoveTask(TaskView tv)
         {
             TableLayoutPanel panel = (TableLayoutPanel)tv.Parent;
+            CollapsiblePanel collapsiblePanel = (CollapsiblePanel)panel.Parent;
+
             int rowNum = panel.GetCellPosition(tv).Row;
             panel.Controls.Remove(tv);
 
@@ -82,7 +84,19 @@ namespace MindMate.Plugins.Tasks
             {
                 panel.SetRow(panel.GetControlFromPosition(0, i + 1), i); // move one row up
             }
+
+            panel.Height = panel.RowCount * tv.Height + (panel.Margin.Bottom * panel.RowCount * 2);
+            collapsiblePanel.Height = panel.Height + panel.Top;
+            if (panel.RowCount == 0) collapsiblePanel.Visible = false;
+
+            AdjustMainPanelHeight();
             
+        }
+
+        private void AdjustMainPanelHeight()
+        {
+            Control lastTaskGroup = GetLastTaskGroup();
+            this.tablePanelMain.Height = lastTaskGroup.Location.Y + lastTaskGroup.Size.Height + lastTaskGroup.Margin.Bottom;
         }
 
         
@@ -116,6 +130,57 @@ namespace MindMate.Plugins.Tasks
                 return;
             }
             
+        }
+
+        /// <summary>
+        /// returns null if TaskView is not found
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="dueDate"></param>
+        /// <returns></returns>
+        public TaskView FindTaskView(MapNode node, DateTime dueDate)
+        {
+            if (DateHelper.IsToday(dueDate))
+            {
+                return FindTaskViewInGroup(tableLayoutToday, node, dueDate);
+            }
+            else if (DateHelper.IsTomorrow(dueDate))
+            {
+                return FindTaskViewInGroup(tableLayoutTomorrow, node, dueDate);
+            }
+            else if (DateHelper.DateInThisWeek(dueDate))
+            {
+                return FindTaskViewInGroup(tableLayoutThisWeek, node, dueDate);
+            }
+            else if (DateHelper.DateInThisMonth(dueDate))
+            {
+                return FindTaskViewInGroup(tableLayoutThisMonth, node, dueDate);
+            }
+            else if (DateHelper.DateInNextMonth(dueDate))
+            {
+                return FindTaskViewInGroup(tableLayoutNextMonth, node, dueDate);
+            }
+
+            return null;            
+        }
+
+        private TaskView FindTaskViewInGroup(TableLayoutPanel table, MapNode node, DateTime dueDate)
+        {
+            for(int i = 0; i < table.RowCount; i++)
+            {
+                TaskView tv = (TaskView)table.GetControlFromPosition(0, i);
+                if(tv.MapNode == node)
+                {
+                    return tv;
+                }
+                
+                if(tv.DueDate > dueDate)
+                {
+                    break;
+                }
+            }
+
+            return null;
         }
 
         private Control GetLastTaskGroup()

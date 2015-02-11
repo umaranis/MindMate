@@ -84,7 +84,7 @@ namespace MindMate.Plugins.Tasks
                     if (!node.GetAttribute(aspec, out att))
                         att.AttributeSpec = aspec;
 
-                    att.value = dateTimePicker.Value.ToShortDateString();
+                    att.value = dateTimePicker.Value.ToString();
                     node.AddUpdateAttribute(att);
 
                     taskList.Add(node, dateTimePicker.Value);
@@ -93,10 +93,9 @@ namespace MindMate.Plugins.Tasks
             }
         }
 
-        public void RemoveTask(TaskView tv)
+        private void RemoveTask(TaskView tv)
         {
             tv.MapNode.DeleteAttribute(ATT_DUE_DATE);
-            taskList.RemoveTask(tv);            
         }
 
         private MapTree.AttributeSpec CreateDueDateAttributeSpec(MapTree tree)
@@ -117,12 +116,23 @@ namespace MindMate.Plugins.Tasks
             return new Control [] { taskList };
         }
 
-        public void RegisterTreeEvents(Model.MapTree tree)
+        public void OnCreatingTree(Model.MapTree tree)
         {
-            throw new NotImplementedException();
+            tree.AttributeChanged += tree_AttributeChanged;
         }
 
-        public void UnregisterTreeEvents(Model.MapTree tree)
+        void tree_AttributeChanged(MapNode node, AttributeChangeEventArgs e)
+        {
+            if(e.ChangeType == AttributeChange.Removed)
+            {
+                DateTime dueDate;
+                DateTime.TryParse(e.oldValue.value, out dueDate);
+                TaskView tv = taskList.FindTaskView(node, dueDate);
+                if (tv != null) taskList.RemoveTask(tv);
+            }
+        }
+                
+        public void OnDeletingTree(Model.MapTree tree)
         {
             throw new NotImplementedException();
         }

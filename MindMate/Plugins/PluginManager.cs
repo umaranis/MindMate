@@ -1,4 +1,5 @@
 ﻿using MindMate.Controller;
+using MindMate.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +59,13 @@ namespace MindMate.Plugins
             }            
         }
 
-
+        public void OnTreeCreating(MapTree tree)
+        {
+            foreach (IPlugin plugin in Plugins)
+            {
+                plugin.OnCreatingTree(tree);
+            } 
+        }
         
     }
 }

@@ -30,16 +30,17 @@ namespace MindMate.Plugins
         Control[] CreateSideBarWindows();
 
         /// <summary>
-        /// Register for Node, SelectedNodes and Tree events
+        /// Register for Node, SelectedNodes and Tree events.
+        /// Method is called before any nodes are added to the Tree.
         /// </summary>
         /// <param name="tree"></param>
-        void RegisterTreeEvents(MapTree tree);
+        void OnCreatingTree(MapTree tree);
 
         /// <summary>
-        /// Plugin to unregister for events which were registers in RegisterTreeEvents method
+        /// Plugin to unregister for events which were registers in RegisterTreeEvents method. 
         /// </summary>
         /// <param name="tree"></param>
-        void UnregisterTreeEvents(MapTree tree);
+        void OnDeletingTree(MapTree tree);
         
     }
 

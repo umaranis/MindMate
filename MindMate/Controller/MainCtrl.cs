@@ -41,6 +41,7 @@ namespace MindMate.Controller
             MetaModel.MetaModel.Initialize();
             mainForm = new MainForm();
             pluginManager = new Plugins.PluginManager(this);
+            pluginManager.Initialize();
             mainForm.Load += mainForm_Load;
 
             return mainForm;
@@ -48,7 +49,7 @@ namespace MindMate.Controller
 
         void mainForm_Load(object sender, EventArgs e)
         {
-            pluginManager.Initialize();
+            
 
             MapTree tree;
 
@@ -61,7 +62,8 @@ namespace MindMate.Controller
                 try
                 {
                     string xmlString = System.IO.File.ReadAllText(MetaModel.MetaModel.Instance.LastOpenedFile);
-                    tree = new MindMapSerializer().Deserialize(xmlString);
+                    tree = CreateEmptyTree();
+                    new MindMapSerializer().Deserialize(xmlString, tree);
                 }
                 catch(Exception exp)
                 {
@@ -101,12 +103,19 @@ namespace MindMate.Controller
 
         private MapTree CreateNewMapTree()
         {
-            MapTree tree = new MapTree();
+            MapTree tree = CreateEmptyTree();
             tree.RootNode = new MapNode(tree, "Node");
             new MapNode(tree.RootNode, "Karachi", NodePosition.Left);
             new MapNode(tree.RootNode, "Lahore", NodePosition.Right);
             new MapNode(tree.RootNode, "Sind", NodePosition.Left);
 
+            return tree;
+        }
+
+        private MapTree CreateEmptyTree()
+        {
+            MapTree tree = new MapTree();
+            pluginManager.OnTreeCreating(tree);
             return tree;
         }
 
@@ -259,7 +268,8 @@ namespace MindMate.Controller
                 return;
             }
 
-            MapTree tree = new MindMapSerializer().Deserialize(xmlString);
+            MapTree tree = CreateEmptyTree();
+            new MindMapSerializer().Deserialize(xmlString, tree);
 
             statusBarCtrl.Unregister(this.mapCtrl.MapView.Tree);
             UnregisterForMapChangedNotification();
