@@ -97,6 +97,7 @@
     <Compile Include="Model\NodeChangedEventArgs.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Plugins\IPluginManager.cs" />
+    <Compile Include="Plugins\IPluginMapNodeContextMenu.cs" />
     <Compile Include="Plugins\MenuItem.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Plugins\Tasks\CollapsiblePanel.cs">

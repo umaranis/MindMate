@@ -35,11 +35,15 @@ namespace MindMate.Plugins
 
         public void InitializeContextMenu(ContextMenuCtrl contextMenuCtrl)
         {
-            foreach(IPlugin plugin in Plugins)
+            foreach(IPlugin p in Plugins)
             {
-                var menu = plugin.CreateContextMenuItemsForNode();
-                if(menu != null)
-                    contextMenuCtrl.InsertMenuItems(menu);
+                IPluginMapNodeContextMenu plugin = p as IPluginMapNodeContextMenu;
+                if (plugin != null)
+                {
+                    var menu = plugin.CreateContextMenuItemsForNode();
+                    if (menu != null)
+                        contextMenuCtrl.InsertMenuItems(menu);
+                }
             }
         }
 
@@ -59,13 +63,25 @@ namespace MindMate.Plugins
             }            
         }
 
-        public void OnTreeCreating(MapTree tree)
+        internal void OnTreeCreating(MapTree tree)
         {
             foreach (IPlugin plugin in Plugins)
             {
                 plugin.OnCreatingTree(tree);
             } 
         }
-        
+               
+
+        internal void OnMapNodeContextMenuOpening(SelectedNodes selectedNodes)
+        {
+            for(int i = 0; i < Plugins.Count; i++)
+            {
+                IPluginMapNodeContextMenu plugin = Plugins[i] as IPluginMapNodeContextMenu;
+                if(plugin != null)
+                {
+                    plugin.OnContextMenuOpening(selectedNodes);
+                }
+            }
+        }
     }
 }

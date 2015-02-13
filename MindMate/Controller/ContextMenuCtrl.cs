@@ -34,7 +34,6 @@ namespace MindMate.Controller
             mapCtrl.MapView.Canvas.NodeRightClick += Canvas_NodeRightClick;
             mapCtrl.MapView.Canvas.KeyDown += Canvas_KeyDown;
 
-            mapCtrl.MapView.Canvas.contextMenu.Opening += contextMenu_Opening;
         }
                 
         public void InsertMenuItems(Plugins.MenuItem [] menuItems)
@@ -68,22 +67,25 @@ namespace MindMate.Controller
             }
         }
 
-        void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        
+        /// <summary>
+        /// Executes an action for each of the menu items added by Plugins.
+        /// </summary>
+        /// <param name="action"></param>
+        public void ForEachPluginMenuItem(Action<Plugins.MenuItem> action)
         {
             ContextMenuStrip contextMenu = mapCtrl.MapView.Canvas.contextMenu;
             int index = contextMenu.Items.IndexOf(mapCtrl.MapView.Canvas.mSepPluginEnd);
             ToolStripItem menuItem = contextMenu.Items[--index];
-            while(menuItem is ToolStripSeparator || (menuItem != null && menuItem.Tag != null))
+            while (menuItem is ToolStripSeparator || (menuItem != null && menuItem.Tag != null))
             {
                 if (!(menuItem is ToolStripSeparator))
                 {
                     Plugins.MenuItem menuItemAdaptor = ((Plugins.MenuItem)menuItem.Tag);
-                    if (menuItemAdaptor.Opening != null)
-                        menuItemAdaptor.Opening(menuItemAdaptor, this.mapCtrl.MapView.Tree.SelectedNodes);
+                    action(menuItemAdaptor);
                 }
                 menuItem = contextMenu.Items[--index];
             }
-            
         }
         
         void Canvas_NodeRightClick(MapNode node, NodeMouseEventArgs args)

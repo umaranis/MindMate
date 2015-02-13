@@ -83,6 +83,8 @@ namespace MindMate.Controller
 
             ContextMenuCtrl cmCtrl = new ContextMenuCtrl(mapCtrl);
             pluginManager.InitializeContextMenu(cmCtrl);
+            mapCtrl.MapView.Canvas.contextMenu.Opening += 
+                (s, evt) => pluginManager.OnMapNodeContextMenuOpening(mapCtrl.MapView.SelectedNodes); 
 
             pluginManager.InitializeSideBarWindow(mainForm.SideBarTabs);
             

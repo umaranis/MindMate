@@ -27,9 +27,6 @@ namespace MindMate.Plugins
 
         public Action<MenuItem, SelectedNodes> Click { get; set; }
 
-        public Action<MenuItem, SelectedNodes> Opening { get; set; }
-
-
 
         #region Constructors
 
@@ -102,6 +99,18 @@ namespace MindMate.Plugins
             set
             {
                 UnderlyingMenuItem.Enabled = value;
+            }
+        }
+
+        public bool Visible
+        {
+            get
+            {
+                return UnderlyingMenuItem.Visible;
+            }
+            set
+            {
+                UnderlyingMenuItem.Visible = value;
             }
         }
     }

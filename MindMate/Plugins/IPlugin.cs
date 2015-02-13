@@ -9,12 +9,11 @@ namespace MindMate.Plugins
 {
     public interface IPlugin
     {
-        void Initialize(IPluginManager pluginMgr);
-
         /// <summary>
-        /// Plugin to create and provide a list of menu items for MapNode context menu. Will be called only once by PluginManager.
+        /// This is the first method called on a plugin.
         /// </summary>
-        MenuItem[] CreateContextMenuItemsForNode();
+        /// <param name="pluginMgr"></param>
+        void Initialize(IPluginManager pluginMgr);
 
         /// <summary>
         /// Plugin to create and provide a list of menu items for main menu. Will be called only once by PluginManager.
