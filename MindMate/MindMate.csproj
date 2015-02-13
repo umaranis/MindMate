@@ -542,6 +542,10 @@
     <None Include="Resources\collapse_hightlight.gif" />
     <None Include="Resources\expand.gif" />
     <None Include="Resources\expand_highlight.gif" />
+    <None Include="Resources\date_add.png" />
+    <None Include="Resources\date_delete.png" />
+    <None Include="Resources\date_edit.png" />
+    <None Include="Resources\tick.png" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

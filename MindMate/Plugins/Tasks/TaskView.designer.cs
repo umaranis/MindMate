@@ -42,7 +42,7 @@
             // 
             this.btnComplete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnComplete.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btnComplete.Image = ((System.Drawing.Image)(resources.GetObject("btnComplete.Image")));
+            this.btnComplete.Image = TaskRes.tick;
             this.btnComplete.Location = new System.Drawing.Point(1200, 3);
             this.btnComplete.Name = "btnComplete";
             this.btnComplete.Size = new System.Drawing.Size(18, 18);
@@ -53,7 +53,7 @@
             // 
             this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemove.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btnRemove.Image = ((System.Drawing.Image)(resources.GetObject("btnRemove.Image")));
+            this.btnRemove.Image = TaskRes.date_delete;
             this.btnRemove.Location = new System.Drawing.Point(1221, 3);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(18, 18);
