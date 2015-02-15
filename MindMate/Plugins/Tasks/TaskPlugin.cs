@@ -32,9 +32,9 @@ namespace MindMate.Plugins.Tasks
 
         public MenuItem[] CreateContextMenuItemsForNode()
         {
-            var t1 = new MenuItem("Set Due Date ...", null, SetDueDate_Click);
+            var t1 = new MenuItem("Set Due Date ...", TaskRes.date_add, SetDueDate_Click);
 
-            var t2 = new MenuItem("Update Due Date ...", null, SetDueDate_Click);
+            var t2 = new MenuItem("Update Due Date ...", TaskRes.date_edit, SetDueDate_Click);
 
             var t3 = new MenuItem("Quick Due Dates");
  
@@ -46,7 +46,7 @@ namespace MindMate.Plugins.Tasks
             t3.AddDropDownItem(new MenuItem("Next Month"));
             t3.AddDropDownItem(new MenuItem("No Date"));
 
-            var t4 = new MenuItem("Complete Task");
+            var t4 = new MenuItem("Complete Task", TaskRes.tick);
 
             menuItems = new MenuItem[] 
             {
