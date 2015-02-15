@@ -82,7 +82,7 @@ namespace MindMate.Plugins.Tasks
         private void SetDueDate_Click(MenuItem menu, SelectedNodes nodes)
         {
 
-            MapTree.AttributeSpec aspec = nodes.First.Tree.GetAttributeSpec(ATT_DUE_DATE);
+            MapTree.AttributeSpec aspec = GetDueDateAttributeSpec(nodes.First.Tree);
             if (aspec == null)
                 aspec = CreateDueDateAttributeSpec(nodes.First.Tree);
 
@@ -118,6 +118,17 @@ namespace MindMate.Plugins.Tasks
                 tree, ATT_DUE_DATE, true, MapTree.AttributeDataType.DateTime, 
                 MapTree.AttributeListOption.NoList, null, MapTree.AttributeType.System);
         }
+
+        private bool IsDueDateAttributeSpec(MapTree.AttributeSpec aspec)
+        {
+            return aspec.Name == ATT_DUE_DATE && aspec.Type == MapTree.AttributeType.System;
+        }
+
+        private MapTree.AttributeSpec GetDueDateAttributeSpec(MapTree tree)
+        {
+            MapTree.AttributeSpec aspec = tree.GetAttributeSpec(ATT_DUE_DATE);
+            return (aspec != null && aspec.Type == MapTree.AttributeType.System) ? aspec : null;
+        }
                         
         public void CreateMainMenuItems(out MenuItem[] menuItems, out MainMenuLocation position)
         {
@@ -135,18 +146,18 @@ namespace MindMate.Plugins.Tasks
             tree.AttributeChanged += tree_AttributeChanged;
         }
 
-        void tree_AttributeChanged(MapNode node, AttributeChangeEventArgs e)
+        private void tree_AttributeChanged(MapNode node, AttributeChangeEventArgs e)
         {
-            if(e.ChangeType == AttributeChange.Removed)
+            if (e.ChangeType == AttributeChange.Removed && IsDueDateAttributeSpec(e.oldValue.AttributeSpec)) 
             {
                 TaskView tv = taskList.FindTaskView(node, DateHelper.ToDateTime(e.oldValue.value));
                 if (tv != null) taskList.RemoveTask(tv);
             }
-            else if(e.ChangeType == AttributeChange.Added)
+            else if (e.ChangeType == AttributeChange.Added && IsDueDateAttributeSpec(e.newValue.AttributeSpec))
             {
                 taskList.Add(node, DateHelper.ToDateTime(e.newValue.value));
             }
-            else if(e.ChangeType == AttributeChange.ValueUpdated)
+            else if (e.ChangeType == AttributeChange.ValueUpdated && IsDueDateAttributeSpec(e.newValue.AttributeSpec))
             {
                 TaskView tv = taskList.FindTaskView(node, DateHelper.ToDateTime(e.oldValue.value));
                 if (tv != null) taskList.RemoveTask(tv);
