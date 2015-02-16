@@ -12,8 +12,11 @@ using System.Drawing;
 
 namespace MindMate.MetaModel
 {
+    /// <summary>
+    /// ModelIcon is an icon which can be selected by user on MapNode.
+    /// </summary>
     [ProtoBuf.ProtoContract]
-    public class ModelIcon
+    public class ModelIcon : IIcon
     {
         public ModelIcon(string name, string title, string shortcut)
         {

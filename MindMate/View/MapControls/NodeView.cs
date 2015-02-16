@@ -10,6 +10,7 @@ using System.Text;
 using System.Drawing;
 using MindMate.Model;
 using MindMate.Controller;
+using MindMate.MetaModel;
 
 namespace MindMate.View.MapControls
 {
@@ -50,8 +51,8 @@ namespace MindMate.View.MapControls
         /// </summary> 
         public RectangleF RecText {     get { return recText; } }
 
-        private List<Icon> recIcons = new List<Icon>(); 
-        public List<Icon> RecIcons  {   get { return recIcons; }    }
+        private List<IconView> recIcons = new List<IconView>(); 
+        public List<IconView> RecIcons  {   get { return recIcons; }    }
 
         private Font font;
         public Font Font {  get { return font; }    }
@@ -231,16 +232,56 @@ namespace MindMate.View.MapControls
             this.RefreshNodeViewSize();            
         }
 
-        public void RefreshIcons()
+        //public void RefreshIcons()
+        //{
+        //    this.recIcons.Clear();
+        //    for (int i = 0; i < node.Icons.Count; i++)
+        //    {
+        //        IconView icon = new IconView(node.Icons[i]);
+        //        this.recIcons.Add(icon);                
+        //    }
+
+        //    this.RefreshNodeViewSize();
+        //}
+
+        public void AddIcon(string icon)
         {
-            this.recIcons.Clear();
-            for (int i = 0; i < node.Icons.Count; i++)
-            {
-                Icon icon = new Icon(node.Icons[i]);
-                this.recIcons.Add(icon);                
-            }
+            this.recIcons.Add(new IconView(icon));
 
             this.RefreshNodeViewSize();
+        }
+
+        public void AddIcon(ISystemIcon iconSpec)
+        {
+            recIcons.Insert(0, new IconView(iconSpec));
+
+            this.RefreshNodeViewSize();
+        }
+
+        public void RemoveIcon(string icon)
+        {
+            for(int i = 0; i < recIcons.Count; i++)
+            {
+                if(recIcons[i].IconSpec.Name == icon)
+                {
+                    recIcons.RemoveAt(i);
+                    RefreshNodeViewSize();
+                    return;
+                }
+            }
+        }
+
+        public void RemoveIcon(ISystemIcon iconSpec)
+        {
+            for (int i = 0; i < recIcons.Count; i++)
+            {
+                if (recIcons[i].IconSpec == iconSpec)
+                {
+                    recIcons.RemoveAt(i);
+                    RefreshNodeViewSize();
+                    return;
+                }
+            }
         }
 
         public void RefreshText()
@@ -286,9 +327,18 @@ namespace MindMate.View.MapControls
                 width += (noteIcon.Size.Width + INTER_CONTROL_PADDING);
             }
 
+            for (int i = 0; i < MetaModel.MetaModel.Instance.SystemIconList.Count; i++)
+            {
+                var systemIcon = MetaModel.MetaModel.Instance.SystemIconList[i];
+                if(systemIcon.ShowIcon(node))
+                {
+                    recIcons.Add(new IconView(systemIcon));
+                }
+            }
+
             for (int i = 0; i < node.Icons.Count; i++)
             {
-                Icon icon = new Icon(node.Icons[i]);
+                IconView icon = new IconView(node.Icons[i]);
                 this.recIcons.Add(icon);
                 width += (icon.Size.Width + INTER_CONTROL_PADDING);
             }

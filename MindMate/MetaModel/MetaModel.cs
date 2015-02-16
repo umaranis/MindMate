@@ -70,6 +70,12 @@ namespace MindMate.MetaModel
             get { return iconsList;  }
         }
 
+        private List<ISystemIcon> systemIconList = new List<ISystemIcon>();
+        public List<ISystemIcon> SystemIconList
+        {
+            get { return systemIconList; }
+        }
+
         [ProtoBuf.ProtoMember(2)]
         public string LastOpenedFile { get; set; }
 

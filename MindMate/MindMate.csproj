@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MetaModel\Icon.cs" />
     <Compile Include="Model\AttributeSpec.cs" />
     <Compile Include="Model\ClipboardManager.cs" />
     <Compile Include="Controller\ContextMenuCtrl.cs" />
@@ -98,8 +99,10 @@
     <Compile Include="Plugins\IPlugin.cs" />
     <Compile Include="Plugins\IPluginManager.cs" />
     <Compile Include="Plugins\IPluginMapNodeContextMenu.cs" />
+    <Compile Include="Plugins\IPluginSystemIcon.cs" />
     <Compile Include="Plugins\MenuItem.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
+    <Compile Include="Plugins\Tasks\TaskPlugin.ContextMenu.cs" />
     <Compile Include="Plugins\Tasks\CollapsiblePanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -113,6 +116,8 @@
     <Compile Include="Plugins\Tasks\DateTimePicker.Designer.cs">
       <DependentUpon>DateTimePicker.cs</DependentUpon>
     </Compile>
+    <Compile Include="Plugins\Tasks\TaskDueIcon.cs" />
+    <Compile Include="Plugins\Tasks\TaskPlugin.SystemIcons.cs" />
     <Compile Include="Plugins\Tasks\TaskRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -152,6 +157,7 @@
     <Compile Include="View\Dialogs\IconSelectorExt.Designer.cs">
       <DependentUpon>IconSelectorExt.cs</DependentUpon>
     </Compile>
+    <Compile Include="MetaModel\ISystemIcon.cs" />
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,7 +180,7 @@
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="View\MapControls\Link.cs" />
-    <Compile Include="View\MapControls\Icon.cs" />
+    <Compile Include="View\MapControls\IconView.cs" />
     <Compile Include="Serialization\IconHandler.cs" />
     <None Include="View\Dialogs\IconSelector.cs">
       <SubType>Form</SubType>
@@ -546,6 +552,7 @@
     <None Include="Resources\date_delete.png" />
     <None Include="Resources\date_edit.png" />
     <None Include="Resources\tick.png" />
+    <None Include="Resources\date.png" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

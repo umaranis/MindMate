@@ -12,16 +12,20 @@ using MindMate.MetaModel;
 
 namespace MindMate.View.MapControls
 {
-    public class Icon
+    /// <summary>
+    /// Can represent both System Icon and User Icon
+    /// </summary>
+    public class IconView
     {
-        public Icon(ModelIcon icon)
+        
+        public IconView(string icon)
         {
-            modelIcon = icon;
+            iconSpec = MetaModel.MetaModel.Instance.GetIcon(icon);
         }
 
-        public Icon(string icon)
+        public IconView(IIcon iIcon)
         {
-            modelIcon = MetaModel.MetaModel.Instance.GetIcon(icon);
+            iconSpec = iIcon;
         }
 
         PointF location;
@@ -37,23 +41,31 @@ namespace MindMate.View.MapControls
         {
             get 
             { 
-                return modelIcon.Bitmap.Size; 
+                return iconSpec.Bitmap.Size; 
             }            
         }
 
-        ModelIcon modelIcon;
+        public string Name
+        {
+            get
+            {
+                return iconSpec.Name;
+            }
+        }
 
-        public ModelIcon ModelIcon
+        IIcon iconSpec;
+
+        public IIcon IconSpec
         {
             get 
             { 
-                return modelIcon; 
+                return iconSpec; 
             }            
         }
 
         public void Draw(Graphics g)
         {
-            g.DrawImage(modelIcon.Bitmap, location.X, location.Y, Size.Width, Size.Height);
+            g.DrawImage(iconSpec.Bitmap, location.X, location.Y, Size.Width, Size.Height);
         }
     }
 }

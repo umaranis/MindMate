@@ -564,12 +564,7 @@ namespace MindMate.Controller
 
                 MapNode node = this.MapView.SelectedNodes[i];
 
-                
-                node.Icons.RemoveLast();
-                //node.NodeView.RefreshNodeView();
-                node.NodeView.RefreshIcons();
-                if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                MapView.RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+                node.Icons.RemoveLast();                              
             }
 
             MapView.Canvas.Invalidate();
@@ -589,10 +584,7 @@ namespace MindMate.Controller
                     continue;
                 }
 
-                node.Icons.Clear();
-                node.NodeView.RefreshIcons();
-                if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                MapView.RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+                node.Icons.Clear();               
 
             }
 
@@ -613,11 +605,7 @@ namespace MindMate.Controller
                     continue;
                 }
 
-                node.Icons.Add(iconSrc);
-                //node.NodeView.RefreshNodeView();
-                node.NodeView.RefreshIcons();
-                if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                MapView.RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+                node.Icons.Add(iconSrc);                                
             }
 
             MapView.Canvas.Invalidate();

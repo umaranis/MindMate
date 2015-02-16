@@ -10,6 +10,7 @@ using System.Text;
 using MindMate.Model;
 using System.Windows.Forms;
 using System.Drawing;
+using MindMate.MetaModel;
 
 namespace MindMate.View.MapControls
 {
@@ -32,16 +33,21 @@ namespace MindMate.View.MapControls
 
         public void ChangeTree(MapTree tree)
         {
+            MetaModel.MetaModel.Instance.SystemIconList.ForEach(a => a.StatusChange += systemIcon_StatusChange);
+
             if (this.tree != null) 
             {
                 this.tree.NodePropertyChanged -= tree_NodePropertyChanged;
                 this.tree.TreeStructureChanged -= tree_TreeStructureChanged;
+                this.tree.IconChanged -= tree_IconChanged;
+
             }
             this.tree = tree;
             this.tree.NodePropertyChanged += tree_NodePropertyChanged;
             this.tree.TreeStructureChanged += tree_TreeStructureChanged;
+            this.tree.IconChanged += tree_IconChanged;
         }
-
+                               
         public MapViewPanel Canvas { get; set; }
 
         public SelectedNodes SelectedNodes
@@ -85,6 +91,8 @@ namespace MindMate.View.MapControls
         //TODO: all updates to the view should handled this way (rather than relying on controller) 
         void tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
         {
+            if (node.NodeView == null) return;
+
             switch (e.ChangedProperty)
             {
                 case NodeProperties.RichContentText:
@@ -99,6 +107,26 @@ namespace MindMate.View.MapControls
             
         }
 
+        void tree_IconChanged(MapNode node, IconChangedEventArgs e)
+        {
+            if (node.NodeView == null) return;
+
+            switch(e.ChangeType)
+            {
+                case IconChange.Added:
+                    node.NodeView.AddIcon(e.Icon);
+                    
+                    break;
+                case IconChange.Removed:
+                    node.NodeView.RemoveIcon(e.Icon);
+                    
+                    break;
+            }
+
+            if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
+            RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+        }
+
         void tree_TreeStructureChanged(MapNode node, TreeStructureChangedEventArgs e)
         {
             switch(e.ChangeType)
@@ -109,6 +137,24 @@ namespace MindMate.View.MapControls
                         node.Parent.NodeView.LastSelectedChild = null; // clear LastSelectedChild in case it is deleted or detached
                     break;
             }
+        }
+
+        void systemIcon_StatusChange(MapNode node, ISystemIcon icon, MetaModel.SystemIconStatusChange e)
+        {
+            if (node.NodeView == null) return;
+
+            switch(e)
+            {
+                case SystemIconStatusChange.Show:
+                    node.NodeView.AddIcon(icon);
+                    break;
+                case SystemIconStatusChange.Hide:
+                    node.NodeView.RemoveIcon(icon);
+                    break;
+            }
+
+            if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
+            RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
         }
 
         

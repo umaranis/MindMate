@@ -30,7 +30,16 @@ namespace MindMate.Plugins
 
         public void Initialize()
         {
-            Plugins.ForEach(a => a.Initialize(this));
+            Plugins.ForEach(a => { 
+                
+                a.Initialize(this); 
+
+                if(a is IPluginSystemIcon)
+                {
+                    var icons = ((IPluginSystemIcon)a).CreateSystemIcons();
+                    MetaModel.MetaModel.Instance.SystemIconList.AddRange(icons);
+                }
+            });
         }
 
         public void InitializeContextMenu(ContextMenuCtrl contextMenuCtrl)
@@ -83,5 +92,6 @@ namespace MindMate.Plugins
                 }
             }
         }
+        
     }
 }
