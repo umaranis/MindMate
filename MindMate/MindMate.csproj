@@ -103,6 +103,7 @@
     <Compile Include="Plugins\MenuItem.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Plugins\Tasks\NodeAttribute.cs" />
+    <Compile Include="Plugins\Tasks\TaskCompleteIcon.cs" />
     <Compile Include="Plugins\Tasks\TaskPlugin.ContextMenu.cs" />
     <Compile Include="Plugins\Tasks\CollapsiblePanel.cs">
       <SubType>Component</SubType>

@@ -155,6 +155,8 @@ namespace MindMate.View.MapControls
 
             if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
             RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+
+            Canvas.Invalidate();
         }
 
         

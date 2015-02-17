@@ -7,19 +7,23 @@ using System.Text;
 
 namespace MindMate.Plugins.Tasks
 {
-    public class TaskDueIcon : ISystemIcon
+    public class TaskCompleteIcon : ISystemIcon
     {
-        public string Name { get { return "TaskPending"; } }
         public bool ShowIcon(Model.MapNode node)
         {
-            return TaskPlugin.DueDateAttribute.Exists(node);            
+            return TaskPlugin.CompletionDateAttrbute.Exists(node);
         }
 
         public event Action<Model.MapNode, ISystemIcon, SystemIconStatusChange> StatusChange;
 
         public System.Drawing.Bitmap Bitmap
         {
-            get { return TaskRes.date; }
+            get { return TaskRes.tick; }
+        }
+
+        public string Name
+        {
+            get { return "TaskCompleted"; }
         }
 
         internal void FireStatusChangeEvent(MapNode node, SystemIconStatusChange change)

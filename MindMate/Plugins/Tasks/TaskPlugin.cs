@@ -11,6 +11,11 @@ namespace MindMate.Plugins.Tasks
     public partial class TaskPlugin : IPlugin
     {
         public static NodeAttribute DueDateAttribute = new NodeAttribute("Due Date");
+        /// <summary>
+        /// used to store Due Date after task is completed
+        /// </summary>
+        public static NodeAttribute TargetDateAttribute = new NodeAttribute("Target Date");  
+        public static NodeAttribute CompletionDateAttrbute = new NodeAttribute("Completion Date");
 
         private DateTimePicker dateTimePicker; 
         private TasksList taskList;                
@@ -49,6 +54,7 @@ namespace MindMate.Plugins.Tasks
 
         private void tree_AttributeChanged(MapNode node, AttributeChangeEventArgs e)
         {
+            // Due Date attribute changed
             if (e.ChangeType == AttributeChange.Removed && DueDateAttribute.SameSpec(e.oldValue.AttributeSpec)) 
             {
                 TaskView tv = taskList.FindTaskView(node, DateHelper.ToDateTime(e.oldValue.value));
@@ -68,7 +74,15 @@ namespace MindMate.Plugins.Tasks
                 if (tv != null) taskList.RemoveTask(tv);
                 taskList.Add(node, DateHelper.ToDateTime(e.newValue.value));
             }
-
+            // Comletion Date attribute changed
+            else if (e.ChangeType == AttributeChange.Added && CompletionDateAttrbute.SameSpec(e.newValue.AttributeSpec))
+            {
+                TaskCompleteIcon.FireStatusChangeEvent(node, SystemIconStatusChange.Show);
+            }
+            else if(e.ChangeType == AttributeChange.Removed && CompletionDateAttrbute.SameSpec(e.oldValue.AttributeSpec))
+            {
+                TaskCompleteIcon.FireStatusChangeEvent(node, SystemIconStatusChange.Hide);
+            }
         }
                 
         public void OnDeletingTree(Model.MapTree tree)

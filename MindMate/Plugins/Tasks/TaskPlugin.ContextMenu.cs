@@ -86,6 +86,7 @@ namespace MindMate.Plugins.Tasks
                     MapNode node = nodes[i];
 
                     DueDateAttribute.SetValue(node, DateHelper.ToString(dateTimePicker.Value));
+                    CompletionDateAttrbute.Delete(node);
 
                 }
             }
@@ -98,7 +99,19 @@ namespace MindMate.Plugins.Tasks
         /// <param name="nodes"></param>
         private void CompleteTask_Click(MenuItem menu, SelectedNodes nodes)
         {
-            throw new NotImplementedException();
+            for(int i =0; i < nodes.Count; i++)
+            {
+                MapNode node = nodes[i];
+
+                MapNode.Attribute att;
+                if(DueDateAttribute.GetAttribute(node, out att))
+                {
+                    DueDateAttribute.Delete(node);
+                    TargetDateAttribute.SetValue(node, att.value);
+                }
+
+                CompletionDateAttrbute.SetValue(node, att.value);
+            }
         }
 
     }
