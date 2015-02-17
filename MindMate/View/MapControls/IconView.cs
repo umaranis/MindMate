@@ -65,7 +65,7 @@ namespace MindMate.View.MapControls
 
         public void Draw(Graphics g)
         {
-            g.DrawImage(iconSpec.Bitmap, location.X, location.Y, Size.Width, Size.Height);
+            g.DrawImageUnscaled(iconSpec.Bitmap, (int)location.X, (int)location.Y);
         }
     }
 }
