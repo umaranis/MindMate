@@ -301,6 +301,13 @@ namespace MindMate.Model
             public MapTree.AttributeSpec AttributeSpec; 
             public string value;
 
+            public Attribute(MapTree.AttributeSpec aspec, string val) 
+            { 
+                this.AttributeSpec = aspec;
+                this.value = val;
+            }
+
+            public static Attribute Empty = new Attribute(null, null);
             public bool IsEmpty() { return AttributeSpec == null; }
         }
 
@@ -325,7 +332,7 @@ namespace MindMate.Model
                 }
             }
 
-            attribute = new Attribute() { AttributeSpec = null, value = null };
+            attribute = Attribute.Empty;
             return false;
         }
 
@@ -343,7 +350,7 @@ namespace MindMate.Model
                 }
             }
 
-            attribute = new Attribute() { AttributeSpec = null, value = null };
+            attribute = Attribute.Empty;
             return false;
         }
 
@@ -454,6 +461,21 @@ namespace MindMate.Model
                 }
             }
             
+        }
+
+        public void DeleteAttribute(MapTree.AttributeSpec attributeSpec)
+        {
+            for (int i = 0; i < attributeList.Count; i++)
+            {
+                Attribute attribute = attributeList[i];
+                if (attribute.AttributeSpec == attributeSpec)
+                {
+                    attributeList.RemoveAt(i);
+
+                    Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Removed, oldValue = attribute });
+                }
+            }
+
         }
 
         

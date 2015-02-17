@@ -12,11 +12,7 @@ namespace MindMate.Plugins.Tasks
         public string Name { get { return "TaskDueDate"; } }
         public bool ShowIcon(Model.MapNode node)
         {
-            MapTree.AttributeSpec aspec = TaskPlugin.GetDueDateAttributeSpec(node.Tree);
-            if (aspec != null)
-                return node.ContainsAttribute(aspec);
-            else
-                return false;
+            return TaskPlugin.DueDateAttribute.Exists(node);            
         }
 
         public event Action<Model.MapNode, ISystemIcon, SystemIconStatusChange> StatusChange;
