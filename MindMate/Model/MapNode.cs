@@ -501,6 +501,8 @@ namespace MindMate.Model
 
         public bool HasChildren { get { return FirstChild != null; } }
 
+        public bool Selected { get { return Tree.SelectedNodes.Contains(this); } }
+
         #endregion
 
         #region Constructors

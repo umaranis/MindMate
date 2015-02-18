@@ -50,6 +50,29 @@ namespace MindMate.Plugins.Tasks
         public void OnCreatingTree(Model.MapTree tree)
         {
             tree.AttributeChanged += tree_AttributeChanged;
+
+            tree.SelectedNodes.NodeSelected += SelectedNodes_NodeSelected;
+            tree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
+        }
+
+        void SelectedNodes_NodeSelected(MapNode node, SelectedNodes selectedNodes)
+        {
+            MapNode.Attribute att;
+            if(DueDateAttribute.GetAttribute(node, out att))
+            {
+                TaskView tv = taskList.FindTaskView(node, DateHelper.ToDateTime(att.value));
+                tv.Selected = true;
+            }
+        }
+
+        void SelectedNodes_NodeDeselected(MapNode node, SelectedNodes selectedNodes)
+        {
+            MapNode.Attribute att;
+            if (DueDateAttribute.GetAttribute(node, out att))
+            {
+                TaskView tv = taskList.FindTaskView(node, DateHelper.ToDateTime(att.value));
+                tv.Selected = false;
+            }
         }
 
         private void tree_AttributeChanged(MapNode node, AttributeChangeEventArgs e)

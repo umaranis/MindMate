@@ -39,6 +39,9 @@ namespace MindMate.Plugins.Tasks
             DueDate = dueDate;
 
             TaskDueOnText = dueOnText;
+
+            if (node.Selected)
+                Selected = true;
         }
 
         public string TaskTitle
@@ -97,16 +100,18 @@ namespace MindMate.Plugins.Tasks
         {
             btnRemove.Visible = true;
             btnComplete.Visible = true;
-            BackColor = Color.AliceBlue;
+            //BackColor = Color.AliceBlue;
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.TaskView_Paint);
+            Invalidate();
         }
 
         protected override void OnMouseLeave(EventArgs e)
         {
             btnRemove.Visible = false;
             btnComplete.Visible = false;
-            BackColor = SystemColors.ControlLight;
-            this.Paint -= new System.Windows.Forms.PaintEventHandler(this.TaskView_Paint);       
+            //BackColor = SystemColors.ControlLight;
+            this.Paint -= new System.Windows.Forms.PaintEventHandler(this.TaskView_Paint);
+            Invalidate();
         }
 
         
@@ -130,7 +135,21 @@ namespace MindMate.Plugins.Tasks
             }
         }
 
-        public enum TaskViewEvent { Remove, Edit, Complete, MoveUp, MoveDown }             
+        public enum TaskViewEvent { Remove, Edit, Complete, MoveUp, MoveDown }
 
+
+        public bool Selected { 
+            get 
+            {
+                return BackColor == Color.AliceBlue;
+            }
+            set 
+            { 
+                if(value)
+                    BackColor = Color.AliceBlue;
+                else
+                    BackColor = SystemColors.ControlLight; 
+            }
+        }
     }    
 }
