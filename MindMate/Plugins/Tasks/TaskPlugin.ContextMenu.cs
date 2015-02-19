@@ -13,7 +13,7 @@ namespace MindMate.Plugins.Tasks
 
         private MenuItem SetDueDateMenu { get { return menuItems[0]; } }
         private MenuItem UpdateDueDateMenu { get { return menuItems[1]; } }
-        private MenuItem CompleteTask { get { return menuItems[3]; } }
+        private MenuItem CompleteTaskMenu { get { return menuItems[3]; } }
 
         
         public MenuItem[] CreateContextMenuItemsForNode()
@@ -103,14 +103,7 @@ namespace MindMate.Plugins.Tasks
             {
                 MapNode node = nodes[i];
 
-                MapNode.Attribute att;
-                if(DueDateAttribute.GetAttribute(node, out att))
-                {
-                    DueDateAttribute.Delete(node);
-                    TargetDateAttribute.SetValue(node, att.value);
-                }
-
-                CompletionDateAttrbute.SetValue(node, att.value);
+                CompleteTask(node);
             }
         }
 

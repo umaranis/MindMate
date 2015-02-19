@@ -29,9 +29,14 @@ namespace MindMate.Plugins.Tasks
 
         void taskList_TaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
         {
-            if(e == TaskView.TaskViewEvent.Remove)
-            {
-                DueDateAttribute.Delete(tv.MapNode);
+            switch(e)
+            { 
+                case TaskView.TaskViewEvent.Remove:
+                    DueDateAttribute.Delete(tv.MapNode);
+                    break;
+                case TaskView.TaskViewEvent.Complete:
+                    CompleteTask(tv.MapNode);
+                    break;
             }
         }
                         
@@ -113,6 +118,16 @@ namespace MindMate.Plugins.Tasks
             throw new NotImplementedException();
         }
                        
-        
+        public void CompleteTask(MapNode node)
+        {
+            MapNode.Attribute att;
+            if (DueDateAttribute.GetAttribute(node, out att))
+            {
+                DueDateAttribute.Delete(node);
+                TargetDateAttribute.SetValue(node, att.value);
+            }
+
+            CompletionDateAttrbute.SetValue(node, att.value);
+        }
     }
 }
