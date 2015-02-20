@@ -48,6 +48,16 @@ namespace MindMate.Controller
             {
                 contextMenu.Items.Insert(index++, menu.UnderlyingMenuItem);
                 menu.UnderlyingMenuItem.Click += PluginMenuItem_Click;
+                SetClickHandlerForSubMenu(menu);
+            }
+        }
+
+        private void SetClickHandlerForSubMenu(Plugins.MenuItem menu)
+        {
+            foreach(ToolStripDropDownItem subMenuItem in menu.UnderlyingMenuItem.DropDownItems)
+            {
+                subMenuItem.Click += PluginMenuItem_Click;
+                SetClickHandlerForSubMenu((Plugins.MenuItem)(subMenuItem.Tag));
             }
         }
 

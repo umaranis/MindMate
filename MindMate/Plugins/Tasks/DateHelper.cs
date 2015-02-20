@@ -85,5 +85,16 @@ namespace MindMate.Plugins.Tasks
         {
             return dateTime.ToString();
         }
+
+        public static DateTime GetDefaultDueDate()
+        {
+            return DateTime.Today.AddHours(7);
+        }
+
+        public static DateTime GetDefaultDueDateToday()
+        {
+            DateTime dateTime = DateTime.Now.AddHours(1);
+            return IsToday(dateTime) ? dateTime : DateTime.Now;
+        }
     }
 }

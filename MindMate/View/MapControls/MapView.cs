@@ -33,8 +33,6 @@ namespace MindMate.View.MapControls
 
         public void ChangeTree(MapTree tree)
         {
-            MetaModel.MetaModel.Instance.SystemIconList.ForEach(a => a.StatusChange += systemIcon_StatusChange);
-
             if (this.tree != null) 
             {
                 this.tree.NodePropertyChanged -= tree_NodePropertyChanged;
@@ -75,6 +73,8 @@ namespace MindMate.View.MapControls
         /// <param name="tree"></param>
         public MapView(MapTree tree)
         {
+            MetaModel.MetaModel.Instance.SystemIconList.ForEach(a => a.StatusChange += systemIcon_StatusChange);
+
             this.ChangeTree(tree);
             this.Canvas = new MapViewPanel();
             this.Canvas.MapView = this;

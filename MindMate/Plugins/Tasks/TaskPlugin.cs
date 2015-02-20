@@ -118,7 +118,7 @@ namespace MindMate.Plugins.Tasks
             throw new NotImplementedException();
         }
                        
-        public void CompleteTask(MapNode node)
+        private void CompleteTask(MapNode node)
         {
             MapNode.Attribute att;
             if (DueDateAttribute.GetAttribute(node, out att))
@@ -128,6 +128,12 @@ namespace MindMate.Plugins.Tasks
             }
 
             CompletionDateAttrbute.SetValue(node, att.value);
+        }
+
+        private void SetDueDate(MapNode node, DateTime dateTime)
+        {
+            DueDateAttribute.SetValue(node, DateHelper.ToString(dateTime));
+            CompletionDateAttrbute.Delete(node);
         }
     }
 }
