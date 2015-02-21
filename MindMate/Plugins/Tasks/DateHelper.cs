@@ -96,5 +96,10 @@ namespace MindMate.Plugins.Tasks
             DateTime dateTime = DateTime.Now.AddHours(1);
             return IsToday(dateTime) ? dateTime : DateTime.Now;
         }
+
+        public static DateTime GetDefaultDueDateTomorrow()
+        {
+            return DateTime.Today.AddDays(1).AddHours(7);
+        }
     }
 }

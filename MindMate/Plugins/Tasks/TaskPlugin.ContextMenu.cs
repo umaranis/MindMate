@@ -25,7 +25,7 @@ namespace MindMate.Plugins.Tasks
             var t3 = new MenuItem("Quick Due Dates");
 
             t3.AddDropDownItem(new MenuItem("Today", null, Today_Click));
-            t3.AddDropDownItem(new MenuItem("Tomorrow"));
+            t3.AddDropDownItem(new MenuItem("Tomorrow", null, Tomorrow_Click));
             t3.AddDropDownItem(new MenuItem("This Week"));
             t3.AddDropDownItem(new MenuItem("Next Week"));
             t3.AddDropDownItem(new MenuItem("This Month"));
@@ -109,6 +109,14 @@ namespace MindMate.Plugins.Tasks
             for (int i = 0; i < nodes.Count; i++)
             {
                 SetDueDate(nodes[i], DateHelper.GetDefaultDueDateToday());
+            }
+        }
+
+        private void Tomorrow_Click(MenuItem menu, SelectedNodes nodes)
+        {
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                SetDueDate(nodes[i], DateHelper.GetDefaultDueDateTomorrow());
             }
         }
 
