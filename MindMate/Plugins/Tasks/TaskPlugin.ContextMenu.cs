@@ -26,9 +26,7 @@ namespace MindMate.Plugins.Tasks
 
             t3.AddDropDownItem(new MenuItem("Today", null, Today_Click));
             t3.AddDropDownItem(new MenuItem("Tomorrow", null, Tomorrow_Click));
-            t3.AddDropDownItem(new MenuItem("This Week"));
             t3.AddDropDownItem(new MenuItem("Next Week"));
-            t3.AddDropDownItem(new MenuItem("This Month"));
             t3.AddDropDownItem(new MenuItem("Next Month"));
             t3.AddDropDownItem(new MenuItem("No Date"));
 
