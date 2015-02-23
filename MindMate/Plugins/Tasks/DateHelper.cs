@@ -101,5 +101,10 @@ namespace MindMate.Plugins.Tasks
         {
             return DateTime.Today.AddDays(1).AddHours(7);
         }
+
+        public static DateTime GetDefaultDueDateNextWeek()
+        {
+            return DateTime.Today.AddDays(3 + (7 - (int)DateTime.Today.DayOfWeek));
+        }
     }
 }

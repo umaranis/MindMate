@@ -26,8 +26,9 @@ namespace MindMate.Plugins.Tasks
 
             t3.AddDropDownItem(new MenuItem("Today", null, Today_Click));
             t3.AddDropDownItem(new MenuItem("Tomorrow", null, Tomorrow_Click));
-            t3.AddDropDownItem(new MenuItem("Next Week"));
-            t3.AddDropDownItem(new MenuItem("Next Month"));
+            t3.AddDropDownItem(new MenuItem("Next Week", null, NextWeek_Click));
+            t3.AddDropDownItem(new MenuItem("Next Month", null));
+            t3.AddDropDownItem(new MenuItem("Next Quarter"));
             t3.AddDropDownItem(new MenuItem("No Date"));
 
             var t4 = new MenuItem("Complete Task", TaskRes.tick, CompleteTask_Click);
@@ -41,7 +42,7 @@ namespace MindMate.Plugins.Tasks
             };
 
             return menuItems;
-        }
+        }        
 
         public void OnContextMenuOpening(SelectedNodes nodes)
         {
@@ -116,6 +117,14 @@ namespace MindMate.Plugins.Tasks
             {
                 SetDueDate(nodes[i], DateHelper.GetDefaultDueDateTomorrow());
             }
+        }
+
+        private void NextWeek_Click(MenuItem menu, SelectedNodes nodes)
+        {
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                SetDueDate(nodes[i], DateHelper.GetDefaultDueDateNextWeek());
+            }            
         }
 
     }
