@@ -106,5 +106,10 @@ namespace MindMate.Plugins.Tasks
         {
             return DateTime.Today.AddDays(3 + (7 - (int)DateTime.Today.DayOfWeek));
         }
+
+        public static DateTime GetDefaultDueDateNextMonth()
+        {
+            return DateTime.Today.AddDays(10 + (30 - (int)DateTime.Today.Day));
+        }
     }
 }
