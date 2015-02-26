@@ -501,7 +501,20 @@ namespace MindMate.Model
 
         public bool HasChildren { get { return FirstChild != null; } }
 
-        public bool Selected { get { return Tree.SelectedNodes.Contains(this); } }
+        public bool Selected { 
+            get { return Tree.SelectedNodes.Contains(this); }
+            set
+            {
+                if(value)
+                {
+                    Tree.SelectedNodes.Add(this);
+                }
+                else
+                {
+                    Tree.SelectedNodes.Remove(this);
+                }
+            }
+        }
 
         #endregion
 

@@ -111,7 +111,7 @@ namespace MindMate.Plugins.Tasks
 
         public static DateTime GetDefaultDueDateNextMonth()
         {
-            return DateTime.Today.AddDays(10 + (30 - (int)DateTime.Today.Day)).AddHours(DEFAULT_HOUR);
+            return DateTime.Today.AddDays(10 + (DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month) - (int)DateTime.Today.Day)).AddHours(DEFAULT_HOUR);
         }
 
         public static int GetQuarter(DateTime dateTime)

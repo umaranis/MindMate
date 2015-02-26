@@ -38,14 +38,19 @@ namespace MindMate.View.MapControls
                 this.tree.NodePropertyChanged -= tree_NodePropertyChanged;
                 this.tree.TreeStructureChanged -= tree_TreeStructureChanged;
                 this.tree.IconChanged -= tree_IconChanged;
-
+                this.tree.SelectedNodes.NodeSelected -= SelectedNodes_NodeSelected;
+                this.tree.SelectedNodes.NodeDeselected -= SelectedNodes_NodeDeselected;  
             }
             this.tree = tree;
             this.tree.NodePropertyChanged += tree_NodePropertyChanged;
             this.tree.TreeStructureChanged += tree_TreeStructureChanged;
             this.tree.IconChanged += tree_IconChanged;
+            this.tree.SelectedNodes.NodeSelected += SelectedNodes_NodeSelected;
+            this.tree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
+
+            Canvas.Invalidate();
         }
-                               
+                                               
         public MapViewPanel Canvas { get; set; }
 
         public SelectedNodes SelectedNodes
@@ -75,7 +80,6 @@ namespace MindMate.View.MapControls
         {
             MetaModel.MetaModel.Instance.SystemIconList.ForEach(a => a.StatusChange += systemIcon_StatusChange);
 
-            this.ChangeTree(tree);
             this.Canvas = new MapViewPanel();
             this.Canvas.MapView = this;
             
@@ -83,6 +87,8 @@ namespace MindMate.View.MapControls
             this.Canvas.Location = new System.Drawing.Point(0, 0);
             this.Canvas.Size = new System.Drawing.Size(200, 300);
             this.Canvas.TabIndex = 0;
+
+            this.ChangeTree(tree);
 
             this.nodeTextEditor = new MapViewTextEditor(this.Canvas, NodeView.DefaultFont);                     
 
@@ -101,9 +107,10 @@ namespace MindMate.View.MapControls
                     if (node == Tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
                     RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
 
-                    Canvas.Invalidate();
                     break;              
             }
+
+            Canvas.Invalidate();
             
         }
 
@@ -125,6 +132,8 @@ namespace MindMate.View.MapControls
 
             if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
             RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+
+            Canvas.Invalidate();
         }
 
         void tree_TreeStructureChanged(MapNode node, TreeStructureChangedEventArgs e)
@@ -137,6 +146,18 @@ namespace MindMate.View.MapControls
                         node.Parent.NodeView.LastSelectedChild = null; // clear LastSelectedChild in case it is deleted or detached
                     break;
             }
+
+            Canvas.Invalidate();
+        }
+
+        void SelectedNodes_NodeDeselected(MapNode node, SelectedNodes selectedNodes)
+        {
+            Canvas.Invalidate();
+        }
+
+        void SelectedNodes_NodeSelected(MapNode node, SelectedNodes selectedNodes)
+        {
+            Canvas.Invalidate();
         }
 
         void systemIcon_StatusChange(MapNode node, ISystemIcon icon, MetaModel.SystemIconStatusChange e)

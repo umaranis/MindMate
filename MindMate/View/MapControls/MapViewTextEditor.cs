@@ -165,7 +165,6 @@ namespace MindMate.View.MapControls
             this.editBox.Tag = null; // ensures that Lost Focus event doesn't call stopNodeEdit again as control is made unvisible
             this.editBox.Visible = false;
             if (focusMap) canvas.Focus();
-            //this.Canvas.Invalidate();
         }
 
         private void editBoxLostFocus(object sender, EventArgs e)

@@ -120,6 +120,11 @@ namespace MindMate.Model
             }
         }
 
+        /// <summary>
+        /// Deselects the node.
+        /// Nothing happens if node is already deselected.
+        /// </summary>
+        /// <param name="node"></param>
         public void Remove(MapNode node)
         {
             bool success = selectedNodes.Remove(node);

@@ -81,7 +81,6 @@ namespace MindMate.Controller
             this.MapView.ChangeTree(tree);
             MapView.RefreshNodePositions();
             MapView.SelectedNodes.Add(tree.RootNode, false);
-            this.MapView.Canvas.Invalidate();
         }              
 
 
@@ -108,7 +107,6 @@ namespace MindMate.Controller
                             MapView.RefreshChildNodePositions(node.Parent, NodePosition.Undefined);
                         }
 
-                        MapView.Canvas.Invalidate();
                     }
                 }
                 else
@@ -129,7 +127,6 @@ namespace MindMate.Controller
                         {
                             MapView.RefreshChildNodePositions(node.Parent, NodePosition.Undefined);
                         }
-                        MapView.Canvas.Invalidate();
                     }
                 }
             }
@@ -188,7 +185,6 @@ namespace MindMate.Controller
                 node.NodeView.RefreshText();
                 if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
                 MapView.RefreshChildNodePositions(tree.RootNode, node.Pos);
-                MapView.Canvas.Invalidate();
             }
 
         }
@@ -200,8 +196,6 @@ namespace MindMate.Controller
             node.NodeView.RefreshText();
             if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
             MapView.RefreshChildNodePositions(tree.RootNode, node.Pos);
-            MapView.Canvas.Invalidate();
-
 
         }
 
@@ -250,7 +244,6 @@ namespace MindMate.Controller
 
                 this.MapView.SelectedNodes.Add(tmpNode, false);
                 MapView.RefreshChildNodePositions(tree.RootNode, tmpNode.Pos);                
-                this.MapView.Canvas.Invalidate();
             }
             return tmpNode;
         }
@@ -280,8 +273,6 @@ namespace MindMate.Controller
             this.MapView.RefreshChildNodePositions(tree.RootNode, tmpNode.Pos);
             
             this.MapView.SelectedNodes.Add(tmpNode, false);
-
-            this.MapView.Canvas.Invalidate();
 
             return tmpNode;
         }
@@ -319,7 +310,6 @@ namespace MindMate.Controller
             {
                 MapView.RefreshChildNodePositions(tree.RootNode, NodePosition.Undefined);
                 this.MapView.SelectedNodes.Add(selNode, false);
-                MapView.Canvas.Invalidate();
             }
         }
                
@@ -333,7 +323,6 @@ namespace MindMate.Controller
                 if (node.MoveUp())
                 {
                     this.MapView.RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
-                    MapView.Canvas.Invalidate();
                 }
             }
         }
@@ -347,7 +336,6 @@ namespace MindMate.Controller
                 if (node.MoveDown())
                 {
                     this.MapView.RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
-                    MapView.Canvas.Invalidate();
                 }
             }
         }
@@ -362,7 +350,6 @@ namespace MindMate.Controller
                     MapView.SelectedNodes.Add(node.Previous, true);
                     node = node.Previous;
                 }
-                MapView.Canvas.Invalidate();
             }            
         }
 
@@ -376,7 +363,6 @@ namespace MindMate.Controller
                     MapView.SelectedNodes.Add(node.Next, true);
                     node = node.Next;
                 }
-                MapView.Canvas.Invalidate();
             }
         }
 
@@ -386,7 +372,6 @@ namespace MindMate.Controller
             {
                 this.MapView.SelectedNodes.Add(MapView.SelectedNodes.Last.GetFirstSib(), false);
             }
-            MapView.Canvas.Invalidate();
         }
 
         public void SelectBottomSibling()
@@ -395,7 +380,6 @@ namespace MindMate.Controller
             {
                 this.MapView.SelectedNodes.Add(MapView.SelectedNodes.Last.GetLastSib(), false);
             }
-            MapView.Canvas.Invalidate();
         }
 
         /// <summary>
@@ -434,7 +418,6 @@ namespace MindMate.Controller
                     }
                 }
             }
-            MapView.Canvas.Invalidate();            
         }
 
         /// <summary>
@@ -472,7 +455,6 @@ namespace MindMate.Controller
                     }
                 }
             }
-            MapView.Canvas.Invalidate();
         }
 
         
@@ -501,7 +483,6 @@ namespace MindMate.Controller
 
                 this.MapView.SelectedNodes.Add(tmpNode, false);
             }
-            MapView.Canvas.Invalidate();
         }
 
         public void SelectNodeLeftOrUnfold()
@@ -529,7 +510,6 @@ namespace MindMate.Controller
 
                 this.MapView.SelectedNodes.Add(tmpNode, false);
             }
-            MapView.Canvas.Invalidate();
         }
 
         
@@ -551,7 +531,6 @@ namespace MindMate.Controller
             {
                 node.Folded = !node.Folded;
                 MapView.RefreshChildNodePositions(tree.RootNode, node.Pos);
-                MapView.Canvas.Invalidate(); 
             }
         }
 
@@ -566,8 +545,6 @@ namespace MindMate.Controller
 
                 node.Icons.RemoveLast();                              
             }
-
-            MapView.Canvas.Invalidate();
 
         }
 
@@ -588,8 +565,6 @@ namespace MindMate.Controller
 
             }
 
-            MapView.Canvas.Invalidate();
-
         }
 
         public void AppendIcon(string iconSrc)
@@ -608,7 +583,6 @@ namespace MindMate.Controller
                 node.Icons.Add(iconSrc);                                
             }
 
-            MapView.Canvas.Invalidate();
         }
 
         //public void appendIconFromIconSelector()
@@ -684,7 +658,6 @@ namespace MindMate.Controller
                 MapNode node = this.MapView.SelectedNodes[i];
                 node.Shape = NodeShape.Bubble;
             }
-            this.MapView.Canvas.Invalidate();
         }
 
         public void MakeSelectedNodeShapeBox()
@@ -694,7 +667,6 @@ namespace MindMate.Controller
                 MapNode node = this.MapView.SelectedNodes[i];
                 node.Shape = NodeShape.Box;
             }
-            this.MapView.Canvas.Invalidate();
         }
 
         public void MakeSelectedNodeShapeFork()
@@ -704,7 +676,6 @@ namespace MindMate.Controller
                 MapNode node = this.MapView.SelectedNodes[i];
                 node.Shape = NodeShape.Fork;
             }
-            this.MapView.Canvas.Invalidate();
         }
 
         public void MakeSelectedNodeShapeBullet()
@@ -714,7 +685,6 @@ namespace MindMate.Controller
                 MapNode node = this.MapView.SelectedNodes[i];
                 node.Shape = NodeShape.Bullet;
             }
-            this.MapView.Canvas.Invalidate();
         }
 
         public void MakeSelectedNodeItalic()
@@ -728,7 +698,6 @@ namespace MindMate.Controller
                 if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
                 MapView.RefreshChildNodePositions(tree.RootNode, node.Pos);                
             }
-            this.MapView.Canvas.Invalidate();
         }
 
         public void MakeSelectedNodeBold()
@@ -742,7 +711,6 @@ namespace MindMate.Controller
                 if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
                 MapView.RefreshChildNodePositions(tree.RootNode, node.Pos);
             }
-            this.MapView.Canvas.Invalidate();
         }
 
         public void ChangeLineWidth(int width)
@@ -755,7 +723,6 @@ namespace MindMate.Controller
                     node.LineWidth = width;
                 }                
             }
-            this.MapView.Canvas.Invalidate();
         }
 
         public void ChangeLinePattern(System.Drawing.Drawing2D.DashStyle pattern)
@@ -768,7 +735,6 @@ namespace MindMate.Controller
                     node.LinePattern = pattern;
                 }
             }
-            this.MapView.Canvas.Invalidate();
         }
 
         /// <summary>
@@ -797,7 +763,6 @@ namespace MindMate.Controller
                     node.LineColor = color;
                 }
             }
-            this.MapView.Canvas.Invalidate();
         }
 
         /// <summary>
@@ -826,7 +791,6 @@ namespace MindMate.Controller
                     node.Color = color;
                 }
             }
-            this.MapView.Canvas.Invalidate();
         }
 
         /// <summary>
@@ -853,7 +817,6 @@ namespace MindMate.Controller
                     node.BackColor = color;
                 }
             }
-            this.MapView.Canvas.Invalidate();
         }
 
         /// <summary>
@@ -883,7 +846,6 @@ namespace MindMate.Controller
                     MapView.RefreshChildNodePositions(tree.RootNode, node.Pos);
                 }                
             }
-            this.MapView.Canvas.Invalidate();
         }
 
 
@@ -909,7 +871,6 @@ namespace MindMate.Controller
                     ClipboardManager.Paste(pasteLocation);
                     if (pasteLocation.Folded) pasteLocation.Folded = false;
                     MapView.RefreshChildNodePositions(tree.RootNode, pasteLocation.Pos);
-                    this.MapView.Canvas.Invalidate();
                 }
             }
             else // if multiple nodes are selected
@@ -958,7 +919,6 @@ namespace MindMate.Controller
 
                 MapView.RefreshChildNodePositions(tree.RootNode, NodePosition.Undefined);
                 this.MapView.SelectedNodes.Add(selNode, false);
-                MapView.Canvas.Invalidate();
             }
         }
 

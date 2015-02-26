@@ -127,11 +127,14 @@ namespace MindMate.Plugins.Tasks
             {
                 OnTaskViewEvent(this, TaskViewEvent.Remove);
             }
-
-            if (e.X > btnComplete.Left && e.Y > btnComplete.Top
+            else if (e.X > btnComplete.Left && e.Y > btnComplete.Top
                 && e.X < btnComplete.Left + btnComplete.Width && e.Y < btnComplete.Top + btnComplete.Height)
             {
                 OnTaskViewEvent(this, TaskViewEvent.Complete);
+            }
+            else
+            {
+                MapNode.Selected = true;
             }
         }
 

@@ -55,7 +55,6 @@ namespace MindMate.Controller
             else if (mapCtrl.MapView.SelectedNodes.Count > 1 && mapCtrl.MapView.SelectedNodes.Contains(node) && ctrlKeyDown)
             {
                 mapCtrl.MapView.SelectedNodes.Remove(node);
-                mapCtrl.MapView.Canvas.Invalidate(); //TODO: shouldn't only be called from MapCtrl.
             }
             else
             {
@@ -74,7 +73,6 @@ namespace MindMate.Controller
                         mapCtrl.FollowLink(node);
                     }
                 }
-                mapCtrl.MapView.Canvas.Invalidate();
             }
 
         }
@@ -86,7 +84,6 @@ namespace MindMate.Controller
             if (lastSelectedNode != null)
             {
                 mapCtrl.MapView.SelectedNodes.Add(lastSelectedNode, false);
-                mapCtrl.MapView.Canvas.Invalidate(); //TODO: shouldn't only be called from MapCtrl.
             }            
         }
 
@@ -122,7 +119,6 @@ namespace MindMate.Controller
                 mapCtrl.MapView.Canvas.Cursor = Cursors.Default;
             }
 
-            mapCtrl.MapView.Canvas.Invalidate();
             return;
             
             

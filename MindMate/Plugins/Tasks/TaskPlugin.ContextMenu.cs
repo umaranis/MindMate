@@ -29,7 +29,6 @@ namespace MindMate.Plugins.Tasks
             t3.AddDropDownItem(new MenuItem("Next Week", null, NextWeek_Click));
             t3.AddDropDownItem(new MenuItem("Next Month", null, NextMonth_Click));
             t3.AddDropDownItem(new MenuItem("Next Quarter", null, NextQuarter_Click));
-            t3.AddDropDownItem(new MenuItem("No Date"));
 
             var t4 = new MenuItem("Complete Task", TaskRes.tick, CompleteTask_Click);
 
@@ -143,6 +142,6 @@ namespace MindMate.Plugins.Tasks
             }            
         }
 
-
+        
     }
 }
