@@ -65,7 +65,15 @@ namespace MindMate.View.MapControls
 
         public void Draw(Graphics g)
         {
-            g.DrawImageUnscaled(iconSpec.Bitmap, (int)location.X, (int)location.Y);
+            if(iconSpec.Bitmap.HorizontalResolution == 96)
+                g.DrawImageUnscaled(iconSpec.Bitmap, (int)location.X, (int)location.Y);
+            else                
+                g.DrawImage(iconSpec.Bitmap, location.X, location.Y, 
+                iconSpec.Bitmap.PhysicalDimension.Width, iconSpec.Bitmap.PhysicalDimension.Height);
+
+            //MindMate.Debugging.Utility.WriteToFile(iconSpec.Name + " - " +
+            //    iconSpec.Bitmap.Size.ToString() + " - " + iconSpec.Bitmap.PhysicalDimension.ToString() +
+            //    " - " + iconSpec.Bitmap.HorizontalResolution.ToString());
         }
     }
 }
