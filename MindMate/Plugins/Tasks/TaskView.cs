@@ -32,7 +32,7 @@ namespace MindMate.Plugins.Tasks
             while (parentNode != null)
             {
                 if (lblTaskPath.Text != "") lblTaskPath.Text += " <- ";
-                lblTaskPath.Text += node.Parent.Text;
+                lblTaskPath.Text += parentNode.Text;
                 parentNode = parentNode.Parent;
             }
 
