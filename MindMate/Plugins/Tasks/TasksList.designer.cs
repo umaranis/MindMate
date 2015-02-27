@@ -33,8 +33,10 @@
             this.tableLayoutThisWeek = new System.Windows.Forms.TableLayoutPanel();
             this.collapsiblePanelTomorrow = new MindMate.Plugins.Tasks.CollapsiblePanel();
             this.tableLayoutTomorrow = new System.Windows.Forms.TableLayoutPanel();
+            this.collapsiblePanelOverdue = new MindMate.Plugins.Tasks.CollapsiblePanel();
+            this.tableLayoutOverdue = new System.Windows.Forms.TableLayoutPanel();
             this.collapsiblePanelToday = new MindMate.Plugins.Tasks.CollapsiblePanel();
-            this.tableLayoutToday = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutToday = new System.Windows.Forms.TableLayoutPanel();            
             this.panelMain = new System.Windows.Forms.Panel();
             this.collapsiblePanelThisMonth = new MindMate.Plugins.Tasks.CollapsiblePanel();
             this.tableLayoutThisMonth = new System.Windows.Forms.TableLayoutPanel();
@@ -69,14 +71,15 @@
             this.tablePanelMain.BackColor = System.Drawing.SystemColors.Control;
             this.tablePanelMain.ColumnCount = 1;
             this.tablePanelMain.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tablePanelMain.Controls.Add(this.collapsiblePanelToday, 0, 0);
-            this.tablePanelMain.Controls.Add(this.collapsiblePanelTomorrow, 0, 1);
-            this.tablePanelMain.Controls.Add(this.collapsiblePanelThisWeek, 0, 2);
-            this.tablePanelMain.Controls.Add(this.collapsiblePanelThisMonth, 0, 3);  
-            this.tablePanelMain.Controls.Add(this.collapsiblePanelNextMonth, 0, 4);              
+            this.tablePanelMain.Controls.Add(this.collapsiblePanelOverdue, 0, 0);
+            this.tablePanelMain.Controls.Add(this.collapsiblePanelToday, 0, 1);
+            this.tablePanelMain.Controls.Add(this.collapsiblePanelTomorrow, 0, 2);
+            this.tablePanelMain.Controls.Add(this.collapsiblePanelThisWeek, 0, 3);
+            this.tablePanelMain.Controls.Add(this.collapsiblePanelThisMonth, 0, 4);  
+            this.tablePanelMain.Controls.Add(this.collapsiblePanelNextMonth, 0, 5);              
             this.tablePanelMain.Location = new System.Drawing.Point(3, 3);
             this.tablePanelMain.Name = "tablePanelMain";
-            this.tablePanelMain.RowCount = 5;
+            this.tablePanelMain.RowCount = 6;
             this.tablePanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tablePanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tablePanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -84,6 +87,39 @@
             this.tablePanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tablePanelMain.Size = new System.Drawing.Size(269, 600);
             this.tablePanelMain.TabIndex = 1;
+            // 
+            // collapsiblePanelOverdue
+            // 
+            this.collapsiblePanelOverdue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.collapsiblePanelOverdue.AnimationInterval = 20;
+            this.collapsiblePanelOverdue.BackColor = System.Drawing.Color.Transparent;
+            this.collapsiblePanelOverdue.Controls.Add(this.tableLayoutOverdue);
+            this.collapsiblePanelOverdue.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
+            this.collapsiblePanelOverdue.HeaderImage = null;
+            this.collapsiblePanelOverdue.HeaderText = "Overdue";
+            this.collapsiblePanelOverdue.HeaderTextColor = System.Drawing.Color.IndianRed;
+            this.collapsiblePanelOverdue.Location = new System.Drawing.Point(3, 3);
+            this.collapsiblePanelOverdue.Name = "collapsiblePanelOverdue";
+            this.collapsiblePanelOverdue.RoundedCorners = false;
+            this.collapsiblePanelOverdue.ShowHeaderSeparator = false;
+            this.collapsiblePanelOverdue.Size = new System.Drawing.Size(264, 151);
+            this.collapsiblePanelOverdue.TabIndex = 2;
+            this.collapsiblePanelOverdue.UseAnimation = true;
+            this.collapsiblePanelOverdue.Visible = false;
+            // 
+            // tableLayoutOverdue
+            // 
+            this.tableLayoutOverdue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutOverdue.ColumnCount = 1;
+            this.tableLayoutOverdue.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutOverdue.Location = new System.Drawing.Point(0, 30);
+            this.tableLayoutOverdue.Name = "tableLayoutOverdue";
+            this.tableLayoutOverdue.RowCount = 0;
+            this.tableLayoutOverdue.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutOverdue.Size = new System.Drawing.Size(264, 120);
+            this.tableLayoutOverdue.TabIndex = 3;  
             // 
             // collapsiblePanelToday
             // 
@@ -101,7 +137,7 @@
             this.collapsiblePanelToday.RoundedCorners = false;
             this.collapsiblePanelToday.ShowHeaderSeparator = false;
             this.collapsiblePanelToday.Size = new System.Drawing.Size(264, 151);
-            this.collapsiblePanelToday.TabIndex = 2;
+            this.collapsiblePanelToday.TabIndex = 4;
             this.collapsiblePanelToday.UseAnimation = true;
             this.collapsiblePanelToday.Visible = false;
             // 
@@ -116,7 +152,7 @@
             this.tableLayoutToday.RowCount = 0;
             this.tableLayoutToday.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutToday.Size = new System.Drawing.Size(264, 120);
-            this.tableLayoutToday.TabIndex = 3;            
+            this.tableLayoutToday.TabIndex = 4;            
             // 
             // collapsiblePanelTomorrow
             // 
@@ -134,7 +170,7 @@
             this.collapsiblePanelTomorrow.RoundedCorners = false;
             this.collapsiblePanelTomorrow.ShowHeaderSeparator = false;
             this.collapsiblePanelTomorrow.Size = new System.Drawing.Size(264, 150);
-            this.collapsiblePanelTomorrow.TabIndex = 4;
+            this.collapsiblePanelTomorrow.TabIndex = 6;
             this.collapsiblePanelTomorrow.UseAnimation = true;
             this.collapsiblePanelTomorrow.Visible = false;
             // 
@@ -149,7 +185,7 @@
             this.tableLayoutTomorrow.RowCount = 0;
             this.tableLayoutTomorrow.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutTomorrow.Size = new System.Drawing.Size(264, 120);
-            this.tableLayoutTomorrow.TabIndex = 5;
+            this.tableLayoutTomorrow.TabIndex = 7;
             // 
             // collapsiblePanelThisWeek
             // 
@@ -167,7 +203,7 @@
             this.collapsiblePanelThisWeek.RoundedCorners = false;
             this.collapsiblePanelThisWeek.ShowHeaderSeparator = false;
             this.collapsiblePanelThisWeek.Size = new System.Drawing.Size(263, 150);
-            this.collapsiblePanelThisWeek.TabIndex = 6;
+            this.collapsiblePanelThisWeek.TabIndex = 8;
             this.collapsiblePanelThisWeek.UseAnimation = true;
             this.collapsiblePanelThisWeek.Visible = false;
             // 
@@ -182,7 +218,7 @@
             this.tableLayoutThisWeek.RowCount = 0;
             this.tableLayoutThisWeek.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutThisWeek.Size = new System.Drawing.Size(264, 120);
-            this.tableLayoutThisWeek.TabIndex = 7;            
+            this.tableLayoutThisWeek.TabIndex = 9;            
             // 
             // collapsiblePanelThisMonth
             // 
@@ -200,7 +236,7 @@
             this.collapsiblePanelThisMonth.RoundedCorners = false;
             this.collapsiblePanelThisMonth.ShowHeaderSeparator = false;
             this.collapsiblePanelThisMonth.Size = new System.Drawing.Size(263, 140);
-            this.collapsiblePanelThisMonth.TabIndex = 8;
+            this.collapsiblePanelThisMonth.TabIndex = 10;
             this.collapsiblePanelThisMonth.UseAnimation = true;
             this.collapsiblePanelThisMonth.Visible = false;
             // 
@@ -215,7 +251,7 @@
             this.tableLayoutThisMonth.RowCount = 0;
             this.tableLayoutThisMonth.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutThisMonth.Size = new System.Drawing.Size(264, 120);
-            this.tableLayoutThisMonth.TabIndex = 9;
+            this.tableLayoutThisMonth.TabIndex = 11;
             // 
             // collapsiblePanelNextMonth
             // 
@@ -233,7 +269,7 @@
             this.collapsiblePanelNextMonth.RoundedCorners = false;
             this.collapsiblePanelNextMonth.ShowHeaderSeparator = false;
             this.collapsiblePanelNextMonth.Size = new System.Drawing.Size(263, 151);
-            this.collapsiblePanelNextMonth.TabIndex = 10;
+            this.collapsiblePanelNextMonth.TabIndex = 12;
             this.collapsiblePanelNextMonth.UseAnimation = true;
             this.collapsiblePanelNextMonth.Visible = false;
             // 
@@ -248,7 +284,7 @@
             this.tableLayoutNextMonth.RowCount = 0;
             this.tableLayoutNextMonth.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutNextMonth.Size = new System.Drawing.Size(264, 120);
-            this.tableLayoutNextMonth.TabIndex = 11;
+            this.tableLayoutNextMonth.TabIndex = 13;
             // 
             // TasksList
             // 
@@ -274,6 +310,8 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutThisWeek;
         private MindMate.Plugins.Tasks.CollapsiblePanel collapsiblePanelTomorrow;
         private System.Windows.Forms.TableLayoutPanel tableLayoutTomorrow;
+        private MindMate.Plugins.Tasks.CollapsiblePanel collapsiblePanelOverdue;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutOverdue;
         private MindMate.Plugins.Tasks.CollapsiblePanel collapsiblePanelToday;
         private System.Windows.Forms.TableLayoutPanel tableLayoutToday;
         private MindMate.Plugins.Tasks.CollapsiblePanel collapsiblePanelNextMonth;

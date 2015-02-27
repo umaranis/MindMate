@@ -9,6 +9,11 @@ namespace MindMate.Plugins.Tasks
     {
         public const int DEFAULT_HOUR = 7;
 
+        public static bool IsOverdue(DateTime dateTime)
+        {
+            return dateTime.Date < DateTime.Today;
+        }
+
         public static bool IsToday(DateTime dateTime)
         {
             return dateTime.Date == DateTime.Today;
@@ -23,7 +28,7 @@ namespace MindMate.Plugins.Tasks
         {
             DateTime beginning, end;
             GetWeek(DateTime.Now, System.Globalization.CultureInfo.CurrentCulture, out beginning, out end);
-            return dateTime.Date <= end.Date;
+            return dateTime.Date >= beginning.Date && dateTime.Date <= end.Date;
         }
 
         public static void GetWeek(DateTime now, System.Globalization.CultureInfo cultureInfo, out DateTime begining, out DateTime end)

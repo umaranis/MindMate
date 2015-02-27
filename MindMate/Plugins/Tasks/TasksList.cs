@@ -22,7 +22,12 @@ namespace MindMate.Plugins.Tasks
 
         public void Add(MindMate.Model.MapNode node, DateTime dateTime)
         {
-            if(DateHelper.IsToday(dateTime))
+            if(DateHelper.IsOverdue(dateTime))
+            {
+                AddTask(this.collapsiblePanelOverdue, this.tableLayoutOverdue, node, dateTime,
+                    DateHelper.GetDayOfMonthString(dateTime));
+            }
+            else if(DateHelper.IsToday(dateTime))
             {
                 AddTask(this.collapsiblePanelToday, this.tableLayoutToday, node, dateTime,
                     DateHelper.GetTimePartString(dateTime));
@@ -140,10 +145,14 @@ namespace MindMate.Plugins.Tasks
         /// </summary>
         /// <param name="node"></param>
         /// <param name="dueDate"></param>
-        /// <returns></returns>
+        /// <returns>returns null if not found</returns>
         public TaskView FindTaskView(MapNode node, DateTime dueDate)
         {
-            if (DateHelper.IsToday(dueDate))
+            if(DateHelper.IsOverdue(dueDate))
+            {
+                return FindTaskViewInGroup(tableLayoutOverdue, node, dueDate);
+            }
+            else if (DateHelper.IsToday(dueDate))
             {
                 return FindTaskViewInGroup(tableLayoutToday, node, dueDate);
             }

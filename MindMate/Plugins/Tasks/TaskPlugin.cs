@@ -66,7 +66,7 @@ namespace MindMate.Plugins.Tasks
             if(DueDateAttribute.GetAttribute(node, out att))
             {
                 TaskView tv = taskList.FindTaskView(node, DateHelper.ToDateTime(att.value));
-                tv.Selected = true;
+                if(tv != null) tv.Selected = true;
             }
         }
 
@@ -76,7 +76,7 @@ namespace MindMate.Plugins.Tasks
             if (DueDateAttribute.GetAttribute(node, out att))
             {
                 TaskView tv = taskList.FindTaskView(node, DateHelper.ToDateTime(att.value));
-                tv.Selected = false;
+                if(tv != null) tv.Selected = false;
             }
         }
 
