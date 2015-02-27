@@ -98,7 +98,7 @@
             this.collapsiblePanelOverdue.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.collapsiblePanelOverdue.HeaderImage = null;
             this.collapsiblePanelOverdue.HeaderText = "Overdue";
-            this.collapsiblePanelOverdue.HeaderTextColor = System.Drawing.Color.IndianRed;
+            this.collapsiblePanelOverdue.HeaderTextColor = System.Drawing.Color.Red;
             this.collapsiblePanelOverdue.Location = new System.Drawing.Point(3, 3);
             this.collapsiblePanelOverdue.Name = "collapsiblePanelOverdue";
             this.collapsiblePanelOverdue.RoundedCorners = false;
