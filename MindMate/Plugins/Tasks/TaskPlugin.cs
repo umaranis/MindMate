@@ -32,7 +32,7 @@ namespace MindMate.Plugins.Tasks
             switch(e)
             { 
                 case TaskView.TaskViewEvent.Remove:
-                    DueDateAttribute.Delete(tv.MapNode);
+                    RemoveTask(tv.MapNode);
                     break;
                 case TaskView.TaskViewEvent.Complete:
                     CompleteTask(tv.MapNode);
@@ -128,6 +128,11 @@ namespace MindMate.Plugins.Tasks
             }
 
             CompletionDateAttrbute.SetValue(node, att.value);
+        }
+
+        private void RemoveTask(MapNode node)
+        {
+            DueDateAttribute.Delete(node);
         }
 
         private void SetDueDate(MapNode node, DateTime dateTime)

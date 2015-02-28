@@ -14,6 +14,7 @@ namespace MindMate.Plugins.Tasks
         private MenuItem SetDueDateMenu { get { return menuItems[0]; } }
         private MenuItem UpdateDueDateMenu { get { return menuItems[1]; } }
         private MenuItem CompleteTaskMenu { get { return menuItems[3]; } }
+        private MenuItem RemoveTaskMenu { get { return menuItems[4]; } }
 
         
         public MenuItem[] CreateContextMenuItemsForNode()
@@ -32,12 +33,15 @@ namespace MindMate.Plugins.Tasks
 
             var t4 = new MenuItem("Complete Task", TaskRes.tick, CompleteTask_Click);
 
+            var t5 = new MenuItem("Remove Task", TaskRes.date_delete, RemoveTask_Click);
+
             menuItems = new MenuItem[] 
             {
                 t1,
                 t2,
                 t3,
-                t4
+                t4,
+                t5
             };
 
             return menuItems;
@@ -49,11 +53,14 @@ namespace MindMate.Plugins.Tasks
             {
                 SetDueDateMenu.Visible = false;
                 UpdateDueDateMenu.Visible = true;
+                RemoveTaskMenu.Visible = true;
+
             }
             else
             {
                 SetDueDateMenu.Visible = true;
                 UpdateDueDateMenu.Visible = false;
+                RemoveTaskMenu.Visible = false;
             }
         }
 
@@ -99,6 +106,14 @@ namespace MindMate.Plugins.Tasks
                 MapNode node = nodes[i];
 
                 CompleteTask(node);
+            }
+        }
+
+        private void RemoveTask_Click(MenuItem menu, SelectedNodes nodes)
+        {
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                RemoveTask(nodes[i]);
             }
         }
 
