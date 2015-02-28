@@ -2,31 +2,12 @@
 {
     partial class TasksList
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        #region Windows Form Designer generated code
-
+        
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        private void MyInitializeComponent()
         {
             this.tablePanelMain = new System.Windows.Forms.TableLayoutPanel();
             this.collapsiblePanelThisWeek = new MindMate.Plugins.Tasks.CollapsiblePanel();
@@ -42,6 +23,7 @@
             this.tableLayoutThisMonth = new System.Windows.Forms.TableLayoutPanel();
             this.collapsiblePanelNextMonth = new MindMate.Plugins.Tasks.CollapsiblePanel();
             this.tableLayoutNextMonth = new System.Windows.Forms.TableLayoutPanel();
+            this.lblNoTasks = new System.Windows.Forms.Label();
             this.tablePanelMain.SuspendLayout();
             this.collapsiblePanelThisWeek.SuspendLayout();
             this.collapsiblePanelTomorrow.SuspendLayout();
@@ -59,6 +41,8 @@
             this.panelMain.AutoScroll = true;
             this.panelMain.BackColor = System.Drawing.SystemColors.Control;
             this.panelMain.Controls.Add(this.tablePanelMain);
+            this.panelMain.Controls.Add(lblNoTasks);
+            this.lblNoTasks.BringToFront();
             this.panelMain.Location = new System.Drawing.Point(0, 0);
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(274, 416);
@@ -285,6 +269,10 @@
             this.tableLayoutNextMonth.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutNextMonth.Size = new System.Drawing.Size(264, 120);
             this.tableLayoutNextMonth.TabIndex = 13;
+            //
+            // lblNoTasks
+            //
+            CreateNoTaskLabel();
             // 
             // TasksList
             // 
@@ -302,7 +290,14 @@
 
         }
 
-        #endregion
+        private void CreateNoTaskLabel()
+        {
+            lblNoTasks.Text = "There is no pending task till end of next month.";
+            lblNoTasks.ForeColor = System.Drawing.Color.Black;
+            lblNoTasks.Dock = System.Windows.Forms.DockStyle.Fill;
+            lblNoTasks.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            lblNoTasks.Padding = new System.Windows.Forms.Padding(25);            
+        }
 
         private System.Windows.Forms.TableLayoutPanel tablePanelMain;
         private System.Windows.Forms.Panel panelMain;
@@ -318,5 +313,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutNextMonth;
         private MindMate.Plugins.Tasks.CollapsiblePanel collapsiblePanelThisMonth;
         private System.Windows.Forms.TableLayoutPanel tableLayoutThisMonth;
+        private System.Windows.Forms.Label lblNoTasks;
     }
 }

@@ -15,7 +15,7 @@ namespace MindMate.Plugins.Tasks
     {
         public TasksList()
         {
-            InitializeComponent();
+            MyInitializeComponent();
         }
 
         public event Action<TaskView, TaskView.TaskViewEvent> TaskViewEvent;
@@ -62,7 +62,11 @@ namespace MindMate.Plugins.Tasks
         {
             TaskView tv = new TaskView(node, dateTime, dueOnText, OnTaskViewEvent);
 
-            if (tableLayout.RowCount == 0) collapsiblePanel.Visible = true;
+            if (tableLayout.RowCount == 0)
+            {
+                collapsiblePanel.Visible = true;
+                lblNoTasks.Visible = false;
+            }
             
             InsertTaskView(tableLayout, tv);
             
@@ -92,7 +96,11 @@ namespace MindMate.Plugins.Tasks
 
             panel.Height = panel.RowCount * tv.Height + (panel.Margin.Bottom * panel.RowCount * 2);
             collapsiblePanel.Height = panel.Height + panel.Top;
-            if (panel.RowCount == 0) collapsiblePanel.Visible = false;
+            if (panel.RowCount == 0)
+            {
+                collapsiblePanel.Visible = false;
+                if (GetLastTaskGroup() == null) lblNoTasks.Visible = true;
+            }
 
             AdjustMainPanelHeight();
             
@@ -195,6 +203,10 @@ namespace MindMate.Plugins.Tasks
             return null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>return null if no Task Group is visible</returns>
         private Control GetLastTaskGroup()
         {
             for(int i = this.tablePanelMain.RowCount - 1; i >= 0; i--)
