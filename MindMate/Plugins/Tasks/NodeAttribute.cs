@@ -57,6 +57,13 @@ namespace MindMate.Plugins.Tasks
             return false;
         }
 
+        public string GetValue(MapNode node)
+        {
+            MapNode.Attribute att;
+            GetAttribute(node, out att);
+            return att.value;
+        }
+
         public void SetValue(MapNode node, string value)
         {
             MapTree.AttributeSpec aspec = GetOrCreateAttributeSpec(node.Tree);
