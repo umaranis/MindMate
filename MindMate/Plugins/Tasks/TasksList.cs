@@ -99,7 +99,7 @@ namespace MindMate.Plugins.Tasks
             if (panel.RowCount == 0)
             {
                 collapsiblePanel.Visible = false;
-                if (GetLastTaskGroup() == null) lblNoTasks.Visible = true;
+                if (GetLastControl() == null) lblNoTasks.Visible = true;
             }
 
             AdjustMainPanelHeight();
@@ -108,7 +108,7 @@ namespace MindMate.Plugins.Tasks
 
         private void AdjustMainPanelHeight()
         {
-            Control lastTaskGroup = GetLastTaskGroup();
+            Control lastTaskGroup = GetLastControl();
             if (lastTaskGroup != null)
                 this.tablePanelMain.Height = lastTaskGroup.Location.Y + lastTaskGroup.Size.Height + lastTaskGroup.Margin.Bottom;
             else
@@ -183,7 +183,7 @@ namespace MindMate.Plugins.Tasks
 
             return null;            
         }
-
+        
         private TaskView FindTaskViewInGroup(TableLayoutPanel table, MapNode node, DateTime dueDate)
         {
             for(int i = 0; i < table.RowCount; i++)
@@ -203,11 +203,71 @@ namespace MindMate.Plugins.Tasks
             return null;
         }
 
+        public TaskView GetTaskView(int index)
+        {
+            int currentIndex = index;
+            for(int i = 0; i < TaskGroupCount; i++)
+            {
+                CollapsiblePanel panel = GetTaskGroup(i);
+                if (panel != null)
+                {
+                    TableLayoutPanel table = (TableLayoutPanel)panel.Controls[1];
+                    TaskView tv = (TaskView)table.GetControlFromPosition(0, currentIndex);
+                    if (tv != null)
+                    {
+                        return tv;
+                    }
+                    else
+                    {
+                        currentIndex -= table.RowCount;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public CollapsiblePanel GetTaskGroup(int index)
+        {
+            return (CollapsiblePanel)tablePanelMain.GetControlFromPosition(0, index);
+        }
+
+        public int TaskGroupCount
+        {
+            get { return tablePanelMain.RowCount; }
+        }
+
+        public TaskView GetNextTaskViewInGroup(TaskView tv)
+        {
+            TableLayoutPanel table = (TableLayoutPanel)tv.Parent;
+            var cell = table.GetPositionFromControl(tv);
+            return (TaskView)table.GetControlFromPosition(cell.Column, cell.Row + 1);
+        }
+
+        public TaskView GetPreviousTaskViewInGroup(TaskView tv)
+        {
+            TableLayoutPanel table = (TableLayoutPanel)tv.Parent;
+            var cell = table.GetPositionFromControl(tv);
+            return (TaskView)table.GetControlFromPosition(cell.Column, cell.Row - 1);
+        }
+
+        public CollapsiblePanel GetNextTaskGroup(CollapsiblePanel taskGroup)
+        {
+            var cell = tablePanelMain.GetPositionFromControl(taskGroup);
+            return (CollapsiblePanel)tablePanelMain.GetControlFromPosition(cell.Column, cell.Row + 1);
+        }
+
+        public CollapsiblePanel GetPreviousTaskGroup(CollapsiblePanel taskGroup)
+        {
+            var cell = tablePanelMain.GetPositionFromControl(taskGroup);
+            return (CollapsiblePanel)tablePanelMain.GetControlFromPosition(cell.Column, cell.Row - 1);
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns>return null if no Task Group is visible</returns>
-        private Control GetLastTaskGroup()
+        private Control GetLastControl()
         {
             for(int i = this.tablePanelMain.RowCount - 1; i >= 0; i--)
             {

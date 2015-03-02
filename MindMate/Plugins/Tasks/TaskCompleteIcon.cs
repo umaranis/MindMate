@@ -11,7 +11,7 @@ namespace MindMate.Plugins.Tasks
     {
         public bool ShowIcon(Model.MapNode node)
         {
-            return TaskPlugin.CompletionDateAttrbute.Exists(node);
+            return node.CompletionDateExists();
         }
 
         public event Action<Model.MapNode, ISystemIcon, SystemIconStatusChange> StatusChange;

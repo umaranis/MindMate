@@ -49,7 +49,7 @@ namespace MindMate.Plugins.Tasks
 
         public void OnContextMenuOpening(SelectedNodes nodes)
         {
-            if (DueDateAttribute.Exists(nodes.First))
+            if (nodes.First.DueDateExists())
             {
                 SetDueDateMenu.Visible = false;
                 UpdateDueDateMenu.Visible = true;
@@ -73,10 +73,9 @@ namespace MindMate.Plugins.Tasks
         private void SetDueDate_Click(MenuItem menu, SelectedNodes nodes)
         {
             // initialize date time picker
-            MapNode.Attribute att;
-            if (DueDateAttribute.GetAttribute(nodes.First, out att))
+            if (nodes.First.DueDateExists())
             {
-                dateTimePicker.Value = DateHelper.ToDateTime(att.value);
+                dateTimePicker.Value = nodes.First.GetDueDate();
             }
             else
             {

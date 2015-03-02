@@ -102,7 +102,9 @@
     <Compile Include="Plugins\IPluginSystemIcon.cs" />
     <Compile Include="Plugins\MenuItem.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
-    <Compile Include="Plugins\Tasks\NodeAttribute.cs" />
+    <Compile Include="Plugins\Tasks\CompletionDateAttribute.cs" />
+    <Compile Include="Plugins\Tasks\DueDateAttribute.cs" />
+    <Compile Include="Plugins\Tasks\TargetDateAttribute.cs" />
     <Compile Include="Plugins\Tasks\TaskCompleteIcon.cs" />
     <Compile Include="Plugins\Tasks\TaskPlugin.ContextMenu.cs" />
     <Compile Include="Plugins\Tasks\CollapsiblePanel.cs">
@@ -137,6 +139,9 @@
     </Compile>
     <Compile Include="Plugins\Tasks\TaskView.designer.cs">
       <DependentUpon>TaskView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Tasks\TaskViewContextMenu.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Plugins\Tasks\TransparentButton.cs">
       <SubType>Component</SubType>
@@ -555,6 +560,10 @@
     <None Include="Resources\date_edit.png" />
     <None Include="Resources\tick.png" />
     <None Include="Resources\date.png" />
+    <None Include="Resources\arrow-090-medium.png" />
+    <None Include="Resources\arrow-270-medium.png" />
+    <None Include="Resources\arrow-090-small.png" />
+    <None Include="Resources\arrow-270-small.png" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

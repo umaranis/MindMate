@@ -17,10 +17,11 @@ namespace MindMate.Plugins.Tasks
         {
             InitializeComponent();
 
+            this.ContextMenuStrip = new TaskViewContextMenu();
+
             OnTaskViewEvent = onTaskViewEvent;
 
-            btnRemove.Visible = false;
-            btnComplete.Visible = false;
+            SetQuickActionsVisiblity(false);
 
             MapNode = node;
 
@@ -42,6 +43,14 @@ namespace MindMate.Plugins.Tasks
 
             if (node.Selected)
                 Selected = true;
+        }
+
+        public void SetQuickActionsVisiblity(bool visible)
+        {
+            btnRemove.Visible = visible;
+            btnComplete.Visible = visible;
+            btnDown.Visible = visible;
+            btnUp.Visible = visible;
         }
 
         public string TaskTitle
@@ -98,8 +107,7 @@ namespace MindMate.Plugins.Tasks
 
         protected override void OnMouseEnter(EventArgs e)
         {
-            btnRemove.Visible = true;
-            btnComplete.Visible = true;
+            SetQuickActionsVisiblity(true);            
             //BackColor = Color.AliceBlue;
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.TaskView_Paint);
             Invalidate();
@@ -107,8 +115,7 @@ namespace MindMate.Plugins.Tasks
 
         protected override void OnMouseLeave(EventArgs e)
         {
-            btnRemove.Visible = false;
-            btnComplete.Visible = false;
+            SetQuickActionsVisiblity(false);
             //BackColor = SystemColors.ControlLight;
             this.Paint -= new System.Windows.Forms.PaintEventHandler(this.TaskView_Paint);
             Invalidate();
@@ -131,6 +138,16 @@ namespace MindMate.Plugins.Tasks
                 && e.X < btnComplete.Left + btnComplete.Width && e.Y < btnComplete.Top + btnComplete.Height)
             {
                 OnTaskViewEvent(this, TaskViewEvent.Complete);
+            }
+            else if (e.X > btnDown.Left && e.Y > btnDown.Top
+            && e.X < btnDown.Left + btnDown.Width && e.Y < btnDown.Top + btnDown.Height)
+            {
+                OnTaskViewEvent(this, TaskViewEvent.MoveDown);
+            }
+            else if (e.X > btnUp.Left && e.Y > btnUp.Top
+            && e.X < btnUp.Left + btnUp.Width && e.Y < btnUp.Top + btnUp.Height)
+            {
+                OnTaskViewEvent(this, TaskViewEvent.MoveUp);
             }
             else
             {

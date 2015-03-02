@@ -12,7 +12,7 @@ namespace MindMate.Plugins.Tasks
         public string Name { get { return "TaskPending"; } }
         public bool ShowIcon(Model.MapNode node)
         {
-            return TaskPlugin.DueDateAttribute.Exists(node);            
+            return node.DueDateExists();          
         }
 
         public event Action<Model.MapNode, ISystemIcon, SystemIconStatusChange> StatusChange;

@@ -33,10 +33,23 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.btnComplete = new TransparentPictureBox();
             this.btnRemove = new TransparentPictureBox();
+            this.btnUp = new TransparentPictureBox();
+            this.btnDown = new TransparentPictureBox();
             this.lblTaskPath = new MindMate.Plugins.Tasks.TransparentLabel();
             this.lblDueOn = new MindMate.Plugins.Tasks.TransparentLabel();
             this.lblNodeName = new MindMate.Plugins.Tasks.TransparentLabel();
             this.SuspendLayout();
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemove.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnRemove.Image = TaskRes.date_delete;
+            this.btnRemove.Location = new System.Drawing.Point(1221, 3);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(18, 18);
+            this.btnRemove.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.btnRemove, "Remove Task");
             // 
             // btnComplete
             // 
@@ -49,16 +62,27 @@
             this.btnComplete.TabIndex = 4;
             this.toolTip1.SetToolTip(this.btnComplete, "Complete Task");
             // 
-            // btnRemove
+            // btnDown
             // 
-            this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemove.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btnRemove.Image = TaskRes.date_delete;
-            this.btnRemove.Location = new System.Drawing.Point(1221, 3);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(18, 18);
-            this.btnRemove.TabIndex = 3;
-            this.toolTip1.SetToolTip(this.btnRemove, "Remove Task");
+            this.btnDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDown.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnDown.Image = TaskRes.arrow_270_medium;
+            this.btnDown.Location = new System.Drawing.Point(1179, 3);
+            this.btnDown.Name = "btnDown";
+            this.btnDown.Size = new System.Drawing.Size(18, 18);
+            this.btnDown.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.btnRemove, "Move Down");
+            // 
+            // btnUp
+            // 
+            this.btnUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnUp.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnUp.Image = TaskRes.arrow_090_medium;
+            this.btnUp.Location = new System.Drawing.Point(1158, 3);
+            this.btnUp.Name = "btnUp";
+            this.btnUp.Size = new System.Drawing.Size(18, 18);
+            this.btnUp.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.btnRemove, "Move Up");
             // 
             // lblTaskPath
             // 
@@ -102,6 +126,8 @@
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.Controls.Add(this.btnComplete);
             this.Controls.Add(this.btnRemove);
+            this.Controls.Add(this.btnDown);
+            this.Controls.Add(this.btnUp);
             this.Controls.Add(this.lblTaskPath);
             this.Controls.Add(this.lblDueOn);
             this.Controls.Add(this.lblNodeName);
@@ -120,5 +146,7 @@
         private System.Windows.Forms.ToolTip toolTip1;
         public TransparentPictureBox btnRemove;
         public TransparentPictureBox btnComplete;
+        public TransparentPictureBox btnUp;
+        public TransparentPictureBox btnDown;
     }
 }

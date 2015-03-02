@@ -6,21 +6,19 @@ using System.Text;
 
 namespace MindMate.Plugins.Tasks
 {
-    public class NodeAttribute
+    /// <summary>
+    /// used to store Target Date after task is completed
+    /// </summary>
+    public static class TargetDateAttribute
     {
-        private string attributeName;
-
-        public NodeAttribute(string attributeName)
-        {
-            this.attributeName = attributeName;
-        }
+        public const string ATTRIBUTE_NAME = "Target Date";
 
         /// <summary>
         /// Checks if this attribute spec exists on the given node
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        public bool Exists(MapNode node)
+        public static bool TargetDateExists(this MapNode node)
         {
             MapTree.AttributeSpec aspec = GetAttributeSpec(node.Tree);
             if (aspec != null)
@@ -33,16 +31,16 @@ namespace MindMate.Plugins.Tasks
         /// Delete this attribute from the given node
         /// </summary>
         /// <param name="node"></param>
-        public void Delete(MapNode node)
+        public static void RemoveTargetDate(this MapNode node)
         {
             MapTree.AttributeSpec aspec = GetAttributeSpec(node.Tree);
             if (aspec != null)
             {
                 node.DeleteAttribute(aspec);
-            }            
+            }
         }
 
-        public bool GetAttribute(MapNode node, out MapNode.Attribute attribute)
+        private static bool GetAttribute(MapNode node, out MapNode.Attribute attribute)
         {
             MapTree.AttributeSpec aspec = GetAttributeSpec(node.Tree);
             if (aspec != null)
@@ -50,48 +48,53 @@ namespace MindMate.Plugins.Tasks
                 if (node.GetAttribute(aspec, out attribute))
                 {
                     return true;
-                }                
+                }
             }
 
             attribute = MapNode.Attribute.Empty;
             return false;
         }
 
-        public string GetValue(MapNode node)
+        /// <summary>
+        /// Throws exception if there is no Target Date attribute
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public static DateTime GetTargetDate(this MapNode node)
         {
             MapNode.Attribute att;
             GetAttribute(node, out att);
-            return att.value;
+            return DateHelper.ToDateTime(att.value);
         }
 
-        public void SetValue(MapNode node, string value)
+        public static void SetTargetDate(this MapNode node, DateTime value)
         {
             MapTree.AttributeSpec aspec = GetOrCreateAttributeSpec(node.Tree);
-            node.AddUpdateAttribute(new MapNode.Attribute(aspec, value));
+            node.AddUpdateAttribute(new MapNode.Attribute(aspec, DateHelper.ToString(value)));
         }
 
-        public bool SameSpec(MapTree.AttributeSpec aspec)
+        public static bool IsTargetDate(this MapTree.AttributeSpec aspec)
         {
-            return aspec.Name == attributeName && aspec.Type == MapTree.AttributeType.System;
+            return aspec.Name == ATTRIBUTE_NAME && aspec.Type == MapTree.AttributeType.System;
         }
 
-        private MapTree.AttributeSpec CreateAttributeSpec(MapTree tree)
+        private static MapTree.AttributeSpec CreateAttributeSpec(this MapTree tree)
         {
             return new MapTree.AttributeSpec(
-                tree, attributeName, true, MapTree.AttributeDataType.DateTime,
+                tree, ATTRIBUTE_NAME, true, MapTree.AttributeDataType.DateTime,
                 MapTree.AttributeListOption.NoList, null, MapTree.AttributeType.System);
         }
 
-        private MapTree.AttributeSpec GetAttributeSpec(MapTree tree)
+        private static MapTree.AttributeSpec GetAttributeSpec(MapTree tree)
         {
-            MapTree.AttributeSpec aspec = tree.GetAttributeSpec(attributeName);
+            MapTree.AttributeSpec aspec = tree.GetAttributeSpec(ATTRIBUTE_NAME);
             return (aspec != null && aspec.Type == MapTree.AttributeType.System) ? aspec : null;
         }
 
-        private MapTree.AttributeSpec GetOrCreateAttributeSpec(MapTree tree)
+        private static MapTree.AttributeSpec GetOrCreateAttributeSpec(MapTree tree)
         {
             MapTree.AttributeSpec aspec = GetAttributeSpec(tree);
-            if (aspec == null) aspec = CreateAttributeSpec(tree);
+            if (aspec == null) aspec = tree.CreateAttributeSpec();
 
             return aspec;
         }
