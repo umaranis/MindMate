@@ -107,10 +107,10 @@
     <Compile Include="Plugins\Tasks\TargetDateAttribute.cs" />
     <Compile Include="Plugins\Tasks\TaskCompleteIcon.cs" />
     <Compile Include="Plugins\Tasks\TaskPlugin.ContextMenu.cs" />
-    <Compile Include="Plugins\Tasks\CollapsiblePanel.cs">
+    <Compile Include="Plugins\Tasks\TaskList\CollapsiblePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Plugins\Tasks\CollapsiblePanel.designer.cs">
+    <Compile Include="Plugins\Tasks\TaskList\CollapsiblePanel.designer.cs">
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Tasks\DateHelper.cs" />
@@ -128,25 +128,25 @@
       <DependentUpon>TaskRes.resx</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Tasks\TaskPlugin.cs" />
-    <Compile Include="Plugins\Tasks\TasksList.cs">
+    <Compile Include="Plugins\Tasks\TaskList\TasksList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Plugins\Tasks\TasksList.designer.cs">
+    <Compile Include="Plugins\Tasks\TaskList\TasksList.designer.cs">
       <DependentUpon>TasksList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tasks\TaskView.cs">
+    <Compile Include="Plugins\Tasks\TaskList\TaskView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Plugins\Tasks\TaskView.designer.cs">
+    <Compile Include="Plugins\Tasks\TaskList\TaskView.designer.cs">
       <DependentUpon>TaskView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Plugins\Tasks\TaskViewContextMenu.cs">
+    <Compile Include="Plugins\Tasks\TaskList\TaskViewContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Plugins\Tasks\TransparentButton.cs">
+    <Compile Include="Plugins\Tasks\TaskList\TransparentButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Plugins\Tasks\TransparentLabel.cs">
+    <Compile Include="Plugins\Tasks\TaskList\TransparentLabel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Serialization\Convert.cs" />
@@ -217,7 +217,7 @@
     <Compile Include="View\NoteEditor.Designer.cs">
       <DependentUpon>NoteEditor.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Plugins\Tasks\CollapsiblePanel.resx">
+    <EmbeddedResource Include="Plugins\Tasks\TaskList\CollapsiblePanel.resx">
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Plugins\Tasks\DateTimePicker.resx">
@@ -227,10 +227,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TaskRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Plugins\Tasks\TasksList.resx">
+    <EmbeddedResource Include="Plugins\Tasks\TaskList\TasksList.resx">
       <DependentUpon>TasksList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Plugins\Tasks\TaskView.resx">
+    <EmbeddedResource Include="Plugins\Tasks\TaskList\TaskView.resx">
       <DependentUpon>TaskView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Dialogs\AboutBox.resx">
