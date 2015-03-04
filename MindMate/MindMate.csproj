@@ -106,6 +106,9 @@
     <Compile Include="Plugins\Tasks\DueDateAttribute.cs" />
     <Compile Include="Plugins\Tasks\TargetDateAttribute.cs" />
     <Compile Include="Plugins\Tasks\TaskCompleteIcon.cs" />
+    <Compile Include="Plugins\Tasks\TaskList\TaskGroup.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Plugins\Tasks\TaskPlugin.ContextMenu.cs" />
     <Compile Include="Plugins\Tasks\TaskList\CollapsiblePanel.cs">
       <SubType>Component</SubType>

@@ -10,19 +10,13 @@
         private void MyInitializeComponent()
         {
             this.tablePanelMain = new System.Windows.Forms.TableLayoutPanel();
-            this.collapsiblePanelThisWeek = new MindMate.Plugins.Tasks.CollapsiblePanel();
-            this.tableLayoutThisWeek = new System.Windows.Forms.TableLayoutPanel();
-            this.collapsiblePanelTomorrow = new MindMate.Plugins.Tasks.CollapsiblePanel();
-            this.tableLayoutTomorrow = new System.Windows.Forms.TableLayoutPanel();
-            this.collapsiblePanelOverdue = new MindMate.Plugins.Tasks.CollapsiblePanel();
-            this.tableLayoutOverdue = new System.Windows.Forms.TableLayoutPanel();
-            this.collapsiblePanelToday = new MindMate.Plugins.Tasks.CollapsiblePanel();
-            this.tableLayoutToday = new System.Windows.Forms.TableLayoutPanel();            
+            this.collapsiblePanelThisWeek = new MindMate.Plugins.Tasks.TaskGroup<TaskView>();
+            this.collapsiblePanelTomorrow = new MindMate.Plugins.Tasks.TaskGroup<TaskView>();
+            this.collapsiblePanelOverdue = new MindMate.Plugins.Tasks.TaskGroup<TaskView>();
+            this.collapsiblePanelToday = new MindMate.Plugins.Tasks.TaskGroup<TaskView>();
             this.panelMain = new System.Windows.Forms.Panel();
-            this.collapsiblePanelThisMonth = new MindMate.Plugins.Tasks.CollapsiblePanel();
-            this.tableLayoutThisMonth = new System.Windows.Forms.TableLayoutPanel();
-            this.collapsiblePanelNextMonth = new MindMate.Plugins.Tasks.CollapsiblePanel();
-            this.tableLayoutNextMonth = new System.Windows.Forms.TableLayoutPanel();
+            this.collapsiblePanelThisMonth = new MindMate.Plugins.Tasks.TaskGroup<TaskView>();
+            this.collapsiblePanelNextMonth = new MindMate.Plugins.Tasks.TaskGroup<TaskView>();
             this.lblNoTasks = new System.Windows.Forms.Label();
             this.tablePanelMain.SuspendLayout();
             this.collapsiblePanelThisWeek.SuspendLayout();
@@ -78,7 +72,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.collapsiblePanelOverdue.AnimationInterval = 20;
             this.collapsiblePanelOverdue.BackColor = System.Drawing.Color.Transparent;
-            this.collapsiblePanelOverdue.Controls.Add(this.tableLayoutOverdue);
             this.collapsiblePanelOverdue.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.collapsiblePanelOverdue.HeaderImage = null;
             this.collapsiblePanelOverdue.HeaderText = "Overdue";
@@ -92,26 +85,12 @@
             this.collapsiblePanelOverdue.UseAnimation = true;
             this.collapsiblePanelOverdue.Visible = false;
             // 
-            // tableLayoutOverdue
-            // 
-            this.tableLayoutOverdue.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutOverdue.ColumnCount = 1;
-            this.tableLayoutOverdue.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutOverdue.Location = new System.Drawing.Point(0, 30);
-            this.tableLayoutOverdue.Name = "tableLayoutOverdue";
-            this.tableLayoutOverdue.RowCount = 0;
-            this.tableLayoutOverdue.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutOverdue.Size = new System.Drawing.Size(264, 120);
-            this.tableLayoutOverdue.TabIndex = 3;  
-            // 
             // collapsiblePanelToday
             // 
             this.collapsiblePanelToday.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.collapsiblePanelToday.AnimationInterval = 20;
             this.collapsiblePanelToday.BackColor = System.Drawing.Color.Transparent;
-            this.collapsiblePanelToday.Controls.Add(this.tableLayoutToday);
             this.collapsiblePanelToday.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.collapsiblePanelToday.HeaderImage = null;
             this.collapsiblePanelToday.HeaderText = "Today";
@@ -125,26 +104,12 @@
             this.collapsiblePanelToday.UseAnimation = true;
             this.collapsiblePanelToday.Visible = false;
             // 
-            // tableLayoutToday
-            // 
-            this.tableLayoutToday.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutToday.ColumnCount = 1;
-            this.tableLayoutToday.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutToday.Location = new System.Drawing.Point(0, 30);
-            this.tableLayoutToday.Name = "tableLayoutToday";
-            this.tableLayoutToday.RowCount = 0;
-            this.tableLayoutToday.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutToday.Size = new System.Drawing.Size(264, 120);
-            this.tableLayoutToday.TabIndex = 4;            
-            // 
             // collapsiblePanelTomorrow
             // 
             this.collapsiblePanelTomorrow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.collapsiblePanelTomorrow.AnimationInterval = 20;
             this.collapsiblePanelTomorrow.BackColor = System.Drawing.Color.Transparent;
-            this.collapsiblePanelTomorrow.Controls.Add(this.tableLayoutTomorrow);
             this.collapsiblePanelTomorrow.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.collapsiblePanelTomorrow.HeaderImage = null;
             this.collapsiblePanelTomorrow.HeaderText = "Tomorrow";
@@ -158,26 +123,12 @@
             this.collapsiblePanelTomorrow.UseAnimation = true;
             this.collapsiblePanelTomorrow.Visible = false;
             // 
-            // tableLayoutTomorrow
-            // 
-            this.tableLayoutTomorrow.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutTomorrow.ColumnCount = 1;
-            this.tableLayoutTomorrow.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutTomorrow.Location = new System.Drawing.Point(0, 30);
-            this.tableLayoutTomorrow.Name = "tableLayoutTomorrow";
-            this.tableLayoutTomorrow.RowCount = 0;
-            this.tableLayoutTomorrow.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutTomorrow.Size = new System.Drawing.Size(264, 120);
-            this.tableLayoutTomorrow.TabIndex = 7;
-            // 
             // collapsiblePanelThisWeek
             // 
             this.collapsiblePanelThisWeek.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.collapsiblePanelThisWeek.AnimationInterval = 20;
             this.collapsiblePanelThisWeek.BackColor = System.Drawing.Color.Transparent;
-            this.collapsiblePanelThisWeek.Controls.Add(this.tableLayoutThisWeek);
             this.collapsiblePanelThisWeek.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.collapsiblePanelThisWeek.HeaderImage = null;
             this.collapsiblePanelThisWeek.HeaderText = "This Week";
@@ -191,26 +142,12 @@
             this.collapsiblePanelThisWeek.UseAnimation = true;
             this.collapsiblePanelThisWeek.Visible = false;
             // 
-            // tableLayoutThisWeek
-            // 
-            this.tableLayoutThisWeek.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutThisWeek.ColumnCount = 1;
-            this.tableLayoutThisWeek.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutThisWeek.Location = new System.Drawing.Point(0, 30);
-            this.tableLayoutThisWeek.Name = "tableLayoutThisWeek";
-            this.tableLayoutThisWeek.RowCount = 0;
-            this.tableLayoutThisWeek.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutThisWeek.Size = new System.Drawing.Size(264, 120);
-            this.tableLayoutThisWeek.TabIndex = 9;            
-            // 
             // collapsiblePanelThisMonth
             // 
             this.collapsiblePanelThisMonth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.collapsiblePanelThisMonth.AnimationInterval = 20;
             this.collapsiblePanelThisMonth.BackColor = System.Drawing.Color.Transparent;
-            this.collapsiblePanelThisMonth.Controls.Add(this.tableLayoutThisMonth);
             this.collapsiblePanelThisMonth.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.collapsiblePanelThisMonth.HeaderImage = null;
             this.collapsiblePanelThisMonth.HeaderText = "This Month";
@@ -224,26 +161,12 @@
             this.collapsiblePanelThisMonth.UseAnimation = true;
             this.collapsiblePanelThisMonth.Visible = false;
             // 
-            // tableLayoutThisMonth
-            // 
-            this.tableLayoutThisMonth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutThisMonth.ColumnCount = 1;
-            this.tableLayoutThisMonth.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutThisMonth.Location = new System.Drawing.Point(0, 30);
-            this.tableLayoutThisMonth.Name = "tableLayoutThisMonth";
-            this.tableLayoutThisMonth.RowCount = 0;
-            this.tableLayoutThisMonth.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutThisMonth.Size = new System.Drawing.Size(264, 120);
-            this.tableLayoutThisMonth.TabIndex = 11;
-            // 
             // collapsiblePanelNextMonth
             // 
             this.collapsiblePanelNextMonth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.collapsiblePanelNextMonth.AnimationInterval = 20;
             this.collapsiblePanelNextMonth.BackColor = System.Drawing.Color.Transparent;
-            this.collapsiblePanelNextMonth.Controls.Add(this.tableLayoutNextMonth);
             this.collapsiblePanelNextMonth.HeaderFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.collapsiblePanelNextMonth.HeaderImage = null;
             this.collapsiblePanelNextMonth.HeaderText = "Next Month";
@@ -256,19 +179,6 @@
             this.collapsiblePanelNextMonth.TabIndex = 12;
             this.collapsiblePanelNextMonth.UseAnimation = true;
             this.collapsiblePanelNextMonth.Visible = false;
-            // 
-            // tableLayoutNextMonth
-            // 
-            this.tableLayoutNextMonth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutNextMonth.ColumnCount = 1;
-            this.tableLayoutNextMonth.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutNextMonth.Location = new System.Drawing.Point(0, 30);
-            this.tableLayoutNextMonth.Name = "tableLayoutNextMonth";
-            this.tableLayoutNextMonth.RowCount = 0;
-            this.tableLayoutNextMonth.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutNextMonth.Size = new System.Drawing.Size(264, 120);
-            this.tableLayoutNextMonth.TabIndex = 13;
             //
             // lblNoTasks
             //
@@ -301,18 +211,12 @@
 
         private System.Windows.Forms.TableLayoutPanel tablePanelMain;
         private System.Windows.Forms.Panel panelMain;
-        private MindMate.Plugins.Tasks.CollapsiblePanel collapsiblePanelThisWeek;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutThisWeek;
-        private MindMate.Plugins.Tasks.CollapsiblePanel collapsiblePanelTomorrow;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutTomorrow;
-        private MindMate.Plugins.Tasks.CollapsiblePanel collapsiblePanelOverdue;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutOverdue;
-        private MindMate.Plugins.Tasks.CollapsiblePanel collapsiblePanelToday;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutToday;
-        private MindMate.Plugins.Tasks.CollapsiblePanel collapsiblePanelNextMonth;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutNextMonth;
-        private MindMate.Plugins.Tasks.CollapsiblePanel collapsiblePanelThisMonth;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutThisMonth;
+        private MindMate.Plugins.Tasks.TaskGroup<TaskView> collapsiblePanelThisWeek;
+        private MindMate.Plugins.Tasks.TaskGroup<TaskView> collapsiblePanelTomorrow;
+        private MindMate.Plugins.Tasks.TaskGroup<TaskView> collapsiblePanelOverdue;
+        private MindMate.Plugins.Tasks.TaskGroup<TaskView> collapsiblePanelToday;
+        private MindMate.Plugins.Tasks.TaskGroup<TaskView> collapsiblePanelNextMonth;
+        private MindMate.Plugins.Tasks.TaskGroup<TaskView> collapsiblePanelThisMonth;
         private System.Windows.Forms.Label lblNoTasks;
     }
 }

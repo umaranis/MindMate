@@ -24,32 +24,32 @@ namespace MindMate.Plugins.Tasks
         {
             if(DateHelper.IsOverdue(dateTime))
             {
-                AddTask(this.collapsiblePanelOverdue, this.tableLayoutOverdue, node, dateTime,
+                AddTask(this.collapsiblePanelOverdue, node, dateTime,
                     DateHelper.GetDayOfMonthString(dateTime));
             }
             else if(DateHelper.IsToday(dateTime))
             {
-                AddTask(this.collapsiblePanelToday, this.tableLayoutToday, node, dateTime,
+                AddTask(this.collapsiblePanelToday, node, dateTime,
                     DateHelper.GetTimePartString(dateTime));
             }              
             else if(DateHelper.IsTomorrow(dateTime))
             {
-                AddTask(this.collapsiblePanelTomorrow, this.tableLayoutTomorrow, node, dateTime,
+                AddTask(this.collapsiblePanelTomorrow, node, dateTime,
                     DateHelper.GetTimePartString(dateTime));
             }
             else if(DateHelper.DateInThisWeek(dateTime))
             {
-                AddTask(this.collapsiblePanelThisWeek, this.tableLayoutThisWeek, node, dateTime,
+                AddTask(this.collapsiblePanelThisWeek, node, dateTime,
                     DateHelper.GetWeekDayString(dateTime));
             }
             else if(DateHelper.DateInThisMonth(dateTime))
             {
-                AddTask(this.collapsiblePanelThisMonth, this.tableLayoutThisMonth, node, dateTime,
+                AddTask(this.collapsiblePanelThisMonth, node, dateTime,
                     DateHelper.GetDayOfMonthString(dateTime));
             }
             else if (DateHelper.DateInNextMonth(dateTime))
             {
-                AddTask(this.collapsiblePanelNextMonth, this.tableLayoutNextMonth, node, dateTime,
+                AddTask(this.collapsiblePanelNextMonth, node, dateTime,
                     DateHelper.GetDayOfMonthString(dateTime));
             }
 
@@ -57,21 +57,21 @@ namespace MindMate.Plugins.Tasks
         }
 
         
-        private void AddTask(MindMate.Plugins.Tasks.CollapsiblePanel collapsiblePanel, TableLayoutPanel tableLayout,
+        private void AddTask(MindMate.Plugins.Tasks.TaskGroup<TaskView> taskGroup, 
             MindMate.Model.MapNode node, DateTime dateTime, string dueOnText)
         {
             TaskView tv = new TaskView(node, dateTime, dueOnText, OnTaskViewEvent);
 
-            if (tableLayout.RowCount == 0)
+            if (taskGroup.Table.RowCount == 0)
             {
-                collapsiblePanel.Visible = true;
+                taskGroup.Visible = true;
                 lblNoTasks.Visible = false;
             }
             
-            InsertTaskView(tableLayout, tv);
+            InsertTaskView(taskGroup.Table, tv);
             
-            tableLayout.Height = tableLayout.RowCount * tv.Height + (tableLayout.Margin.Bottom * tableLayout.RowCount * 2);
-            collapsiblePanel.Height = tableLayout.Height + tableLayout.Top;
+            taskGroup.Table.Height = taskGroup.Table.RowCount * tv.Height + (taskGroup.Table.Margin.Bottom * taskGroup.Table.RowCount * 2);
+            taskGroup.Height = taskGroup.Table.Height + taskGroup.Table.Top;
         }
 
         private void OnTaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
@@ -158,27 +158,27 @@ namespace MindMate.Plugins.Tasks
         {
             if(DateHelper.IsOverdue(dueDate))
             {
-                return FindTaskViewInGroup(tableLayoutOverdue, node, dueDate);
+                return FindTaskViewInGroup(collapsiblePanelOverdue.Table, node, dueDate);
             }
             else if (DateHelper.IsToday(dueDate))
             {
-                return FindTaskViewInGroup(tableLayoutToday, node, dueDate);
+                return FindTaskViewInGroup(collapsiblePanelToday.Table, node, dueDate);
             }
             else if (DateHelper.IsTomorrow(dueDate))
             {
-                return FindTaskViewInGroup(tableLayoutTomorrow, node, dueDate);
+                return FindTaskViewInGroup(collapsiblePanelTomorrow.Table, node, dueDate);
             }
             else if (DateHelper.DateInThisWeek(dueDate))
             {
-                return FindTaskViewInGroup(tableLayoutThisWeek, node, dueDate);
+                return FindTaskViewInGroup(collapsiblePanelThisWeek.Table, node, dueDate);
             }
             else if (DateHelper.DateInThisMonth(dueDate))
             {
-                return FindTaskViewInGroup(tableLayoutThisMonth, node, dueDate);
+                return FindTaskViewInGroup(collapsiblePanelThisMonth.Table, node, dueDate);
             }
             else if (DateHelper.DateInNextMonth(dueDate))
             {
-                return FindTaskViewInGroup(tableLayoutNextMonth, node, dueDate);
+                return FindTaskViewInGroup(collapsiblePanelNextMonth.Table, node, dueDate);
             }
 
             return null;            
