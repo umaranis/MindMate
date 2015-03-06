@@ -1,4 +1,4 @@
-namespace MindMate.Plugins.Tasks
+namespace MindMate.Plugins.Tasks.SideBar
 {
     partial class CollapsiblePanel
     {

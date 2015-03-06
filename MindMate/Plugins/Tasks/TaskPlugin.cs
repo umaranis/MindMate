@@ -12,12 +12,12 @@ namespace MindMate.Plugins.Tasks
     {
         
         private DateTimePicker dateTimePicker; 
-        private TasksList taskList;                
+        private TaskList taskList;                
 
         public void Initialize(IPluginManager pluginMgr)
         {
             dateTimePicker = new DateTimePicker();
-            taskList = new TasksList();
+            taskList = new TaskList();
             taskList.TaskViewEvent += taskList_TaskViewEvent;
         }
 

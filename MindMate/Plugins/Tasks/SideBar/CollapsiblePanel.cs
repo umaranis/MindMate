@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 //using MindMate.Plugins.Tasks.Properties;
 
-namespace MindMate.Plugins.Tasks
+namespace MindMate.Plugins.Tasks.SideBar
 {
     [ToolboxBitmap(typeof(CollapsiblePanel), "MindMate.Plugins.Tasks.CollapsiblePanel.bmp")]
     [DefaultProperty("HeaderText")]

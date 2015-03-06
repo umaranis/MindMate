@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MindMate.Plugins.Tasks
+namespace MindMate.Plugins.Tasks.SideBar
 {
     public partial class TasksList : UserControl
     {
@@ -57,7 +57,7 @@ namespace MindMate.Plugins.Tasks
         }
 
         
-        private void AddTask(MindMate.Plugins.Tasks.TaskGroup<TaskView> taskGroup, 
+        private void AddTask(MindMate.Plugins.Tasks.SideBar.TaskGroup<TaskView> taskGroup, 
             MindMate.Model.MapNode node, DateTime dateTime, string dueOnText)
         {
             TaskView tv = new TaskView(node, dateTime, dueOnText, OnTaskViewEvent);
@@ -68,10 +68,7 @@ namespace MindMate.Plugins.Tasks
                 lblNoTasks.Visible = false;
             }
             
-            InsertTaskView(taskGroup.Table, tv);
-            
-            taskGroup.Table.Height = taskGroup.Table.RowCount * tv.Height + (taskGroup.Table.Margin.Bottom * taskGroup.Table.RowCount * 2);
-            taskGroup.Height = taskGroup.Table.Height + taskGroup.Table.Top;
+            InsertTaskView(taskGroup, tv); 
         }
 
         private void OnTaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
@@ -82,23 +79,12 @@ namespace MindMate.Plugins.Tasks
         public void RemoveTask(TaskView tv)
         {
             TableLayoutPanel panel = (TableLayoutPanel)tv.Parent;
-            CollapsiblePanel collapsiblePanel = (CollapsiblePanel)panel.Parent;
+            var collapsiblePanel = (TaskGroup<TaskView>)panel.Parent;
 
-            int rowNum = panel.GetCellPosition(tv).Row;
-            panel.Controls.Remove(tv);
+            collapsiblePanel.Remove(tv);
 
-            panel.RowCount -= 1;
-
-            for(int i = rowNum; i < panel.RowCount; i++)
-            {
-                panel.SetRow(panel.GetControlFromPosition(0, i + 1), i); // move one row up
-            }
-
-            panel.Height = panel.RowCount * tv.Height + (panel.Margin.Bottom * panel.RowCount * 2);
-            collapsiblePanel.Height = panel.Height + panel.Top;
             if (panel.RowCount == 0)
             {
-                collapsiblePanel.Visible = false;
                 if (GetLastControl() == null) lblNoTasks.Visible = true;
             }
 
@@ -116,34 +102,29 @@ namespace MindMate.Plugins.Tasks
         }
 
         
-        private void InsertTaskView(TableLayoutPanel tableLayout, TaskView taskView)
+        private void InsertTaskView(TaskGroup<TaskView> taskGroup, TaskView taskView)
         {
-            if (tableLayout.RowCount == 0)
+            if (taskGroup.Count == 0)
             {
-                tableLayout.Controls.Add(taskView, 0, 0); // add if list is empty
-                tableLayout.RowCount += 1;
-                return;
+                taskGroup.Add(taskView); // add if list is empty
             }
             else
             {
-                for (int i = tableLayout.RowCount - 1; i >= 0; i--)
+                for (int i = taskGroup.Count - 1; i >= 0; i--)
                 {
-                    TaskView tv = (TaskView)tableLayout.GetControlFromPosition(0, i);
+                    TaskView tv = (TaskView)taskGroup.Table.GetControlFromPosition(0, i);
                     if (tv.DueDate > taskView.DueDate)
                     {
-                        tableLayout.SetRow(tv, i + 1);
+                        continue;
                     }
                     else
                     {
-                        tableLayout.Controls.Add(taskView, 0, i + 1); // add in the middle or end
-                        tableLayout.RowCount += 1;
+                        taskGroup.Insert(i + 1, taskView); // add in the middle or end
                         return;
                     }
                 }
 
-                tableLayout.Controls.Add(taskView, 0, 0); // add at the top after all controls are moved down using loop
-                tableLayout.RowCount += 1;
-                return;
+                taskGroup.Insert(0, taskView); // add at the top after all controls are moved down using loop
             }
             
         }

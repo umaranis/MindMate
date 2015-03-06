@@ -106,14 +106,17 @@
     <Compile Include="Plugins\Tasks\DueDateAttribute.cs" />
     <Compile Include="Plugins\Tasks\TargetDateAttribute.cs" />
     <Compile Include="Plugins\Tasks\TaskCompleteIcon.cs" />
-    <Compile Include="Plugins\Tasks\TaskList\TaskGroup.cs">
+    <Compile Include="Plugins\Tasks\SideBar\TaskGroup.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Plugins\Tasks\TaskList\TaskList.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Plugins\Tasks\TaskPlugin.ContextMenu.cs" />
-    <Compile Include="Plugins\Tasks\TaskList\CollapsiblePanel.cs">
+    <Compile Include="Plugins\Tasks\SideBar\CollapsiblePanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Plugins\Tasks\TaskList\CollapsiblePanel.designer.cs">
+    <Compile Include="Plugins\Tasks\SideBar\CollapsiblePanel.designer.cs">
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Tasks\DateHelper.cs" />
@@ -131,10 +134,10 @@
       <DependentUpon>TaskRes.resx</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Tasks\TaskPlugin.cs" />
-    <Compile Include="Plugins\Tasks\TaskList\TasksList.cs">
+    <Compile Include="Plugins\Tasks\SideBar\TasksList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Plugins\Tasks\TaskList\TasksList.designer.cs">
+    <Compile Include="Plugins\Tasks\SideBar\TasksList.designer.cs">
       <DependentUpon>TasksList.cs</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Tasks\TaskList\TaskView.cs">
@@ -220,7 +223,7 @@
     <Compile Include="View\NoteEditor.Designer.cs">
       <DependentUpon>NoteEditor.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Plugins\Tasks\TaskList\CollapsiblePanel.resx">
+    <EmbeddedResource Include="Plugins\Tasks\SideBar\CollapsiblePanel.resx">
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Plugins\Tasks\DateTimePicker.resx">
@@ -230,7 +233,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TaskRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Plugins\Tasks\TaskList\TasksList.resx">
+    <EmbeddedResource Include="Plugins\Tasks\SideBar\TasksList.resx">
       <DependentUpon>TasksList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Plugins\Tasks\TaskList\TaskView.resx">

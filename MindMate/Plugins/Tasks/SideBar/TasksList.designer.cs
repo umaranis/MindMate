@@ -1,4 +1,4 @@
-﻿namespace MindMate.Plugins.Tasks
+﻿namespace MindMate.Plugins.Tasks.SideBar
 {
     partial class TasksList
     {
@@ -10,13 +10,13 @@
         private void MyInitializeComponent()
         {
             this.tablePanelMain = new System.Windows.Forms.TableLayoutPanel();
-            this.collapsiblePanelThisWeek = new MindMate.Plugins.Tasks.TaskGroup<TaskView>();
-            this.collapsiblePanelTomorrow = new MindMate.Plugins.Tasks.TaskGroup<TaskView>();
-            this.collapsiblePanelOverdue = new MindMate.Plugins.Tasks.TaskGroup<TaskView>();
-            this.collapsiblePanelToday = new MindMate.Plugins.Tasks.TaskGroup<TaskView>();
+            this.collapsiblePanelThisWeek = new MindMate.Plugins.Tasks.SideBar.TaskGroup<TaskView>();
+            this.collapsiblePanelTomorrow = new MindMate.Plugins.Tasks.SideBar.TaskGroup<TaskView>();
+            this.collapsiblePanelOverdue = new MindMate.Plugins.Tasks.SideBar.TaskGroup<TaskView>();
+            this.collapsiblePanelToday = new MindMate.Plugins.Tasks.SideBar.TaskGroup<TaskView>();
             this.panelMain = new System.Windows.Forms.Panel();
-            this.collapsiblePanelThisMonth = new MindMate.Plugins.Tasks.TaskGroup<TaskView>();
-            this.collapsiblePanelNextMonth = new MindMate.Plugins.Tasks.TaskGroup<TaskView>();
+            this.collapsiblePanelThisMonth = new MindMate.Plugins.Tasks.SideBar.TaskGroup<TaskView>();
+            this.collapsiblePanelNextMonth = new MindMate.Plugins.Tasks.SideBar.TaskGroup<TaskView>();
             this.lblNoTasks = new System.Windows.Forms.Label();
             this.tablePanelMain.SuspendLayout();
             this.collapsiblePanelThisWeek.SuspendLayout();
@@ -211,12 +211,12 @@
 
         private System.Windows.Forms.TableLayoutPanel tablePanelMain;
         private System.Windows.Forms.Panel panelMain;
-        private MindMate.Plugins.Tasks.TaskGroup<TaskView> collapsiblePanelThisWeek;
-        private MindMate.Plugins.Tasks.TaskGroup<TaskView> collapsiblePanelTomorrow;
-        private MindMate.Plugins.Tasks.TaskGroup<TaskView> collapsiblePanelOverdue;
-        private MindMate.Plugins.Tasks.TaskGroup<TaskView> collapsiblePanelToday;
-        private MindMate.Plugins.Tasks.TaskGroup<TaskView> collapsiblePanelNextMonth;
-        private MindMate.Plugins.Tasks.TaskGroup<TaskView> collapsiblePanelThisMonth;
+        private MindMate.Plugins.Tasks.SideBar.TaskGroup<TaskView> collapsiblePanelThisWeek;
+        private MindMate.Plugins.Tasks.SideBar.TaskGroup<TaskView> collapsiblePanelTomorrow;
+        private MindMate.Plugins.Tasks.SideBar.TaskGroup<TaskView> collapsiblePanelOverdue;
+        private MindMate.Plugins.Tasks.SideBar.TaskGroup<TaskView> collapsiblePanelToday;
+        private MindMate.Plugins.Tasks.SideBar.TaskGroup<TaskView> collapsiblePanelNextMonth;
+        private MindMate.Plugins.Tasks.SideBar.TaskGroup<TaskView> collapsiblePanelThisMonth;
         private System.Windows.Forms.Label lblNoTasks;
     }
 }
