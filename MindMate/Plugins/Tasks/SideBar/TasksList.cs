@@ -62,7 +62,7 @@ namespace MindMate.Plugins.Tasks.SideBar
         {
             TaskView tv = new TaskView(node, dateTime, dueOnText, OnTaskViewEvent);
 
-            if (taskGroup.Table.RowCount == 0)
+            if (taskGroup.Count == 0)
             {
                 taskGroup.Visible = true;
                 lblNoTasks.Visible = false;
@@ -112,7 +112,7 @@ namespace MindMate.Plugins.Tasks.SideBar
             {
                 for (int i = taskGroup.Count - 1; i >= 0; i--)
                 {
-                    TaskView tv = (TaskView)taskGroup.Table.GetControlFromPosition(0, i);
+                    TaskView tv = (TaskView)taskGroup[i];
                     if (tv.DueDate > taskView.DueDate)
                     {
                         continue;
@@ -139,37 +139,37 @@ namespace MindMate.Plugins.Tasks.SideBar
         {
             if(DateHelper.IsOverdue(dueDate))
             {
-                return FindTaskViewInGroup(collapsiblePanelOverdue.Table, node, dueDate);
+                return FindTaskViewInGroup(collapsiblePanelOverdue, node, dueDate);
             }
             else if (DateHelper.IsToday(dueDate))
             {
-                return FindTaskViewInGroup(collapsiblePanelToday.Table, node, dueDate);
+                return FindTaskViewInGroup(collapsiblePanelToday, node, dueDate);
             }
             else if (DateHelper.IsTomorrow(dueDate))
             {
-                return FindTaskViewInGroup(collapsiblePanelTomorrow.Table, node, dueDate);
+                return FindTaskViewInGroup(collapsiblePanelTomorrow, node, dueDate);
             }
             else if (DateHelper.DateInThisWeek(dueDate))
             {
-                return FindTaskViewInGroup(collapsiblePanelThisWeek.Table, node, dueDate);
+                return FindTaskViewInGroup(collapsiblePanelThisWeek, node, dueDate);
             }
             else if (DateHelper.DateInThisMonth(dueDate))
             {
-                return FindTaskViewInGroup(collapsiblePanelThisMonth.Table, node, dueDate);
+                return FindTaskViewInGroup(collapsiblePanelThisMonth, node, dueDate);
             }
             else if (DateHelper.DateInNextMonth(dueDate))
             {
-                return FindTaskViewInGroup(collapsiblePanelNextMonth.Table, node, dueDate);
+                return FindTaskViewInGroup(collapsiblePanelNextMonth, node, dueDate);
             }
 
             return null;            
         }
         
-        private TaskView FindTaskViewInGroup(TableLayoutPanel table, MapNode node, DateTime dueDate)
+        private TaskView FindTaskViewInGroup(TaskGroup<TaskView> taskGroup, MapNode node, DateTime dueDate)
         {
-            for(int i = 0; i < table.RowCount; i++)
+            for(int i = 0; i < taskGroup.Count; i++)
             {
-                TaskView tv = (TaskView)table.GetControlFromPosition(0, i);
+                TaskView tv = (TaskView)taskGroup[i];
                 if(tv.MapNode == node)
                 {
                     return tv;

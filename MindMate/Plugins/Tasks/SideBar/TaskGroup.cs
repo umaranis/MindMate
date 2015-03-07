@@ -26,7 +26,7 @@ namespace MindMate.Plugins.Tasks.SideBar
             //table.TabIndex = 3;  
         }
 
-        public TableLayoutPanel Table
+        private TableLayoutPanel Table
         {
             get { return (TableLayoutPanel)this.Controls[1]; }
         }
