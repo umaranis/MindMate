@@ -5,7 +5,8 @@ using System.Text;
 
 namespace MindMate.Plugins.Tasks
 {
-    public class TaskList : MindMate.Plugins.Tasks.SideBar.TasksList
+    public class TaskList : MindMate.Plugins.Tasks.SideBar.SideBar
     {
+
     }
 }

@@ -11,11 +11,23 @@ using System.Windows.Forms;
 
 namespace MindMate.Plugins.Tasks.SideBar
 {
-    public partial class TasksList : UserControl
+    public partial class SideBar : UserControl
     {
-        public TasksList()
+
+        public SideBar()
         {
+            controlGroups = new ControlGroupCollection(this);
+
             MyInitializeComponent();
+        }
+
+        private ControlGroupCollection controlGroups; 
+        public ControlGroupCollection ControlGroups 
+        { 
+            get
+            {
+                return controlGroups;
+            }
         }
 
         public event Action<TaskView, TaskView.TaskViewEvent> TaskViewEvent;
@@ -57,7 +69,7 @@ namespace MindMate.Plugins.Tasks.SideBar
         }
 
         
-        private void AddTask(MindMate.Plugins.Tasks.SideBar.TaskGroup<TaskView> taskGroup, 
+        private void AddTask(MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroup, 
             MindMate.Model.MapNode node, DateTime dateTime, string dueOnText)
         {
             TaskView tv = new TaskView(node, dateTime, dueOnText, OnTaskViewEvent);
@@ -78,18 +90,22 @@ namespace MindMate.Plugins.Tasks.SideBar
 
         public void RemoveTask(TaskView tv)
         {
-            TableLayoutPanel panel = (TableLayoutPanel)tv.Parent;
-            var collapsiblePanel = (TaskGroup<TaskView>)panel.Parent;
+            var taskGroup = GetTaskGroup(tv);
 
-            collapsiblePanel.Remove(tv);
+            taskGroup.Remove(tv);
 
-            if (panel.RowCount == 0)
+            if (taskGroup.Count == 0)
             {
                 if (GetLastControl() == null) lblNoTasks.Visible = true;
             }
 
             AdjustMainPanelHeight();
             
+        }
+
+        public ControlGroup GetTaskGroup(TaskView control)
+        {
+            return (ControlGroup)control.Parent.Parent;
         }
 
         private void AdjustMainPanelHeight()
@@ -102,7 +118,7 @@ namespace MindMate.Plugins.Tasks.SideBar
         }
 
         
-        private void InsertTaskView(TaskGroup<TaskView> taskGroup, TaskView taskView)
+        private void InsertTaskView(ControlGroup taskGroup, TaskView taskView)
         {
             if (taskGroup.Count == 0)
             {
@@ -165,7 +181,7 @@ namespace MindMate.Plugins.Tasks.SideBar
             return null;            
         }
         
-        private TaskView FindTaskViewInGroup(TaskGroup<TaskView> taskGroup, MapNode node, DateTime dueDate)
+        private TaskView FindTaskViewInGroup(ControlGroup taskGroup, MapNode node, DateTime dueDate)
         {
             for(int i = 0; i < taskGroup.Count; i++)
             {

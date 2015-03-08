@@ -104,9 +104,12 @@
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Plugins\Tasks\CompletionDateAttribute.cs" />
     <Compile Include="Plugins\Tasks\DueDateAttribute.cs" />
+    <Compile Include="Plugins\Tasks\SideBar\ControlGroupCollection.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Plugins\Tasks\TargetDateAttribute.cs" />
     <Compile Include="Plugins\Tasks\TaskCompleteIcon.cs" />
-    <Compile Include="Plugins\Tasks\SideBar\TaskGroup.cs">
+    <Compile Include="Plugins\Tasks\SideBar\ControlGroup.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Plugins\Tasks\TaskList\TaskList.cs">
@@ -134,11 +137,11 @@
       <DependentUpon>TaskRes.resx</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Tasks\TaskPlugin.cs" />
-    <Compile Include="Plugins\Tasks\SideBar\TasksList.cs">
+    <Compile Include="Plugins\Tasks\SideBar\SideBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Plugins\Tasks\SideBar\TasksList.designer.cs">
-      <DependentUpon>TasksList.cs</DependentUpon>
+    <Compile Include="Plugins\Tasks\SideBar\SideBar.designer.cs">
+      <DependentUpon>SideBar.cs</DependentUpon>
     </Compile>
     <Compile Include="Plugins\Tasks\TaskList\TaskView.cs">
       <SubType>UserControl</SubType>
@@ -233,8 +236,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TaskRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Plugins\Tasks\SideBar\TasksList.resx">
-      <DependentUpon>TasksList.cs</DependentUpon>
+    <EmbeddedResource Include="Plugins\Tasks\SideBar\SideBar.resx">
+      <DependentUpon>SideBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Plugins\Tasks\TaskList\TaskView.resx">
       <DependentUpon>TaskView.cs</DependentUpon>

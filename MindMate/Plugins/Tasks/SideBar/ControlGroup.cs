@@ -6,10 +6,12 @@ using System.Windows.Forms;
 
 namespace MindMate.Plugins.Tasks.SideBar
 {
-    public class TaskGroup<T> : CollapsiblePanel, IList<T> where T:Control
+    public class ControlGroup : CollapsiblePanel, IList<Control>
     {
-        public TaskGroup()
+        public ControlGroup()
         {
+            this.Size = new System.Drawing.Size(264, 151);
+
             TableLayoutPanel table = new TableLayoutPanel();
 
             this.Controls.Add(table);
@@ -35,7 +37,7 @@ namespace MindMate.Plugins.Tasks.SideBar
 
         #region IList<T> interface
 
-        public void Add(T item)
+        public void Add(Control item)
         {
             if (Table.RowCount == 0) this.Visible = true;
 
@@ -46,7 +48,7 @@ namespace MindMate.Plugins.Tasks.SideBar
             this.Height = Table.Height + Table.Top;            
         }
 
-        public void Insert(int index, T item)
+        public void Insert(int index, Control item)
         {
             if(index > Table.RowCount)
             {
@@ -68,11 +70,11 @@ namespace MindMate.Plugins.Tasks.SideBar
             }
         }
 
-        public T this[int index]
+        public Control this[int index]
         {
             get
             {
-                return (T)Table.GetControlFromPosition(0, index);
+                return (Control)Table.GetControlFromPosition(0, index);
             }
             set
             {
@@ -80,7 +82,7 @@ namespace MindMate.Plugins.Tasks.SideBar
             }
         }
 
-        public IEnumerator<T> GetEnumerator()
+        public IEnumerator<Control> GetEnumerator()
         {
             return CreateEnumerable().GetEnumerator();
         }
@@ -90,27 +92,28 @@ namespace MindMate.Plugins.Tasks.SideBar
             return CreateEnumerable().GetEnumerator();
         }
 
-        private IEnumerable<T> CreateEnumerable()
+        private IEnumerable<Control> CreateEnumerable()
         {
             for (int i = 0; i < Count; i++)
             {
-                yield return (T)Table.GetControlFromPosition(0, i);
+                yield return (Control)Table.GetControlFromPosition(0, i);
             }
         }
-                
-        public bool Contains(T item)
-        {
-            return Table.Controls.Contains(item);
-        }
+           
+        // This method for IList<Control> is already available from Control class
+        //public bool Contains(Control item)
+        //{
+        //    return Table.Controls.Contains(item);
+        //}
 
-        public int IndexOf(T item)
+        public int IndexOf(Control item)
         {
             return Table.GetRow(item);
         }
 
-        public void CopyTo(T[] array, int arrayIndex)
+        public void CopyTo(Control[] array, int arrayIndex)
         {
-            foreach(T t in this)
+            foreach(Control t in this)
             {
                 array[arrayIndex] = t;
                 arrayIndex++;
@@ -127,7 +130,7 @@ namespace MindMate.Plugins.Tasks.SideBar
             get { return false; }
         }
 
-        public bool Remove(T item)
+        public bool Remove(Control item)
         {
             int rowNum = Table.GetRow(item);
 
@@ -136,12 +139,12 @@ namespace MindMate.Plugins.Tasks.SideBar
 
         public void RemoveAt(int index)
         {
-            T item = (T)Table.GetControlFromPosition(0, index);
+            Control item = (Control)Table.GetControlFromPosition(0, index);
 
             Remove(item, index);
         }
 
-        private bool Remove(T item, int rowNum)
+        private bool Remove(Control item, int rowNum)
         {
             if (rowNum > -1)
             {
@@ -175,7 +178,7 @@ namespace MindMate.Plugins.Tasks.SideBar
             }
         }
                 
-        #endregion IList<T> interface
+        #endregion IList<Control> interface
 
 
         
