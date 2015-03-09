@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace MindMate.Plugins.Tasks.SideBar
 {
@@ -17,11 +18,18 @@ namespace MindMate.Plugins.Tasks.SideBar
                 this.sideBar = sideBar;
             }            
 
+            private TableLayoutPanel Table
+            {
+                get { return sideBar.tablePanelMain; }
+            }
+
             public ControlGroup Add(string headerText, System.Drawing.Color headerTextColor)
             {
                 ControlGroup newControlGroup = CreateControlGroup();
                 newControlGroup.HeaderText = headerText;
                 newControlGroup.HeaderTextColor = headerTextColor;
+
+                Add(newControlGroup);
 
                 return newControlGroup;
             }
@@ -50,87 +58,139 @@ namespace MindMate.Plugins.Tasks.SideBar
                 newControlGroup.UseAnimation = true;
                 newControlGroup.Visible = false;
 
-                newControlGroup.ResumeLayout();
-
-                sideBar.tablePanelMain.Controls.Add(newControlGroup, 0, sideBar.tablePanelMain.RowCount);
-                sideBar.tablePanelMain.RowCount++;
+                newControlGroup.ResumeLayout();                
 
                 return newControlGroup;
             }
 
             #region IList<ControlGroup>
 
-            public int IndexOf(ControlGroup item)
+            public void Add(ControlGroup item)
             {
-                throw new NotImplementedException();
+                Table.Controls.Add(item, 0, Table.RowCount);
+                Table.RowCount += 1;
             }
 
             public void Insert(int index, ControlGroup item)
             {
-                throw new NotImplementedException();
-            }
+                if (index > Table.RowCount)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                else
+                {
+                    for (int i = Table.RowCount - 1; i >= index; i--)
+                    {
+                        Control ctrl = Table.GetControlFromPosition(0, i);
+                        Table.SetRow(ctrl, i + 1);
+                    }
 
-            public void RemoveAt(int index)
-            {
-                throw new NotImplementedException();
+                    Table.Controls.Add(item, 0, index);
+                    Table.RowCount += 1;                    
+                }
             }
 
             public ControlGroup this[int index]
             {
                 get
                 {
-                    throw new NotImplementedException();
+                    return (ControlGroup)Table.GetControlFromPosition(0, index);
                 }
                 set
                 {
-                    throw new NotImplementedException();
+                    Insert(index, value);
                 }
-            }
-
-            public void Add(ControlGroup item)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void Clear()
-            {
-                throw new NotImplementedException();
-            }
-
-            public bool Contains(ControlGroup item)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void CopyTo(ControlGroup[] array, int arrayIndex)
-            {
-                throw new NotImplementedException();
-            }
-
-            public int Count
-            {
-                get { throw new NotImplementedException(); }
-            }
-
-            public bool IsReadOnly
-            {
-                get { throw new NotImplementedException(); }
-            }
-
-            public bool Remove(ControlGroup item)
-            {
-                throw new NotImplementedException();
             }
 
             public IEnumerator<ControlGroup> GetEnumerator()
             {
-                throw new NotImplementedException();
+                return CreateEnumerable().GetEnumerator();
             }
 
             System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
             {
-                throw new NotImplementedException();
+                return CreateEnumerable().GetEnumerator();
             }
+
+            private IEnumerable<ControlGroup> CreateEnumerable()
+            {
+                for (int i = 0; i < Count; i++)
+                {
+                    yield return (ControlGroup)Table.GetControlFromPosition(0, i);
+                }
+            }
+
+            public bool Contains(ControlGroup item)
+            {
+                return Table.Controls.Contains(item);
+            }
+
+            public int IndexOf(ControlGroup item)
+            {
+                return Table.GetRow(item);
+            }
+
+            public void CopyTo(ControlGroup[] array, int arrayIndex)
+            {
+                foreach (ControlGroup t in this)
+                {
+                    array[arrayIndex] = t;
+                    arrayIndex++;
+                }
+            }
+
+            public int Count
+            {
+                get { return Table.RowCount; }
+            }
+
+            public bool IsReadOnly
+            {
+                get { return false; }
+            }
+
+            public bool Remove(ControlGroup item)
+            {
+                int rowNum = Table.GetRow(item);
+
+                return Remove(item, rowNum);
+            }
+
+            public void RemoveAt(int index)
+            {
+                ControlGroup item = (ControlGroup)Table.GetControlFromPosition(0, index);
+
+                Remove(item, index);
+            }
+
+            private bool Remove(ControlGroup item, int rowNum)
+            {
+                if (rowNum > -1)
+                {
+                    Table.Controls.Remove(item);
+
+                    Table.RowCount -= 1;
+
+                    for (int i = rowNum; i < Table.RowCount; i++)
+                    {
+                        Table.SetRow(Table.GetControlFromPosition(0, i + 1), i); // move one row up
+                    }
+
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            public void Clear()
+            {
+                for (int i = Count - 1; i >= 0; i--)
+                {
+                    RemoveAt(i);
+                }
+            }                    
 
             #endregion IList<ControlGroup>
         }
