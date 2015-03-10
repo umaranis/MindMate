@@ -1,5 +1,4 @@
-﻿using MindMate.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,84 +29,6 @@ namespace MindMate.Plugins.Tasks.SideBar
             }
         }
 
-        public event Action<TaskView, TaskView.TaskViewEvent> TaskViewEvent;
-
-        public void Add(MindMate.Model.MapNode node, DateTime dateTime)
-        {
-            if(DateHelper.IsOverdue(dateTime))
-            {
-                AddTask(this.collapsiblePanelOverdue, node, dateTime,
-                    DateHelper.GetDayOfMonthString(dateTime));
-            }
-            else if(DateHelper.IsToday(dateTime))
-            {
-                AddTask(this.collapsiblePanelToday, node, dateTime,
-                    DateHelper.GetTimePartString(dateTime));
-            }              
-            else if(DateHelper.IsTomorrow(dateTime))
-            {
-                AddTask(this.collapsiblePanelTomorrow, node, dateTime,
-                    DateHelper.GetTimePartString(dateTime));
-            }
-            else if(DateHelper.DateInThisWeek(dateTime))
-            {
-                AddTask(this.collapsiblePanelThisWeek, node, dateTime,
-                    DateHelper.GetWeekDayString(dateTime));
-            }
-            else if(DateHelper.DateInThisMonth(dateTime))
-            {
-                AddTask(this.collapsiblePanelThisMonth, node, dateTime,
-                    DateHelper.GetDayOfMonthString(dateTime));
-            }
-            else if (DateHelper.DateInNextMonth(dateTime))
-            {
-                AddTask(this.collapsiblePanelNextMonth, node, dateTime,
-                    DateHelper.GetDayOfMonthString(dateTime));
-            }
-
-            AdjustMainPanelHeight();
-        }
-
-        
-        private void AddTask(MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroup, 
-            MindMate.Model.MapNode node, DateTime dateTime, string dueOnText)
-        {
-            TaskView tv = new TaskView(node, dateTime, dueOnText, OnTaskViewEvent);
-
-            if (taskGroup.Count == 0)
-            {
-                taskGroup.Visible = true;
-                lblNoTasks.Visible = false;
-            }
-            
-            InsertTaskView(taskGroup, tv); 
-        }
-
-        private void OnTaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
-        {
-            TaskViewEvent(tv, e);
-        }
-
-        public void RemoveTask(TaskView tv)
-        {
-            var taskGroup = GetTaskGroup(tv);
-
-            taskGroup.Remove(tv);
-
-            if (taskGroup.Count == 0)
-            {
-                if (GetLastControl() == null) lblNoTasks.Visible = true;
-            }
-
-            AdjustMainPanelHeight();
-            
-        }
-
-        public ControlGroup GetTaskGroup(TaskView control)
-        {
-            return (ControlGroup)control.Parent.Parent;
-        }
-
         private void AdjustMainPanelHeight()
         {
             Control lastTaskGroup = GetLastControl();
@@ -117,95 +38,26 @@ namespace MindMate.Plugins.Tasks.SideBar
                 this.tablePanelMain.Height = 20;
         }
 
-        
-        private void InsertTaskView(ControlGroup taskGroup, TaskView taskView)
+        internal void OnControlAdded(object sender, ControlEventArgs e)
         {
-            if (taskGroup.Count == 0)
-            {
-                taskGroup.Add(taskView); // add if list is empty
-            }
-            else
-            {
-                for (int i = taskGroup.Count - 1; i >= 0; i--)
-                {
-                    TaskView tv = (TaskView)taskGroup[i];
-                    if (tv.DueDate > taskView.DueDate)
-                    {
-                        continue;
-                    }
-                    else
-                    {
-                        taskGroup.Insert(i + 1, taskView); // add in the middle or end
-                        return;
-                    }
-                }
+            AdjustMainPanelHeight();
 
-                taskGroup.Insert(0, taskView); // add at the top after all controls are moved down using loop
-            }
-            
+            lblNoTasks.Visible = false;            
         }
 
-        /// <summary>
-        /// returns null if TaskView is not found
-        /// </summary>
-        /// <param name="node"></param>
-        /// <param name="dueDate"></param>
-        /// <returns>returns null if not found</returns>
-        public TaskView FindTaskView(MapNode node, DateTime dueDate)
+        internal void OnControlRemoved(object sender, ControlEventArgs e)
         {
-            if(DateHelper.IsOverdue(dueDate))
-            {
-                return FindTaskViewInGroup(collapsiblePanelOverdue, node, dueDate);
-            }
-            else if (DateHelper.IsToday(dueDate))
-            {
-                return FindTaskViewInGroup(collapsiblePanelToday, node, dueDate);
-            }
-            else if (DateHelper.IsTomorrow(dueDate))
-            {
-                return FindTaskViewInGroup(collapsiblePanelTomorrow, node, dueDate);
-            }
-            else if (DateHelper.DateInThisWeek(dueDate))
-            {
-                return FindTaskViewInGroup(collapsiblePanelThisWeek, node, dueDate);
-            }
-            else if (DateHelper.DateInThisMonth(dueDate))
-            {
-                return FindTaskViewInGroup(collapsiblePanelThisMonth, node, dueDate);
-            }
-            else if (DateHelper.DateInNextMonth(dueDate))
-            {
-                return FindTaskViewInGroup(collapsiblePanelNextMonth, node, dueDate);
-            }
+            AdjustMainPanelHeight();
 
-            return null;            
-        }
-        
-        private TaskView FindTaskViewInGroup(ControlGroup taskGroup, MapNode node, DateTime dueDate)
-        {
-            for(int i = 0; i < taskGroup.Count; i++)
-            {
-                TaskView tv = (TaskView)taskGroup[i];
-                if(tv.MapNode == node)
-                {
-                    return tv;
-                }
-                
-                if(tv.DueDate > dueDate)
-                {
-                    break;
-                }
-            }
-
-            return null;
+            if (GetLastControl() == null) lblNoTasks.Visible = true;
         }
 
-        public TaskView GetTaskView(int index)
+        public Control GetControl(int index)
         {
             int currentIndex = index;
-            for(int i = 0; i < TaskGroupCount; i++)
+            for(int i = 0; i < ControlGroups.Count; i++)
             {
-                CollapsiblePanel panel = GetTaskGroup(i);
+                CollapsiblePanel panel = ControlGroups[i];
                 if (panel != null)
                 {
                     TableLayoutPanel table = (TableLayoutPanel)panel.Controls[1];
@@ -222,16 +74,6 @@ namespace MindMate.Plugins.Tasks.SideBar
             }
 
             return null;
-        }
-
-        public CollapsiblePanel GetTaskGroup(int index)
-        {
-            return (CollapsiblePanel)tablePanelMain.GetControlFromPosition(0, index);
-        }
-
-        public int TaskGroupCount
-        {
-            get { return tablePanelMain.RowCount; }
         }
 
         public TaskView GetNextTaskViewInGroup(TaskView tv)

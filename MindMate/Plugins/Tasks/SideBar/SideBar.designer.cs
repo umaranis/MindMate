@@ -64,14 +64,7 @@
             this.Size = new System.Drawing.Size(276, 418);
             this.tablePanelMain.ResumeLayout(false);
             this.panelMain.ResumeLayout(false);
-            this.ResumeLayout(false);
-
-            this.collapsiblePanelOverdue = this.ControlGroups.Add("Overdue", System.Drawing.Color.Red);
-            this.collapsiblePanelToday = this.controlGroups.Add("Today", System.Drawing.Color.Black);
-            this.collapsiblePanelTomorrow = this.controlGroups.Add("Tomorrow", System.Drawing.Color.Black);
-            this.collapsiblePanelThisWeek = this.ControlGroups.Add("This Week", System.Drawing.Color.Black);
-            this.collapsiblePanelThisMonth = this.ControlGroups.Add("This Month", System.Drawing.Color.Black);
-            this.collapsiblePanelNextMonth = this.ControlGroups.Add("Next Month", System.Drawing.Color.Black);
+            this.ResumeLayout(false);           
 
             
         }
@@ -87,12 +80,7 @@
 
         private System.Windows.Forms.TableLayoutPanel tablePanelMain;
         private System.Windows.Forms.Panel panelMain;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup collapsiblePanelThisWeek;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup collapsiblePanelTomorrow;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup collapsiblePanelOverdue;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup collapsiblePanelToday;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup collapsiblePanelNextMonth;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup collapsiblePanelThisMonth;
+        
         private System.Windows.Forms.Label lblNoTasks;
     }
 }

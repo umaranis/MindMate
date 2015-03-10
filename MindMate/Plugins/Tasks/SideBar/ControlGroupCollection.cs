@@ -69,6 +69,9 @@ namespace MindMate.Plugins.Tasks.SideBar
             {
                 Table.Controls.Add(item, 0, Table.RowCount);
                 Table.RowCount += 1;
+
+                item.ControlAdded += sideBar.OnControlAdded;
+                item.ControlRemoved += sideBar.OnControlRemoved;
             }
 
             public void Insert(int index, ControlGroup item)
@@ -86,7 +89,10 @@ namespace MindMate.Plugins.Tasks.SideBar
                     }
 
                     Table.Controls.Add(item, 0, index);
-                    Table.RowCount += 1;                    
+                    Table.RowCount += 1;
+
+                    item.ControlAdded += sideBar.OnControlAdded;
+                    item.ControlRemoved += sideBar.OnControlRemoved;
                 }
             }
 
@@ -169,6 +175,9 @@ namespace MindMate.Plugins.Tasks.SideBar
                 {
                     Table.Controls.Remove(item);
 
+                    item.ControlAdded -= sideBar.OnControlAdded;
+                    item.ControlRemoved -= sideBar.OnControlRemoved;
+
                     Table.RowCount -= 1;
 
                     for (int i = rowNum; i < Table.RowCount; i++)
@@ -194,5 +203,6 @@ namespace MindMate.Plugins.Tasks.SideBar
 
             #endregion IList<ControlGroup>
         }
+        
     }
 }

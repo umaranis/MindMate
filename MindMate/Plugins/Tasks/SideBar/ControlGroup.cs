@@ -33,7 +33,18 @@ namespace MindMate.Plugins.Tasks.SideBar
             get { return (TableLayoutPanel)this.Controls[1]; }
         }
 
-              
+        public new event ControlEventHandler ControlAdded
+        {
+            add
+            {
+                Table.ControlAdded += value;
+            }
+            remove
+            {
+                Table.ControlAdded -= value;
+            }
+        }
+
 
         #region IList<T> interface
 
@@ -41,11 +52,12 @@ namespace MindMate.Plugins.Tasks.SideBar
         {
             if (Table.RowCount == 0) this.Visible = true;
 
-            Table.Controls.Add(item, 0, Table.RowCount);
+            Table.Height = Table.Height + item.Height + Table.Margin.Top + Table.Margin.Bottom;
+            this.Height = Table.Height + Table.Top;
+
             Table.RowCount += 1;
 
-            Table.Height = Table.Height + item.Height + Table.Margin.Top + Table.Margin.Bottom;
-            this.Height = Table.Height + Table.Top;            
+            Table.Controls.Add(item, 0, Table.RowCount - 1);                     
         }
 
         public void Insert(int index, Control item)
@@ -58,15 +70,17 @@ namespace MindMate.Plugins.Tasks.SideBar
             {
                 for (int i = Table.RowCount - 1; i >= index; i--)
                 {
-                    TaskView tv = (TaskView)Table.GetControlFromPosition(0, i);
+                    Control tv = Table.GetControlFromPosition(0, i);
                     Table.SetRow(tv, i + 1);                    
                 }
 
-                Table.Controls.Add(item, 0, index); 
-                Table.RowCount += 1;
-
                 Table.Height = Table.Height + item.Height + Table.Margin.Top + Table.Margin.Bottom;
-                this.Height = Table.Height + Table.Top;    
+                this.Height = Table.Height + Table.Top;
+
+                Table.RowCount += 1;
+                Table.Controls.Add(item, 0, index); 
+                
+                
             }
         }
 
@@ -148,17 +162,17 @@ namespace MindMate.Plugins.Tasks.SideBar
         {
             if (rowNum > -1)
             {
-                Table.Controls.Remove(item);
+                Table.Height = Table.Height - item.Height - Table.Margin.Bottom - Table.Margin.Top;
+                this.Height = Table.Height + Table.Top;
 
                 Table.RowCount -= 1;
+                Table.Controls.Remove(item);                
 
                 for (int i = rowNum; i < Table.RowCount; i++)
                 {
                     Table.SetRow(Table.GetControlFromPosition(0, i + 1), i); // move one row up
                 }
-
-                Table.Height = Table.Height - item.Height - Table.Margin.Bottom - Table.Margin.Top;
-                this.Height = Table.Height + Table.Top;
+                              
 
                 if (Table.RowCount == 0) this.Visible = false;
 
