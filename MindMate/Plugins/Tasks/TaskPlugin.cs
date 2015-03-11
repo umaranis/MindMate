@@ -144,30 +144,7 @@ namespace MindMate.Plugins.Tasks
         /// <param name="tv"></param>
         private void MoveDown(TaskView tv)
         {
-            TaskView nextTV = taskList.GetNextTaskViewInGroup(tv);
-            if(nextTV != null) //1- Move Down within a group
-            {
-                //1.1 Calculate due date 1 hour after next
-                DateTime nextDueDate = nextTV.MapNode.GetDueDate();
-                DateTime updateDate = nextDueDate.AddHours(1);
-                
-                //1.2 Check if it falls between 'next' and 'next to next'
-                TaskView nextToNext = taskList.GetNextTaskViewInGroup(nextTV);
-                if(nextToNext != null)
-                {
-                    DateTime nextToNextDueDate = nextToNext.MapNode.GetDueDate();
-                    if(updateDate > nextToNextDueDate)
-                    {
-                        updateDate = updateDate.AddTicks((nextToNextDueDate - nextDueDate).Ticks / 2);
-                    }
-                }
-
-                //1.3 Check if calculated due date stays within the group
-                //if()
-                    
-                //1.4 Update due date
-                tv.MapNode.SetDueDate(updateDate);
-            }
+            taskList.MoveDown(tv);
         }
 
         private void MoveUp(TaskView tv)

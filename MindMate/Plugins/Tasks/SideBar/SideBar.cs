@@ -61,10 +61,10 @@ namespace MindMate.Plugins.Tasks.SideBar
                 if (panel != null)
                 {
                     TableLayoutPanel table = (TableLayoutPanel)panel.Controls[1];
-                    TaskView tv = (TaskView)table.GetControlFromPosition(0, currentIndex);
-                    if (tv != null)
+                    Control ctrl = table.GetControlFromPosition(0, currentIndex);
+                    if (ctrl != null)
                     {
-                        return tv;
+                        return ctrl;
                     }
                     else
                     {
@@ -76,30 +76,30 @@ namespace MindMate.Plugins.Tasks.SideBar
             return null;
         }
 
-        public TaskView GetNextTaskViewInGroup(TaskView tv)
+        public Control GetNextControlInGroup(Control tv)
         {
             TableLayoutPanel table = (TableLayoutPanel)tv.Parent;
             var cell = table.GetPositionFromControl(tv);
-            return (TaskView)table.GetControlFromPosition(cell.Column, cell.Row + 1);
+            return table.GetControlFromPosition(cell.Column, cell.Row + 1);
         }
 
-        public TaskView GetPreviousTaskViewInGroup(TaskView tv)
+        public Control GetPreviousControlInGroup(Control tv)
         {
             TableLayoutPanel table = (TableLayoutPanel)tv.Parent;
             var cell = table.GetPositionFromControl(tv);
-            return (TaskView)table.GetControlFromPosition(cell.Column, cell.Row - 1);
+            return table.GetControlFromPosition(cell.Column, cell.Row - 1);
         }
 
-        public CollapsiblePanel GetNextTaskGroup(CollapsiblePanel taskGroup)
+        public ControlGroup GetNextControlGroup(ControlGroup taskGroup)
         {
             var cell = tablePanelMain.GetPositionFromControl(taskGroup);
-            return (CollapsiblePanel)tablePanelMain.GetControlFromPosition(cell.Column, cell.Row + 1);
+            return (ControlGroup)tablePanelMain.GetControlFromPosition(cell.Column, cell.Row + 1);
         }
 
-        public CollapsiblePanel GetPreviousTaskGroup(CollapsiblePanel taskGroup)
+        public ControlGroup GetPreviousControlGroup(ControlGroup taskGroup)
         {
             var cell = tablePanelMain.GetPositionFromControl(taskGroup);
-            return (CollapsiblePanel)tablePanelMain.GetControlFromPosition(cell.Column, cell.Row - 1);
+            return (ControlGroup)tablePanelMain.GetControlFromPosition(cell.Column, cell.Row - 1);
         }
 
         /// <summary>

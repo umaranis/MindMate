@@ -10,21 +10,22 @@ namespace MindMate.Plugins.Tasks
 {
     public class TaskList : MindMate.Plugins.Tasks.SideBar.SideBar
     {
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup collapsiblePanelThisWeek;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup collapsiblePanelTomorrow;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup collapsiblePanelOverdue;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup collapsiblePanelToday;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup collapsiblePanelNextMonth;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup collapsiblePanelThisMonth;
+        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupOverdue;
+        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupToday;
+        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupTomorrow;
+        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupThisWeek;
+        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupThisMonth;
+        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupNextMonth;
+        
 
         public TaskList()
         {
-            this.collapsiblePanelOverdue = this.ControlGroups.Add("Overdue", System.Drawing.Color.Red);
-            this.collapsiblePanelToday = this.ControlGroups.Add("Today", System.Drawing.Color.Black);
-            this.collapsiblePanelTomorrow = this.ControlGroups.Add("Tomorrow", System.Drawing.Color.Black);
-            this.collapsiblePanelThisWeek = this.ControlGroups.Add("This Week", System.Drawing.Color.Black);
-            this.collapsiblePanelThisMonth = this.ControlGroups.Add("This Month", System.Drawing.Color.Black);
-            this.collapsiblePanelNextMonth = this.ControlGroups.Add("Next Month", System.Drawing.Color.Black);
+            this.taskGroupOverdue = this.ControlGroups.Add("Overdue", System.Drawing.Color.Red);
+            this.taskGroupToday = this.ControlGroups.Add("Today", System.Drawing.Color.Black);
+            this.taskGroupTomorrow = this.ControlGroups.Add("Tomorrow", System.Drawing.Color.Black);
+            this.taskGroupThisWeek = this.ControlGroups.Add("This Week", System.Drawing.Color.Black);
+            this.taskGroupThisMonth = this.ControlGroups.Add("This Month", System.Drawing.Color.Black);
+            this.taskGroupNextMonth = this.ControlGroups.Add("Next Month", System.Drawing.Color.Black);
         }
 
         public event Action<TaskView, TaskView.TaskViewEvent> TaskViewEvent;
@@ -33,32 +34,32 @@ namespace MindMate.Plugins.Tasks
         {
             if (DateHelper.IsOverdue(dateTime))
             {
-                AddTask(this.collapsiblePanelOverdue, node, dateTime,
+                AddTask(this.taskGroupOverdue, node, dateTime,
                     DateHelper.GetDayOfMonthString(dateTime));
             }
             else if (DateHelper.IsToday(dateTime))
             {
-                AddTask(this.collapsiblePanelToday, node, dateTime,
+                AddTask(this.taskGroupToday, node, dateTime,
                     DateHelper.GetTimePartString(dateTime));
             }
             else if (DateHelper.IsTomorrow(dateTime))
             {
-                AddTask(this.collapsiblePanelTomorrow, node, dateTime,
+                AddTask(this.taskGroupTomorrow, node, dateTime,
                     DateHelper.GetTimePartString(dateTime));
             }
             else if (DateHelper.DateInThisWeek(dateTime))
             {
-                AddTask(this.collapsiblePanelThisWeek, node, dateTime,
+                AddTask(this.taskGroupThisWeek, node, dateTime,
                     DateHelper.GetWeekDayString(dateTime));
             }
             else if (DateHelper.DateInThisMonth(dateTime))
             {
-                AddTask(this.collapsiblePanelThisMonth, node, dateTime,
+                AddTask(this.taskGroupThisMonth, node, dateTime,
                     DateHelper.GetDayOfMonthString(dateTime));
             }
             else if (DateHelper.DateInNextMonth(dateTime))
             {
-                AddTask(this.collapsiblePanelNextMonth, node, dateTime,
+                AddTask(this.taskGroupNextMonth, node, dateTime,
                     DateHelper.GetDayOfMonthString(dateTime));
             }
 
@@ -128,27 +129,27 @@ namespace MindMate.Plugins.Tasks
         {
             if (DateHelper.IsOverdue(dueDate))
             {
-                return FindTaskViewInGroup(collapsiblePanelOverdue, node, dueDate);
+                return FindTaskViewInGroup(taskGroupOverdue, node, dueDate);
             }
             else if (DateHelper.IsToday(dueDate))
             {
-                return FindTaskViewInGroup(collapsiblePanelToday, node, dueDate);
+                return FindTaskViewInGroup(taskGroupToday, node, dueDate);
             }
             else if (DateHelper.IsTomorrow(dueDate))
             {
-                return FindTaskViewInGroup(collapsiblePanelTomorrow, node, dueDate);
+                return FindTaskViewInGroup(taskGroupTomorrow, node, dueDate);
             }
             else if (DateHelper.DateInThisWeek(dueDate))
             {
-                return FindTaskViewInGroup(collapsiblePanelThisWeek, node, dueDate);
+                return FindTaskViewInGroup(taskGroupThisWeek, node, dueDate);
             }
             else if (DateHelper.DateInThisMonth(dueDate))
             {
-                return FindTaskViewInGroup(collapsiblePanelThisMonth, node, dueDate);
+                return FindTaskViewInGroup(taskGroupThisMonth, node, dueDate);
             }
             else if (DateHelper.DateInNextMonth(dueDate))
             {
-                return FindTaskViewInGroup(collapsiblePanelNextMonth, node, dueDate);
+                return FindTaskViewInGroup(taskGroupNextMonth, node, dueDate);
             }
 
             return null;
@@ -171,6 +172,34 @@ namespace MindMate.Plugins.Tasks
             }
 
             return null;
+        }
+
+        public void MoveDown(TaskView tv)
+        {
+            TaskView nextTV = (TaskView)GetNextControlInGroup(tv);
+            if (nextTV != null) //1- Move Down within a group
+            {
+                //1.1 Calculate due date 1 hour after next
+                DateTime nextDueDate = nextTV.MapNode.GetDueDate();
+                DateTime updateDate = nextDueDate.AddHours(1);
+
+                //1.2 Check if it falls between 'next' and 'next to next'
+                TaskView nextToNext = (TaskView)GetNextControlInGroup(nextTV);
+                if (nextToNext != null)
+                {
+                    DateTime nextToNextDueDate = nextToNext.MapNode.GetDueDate();
+                    if (updateDate > nextToNextDueDate)
+                    {
+                        updateDate = updateDate.AddTicks((nextToNextDueDate - nextDueDate).Ticks / 2);
+                    }
+                }
+
+                //1.3 Check if calculated due date stays within the group
+                //if()
+
+                //1.4 Update due date
+                tv.MapNode.SetDueDate(updateDate);
+            }
         }
     }
 }
