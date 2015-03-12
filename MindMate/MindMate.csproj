@@ -112,6 +112,7 @@
     <Compile Include="Plugins\Tasks\SideBar\ControlGroup.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Plugins\Tasks\TaskList\TaskGroup.cs" />
     <Compile Include="Plugins\Tasks\TaskList\TaskList.cs">
       <SubType>UserControl</SubType>
     </Compile>

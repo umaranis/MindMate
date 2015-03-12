@@ -100,7 +100,26 @@ namespace MindMate.Plugins.Tasks.SideBar
             {
                 get
                 {
-                    return (ControlGroup)Table.GetControlFromPosition(0, index);
+                    ControlGroup ctrlGroup = (ControlGroup)Table.GetControlFromPosition(0, index);
+
+                    if(ctrlGroup == null)
+                    {
+                        ctrlGroup = (ControlGroup)Table.Controls[index];
+
+                        if(Table.GetRow(ctrlGroup) != index)
+                        {
+                            foreach(Control c in Table.Controls)
+                            {
+                                if(Table.GetRow(c) == index)
+                                {
+                                    ctrlGroup = (ControlGroup)c;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    return ctrlGroup;
                 }
                 set
                 {
@@ -122,7 +141,7 @@ namespace MindMate.Plugins.Tasks.SideBar
             {
                 for (int i = 0; i < Count; i++)
                 {
-                    yield return (ControlGroup)Table.GetControlFromPosition(0, i);
+                    yield return this[i];
                 }
             }
 

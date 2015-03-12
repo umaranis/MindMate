@@ -26,42 +26,60 @@ namespace MindMate.Plugins.Tasks
             this.taskGroupThisWeek = this.ControlGroups.Add("This Week", System.Drawing.Color.Black);
             this.taskGroupThisMonth = this.ControlGroups.Add("This Month", System.Drawing.Color.Black);
             this.taskGroupNextMonth = this.ControlGroups.Add("Next Month", System.Drawing.Color.Black);
+
+            this.taskGroupOverdue.Tag = new TaskGroupOverdue();
+            this.taskGroupToday.Tag = new TaskGroupToday();
+            this.taskGroupTomorrow.Tag = new TaskGroupTomorrow(); 
+            this.taskGroupThisWeek.Tag = new TaskGroupThisWeek();
+            this.taskGroupThisMonth.Tag = new TaskGroupThisMonth();
+            this.taskGroupNextMonth.Tag = new TaskGroupNextMonth();
         }
 
         public event Action<TaskView, TaskView.TaskViewEvent> TaskViewEvent;
 
         public void Add(MindMate.Model.MapNode node, DateTime dateTime)
         {
-            if (DateHelper.IsOverdue(dateTime))
+            for (int i = 0; i < this.ControlGroups.Count; i++)
             {
-                AddTask(this.taskGroupOverdue, node, dateTime,
-                    DateHelper.GetDayOfMonthString(dateTime));
+                ControlGroup ctrlGroup = this.ControlGroups[i];
+                ITaskGroup taskGroup = (ITaskGroup)ctrlGroup.Tag;
+                if(taskGroup.CanContain(dateTime))
+                {
+                    AddTask(ctrlGroup, node, dateTime, taskGroup.ShortDueDateString(dateTime));
+                    break;
+                }
             }
-            else if (DateHelper.IsToday(dateTime))
-            {
-                AddTask(this.taskGroupToday, node, dateTime,
-                    DateHelper.GetTimePartString(dateTime));
-            }
-            else if (DateHelper.IsTomorrow(dateTime))
-            {
-                AddTask(this.taskGroupTomorrow, node, dateTime,
-                    DateHelper.GetTimePartString(dateTime));
-            }
-            else if (DateHelper.DateInThisWeek(dateTime))
-            {
-                AddTask(this.taskGroupThisWeek, node, dateTime,
-                    DateHelper.GetWeekDayString(dateTime));
-            }
-            else if (DateHelper.DateInThisMonth(dateTime))
-            {
-                AddTask(this.taskGroupThisMonth, node, dateTime,
-                    DateHelper.GetDayOfMonthString(dateTime));
-            }
-            else if (DateHelper.DateInNextMonth(dateTime))
-            {
-                AddTask(this.taskGroupNextMonth, node, dateTime,
-                    DateHelper.GetDayOfMonthString(dateTime));
-            }
+
+            //if (DateHelper.IsOverdue(dateTime))
+            //{
+            //    AddTask(this.taskGroupOverdue, node, dateTime,
+            //        DateHelper.GetDayOfMonthString(dateTime));
+            //}
+            //else if (DateHelper.IsToday(dateTime))
+            //{
+            //    AddTask(this.taskGroupToday, node, dateTime,
+            //        DateHelper.GetTimePartString(dateTime));
+            //}
+            //else if (DateHelper.IsTomorrow(dateTime))
+            //{
+            //    AddTask(this.taskGroupTomorrow, node, dateTime,
+            //        DateHelper.GetTimePartString(dateTime));
+            //}
+            //else if (DateHelper.DateInThisWeek(dateTime))
+            //{
+            //    AddTask(this.taskGroupThisWeek, node, dateTime,
+            //        DateHelper.GetWeekDayString(dateTime));
+            //}
+            //else if (DateHelper.DateInThisMonth(dateTime))
+            //{
+            //    AddTask(this.taskGroupThisMonth, node, dateTime,
+            //        DateHelper.GetDayOfMonthString(dateTime));
+            //}
+            //else if (DateHelper.DateInNextMonth(dateTime))
+            //{
+            //    AddTask(this.taskGroupNextMonth, node, dateTime,
+            //        DateHelper.GetDayOfMonthString(dateTime));
+            //}
 
         }
 
