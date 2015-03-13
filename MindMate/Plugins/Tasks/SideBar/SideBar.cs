@@ -76,6 +76,11 @@ namespace MindMate.Plugins.Tasks.SideBar
             return null;
         }
 
+        public ControlGroup GetControlGroup(Control control)
+        {
+            return (ControlGroup)control.Parent.Parent;
+        }
+
         public Control GetNextControlInGroup(Control tv)
         {
             TableLayoutPanel table = (TableLayoutPanel)tv.Parent;
