@@ -106,6 +106,11 @@ namespace MindMate.Plugins.Tasks
             return (ITaskGroup)GetControlGroup(tv).Tag;
         }
 
+        public ITaskGroup GetTaskGroup(ControlGroup cg)
+        {
+            return (ITaskGroup)cg.Tag;
+        }
+
         /// <summary>
         /// returns null if TaskView is not found
         /// </summary>
@@ -148,12 +153,14 @@ namespace MindMate.Plugins.Tasks
 
         public void MoveDown(TaskView tv)
         {
+            DateTime updateDate = tv.DueDate.AddDays(5); //new date for TaskView  (setting default value, used if nothing else works)
+
             TaskView nextTV = (TaskView)GetNextControlInGroup(tv);
             if (nextTV != null) //1- Move Down within a group
             {
                 //1.1 Calculate due date 1 hour after next
                 DateTime nextDueDate = nextTV.MapNode.GetDueDate();
-                DateTime updateDate = nextDueDate.AddHours(1);
+                updateDate = nextDueDate.AddHours(1);
 
                 //1.2 Check if it falls between 'next' and 'next to next'
                 TaskView nextToNext = (TaskView)GetNextControlInGroup(nextTV);
@@ -169,12 +176,33 @@ namespace MindMate.Plugins.Tasks
                 //1.3 Check if calculated due date stays within the group
                 if(!GetTaskGroup(tv).CanContain(updateDate))
                 {
-                                        
+                    updateDate = GetTaskGroup(tv).EndTime;                   
                 }
 
-                //1.4 Update due date
-                tv.MapNode.SetDueDate(updateDate);
             }
+            else //2- Move Down to next group
+            {
+                ControlGroup cg = GetNextControlGroup(GetControlGroup(tv));
+
+                //2.1 Check if we are not in the last group
+                if (cg != null)
+                {
+                    //2.1.1 set the default first due date of the group
+                    updateDate = GetTaskGroup(cg).StartTime.AddHours(7);
+
+                    //2.1.2 Check if due date is before the first existing item
+                    if (cg.Count > 0 && ((TaskView)cg[0]).DueDate <= updateDate)
+                        updateDate = GetTaskGroup(cg).StartTime;
+
+                    //2.1.3 Check if due date is before the orignal date
+                    if (updateDate < tv.DueDate)
+                        updateDate = GetTaskGroup(cg).EndTime.Date;                      
+
+                }
+            }
+
+            //3- Update due date
+            tv.MapNode.SetDueDate(updateDate);
         }
     }
 }

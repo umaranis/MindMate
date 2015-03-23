@@ -45,14 +45,24 @@ namespace MindMate.Plugins.Tasks
             {
                 DateTime weekStart = now.AddDays(offset);
                 DateTime endOfWeek = weekStart.AddDays(6);
-                begining = weekStart;
-                end = endOfWeek;
+                begining = weekStart.Date;
+                end = endOfWeek.Date;
             }
             else
             {
-                begining = now.AddDays(-6);
-                end = now;
+                begining = now.AddDays(-6).Date;
+                end = now.Date;
             }
+        }
+
+        public static DateTime GetFirstDayOfMonth(DateTime dateTime)
+        {
+            return new DateTime(dateTime.Year, dateTime.Month, 1);            
+        }
+
+        public static DateTime GetLastDayOfMonth(DateTime dateTime)
+        {
+            return new DateTime(dateTime.Year, dateTime.Month, DateTime.DaysInMonth(dateTime.Year, dateTime.Month));
         }
 
         public static bool DateInThisMonth(DateTime dateTime)

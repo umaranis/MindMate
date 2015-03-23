@@ -97,14 +97,22 @@ namespace MindMate.Plugins.Tasks.SideBar
 
         public ControlGroup GetNextControlGroup(ControlGroup taskGroup)
         {
-            var cell = tablePanelMain.GetPositionFromControl(taskGroup);
-            return (ControlGroup)tablePanelMain.GetControlFromPosition(cell.Column, cell.Row + 1);
+            int row = tablePanelMain.GetRow(taskGroup) + 1;
+
+            if (row < tablePanelMain.RowCount)
+                return ControlGroups[row];
+            else
+                return null;
         }
 
         public ControlGroup GetPreviousControlGroup(ControlGroup taskGroup)
         {
-            var cell = tablePanelMain.GetPositionFromControl(taskGroup);
-            return (ControlGroup)tablePanelMain.GetControlFromPosition(cell.Column, cell.Row - 1);
+            int row = tablePanelMain.GetRow(taskGroup) - 1;
+
+            if (row > -1)
+                return ControlGroups[row];
+            else
+                return null;
         }
 
         /// <summary>

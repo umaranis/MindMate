@@ -140,18 +140,20 @@ namespace MindMate.Plugins.Tasks
                 OnTaskViewEvent(this, TaskViewEvent.Complete);
             }
             else if (e.X > btnDown.Left && e.Y > btnDown.Top
-            && e.X < btnDown.Left + btnDown.Width && e.Y < btnDown.Top + btnDown.Height)
+                && e.X < btnDown.Left + btnDown.Width && e.Y < btnDown.Top + btnDown.Height)
             {
+                MapNode.Selected = true;
                 OnTaskViewEvent(this, TaskViewEvent.MoveDown);
             }
             else if (e.X > btnUp.Left && e.Y > btnUp.Top
-            && e.X < btnUp.Left + btnUp.Width && e.Y < btnUp.Top + btnUp.Height)
+                && e.X < btnUp.Left + btnUp.Width && e.Y < btnUp.Top + btnUp.Height)
             {
+                MapNode.Selected = true;
                 OnTaskViewEvent(this, TaskViewEvent.MoveUp);
             }
             else
             {
-                MapNode.Selected = true;
+                MapNode.Selected = true;                
             }
         }
 
