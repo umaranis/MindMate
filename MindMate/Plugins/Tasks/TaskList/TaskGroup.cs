@@ -24,7 +24,7 @@ namespace MindMate.Plugins.Tasks
         
         public DateTime StartTime { get { return DateTime.MinValue; } }
 
-        public DateTime EndTime { get { return DateTime.Today.Add(new TimeSpan(23, 59, 59)); } }
+        public DateTime EndTime { get { return DateTime.Today.Subtract(TimeSpan.FromSeconds(1)); } }
     }
 
 

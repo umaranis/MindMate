@@ -92,7 +92,10 @@ namespace MindMate.Plugins.Tasks.SideBar
         {
             TableLayoutPanel table = (TableLayoutPanel)tv.Parent;
             var cell = table.GetPositionFromControl(tv);
-            return table.GetControlFromPosition(cell.Column, cell.Row - 1);
+            if (cell.Row > 0)
+                return table.GetControlFromPosition(cell.Column, cell.Row - 1);
+            else
+                return null;
         }
 
         public ControlGroup GetNextControlGroup(ControlGroup taskGroup)

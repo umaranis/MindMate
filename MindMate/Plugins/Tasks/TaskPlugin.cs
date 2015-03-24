@@ -149,7 +149,7 @@ namespace MindMate.Plugins.Tasks
 
         private void MoveUp(TaskView tv)
         {
-            throw new NotImplementedException();
+            taskList.MoveUp(tv);
         }
     }
 }
