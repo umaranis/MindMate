@@ -17,7 +17,7 @@ namespace MindMate.Plugins.Tasks
         {
             InitializeComponent();
 
-            this.ContextMenuStrip = new TaskViewContextMenu();
+            this.ContextMenuStrip = CreateContextMenu();
 
             OnTaskViewEvent = onTaskViewEvent;
 
@@ -143,13 +143,13 @@ namespace MindMate.Plugins.Tasks
                 && e.X < btnDown.Left + btnDown.Width && e.Y < btnDown.Top + btnDown.Height)
             {
                 MapNode.Selected = true;
-                OnTaskViewEvent(this, TaskViewEvent.MoveDown);
+                OnTaskViewEvent(this, TaskViewEvent.Defer);
             }
             else if (e.X > btnUp.Left && e.Y > btnUp.Top
                 && e.X < btnUp.Left + btnUp.Width && e.Y < btnUp.Top + btnUp.Height)
             {
                 MapNode.Selected = true;
-                OnTaskViewEvent(this, TaskViewEvent.MoveUp);
+                OnTaskViewEvent(this, TaskViewEvent.Expedite);
             }
             else
             {
@@ -157,7 +157,7 @@ namespace MindMate.Plugins.Tasks
             }
         }
 
-        public enum TaskViewEvent { Remove, Edit, Complete, MoveUp, MoveDown }
+        public enum TaskViewEvent { Remove, Edit, Complete, Expedite, Defer, Today, Tomorrow, NextWeek, NextMonth, NextQuarter }
 
 
         public bool Selected { 
@@ -172,6 +172,28 @@ namespace MindMate.Plugins.Tasks
                 else
                     BackColor = SystemColors.ControlLight; 
             }
+        }
+
+        public ContextMenuStrip CreateContextMenu()
+        {
+            var menu = new ContextMenuStrip();
+
+            menu.Items.Add("Complete Task", TaskRes.tick, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.Complete));
+            menu.Items.Add("Remove Task", TaskRes.date_delete, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.Remove));
+            menu.Items.Add("Expedite", TaskRes.arrow_090_medium, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.Expedite));
+            menu.Items.Add("Defer", TaskRes.arrow_270_medium, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.Defer));
+            menu.Items.Add("Edit Due Date ...", TaskRes.date_edit, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.Edit));
+
+            ToolStripMenuItem t = new ToolStripMenuItem("Quick Due Dates");
+            menu.Items.Add(t);
+
+            t.DropDownItems.Add(new ToolStripMenuItem("Today", null, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.Today)));
+            t.DropDownItems.Add(new ToolStripMenuItem("Tomorrow", null, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.Tomorrow)));
+            t.DropDownItems.Add(new ToolStripMenuItem("Next Week", null, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.NextWeek)));
+            t.DropDownItems.Add(new ToolStripMenuItem("Next Month", null, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.NextMonth)));
+            t.DropDownItems.Add(new ToolStripMenuItem("Next Quarter", null, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.NextQuarter)));
+
+            return menu;
         }
     }    
 }

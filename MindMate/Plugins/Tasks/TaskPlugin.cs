@@ -31,12 +31,31 @@ namespace MindMate.Plugins.Tasks
                 case TaskView.TaskViewEvent.Complete:
                     CompleteTask(tv.MapNode);
                     break;
-                case TaskView.TaskViewEvent.MoveDown:
+                case TaskView.TaskViewEvent.Defer:
                     MoveDown(tv);
                     break;
-                case TaskView.TaskViewEvent.MoveUp:
+                case TaskView.TaskViewEvent.Expedite:
                     MoveUp(tv);
                     break;
+                case TaskView.TaskViewEvent.Edit:
+                    SetDueDate(tv.MapNode);
+                    break;
+                case TaskView.TaskViewEvent.Today:
+                    SetDueDate(tv.MapNode, DateHelper.GetDefaultDueDateToday());
+                    break;
+                case TaskView.TaskViewEvent.Tomorrow:
+                    SetDueDate(tv.MapNode, DateHelper.GetDefaultDueDateTomorrow());
+                    break;
+                case TaskView.TaskViewEvent.NextWeek:
+                    SetDueDate(tv.MapNode, DateHelper.GetDefaultDueDateNextWeek());
+                    break;
+                case TaskView.TaskViewEvent.NextMonth:
+                    SetDueDate(tv.MapNode, DateHelper.GetDefaultDueDateNextMonth());
+                    break;
+                case TaskView.TaskViewEvent.NextQuarter:
+                    SetDueDate(tv.MapNode, DateHelper.GetDefaultDueDateNextQuarter());
+                    break;
+
             }
         }
                                        
