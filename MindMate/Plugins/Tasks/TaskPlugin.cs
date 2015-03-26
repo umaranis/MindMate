@@ -78,6 +78,7 @@ namespace MindMate.Plugins.Tasks
             tree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
 
             tree.NodePropertyChanged += tree_NodePropertyChanged;
+            tree.TreeStructureChanged += tree_TreeStructureChanged;
         }
 
         void SelectedNodes_NodeSelected(MapNode node, SelectedNodes selectedNodes)
@@ -138,6 +139,19 @@ namespace MindMate.Plugins.Tasks
                 TaskView tv = taskList.FindTaskView(node, node.GetDueDate());
                 if (tv != null) tv.TaskTitle = node.Text;
             }            
+        }
+
+        void tree_TreeStructureChanged(MapNode node, TreeStructureChangedEventArgs e)
+        {
+            if(e.ChangeType == TreeStructureChange.Deleting)
+            {
+                node.ForEach(n => { 
+                    if(n.DueDateExists())
+                    {
+                        taskList.RemoveTask(taskList.FindTaskView(n, n.GetDueDate()));
+                    }
+                    });
+            }
         }
                 
         public void OnDeletingTree(Model.MapTree tree)
