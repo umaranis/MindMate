@@ -76,6 +76,8 @@ namespace MindMate.Plugins.Tasks
 
             tree.SelectedNodes.NodeSelected += SelectedNodes_NodeSelected;
             tree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
+
+            tree.NodePropertyChanged += tree_NodePropertyChanged;
         }
 
         void SelectedNodes_NodeSelected(MapNode node, SelectedNodes selectedNodes)
@@ -127,6 +129,15 @@ namespace MindMate.Plugins.Tasks
             {
                 TaskCompleteIcon.FireStatusChangeEvent(node, SystemIconStatusChange.Hide);
             }
+        }
+
+        void tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
+        {
+            if(e.ChangedProperty == NodeProperties.Text && node.DueDateExists())
+            {
+                TaskView tv = taskList.FindTaskView(node, node.GetDueDate());
+                if (tv != null) tv.TaskTitle = node.Text;
+            }            
         }
                 
         public void OnDeletingTree(Model.MapTree tree)
