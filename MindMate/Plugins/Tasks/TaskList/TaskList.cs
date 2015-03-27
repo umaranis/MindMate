@@ -10,29 +10,29 @@ namespace MindMate.Plugins.Tasks
 {
     public class TaskList : MindMate.Plugins.Tasks.SideBar.SideBar
     {
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupOverdue;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupToday;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupTomorrow;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupThisWeek;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupThisMonth;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupNextMonth;
-        
 
         public TaskList()
         {
-            this.taskGroupOverdue = this.ControlGroups.Add("Overdue", System.Drawing.Color.Red);
-            this.taskGroupToday = this.ControlGroups.Add("Today", System.Drawing.Color.Black);
-            this.taskGroupTomorrow = this.ControlGroups.Add("Tomorrow", System.Drawing.Color.Black);
-            this.taskGroupThisWeek = this.ControlGroups.Add("This Week", System.Drawing.Color.Black);
-            this.taskGroupThisMonth = this.ControlGroups.Add("This Month", System.Drawing.Color.Black);
-            this.taskGroupNextMonth = this.ControlGroups.Add("Next Month", System.Drawing.Color.Black);
+            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupOverdue;
+            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupToday;
+            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupTomorrow;
+            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupThisWeek;
+            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupThisMonth;
+            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupNextMonth;
 
-            this.taskGroupOverdue.Tag = new TaskGroupOverdue();
-            this.taskGroupToday.Tag = new TaskGroupToday();
-            this.taskGroupTomorrow.Tag = new TaskGroupTomorrow(); 
-            this.taskGroupThisWeek.Tag = new TaskGroupThisWeek();
-            this.taskGroupThisMonth.Tag = new TaskGroupThisMonth();
-            this.taskGroupNextMonth.Tag = new TaskGroupNextMonth();
+            taskGroupOverdue = this.ControlGroups.Add("Overdue", System.Drawing.Color.Red);
+            taskGroupToday = this.ControlGroups.Add("Today", System.Drawing.Color.Black);
+            taskGroupTomorrow = this.ControlGroups.Add("Tomorrow", System.Drawing.Color.Black);
+            taskGroupThisWeek = this.ControlGroups.Add("This Week", System.Drawing.Color.Black);
+            taskGroupThisMonth = this.ControlGroups.Add("This Month", System.Drawing.Color.Black);
+            taskGroupNextMonth = this.ControlGroups.Add("Next Month", System.Drawing.Color.Black);
+            
+            taskGroupOverdue.Tag = new TaskGroupOverdue();
+            taskGroupToday.Tag = new TaskGroupToday();
+            taskGroupTomorrow.Tag = new TaskGroupTomorrow(); 
+            taskGroupThisWeek.Tag = new TaskGroupThisWeek();
+            taskGroupThisMonth.Tag = new TaskGroupThisMonth();
+            taskGroupNextMonth.Tag = new TaskGroupNextMonth();
         }
 
         public event Action<TaskView, TaskView.TaskViewEvent> TaskViewEvent;
@@ -155,7 +155,7 @@ namespace MindMate.Plugins.Tasks
         {
             DateTime updateDate = tv.DueDate.AddDays(5); //new date for TaskView  (setting default value, used if nothing else works)
 
-            TaskView nextTV = (TaskView)GetNextControlInGroup(tv);
+            TaskView nextTV = (TaskView)GetNextControl(tv, true);
             if (nextTV != null) //1- Move Down within a group
             {
                 //1.1 Calculate due date 1 hour after next
@@ -163,7 +163,7 @@ namespace MindMate.Plugins.Tasks
                 updateDate = nextDueDate.AddHours(1);
 
                 //1.2 Check if it falls between 'next' and 'next to next'
-                TaskView nextToNext = (TaskView)GetNextControlInGroup(nextTV);
+                TaskView nextToNext = (TaskView)GetNextControl(nextTV, true);
                 if (nextToNext != null)
                 {
                     DateTime nextToNextDueDate = nextToNext.MapNode.GetDueDate();
@@ -195,8 +195,13 @@ namespace MindMate.Plugins.Tasks
                         updateDate = GetTaskGroup(cg).StartTime;
 
                     //2.1.3 Check if due date is before the orignal date
-                    if (updateDate < tv.DueDate)
-                        updateDate = GetTaskGroup(cg).EndTime.Date;                      
+                    if (updateDate <= tv.DueDate)
+                    {
+                        if (GetTaskGroup(cg).EndTime.Date <= tv.DueDate)
+                            updateDate = GetTaskGroup(cg).EndTime.Date.AddDays(1);
+                        else
+                            updateDate = GetTaskGroup(cg).EndTime.Date;
+                    }
 
                 }
             }
@@ -209,7 +214,7 @@ namespace MindMate.Plugins.Tasks
         {
             DateTime updateDate = tv.DueDate.Subtract(TimeSpan.FromDays(1)); //new date for TaskView  (setting default value, used if nothing else works)
 
-            TaskView prevTV = (TaskView)GetPreviousControlInGroup(tv);
+            TaskView prevTV = (TaskView)GetPreviousControl(tv, true);
             if (prevTV != null) //1- Move Down within a group
             {
                 //1.1 Calculate due date 1 hour before previous
@@ -217,7 +222,7 @@ namespace MindMate.Plugins.Tasks
                 updateDate = previousDueDate.Subtract(TimeSpan.FromHours(1));
 
                 //1.2 Check if it falls between 'previous' and 'previous to previous'
-                TaskView previousToPrevious = (TaskView)GetPreviousControlInGroup(prevTV);
+                TaskView previousToPrevious = (TaskView)GetPreviousControl(prevTV, true);
                 if (previousToPrevious != null)
                 {
                     DateTime previousToPreviousDueDate = previousToPrevious.MapNode.GetDueDate();

@@ -145,14 +145,38 @@ namespace MindMate.Plugins.Tasks
         {
             if(e.ChangeType == TreeStructureChange.Deleting)
             {
-                node.ForEach(n => { 
-                    if(n.DueDateExists())
-                    {
-                        taskList.RemoveTask(taskList.FindTaskView(n, n.GetDueDate()));
-                    }
-                    });
+                RefreshTaskList(node, tv => taskList.RemoveTask(tv));
             }
         }
+
+        /// <summary>
+        /// Refreshes TaskList for any changes to changedNode or its descendents
+        /// </summary>
+        /// <param name="changedNode"></param>
+        /// <param name="operation"></param>
+        private void RefreshTaskList(MapNode changedNode, Action<TaskView> operation)
+        {
+            //int taskViewCount = taskList.GetControlCount();
+            //for(int i = 0; i < taskViewCount; i++)
+            //{
+            //    TaskView tv = (TaskView)taskList.GetControl(i);
+            //    if (tv.MapNode == changedNode || tv.MapNode.isDescendent(changedNode))
+            //        operation(tv);
+            //}
+
+            TaskView ctrl = (TaskView)taskList.GetFirstControl();
+            TaskView nextCtrl;
+
+            while(ctrl != null)
+            {
+                nextCtrl = (TaskView)taskList.GetNextControl(ctrl); //this method has to be called before operation as operation might delete the ctrl
+                if (ctrl.MapNode == changedNode || ctrl.MapNode.isDescendent(changedNode))
+                    operation(ctrl);
+                ctrl = nextCtrl;
+            } 
+        }
+
+        
                 
         public void OnDeletingTree(Model.MapTree tree)
         {

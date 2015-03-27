@@ -52,28 +52,97 @@ namespace MindMate.Plugins.Tasks.SideBar
             if (GetLastControl() == null) lblNoTasks.Visible = true;
         }
 
-        public Control GetControl(int index)
+        //public Control GetControl(int index)
+        //{
+        //    int currentIndex = index;
+        //    for(int i = 0; i < ControlGroups.Count; i++)
+        //    {
+        //        ControlGroup panel = ControlGroups[i];
+        //        if (panel != null)
+        //        {
+        //            if (currentIndex < panel.Count)
+        //            {
+        //                Control ctrl = panel[currentIndex];
+        //                return ctrl;                        
+        //            }
+        //            else
+        //            {
+        //                currentIndex -= panel.Count;
+        //            }
+        //        }
+        //    }
+
+        //    return null;
+        //}
+
+        public Control GetFirstControl()
         {
-            int currentIndex = index;
-            for(int i = 0; i < ControlGroups.Count; i++)
+            foreach(var cg in ControlGroups)
             {
-                CollapsiblePanel panel = ControlGroups[i];
-                if (panel != null)
+                if (cg.Count > 0)
+                    return cg[0];
+            }
+            return null;
+        }
+
+        public new Control GetNextControl(Control control, bool withinSameGroup = false)
+        {
+            // return next control in group
+            Control nextCtrl = GetNextControlInGroup(control);
+            if (nextCtrl != null) 
+                return nextCtrl;
+            
+            // return first control from next visible group
+            if (!withinSameGroup)
+            {
+                ControlGroup cg = GetControlGroup(control);
+                if (cg != null)
                 {
-                    TableLayoutPanel table = (TableLayoutPanel)panel.Controls[1];
-                    Control ctrl = table.GetControlFromPosition(0, currentIndex);
-                    if (ctrl != null)
+                    while ((cg = GetNextControlGroup(cg)) != null)
                     {
-                        return ctrl;
+                        if (cg.Count > 0)
+                            return cg[0];
                     }
-                    else
+                }
+            }
+            
+            // if nothing found
+            return null;
+        }
+
+        public new Control GetPreviousControl(Control control, bool withinSameGroup = false)
+        {
+            // return next control in group
+            Control previousCtrl = GetPreviousControlInGroup(control);
+            if (previousCtrl != null)
+                return previousCtrl;
+
+            // return first control from next visible group
+            if (!withinSameGroup)
+            {
+                ControlGroup cg = GetControlGroup(control);
+                if (cg != null)
+                {
+                    while ((cg = GetPreviousControlGroup(cg)) != null)
                     {
-                        currentIndex -= table.RowCount;
+                        if (cg.Count > 0)
+                            return cg[cg.Count - 1];
                     }
                 }
             }
 
+            // if nothing found
             return null;
+        }
+
+        public int GetControlCount()
+        {
+            int count = 0;
+            foreach(var c in ControlGroups)
+            {
+                count += c.Count;
+            }
+            return count;
         }
 
         public ControlGroup GetControlGroup(Control control)
@@ -81,14 +150,14 @@ namespace MindMate.Plugins.Tasks.SideBar
             return (ControlGroup)control.Parent.Parent;
         }
 
-        public Control GetNextControlInGroup(Control tv)
+        private Control GetNextControlInGroup(Control tv)
         {
             TableLayoutPanel table = (TableLayoutPanel)tv.Parent;
             var cell = table.GetPositionFromControl(tv);
             return table.GetControlFromPosition(cell.Column, cell.Row + 1);
         }
 
-        public Control GetPreviousControlInGroup(Control tv)
+        private Control GetPreviousControlInGroup(Control tv)
         {
             TableLayoutPanel table = (TableLayoutPanel)tv.Parent;
             var cell = table.GetPositionFromControl(tv);

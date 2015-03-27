@@ -595,7 +595,6 @@ namespace MindMate.Model
         public MapNode GetFirstSib()
         {
             return this.Parent.FirstChild;
-
         }
 
         public MapNode GetLastSib()
