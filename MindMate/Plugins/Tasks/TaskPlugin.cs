@@ -164,16 +164,23 @@ namespace MindMate.Plugins.Tasks
             //        operation(tv);
             //}
 
-            TaskView ctrl = (TaskView)taskList.GetFirstControl();
-            TaskView nextCtrl;
-
-            while(ctrl != null)
+            if (!changedNode.HasChildren && changedNode.DueDateExists())
             {
-                nextCtrl = (TaskView)taskList.GetNextControl(ctrl); //this method has to be called before operation as operation might delete the ctrl
-                if (ctrl.MapNode == changedNode || ctrl.MapNode.isDescendent(changedNode))
-                    operation(ctrl);
-                ctrl = nextCtrl;
-            } 
+                taskList.RemoveTask(taskList.FindTaskView(changedNode, changedNode.GetDueDate()));
+            }
+            else
+            {
+                TaskView ctrl = (TaskView)taskList.GetFirstControl();
+                TaskView nextCtrl;
+
+                while (ctrl != null)
+                {
+                    nextCtrl = (TaskView)taskList.GetNextControl(ctrl); //this method has to be called before operation as operation might delete the ctrl
+                    if (ctrl.MapNode == changedNode || ctrl.MapNode.isDescendent(changedNode))
+                        operation(ctrl);
+                    ctrl = nextCtrl;
+                }
+            }
         }
 
         

@@ -195,14 +195,11 @@ namespace MindMate.Plugins.Tasks.SideBar
         {
             for(int i = this.tablePanelMain.RowCount - 1; i >= 0; i--)
             {
-                Control ctrl = this.tablePanelMain.GetControlFromPosition(0, i);
+                ControlGroup ctrl = (ControlGroup)this.tablePanelMain.GetControlFromPosition(0, i);
 
                 // check for ctrl is the last visible Task Group
                 if (ctrl != null // control is null in case when it is never made visible  
-                    &&
-                    (ctrl.Visible || // visible is false when it is the first control ever made visible in TaskList
-                    ((TableLayoutPanel)ctrl.Controls[1]).RowCount > 0) // finds if there is any rows inside
-                    )
+                    && ctrl.Count > 0) // finds if there is any rows inside
                 {
                     return ctrl;
                 }
