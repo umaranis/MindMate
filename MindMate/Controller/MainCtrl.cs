@@ -49,8 +49,6 @@ namespace MindMate.Controller
 
         void mainForm_Load(object sender, EventArgs e)
         {
-            
-
             MapTree tree;
 
             if (MetaModel.MetaModel.Instance.LastOpenedFile == null)
@@ -94,6 +92,9 @@ namespace MindMate.Controller
 
             // moving splitter makes it the focused control, below event focuses the last control again
             mainForm.splitContainer1.GotFocus += (a, b) => this.lastFocused.Focus();
+
+            // changing side bar tab gives focus away to tab control header, below event focuses the last control again
+            mainForm.SideBarTabs.SelectedIndexChanged += (a, b) => this.lastFocused.Focus();
 
             UpdateTitleBar();
             RegisterForMapChangedNotification();                 // register for map changes (register/unregister with tree)
