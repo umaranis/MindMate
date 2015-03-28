@@ -110,7 +110,7 @@ namespace MindMate.Plugins.Tasks.SideBar
             return null;
         }
 
-        public new Control GetPreviousControl(Control control, bool withinSameGroup = false)
+        public Control GetPreviousControl(Control control, bool withinSameGroup = false)
         {
             // return next control in group
             Control previousCtrl = GetPreviousControlInGroup(control);

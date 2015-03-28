@@ -147,6 +147,18 @@ namespace MindMate.Plugins.Tasks
             {
                 RefreshTaskList(node, tv => taskList.RemoveTask(tv));
             }
+            else if(e.ChangeType == TreeStructureChange.Detaching)
+            {
+                RefreshTaskList(node, tv => taskList.RemoveTask(tv));
+            }
+            else if(e.ChangeType == TreeStructureChange.Attached)
+            {
+                node.ForEach((n) =>
+                    {
+                        if (n.DueDateExists())
+                            taskList.Add(n, n.GetDueDate());
+                    });
+            }
         }
 
         /// <summary>
