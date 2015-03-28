@@ -108,6 +108,7 @@ namespace MindMate.Model
         #region "Node Change Events"
         public event Action<MapNode, NodePropertyChangedEventArgs> NodePropertyChanged = delegate { };
         public event Action<MapNode, TreeStructureChangedEventArgs> TreeStructureChanged = delegate { };
+        public event Action<MapNode, TreeStructureChangeDescendentEventArgs> TreeStructureChangedDescendent;
         public event Action<MapNode, IconChangedEventArgs> IconChanged = delegate { };
         public event Action<MapNode, AttributeChangeEventArgs> AttributeChanged = delegate { };
 
@@ -130,6 +131,20 @@ namespace MindMate.Model
             };
 
             TreeStructureChanged(node, args);
+        }
+
+        internal void FireEvent(MapNode node, TreeStructureChangeDescendent change)
+        {
+            if (TreeStructureChangedDescendent != null)
+            {
+                var args = new TreeStructureChangeDescendentEventArgs()
+                {
+                    ChangeType = change,
+                    ChangedAncestor = node
+                };
+
+                node.ForEachDescendent( (n) => TreeStructureChangedDescendent(n, args) );
+            }
         }
 
         internal void FireEvent(MapNode node, IconChange change, string icon)

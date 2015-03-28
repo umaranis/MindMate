@@ -78,6 +78,22 @@ namespace MindMate.Model
         MovedDown
     }
 
+    public enum TreeStructureChangeDescendent
+    {
+        /// <summary>
+        /// Invoked for all descendents of an Attached node (exluding mein attached node)
+        /// </summary>
+        AttachedDescendent,
+        /// <summary>
+        /// Invoked for all descendents of Detaching node (excluding main detached node)
+        /// </summary>
+        DetachingDescendent,
+        /// <summary>
+        /// Invoked for all descendents of Deleting node (excluding main deleted node)
+        /// </summary>
+        DeletingDescendent
+    }
+
 
     public enum NodeLinkType
     {

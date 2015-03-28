@@ -767,7 +767,7 @@ namespace MindMate.Model
 
             parent.modified = DateTime.Now;
             Tree.FireEvent(this, TreeStructureChange.Attached);
-                    
+            Tree.FireEvent(this, TreeStructureChangeDescendent.AttachedDescendent);                   
 
         }
 
@@ -776,6 +776,7 @@ namespace MindMate.Model
             if (Parent != null)
             {
                 Tree.FireEvent(this, TreeStructureChange.Detaching);
+                Tree.FireEvent(this, TreeStructureChangeDescendent.DetachingDescendent);
 
                 if (Parent.FirstChild == this) Parent.FirstChild = this.Next;
                 if (Parent.LastChild == this) Parent.LastChild = this.Previous;
@@ -832,6 +833,7 @@ namespace MindMate.Model
             if (this.Parent == null)    return;
 
             Tree.FireEvent(this, TreeStructureChange.Deleting);
+            Tree.FireEvent(this, TreeStructureChangeDescendent.DeletingDescendent);
 
             if (Parent.FirstChild == this) Parent.FirstChild = this.Next;
             if (Parent.LastChild == this) Parent.LastChild = this.Previous;
@@ -989,7 +991,16 @@ namespace MindMate.Model
         {
             action(this);
 
-            foreach(MapNode cNode in this.ChildNodes)
+            ForEachDescendent(action);
+        }
+
+        /// <summary>
+        /// Performs the given action for node's descendents (node itself is not included)
+        /// </summary>
+        /// <param name="action"></param>
+        public void ForEachDescendent(Action<MapNode> action)
+        {
+            foreach (MapNode cNode in this.ChildNodes)
             {
                 cNode.ForEach(action);
             }

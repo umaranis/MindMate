@@ -19,7 +19,12 @@ namespace MindMate.Model
     public class TreeStructureChangedEventArgs : EventArgs
     {
         public TreeStructureChange ChangeType { get; set; }
+    }
 
+    public class TreeStructureChangeDescendentEventArgs : EventArgs
+    {
+        public TreeStructureChangeDescendent ChangeType { get; set; }
+        public MapNode ChangedAncestor { get; set; }
     }
 
     public class IconChangedEventArgs : EventArgs
