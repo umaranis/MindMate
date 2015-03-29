@@ -42,7 +42,7 @@ namespace MindMate.Plugins.Tasks
             TaskDueOnText = dueOnText;
 
             if (node.Selected)
-                Selected = true;
+                Selected = true;            
         }
 
         public void SetQuickActionsVisiblity(bool visible)
@@ -153,11 +153,12 @@ namespace MindMate.Plugins.Tasks
             }
             else
             {
-                MapNode.Selected = true;                
+                MapNode.Selected = true;
+                OnTaskViewEvent(this, TaskViewEvent.Select);
             }
         }
 
-        public enum TaskViewEvent { Remove, Edit, Complete, Expedite, Defer, Today, Tomorrow, NextWeek, NextMonth, NextQuarter }
+        public enum TaskViewEvent { Remove, Edit, Complete, Expedite, Defer, Today, Tomorrow, NextWeek, NextMonth, NextQuarter, Select }
 
 
         public bool Selected { 

@@ -198,7 +198,7 @@ namespace MindMate.Plugins.Tasks
                     if (updateDate <= tv.DueDate)
                     {
                         if (GetTaskGroup(cg).EndTime.Date <= tv.DueDate)
-                            updateDate = GetTaskGroup(cg).EndTime.Date.AddDays(1);
+                            updateDate = tv.DueDate.AddDays(1);
                         else
                             updateDate = GetTaskGroup(cg).EndTime.Date;
                     }

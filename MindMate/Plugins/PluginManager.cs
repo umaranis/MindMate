@@ -92,6 +92,14 @@ namespace MindMate.Plugins
                 }
             }
         }
-        
+
+        #region IPluginManager Interface
+
+        public void FocusMapEditor()
+        {
+            mainCtrl.FocusLastControl();
+        }
+
+        #endregion IPluginManager Interface
     }
 }

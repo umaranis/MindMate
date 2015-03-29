@@ -91,10 +91,10 @@ namespace MindMate.Controller
             statusBarCtrl.Register(tree);
 
             // moving splitter makes it the focused control, below event focuses the last control again
-            mainForm.splitContainer1.GotFocus += (a, b) => this.lastFocused.Focus();
+            mainForm.splitContainer1.GotFocus += (a, b) => FocusLastControl();
 
             // changing side bar tab gives focus away to tab control header, below event focuses the last control again
-            mainForm.SideBarTabs.SelectedIndexChanged += (a, b) => this.lastFocused.Focus();
+            mainForm.SideBarTabs.SelectedIndexChanged += (a, b) => FocusLastControl();
 
             UpdateTitleBar();
             RegisterForMapChangedNotification();                 // register for map changes (register/unregister with tree)
@@ -102,6 +102,11 @@ namespace MindMate.Controller
 
             mainForm.FormClosing += mainForm_FormClosing;
             
+        }
+
+        public void FocusLastControl()
+        {
+            this.lastFocused.Focus();
         }
 
         private MapTree CreateNewMapTree()

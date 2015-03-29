@@ -12,10 +12,12 @@ namespace MindMate.Plugins.Tasks
     {
         
         private DateTimePicker dateTimePicker; 
-        private TaskList taskList;                
+        private TaskList taskList;
+        private IPluginManager pluginManager;
 
         public void Initialize(IPluginManager pluginMgr)
         {
+            this.pluginManager = pluginMgr;
             dateTimePicker = new DateTimePicker();
             taskList = new TaskList();
             taskList.TaskViewEvent += taskList_TaskViewEvent;
@@ -57,6 +59,8 @@ namespace MindMate.Plugins.Tasks
                     break;
 
             }
+
+            pluginManager.FocusMapEditor();            
         }
                                        
         public void CreateMainMenuItems(out MenuItem[] menuItems, out MainMenuLocation position)
