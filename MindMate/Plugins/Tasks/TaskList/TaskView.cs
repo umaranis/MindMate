@@ -129,6 +129,14 @@ namespace MindMate.Plugins.Tasks
 
         private void TaskView_MouseUp(object sender, MouseEventArgs e)
         {
+            // other than left button is clicked
+            if (e.Button != System.Windows.Forms.MouseButtons.Left)
+            {
+                MapNode.Selected = true;
+                return;
+            }
+
+            // left button is clicked
             if(e.X > btnRemove.Left && e.Y > btnRemove.Top
                 && e.X < btnRemove.Left + btnRemove.Width && e.Y < btnRemove.Top + btnRemove.Height)
             {
