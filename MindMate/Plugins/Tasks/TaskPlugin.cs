@@ -138,10 +138,17 @@ namespace MindMate.Plugins.Tasks
 
         void tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
         {
-            if(e.ChangedProperty == NodeProperties.Text && node.DueDateExists())
+            if(e.ChangedProperty == NodeProperties.Text)
             {
-                TaskView tv = taskList.FindTaskView(node, node.GetDueDate());
-                if (tv != null) tv.TaskTitle = node.Text;
+                // update task title
+                if (node.DueDateExists())
+                {
+                    TaskView tv = taskList.FindTaskView(node, node.GetDueDate());
+                    if (tv != null) tv.TaskTitle = node.Text;
+                }
+
+                // update task parent
+                RefreshTaskList(node, tv => tv.RefreshTaskPath());
             }            
         }
 
@@ -182,7 +189,7 @@ namespace MindMate.Plugins.Tasks
 
             if (!changedNode.HasChildren && changedNode.DueDateExists())
             {
-                taskList.RemoveTask(taskList.FindTaskView(changedNode, changedNode.GetDueDate()));
+                operation(taskList.FindTaskView(changedNode, changedNode.GetDueDate()));
             }
             else
             {

@@ -28,14 +28,7 @@ namespace MindMate.Plugins.Tasks
             TaskTitle = node.Text;
 
             //TODO: What will happen if node is moved or any of the ancestors is moved
-            lblTaskPath.Text = "";
-            MapNode parentNode = node.Parent;
-            while (parentNode != null)
-            {
-                if (lblTaskPath.Text != "") lblTaskPath.Text += " <- ";
-                lblTaskPath.Text += parentNode.Text;
-                parentNode = parentNode.Parent;
-            }
+            RefreshTaskPath();
 
             DueDate = dueDate;
 
@@ -43,6 +36,18 @@ namespace MindMate.Plugins.Tasks
 
             if (node.Selected)
                 Selected = true;            
+        }
+
+        public void RefreshTaskPath()
+        {
+            lblTaskPath.Text = "";
+            MapNode parentNode = MapNode.Parent;
+            while (parentNode != null)
+            {
+                if (lblTaskPath.Text != "") lblTaskPath.Text += " <- ";
+                lblTaskPath.Text += parentNode.Text;
+                parentNode = parentNode.Parent;
+            }
         }
 
         public void SetQuickActionsVisiblity(bool visible)
