@@ -123,7 +123,7 @@ namespace MindMate.Plugins.Tasks
             {
                 TaskView tv = taskList.FindTaskView(node, DateHelper.ToDateTime(e.oldValue.value));
                 if (tv != null) taskList.RemoveTask(tv);
-                taskList.Add(node, DateHelper.ToDateTime(e.newValue.value));
+                taskList.Add(tv);
             }
             // Comletion Date attribute changed
             else if (e.ChangeType == AttributeChange.Added && e.newValue.AttributeSpec.IsCompletionDate())

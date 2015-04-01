@@ -45,35 +45,32 @@ namespace MindMate.Plugins.Tasks
                 ITaskGroup taskGroup = (ITaskGroup)ctrlGroup.Tag;
                 if(taskGroup.CanContain(dateTime))
                 {
-                    AddTask(ctrlGroup, node, dateTime, taskGroup.ShortDueDateString(dateTime));
+                    TaskView tv = new TaskView(node, taskGroup.ShortDueDateString(dateTime), OnTaskViewEvent);
+                    InsertTaskView(ctrlGroup, tv);
                     break;
                 }
             }
 
         }
 
-        private void AddTask(MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroup,
-            MindMate.Model.MapNode node, DateTime dateTime, string dueOnText)
+        public void Add(TaskView tv)
         {
-            TaskView tv = new TaskView(node, dateTime, dueOnText, OnTaskViewEvent);
-                        
-            InsertTaskView(taskGroup, tv);
+            for (int i = 0; i < this.ControlGroups.Count; i++)
+            {
+                ControlGroup ctrlGroup = this.ControlGroups[i];
+                ITaskGroup taskGroup = (ITaskGroup)ctrlGroup.Tag;
+                if (taskGroup.CanContain(tv.DueDate))
+                {
+                    tv.TaskDueOnText = taskGroup.ShortDueDateString(tv.DueDate);
+                    tv.RefreshTaskPath();
+                    tv.TaskTitle = tv.MapNode.Text;
+                    InsertTaskView(ctrlGroup, tv);
+                    break;
+                }
+            }
+
         }
 
-        private void OnTaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
-        {
-            TaskViewEvent(tv, e);
-        }
-
-        public void RemoveTask(TaskView tv)
-        {
-            var taskGroup = GetControlGroup(tv);
-
-            taskGroup.Remove(tv);          
-
-        }        
-
-        
         private void InsertTaskView(ControlGroup taskGroup, TaskView taskView)
         {
             if (taskGroup.Count == 0)
@@ -100,6 +97,20 @@ namespace MindMate.Plugins.Tasks
             }
 
         }
+        
+
+        private void OnTaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
+        {
+            TaskViewEvent(tv, e);
+        }
+
+        public void RemoveTask(TaskView tv)
+        {
+            var taskGroup = GetControlGroup(tv);
+
+            taskGroup.Remove(tv);          
+
+        }        
 
         public ITaskGroup GetTaskGroup(TaskView tv)
         {

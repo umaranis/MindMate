@@ -12,7 +12,7 @@ namespace MindMate.Plugins.Tasks
 {
     public partial class TaskView : UserControl
     {
-        public TaskView(MapNode node, DateTime dueDate, string dueOnText,
+        public TaskView(MapNode node, string dueOnText,
             Action<TaskView, TaskViewEvent> onTaskViewEvent)
         {
             InitializeComponent();
@@ -27,10 +27,7 @@ namespace MindMate.Plugins.Tasks
 
             TaskTitle = node.Text;
 
-            //TODO: What will happen if node is moved or any of the ancestors is moved
             RefreshTaskPath();
-
-            DueDate = dueDate;
 
             TaskDueOnText = dueOnText;
 
@@ -106,7 +103,13 @@ namespace MindMate.Plugins.Tasks
             }
         }
 
-        public DateTime DueDate { get; set; }
+        public DateTime DueDate 
+        {
+            get
+            {
+                return MapNode.GetDueDate();
+            }            
+        }
 
         private Action<TaskView, TaskViewEvent> OnTaskViewEvent;
 
