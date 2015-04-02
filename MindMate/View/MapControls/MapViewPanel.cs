@@ -176,7 +176,16 @@ namespace MindMate.View.MapControls
             //base.OnMouseUp(e);            
         }
 
-                                   
+        public Rectangle GetVisibleRectangle()
+        {
+            return this.RectangleToClient(
+                Rectangle.Intersect(
+                    this.RectangleToScreen(this.ClientRectangle),
+                    this.Parent.RectangleToScreen(this.Parent.ClientRectangle)
+                    )
+                );
+
+        }                               
 
     }
 }

@@ -151,13 +151,42 @@ namespace MindMate.View.MapControls
         }
 
         void SelectedNodes_NodeDeselected(MapNode node, SelectedNodes selectedNodes)
-        {
+        {            
             Canvas.Invalidate();
         }
 
         void SelectedNodes_NodeSelected(MapNode node, SelectedNodes selectedNodes)
         {
+            NodeView nView = GetNodeView(node);
+            AdjustLocationToShowNodeView(nView);         
+
             Canvas.Invalidate();
+        }
+
+        private void AdjustLocationToShowNodeView(NodeView nView)
+        {
+            Rectangle visibleRect = Canvas.GetVisibleRectangle();
+
+            if (visibleRect.Left > nView.Left)
+            {
+                Canvas.Left += (int)(visibleRect.Left - nView.Left);
+            }
+            if (visibleRect.Top > nView.Top)
+            {
+                Canvas.Top += (int)(visibleRect.Top - nView.Top);
+            }
+            int visibleRectRight = visibleRect.Right;
+            int nViewRight = (int)(nView.Left + nView.Width);
+            if (visibleRectRight < nViewRight)
+            {
+                Canvas.Left += (int)(visibleRectRight - nViewRight);
+            }
+            int visibleRectBottom = visibleRect.Bottom;
+            int nViewBottom = (int)(nView.Top + nView.Height);
+            if (visibleRectBottom < nViewBottom)
+            {
+                Canvas.Top += (int)(visibleRectBottom - nViewBottom);
+            }
         }
 
         void systemIcon_StatusChange(MapNode node, ISystemIcon icon, MetaModel.SystemIconStatusChange e)
