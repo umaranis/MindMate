@@ -145,6 +145,25 @@ namespace MindMate.Plugins.Tasks.SideBar
             return count;
         }
 
+        /// <summary>
+        /// A new List is created and returned containing all the controls in Side Bar.
+        /// </summary>
+        /// <returns>Current snap shot of the list of controls in Side Bar</returns>
+        public List<Control> GetControlList()
+        {
+            List<Control> list = new List<Control>();
+
+            foreach(ControlGroup cg in ControlGroups)
+            {
+                foreach(Control c in cg)
+                {
+                    list.Add(c);
+                }
+            }
+
+            return list;
+        }
+
         public ControlGroup GetControlGroup(Control control)
         {
             return (ControlGroup)control.Parent.Parent;

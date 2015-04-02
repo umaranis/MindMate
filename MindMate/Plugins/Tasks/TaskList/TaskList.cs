@@ -274,5 +274,20 @@ namespace MindMate.Plugins.Tasks
             //3- Update due date
             tv.MapNode.SetDueDate(updateDate);
         }
+        
+        /// <summary>
+        /// Called as the day changes to refresh task list
+        /// </summary>
+        public void RefreshTaskList()
+        {
+            List<Control> list = GetControlList();
+
+            foreach(Control c in list)
+            {
+                TaskView tv = (TaskView)c;
+                this.RemoveTask(tv);
+                this.Add(tv);
+            }
+        }
     }
 }
