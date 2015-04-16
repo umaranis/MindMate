@@ -101,6 +101,8 @@ namespace MindMate.View.MapControls
             }
         }
 
+        public bool Highlighted { get; set; }
+
         private float left;
 
         public float Left

@@ -163,7 +163,7 @@ namespace MindMate.View.MapControls
                     TRACKMOUSEEVENT trackMouseEvent = new TRACKMOUSEEVENT(TMEFlags.TME_HOVER, this.Handle, HOVER_DEFAULT);
                     TrackMouseEvent(ref trackMouseEvent);
                     resetHoverEvent = false;
-                }
+            }
             }             
 
             base.OnMouseMove(e);
@@ -179,12 +179,21 @@ namespace MindMate.View.MapControls
 
             if (e.Button == System.Windows.Forms.MouseButtons.Right && mouseOverNode != null)
                 NodeRightClick(mouseOverNode, new NodeMouseEventArgs(e));
-              
-          
-            //base.OnMouseUp(e);               
+
+                        
+            //base.OnMouseUp(e);            
             
         }
 
+        public Rectangle GetVisibleRectangle()
+        {
+            return this.RectangleToClient(
+                Rectangle.Intersect(
+                    this.RectangleToScreen(this.ClientRectangle),
+                    this.Parent.RectangleToScreen(this.Parent.ClientRectangle)
+                    )
+                );
+        }
 
         #region Mouse Hover Event
 
@@ -193,7 +202,7 @@ namespace MindMate.View.MapControls
         protected override void OnMouseHover(EventArgs e)
         {
             resetHoverEvent = true;
-
+                                   
             Point clickPosition = this.PointToClient(Cursor.Position);
             MapNode node = mapView.GetMapNodeFromPoint(clickPosition);
             if(node != null)

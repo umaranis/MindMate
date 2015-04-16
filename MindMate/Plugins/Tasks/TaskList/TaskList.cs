@@ -10,29 +10,29 @@ namespace MindMate.Plugins.Tasks
 {
     public class TaskList : MindMate.Plugins.Tasks.SideBar.SideBar
     {
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupOverdue;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupToday;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupTomorrow;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupThisWeek;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupThisMonth;
-        private MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupNextMonth;
-        
 
         public TaskList()
         {
-            this.taskGroupOverdue = this.ControlGroups.Add("Overdue", System.Drawing.Color.Red);
-            this.taskGroupToday = this.ControlGroups.Add("Today", System.Drawing.Color.Black);
-            this.taskGroupTomorrow = this.ControlGroups.Add("Tomorrow", System.Drawing.Color.Black);
-            this.taskGroupThisWeek = this.ControlGroups.Add("This Week", System.Drawing.Color.Black);
-            this.taskGroupThisMonth = this.ControlGroups.Add("This Month", System.Drawing.Color.Black);
-            this.taskGroupNextMonth = this.ControlGroups.Add("Next Month", System.Drawing.Color.Black);
+            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupOverdue;
+            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupToday;
+            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupTomorrow;
+            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupThisWeek;
+            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupThisMonth;
+            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupNextMonth;
 
-            this.taskGroupOverdue.Tag = new TaskGroupOverdue();
-            this.taskGroupToday.Tag = new TaskGroupToday();
-            this.taskGroupTomorrow.Tag = new TaskGroupTomorrow(); 
-            this.taskGroupThisWeek.Tag = new TaskGroupThisWeek();
-            this.taskGroupThisMonth.Tag = new TaskGroupThisMonth();
-            this.taskGroupNextMonth.Tag = new TaskGroupNextMonth();
+            taskGroupOverdue = this.ControlGroups.Add("Overdue", System.Drawing.Color.Red);
+            taskGroupToday = this.ControlGroups.Add("Today", System.Drawing.Color.Black);
+            taskGroupTomorrow = this.ControlGroups.Add("Tomorrow", System.Drawing.Color.Black);
+            taskGroupThisWeek = this.ControlGroups.Add("This Week", System.Drawing.Color.Black);
+            taskGroupThisMonth = this.ControlGroups.Add("This Month", System.Drawing.Color.Black);
+            taskGroupNextMonth = this.ControlGroups.Add("Next Month", System.Drawing.Color.Black);
+            
+            taskGroupOverdue.Tag = new TaskGroupOverdue();
+            taskGroupToday.Tag = new TaskGroupToday();
+            taskGroupTomorrow.Tag = new TaskGroupTomorrow(); 
+            taskGroupThisWeek.Tag = new TaskGroupThisWeek();
+            taskGroupThisMonth.Tag = new TaskGroupThisMonth();
+            taskGroupNextMonth.Tag = new TaskGroupNextMonth();
         }
 
         public event Action<TaskView, TaskView.TaskViewEvent> TaskViewEvent;
@@ -45,71 +45,32 @@ namespace MindMate.Plugins.Tasks
                 ITaskGroup taskGroup = (ITaskGroup)ctrlGroup.Tag;
                 if(taskGroup.CanContain(dateTime))
                 {
-                    AddTask(ctrlGroup, node, dateTime, taskGroup.ShortDueDateString(dateTime));
+                    TaskView tv = new TaskView(node, taskGroup.ShortDueDateString(dateTime), OnTaskViewEvent);
+                    InsertTaskView(ctrlGroup, tv);
                     break;
                 }
             }
 
-            //if (DateHelper.IsOverdue(dateTime))
-            //{
-            //    AddTask(this.taskGroupOverdue, node, dateTime,
-            //        DateHelper.GetDayOfMonthString(dateTime));
-            //}
-            //else if (DateHelper.IsToday(dateTime))
-            //{
-            //    AddTask(this.taskGroupToday, node, dateTime,
-            //        DateHelper.GetTimePartString(dateTime));
-            //}
-            //else if (DateHelper.IsTomorrow(dateTime))
-            //{
-            //    AddTask(this.taskGroupTomorrow, node, dateTime,
-            //        DateHelper.GetTimePartString(dateTime));
-            //}
-            //else if (DateHelper.DateInThisWeek(dateTime))
-            //{
-            //    AddTask(this.taskGroupThisWeek, node, dateTime,
-            //        DateHelper.GetWeekDayString(dateTime));
-            //}
-            //else if (DateHelper.DateInThisMonth(dateTime))
-            //{
-            //    AddTask(this.taskGroupThisMonth, node, dateTime,
-            //        DateHelper.GetDayOfMonthString(dateTime));
-            //}
-            //else if (DateHelper.DateInNextMonth(dateTime))
-            //{
-            //    AddTask(this.taskGroupNextMonth, node, dateTime,
-            //        DateHelper.GetDayOfMonthString(dateTime));
-            //}
-
         }
 
-        private void AddTask(MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroup,
-            MindMate.Model.MapNode node, DateTime dateTime, string dueOnText)
+        public void Add(TaskView tv)
         {
-            TaskView tv = new TaskView(node, dateTime, dueOnText, OnTaskViewEvent);
-                        
-            InsertTaskView(taskGroup, tv);
-        }
-
-        private void OnTaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
-        {
-            TaskViewEvent(tv, e);
-        }
-
-        public void RemoveTask(TaskView tv)
-        {
-            var taskGroup = GetTaskGroup(tv);
-
-            taskGroup.Remove(tv);          
+            for (int i = 0; i < this.ControlGroups.Count; i++)
+            {
+                ControlGroup ctrlGroup = this.ControlGroups[i];
+                ITaskGroup taskGroup = (ITaskGroup)ctrlGroup.Tag;
+                if (taskGroup.CanContain(tv.DueDate))
+                {
+                    tv.TaskDueOnText = taskGroup.ShortDueDateString(tv.DueDate);
+                    tv.RefreshTaskPath();
+                    tv.TaskTitle = tv.MapNode.Text;
+                    InsertTaskView(ctrlGroup, tv);
+                    break;
+                }
+            }
 
         }
 
-        public ControlGroup GetTaskGroup(TaskView control)
-        {
-            return (ControlGroup)control.Parent.Parent;
-        }
-
-        
         private void InsertTaskView(ControlGroup taskGroup, TaskView taskView)
         {
             if (taskGroup.Count == 0)
@@ -136,6 +97,30 @@ namespace MindMate.Plugins.Tasks
             }
 
         }
+        
+
+        private void OnTaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
+        {
+            TaskViewEvent(tv, e);
+        }
+
+        public void RemoveTask(TaskView tv)
+        {
+            var taskGroup = GetControlGroup(tv);
+
+            taskGroup.Remove(tv);          
+
+        }        
+
+        public ITaskGroup GetTaskGroup(TaskView tv)
+        {
+            return (ITaskGroup)GetControlGroup(tv).Tag;
+        }
+
+        public ITaskGroup GetTaskGroup(ControlGroup cg)
+        {
+            return (ITaskGroup)cg.Tag;
+        }
 
         /// <summary>
         /// returns null if TaskView is not found
@@ -145,29 +130,14 @@ namespace MindMate.Plugins.Tasks
         /// <returns>returns null if not found</returns>
         public TaskView FindTaskView(MapNode node, DateTime dueDate)
         {
-            if (DateHelper.IsOverdue(dueDate))
+            for (int i = 0; i < this.ControlGroups.Count; i++)
             {
-                return FindTaskViewInGroup(taskGroupOverdue, node, dueDate);
-            }
-            else if (DateHelper.IsToday(dueDate))
-            {
-                return FindTaskViewInGroup(taskGroupToday, node, dueDate);
-            }
-            else if (DateHelper.IsTomorrow(dueDate))
-            {
-                return FindTaskViewInGroup(taskGroupTomorrow, node, dueDate);
-            }
-            else if (DateHelper.DateInThisWeek(dueDate))
-            {
-                return FindTaskViewInGroup(taskGroupThisWeek, node, dueDate);
-            }
-            else if (DateHelper.DateInThisMonth(dueDate))
-            {
-                return FindTaskViewInGroup(taskGroupThisMonth, node, dueDate);
-            }
-            else if (DateHelper.DateInNextMonth(dueDate))
-            {
-                return FindTaskViewInGroup(taskGroupNextMonth, node, dueDate);
+                ControlGroup ctrlGroup = this.ControlGroups[i];
+                ITaskGroup taskGroup = (ITaskGroup)ctrlGroup.Tag;
+                if (taskGroup.CanContain(dueDate))
+                {
+                    return FindTaskViewInGroup(ctrlGroup, node, dueDate);
+                }
             }
 
             return null;
@@ -194,15 +164,17 @@ namespace MindMate.Plugins.Tasks
 
         public void MoveDown(TaskView tv)
         {
-            TaskView nextTV = (TaskView)GetNextControlInGroup(tv);
+            DateTime updateDate = tv.DueDate.AddDays(5); //new date for TaskView  (setting default value, used if nothing else works)
+
+            TaskView nextTV = (TaskView)GetNextControl(tv, true);
             if (nextTV != null) //1- Move Down within a group
             {
                 //1.1 Calculate due date 1 hour after next
                 DateTime nextDueDate = nextTV.MapNode.GetDueDate();
-                DateTime updateDate = nextDueDate.AddHours(1);
+                updateDate = nextDueDate.AddHours(1);
 
                 //1.2 Check if it falls between 'next' and 'next to next'
-                TaskView nextToNext = (TaskView)GetNextControlInGroup(nextTV);
+                TaskView nextToNext = (TaskView)GetNextControl(nextTV, true);
                 if (nextToNext != null)
                 {
                     DateTime nextToNextDueDate = nextToNext.MapNode.GetDueDate();
@@ -213,10 +185,108 @@ namespace MindMate.Plugins.Tasks
                 }
 
                 //1.3 Check if calculated due date stays within the group
-                //if()
+                if(!GetTaskGroup(tv).CanContain(updateDate))
+                {
+                    updateDate = GetTaskGroup(tv).EndTime;                   
+                }
 
-                //1.4 Update due date
-                tv.MapNode.SetDueDate(updateDate);
+            }
+            else //2- Move Down to next group
+            {
+                ControlGroup cg = GetNextControlGroup(GetControlGroup(tv));
+
+                //2.1 Check if we are not in the last group
+                if (cg != null)
+                {
+                    //2.1.1 set the default first due date of the group
+                    updateDate = GetTaskGroup(cg).StartTime.AddHours(7);
+
+                    //2.1.2 Check if due date is before the first existing item
+                    if (cg.Count > 0 && ((TaskView)cg[0]).DueDate <= updateDate)
+                        updateDate = GetTaskGroup(cg).StartTime;
+
+                    //2.1.3 Check if due date is before the orignal date
+                    if (updateDate <= tv.DueDate)
+                    {
+                        if (GetTaskGroup(cg).EndTime.Date <= tv.DueDate)
+                            updateDate = tv.DueDate.AddDays(1);
+                        else
+                            updateDate = GetTaskGroup(cg).EndTime.Date;
+                    }
+
+                }
+            }
+
+            //3- Update due date
+            tv.MapNode.SetDueDate(updateDate);
+        }
+
+        public void MoveUp(TaskView tv)
+        {
+            DateTime updateDate = tv.DueDate.Subtract(TimeSpan.FromDays(1)); //new date for TaskView  (setting default value, used if nothing else works)
+
+            TaskView prevTV = (TaskView)GetPreviousControl(tv, true);
+            if (prevTV != null) //1- Move Down within a group
+            {
+                //1.1 Calculate due date 1 hour before previous
+                DateTime previousDueDate = prevTV.MapNode.GetDueDate();
+                updateDate = previousDueDate.Subtract(TimeSpan.FromHours(1));
+
+                //1.2 Check if it falls between 'previous' and 'previous to previous'
+                TaskView previousToPrevious = (TaskView)GetPreviousControl(prevTV, true);
+                if (previousToPrevious != null)
+                {
+                    DateTime previousToPreviousDueDate = previousToPrevious.MapNode.GetDueDate();
+                    if (updateDate < previousToPreviousDueDate)
+                    {
+                        updateDate = updateDate.Subtract(TimeSpan.FromTicks((previousToPreviousDueDate - previousDueDate).Ticks / 2));
+                    }
+                }
+
+                //1.3 Check if calculated due date stays within the group
+                if (!GetTaskGroup(tv).CanContain(updateDate))
+                {
+                    updateDate = GetTaskGroup(tv).StartTime;
+                }
+
+            }
+            else //2- Move up to previous group
+            {
+                ControlGroup cg = GetPreviousControlGroup(GetControlGroup(tv));
+
+                //2.1 Check if we are not in the first group
+                if (cg != null)
+                {
+                    //2.1.1 set the default first due date of the group
+                    updateDate = GetTaskGroup(cg).EndTime.Subtract(new TimeSpan(16,59,59));
+
+                    //2.1.2 Check if due date is after the last existing item
+                    if (cg.Count > 0 && ((TaskView)cg[cg.Count - 1]).DueDate >= updateDate)
+                        updateDate = GetTaskGroup(cg).EndTime;
+
+                    //2.1.3 Check if due date is after the orignal date
+                    if (updateDate > tv.DueDate)
+                        updateDate = GetTaskGroup(cg).StartTime.Date;
+
+                }
+            }
+
+            //3- Update due date
+            tv.MapNode.SetDueDate(updateDate);
+        }
+        
+        /// <summary>
+        /// Called as the day changes to refresh task list
+        /// </summary>
+        public void RefreshTaskList()
+        {
+            List<Control> list = GetControlList();
+
+            foreach(Control c in list)
+            {
+                TaskView tv = (TaskView)c;
+                this.RemoveTask(tv);
+                this.Add(tv);
             }
         }
     }

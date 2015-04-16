@@ -64,6 +64,8 @@ namespace MindMate.View.MapControls.Drawing
             }
             if (nodeView.Selected)
                 g.FillRectangle(Brushes.LightGray, new RectangleF(nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height));
+            else if(nodeView.Highlighted)
+                g.FillRectangle(Brushes.LightCoral, new RectangleF(nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height));
             TextRenderer.DrawText(g, node.Text, nodeView.Font,
                 new RectangleF(nodeView.RecText.Left, nodeView.RecText.Top, NodeView.MAXIMUM_TEXT_WIDTH, 5000),
                 nodeView.TextColor);

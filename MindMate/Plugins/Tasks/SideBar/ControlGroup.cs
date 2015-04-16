@@ -45,6 +45,18 @@ namespace MindMate.Plugins.Tasks.SideBar
             }
         }
 
+        public new event ControlEventHandler ControlRemoved
+        {
+            add
+            {
+                Table.ControlRemoved += value;
+            }
+            remove
+            {
+                Table.ControlRemoved -= value;
+            }
+        }
+
 
         #region IList<T> interface
 

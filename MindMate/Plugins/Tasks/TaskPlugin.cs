@@ -12,10 +12,12 @@ namespace MindMate.Plugins.Tasks
     {
         
         private DateTimePicker dateTimePicker; 
-        private TaskList taskList;                
+        private TaskList taskList;
+        private IPluginManager pluginManager;
 
         public void Initialize(IPluginManager pluginMgr)
         {
+            this.pluginManager = pluginMgr;
             dateTimePicker = new DateTimePicker();
             taskList = new TaskList();
             taskList.TaskViewEvent += taskList_TaskViewEvent;
@@ -31,13 +33,34 @@ namespace MindMate.Plugins.Tasks
                 case TaskView.TaskViewEvent.Complete:
                     CompleteTask(tv.MapNode);
                     break;
-                case TaskView.TaskViewEvent.MoveDown:
+                case TaskView.TaskViewEvent.Defer:
                     MoveDown(tv);
                     break;
-                case TaskView.TaskViewEvent.MoveUp:
+                case TaskView.TaskViewEvent.Expedite:
                     MoveUp(tv);
                     break;
+                case TaskView.TaskViewEvent.Edit:
+                    SetDueDate(tv.MapNode);
+                    break;
+                case TaskView.TaskViewEvent.Today:
+                    SetDueDate(tv.MapNode, DateHelper.GetDefaultDueDateToday());
+                    break;
+                case TaskView.TaskViewEvent.Tomorrow:
+                    SetDueDate(tv.MapNode, DateHelper.GetDefaultDueDateTomorrow());
+                    break;
+                case TaskView.TaskViewEvent.NextWeek:
+                    SetDueDate(tv.MapNode, DateHelper.GetDefaultDueDateNextWeek());
+                    break;
+                case TaskView.TaskViewEvent.NextMonth:
+                    SetDueDate(tv.MapNode, DateHelper.GetDefaultDueDateNextMonth());
+                    break;
+                case TaskView.TaskViewEvent.NextQuarter:
+                    SetDueDate(tv.MapNode, DateHelper.GetDefaultDueDateNextQuarter());
+                    break;
+
             }
+
+            pluginManager.FocusMapEditor();            
         }
                                        
         public void CreateMainMenuItems(out MenuItem[] menuItems, out MainMenuLocation position)
@@ -57,6 +80,9 @@ namespace MindMate.Plugins.Tasks
 
             tree.SelectedNodes.NodeSelected += SelectedNodes_NodeSelected;
             tree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
+
+            tree.NodePropertyChanged += tree_NodePropertyChanged;
+            tree.TreeStructureChanged += tree_TreeStructureChanged;
         }
 
         void SelectedNodes_NodeSelected(MapNode node, SelectedNodes selectedNodes)
@@ -97,7 +123,7 @@ namespace MindMate.Plugins.Tasks
             {
                 TaskView tv = taskList.FindTaskView(node, DateHelper.ToDateTime(e.oldValue.value));
                 if (tv != null) taskList.RemoveTask(tv);
-                taskList.Add(node, DateHelper.ToDateTime(e.newValue.value));
+                taskList.Add(tv);
             }
             // Comletion Date attribute changed
             else if (e.ChangeType == AttributeChange.Added && e.newValue.AttributeSpec.IsCompletionDate())
@@ -109,6 +135,78 @@ namespace MindMate.Plugins.Tasks
                 TaskCompleteIcon.FireStatusChangeEvent(node, SystemIconStatusChange.Hide);
             }
         }
+
+        void tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
+        {
+            if(e.ChangedProperty == NodeProperties.Text)
+            {
+                // update task title
+                if (node.DueDateExists())
+                {
+                    TaskView tv = taskList.FindTaskView(node, node.GetDueDate());
+                    if (tv != null) tv.TaskTitle = node.Text;
+                }
+
+                // update task parent
+                RefreshTaskList(node, tv => tv.RefreshTaskPath());
+            }            
+        }
+
+        void tree_TreeStructureChanged(MapNode node, TreeStructureChangedEventArgs e)
+        {
+            if(e.ChangeType == TreeStructureChange.Deleting)
+            {
+                RefreshTaskList(node, tv => taskList.RemoveTask(tv));
+            }
+            else if(e.ChangeType == TreeStructureChange.Detaching)
+            {
+                RefreshTaskList(node, tv => taskList.RemoveTask(tv));
+            }
+            else if(e.ChangeType == TreeStructureChange.Attached)
+            {
+                node.ForEach((n) =>
+                    {
+                        if (n.DueDateExists())
+                            taskList.Add(n, n.GetDueDate());
+                    });
+            }
+        }
+
+        /// <summary>
+        /// Refreshes TaskList for any changes to changedNode or its descendents
+        /// </summary>
+        /// <param name="changedNode"></param>
+        /// <param name="operation"></param>
+        private void RefreshTaskList(MapNode changedNode, Action<TaskView> operation)
+        {
+            //int taskViewCount = taskList.GetControlCount();
+            //for(int i = 0; i < taskViewCount; i++)
+            //{
+            //    TaskView tv = (TaskView)taskList.GetControl(i);
+            //    if (tv.MapNode == changedNode || tv.MapNode.isDescendent(changedNode))
+            //        operation(tv);
+            //}
+
+            if (!changedNode.HasChildren && changedNode.DueDateExists())
+            {
+                operation(taskList.FindTaskView(changedNode, changedNode.GetDueDate()));
+            }
+            else
+            {
+                TaskView ctrl = (TaskView)taskList.GetFirstControl();
+                TaskView nextCtrl;
+
+                while (ctrl != null)
+                {
+                    nextCtrl = (TaskView)taskList.GetNextControl(ctrl); //this method has to be called before operation as operation might delete the ctrl
+                    if (ctrl.MapNode == changedNode || ctrl.MapNode.isDescendent(changedNode))
+                        operation(ctrl);
+                    ctrl = nextCtrl;
+                }
+            }
+        }
+
+        
                 
         public void OnDeletingTree(Model.MapTree tree)
         {
@@ -149,7 +247,7 @@ namespace MindMate.Plugins.Tasks
 
         private void MoveUp(TaskView tv)
         {
-            throw new NotImplementedException();
+            taskList.MoveUp(tv);
         }
     }
 }

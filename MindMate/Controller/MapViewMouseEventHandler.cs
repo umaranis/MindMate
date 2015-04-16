@@ -124,13 +124,20 @@ namespace MindMate.Controller
             
         }
 
+        internal void NodeMouseEnter(MapNode node, MouseEventArgs e)
+        {
+            node.NodeView.Highlighted = true;
+        }
+
         public void NodeMouseExit(MapNode node, MouseEventArgs e)
         {
             if (mapCtrl.MapView.Canvas.Cursor != Cursors.Default)
             {
                 mapCtrl.MapView.Canvas.Cursor = Cursors.Default;
             }
+
+            node.NodeView.Highlighted = false;
         }
-       
+                
     }
 }
