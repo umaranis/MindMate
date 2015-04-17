@@ -18,6 +18,8 @@ namespace MindMate.View.MapControls.Drawing
     static class MapPainter
     {
 
+        public static Brush HighlightBrush = new SolidBrush(Color.FromArgb(235, 235, 235));
+
         internal static void DrawTree(MapView mapView, System.Drawing.Graphics g)
         {
             //Draw root node
@@ -43,7 +45,7 @@ namespace MindMate.View.MapControls.Drawing
         internal static void DrawNode(NodeView node, bool bDrawChildren, MapView mapView, System.Drawing.Graphics g)
         {
 
-            DrawNode(node, g);
+            DrawNode(node, g, mapView.HighlightedNode == node.Node);
 
             if (bDrawChildren)
             {
@@ -52,7 +54,7 @@ namespace MindMate.View.MapControls.Drawing
 
         }
 
-        private static void DrawNode(NodeView nodeView, System.Drawing.Graphics g)
+        private static void DrawNode(NodeView nodeView, System.Drawing.Graphics g, bool highlight = false)
         {
             MapNode node = nodeView.Node;
             if (!nodeView.BackColor.IsEmpty)
@@ -63,9 +65,9 @@ namespace MindMate.View.MapControls.Drawing
                 }
             }
             if (nodeView.Selected)
-                g.FillRectangle(Brushes.LightGray, new RectangleF(nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height));
-            else if(nodeView.Highlighted)
-                g.FillRectangle(Brushes.LightCoral, new RectangleF(nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height));
+                g.FillRectangle(Brushes.LightGray, nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height);
+            else if (highlight)
+                g.FillRectangle(HighlightBrush, nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height);
             TextRenderer.DrawText(g, node.Text, nodeView.Font,
                 new RectangleF(nodeView.RecText.Left, nodeView.RecText.Top, NodeView.MAXIMUM_TEXT_WIDTH, 5000),
                 nodeView.TextColor);

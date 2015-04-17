@@ -77,6 +77,15 @@ namespace MindMate.Controller
 
         }
 
+        internal void NodeRightClick(MapNode node, NodeMouseEventArgs e)
+        {
+            bool shiftKeyDown = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
+            bool ctrlKeyDown = (Control.ModifierKeys & Keys.Control) == Keys.Control;
+
+            if (!shiftKeyDown && !ctrlKeyDown)
+                mapCtrl.MapView.Tree.SelectedNodes.Add(node);
+        }
+
 
         public void CanvasClick(MouseEventArgs e)
         {
@@ -126,7 +135,7 @@ namespace MindMate.Controller
 
         internal void NodeMouseEnter(MapNode node, MouseEventArgs e)
         {
-            node.NodeView.Highlighted = true;
+            mapCtrl.MapView.HighlightNode(node);
         }
 
         public void NodeMouseExit(MapNode node, MouseEventArgs e)
@@ -136,8 +145,8 @@ namespace MindMate.Controller
                 mapCtrl.MapView.Canvas.Cursor = Cursors.Default;
             }
 
-            node.NodeView.Highlighted = false;
+            mapCtrl.MapView.ClearHighlightedNode();
         }
-                
+        
     }
 }

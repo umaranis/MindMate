@@ -70,7 +70,18 @@ namespace MindMate.View.MapControls
             }
         }
 
+        private MapNode highlightedNode;
+        public MapNode HighlightedNode
+        {
+            get
+            {
+                return highlightedNode;
+            }
+        }
 
+        public void HighlightNode(MapNode node) { highlightedNode = node; Canvas.Invalidate(); }
+
+        public void ClearHighlightedNode() { highlightedNode = null; Canvas.Invalidate(); }
 
         /// <summary>
         /// 
