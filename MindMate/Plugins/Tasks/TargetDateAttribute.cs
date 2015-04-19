@@ -75,7 +75,7 @@ namespace MindMate.Plugins.Tasks
 
         public static bool IsTargetDate(this MapTree.AttributeSpec aspec)
         {
-            return aspec.Name == ATTRIBUTE_NAME && aspec.Type == MapTree.AttributeType.System;
+            return aspec.Name == ATTRIBUTE_NAME;
         }
 
         private static MapTree.AttributeSpec CreateAttributeSpec(this MapTree tree)
@@ -88,7 +88,7 @@ namespace MindMate.Plugins.Tasks
         private static MapTree.AttributeSpec GetAttributeSpec(MapTree tree)
         {
             MapTree.AttributeSpec aspec = tree.GetAttributeSpec(ATTRIBUTE_NAME);
-            return (aspec != null && aspec.Type == MapTree.AttributeType.System) ? aspec : null;
+            return aspec;
         }
 
         private static MapTree.AttributeSpec GetOrCreateAttributeSpec(MapTree tree)

@@ -22,7 +22,10 @@ namespace MindMate.Model
 
             if (values == null && ListType != AttributeListOption.NoList) this.values = new SortedSet<string>();
 
-            Tree.attributeSpecs.Add(this.Name, this);
+            if(this.type != AttributeType.Calculated)
+                Tree.attributeSpecs.Add(this.Name, this);
+            else
+                Tree.attributeSpecs.Add("#cal#" + this.Name, this);
             Tree.FireEvent(this, new AttributeSpecEventArgs() {  Change = AttributeSpecChange.Addded  } );
 
         }
