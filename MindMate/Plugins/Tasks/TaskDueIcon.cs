@@ -24,7 +24,8 @@ namespace MindMate.Plugins.Tasks
 
         internal void FireStatusChangeEvent(MapNode node, SystemIconStatusChange change)
         {
-            StatusChange(node, this, change);
+            if(StatusChange != null)
+                StatusChange(node, this, change);
         }
     }
 }
