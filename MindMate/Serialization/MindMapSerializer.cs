@@ -24,38 +24,48 @@ namespace MindMate.Serialization
         public void Serialize(Stream stream, MapTree tree)
         {
             XmlTextWriter xml = new XmlTextWriter(stream, Encoding.ASCII);
-            xml.WriteStartDocument();
+            //xml.WriteStartDocument();
             xml.WriteStartElement("map");
-            xml.WriteAttributeString("version", "0.8.0");
+            xml.WriteAttributeString("version", "0.9.0");
+            this.SerializeAttributeRegistry(tree, xml);
             this.Serialize(tree.RootNode, xml);
             xml.WriteEndElement();
-            xml.WriteEndDocument();
+            //xml.WriteEndDocument();
             xml.Flush();
             //xml.Close();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="XMLString"></param>
-        /// <returns>Return the Root Node after constructing the hierarchy</returns>
-        public void Deserialize(string XMLString, MapTree tree)
+        public void SerializeAttributeRegistry(MapTree tree, XmlTextWriter xml)
         {
-            
-            System.Xml.XmlDocument xmlDoc = new System.Xml.XmlDocument(); //TODO: Use XmlTextReader instead to speed up the code
-            xmlDoc.LoadXml(XMLString);
-            XmlElement x = xmlDoc.DocumentElement;
-
-            for (int i = 0; i < x.ChildNodes.Count; i++)
+            if (tree.AttributeSpecCount > 0)
             {
-                XmlNode xnode = x.ChildNodes[i];
-                if (xnode.Name == "node")
+                xml.WriteStartElement("attribute_registry");
+                foreach(MindMate.Model.MapTree.AttributeSpec att in tree.AttributeSpecs)
                 {
-                    this.Deserialize(xnode, tree);                    
+                    xml.WriteStartElement("attribute_name");
+                    xml.WriteAttributeString("NAME", att.Name);
+                    xml.WriteAttributeString("VISIBLE", att.Visible.ToString());
+                    xml.WriteAttributeString("RESTRICTED", (att.ListType == MapTree.AttributeListOption.RestrictedList).ToString()); // included in listoption attribute, it is there for compatibility with freemind
+                    xml.WriteAttributeString("TYPE", att.Type.ToString()); // additional to freemind
+                    xml.WriteAttributeString("DATATYPE", att.DataType.ToString()); // additional to freemind
+                    xml.WriteAttributeString("LISTOPTION", att.ListType.ToString()); // additional to freemind
+
+                    if (att.ListType == MapTree.AttributeListOption.RestrictedList)
+                    {
+                        foreach (string v in att.Values)
+                        {
+                            xml.WriteStartElement("attribute_value");
+                            xml.WriteAttributeString("VALUE", v);
+                            xml.WriteEndElement();
+                        }
+                    }
+
+                    xml.WriteEndElement();
                 }
+                xml.WriteEndElement();
             }
         }
-
+        
         /// <summary>
         /// XmlTextWriter based
         /// </summary>
@@ -128,12 +138,97 @@ namespace MindMate.Serialization
                 xml.WriteEndElement();
             }
 
+            if (mapNode.Attributes != null)
+            {
+                foreach (MapNode.Attribute a in mapNode.Attributes)
+                {
+                    xml.WriteStartElement("attribute");
+                    xml.WriteAttributeString("NAME", a.AttributeSpec.Name);
+                    xml.WriteAttributeString("VALUE", a.value);
+                    xml.WriteEndElement();
+                }
+            }
+
             foreach (MapNode cNode in mapNode.ChildNodes)
             {
                 this.Serialize(cNode, xml);
             }
 
             xml.WriteEndElement();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="XMLString"></param>
+        /// <returns>Return the Root Node after constructing the hierarchy</returns>
+        public void Deserialize(string XMLString, MapTree tree)
+        {
+
+            System.Xml.XmlDocument xmlDoc = new System.Xml.XmlDocument(); //TODO: Use XmlTextReader instead to speed up the code
+            xmlDoc.LoadXml(XMLString);
+            XmlElement x = xmlDoc.DocumentElement;
+
+            for (int i = 0; i < x.ChildNodes.Count; i++)
+            {
+                XmlNode xnode = x.ChildNodes[i];
+                if (xnode.Name == "attribute_registry")
+                {
+                    this.DeserializeAttributeRegistry(xnode, tree);
+                }
+                else if (xnode.Name == "node")
+                {
+                    this.Deserialize(xnode, tree);
+                }
+            }
+        }
+
+        public void DeserializeAttributeRegistry(XmlNode xmlAttrRegistry, MapTree tree)
+        {
+            foreach(XmlNode xmlAttribute in xmlAttrRegistry)
+            {
+                if(xmlAttribute.Name == "attribute_name")
+                {
+                    var attr = xmlAttribute.Attributes["NAME"];
+                    string attrName = attr != null ? attr.Value : null;
+
+                    attr = xmlAttribute.Attributes["VISIBLE"];
+                    bool visible = attr != null ? bool.Parse(attr.Value) : true;
+
+                    attr = xmlAttribute.Attributes["TYPE"];
+                    MapTree.AttributeType type = (MapTree.AttributeType) (attr != null ? Enum.Parse(typeof(MapTree.AttributeType), attr.Value) : MapTree.AttributeType.UserDefined);
+
+                    attr = xmlAttribute.Attributes["DATATYPE"];
+                    MapTree.AttributeDataType dataType = (MapTree.AttributeDataType)
+                        (attr != null ? 
+                            Enum.Parse(typeof(MapTree.AttributeDataType), attr.Value) : 
+                            MapTree.AttributeDataType.Alphanumeric);
+
+                    attr = xmlAttribute.Attributes["LISTOPTION"];
+                    MapTree.AttributeListOption listOption = (MapTree.AttributeListOption)
+                        (attr != null ?
+                        Enum.Parse(typeof(MapTree.AttributeListOption), attr.Value) :
+                        MapTree.AttributeListOption.OptionalList);
+
+                    SortedSet<string> attrValues = null;                    
+                    if(listOption != MapTree.AttributeListOption.NoList)
+                    {
+                        attrValues = new SortedSet<string>();
+
+                        foreach(XmlNode xmlValue in xmlAttribute.ChildNodes)
+                        {
+                            if(xmlValue.Name == "attribute_value")
+                            {
+                                attr = xmlValue.Attributes["VALUE"];
+                                if(attr != null)
+                                    attrValues.Add(attr.Value);
+                            }
+                        }
+                    }
+
+                    new MapTree.AttributeSpec(tree, attrName, visible, dataType, listOption, attrValues, type);
+                }
+            }
         }
 
         /// <summary>
@@ -267,6 +362,20 @@ namespace MindMate.Serialization
 
                         node.RichContentText = tmpXNode.InnerText;
                     }
+                }
+                else if(tmpXNode.Name == "attribute")
+                {
+                    string attibuteName = tmpXNode.Attributes["NAME"].Value;
+                    string value = null;
+
+                    XmlAttribute xmlAtt = tmpXNode.Attributes["VALUE"];
+
+                    if (xmlAtt != null)
+                    {
+                        value = xmlAtt.Value;
+                    }
+
+                    node.AddAttribute(attibuteName, value);
                 }
             }
 
