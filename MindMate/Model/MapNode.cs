@@ -312,6 +312,10 @@ namespace MindMate.Model
         }
 
         private List<Attribute> attributeList;
+
+        /// <summary>
+        /// returns null if no attributes
+        /// </summary>
         public IEnumerable<Attribute> Attributes { get { return attributeList; } }
 
         public int AttributeCount { get { return attributeList == null ? 0 : attributeList.Count; } }
@@ -393,6 +397,14 @@ namespace MindMate.Model
             attributeList.Add(attribute);
 
             Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Added, newValue = attribute });
+        }
+
+        public void AddAttribute(string attributeName, string value)
+        {
+            MapTree.AttributeSpec aSpec = Tree.GetAttributeSpec(attributeName);
+            if(aSpec == null) aSpec = new MapTree.AttributeSpec(Tree, attributeName);
+            MapNode.Attribute attribute = new Attribute(aSpec, value);
+            AddAttribute(attribute);
         }
 
         public void UpdateAttribute(int index, string newValue)

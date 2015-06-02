@@ -244,8 +244,9 @@ namespace MindMate.Controller
                     this.ToggleNode(parent);
                 }
 
+                MapView.RefreshChildNodePositions(tree.RootNode, tmpNode.Pos);
+
                 this.MapView.SelectedNodes.Add(tmpNode, false);
-                MapView.RefreshChildNodePositions(tree.RootNode, tmpNode.Pos);                
             }
             return tmpNode;
         }
