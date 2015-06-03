@@ -196,6 +196,7 @@
     <Compile Include="View\MapControls\Link.cs" />
     <Compile Include="View\MapControls\IconView.cs" />
     <Compile Include="Serialization\IconHandler.cs" />
+    <None Include="images\filenew.png" />
     <None Include="View\Dialogs\IconSelector.cs">
       <SubType>Form</SubType>
     </None>
@@ -330,7 +331,11 @@
     <None Include="images\knotes.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="images\filenew.png" />
+    <Content Include="images\edittrash.png" />
+    <Content Include="images\Executable.png" />
+    <Content Include="images\fileopen.png" />
+    <Content Include="images\filesave.png" />
+    <Content Include="images\filesaveas.png" />
     <Content Include="images\icons\attach.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -547,6 +552,8 @@
     <Content Include="images\icons\yes.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\InputBoxQuestion.jpg" />
+    <Content Include="images\Link.png" />
     <Content Include="LICENSE.txt" />
     <None Include="Resources\application_view_columns.png" />
     <None Include="Resources\application_view_detail.png" />
