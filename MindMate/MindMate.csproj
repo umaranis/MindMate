@@ -554,6 +554,10 @@
     </Content>
     <Content Include="images\InputBoxQuestion.jpg" />
     <Content Include="images\Link.png" />
+    <Content Include="images\LinkLocal.png" />
+    <Content Include="images\LinkWeb.png" />
+    <Content Include="images\plugins\kalzium.png" />
+    <Content Include="images\remove.png" />
     <Content Include="LICENSE.txt" />
     <None Include="Resources\application_view_columns.png" />
     <None Include="Resources\application_view_detail.png" />
