@@ -52,14 +52,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CustomFontDialog">
-      <HintPath>..\..\..\FontDialog\CustomFontDialog\bin\Release\CustomFontDialog.dll</HintPath>
+    <Reference Include="CustomFontDialog, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Binaries\CustomFontDialog.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="protobuf-net">
-      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+    <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Binaries\protobuf-net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -331,6 +333,8 @@
     <None Include="images\knotes.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Binaries\CustomFontDialog.dll" />
+    <Content Include="Binaries\protobuf-net.dll" />
     <Content Include="images\edittrash.png" />
     <Content Include="images\Executable.png" />
     <Content Include="images\fileopen.png" />
