@@ -20,7 +20,7 @@ namespace MindMate.Serialization
             }
         }
 
-        public void Deserialize(string text, MapNode location)
+        public void Deserialize(string text, MapNode location, string link = null)
         {
             string line;
             int indent = 0, previousIndent = 0;
@@ -33,7 +33,7 @@ namespace MindMate.Serialization
                 
                 if(previousNode == null)
                 {
-                    node = new MapNode(location, line.Trim());                    
+                    node = CreateNode(location, line.Trim(), link);                    
                 }                
                 else
                 {
@@ -49,7 +49,7 @@ namespace MindMate.Serialization
                         
                     }
 
-                    node = new MapNode(previousNode, line.Trim());
+                    node = CreateNode(previousNode, line.Trim(), link);
                 }
                 previousNode = node;
                 previousIndent = indent;        
@@ -64,6 +64,11 @@ namespace MindMate.Serialization
                 indent++;
             }
             return indent;
+        }
+
+        private MapNode CreateNode(MapNode parent, string text, string link = null)
+        {
+            return new MapNode(parent, text) { Link = link };
         }
     }
 }

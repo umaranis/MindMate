@@ -87,8 +87,9 @@ namespace MindMate.Model
             }
             else if(Clipboard.ContainsText())
             {
+                string link = GetBrowserSourceLink();
                 MapTextSerializer serializer = new MapTextSerializer();
-                serializer.Deserialize(Clipboard.GetText(TextDataFormat.Text), pasteLocation);
+                serializer.Deserialize(Clipboard.GetText(TextDataFormat.Text), pasteLocation, link);
             }
             else if(Clipboard.ContainsFileDropList())
             {
@@ -105,6 +106,23 @@ namespace MindMate.Model
             }
         }
 
+        private static string GetBrowserSourceLink()
+        {
+            if (Clipboard.ContainsText(TextDataFormat.Html))
+            {
+                string text = Clipboard.GetText(TextDataFormat.Html);
+                int i = text.IndexOf("SourceURL:");                
+                if(i > 0)
+                {
+                    i += 10;
+                    int j = text.IndexOf((char)Keys.Enter, i);
+                    text = text.Substring(i, j - i);
+                    return text;                    
+                }
+            }
+
+            return null;            
+        }
         
 
         private static bool[] ExcludeNodesAlreadyPartOfHierarchy(SelectedNodes nodes)
