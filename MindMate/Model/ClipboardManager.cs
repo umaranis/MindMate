@@ -89,7 +89,17 @@ namespace MindMate.Model
             {
                 string link = GetBrowserSourceLink();
                 MapTextSerializer serializer = new MapTextSerializer();
-                serializer.Deserialize(Clipboard.GetText(TextDataFormat.Text), pasteLocation, link);
+
+                serializer.Deserialize(Clipboard.GetText(TextDataFormat.Text), pasteLocation, 
+                    (parent, text) =>
+                    {
+                        string tempLink = link;
+                        if (text.StartsWith("http://", StringComparison.OrdinalIgnoreCase)
+                            || text.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+                            tempLink = text;
+                        return new MapNode(parent, text) { Link = tempLink };
+                    });
+
             }
             else if(Clipboard.ContainsFileDropList())
             {
