@@ -116,9 +116,6 @@ namespace MindMate.Controller
         {
             MapTree tree = CreateEmptyTree();
             tree.RootNode = new MapNode(tree, "New Map");
-            new MapNode(tree.RootNode, "Node 1", NodePosition.Right);
-            new MapNode(tree.RootNode, "Node 2", NodePosition.Left);
-            new MapNode(tree.RootNode, "Node 3", NodePosition.Left);
 
             return tree;
         }
