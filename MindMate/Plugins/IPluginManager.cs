@@ -8,6 +8,8 @@ namespace MindMate.Plugins
 {
     public interface IPluginManager
     {
-        void FocusMapEditor();        
+        void FocusMapEditor();
+
+        void ScheduleTask(TaskSchedular.Task task);    
     }
 }

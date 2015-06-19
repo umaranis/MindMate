@@ -100,6 +100,11 @@ namespace MindMate.Plugins
             mainCtrl.FocusLastControl();
         }
 
+        public void ScheduleTask(TaskSchedular.Task task)
+        {
+            mainCtrl.ScheduleTask(task);
+        }
+
         #endregion IPluginManager Interface
     }
 }

@@ -78,6 +78,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="TaskSchedular, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Binaries\TaskSchedular.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MetaModel\Icon.cs" />
@@ -335,6 +339,7 @@
   <ItemGroup>
     <Content Include="Binaries\CustomFontDialog.dll" />
     <Content Include="Binaries\protobuf-net.dll" />
+    <Content Include="Binaries\TaskSchedular.dll" />
     <Content Include="images\edittrash.png" />
     <Content Include="images\Executable.png" />
     <Content Include="images\fileopen.png" />

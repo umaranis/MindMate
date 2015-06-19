@@ -33,6 +33,8 @@ namespace MindMate.Controller
         private ColorDialog colorDialog;
         private CustomFontDialog.FontDialog fontDialog;
 
+        private TaskSchedular.TaskSchedular schedular;
+
         public const string APPLICATION_NAME = "Mind Mate";
 
         
@@ -43,6 +45,7 @@ namespace MindMate.Controller
             pluginManager = new Plugins.PluginManager(this);
             pluginManager.Initialize();
             mainForm.Load += mainForm_Load;
+            mainForm.Shown += mainForm_AfterReady;
 
             return mainForm;
         }
@@ -127,12 +130,19 @@ namespace MindMate.Controller
             return tree;
         }
 
+        private void mainForm_AfterReady(object sender, EventArgs args)
+        {
+            schedular = new TaskSchedular.TaskSchedular();
+            schedular.Start();
+        }
+
         void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (PromptForUnsavedChanges() == ContinueOperation.Continue && 
                 PromptForLosingClipboardData() == ContinueOperation.Continue)
             {
                 SaveSettingsAtClose();
+                schedular.Stop();
             }
             else
             {
@@ -415,6 +425,11 @@ namespace MindMate.Controller
         public void SetMapViewBackColor(System.Drawing.Color color)
         {
             mapCtrl.SetMapViewBackColor(color);
+        }
+
+        public void ScheduleTask(TaskSchedular.Task task)
+        {
+            schedular.AddTask(task);
         }
     }
 }

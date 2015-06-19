@@ -2,8 +2,6 @@
 using MindMate.Plugins.Tasks.SideBar;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MindMate.Plugins.Tasks
@@ -13,12 +11,12 @@ namespace MindMate.Plugins.Tasks
 
         public TaskList()
         {
-            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupOverdue;
-            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupToday;
-            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupTomorrow;
-            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupThisWeek;
-            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupThisMonth;
-            MindMate.Plugins.Tasks.SideBar.ControlGroup taskGroupNextMonth;
+            ControlGroup taskGroupOverdue;
+            ControlGroup taskGroupToday;
+            ControlGroup taskGroupTomorrow;
+            ControlGroup taskGroupThisWeek;
+            ControlGroup taskGroupThisMonth;
+            ControlGroup taskGroupNextMonth;
 
             taskGroupOverdue = this.ControlGroups.Add("Overdue", System.Drawing.Color.Red);
             taskGroupToday = this.ControlGroups.Add("Today", System.Drawing.Color.Black);
@@ -46,7 +44,7 @@ namespace MindMate.Plugins.Tasks
                 if(taskGroup.CanContain(dateTime))
                 {
                     TaskView tv = new TaskView(node, taskGroup.ShortDueDateString(dateTime), OnTaskViewEvent);
-                    InsertTaskView(ctrlGroup, tv);
+                    AddToGroup(ctrlGroup, tv);
                     break;
                 }
             }
@@ -64,14 +62,14 @@ namespace MindMate.Plugins.Tasks
                     tv.TaskDueOnText = taskGroup.ShortDueDateString(tv.DueDate);
                     tv.RefreshTaskPath();
                     tv.TaskTitle = tv.MapNode.Text;
-                    InsertTaskView(ctrlGroup, tv);
+                    AddToGroup(ctrlGroup, tv);
                     break;
                 }
             }
 
         }
 
-        private void InsertTaskView(ControlGroup taskGroup, TaskView taskView)
+        private void AddToGroup(ControlGroup taskGroup, TaskView taskView)
         {
             if (taskGroup.Count == 0)
             {
