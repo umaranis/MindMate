@@ -43,7 +43,7 @@
             // btnRemove
             // 
             this.btnRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemove.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnRemove.BackColor = System.Drawing.Color.Transparent;
             this.btnRemove.Image = TaskRes.date_delete;
             this.btnRemove.Location = new System.Drawing.Point(1221, 3);
             this.btnRemove.Name = "btnRemove";
@@ -54,7 +54,7 @@
             // btnComplete
             // 
             this.btnComplete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnComplete.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnComplete.BackColor = System.Drawing.Color.Transparent;
             this.btnComplete.Image = TaskRes.tick;
             this.btnComplete.Location = new System.Drawing.Point(1200, 3);
             this.btnComplete.Name = "btnComplete";
@@ -65,7 +65,7 @@
             // btnDown
             // 
             this.btnDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDown.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnDown.BackColor = System.Drawing.Color.Transparent;
             this.btnDown.Image = TaskRes.arrow_270_medium;
             this.btnDown.Location = new System.Drawing.Point(1179, 3);
             this.btnDown.Name = "btnDown";
@@ -76,7 +76,7 @@
             // btnUp
             // 
             this.btnUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnUp.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnUp.BackColor = System.Drawing.Color.Transparent;
             this.btnUp.Image = TaskRes.arrow_090_medium;
             this.btnUp.Location = new System.Drawing.Point(1158, 3);
             this.btnUp.Name = "btnUp";
