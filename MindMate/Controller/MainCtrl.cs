@@ -41,6 +41,7 @@ namespace MindMate.Controller
         public MainForm LaunchMindMate()
         {
             MetaModel.MetaModel.Initialize();
+            schedular = new TaskSchedular.TaskSchedular();
             mainForm = new MainForm();
             pluginManager = new Plugins.PluginManager(this);
             pluginManager.Initialize();
@@ -132,7 +133,6 @@ namespace MindMate.Controller
 
         private void mainForm_AfterReady(object sender, EventArgs args)
         {
-            schedular = new TaskSchedular.TaskSchedular();
             schedular.Start();
         }
 
