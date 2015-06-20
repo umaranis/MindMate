@@ -12,6 +12,9 @@ namespace MindMate.Plugins.Tasks
 {
     public partial class TaskView : UserControl
     {
+
+        private bool isMouseOver = false;
+
         public TaskView(MapNode node, string dueOnText,
             Action<TaskView, TaskViewEvent> onTaskViewEvent)
         {
@@ -32,7 +35,9 @@ namespace MindMate.Plugins.Tasks
             TaskDueOnText = dueOnText;
 
             if (node.Selected)
-                Selected = true;            
+                Selected = true;
+
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.TaskView_Paint);
         }
 
         public void RefreshTaskPath()
@@ -115,9 +120,9 @@ namespace MindMate.Plugins.Tasks
 
         protected override void OnMouseEnter(EventArgs e)
         {
-            SetQuickActionsVisiblity(true);            
+            SetQuickActionsVisiblity(true);
             //BackColor = Color.AliceBlue;
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.TaskView_Paint);
+            isMouseOver = true;
             Invalidate();
         }
 
@@ -125,14 +130,15 @@ namespace MindMate.Plugins.Tasks
         {
             SetQuickActionsVisiblity(false);
             //BackColor = SystemColors.ControlLight;
-            this.Paint -= new System.Windows.Forms.PaintEventHandler(this.TaskView_Paint);
+            isMouseOver = false;
             Invalidate();
         }
 
         
         private void TaskView_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawRectangle(Pens.Black, 0, 0, this.Width - 1, this.Height - 1);            
+            if(isMouseOver)
+                e.Graphics.DrawRectangle(Pens.Black, 0, 0, this.Width - 1, this.Height - 1);            
         }
 
         private void TaskView_MouseUp(object sender, MouseEventArgs e)
