@@ -159,8 +159,8 @@ namespace MindMate.View.MapControls
 
                 if (resetHoverEvent)
                 {
-                    const uint HOVER_DEFAULT = 0xFFFFFFFF;
-                    TRACKMOUSEEVENT trackMouseEvent = new TRACKMOUSEEVENT(TMEFlags.TME_HOVER, this.Handle, HOVER_DEFAULT);
+                    const uint HOVER_TIME = 200; // miliseconds
+                    TRACKMOUSEEVENT trackMouseEvent = new TRACKMOUSEEVENT(TMEFlags.TME_HOVER, this.Handle, HOVER_TIME);
                     TrackMouseEvent(ref trackMouseEvent);
                     resetHoverEvent = false;
             }
@@ -209,6 +209,7 @@ namespace MindMate.View.MapControls
             {
                 NodeMouseEventArgs args = new NodeMouseEventArgs(
                     new MouseEventArgs(System.Windows.Forms.MouseButtons.None, 0, clickPosition.X, clickPosition.Y, 0));
+                args.NodePortion = mapView.GetNodeView(node).GetNodeClickPortion(clickPosition);
                 NodeMouseOver(mouseOverNode, args);
             }
 
