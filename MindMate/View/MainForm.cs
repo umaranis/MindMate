@@ -28,7 +28,6 @@ namespace MindMate.View
         public MainForm()
         {
             InitializeComponent();
-
             SetupSideBar();
         }
 
@@ -62,7 +61,24 @@ namespace MindMate.View
         {
             get { return sideBarTabs; }
         }
-        
-        
+
+
+        #region toolbar click events (routed to main menu items)
+        private void toolbarButtonNew_Click(object sender, EventArgs e)
+        {
+            newToolStripMenuItem.PerformClick();
+        }
+
+        private void toolbarButtonOpen_Click(object sender, EventArgs e)
+        {
+            openToolStripMenuItem.PerformClick();
+        }
+
+        private void toolbarButtonSave_Click(object sender, EventArgs e)
+        {
+            saveToolStripMenuItem.PerformClick();
+        }
+        #endregion toolbar click events (routed to main menu items)
+
     }
 }
