@@ -276,13 +276,15 @@ namespace MindMate.Controller
             return tree;
         }
 
+        /// <summary>
+        /// Create a new Mind Map
+        /// </summary>
         public void NewMap()
         {
             if (PromptForUnsavedChanges() == ContinueOperation.Cancel)
                 return;
 
-            statusBarCtrl.Unregister(this.mapCtrl.MapView.Tree);
-            UnregisterForMapChangedNotification();
+            CloseMap();
 
             MapTree tree = CreateNewMapTree();
 
@@ -335,8 +337,7 @@ namespace MindMate.Controller
             MapTree tree = CreateEmptyTree();
             new MindMapSerializer().Deserialize(xmlString, tree);
 
-            statusBarCtrl.Unregister(this.mapCtrl.MapView.Tree);
-            UnregisterForMapChangedNotification();
+            CloseMap();
 
             mapCtrl.MindMateFile = fileName;
             mapCtrl.ChangeTree(tree);
@@ -413,6 +414,13 @@ namespace MindMate.Controller
         #endregion Save Map
 
         #region Close Map
+
+        private void CloseMap()
+        {
+            pluginManager.OnTreeDeleting(this.mapCtrl.MapView.Tree);
+            statusBarCtrl.Unregister(this.mapCtrl.MapView.Tree);
+            UnregisterForMapChangedNotification();
+        }
 
         private enum ContinueOperation { Continue, Cancel };
 

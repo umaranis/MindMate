@@ -95,6 +95,19 @@ namespace MindMate.Plugins.Tasks
             tree.TreeStructureChanged += tree_TreeStructureChanged;
         }
 
+        public void OnDeletingTree(Model.MapTree tree)
+        {
+            tree.AttributeChanged -= tree_AttributeChanged;
+
+            tree.SelectedNodes.NodeSelected -= SelectedNodes_NodeSelected;
+            tree.SelectedNodes.NodeDeselected -= SelectedNodes_NodeDeselected;
+
+            tree.NodePropertyChanged -= tree_NodePropertyChanged;
+            tree.TreeStructureChanged -= tree_TreeStructureChanged;
+
+            taskList.Clear(tree);
+        }
+
         void SelectedNodes_NodeSelected(MapNode node, SelectedNodes selectedNodes)
         {
             if(node.DueDateExists())
@@ -181,12 +194,6 @@ namespace MindMate.Plugins.Tasks
                     });
             }
         }        
-                
-        public void OnDeletingTree(Model.MapTree tree)
-        {
-            throw new NotImplementedException();
-        }
-
         private void SetDueDate(MapNode node, DateTime dateTime)
         {
             node.SetDueDate(dateTime);

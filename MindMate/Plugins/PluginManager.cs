@@ -79,7 +79,15 @@ namespace MindMate.Plugins
                 plugin.OnCreatingTree(tree);
             } 
         }
-               
+
+        internal void OnTreeDeleting(MapTree tree)
+        {
+            foreach (IPlugin plugin in Plugins)
+            {
+                plugin.OnDeletingTree(tree);
+            }
+        }
+
 
         internal void OnMapNodeContextMenuOpening(SelectedNodes selectedNodes)
         {
@@ -103,7 +111,7 @@ namespace MindMate.Plugins
         public void ScheduleTask(TaskSchedular.Task task)
         {
             mainCtrl.ScheduleTask(task);
-        }
+        }        
 
         #endregion IPluginManager Interface
     }

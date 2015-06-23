@@ -2,13 +2,11 @@
 using MindMate.Plugins.Tasks.SideBar;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace MindMate.Plugins.Tasks
 {
     public class TaskList : MindMate.Plugins.Tasks.SideBar.SideBar
     {
-
         public TaskList()
         {
             ControlGroup taskGroupOverdue;
@@ -35,38 +33,46 @@ namespace MindMate.Plugins.Tasks
 
         public event Action<TaskView, TaskView.TaskViewEvent> TaskViewEvent;
 
-        public void Add(MindMate.Model.MapNode node, DateTime dateTime)
+        public void Add(MapNode node, DateTime dateTime)
         {
-            for (int i = 0; i < this.ControlGroups.Count; i++)
-            {
-                ControlGroup ctrlGroup = this.ControlGroups[i];
-                ITaskGroup taskGroup = (ITaskGroup)ctrlGroup.Tag;
-                if(taskGroup.CanContain(dateTime))
-                {
-                    TaskView tv = new TaskView(node, taskGroup.ShortDueDateString(dateTime), OnTaskViewEvent);
-                    AddToGroup(ctrlGroup, tv);
-                    break;
-                }
-            }
+            ControlGroup ctrlGroup = GetApplicableGroup(dateTime);
 
+            if (ctrlGroup != null)
+            {
+                ITaskGroup taskGroup = (ITaskGroup)ctrlGroup.Tag;
+                TaskView tv = new TaskView(node, taskGroup.ShortDueDateString(dateTime), OnTaskViewEvent);
+                AddToGroup(ctrlGroup, tv);
+            }            
         }
 
         public void Add(TaskView tv)
         {
+            ControlGroup ctrlGroup = GetApplicableGroup(tv.DueDate);
+
+            if (ctrlGroup != null)
+            {
+                ITaskGroup taskGroup = (ITaskGroup)ctrlGroup.Tag;
+                tv.TaskDueOnText = taskGroup.ShortDueDateString(tv.DueDate);
+                tv.RefreshTaskPath();
+                tv.TaskTitle = tv.MapNode.Text;
+                AddToGroup(ctrlGroup, tv);
+            }
+        }
+
+        private ControlGroup GetApplicableGroup(DateTime dueDate)
+        {
             for (int i = 0; i < this.ControlGroups.Count; i++)
             {
                 ControlGroup ctrlGroup = this.ControlGroups[i];
                 ITaskGroup taskGroup = (ITaskGroup)ctrlGroup.Tag;
-                if (taskGroup.CanContain(tv.DueDate))
+                if (taskGroup.CanContain(dueDate))
                 {
-                    tv.TaskDueOnText = taskGroup.ShortDueDateString(tv.DueDate);
-                    tv.RefreshTaskPath();
-                    tv.TaskTitle = tv.MapNode.Text;
-                    AddToGroup(ctrlGroup, tv);
-                    break;
+                    return ctrlGroup;
                 }
             }
 
+            // not found
+            return null;
         }
 
         private void AddToGroup(ControlGroup taskGroup, TaskView taskView)
@@ -95,7 +101,6 @@ namespace MindMate.Plugins.Tasks
             }
 
         }
-        
 
         private void OnTaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
         {
@@ -278,13 +283,21 @@ namespace MindMate.Plugins.Tasks
         /// </summary>
         public void RefreshTaskList()
         {
-            List<Control> list = GetControlList();
+            //List<Control> list = GetControlList();
 
-            foreach(Control c in list)
+            //foreach(Control c in list)
+            //{
+            //    TaskView tv = (TaskView)c;
+            //    this.RemoveTask(tv);
+            //    this.Add(tv);
+            //}
+
+            TaskView tv = (TaskView)GetFirstControl();
+            while(tv != null)
             {
-                TaskView tv = (TaskView)c;
-                this.RemoveTask(tv);
-                this.Add(tv);
+                RemoveTask(tv);
+                Add(tv);
+                tv = (TaskView)GetNextControl(tv);
             }
         }
 
@@ -319,6 +332,19 @@ namespace MindMate.Plugins.Tasks
                         operation(ctrl);
                     ctrl = nextCtrl;
                 }
+            }
+        }
+
+        public void Clear(MapTree tree)
+        {
+            TaskView tv = (TaskView)GetFirstControl();
+            while (tv != null)
+            {
+                TaskView nextTV = (TaskView)GetNextControl(tv);
+
+                if (tv.MapNode.Tree == tree) RemoveTask(tv);
+
+                tv = nextTV;                
             }
         }
     }
