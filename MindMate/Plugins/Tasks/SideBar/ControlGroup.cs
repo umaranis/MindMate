@@ -57,6 +57,18 @@ namespace MindMate.Plugins.Tasks.SideBar
             }
         }
 
+        private void AdjustHeightOnAdd(Control item)
+        {
+            Table.Height = Table.Height + item.Height + Table.Margin.Top + Table.Margin.Bottom + 2;
+            this.Height = Table.Height + Table.Top;
+        }
+
+        private void AdjustHeightOnRemove(Control item)
+        {
+            Table.Height = Table.Height - item.Height - Table.Margin.Bottom - Table.Margin.Top - 2;
+            this.Height = Table.Height + Table.Top;
+        }
+
 
         #region IList<T> interface
 
@@ -64,8 +76,7 @@ namespace MindMate.Plugins.Tasks.SideBar
         {
             if (Table.RowCount == 0) this.Visible = true;
 
-            Table.Height = Table.Height + item.Height + Table.Margin.Top + Table.Margin.Bottom;
-            this.Height = Table.Height + Table.Top;
+            AdjustHeightOnAdd(item);
 
             Table.RowCount += 1;
 
@@ -86,8 +97,7 @@ namespace MindMate.Plugins.Tasks.SideBar
                     Table.SetRow(tv, i + 1);                    
                 }
 
-                Table.Height = Table.Height + item.Height + Table.Margin.Top + Table.Margin.Bottom;
-                this.Height = Table.Height + Table.Top;
+                AdjustHeightOnAdd(item);
 
                 Table.RowCount += 1;
                 Table.Controls.Add(item, 0, index); 
@@ -174,8 +184,7 @@ namespace MindMate.Plugins.Tasks.SideBar
         {
             if (rowNum > -1)
             {
-                Table.Height = Table.Height - item.Height - Table.Margin.Bottom - Table.Margin.Top;
-                this.Height = Table.Height + Table.Top;
+                AdjustHeightOnRemove(item);
 
                 Table.RowCount -= 1;
                 Table.Controls.Remove(item);                
