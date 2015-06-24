@@ -30,26 +30,14 @@
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mFileMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.asBMPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mSepRecentFilesStart = new System.Windows.Forms.ToolStripSeparator();
             this.mSepRecentFilesEnd = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mEditMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.mCut = new System.Windows.Forms.ToolStripMenuItem();
-            this.mCopy = new System.Windows.Forms.ToolStripMenuItem();
-            this.mPaste = new System.Windows.Forms.ToolStripMenuItem();
-            this.mDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.formatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mSelectIcon = new System.Windows.Forms.ToolStripMenuItem();
-            this.mBold = new System.Windows.Forms.ToolStripMenuItem();
-            this.mItalic = new System.Windows.Forms.ToolStripMenuItem();
-            this.mFont = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.mTextColor = new System.Windows.Forms.ToolStripMenuItem();
             this.mBackColor = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,10 +68,30 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolbarButtonNew = new System.Windows.Forms.ToolStripButton();
             this.toolbarButtonOpen = new System.Windows.Forms.ToolStripButton();
             this.toolbarButtonSave = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolbarButtonCut = new System.Windows.Forms.ToolStripButton();
+            this.toolbarButtonCopy = new System.Windows.Forms.ToolStripButton();
+            this.toolbarButtonPaste = new System.Windows.Forms.ToolStripButton();
+            this.toolbarButtonDelete = new System.Windows.Forms.ToolStripButton();
+            this.toolbarButtonFormatBold = new System.Windows.Forms.ToolStripButton();
+            this.toolbarButtonFormatItalic = new System.Windows.Forms.ToolStripButton();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mCut = new System.Windows.Forms.ToolStripMenuItem();
+            this.mCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.mPaste = new System.Windows.Forms.ToolStripMenuItem();
+            this.mDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.mSelectIcon = new System.Windows.Forms.ToolStripMenuItem();
+            this.mBold = new System.Windows.Forms.ToolStripMenuItem();
+            this.mItalic = new System.Windows.Forms.ToolStripMenuItem();
+            this.mFont = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolbarButtonFormatFont = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -121,48 +129,17 @@
             this.mFileMenu.Size = new System.Drawing.Size(37, 20);
             this.mFileMenu.Text = "&File";
             // 
-            // newToolStripMenuItem
-            // 
-            this.newToolStripMenuItem.Image = global::MindMate.Properties.Resources.filenew;
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.newToolStripMenuItem.Text = "New";
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Image = global::MindMate.Properties.Resources.fileopen;
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.openToolStripMenuItem.Text = "Open";
-            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Image = global::MindMate.Properties.Resources.filesave;
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveToolStripMenuItem.Text = "Save";
-            // 
-            // saveAsToolStripMenuItem
-            // 
-            this.saveAsToolStripMenuItem.Image = global::MindMate.Properties.Resources.filesaveas;
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.saveAsToolStripMenuItem.Text = "Save As ...";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
             // 
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.asBMPToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // asBMPToolStripMenuItem
@@ -174,18 +151,18 @@
             // mSepRecentFilesStart
             // 
             this.mSepRecentFilesStart.Name = "mSepRecentFilesStart";
-            this.mSepRecentFilesStart.Size = new System.Drawing.Size(149, 6);
+            this.mSepRecentFilesStart.Size = new System.Drawing.Size(143, 6);
             // 
             // mSepRecentFilesEnd
             // 
             this.mSepRecentFilesEnd.Name = "mSepRecentFilesEnd";
-            this.mSepRecentFilesEnd.Size = new System.Drawing.Size(149, 6);
+            this.mSepRecentFilesEnd.Size = new System.Drawing.Size(143, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // mEditMenu
@@ -198,34 +175,6 @@
             this.mEditMenu.Name = "mEditMenu";
             this.mEditMenu.Size = new System.Drawing.Size(39, 20);
             this.mEditMenu.Text = "&Edit";
-            // 
-            // mCut
-            // 
-            this.mCut.Name = "mCut";
-            this.mCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.mCut.Size = new System.Drawing.Size(144, 22);
-            this.mCut.Text = "Cut";
-            // 
-            // mCopy
-            // 
-            this.mCopy.Name = "mCopy";
-            this.mCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.mCopy.Size = new System.Drawing.Size(144, 22);
-            this.mCopy.Text = "Copy";
-            // 
-            // mPaste
-            // 
-            this.mPaste.Name = "mPaste";
-            this.mPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.mPaste.Size = new System.Drawing.Size(144, 22);
-            this.mPaste.Text = "Paste";
-            // 
-            // mDelete
-            // 
-            this.mDelete.Name = "mDelete";
-            this.mDelete.ShortcutKeyDisplayString = "Del";
-            this.mDelete.Size = new System.Drawing.Size(144, 22);
-            this.mDelete.Text = "Delete";
             // 
             // formatToolStripMenuItem
             // 
@@ -243,35 +192,6 @@
             this.formatToolStripMenuItem.Name = "formatToolStripMenuItem";
             this.formatToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
             this.formatToolStripMenuItem.Text = "For&mat";
-            // 
-            // mSelectIcon
-            // 
-            this.mSelectIcon.Image = global::MindMate.Properties.Resources.kalzium;
-            this.mSelectIcon.Name = "mSelectIcon";
-            this.mSelectIcon.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.I)));
-            this.mSelectIcon.Size = new System.Drawing.Size(182, 22);
-            this.mSelectIcon.Text = "Select Icon ...";
-            // 
-            // mBold
-            // 
-            this.mBold.Name = "mBold";
-            this.mBold.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
-            this.mBold.Size = new System.Drawing.Size(182, 22);
-            this.mBold.Text = "Bold";
-            // 
-            // mItalic
-            // 
-            this.mItalic.Name = "mItalic";
-            this.mItalic.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.mItalic.Size = new System.Drawing.Size(182, 22);
-            this.mItalic.Text = "Italic";
-            // 
-            // mFont
-            // 
-            this.mFont.Name = "mFont";
-            this.mFont.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.mFont.Size = new System.Drawing.Size(182, 22);
-            this.mFont.Text = "Font ...";
             // 
             // toolStripSeparator2
             // 
@@ -479,12 +399,30 @@
             this.toolbarButtonNew,
             this.toolbarButtonOpen,
             this.toolbarButtonSave,
-            this.toolStripSeparator4});
+            this.toolStripSeparator4,
+            this.toolbarButtonCut,
+            this.toolbarButtonCopy,
+            this.toolbarButtonPaste,
+            this.toolbarButtonDelete,
+            this.toolStripSeparator5,
+            this.toolbarButtonFormatBold,
+            this.toolbarButtonFormatItalic,
+            this.toolbarButtonFormatFont});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(733, 25);
             this.toolStrip1.TabIndex = 5;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
             // 
             // toolbarButtonNew
             // 
@@ -516,10 +454,170 @@
             this.toolbarButtonSave.ToolTipText = "Save";
             this.toolbarButtonSave.Click += new System.EventHandler(this.toolbarButtonSave_Click);
             // 
-            // toolStripSeparator4
+            // toolbarButtonCut
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            this.toolbarButtonCut.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolbarButtonCut.Image = global::MindMate.Properties.Resources.cut;
+            this.toolbarButtonCut.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolbarButtonCut.Name = "toolbarButtonCut";
+            this.toolbarButtonCut.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonCut.ToolTipText = "Cut";
+            this.toolbarButtonCut.Click += new System.EventHandler(this.toolbarButtonCut_Click);
+            // 
+            // toolbarButtonCopy
+            // 
+            this.toolbarButtonCopy.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolbarButtonCopy.Image = global::MindMate.Properties.Resources.page_copy;
+            this.toolbarButtonCopy.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolbarButtonCopy.Name = "toolbarButtonCopy";
+            this.toolbarButtonCopy.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonCopy.ToolTipText = "Copy";
+            this.toolbarButtonCopy.Click += new System.EventHandler(this.toolbarButtonCopy_Click);
+            // 
+            // toolbarButtonPaste
+            // 
+            this.toolbarButtonPaste.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolbarButtonPaste.Image = global::MindMate.Properties.Resources.page_paste;
+            this.toolbarButtonPaste.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolbarButtonPaste.Name = "toolbarButtonPaste";
+            this.toolbarButtonPaste.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonPaste.ToolTipText = "Paste";
+            this.toolbarButtonPaste.Click += new System.EventHandler(this.toolbarButtonPaste_Click);
+            // 
+            // toolbarButtonDelete
+            // 
+            this.toolbarButtonDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolbarButtonDelete.Image = global::MindMate.Properties.Resources.remove_arrows;
+            this.toolbarButtonDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolbarButtonDelete.Name = "toolbarButtonDelete";
+            this.toolbarButtonDelete.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonDelete.ToolTipText = "Delete";
+            this.toolbarButtonDelete.Click += new System.EventHandler(this.toolbarButtonDelete_Click);
+            // 
+            // toolbarButtonFormatBold
+            // 
+            this.toolbarButtonFormatBold.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolbarButtonFormatBold.Image = global::MindMate.Properties.Resources.text_bold;
+            this.toolbarButtonFormatBold.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolbarButtonFormatBold.Name = "toolbarButtonFormatBold";
+            this.toolbarButtonFormatBold.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonFormatBold.ToolTipText = "Bold";
+            this.toolbarButtonFormatBold.Click += new System.EventHandler(this.toolbarButtonFormatBold_Click);
+            // 
+            // toolbarButtonFormatItalic
+            // 
+            this.toolbarButtonFormatItalic.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolbarButtonFormatItalic.Image = global::MindMate.Properties.Resources.text_italic;
+            this.toolbarButtonFormatItalic.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolbarButtonFormatItalic.Name = "toolbarButtonFormatItalic";
+            this.toolbarButtonFormatItalic.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonFormatItalic.ToolTipText = "Italic";
+            this.toolbarButtonFormatItalic.Click += new System.EventHandler(this.toolbarButtonFormatItalic_Click);
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Image = global::MindMate.Properties.Resources.filenew;
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.newToolStripMenuItem.Text = "New";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Image = global::MindMate.Properties.Resources.fileopen;
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openToolStripMenuItem.Text = "Open";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Image = global::MindMate.Properties.Resources.filesave;
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.saveToolStripMenuItem.Text = "Save";
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Image = global::MindMate.Properties.Resources.filesaveas;
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.saveAsToolStripMenuItem.Text = "Save As ...";
+            // 
+            // mCut
+            // 
+            this.mCut.Image = global::MindMate.Properties.Resources.cut;
+            this.mCut.Name = "mCut";
+            this.mCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.mCut.Size = new System.Drawing.Size(144, 22);
+            this.mCut.Text = "Cut";
+            // 
+            // mCopy
+            // 
+            this.mCopy.Image = global::MindMate.Properties.Resources.page_copy;
+            this.mCopy.Name = "mCopy";
+            this.mCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.mCopy.Size = new System.Drawing.Size(144, 22);
+            this.mCopy.Text = "Copy";
+            // 
+            // mPaste
+            // 
+            this.mPaste.Image = global::MindMate.Properties.Resources.page_paste;
+            this.mPaste.Name = "mPaste";
+            this.mPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.mPaste.Size = new System.Drawing.Size(144, 22);
+            this.mPaste.Text = "Paste";
+            // 
+            // mDelete
+            // 
+            this.mDelete.Image = global::MindMate.Properties.Resources.remove_arrows;
+            this.mDelete.Name = "mDelete";
+            this.mDelete.ShortcutKeyDisplayString = "Del";
+            this.mDelete.Size = new System.Drawing.Size(144, 22);
+            this.mDelete.Text = "Delete";
+            // 
+            // mSelectIcon
+            // 
+            this.mSelectIcon.Image = global::MindMate.Properties.Resources.kalzium;
+            this.mSelectIcon.Name = "mSelectIcon";
+            this.mSelectIcon.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.I)));
+            this.mSelectIcon.Size = new System.Drawing.Size(182, 22);
+            this.mSelectIcon.Text = "Select Icon ...";
+            // 
+            // mBold
+            // 
+            this.mBold.Image = global::MindMate.Properties.Resources.text_bold;
+            this.mBold.Name = "mBold";
+            this.mBold.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.mBold.Size = new System.Drawing.Size(182, 22);
+            this.mBold.Text = "Bold";
+            // 
+            // mItalic
+            // 
+            this.mItalic.Image = global::MindMate.Properties.Resources.text_italic;
+            this.mItalic.Name = "mItalic";
+            this.mItalic.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.mItalic.Size = new System.Drawing.Size(182, 22);
+            this.mItalic.Text = "Italic";
+            // 
+            // mFont
+            // 
+            this.mFont.Image = global::MindMate.Properties.Resources.font;
+            this.mFont.Name = "mFont";
+            this.mFont.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+            this.mFont.Size = new System.Drawing.Size(182, 22);
+            this.mFont.Text = "Font ...";
+            // 
+            // toolbarButtonFormatFont
+            // 
+            this.toolbarButtonFormatFont.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolbarButtonFormatFont.Image = global::MindMate.Properties.Resources.font;
+            this.toolbarButtonFormatFont.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolbarButtonFormatFont.Name = "toolbarButtonFormatFont";
+            this.toolbarButtonFormatFont.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonFormatFont.ToolTipText = "Font";
+            this.toolbarButtonFormatFont.Click += new System.EventHandler(this.toolbarButtonFormatFont_Click);
             // 
             // MainForm
             // 
@@ -606,6 +704,14 @@
         private System.Windows.Forms.ToolStripButton toolbarButtonOpen;
         private System.Windows.Forms.ToolStripButton toolbarButtonSave;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripButton toolbarButtonCut;
+        private System.Windows.Forms.ToolStripButton toolbarButtonCopy;
+        private System.Windows.Forms.ToolStripButton toolbarButtonPaste;
+        private System.Windows.Forms.ToolStripButton toolbarButtonDelete;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripButton toolbarButtonFormatBold;
+        private System.Windows.Forms.ToolStripButton toolbarButtonFormatItalic;
+        private System.Windows.Forms.ToolStripButton toolbarButtonFormatFont;
     }
 }
 

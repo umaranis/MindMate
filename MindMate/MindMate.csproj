@@ -591,6 +591,15 @@
     <None Include="Resources\arrow-270-medium.png" />
     <None Include="Resources\arrow-090-small.png" />
     <None Include="Resources\arrow-270-small.png" />
+    <None Include="Resources\cut.ico" />
+    <None Include="Resources\page_copy.ico" />
+    <None Include="Resources\page_paste.ico" />
+    <None Include="Resources\cross.ico" />
+    <None Include="Resources\remove_arrows.ico" />
+    <None Include="Resources\text_bold.ico" />
+    <None Include="Resources\text_italic.ico" />
+    <None Include="Resources\text_underline.ico" />
+    <None Include="Resources\font.ico" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
