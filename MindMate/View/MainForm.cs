@@ -78,6 +78,39 @@ namespace MindMate.View
         {
             saveToolStripMenuItem.PerformClick();
         }
+        private void toolbarButtonCut_Click(object sender, EventArgs e)
+        {
+            mCut.PerformClick();
+        }
+        private void toolbarButtonCopy_Click(object sender, EventArgs e)
+        {
+            mCopy.PerformClick();
+        }
+
+        private void toolbarButtonPaste_Click(object sender, EventArgs e)
+        {
+            mPaste.PerformClick();
+        }
+
+        private void toolbarButtonDelete_Click(object sender, EventArgs e)
+        {
+            mDelete.PerformClick();
+        }
+
+        private void toolbarButtonFormatBold_Click(object sender, EventArgs e)
+        {
+            mBold.PerformClick();
+        }
+
+        private void toolbarButtonFormatItalic_Click(object sender, EventArgs e)
+        {
+            mItalic.PerformClick();
+        }
+
+        private void toolbarButtonFormatFont_Click(object sender, EventArgs e)
+        {
+            mFont.PerformClick();
+        }
         #endregion toolbar click events (routed to main menu items)
 
     }
