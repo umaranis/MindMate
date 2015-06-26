@@ -25,7 +25,8 @@ namespace MindMate.Model
             if(this.type != AttributeType.Calculated)
                 Tree.attributeSpecs.Add(this.Name, this);
             else
-                Tree.attributeSpecs.Add("#cal#" + this.Name, this);
+                Tree.attributeSpecs.Add(":" + this.Name, this); //attributes apart from calculated should not start from ':' as it is reserved for calculated attributes
+
             Tree.FireEvent(this, new AttributeSpecEventArgs() {  Change = AttributeSpecChange.Addded  } );
 
         }
