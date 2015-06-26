@@ -49,7 +49,7 @@ namespace MindMate.View.MapControls
 
             editBox.PreviewKeyDown += editBox_PreviewKeyDown;
             editBox.LostFocus += new EventHandler(editBoxLostFocus);
-            editBox.KeyDown += new KeyEventHandler(editBoxKeyDown);
+            editBox.KeyDown += new KeyEventHandler(editBoxKeyDown);                        
         }
 
         void editBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -76,6 +76,18 @@ namespace MindMate.View.MapControls
         {
             this.textUpdateCallBack = null;
         }     
+
+        public ContextMenuStrip ContextMenu
+        {
+            get
+            {
+                return editBox.ContextMenuStrip;
+            }
+            set
+            {
+                editBox.ContextMenuStrip = value;
+            }
+        }
 
         public void PasteFromClipboard()
         {

@@ -34,8 +34,24 @@ namespace MindMate.Controller
             mapCtrl.MapView.Canvas.NodeRightClick += Canvas_NodeRightClick;
             mapCtrl.MapView.Canvas.KeyDown += Canvas_KeyDown;
 
+            mapCtrl.MapView.Canvas.contextMenu.Opening += ContextMenu_Opening;
+
+            mapCtrl.MapView.NodeTextEditor.ContextMenu = mapCtrl.MapView.Canvas.contextMenu;
+
         }
-                
+
+        private void ContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if(mapCtrl.MapView.NodeTextEditor.IsTextEditing)
+            {
+                mapCtrl.MapView.Canvas.mEditNode.Text = "End Editing";
+            }
+            else
+            {
+                mapCtrl.MapView.Canvas.mEditNode.Text = "Edit Node";
+            }
+        }
+
         public void InsertMenuItems(Plugins.MenuItem [] menuItems)
         {            
             ContextMenuStrip contextMenu = mapCtrl.MapView.Canvas.contextMenu;
@@ -111,7 +127,10 @@ namespace MindMate.Controller
 
         private void mEditNode_Click(object sender, EventArgs e)
         {
-            mapCtrl.BeginCurrentNodeEdit(TextCursorPosition.Undefined);
+            if (mapCtrl.MapView.NodeTextEditor.IsTextEditing)
+                mapCtrl.EndNodeEdit();
+            else
+                mapCtrl.BeginCurrentNodeEdit(TextCursorPosition.Undefined);
         }
 
         private void mInsertChild_Click(object sender, EventArgs e)
@@ -123,6 +142,7 @@ namespace MindMate.Controller
         {
             mapCtrl.AppendIconFromIconSelectorExt();
         }
+
 
     }
 }

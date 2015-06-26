@@ -47,7 +47,7 @@ namespace MindMate.Controller
             map = new MapViewMouseEventHandler(this);
             this.tree = tree;
                        
-            MapView = new MindMate.View.MapControls.MapView(tree);
+            MapView = new MapView(tree);
             MapView.Canvas.NodeClick += map.MapNodeClick;
             MapView.Canvas.NodeRightClick += map.NodeRightClick;
             MapView.Canvas.CanvasClick += map.CanvasClick;
@@ -189,6 +189,11 @@ namespace MindMate.Controller
                 MapView.RefreshChildNodePositions(tree.RootNode, node.Pos);
             }
 
+        }
+
+        public void EndNodeEdit(bool updateNode = true)
+        {
+            MapView.NodeTextEditor.EndNodeEdit(updateNode, true);
         }
 
         public void UpdateNodeText(MapNode node, string newText)
