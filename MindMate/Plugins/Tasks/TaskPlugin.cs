@@ -131,22 +131,19 @@ namespace MindMate.Plugins.Tasks
             // Due Date attribute changed
             if (e.ChangeType == AttributeChange.Removed && e.oldValue.AttributeSpec.IsDueDate()) 
             {
-                TaskView tv = taskList.FindTaskView(node, DateHelper.ToDateTime(e.oldValue.value));
-                if (tv != null) taskList.RemoveTask(tv);
+                taskList.RemoveTask(node, DateHelper.ToDateTime(e.oldValue.value));
 
                 TaskDueIcon.FireStatusChangeEvent(node, SystemIconStatusChange.Hide);
             }
             else if (e.ChangeType == AttributeChange.Added && e.newValue.AttributeSpec.IsDueDate())
             {
-                taskList.Add(node, DateHelper.ToDateTime(e.newValue.value));
+                taskList.Add(node);
 
                 TaskDueIcon.FireStatusChangeEvent(node, SystemIconStatusChange.Show);
             }
             else if (e.ChangeType == AttributeChange.ValueUpdated && e.newValue.AttributeSpec.IsDueDate())
             {
-                TaskView tv = taskList.FindTaskView(node, DateHelper.ToDateTime(e.oldValue.value));
-                if (tv != null) taskList.RemoveTask(tv);
-                taskList.Add(tv);
+                taskList.RefreshTaskDueDate(node, DateHelper.ToDateTime(e.oldValue.value));
             }
             // Comletion Date attribute changed
             else if (e.ChangeType == AttributeChange.Added && e.newValue.AttributeSpec.IsCompletionDate())
@@ -179,18 +176,18 @@ namespace MindMate.Plugins.Tasks
         {
             if(e.ChangeType == TreeStructureChange.Deleting)
             {
-                taskList.RefreshTaskList(node, tv => taskList.RemoveTask(tv));
+                taskList.RefreshTaskList(node, tv => taskList.RemoveTask(tv.MapNode, tv.MapNode.GetDueDate()));
             }
             else if(e.ChangeType == TreeStructureChange.Detaching)
             {
-                taskList.RefreshTaskList(node, tv => taskList.RemoveTask(tv));
+                taskList.RefreshTaskList(node, tv => taskList.RemoveTask(tv.MapNode, tv.MapNode.GetDueDate()));
             }
             else if(e.ChangeType == TreeStructureChange.Attached)
             {
                 node.ForEach((n) =>
                     {
                         if (n.DueDateExists())
-                            taskList.Add(n, n.GetDueDate());
+                            taskList.Add(n);
                     });
             }
         }        
