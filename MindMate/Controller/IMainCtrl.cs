@@ -15,8 +15,6 @@ namespace MindMate.Controller
     /// </summary>
     public interface IMainCtrl
     {
-        void AddMainPanel(View.MapControls.MapViewPanel mapViewPanel);
-
         System.Drawing.Color ShowColorPicker(System.Drawing.Color currentColor);
 
         System.Drawing.Font ShowFontDialog(System.Drawing.Font currentFont);

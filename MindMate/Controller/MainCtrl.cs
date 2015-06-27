@@ -25,7 +25,7 @@ namespace MindMate.Controller
     public class MainCtrl : IMainCtrl
     {
         private View.MainForm mainForm;
-        private Control lastFocused;
+        
 
         private Plugins.PluginManager pluginManager;
 
@@ -84,11 +84,11 @@ namespace MindMate.Controller
             tree.SelectedNodes.Add(tree.RootNode);
 
             mapCtrl = new MapCtrl(tree, this);
+            mainForm.AddMainPanel(mapCtrl.MapView.Canvas);            
             mapCtrl.MindMateFile = MetaModel.MetaModel.Instance.LastOpenedFile;
 
             noteCrtl = new NoteCtrl(mainForm.NoteEditor);
-            noteCrtl.MapTree = tree;
-            mainForm.NoteEditor.LostFocus += (a, b) => this.lastFocused = mainForm.NoteEditor;
+            noteCrtl.MapTree = tree;            
 
             ContextMenuCtrl cmCtrl = new ContextMenuCtrl(mapCtrl);
             pluginManager.InitializeContextMenu(cmCtrl);
@@ -101,25 +101,13 @@ namespace MindMate.Controller
             statusBarCtrl = new WinFormsStatusBarCtrl(mainForm.statusStrip1);
             statusBarCtrl.Register(tree);
 
-            // moving splitter makes it the focused control, below event focuses the last control again
-            mainForm.splitContainer1.GotFocus += (a, b) => FocusLastControl();
-
-            // changing side bar tab gives focus away to tab control header, below event focuses the last control again
-            mainForm.SideBarTabs.SelectedIndexChanged += (a, b) => FocusLastControl();
-
             UpdateTitleBar();
             RegisterForMapChangedNotification();                 // register for map changes (register/unregister with tree)
             mainForm.NoteEditor.OnDirty += (a) => MapChanged(); // register for NoteEditor changes
 
             mainForm.FormClosing += mainForm_FormClosing;
 
-        }
-
-        public void AddMainPanel(View.MapControls.MapViewPanel mapViewPanel)
-        {
-            mainForm.splitContainer1.Panel1.Controls.Add(mapViewPanel);
-            mapViewPanel.LostFocus += (sender, e) => this.lastFocused = mapViewPanel;
-        }
+        }        
 
         private void mainForm_AfterReady(object sender, EventArgs args)
         {
@@ -153,15 +141,16 @@ namespace MindMate.Controller
         #endregion Shutdown MindMate application
 
         #region Coordinating actions and dialogs
-        public void FocusLastControl()
-        {
-            this.lastFocused.Focus();
-        }
-
+        
         private void MapChanged()
         {
             unsavedChanges = true;
             UpdateTitleBar();
+        }
+
+        public void ReturnFocusToMapView()
+        {
+            mainForm.FocusLastControl();
         }
 
         public void ShowApplicationOptions()

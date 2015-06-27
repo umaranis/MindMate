@@ -29,7 +29,25 @@ namespace MindMate.View
         {
             InitializeComponent();
             SetupSideBar();
+
+            notesEditor.LostFocus += (a, b) => this.lastFocused = notesEditor;
+
+            // moving splitter makes it the focused control, below event focuses the last control again
+            splitContainer1.GotFocus += (a, b) => FocusLastControl();
+
+            // changing side bar tab gives focus away to tab control header, below event focuses the last control again
+            SideBarTabs.SelectedIndexChanged += (a, b) => FocusLastControl();
         }
+
+        private Control lastFocused;
+        public Control FocusedControl { get { return lastFocused; } }
+
+        public void FocusLastControl()
+        {
+            if(lastFocused != null)
+                lastFocused.Focus();
+        }
+
 
         private void SetupSideBar()
         {
@@ -51,7 +69,14 @@ namespace MindMate.View
             this.splitContainer1.Panel2.Controls.Add(sideBarTabs);
         }
 
-        
+        public void AddMainPanel(View.MapControls.MapViewPanel mapViewPanel)
+        {
+            splitContainer1.Panel1.Controls.Add(mapViewPanel);
+            mapViewPanel.MapView.CenterOnForm();
+            mapViewPanel.LostFocus += (sender, e) => lastFocused = mapViewPanel;
+        }
+
+
         public NoteEditor NoteEditor
         {
             get { return this.notesEditor; }

@@ -31,6 +31,12 @@ namespace MindMate.View.MapControls
             get { return tree; }            
         }
 
+        public void CenterOnForm()
+        {
+            Canvas.Left = (int)((Canvas.Parent.Width - Canvas.Width) / 2);
+            Canvas.Top = 0 - (Canvas.Height / 2) + 300;
+        }
+
         public void ChangeTree(MapTree tree)
         {
             if (this.tree != null) 

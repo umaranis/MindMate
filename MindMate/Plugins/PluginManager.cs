@@ -105,7 +105,7 @@ namespace MindMate.Plugins
 
         public void FocusMapEditor()
         {
-            mainCtrl.FocusLastControl();
+            mainCtrl.ReturnFocusToMapView();
         }
 
         public void ScheduleTask(TaskSchedular.Task task)
