@@ -316,7 +316,22 @@ namespace MindMate.View
 
             base.OnPreviewKeyDown(e);
         }
-                
+
+        public void Cut()
+        {            
+            Document.ExecCommand("Cut", false, null);
+        }
+
+        public void Paste()
+        {
+            Document.ExecCommand("Paste", false, null);
+        }
+
+        public void Copy()
+        {
+            Document.ExecCommand("Copy", false, null);
+        }
+
     }
 
     public sealed class NoteEditorCommand

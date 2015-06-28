@@ -100,17 +100,26 @@ namespace MindMate.Controller
 
         void mCut_Click(object sender, EventArgs e)
         {
-            mapCtrl.Cut();
+            if (form.IsNoteEditorActive)
+                form.NoteEditor.Cut();
+            else
+                mapCtrl.Cut();
         }
 
         void mCopy_Click(object sender, EventArgs e)
         {
-            mapCtrl.Copy();
+            if (form.IsNoteEditorActive)
+                form.NoteEditor.Copy();
+            else
+                mapCtrl.Copy();
         }
 
         void mPaste_Click(object sender, EventArgs e)
         {
-            mapCtrl.Paste();
+            if (form.IsNoteEditorActive)
+                form.NoteEditor.Paste();
+            else
+                mapCtrl.Paste();
         }
 
         void mDelete_Click(object sender, EventArgs e)

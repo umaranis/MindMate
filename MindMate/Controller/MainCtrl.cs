@@ -150,7 +150,7 @@ namespace MindMate.Controller
 
         public void ReturnFocusToMapView()
         {
-            mainForm.FocusLastControl();
+            mainForm.FocusMapView();
         }
 
         public void ShowApplicationOptions()

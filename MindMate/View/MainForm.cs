@@ -4,36 +4,34 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using MindMate.MetaModel;
-using MindMate.Serialization;
-using MindMate.Model;
-using MindMate.Controller;
-using MindMate.View.Dialogs;
 
 namespace MindMate.View
 {
     public partial class MainForm : Form
     {
-        
+        private MapControls.MapViewPanel mapViewPanel;
+                
         public MainForm()
         {
             InitializeComponent();
             SetupSideBar();
 
-            notesEditor.LostFocus += (a, b) => this.lastFocused = notesEditor;
+            notesEditor.GotFocus += (a, b) => this.focusedControl = notesEditor; 
 
             // moving splitter makes it the focused control, below event focuses the last control again
             splitContainer1.GotFocus += (a, b) => FocusLastControl();
 
-            // changing side bar tab gives focus away to tab control header, below event focuses the last control again
-            SideBarTabs.SelectedIndexChanged += (a, b) => FocusLastControl();
+            // changing side bar tab gives focus away to tab control header, below event focuses relevant control again
+            SideBarTabs.SelectedIndexChanged += SideBarTabs_SelectedIndexChanged;
+        }
+
+        private void SideBarTabs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SideBarTabs.SelectedTab.Text == "Note Editor")
+                SideBarTabs.SelectedTab.Controls[0].Focus();
+            else
+                FocusMapView();
         }
 
         private NoteEditor notesEditor;
@@ -48,15 +46,23 @@ namespace MindMate.View
             get { return sideBarTabs; }
         }
 
-        private Control lastFocused;
-        public Control FocusedControl { get { return lastFocused; } }
+        private Control focusedControl;
 
-        public void FocusLastControl()
+        private void FocusLastControl()
         {
-            if(lastFocused != null)
-                lastFocused.Focus();
+            if (focusedControl != null)
+                focusedControl.Focus();
         }
 
+        public bool IsNoteEditorActive
+        {
+            get { return ActiveControl == splitContainer1 && splitContainer1.ActiveControl == notesEditor; }
+        }        
+
+        public void FocusMapView()
+        {
+            mapViewPanel.Focus();
+        }
 
         private void SetupSideBar()
         {
@@ -80,9 +86,10 @@ namespace MindMate.View
 
         public void AddMainView(View.MapControls.MapViewPanel mapViewPanel)
         {
+            this.mapViewPanel = mapViewPanel;
             splitContainer1.Panel1.Controls.Add(mapViewPanel);
             mapViewPanel.MapView.CenterOnForm();
-            mapViewPanel.LostFocus += (sender, e) => lastFocused = mapViewPanel;
+            mapViewPanel.GotFocus += (sender, e) => focusedControl = this.mapViewPanel;
         }
 
         #region toolbar click events (routed to main menu items)
