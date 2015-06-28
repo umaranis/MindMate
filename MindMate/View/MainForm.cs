@@ -22,9 +22,6 @@ namespace MindMate.View
     public partial class MainForm : Form
     {
         
-        private NoteEditor notesEditor;
-        private TabControl sideBarTabs;        
-
         public MainForm()
         {
             InitializeComponent();
@@ -37,6 +34,18 @@ namespace MindMate.View
 
             // changing side bar tab gives focus away to tab control header, below event focuses the last control again
             SideBarTabs.SelectedIndexChanged += (a, b) => FocusLastControl();
+        }
+
+        private NoteEditor notesEditor;
+        public NoteEditor NoteEditor
+        {
+            get { return this.notesEditor; }
+        }
+
+        private TabControl sideBarTabs;
+        public TabControl SideBarTabs
+        {
+            get { return sideBarTabs; }
         }
 
         private Control lastFocused;
@@ -69,24 +78,12 @@ namespace MindMate.View
             this.splitContainer1.Panel2.Controls.Add(sideBarTabs);
         }
 
-        public void AddMainPanel(View.MapControls.MapViewPanel mapViewPanel)
+        public void AddMainView(View.MapControls.MapViewPanel mapViewPanel)
         {
             splitContainer1.Panel1.Controls.Add(mapViewPanel);
             mapViewPanel.MapView.CenterOnForm();
             mapViewPanel.LostFocus += (sender, e) => lastFocused = mapViewPanel;
         }
-
-
-        public NoteEditor NoteEditor
-        {
-            get { return this.notesEditor; }
-        }
-
-        public TabControl SideBarTabs
-        {
-            get { return sideBarTabs; }
-        }
-
 
         #region toolbar click events (routed to main menu items)
         private void toolbarButtonNew_Click(object sender, EventArgs e)

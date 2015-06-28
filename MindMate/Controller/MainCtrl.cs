@@ -84,7 +84,7 @@ namespace MindMate.Controller
             tree.SelectedNodes.Add(tree.RootNode);
 
             mapCtrl = new MapCtrl(tree, this);
-            mainForm.AddMainPanel(mapCtrl.MapView.Canvas);            
+            mainForm.AddMainView(mapCtrl.MapView.Canvas);            
             mapCtrl.MindMateFile = MetaModel.MetaModel.Instance.LastOpenedFile;
 
             noteCrtl = new NoteCtrl(mainForm.NoteEditor);
