@@ -44,7 +44,10 @@ namespace MindMate.Controller
                 }
                 else
                 {
-                    toolStrip.Items[0].Text = node.Link;
+                    if (node.Link != null)
+                        toolStrip.Items[0].Text = node.Link;
+                    else
+                        toolStrip.Items[0].Text = " "; //don't set it to null or "", somehow it triggers mouse move event on MapViewPanel
                 }
 
                 toolStrip.Items[1].Text = "Modified: " + node.Modified.ToString();
