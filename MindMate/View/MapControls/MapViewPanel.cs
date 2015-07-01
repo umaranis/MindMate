@@ -42,6 +42,11 @@ namespace MindMate.View.MapControls
         private MapNode mouseOverNode;
         private Object dragObject;
         private Point dragStartPoint;
+
+        /// <summary>
+        /// Moving canvas triggers mouse move event, this flag is used to skip it
+        /// </summary>
+        public bool IgnoreNextMouseMove { get; set; } = false;
         
         public MapViewPanel()
         {
@@ -121,6 +126,12 @@ namespace MindMate.View.MapControls
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
+            if (IgnoreNextMouseMove)
+            {
+                IgnoreNextMouseMove = false;
+                return;
+            }
+
             if (this.dragObject != null && !mapView.NodeTextEditor.IsTextEditing)
             {
                 mapView.Canvas.SuspendLayout();
