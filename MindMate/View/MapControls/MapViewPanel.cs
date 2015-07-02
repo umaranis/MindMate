@@ -110,15 +110,16 @@ namespace MindMate.View.MapControls
             {
                 this.dragObject = this;
                 this.dragStartPoint = e.Location;
-                if (mapView.NodeTextEditor.IsTextEditing)
-                {
-                    mapView.NodeTextEditor.EndNodeEdit(true, true);
-                }
-                else
-                {
-                    mapView.Canvas.Focus();
-                }
-                
+                mapView.Canvas.Focus();
+                //if (mapView.NodeTextEditor.IsTextEditing)
+                //{
+                //    mapView.NodeTextEditor.EndNodeEdit(true, true);
+                //}
+                //else
+                //{
+                //    mapView.Canvas.Focus();
+                //}
+
             }
 
             //base.OnMouseDown(e);

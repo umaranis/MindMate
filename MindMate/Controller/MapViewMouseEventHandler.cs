@@ -33,7 +33,11 @@ namespace MindMate.Controller
         /// <param name="evt"></param>
         public void MapNodeClick(MapNode node, NodeMouseEventArgs evt)
         {
-            if (mapCtrl.MapView.NodeTextEditor.IsTextEditing) return;
+            if (mapCtrl.MapView.NodeTextEditor.IsTextEditing)
+            {
+                mapCtrl.EndNodeEdit();
+                return;
+            }
 
             bool shiftKeyDown = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
             bool ctrlKeyDown = (Control.ModifierKeys & Keys.Control) == Keys.Control;
