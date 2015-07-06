@@ -46,7 +46,7 @@ namespace MindMate.View.MapControls
         /// <summary>
         /// Moving canvas triggers mouse move event, this flag is used to skip it
         /// </summary>
-        public bool IgnoreNextMouseMove { get; set; } = false;
+        public bool IgnoreNextMouseMove { get; set; }
         
         public MapViewPanel()
         {
