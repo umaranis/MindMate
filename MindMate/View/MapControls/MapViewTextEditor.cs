@@ -167,7 +167,7 @@ namespace MindMate.View.MapControls
             if (node == null) return;
 
 
-            if (updateNode)
+            if (updateNode && editBox.CanUndo)
             {
                 textUpdateCallBack(node, this.editBox.Text);
                 
