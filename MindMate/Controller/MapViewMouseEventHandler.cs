@@ -83,6 +83,9 @@ namespace MindMate.Controller
 
         internal void NodeRightClick(MapNode node, NodeMouseEventArgs e)
         {
+            if (mapCtrl.MapView.NodeTextEditor.IsTextEditing)
+                mapCtrl.EndNodeEdit();
+
             bool shiftKeyDown = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
             bool ctrlKeyDown = (Control.ModifierKeys & Keys.Control) == Keys.Control;
 
@@ -93,6 +96,9 @@ namespace MindMate.Controller
 
         public void CanvasClick(MouseEventArgs e)
         {
+            if (mapCtrl.MapView.NodeTextEditor.IsTextEditing)
+                mapCtrl.EndNodeEdit();
+
             MapNode lastSelectedNode = mapCtrl.MapView.SelectedNodes.Last;
             if (lastSelectedNode != null)
             {
