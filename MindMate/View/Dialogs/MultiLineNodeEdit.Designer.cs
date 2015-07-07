@@ -30,7 +30,7 @@
         {
             this.txt = new System.Windows.Forms.TextBox();
             this.btnOK = new System.Windows.Forms.Button();
-            this.txtCancel = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txt
@@ -58,23 +58,24 @@
             // 
             // txtCancel
             // 
-            this.txtCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.txtCancel.Location = new System.Drawing.Point(417, 142);
-            this.txtCancel.Name = "txtCancel";
-            this.txtCancel.Size = new System.Drawing.Size(75, 23);
-            this.txtCancel.TabIndex = 2;
-            this.txtCancel.Text = "Cancel";
-            this.txtCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(417, 142);
+            this.btnCancel.Name = "txtCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 2;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // LongNodeEdit
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(504, 169);
             this.Controls.Add(this.btnOK);
-            this.Controls.Add(this.txtCancel);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.txt);
             this.MinimizeBox = false;
             this.Name = "LongNodeEdit";
@@ -89,7 +90,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.Button txtCancel;
+        private System.Windows.Forms.Button btnCancel;
         internal System.Windows.Forms.TextBox txt;
     }
 }
