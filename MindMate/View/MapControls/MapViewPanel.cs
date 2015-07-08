@@ -207,6 +207,12 @@ namespace MindMate.View.MapControls
                 );
         }
 
+        protected override void OnGotFocus(EventArgs e)
+        {
+            IgnoreNextMouseMove = true;
+            base.OnGotFocus(e);
+        }
+
         #region Mouse Hover Event
 
         private bool resetHoverEvent = false;

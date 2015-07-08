@@ -58,7 +58,26 @@ namespace MindMate.View.MapControls
                 e.IsInputKey = true;
         }
 
-       
+
+        private void editBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyValue)
+            {
+                case 9: //TAB key pressed
+                    this.EndNodeEdit(true, true);
+                    SendKeys.Send("{TAB}");
+                    break;
+                case 13: //Enter key pressed
+                case 27: //Esc key pressed
+                    this.EndNodeEdit(e.KeyValue == 13 ? true : false,
+                        true // focus on map
+                        );
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                    break;
+            }
+        }
+
         public bool Enabled
         {
             get
@@ -176,6 +195,7 @@ namespace MindMate.View.MapControls
 
             this.editBox.Tag = null; // ensures that Lost Focus event doesn't call stopNodeEdit again as control is made unvisible
             this.editBox.Visible = false;
+            
             if (focusMap) canvas.Focus();
         }
 
@@ -186,27 +206,6 @@ namespace MindMate.View.MapControls
                     false // no need to focus on map, focus is already lost
                     );
         }
-
-
-        private void editBoxKeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyValue)
-            {
-                case 9: //TAB key pressed
-                    this.EndNodeEdit(true, true);
-                    SendKeys.Send("{TAB}");
-                    break;
-                case 13: //Enter key pressed
-                case 27: //Esc key pressed
-                    this.EndNodeEdit(e.KeyValue == 13 ? true : false,
-                        true // focus on map
-                        );
-                    e.Handled = true;
-                    e.SuppressKeyPress = true;
-                    break;
-            }
-        }
-
     }
     
 }
