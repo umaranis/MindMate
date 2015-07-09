@@ -222,12 +222,12 @@ namespace MindMate.View.MapControls
             resetHoverEvent = true;
                                    
             Point clickPosition = this.PointToClient(Cursor.Position);
-            MapNode node = mapView.GetMapNodeFromPoint(clickPosition);
-            if(node != null)
+            mouseOverNode = mapView.GetMapNodeFromPoint(clickPosition);
+            if(mouseOverNode != null)
             {
                 NodeMouseEventArgs args = new NodeMouseEventArgs(
                     new MouseEventArgs(System.Windows.Forms.MouseButtons.None, 0, clickPosition.X, clickPosition.Y, 0));
-                args.NodePortion = mapView.GetNodeView(node).GetNodeClickPortion(clickPosition);
+                args.NodePortion = mapView.GetNodeView(mouseOverNode).GetNodeClickPortion(clickPosition);
                 NodeMouseOver(mouseOverNode, args);
             }
 
