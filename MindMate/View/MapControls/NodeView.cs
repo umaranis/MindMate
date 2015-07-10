@@ -289,14 +289,21 @@ namespace MindMate.View.MapControls
             //SizeF s = MapView.graphics.MeasureString(node.Text, font, NodeView.MAXIMUM_TEXT_WIDTH);
             SizeF s = Drawing.TextRenderer.MeasureText(node.Text, font);
 
-            if (s.Height == 0) //if empty text than set minimum size
-                s = new SizeF(10, font.Height);
+            RefreshText(s);
+        }
 
-            recText.Width = s.Width; 
-            recText.Height = s.Height;
+        public void RefreshText(SizeF textSize)
+        {
+            if (textSize.Height == 0) //if empty text than set minimum size
+                textSize = new SizeF(10, font.Height);
+
+            recText.Width = textSize.Width;
+            recText.Height = textSize.Height;
 
             this.RefreshNodeViewSize();
         }
+
+
 
         public void RefreshNoteIcon()
         {

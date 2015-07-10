@@ -107,7 +107,7 @@ namespace MindMate.View.MapControls
 
             this.ChangeTree(tree);
 
-            this.nodeTextEditor = new MapViewTextEditor(this.Canvas, NodeView.DefaultFont);                     
+            this.nodeTextEditor = new MapViewTextEditor(this, NodeView.DefaultFont);                     
 
         }
 
