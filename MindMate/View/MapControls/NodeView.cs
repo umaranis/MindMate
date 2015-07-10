@@ -226,8 +226,13 @@ namespace MindMate.View.MapControls
         {
             if (node.Link == null)
                 this.link = null;
-            else 
-                this.link = new Link(node.Link, node.GetLinkType());
+            else
+            {
+                if (this.link == null)
+                    this.link = new Link(node.Link, node.GetLinkType());
+                else
+                    this.link.ChangeLink(node.Link, node.GetLinkType());
+            }
 
             this.RefreshNodeViewSize();            
         }

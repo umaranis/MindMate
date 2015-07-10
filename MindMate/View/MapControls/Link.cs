@@ -16,9 +16,14 @@ namespace MindMate.View.MapControls
     {
         public Link(string link, NodeLinkType linkType)
         {
+            ChangeLink(link, linkType);                        
+        }
+
+        public void ChangeLink(string link, NodeLinkType linkType)
+        {
             this.linkType = linkType;
 
-            switch(linkType)
+            switch (linkType)
             {
                 case NodeLinkType.MindMapNode:
                     bitmap = MindMate.Properties.Resources.LinkLocal;
@@ -43,8 +48,8 @@ namespace MindMate.View.MapControls
                     break;
                 case NodeLinkType.File:
                     bitmap = MindMate.Properties.Resources.LinkFile;
-                    break;                
-            }            
+                    break;
+            }
         }
 
         
