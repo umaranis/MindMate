@@ -26,20 +26,7 @@ namespace MindMate.View.MapControls
 
         private TextBox editBox;
         private MapView mapView;
-
-
-        /// <summary>
-        /// Called when node text is edited in the view.
-        /// MapViewTextEditor doesn't update model. It is the responsibility of provided callback function to update model.
-        /// </summary>
-        /// <param name="node"></param>
-        /// <param name="newText"></param>
-        public delegate void TextUpdateCallBack(MapNode node, string newText);
-        /// <summary>
-        /// If this is null, it means that text editing is disabled.
-        /// </summary>
-        private TextUpdateCallBack textUpdateCallBack;
-
+        
         public MapViewTextEditor(MapView mapView, Font font)
         {
             this.mapView = mapView;
@@ -79,23 +66,14 @@ namespace MindMate.View.MapControls
             }
         }
 
+        
+        private bool enabled;
+
         public bool Enabled
         {
-            get
-            {
-                return textUpdateCallBack != null;
-            }
+            get { return enabled; }
+            set { enabled = value; }
         }
-
-        public void Enable(TextUpdateCallBack callback)
-        {
-            this.textUpdateCallBack = callback;
-        }
-
-        public void Disable()
-        {
-            this.textUpdateCallBack = null;
-        }     
 
         public ContextMenuStrip ContextMenu
         {
@@ -132,21 +110,21 @@ namespace MindMate.View.MapControls
 
         public void BeginNodeEdit(NodeView nView, TextCursorPosition org)
         {
-            if (textUpdateCallBack == null) return;
+            if (!enabled) return;
 
             MapNode node = nView.Node;
 
             if (!node.HasChildren && nView.RecText.Width < TEXTBOX_DEFAULT_WIDTH)
             {
-                IncreaseTextSize(nView, TEXTBOX_DEFAULT_WIDTH);                
+                IncreaseNodeTextSize(nView, TEXTBOX_DEFAULT_WIDTH);                
             }
             else if(nView.RecText.Width < TEXTBOX_MIN_WIDTH)
             {
-                IncreaseTextSize(nView, TEXTBOX_MIN_WIDTH);
+                IncreaseNodeTextSize(nView, TEXTBOX_MIN_WIDTH);
             }
             else
             {
-                IncreaseTextSize(nView, (int)(nView.RecText.Width + 10));
+                IncreaseNodeTextSize(nView, (int)(nView.RecText.Width + 10));
             }
 
             this.editBox.Location = new Point(
@@ -204,11 +182,11 @@ namespace MindMate.View.MapControls
 
             if (updateNode && editBox.CanUndo)
             {
-                textUpdateCallBack(node, this.editBox.Text);                
+                UpdateNodeText(node, this.editBox.Text);                
             }
             else
             {
-                ResetTextSize(node.NodeView);
+                ResetNodeTextSize(node.NodeView);
             }
 
             this.IsTextEditing = false;
@@ -220,6 +198,15 @@ namespace MindMate.View.MapControls
             if (focusMap) mapView.Canvas.Focus();
         }
 
+        public void UpdateNodeText(MapNode node, string newText)
+        {
+            node.Text = newText;
+            node.NodeView.RefreshText();
+            if (node == node.Tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
+            mapView.RefreshChildNodePositions(node.Tree.RootNode, node.Pos);
+
+        }
+
         private void editBoxLostFocus(object sender, EventArgs e)
         {
             if (((TextBox)sender).Tag != null) // this ensures that stopNodeEdit is not called again when Textbox loses focus during processing of stopNodeEdit. Textbox loses focus when control is made unvisible. stopNodeEdit clears tag from Textbox first.
@@ -228,7 +215,7 @@ namespace MindMate.View.MapControls
                     );
         }
 
-        private void IncreaseTextSize(NodeView nView, int width)
+        private void IncreaseNodeTextSize(NodeView nView, int width)
         {
             MapNode node = nView.Node;
 
@@ -240,7 +227,7 @@ namespace MindMate.View.MapControls
             mapView.Canvas.Invalidate();
         }
 
-        private void ResetTextSize(NodeView nView)
+        private void ResetNodeTextSize(NodeView nView)
         {
             MapNode node = nView.Node;
 

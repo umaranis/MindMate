@@ -59,7 +59,7 @@ namespace MindMate.Controller
             MapView.Canvas.NodeMouseExit += map.NodeMouseExit;
             MapView.Canvas.KeyDown += new MapViewKeyEventHandler(this).canvasKeyDown;
             
-            MapView.NodeTextEditor.Enable(this.UpdateNodeText);
+            MapView.NodeTextEditor.Enabled = true;
 
             MapView.Canvas.BackColor = MetaModel.MetaModel.Instance.MapEditorBackColor;
 
@@ -193,18 +193,13 @@ namespace MindMate.Controller
 
         public void UpdateNodeText(MapNode node, string newText)
         {
-            node.Text = newText;
-            //node.NodeView.RefreshNodeView();
-            node.NodeView.RefreshText();
-            if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-            MapView.RefreshChildNodePositions(tree.RootNode, node.Pos);
-
+            MapView.NodeTextEditor.UpdateNodeText(node, newText);
         }
 
-        
+
 
         #endregion
-               
+
         public void appendNodeAndEdit()
         {
             if (MapView.SelectedNodes.Count == 1)
