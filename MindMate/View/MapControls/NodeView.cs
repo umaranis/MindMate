@@ -447,6 +447,18 @@ namespace MindMate.View.MapControls
                     return NodePortion.Head;
             }
         }
-        
+
+        public void FollowLink()
+        {
+            if (Link.LinkType == NodeLinkType.MindMapNode)
+            {
+                //handle
+            }
+            else if (Link.LinkType != NodeLinkType.Empty)
+            {
+                System.Diagnostics.Process.Start(node.Link);                
+            }
+        }
+
     }
 }

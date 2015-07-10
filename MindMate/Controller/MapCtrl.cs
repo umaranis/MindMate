@@ -629,21 +629,14 @@ namespace MindMate.Controller
 
         public void FollowLink(MapNode node)
         {
-            if(node.NodeView.Link.LinkType == NodeLinkType.MindMapNode)
+            try
             {
-                //handle
+                node.NodeView.FollowLink();
             }
-            else if (node.NodeView.Link.LinkType != NodeLinkType.Empty)
+            catch (Exception e)
             {
-                try
-                {
-                    Process.Start(node.Link);
-                }
-                catch (Exception e)
-                {
-                    mainCtrl.ShowStatusNotification(e.Message);
-                }                
-            }
+                mainCtrl.ShowStatusNotification(e.Message);
+            }   
         }               
         
         public void MakeSelectedNodeShapeBubble()
