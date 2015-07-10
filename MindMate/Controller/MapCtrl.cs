@@ -629,23 +629,20 @@ namespace MindMate.Controller
 
         public void FollowLink(MapNode node)
         {
-            switch (node.NodeView.Link.LinkType)
+            if(node.NodeView.Link.LinkType == NodeLinkType.MindMapNode)
             {
-                case NodeLinkType.Executable:
-                case NodeLinkType.ExternalFile:
-                case NodeLinkType.InternetLink:
-                    try
-                    {
-                        Process.Start(node.Link);
-                    }
-                    catch (Exception e)
-                    {
-                        mainCtrl.ShowStatusNotification(e.Message);
-                    }
-                    break;
-                case NodeLinkType.MindMapNode:
-
-                    break;
+                //handle
+            }
+            else if (node.NodeView.Link.LinkType != NodeLinkType.Empty)
+            {
+                try
+                {
+                    Process.Start(node.Link);
+                }
+                catch (Exception e)
+                {
+                    mainCtrl.ShowStatusNotification(e.Message);
+                }                
             }
         }               
         

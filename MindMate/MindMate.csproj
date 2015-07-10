@@ -601,6 +601,14 @@
     <None Include="Resources\text_italic.ico" />
     <None Include="Resources\text_underline.ico" />
     <None Include="Resources\font.ico" />
+    <None Include="Resources\world_link.png" />
+    <None Include="Resources\photo_link.png" />
+    <None Include="Resources\link_go.png" />
+    <None Include="Resources\folder_link.png" />
+    <None Include="Resources\film_link.png" />
+    <None Include="Resources\email_link.png" />
+    <None Include="Resources\application_link.png" />
+    <None Include="Resources\page_white_link.png" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

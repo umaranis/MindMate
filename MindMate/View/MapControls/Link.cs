@@ -26,12 +26,24 @@ namespace MindMate.View.MapControls
                 case NodeLinkType.InternetLink:
                     bitmap = MindMate.Properties.Resources.LinkWeb;
                     break;
+                case NodeLinkType.EmailLink:
+                    bitmap = MindMate.Properties.Resources.LinkEmail;
+                    break;
                 case NodeLinkType.Executable:
-                    bitmap = MindMate.Properties.Resources.Executable;
+                    bitmap = MindMate.Properties.Resources.LinkExecutable;
                     break;
-                case NodeLinkType.ExternalFile:
-                    bitmap = MindMate.Properties.Resources.Link;
+                case NodeLinkType.ImageFile:
+                    bitmap = MindMate.Properties.Resources.LinkImage;
                     break;
+                case NodeLinkType.VideoFile:
+                    bitmap = MindMate.Properties.Resources.LinkVideo;
+                    break;
+                case NodeLinkType.Folder:
+                    bitmap = MindMate.Properties.Resources.LinkFolder;
+                    break;
+                case NodeLinkType.File:
+                    bitmap = MindMate.Properties.Resources.LinkFile;
+                    break;                
             }            
         }
 

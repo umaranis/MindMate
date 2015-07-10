@@ -15,8 +15,8 @@ using System.Drawing;
 namespace MindMate.Model
 {
     public partial class MapNode
-    {    
-                
+    {
+
         #region Node Attributes
 
         #region Serializable
@@ -31,11 +31,11 @@ namespace MindMate.Model
             get
             {
                 return pos;
-            }            
+            }
         }
 
         private string text;
-        public string Text 
+        public string Text
         {
             get
             {
@@ -51,7 +51,7 @@ namespace MindMate.Model
         }
 
         private bool folded;
-        public bool Folded 
+        public bool Folded
         {
             get
             {
@@ -65,7 +65,7 @@ namespace MindMate.Model
         }
 
         private bool bold;
-        public bool Bold 
+        public bool Bold
         {
             get
             {
@@ -80,7 +80,7 @@ namespace MindMate.Model
         }
 
         private bool italic;
-        public bool Italic 
+        public bool Italic
         {
             get
             {
@@ -113,7 +113,7 @@ namespace MindMate.Model
         /// <summary>
         /// 0 is the default value, meaning Font Size is not defined (default size should be used)
         /// </summary>
-        public float FontSize 
+        public float FontSize
         {
             get
             {
@@ -131,7 +131,7 @@ namespace MindMate.Model
         public IconList Icons { get; private set; }
 
         private string link;
-        public string Link 
+        public string Link
         {
             get
             {
@@ -147,21 +147,21 @@ namespace MindMate.Model
         }
 
         public DateTime Created { get; set; }
-        
+
         private DateTime modified;
-        public DateTime Modified { 
+        public DateTime Modified {
             get
             {
                 return modified;
             }
-            set 
+            set
             {
                 modified = value;
             }
         }
 
         private Color backColor;
-        public Color BackColor 
+        public Color BackColor
         {
             get
             {
@@ -177,7 +177,7 @@ namespace MindMate.Model
         }
 
         private Color color;
-        public Color Color 
+        public Color Color
         {
             get
             {
@@ -193,7 +193,7 @@ namespace MindMate.Model
         }
 
         private NodeShape shape;
-        public NodeShape Shape 
+        public NodeShape Shape
         {
             get
             {
@@ -212,7 +212,7 @@ namespace MindMate.Model
         /// <summary>
         /// 0 stands for default line width (as parent)
         /// </summary>
-        public int LineWidth 
+        public int LineWidth
         {
             get
             {
@@ -231,23 +231,23 @@ namespace MindMate.Model
         /// <summary>
         /// Custom stands for default (as parent)
         /// </summary>
-        public System.Drawing.Drawing2D.DashStyle LinePattern 
-        { 
-            get 
-            { 
-                return linePattern; 
-            } 
-            set 
+        public System.Drawing.Drawing2D.DashStyle LinePattern
+        {
+            get
+            {
+                return linePattern;
+            }
+            set
             {
                 object oldValue = linePattern;
                 linePattern = value;
                 modified = DateTime.Now;
                 Tree.FireEvent(this, NodeProperties.LinePattern, oldValue);
-            } 
+            }
         }
 
         private Color lineColor;
-        public Color LineColor 
+        public Color LineColor
         {
             get
             {
@@ -296,13 +296,13 @@ namespace MindMate.Model
 
         #region Attributes
 
-        public struct Attribute 
-        { 
-            public MapTree.AttributeSpec AttributeSpec; 
+        public struct Attribute
+        {
+            public MapTree.AttributeSpec AttributeSpec;
             public string value;
 
-            public Attribute(MapTree.AttributeSpec aspec, string val) 
-            { 
+            public Attribute(MapTree.AttributeSpec aspec, string val)
+            {
                 this.AttributeSpec = aspec;
                 this.value = val;
             }
@@ -331,7 +331,7 @@ namespace MindMate.Model
                     if (att.AttributeSpec.Name == attributeName)
                     {
                         attribute = att;
-                        return true; 
+                        return true;
                     }
                 }
             }
@@ -437,7 +437,7 @@ namespace MindMate.Model
             AddAttribute(attribute);
         }
 
-        
+
 
         private void EnsureAttributeListCreated()
         {
@@ -472,7 +472,7 @@ namespace MindMate.Model
                     Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Removed, oldValue = attribute });
                 }
             }
-            
+
         }
 
         public void DeleteAttribute(MapTree.AttributeSpec attributeSpec)
@@ -490,8 +490,8 @@ namespace MindMate.Model
 
         }
 
-        
-                
+
+
 
         #endregion Attributes
 
@@ -504,7 +504,7 @@ namespace MindMate.Model
         public MapNode Next { get; private set; }
         public MapNode FirstChild { get; set; }
         public MapNode LastChild { get; set; }
-        
+
         #endregion
 
         #endregion
@@ -513,7 +513,7 @@ namespace MindMate.Model
 
         public bool HasChildren { get { return FirstChild != null; } }
 
-        public bool Selected { 
+        public bool Selected {
             get { return Tree.SelectedNodes.Contains(this); }
             set
             {
@@ -539,7 +539,7 @@ namespace MindMate.Model
         /// <param name="text"></param>
         /// <param name="id"></param>
         /// <param name="detached">Detached node doesn't have a parent but it is not set as the MapTree.RootNode</param>
-        public MapNode(MapTree tree, string text, string id = null, bool detached = false) 
+        public MapNode(MapTree tree, string text, string id = null, bool detached = false)
         {
             this.Id = id;
             this.text = text;
@@ -550,12 +550,12 @@ namespace MindMate.Model
 
             // setting NodePosition
             this.pos = NodePosition.Root;
-            
+
             // attaching to tree
             this.Tree = tree;
             if(!detached) tree.RootNode = this;
 
-            Tree.FireEvent(this, TreeStructureChange.New);           
+            Tree.FireEvent(this, TreeStructureChange.New);
         }
 
         /// <summary>
@@ -566,22 +566,22 @@ namespace MindMate.Model
         /// <param name="pos">If undefined, determined from parent node. In case of root node, balances the tree.</param>
         /// <param name="id">could be null</param>  
         /// <param name="appendAfter">Appended at the end if null.</param>
-        public MapNode(MapNode parent, string text, NodePosition pos = NodePosition.Undefined, 
+        public MapNode(MapNode parent, string text, NodePosition pos = NodePosition.Undefined,
             string id = null, MapNode appendAfter = null)
         {
             System.Diagnostics.Debug.Assert(parent != null, "parent parameter should not be null. Use other constructor for root node.");
-            
+
             this.Id = id;
             this.text = text;
             this.Created = DateTime.Now;
             this.modified = DateTime.Now;
             this.richContentType = NodeRichContentType.NONE;
             this.Icons = new IconList(this);
-                        
+
             // attaching to tree
             AttachTo(parent, appendAfter, true, pos);
 
-            Tree.FireEvent(this, TreeStructureChange.New);        
+            Tree.FireEvent(this, TreeStructureChange.New);
         }
 
         private NodePosition GetNodePositionToBalance()
@@ -597,13 +597,13 @@ namespace MindMate.Model
                 else
                     rightNodeCnt++;
             }
-                        
+
             return leftNodeCnt < rightNodeCnt ? NodePosition.Left : NodePosition.Right;
         }
 
         #endregion
-        
-                                
+
+
         public MapNode GetFirstSib()
         {
             return this.Parent.FirstChild;
@@ -613,7 +613,7 @@ namespace MindMate.Model
         {
             return this.Parent.LastChild;
         }
-        
+
 
         /// <summary>
         /// 
@@ -638,14 +638,14 @@ namespace MindMate.Model
                     cNode = cNode.Next;
                 }
                 return null;
-            }            
-        }        
+            }
+        }
 
         public MapNode GetLastChild(NodePosition pos)
         {
             System.Diagnostics.Debug.Assert(pos != NodePosition.Undefined, "Undefined NodePosition is not supported.");
             System.Diagnostics.Debug.Assert(pos != NodePosition.Root, "Root NodePosition is not supported.");
-                        
+
             if(pos == NodePosition.Left)
             {
                 return LastChild;
@@ -716,7 +716,7 @@ namespace MindMate.Model
             }
         }
 
-                
+
         private void ChangePos(NodePosition pos)
         {
             ForEach(n => n.pos = pos);
@@ -735,7 +735,7 @@ namespace MindMate.Model
             else if (adjacentToSib != null) this.pos = adjacentToSib.Pos;
             else if (parent.Pos == NodePosition.Root) this.pos = parent.GetNodePositionToBalance();
             else this.pos = parent.Pos;
-            
+
             // get the last sib if appendAfter is not given
             if (adjacentToSib == null) adjacentToSib = parent.GetLastChild(this.Pos);
 
@@ -779,7 +779,7 @@ namespace MindMate.Model
 
             parent.modified = DateTime.Now;
             Tree.FireEvent(this, TreeStructureChange.Attached);
-                    
+
 
         }
 
@@ -806,8 +806,8 @@ namespace MindMate.Model
 
                 this.Parent = null;
                 this.Previous = null;
-                this.Next = null;               
-                
+                this.Next = null;
+
             }
         }
 
@@ -831,13 +831,13 @@ namespace MindMate.Model
                 {
                     return this.Parent.isDescendent(node);
                 }
-            }    
+            }
             else
             {
                 return false;
             }
         }
-        
+
 
         public void DeleteNode()
         {
@@ -847,7 +847,7 @@ namespace MindMate.Model
 
             if (Parent.FirstChild == this) Parent.FirstChild = this.Next;
             if (Parent.LastChild == this) Parent.LastChild = this.Previous;
-            
+
             if (this.Previous != null)
             {
                 this.Previous.Next = this.Next;
@@ -857,10 +857,10 @@ namespace MindMate.Model
                 this.Next.Previous = this.Previous;
             }
 
-            Parent.modified = DateTime.Now;            
+            Parent.modified = DateTime.Now;
         }
 
-                        
+
         public bool MoveUp()
         {
             if (this.Pos == NodePosition.Root) // return if root
@@ -874,7 +874,7 @@ namespace MindMate.Model
                     return true;
                 }
                 else
-                    return false;                    
+                    return false;
             }
 
             if (this.Previous.Pos != this.Pos) // move from left to right side
@@ -882,16 +882,16 @@ namespace MindMate.Model
                 this.ChangePos(this.Previous.Pos);
                 return true;
             }
-            
+
             // move up
             MapNode previousNode = this.Previous;
-                                    
+
             previousNode.Next = this.Next;
             if(this.Next != null) this.Next.Previous = previousNode;
 
             this.Previous = previousNode.Previous;
-            if (previousNode.Previous != null)  previousNode.Previous.Next = this;                
-            
+            if (previousNode.Previous != null)  previousNode.Previous.Next = this;
+
             this.Next = previousNode;
             previousNode.Previous = this;
 
@@ -957,7 +957,7 @@ namespace MindMate.Model
         public MapNode Find(Func<MapNode, bool> condition)
         {
             if (condition(this)) return this;
-            
+
             foreach (MapNode n in this.ChildNodes)
             {
                 MapNode result = n.Find(condition);
@@ -989,7 +989,7 @@ namespace MindMate.Model
 
             foreach (MapNode n in this.ChildNodes)
             {
-                n.FindAll(condition, list);                
+                n.FindAll(condition, list);
             }
         }
 
@@ -1009,9 +1009,9 @@ namespace MindMate.Model
 
         public NodeLinkType GetLinkType()
         {
-            NodeLinkType linkType;
+            NodeLinkType linkType; int i;
 
-            if(link == null)
+            if (link == null)
             {
                 linkType = NodeLinkType.Empty;
             }
@@ -1024,13 +1024,40 @@ namespace MindMate.Model
             {
                 linkType = NodeLinkType.InternetLink;
             }
+            else if (link.StartsWith("mailto:", StringComparison.OrdinalIgnoreCase))
+            {
+                linkType = NodeLinkType.EmailLink;
+            }
             else if (link.EndsWith(".exe", StringComparison.OrdinalIgnoreCase))
             {
                 linkType = NodeLinkType.Executable;
             }
+            else if (link.EndsWith(".png", StringComparison.OrdinalIgnoreCase)
+                || link.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)
+                || link.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)
+                || link.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase)
+                || link.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase))
+            {
+                linkType = NodeLinkType.ImageFile;
+            }
+            else if (link.EndsWith(".mov", StringComparison.OrdinalIgnoreCase)
+                || link.EndsWith(".mpg", StringComparison.OrdinalIgnoreCase)
+                || link.EndsWith(".mpeg", StringComparison.OrdinalIgnoreCase)
+                || link.EndsWith(".wmv", StringComparison.OrdinalIgnoreCase)
+                || link.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)
+                || link.EndsWith(".flv", StringComparison.OrdinalIgnoreCase)
+                || link.EndsWith(".avi", StringComparison.OrdinalIgnoreCase)
+                || link.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase))
+            {
+                linkType = NodeLinkType.VideoFile;
+            }
+            else if((i = link.LastIndexOf('\\')) > 0 && link.IndexOf('.', i) < 0)
+            {
+                linkType = NodeLinkType.Folder;
+            }
             else
             {
-                linkType = NodeLinkType.ExternalFile;
+                linkType = NodeLinkType.File;
             }
 
             return linkType;

@@ -81,10 +81,14 @@ namespace MindMate.Model
 
     public enum NodeLinkType
     {
-        ExternalFile,
+        File,
+        ImageFile,
+        VideoFile, //audio included in this
+        Folder,
         MindMapNode,
         Executable,
         InternetLink,
+        EmailLink,
         Empty
     }       
     
