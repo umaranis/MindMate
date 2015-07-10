@@ -18,9 +18,18 @@ namespace MindMate.View.MapControls
     /// </summary>
     public class MapViewTextEditor
     {
-
+        /// <summary>
+        /// Size of EditBox for new node
+        /// </summary>
         private const int TEXTBOX_DEFAULT_WIDTH = 100;
+        /// <summary>
+        /// Mininum Size of EditBox. Comes into play Node Text size is smaller than 50 units.
+        /// </summary>
         private const int TEXTBOX_MIN_WIDTH = 50;
+        /// <summary>
+        /// Extra width of EditBox on top of node text size
+        /// </summary>
+        private const int TEXTBOX_PADDING = 10;
 
         public bool IsTextEditing { get; private set; }
 
@@ -37,7 +46,19 @@ namespace MindMate.View.MapControls
 
             editBox.PreviewKeyDown += editBox_PreviewKeyDown;
             editBox.LostFocus += new EventHandler(editBoxLostFocus);
-            editBox.KeyDown += new KeyEventHandler(editBoxKeyDown);                                             
+            editBox.KeyDown += new KeyEventHandler(editBoxKeyDown);
+            //increases the EditBox size as text is entered. Commented out as performance is affected with very large maps.
+            //editBox.TextChanged += EditBox_TextChanged;                                          
+        }
+
+        private void EditBox_TextChanged(object sender, EventArgs e)
+        {
+            if (IsTextEditing)
+            {
+                SizeF s = Drawing.TextRenderer.MeasureText(editBox.Text, editBox.Font);
+                editBox.Width = (int)s.Width + TEXTBOX_PADDING;
+                IncreaseNodeTextSize(((MapNode)(editBox.Tag)).NodeView, (int)s.Width);
+            }
         }
 
         void editBox_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -124,7 +145,7 @@ namespace MindMate.View.MapControls
             }
             else
             {
-                IncreaseNodeTextSize(nView, (int)(nView.RecText.Width + 10));
+                IncreaseNodeTextSize(nView, (int)(nView.RecText.Width + TEXTBOX_PADDING));
             }
 
             this.editBox.Location = new Point(
@@ -132,22 +153,9 @@ namespace MindMate.View.MapControls
                 (int)nView.RecText.Y - 3
                 );
 
-            this.editBox.Size = new Size((int)nView.RecText.Width, (int)nView.RecText.Height);
-
-            //if (!node.HasChildren && node.Text == "")
-            //{
-            //    this.editBox.Size = new Size(TEXTBOX_DEFAULT_WIDTH, (int)nView.RecText.Height);
-            //    if (node.Pos == NodePosition.Left)
-            //    {
-            //        this.editBox.Location = new Point(this.editBox.Location.X + (int)nView.RecText.Width - TEXTBOX_DEFAULT_WIDTH,
-            //            this.editBox.Location.Y);
-            //    }
-            //}
-            //else
-            //{
-            //    this.editBox.Size = new Size((int)nView.RecText.Width, (int)nView.RecText.Height);
-            //}
-                        
+            this.editBox.MinimumSize = new Size((int)nView.RecText.Width, (int)nView.RecText.Height);
+            this.editBox.Size = this.editBox.MinimumSize;
+                                                
             this.editBox.Text = node.Text;
             this.editBox.Tag = node;
             this.editBox.Visible = true;
@@ -219,7 +227,7 @@ namespace MindMate.View.MapControls
         {
             MapNode node = nView.Node;
 
-            nView.RefreshText(new SizeF(width, nView.Height));
+            nView.RefreshText(new SizeF(width, nView.RecText.Height));
             
             if (node == node.Tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
             mapView.RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
