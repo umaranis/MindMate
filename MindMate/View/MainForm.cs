@@ -5,6 +5,7 @@
 
 using System;
 using System.Windows.Forms;
+using MindMate.View.NoteEditing;
 
 namespace MindMate.View
 {

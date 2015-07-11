@@ -1,4 +1,4 @@
-﻿namespace MindMate.View
+﻿namespace MindMate.View.NoteEditing
 {
     partial class NoteEditor
     {

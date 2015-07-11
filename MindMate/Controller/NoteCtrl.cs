@@ -11,6 +11,7 @@ using MindMate.Model;
 using MindMate.View.MapControls;
 using MindMate.View;
 using System.Drawing;
+using MindMate.View.NoteEditing;
 
 namespace MindMate.Controller
 {
@@ -93,17 +94,20 @@ namespace MindMate.Controller
             {
                 editor.Enabled = true;
                 editor.HTML = selectedNodes.First.RichContentText;
+                editor.ClearUndoStack();
 
             }
             else if(selectedNodes.Count > 1)
             {
                 editor.Enabled = false;
                 editor.Clear();
+                editor.ClearUndoStack();
             }
             else if (!editor.Empty) 
             {
                 editor.Enabled = true;
                 editor.Clear();
+                editor.ClearUndoStack();
             }
         }
 

@@ -203,6 +203,7 @@
     <Compile Include="View\MapControls\Link.cs" />
     <Compile Include="View\MapControls\IconView.cs" />
     <Compile Include="Serialization\IconHandler.cs" />
+    <EmbeddedResource Include="View\NoteEditor.resx" />
     <None Include="images\filenew.png" />
     <None Include="View\Dialogs\IconSelector.cs">
       <SubType>Form</SubType>
@@ -226,10 +227,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\MapControls\TextCursorPosition.cs" />
-    <Compile Include="View\NoteEditor.cs">
+    <Compile Include="View\NoteEditing\Interop.cs" />
+    <Compile Include="View\NoteEditing\NoteEditor.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="View\NoteEditor.Designer.cs">
+    <Compile Include="View\NoteEditing\NoteEditor.Designer.cs">
       <DependentUpon>NoteEditor.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Plugins\Tasks\SideBar\CollapsiblePanel.resx">
@@ -289,9 +291,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="View\NoteEditor.resx">
-      <DependentUpon>NoteEditor.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="app.config" />
     <Compile Include="Debugging\Utility.cs" />
     <Compile Include="View\Dialogs\Options.cs">

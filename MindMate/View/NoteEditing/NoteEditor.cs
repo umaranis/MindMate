@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using mshtml;
+using System.Runtime.InteropServices;
 
-namespace MindMate.View
+namespace MindMate.View.NoteEditing
 {
     public partial class NoteEditor : WebBrowser, IHTMLChangeSink
     {
@@ -25,7 +26,7 @@ namespace MindMate.View
 
             // events
             this.Navigated += new WebBrowserNavigatedEventHandler(this_Navigated);
-            this.GotFocus += new EventHandler(this_GotFocus);            
+            this.GotFocus += new EventHandler(this_GotFocus);             
         }
 
                 
@@ -330,6 +331,27 @@ namespace MindMate.View
         public void Copy()
         {
             Document.ExecCommand("Copy", false, null);
+        }
+
+        private IOleUndoManager oleUndoManager;
+
+        private IOleUndoManager GetUndoManager()
+        {
+            if (oleUndoManager == null)
+            {
+                Guid SID_SOleUndoManager = new Guid("D001F200-EF97-11CE-9BC9-00AA00608E01");
+                Guid IID_IOleUndoManager = new Guid("D001F200-EF97-11CE-9BC9-00AA00608E01");
+
+                UCOMIServiceProvider isp = (UCOMIServiceProvider)htmlDoc;
+                IntPtr ip = isp.QueryService(ref SID_SOleUndoManager, ref IID_IOleUndoManager);
+                oleUndoManager = (IOleUndoManager)Marshal.GetObjectForIUnknown(ip);
+            }
+            return oleUndoManager;
+        }
+
+        public void ClearUndoStack()
+        {
+            GetUndoManager().DiscardFrom(null);
         }
 
     }
