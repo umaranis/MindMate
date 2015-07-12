@@ -1,4 +1,5 @@
 ﻿using MindMate.Model;
+using MindMate.Plugins.Tasks.Model;
 using MindMate.Plugins.Tasks.SideBar;
 using System;
 using System.Collections.Generic;

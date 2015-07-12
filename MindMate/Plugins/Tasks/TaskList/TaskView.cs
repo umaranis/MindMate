@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MindMate.Model;
+using MindMate.Plugins.Tasks.Model;
 
 namespace MindMate.Plugins.Tasks
 {

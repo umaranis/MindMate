@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections;
+using MindMate.Plugins.Tasks.Model;
 
 namespace MindMate.Plugins.Tasks
 {
