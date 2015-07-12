@@ -12,14 +12,14 @@ namespace MindMate.Plugins.Tasks
     {
         
         private DateTimePicker dateTimePicker; 
-        private TaskList taskList;
+        private TaskListView taskList;
         private IPluginManager pluginManager;
 
         public void Initialize(IPluginManager pluginMgr)
         {
             this.pluginManager = pluginMgr;
             dateTimePicker = new DateTimePicker();
-            taskList = new TaskList();
+            taskList = new TaskListView();
             taskList.TaskViewEvent += taskList_TaskViewEvent;
 
             pluginMgr.ScheduleTask(new TaskSchedular.Task()
@@ -84,7 +84,7 @@ namespace MindMate.Plugins.Tasks
             return new Control [] { taskList };
         }
 
-        public void OnCreatingTree(Model.MapTree tree)
+        public void OnCreatingTree(MapTree tree)
         {
             tree.AttributeChanged += tree_AttributeChanged;
 
@@ -95,7 +95,7 @@ namespace MindMate.Plugins.Tasks
             tree.TreeStructureChanged += tree_TreeStructureChanged;
         }
 
-        public void OnDeletingTree(Model.MapTree tree)
+        public void OnDeletingTree(MapTree tree)
         {
             tree.AttributeChanged -= tree_AttributeChanged;
 

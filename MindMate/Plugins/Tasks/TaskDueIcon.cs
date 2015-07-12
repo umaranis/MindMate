@@ -10,12 +10,12 @@ namespace MindMate.Plugins.Tasks
     public class TaskDueIcon : ISystemIcon
     {
         public string Name { get { return "TaskPending"; } }
-        public bool ShowIcon(Model.MapNode node)
+        public bool ShowIcon(MapNode node)
         {
             return node.DueDateExists();          
         }
 
-        public event Action<Model.MapNode, ISystemIcon, SystemIconStatusChange> StatusChange;
+        public event Action<MapNode, ISystemIcon, SystemIconStatusChange> StatusChange;
 
         public System.Drawing.Bitmap Bitmap
         {

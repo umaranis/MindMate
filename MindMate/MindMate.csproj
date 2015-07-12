@@ -108,19 +108,19 @@
     <Compile Include="Plugins\IPluginSystemIcon.cs" />
     <Compile Include="Plugins\MenuItem.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
-    <Compile Include="Plugins\Tasks\CompletionDateAttribute.cs" />
-    <Compile Include="Plugins\Tasks\DueDateAttribute.cs" />
+    <Compile Include="Plugins\Tasks\Model\CompletionDateAttribute.cs" />
+    <Compile Include="Plugins\Tasks\Model\DueDateAttribute.cs" />
     <Compile Include="Plugins\Tasks\SideBar\ControlGroupCollection.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Plugins\Tasks\TargetDateAttribute.cs" />
+    <Compile Include="Plugins\Tasks\Model\TargetDateAttribute.cs" />
     <Compile Include="Plugins\Tasks\TaskList\TaskCollection.cs" />
     <Compile Include="Plugins\Tasks\TaskCompleteIcon.cs" />
     <Compile Include="Plugins\Tasks\SideBar\ControlGroup.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Plugins\Tasks\TaskList\TaskGroup.cs" />
-    <Compile Include="Plugins\Tasks\TaskList\TaskList.cs">
+    <Compile Include="Plugins\Tasks\TaskList\TaskListView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Plugins\Tasks\TaskPlugin.ContextMenu.cs" />

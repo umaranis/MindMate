@@ -9,12 +9,12 @@ namespace MindMate.Plugins.Tasks
 {
     public class TaskCompleteIcon : ISystemIcon
     {
-        public bool ShowIcon(Model.MapNode node)
+        public bool ShowIcon(MapNode node)
         {
             return node.CompletionDateExists();
         }
 
-        public event Action<Model.MapNode, ISystemIcon, SystemIconStatusChange> StatusChange;
+        public event Action<MapNode, ISystemIcon, SystemIconStatusChange> StatusChange;
 
         public System.Drawing.Bitmap Bitmap
         {

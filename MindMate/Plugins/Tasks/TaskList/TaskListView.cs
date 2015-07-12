@@ -5,14 +5,14 @@ using System.Collections.Generic;
 
 namespace MindMate.Plugins.Tasks
 {
-    public class TaskList : MindMate.Plugins.Tasks.SideBar.SideBar
+    public class TaskListView : MindMate.Plugins.Tasks.SideBar.SideBar
     {
         /// <summary>
         /// List of tasks with due date after next month
         /// </summary>
         TaskCollection taskGroupRest;
 
-        public TaskList()
+        public TaskListView()
         {
             ControlGroup taskGroupOverdue;
             ControlGroup taskGroupToday;

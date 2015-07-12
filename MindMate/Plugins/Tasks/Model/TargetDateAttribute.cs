@@ -4,18 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MindMate.Plugins.Tasks
+namespace MindMate.Plugins.Tasks.Model
 {
-    public static class CompletionDateAttribute
+    /// <summary>
+    /// used to store Target Date after task is completed
+    /// </summary>
+    public static class TargetDateAttribute
     {
-        public const string ATTRIBUTE_NAME = "Completion Date";
+        public const string ATTRIBUTE_NAME = "Target Date";
 
         /// <summary>
         /// Checks if this attribute spec exists on the given node
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        public static bool CompletionDateExists(this MapNode node)
+        public static bool TargetDateExists(this MapNode node)
         {
             MapTree.AttributeSpec aspec = GetAttributeSpec(node.Tree);
             if (aspec != null)
@@ -28,7 +31,7 @@ namespace MindMate.Plugins.Tasks
         /// Delete this attribute from the given node
         /// </summary>
         /// <param name="node"></param>
-        public static void RemoveCompletionDate(this MapNode node)
+        public static void RemoveTargetDate(this MapNode node)
         {
             MapTree.AttributeSpec aspec = GetAttributeSpec(node.Tree);
             if (aspec != null)
@@ -53,24 +56,24 @@ namespace MindMate.Plugins.Tasks
         }
 
         /// <summary>
-        /// Throws exception if there is no Completion Date attribute
+        /// Throws exception if there is no Target Date attribute
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        public static DateTime GetCompletionDate(this MapNode node)
+        public static DateTime GetTargetDate(this MapNode node)
         {
             MapNode.Attribute att;
             GetAttribute(node, out att);
             return DateHelper.ToDateTime(att.value);
         }
 
-        public static void SetCompletionDate(this MapNode node, DateTime value)
+        public static void SetTargetDate(this MapNode node, DateTime value)
         {
             MapTree.AttributeSpec aspec = GetOrCreateAttributeSpec(node.Tree);
             node.AddUpdateAttribute(new MapNode.Attribute(aspec, DateHelper.ToString(value)));
         }
 
-        public static bool IsCompletionDate(this MapTree.AttributeSpec aspec)
+        public static bool IsTargetDate(this MapTree.AttributeSpec aspec)
         {
             return aspec.Name == ATTRIBUTE_NAME;
         }
