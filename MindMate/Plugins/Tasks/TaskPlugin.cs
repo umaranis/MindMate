@@ -39,10 +39,10 @@ namespace MindMate.Plugins.Tasks
             switch(e)
             { 
                 case TaskView.TaskViewEvent.Remove:
-                    RemoveTask(tv.MapNode);
+                    tv.MapNode.RemoveTask();
                     break;
                 case TaskView.TaskViewEvent.Complete:
-                    CompleteTask(tv.MapNode);
+                    tv.MapNode.CompleteTask();
                     break;
                 case TaskView.TaskViewEvent.Defer:
                     MoveDown(tv);
@@ -54,19 +54,19 @@ namespace MindMate.Plugins.Tasks
                     SetDueDate(tv.MapNode);
                     break;
                 case TaskView.TaskViewEvent.Today:
-                    SetDueDate(tv.MapNode, DateHelper.GetDefaultDueDateToday());
+                    tv.MapNode.SetDueDate(DateHelper.GetDefaultDueDateToday());
                     break;
                 case TaskView.TaskViewEvent.Tomorrow:
-                    SetDueDate(tv.MapNode, DateHelper.GetDefaultDueDateTomorrow());
+                    tv.MapNode.SetDueDate(DateHelper.GetDefaultDueDateTomorrow());
                     break;
                 case TaskView.TaskViewEvent.NextWeek:
-                    SetDueDate(tv.MapNode, DateHelper.GetDefaultDueDateNextWeek());
+                    tv.MapNode.SetDueDate(DateHelper.GetDefaultDueDateNextWeek());
                     break;
                 case TaskView.TaskViewEvent.NextMonth:
-                    SetDueDate(tv.MapNode, DateHelper.GetDefaultDueDateNextMonth());
+                    tv.MapNode.SetDueDate(DateHelper.GetDefaultDueDateNextMonth());
                     break;
                 case TaskView.TaskViewEvent.NextQuarter:
-                    SetDueDate(tv.MapNode, DateHelper.GetDefaultDueDateNextQuarter());
+                    tv.MapNode.SetDueDate(DateHelper.GetDefaultDueDateNextQuarter());
                     break;
 
             }
@@ -191,30 +191,8 @@ namespace MindMate.Plugins.Tasks
                             taskList.Add(n);
                     });
             }
-        }        
-        private void SetDueDate(MapNode node, DateTime dateTime)
-        {
-            node.SetDueDate(dateTime);
-            node.RemoveCompletionDate();
         }
-                       
-        private void CompleteTask(MapNode node)
-        {
-            if (node.DueDateExists())
-            {
-                node.SetTargetDate(node.GetDueDate());
-                node.RemoveDueDate();
-                
-            }
-
-            node.SetCompletionDate(DateTime.Now);
-        }
-
-        private void RemoveTask(MapNode node)
-        {
-            node.RemoveDueDate();
-        }
-
+        
         /// <summary>
         /// 
         /// </summary>

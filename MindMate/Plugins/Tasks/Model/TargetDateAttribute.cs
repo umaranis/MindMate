@@ -14,24 +14,10 @@ namespace MindMate.Plugins.Tasks.Model
         public const string ATTRIBUTE_NAME = "Target Date";
 
         /// <summary>
-        /// Checks if this attribute spec exists on the given node
-        /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
-        public static bool TargetDateExists(this MapNode node)
-        {
-            MapTree.AttributeSpec aspec = GetAttributeSpec(node.Tree);
-            if (aspec != null)
-                return node.ContainsAttribute(aspec);
-            else
-                return false;
-        }
-
-        /// <summary>
         /// Delete this attribute from the given node
         /// </summary>
         /// <param name="node"></param>
-        public static void RemoveTargetDate(this MapNode node)
+        public static void RemoveTargetDate(MapNode node)
         {
             MapTree.AttributeSpec aspec = GetAttributeSpec(node.Tree);
             if (aspec != null)
@@ -40,7 +26,7 @@ namespace MindMate.Plugins.Tasks.Model
             }
         }
 
-        private static bool GetAttribute(MapNode node, out MapNode.Attribute attribute)
+        public static bool GetAttribute(MapNode node, out MapNode.Attribute attribute)
         {
             MapTree.AttributeSpec aspec = GetAttributeSpec(node.Tree);
             if (aspec != null)
@@ -55,19 +41,7 @@ namespace MindMate.Plugins.Tasks.Model
             return false;
         }
 
-        /// <summary>
-        /// Throws exception if there is no Target Date attribute
-        /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
-        public static DateTime GetTargetDate(this MapNode node)
-        {
-            MapNode.Attribute att;
-            GetAttribute(node, out att);
-            return DateHelper.ToDateTime(att.value);
-        }
-
-        public static void SetTargetDate(this MapNode node, DateTime value)
+        public static void SetTargetDate(MapNode node, DateTime value)
         {
             MapTree.AttributeSpec aspec = GetOrCreateAttributeSpec(node.Tree);
             node.AddUpdateAttribute(new MapNode.Attribute(aspec, DateHelper.ToString(value)));
@@ -85,7 +59,7 @@ namespace MindMate.Plugins.Tasks.Model
                 MapTree.AttributeListOption.NoList, null, MapTree.AttributeType.System);
         }
 
-        private static MapTree.AttributeSpec GetAttributeSpec(MapTree tree)
+        public static MapTree.AttributeSpec GetAttributeSpec(MapTree tree)
         {
             MapTree.AttributeSpec aspec = tree.GetAttributeSpec(ATTRIBUTE_NAME);
             return aspec;

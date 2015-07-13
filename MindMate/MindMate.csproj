@@ -110,6 +110,7 @@
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Plugins\Tasks\Model\CompletionDateAttribute.cs" />
     <Compile Include="Plugins\Tasks\Model\DueDateAttribute.cs" />
+    <Compile Include="Plugins\Tasks\Model\Task.cs" />
     <Compile Include="Plugins\Tasks\SideBar\ControlGroupCollection.cs">
       <SubType>UserControl</SubType>
     </Compile>

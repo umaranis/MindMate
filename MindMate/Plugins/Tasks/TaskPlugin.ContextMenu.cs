@@ -88,7 +88,7 @@ namespace MindMate.Plugins.Tasks
             {
                 for (int i = 0; i < nodes.Count; i++)
                 {
-                    SetDueDate(nodes[i], dateTimePicker.Value);
+                    nodes[i].SetDueDate(dateTimePicker.Value);
                 }
             }
         }
@@ -113,7 +113,7 @@ namespace MindMate.Plugins.Tasks
             // show and set due dates
             if (dateTimePicker.ShowDialog() == DialogResult.OK)
             {
-                SetDueDate(node, dateTimePicker.Value);
+                node.SetDueDate(dateTimePicker.Value);
             }
         }
         
@@ -129,7 +129,7 @@ namespace MindMate.Plugins.Tasks
             {
                 MapNode node = nodes[i];
 
-                CompleteTask(node);
+                node.CompleteTask();
             }
         }
 
@@ -137,7 +137,7 @@ namespace MindMate.Plugins.Tasks
         {
             for (int i = 0; i < nodes.Count; i++)
             {
-                RemoveTask(nodes[i]);
+                nodes[i].RemoveTask();
             }
         }
 
@@ -145,7 +145,7 @@ namespace MindMate.Plugins.Tasks
         {
             for (int i = 0; i < nodes.Count; i++)
             {
-                SetDueDate(nodes[i], DateHelper.GetDefaultDueDateToday());
+                nodes[i].SetDueDate(DateHelper.GetDefaultDueDateToday());
             }
         }
 
@@ -153,7 +153,7 @@ namespace MindMate.Plugins.Tasks
         {
             for (int i = 0; i < nodes.Count; i++)
             {
-                SetDueDate(nodes[i], DateHelper.GetDefaultDueDateTomorrow());
+                nodes[i].SetDueDate(DateHelper.GetDefaultDueDateTomorrow());
             }
         }
 
@@ -161,7 +161,7 @@ namespace MindMate.Plugins.Tasks
         {
             for (int i = 0; i < nodes.Count; i++)
             {
-                SetDueDate(nodes[i], DateHelper.GetDefaultDueDateNextWeek());
+                nodes[i].SetDueDate(DateHelper.GetDefaultDueDateNextWeek());
             }            
         }
 
@@ -169,7 +169,7 @@ namespace MindMate.Plugins.Tasks
         {
             for (int i = 0; i < nodes.Count; i++)
             {
-                SetDueDate(nodes[i], DateHelper.GetDefaultDueDateNextMonth());
+                nodes[i].SetDueDate(DateHelper.GetDefaultDueDateNextMonth());
             } 
         }
 
@@ -177,7 +177,7 @@ namespace MindMate.Plugins.Tasks
         {
             for (int i = 0; i < nodes.Count; i++)
             {
-                SetDueDate(nodes[i], DateHelper.GetDefaultDueDateNextQuarter());
+                nodes[i].SetDueDate(DateHelper.GetDefaultDueDateNextQuarter());
             }            
         }
 

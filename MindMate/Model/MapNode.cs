@@ -417,6 +417,30 @@ namespace MindMate.Model
         }
 
         /// <summary>
+        /// Returns false if attribute not found
+        /// </summary>
+        /// <param name="attributeName"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool UpdateAttribute(string attributeName, string value)
+        {
+            if(attributeList != null)
+            {
+                for(int i = 0; i < attributeList.Count; i++)
+                {
+                    if(attributeList[i].AttributeSpec.Name == attributeName)
+                    {
+                        UpdateAttribute(i, value);
+                        return true;
+                    }
+                }                
+            }
+            
+            return false;
+            
+        }
+
+        /// <summary>
         /// Attribute is added if doesn't already exist. Otherwise it is updated.
         /// </summary>
         /// <param name="attribute"></param>

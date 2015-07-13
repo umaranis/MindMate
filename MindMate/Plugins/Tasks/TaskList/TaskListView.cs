@@ -255,7 +255,7 @@ namespace MindMate.Plugins.Tasks
             }
 
             //3- Update due date
-            tv.MapNode.SetDueDate(updateDate);
+            tv.MapNode.UpdateDueDate(updateDate);
         }
 
         public void MoveUp(TaskView tv)
@@ -309,7 +309,7 @@ namespace MindMate.Plugins.Tasks
             }
 
             //3- Update due date
-            tv.MapNode.SetDueDate(updateDate);
+            tv.MapNode.UpdateDueDate(updateDate);
         }
 
         /// <summary>
