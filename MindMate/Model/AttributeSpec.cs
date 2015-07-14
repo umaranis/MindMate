@@ -140,6 +140,11 @@ namespace MindMate.Model
             Tree.FireEvent(this, new AttributeSpecEventArgs() { Change = AttributeSpecChange.Removed });
         }
 
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 
     public enum AttributeDataType { Alphanumeric, Numeric, DateTime, Date }

@@ -31,7 +31,14 @@ namespace MindMate.Model
     public class AttributeChangeEventArgs : EventArgs
     {
         public AttributeChange ChangeType { get; set; }
-        public MapNode.Attribute oldValue { get; set; }
-        public MapNode.Attribute newValue { get; set; }
+        public MapTree.AttributeSpec AttributeSpec { get; set; }
+        public string oldValue { get; set; }
+    }
+
+    public class AttributeChangingEventArgs : EventArgs
+    {
+        public AttributeChange ChangeType { get; set; }
+        public MapTree.AttributeSpec AttributeSpec { get; set; }
+        public string NewValue { get; set; }        
     }
 }

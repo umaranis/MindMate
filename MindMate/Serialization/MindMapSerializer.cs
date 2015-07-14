@@ -164,6 +164,7 @@ namespace MindMate.Serialization
         /// <returns>Return the Root Node after constructing the hierarchy</returns>
         public void Deserialize(string XMLString, MapTree tree)
         {
+            tree.Deserializing = true;
 
             System.Xml.XmlDocument xmlDoc = new System.Xml.XmlDocument(); //TODO: Use XmlTextReader instead to speed up the code
             xmlDoc.LoadXml(XMLString);
@@ -181,6 +182,8 @@ namespace MindMate.Serialization
                     this.Deserialize(xnode, tree);
                 }
             }
+
+            tree.Deserializing = false;
         }
 
         public void DeserializeAttributeRegistry(XmlNode xmlAttrRegistry, MapTree tree)

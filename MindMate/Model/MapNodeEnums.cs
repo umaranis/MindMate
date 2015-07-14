@@ -63,7 +63,7 @@ namespace MindMate.Model
         /// </summary>
         MovedRight, 
         /// <summary>
-        /// Invoked after new tree node is created or existing node is attached. 
+        /// Invoked after existing node is attached
         /// </summary>
         Attached,
         /// <summary>

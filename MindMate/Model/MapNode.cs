@@ -309,6 +309,10 @@ namespace MindMate.Model
 
             public static Attribute Empty = new Attribute(null, null);
             public bool IsEmpty() { return AttributeSpec == null; }
+            public override string ToString()
+            {
+                return (AttributeSpec != null ? AttributeSpec.Name : "") + " : " + (value != null ? value : "");
+            }
         }
 
         private List<Attribute> attributeList;
@@ -390,13 +394,97 @@ namespace MindMate.Model
             return false;
         }
 
+        /// <summary>
+        /// Returns the index of attribute. '-1' if not found.
+        /// </summary>
+        /// <param name="attributeName"></param>
+        /// <returns></returns>
+        public int FindAttributeIndex(string attributeName)
+        {
+            if (attributeList != null)
+            {
+                for (int i = 0; i < attributeList.Count; i++)
+                {
+                    if (attributeList[i].AttributeSpec.Name == attributeName)
+                    {
+                        return i;
+                    }
+                }
+            }
+
+            return -1;
+
+        }
+
+        /// <summary>
+        /// Returns the index of attribute. '-1' if not found.
+        /// </summary>
+        /// <param name="attributeName"></param>
+        /// <returns></returns>
+        public int FindAttributeIndex(MapTree.AttributeSpec attribute)
+        {
+            if (attributeList != null)
+            {
+                for (int i = 0; i < attributeList.Count; i++)
+                {
+                    if (attributeList[i].AttributeSpec == attribute)
+                    {
+                        return i;
+                    }
+                }
+            }
+
+            return -1;
+
+        }
+
+        public int[] FindAttributeIndex(Attribute[] attributes)
+        {
+            int[] indexes = null;
+            if (attributes != null)
+            {
+                indexes = new int[attributes.Length];
+
+                for(int i = 0; i < attributes.Length; i++)
+                {
+                    indexes[i] = FindAttributeIndex(attributes[i].AttributeSpec);
+                }
+            }
+
+            return indexes;
+        }
+
+        public int[] FindAttributeIndex(MapTree.AttributeSpec[] attributes)
+        {
+            int[] indexes = null;
+            if (attributes != null)
+            {
+                indexes = new int[attributes.Length];
+
+                for (int i = 0; i < attributes.Length; i++)
+                {
+                    indexes[i] = FindAttributeIndex(attributes[i]);
+                }
+            }
+
+            return indexes;
+        }
+
+        private void EnsureAttributeListCreated()
+        {
+            if (attributeList == null)
+                attributeList = new List<Attribute>();
+        }
+
         public void AddAttribute(Attribute attribute)
         {
             EnsureAttributeListCreated();
 
+            Tree.FireEvent(this, new AttributeChangingEventArgs() { ChangeType = AttributeChange.Added, AttributeSpec = attribute.AttributeSpec, NewValue = attribute.value });
+
             attributeList.Add(attribute);
 
-            Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Added, newValue = attribute });
+            Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Added, AttributeSpec = attribute.AttributeSpec });
         }
 
         public void AddAttribute(string attributeName, string value)
@@ -407,13 +495,25 @@ namespace MindMate.Model
             AddAttribute(attribute);
         }
 
+        public void InsertAttribute(int index, Attribute attribute)
+        {
+            Tree.FireEvent(this, new AttributeChangingEventArgs() { ChangeType = AttributeChange.Added, AttributeSpec = attribute.AttributeSpec, NewValue = attribute.value });
+
+            attributeList.Insert(index, attribute);
+
+            Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Added, AttributeSpec = attribute.AttributeSpec });
+        }
+
         public void UpdateAttribute(int index, string newValue)
         {
             Attribute oldAtt = attributeList[index];
             Attribute newAtt = new Attribute() { AttributeSpec = oldAtt.AttributeSpec, value = newValue };
+
+            Tree.FireEvent(this, new AttributeChangingEventArgs() { ChangeType = AttributeChange.ValueUpdated, AttributeSpec = newAtt.AttributeSpec, NewValue = newAtt.value });
+
             attributeList[index] = newAtt;
 
-            Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.ValueUpdated, newValue = newAtt, oldValue = oldAtt });
+            Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.ValueUpdated, AttributeSpec = oldAtt.AttributeSpec, oldValue = oldAtt.value });
         }
 
         /// <summary>
@@ -439,7 +539,6 @@ namespace MindMate.Model
             return false;
             
         }
-
         /// <summary>
         /// Attribute is added if doesn't already exist. Otherwise it is updated.
         /// </summary>
@@ -461,62 +560,221 @@ namespace MindMate.Model
             AddAttribute(attribute);
         }
 
-
-
-        private void EnsureAttributeListCreated()
-        {
-            if (attributeList == null)
-                attributeList = new List<Attribute>();
-        }
-
-        public void InsertAttribute(int index, Attribute attribute)
-        {
-            attributeList.Insert(index, attribute);
-
-            Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Added, newValue = attribute });
-        }
-
         public void DeleteAttribute(Attribute attribute)
         {
-            if (attributeList.Remove(attribute))
-            {
-                Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Removed, oldValue = attribute });
-            }
+            DeleteAttribute(attribute.AttributeSpec);
         }
 
-        public void DeleteAttribute(string attributeName)
+        public bool DeleteAttribute(string attributeName)
         {
-            for(int i = 0; i < attributeList.Count; i++)
-            {
-                Attribute attribute = attributeList[i];
-                if (attribute.AttributeSpec.Name == attributeName)
-                {
-                    attributeList.RemoveAt(i);
-
-                    Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Removed, oldValue = attribute });
-                }
-            }
-
+            return DeleteAttribute(a => a.AttributeSpec.Name.Equals(attributeName));
         }
 
-        public void DeleteAttribute(MapTree.AttributeSpec attributeSpec)
+        public bool DeleteAttribute(MapTree.AttributeSpec attributeSpec)
+        {
+            return DeleteAttribute(a => a.AttributeSpec == attributeSpec);
+        }
+
+        /// <summary>
+        /// Deletes the first occurance of Attribute that fulfils the condiion
+        /// </summary>
+        /// <param name="condition"></param>
+        public bool DeleteAttribute(Func<Attribute, bool> condition)
         {
             for (int i = 0; i < attributeList.Count; i++)
             {
                 Attribute attribute = attributeList[i];
-                if (attribute.AttributeSpec == attributeSpec)
+                if (condition(attribute))
                 {
-                    attributeList.RemoveAt(i);
-
-                    Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Removed, oldValue = attribute });
+                    DeleteAttribute(i);
+                    return true;
                 }
             }
+            return false;
+        }
+
+        public void DeleteAttribute(int index)
+        {
+            Attribute attribute = attributeList[index];
+
+            Tree.FireEvent(this, new AttributeChangingEventArgs() { ChangeType = AttributeChange.Removed, AttributeSpec = attribute.AttributeSpec });
+
+            attributeList.RemoveAt(index);
+
+            Tree.FireEvent(this, new AttributeChangeEventArgs() { ChangeType = AttributeChange.Removed, AttributeSpec = attribute.AttributeSpec, oldValue = attribute.value });
+        }
+
+        /// <summary>
+        /// Add/Update/Remove multiple attributes as an atomic transaction.
+        /// Attribute Change notifications are generated after all attributes are updated. This avoids notification with intermediate / invalid state.
+        /// All Attribute Changing notification are generated before applying any change.
+        /// </summary>
+        /// <param name="addAttributes"></param>
+        /// <param name="updateAttributes">non existing attribute are ignored</param>
+        /// <param name="deleteAttributes">non existing attribute are ignored</param>
+        public void AttributeBatchUpdate(Attribute [] addAttributes, Attribute [] updateAttributes, MapTree.AttributeSpec [] deleteAttributes)
+        {
+            // 1. initialization
+            EnsureAttributeListCreated();
+
+            List<AttributeChangeEventArgs> args;
+            int listCount = 0;
+            int[] indexForUpdate = null;
+            int[] indexForDelete = null;
+
+            if(addAttributes != null)
+            {
+                listCount += addAttributes.Length;                
+            }
+            if(updateAttributes != null)
+            {
+                listCount += updateAttributes.Length;
+                indexForUpdate = new int[updateAttributes.Length];
+            }
+            if(deleteAttributes != null)
+            {
+                listCount += deleteAttributes.Length;
+                indexForDelete = new int[deleteAttributes.Length];
+            }
+
+            args = new List<AttributeChangeEventArgs>(listCount);
+
+
+            // 2. raise attribute changing event
+            if (addAttributes != null)
+            {
+                foreach (Attribute a in addAttributes)
+                {
+                    Tree.FireEvent(this, new AttributeChangingEventArgs() { ChangeType = AttributeChange.Added, AttributeSpec = a.AttributeSpec, NewValue = a.value });
+                }
+            }
+            if (indexForUpdate != null)
+            {
+                for (int i = 0; i < updateAttributes.Length; i++)
+                {
+                    Attribute a = updateAttributes[i];
+                    indexForUpdate[i] = FindAttributeIndex(a.AttributeSpec);
+                    if (indexForUpdate[i] > -1)
+                        Tree.FireEvent(this, new AttributeChangingEventArgs() { ChangeType = AttributeChange.ValueUpdated, AttributeSpec = a.AttributeSpec, NewValue = a.value });
+                }
+            }
+            if (indexForDelete != null)
+            {
+                for (int i = 0; i < deleteAttributes.Length; i++)
+                {
+                    MapTree.AttributeSpec a = deleteAttributes[i];
+                    indexForDelete[i] = FindAttributeIndex(a);
+                    if (indexForDelete[i] > -1)
+                        Tree.FireEvent(this, new AttributeChangingEventArgs() { ChangeType = AttributeChange.Removed, AttributeSpec = a });
+                }                
+            }
+
+            // 3. update attributes, update should be done before add / delete to avoid index changes
+            UpdateAttributesForBatch(indexForUpdate, updateAttributes, args);
+
+            // 4. delete attributes, delete should be done before add to avoid index changes
+            DeleteAttributesForBatch(indexForDelete, args);
+
+            // 5. add attributes
+            AddAttributesForBatch(addAttributes, args);
+
+
+            // 6. raise attribute changed event
+            args.ForEach(e => Tree.FireEvent(this, e));
 
         }
 
+        /// <summary>
+        /// Add/Update/Remove multiple attributes as an atomic transaction.
+        /// Attribute Change notifications are generated after all attributes are updated. This avoids notification with intermediate / invalid state.
+        /// All Attribute Changing notification are generated before applying any change.
+        /// </summary>
+        public void AttributeBatchUpdate(Attribute[] addUpdateAttributes, MapTree.AttributeSpec[] deleteAttributes)
+        {
+            var addAttributes = new List<Attribute>();
+            var updateAttributes = new List<Attribute>();
+            if(addUpdateAttributes != null)
+            {
+                int[] indexes = FindAttributeIndex(addUpdateAttributes);
+                for(int i = 0; i < indexes.Length; i++)
+                {
+                    if (indexes[i] > -1)
+                        updateAttributes.Add(addUpdateAttributes[i]);
+                    else
+                        addAttributes.Add(addUpdateAttributes[i]);
+                }
+            }
 
+            AttributeBatchUpdate(addAttributes.ToArray(), updateAttributes.ToArray(), deleteAttributes);
+        }
 
+        private void AddAttributesForBatch(Attribute[] addAttributes, List<AttributeChangeEventArgs> args)
+        {
+            if (addAttributes != null)
+            {
+                for (int i = 0; i < addAttributes.Length; i++)
+                {
+                    Attribute newAtt = addAttributes[i];
 
+                    attributeList.Add(newAtt);
+
+                    args.Add(new AttributeChangeEventArgs()
+                    {
+                        ChangeType = AttributeChange.Added,
+                        AttributeSpec = newAtt.AttributeSpec
+                    });
+                }
+            }            
+        }
+
+        private void UpdateAttributesForBatch(int[] indexForUpdate, Attribute[] updateAttributes, List<AttributeChangeEventArgs> args)
+        {
+            if (indexForUpdate != null)
+            {
+                for (int i = 0; i < indexForUpdate.Length; i++)
+                {
+                    if (indexForUpdate[i] > -1)
+                    {
+                        Attribute oldAtt = attributeList[indexForUpdate[i]];
+
+                        attributeList[indexForUpdate[i]] = updateAttributes[i];
+
+                        args.Add(new AttributeChangeEventArgs()
+                        {
+                            ChangeType = AttributeChange.ValueUpdated,
+                            AttributeSpec = oldAtt.AttributeSpec,
+                            oldValue = oldAtt.value,
+                        });
+                    }
+                }
+            }            
+        }
+
+        private void DeleteAttributesForBatch(int[] indexForDelete, List<AttributeChangeEventArgs> args)
+        {
+            if (indexForDelete != null)
+            {
+                Array.Sort(indexForDelete, (a, b) => b.CompareTo(a)); // sorted in desc order so that largest index is deleted first
+
+                for (int i = 0; i < indexForDelete.Length; i++)
+                {
+                    int attIndex = indexForDelete[i];
+                    if (attIndex > -1)
+                    {
+                        Attribute oldAtt = attributeList[attIndex];                        
+
+                        this.DeleteAttribute(attIndex);
+
+                        args.Add(new AttributeChangeEventArgs()
+                        {
+                            ChangeType = AttributeChange.Removed,
+                            AttributeSpec = oldAtt.AttributeSpec,
+                            oldValue = oldAtt.value
+                        });                        
+                    }
+                }
+            }
+        }
         #endregion Attributes
 
         #endregion
@@ -557,7 +815,7 @@ namespace MindMate.Model
         #region Constructors
 
         /// <summary>
-        /// Creates root node
+        /// Creates root node or detached node
         /// </summary>
         /// <param name="tree"></param>
         /// <param name="text"></param>
@@ -603,7 +861,7 @@ namespace MindMate.Model
             this.Icons = new IconList(this);
 
             // attaching to tree
-            AttachTo(parent, appendAfter, true, pos);
+            AttachTo(parent, appendAfter, true, pos, false);
 
             Tree.FireEvent(this, TreeStructureChange.New);
         }
@@ -748,7 +1006,8 @@ namespace MindMate.Model
             Tree.FireEvent(this, pos == NodePosition.Left? TreeStructureChange.MovedLeft : TreeStructureChange.MovedRight);
         }
 
-        public void AttachTo(MapNode parent, MapNode adjacentToSib = null, bool insertAfterSib = true, NodePosition pos = NodePosition.Undefined)
+        public void AttachTo(MapNode parent, MapNode adjacentToSib = null, bool insertAfterSib = true, 
+            NodePosition pos = NodePosition.Undefined, bool raiseAttachEvent = true)
         {
             this.Parent = parent;
             this.Tree = parent.Tree;
@@ -802,7 +1061,7 @@ namespace MindMate.Model
                 ForEach(n => n.pos = this.pos);
 
             parent.modified = DateTime.Now;
-            Tree.FireEvent(this, TreeStructureChange.Attached);
+            if(raiseAttachEvent)    Tree.FireEvent(this, TreeStructureChange.Attached);
 
 
         }

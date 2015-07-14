@@ -44,6 +44,11 @@ namespace MindMate.Model
             }
         }
 
+        /// <summary>
+        /// Indicates that MapTree is currently being deserialized and MapTree data is not completely loaded
+        /// </summary>
+        public bool Deserializing { get; set; }
+
         #region AttributeSpec
 
         private Dictionary<string, AttributeSpec> attributeSpecs = new Dictionary<string, AttributeSpec>();
@@ -110,6 +115,10 @@ namespace MindMate.Model
         public event Action<MapNode, TreeStructureChangedEventArgs> TreeStructureChanged = delegate { };
         public event Action<MapNode, IconChangedEventArgs> IconChanged = delegate { };
         public event Action<MapNode, AttributeChangeEventArgs> AttributeChanged = delegate { };
+        /// <summary>
+        /// Event is fired before changes are applied. See AttributeChanged event for notification after the changes.
+        /// </summary>
+        public event Action<MapNode, AttributeChangingEventArgs> AttributeChanging = delegate { };
 
         internal void FireEvent(MapNode node, NodeProperties property, object oldValue)
         {
@@ -146,6 +155,11 @@ namespace MindMate.Model
         internal void FireEvent(MapNode node, AttributeChangeEventArgs args)
         {
             AttributeChanged(node, args);
+        }
+
+        internal void FireEvent(MapNode node, AttributeChangingEventArgs args)
+        {
+            AttributeChanging(node, args);
         }
 
         #endregion
