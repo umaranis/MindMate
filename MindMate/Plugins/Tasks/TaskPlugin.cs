@@ -11,7 +11,9 @@ namespace MindMate.Plugins.Tasks
 {
     public partial class TaskPlugin : IPlugin
     {
-        
+
+        private PendingTaskList pendingTasks;
+        private CompletedTaskList completedTasks;
         private DateTimePicker dateTimePicker; 
         private TaskListView taskList;
         private IPluginManager pluginManager;
@@ -19,6 +21,11 @@ namespace MindMate.Plugins.Tasks
         public void Initialize(IPluginManager pluginMgr)
         {
             this.pluginManager = pluginMgr;
+
+            pendingTasks = new PendingTaskList();
+            completedTasks = new CompletedTaskList();
+            pendingTasks.TaskChanged += PendingTasks_TaskChanged;
+
             dateTimePicker = new DateTimePicker();
             taskList = new TaskListView();
             taskList.TaskViewEvent += taskList_TaskViewEvent;
@@ -33,7 +40,6 @@ namespace MindMate.Plugins.Tasks
                 Recurrance = TimeSpan.FromDays(1)
             });
         }
-
         void taskList_TaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
         {
             switch(e)
@@ -87,18 +93,22 @@ namespace MindMate.Plugins.Tasks
 
         public void OnCreatingTree(MapTree tree)
         {
-            tree.AttributeChanged += tree_AttributeChanged;
+            pendingTasks.RegisterMap(tree);
+            completedTasks.RegisterMap(tree);
 
             tree.SelectedNodes.NodeSelected += SelectedNodes_NodeSelected;
             tree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
 
             tree.NodePropertyChanged += tree_NodePropertyChanged;
             tree.TreeStructureChanged += tree_TreeStructureChanged;
+
+            tree.AttributeChanged += Task.OnAttributeChanged;
         }
 
         public void OnDeletingTree(MapTree tree)
         {
-            tree.AttributeChanged -= tree_AttributeChanged;
+            pendingTasks.UnregisterMap(tree);
+            completedTasks.UnregisterMap(tree);
 
             tree.SelectedNodes.NodeSelected -= SelectedNodes_NodeSelected;
             tree.SelectedNodes.NodeDeselected -= SelectedNodes_NodeDeselected;
@@ -106,7 +116,26 @@ namespace MindMate.Plugins.Tasks
             tree.NodePropertyChanged -= tree_NodePropertyChanged;
             tree.TreeStructureChanged -= tree_TreeStructureChanged;
 
+            tree.AttributeChanged += Task.OnAttributeChanged;
+
             taskList.Clear(tree);
+        }
+
+        private void PendingTasks_TaskChanged(MapNode node, PendingTaskEventArgs e)
+        {
+            switch(e.TaskChange)
+            {
+                case PendingTaskChange.TaskAdded:
+                    taskList.Add(node);
+                    break;
+                case PendingTaskChange.TaskCompleted:
+                case PendingTaskChange.TaskRemoved:
+                    taskList.RemoveTask(node, e.OldDueDate);
+                    break;
+                case PendingTaskChange.DueDateUpdated:
+                    taskList.RefreshTaskDueDate(node, e.OldDueDate);
+                    break;
+            }
         }
 
         void SelectedNodes_NodeSelected(MapNode node, SelectedNodes selectedNodes)
@@ -125,37 +154,7 @@ namespace MindMate.Plugins.Tasks
                 TaskView tv = taskList.FindTaskView(node, node.GetDueDate());
                 if(tv != null) tv.Selected = false;
             }
-        }
-
-        private void tree_AttributeChanged(MapNode node, AttributeChangeEventArgs e)
-        {
-            // Due Date attribute changed
-            if (e.ChangeType == AttributeChange.Removed && e.oldValue.AttributeSpec.IsDueDate()) 
-            {
-                taskList.RemoveTask(node, DateHelper.ToDateTime(e.oldValue.value));
-
-                TaskDueIcon.FireStatusChangeEvent(node, SystemIconStatusChange.Hide);
-            }
-            else if (e.ChangeType == AttributeChange.Added && e.newValue.AttributeSpec.IsDueDate())
-            {
-                taskList.Add(node);
-
-                TaskDueIcon.FireStatusChangeEvent(node, SystemIconStatusChange.Show);
-            }
-            else if (e.ChangeType == AttributeChange.ValueUpdated && e.newValue.AttributeSpec.IsDueDate())
-            {
-                taskList.RefreshTaskDueDate(node, DateHelper.ToDateTime(e.oldValue.value));
-            }
-            // Comletion Date attribute changed
-            else if (e.ChangeType == AttributeChange.Added && e.newValue.AttributeSpec.IsCompletionDate())
-            {
-                TaskCompleteIcon.FireStatusChangeEvent(node, SystemIconStatusChange.Show);
-            }
-            else if(e.ChangeType == AttributeChange.Removed && e.oldValue.AttributeSpec.IsCompletionDate())
-            {
-                TaskCompleteIcon.FireStatusChangeEvent(node, SystemIconStatusChange.Hide);
-            }
-        }
+        }        
 
         void tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
         {

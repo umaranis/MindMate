@@ -6,24 +6,35 @@ using System.Text;
 
 namespace MindMate.Plugins.Tasks.Model
 {
-    /// <summary>
-    /// used to store Target Date after task is completed
-    /// </summary>
-    public static class TargetDateAttribute
+    public static class TaskStatusAttribute
     {
-        public const string ATTRIBUTE_NAME = "Target Date";
+        public const string ATTRIBUTE_NAME = "Task Status";
 
         /// <summary>
-        /// Delete this attribute from the given node
+        /// Checks if this attribute spec exists on the given node
         /// </summary>
         /// <param name="node"></param>
-        public static void RemoveTargetDate(MapNode node)
+        /// <returns></returns>
+        public static bool TaskStatusExists(MapNode node)
+        {
+            MapTree.AttributeSpec aspec = TaskStatusAttribute.GetAttributeSpec(node.Tree);
+            if (aspec != null)
+                return node.ContainsAttribute(aspec);
+            else
+                return false;
+        }
+
+        /// <summary>
+        /// Delete this attribute from the given node if attribute exists
+        /// </summary>
+        /// <param name="node"></param>
+        public static void RemoveTaskStatus(MapNode node)
         {
             MapTree.AttributeSpec aspec = GetAttributeSpec(node.Tree);
             if (aspec != null)
             {
                 node.DeleteAttribute(aspec);
-            }
+            }            
         }
 
         public static bool GetAttribute(MapNode node, out MapNode.Attribute attribute)
@@ -34,20 +45,20 @@ namespace MindMate.Plugins.Tasks.Model
                 if (node.GetAttribute(aspec, out attribute))
                 {
                     return true;
-                }
+                }                
             }
 
             attribute = MapNode.Attribute.Empty;
             return false;
-        }
+        }        
 
-        public static void SetTargetDate(MapNode node, DateTime value)
+        public static void SetTaskStatus(MapNode node, TaskStatus value)
         {
             MapTree.AttributeSpec aspec = GetOrCreateAttributeSpec(node.Tree);
-            node.AddUpdateAttribute(new MapNode.Attribute(aspec, DateHelper.ToString(value)));
+            node.AddUpdateAttribute(new MapNode.Attribute(aspec, value.ToString()));
         }
 
-        public static bool IsTargetDate(this MapTree.AttributeSpec aspec)
+        public static bool IsTaskStatus(this MapTree.AttributeSpec aspec)
         {
             return aspec.Name == ATTRIBUTE_NAME;
         }
@@ -65,12 +76,29 @@ namespace MindMate.Plugins.Tasks.Model
             return aspec;
         }
 
-        private static MapTree.AttributeSpec GetOrCreateAttributeSpec(MapTree tree)
+        public static MapTree.AttributeSpec GetOrCreateAttributeSpec(MapTree tree)
         {
             MapTree.AttributeSpec aspec = GetAttributeSpec(tree);
             if (aspec == null) aspec = tree.CreateAttributeSpec();
 
             return aspec;
         }
+    }
+
+    public enum TaskStatus
+    {
+        /// <summary>
+        /// Not a Task (no status attribute).
+        /// It is default enum value.
+        /// </summary>
+        None = 0,
+        /// <summary>
+        /// Task is open
+        /// </summary>
+        Open,
+        /// <summary>
+        /// Task is completed
+        /// </summary>
+        Complete
     }
 }

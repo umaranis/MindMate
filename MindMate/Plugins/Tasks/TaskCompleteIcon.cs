@@ -10,9 +10,29 @@ namespace MindMate.Plugins.Tasks
 {
     public class TaskCompleteIcon : ISystemIcon
     {
+        public TaskCompleteIcon(CompletedTaskList taskList)
+        {
+            taskList.TaskChanged += (n, e) =>
+            {
+                if (StatusChange == null) return;
+
+                switch(e.TaskChange)
+                {
+                    case CompletedTaskChange.TaskCompleted:
+                        StatusChange(n, this, SystemIconStatusChange.Show);
+                        break;
+                    case CompletedTaskChange.TaskRemoved:
+                        StatusChange(n, this, SystemIconStatusChange.Hide);
+                        break;
+                }
+            };
+        }
+        
+        public string Name { get { return "TaskCompleted"; } }
+
         public bool ShowIcon(MapNode node)
         {
-            return node.CompletionDateExists();
+            return node.IsTaskComplete();
         }
 
         public event Action<MapNode, ISystemIcon, SystemIconStatusChange> StatusChange;
@@ -21,15 +41,6 @@ namespace MindMate.Plugins.Tasks
         {
             get { return TaskRes.tick; }
         }
-
-        public string Name
-        {
-            get { return "TaskCompleted"; }
-        }
-
-        internal void FireStatusChangeEvent(MapNode node, SystemIconStatusChange change)
-        {
-            StatusChange(node, this, change);
-        }
+        
     }
 }

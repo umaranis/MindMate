@@ -13,8 +13,8 @@ namespace MindMate.Plugins.Tasks
         public ISystemIcon[] CreateSystemIcons()
         {
             systemIcons = new ISystemIcon[] {
-                new TaskDueIcon(),
-                new TaskCompleteIcon()
+                new TaskDueIcon(pendingTasks),
+                new TaskCompleteIcon(completedTasks)
             };
 
             return systemIcons;

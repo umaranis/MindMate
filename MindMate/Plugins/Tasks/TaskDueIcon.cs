@@ -10,10 +10,32 @@ namespace MindMate.Plugins.Tasks
 {
     public class TaskDueIcon : ISystemIcon
     {
+        public TaskDueIcon(PendingTaskList taskList)
+        {
+            taskList.TaskChanged += (n, e) =>
+            {
+                if (StatusChange == null) return;
+
+                switch(e.TaskChange)
+                {
+                    case PendingTaskChange.TaskAdded:
+                        StatusChange(n, this, SystemIconStatusChange.Show);
+                        break;
+                    case PendingTaskChange.TaskCompleted:
+                        StatusChange(n, this, SystemIconStatusChange.Hide);
+                        break;
+                    case PendingTaskChange.TaskRemoved:
+                        StatusChange(n, this, SystemIconStatusChange.Hide);
+                        break;
+                }
+            };
+        }
+
         public string Name { get { return "TaskPending"; } }
+
         public bool ShowIcon(MapNode node)
         {
-            return node.DueDateExists();          
+            return node.DueDateExists() && node.IsTaskPending();          
         }
 
         public event Action<MapNode, ISystemIcon, SystemIconStatusChange> StatusChange;
@@ -22,11 +44,6 @@ namespace MindMate.Plugins.Tasks
         {
             get { return TaskRes.date; }
         }
-
-        internal void FireStatusChangeEvent(MapNode node, SystemIconStatusChange change)
-        {
-            if(StatusChange != null)
-                StatusChange(node, this, change);
-        }
+        
     }
 }

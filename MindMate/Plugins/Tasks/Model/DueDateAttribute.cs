@@ -11,7 +11,7 @@ namespace MindMate.Plugins.Tasks.Model
         public const string ATTRIBUTE_NAME = "Due Date";
                 
         /// <summary>
-        /// Delete this attribute from the given node
+        /// Delete this attribute from the given node if attribute exists
         /// </summary>
         /// <param name="node"></param>
         public static void RemoveDueDate(MapNode node)
@@ -62,7 +62,7 @@ namespace MindMate.Plugins.Tasks.Model
             return aspec;
         }
 
-        private static MapTree.AttributeSpec GetOrCreateAttributeSpec(MapTree tree)
+        public static MapTree.AttributeSpec GetOrCreateAttributeSpec(MapTree tree)
         {
             MapTree.AttributeSpec aspec = GetAttributeSpec(tree);
             if (aspec == null) aspec = tree.CreateAttributeSpec();
