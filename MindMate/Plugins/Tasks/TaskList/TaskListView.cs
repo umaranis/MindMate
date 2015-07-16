@@ -8,11 +8,7 @@ namespace MindMate.Plugins.Tasks
 {
     public class TaskListView : MindMate.Plugins.Tasks.SideBar.SideBar
     {
-        /// <summary>
-        /// List of tasks with due date after next month
-        /// </summary>
-        TaskCollection taskGroupRest;
-
+        
         public TaskListView()
         {
             ControlGroup taskGroupOverdue;
@@ -35,8 +31,6 @@ namespace MindMate.Plugins.Tasks
             taskGroupThisWeek.Tag = new TaskGroupThisWeek();
             taskGroupThisMonth.Tag = new TaskGroupThisMonth();
             taskGroupNextMonth.Tag = new TaskGroupNextMonth();
-
-            taskGroupRest = new TaskCollection();
         }
 
         public event Action<TaskView, TaskView.TaskViewEvent> TaskViewEvent;
@@ -51,11 +45,7 @@ namespace MindMate.Plugins.Tasks
                 ITaskGroup taskGroup = (ITaskGroup)ctrlGroup.Tag;
                 TaskView tv = new TaskView(node, taskGroup.ShortDueDateString(dateTime), OnTaskViewEvent);
                 AddToGroup(ctrlGroup, tv);
-            }          
-            else
-            {
-                taskGroupRest.Add(node);
-            }  
+            }       
         }
 
         public void Add(TaskView tv)
@@ -69,14 +59,10 @@ namespace MindMate.Plugins.Tasks
                 tv.RefreshTaskPath();
                 tv.TaskTitle = tv.MapNode.Text;
                 AddToGroup(ctrlGroup, tv);
-            }
-            else
-            {
-                taskGroupRest.Add(tv.MapNode);
-            }
+            }            
         }
 
-        private ControlGroup GetApplicableGroup(DateTime dueDate)
+        public ControlGroup GetApplicableGroup(DateTime dueDate)
         {
             for (int i = 0; i < this.ControlGroups.Count; i++)
             {
@@ -118,6 +104,7 @@ namespace MindMate.Plugins.Tasks
             }
 
         }
+
         private void RemoveTask(TaskView tv)
         {
             var taskGroup = GetControlGroup(tv);
@@ -136,11 +123,7 @@ namespace MindMate.Plugins.Tasks
             if (tv != null)
             {
                 RemoveTask(tv);
-            }
-            else
-            {
-                taskGroupRest.Remove(node);
-            }
+            }            
         }
 
         public ITaskGroup GetTaskGroup(TaskView tv)
@@ -350,43 +333,13 @@ namespace MindMate.Plugins.Tasks
         /// </summary>
         public void RefreshTaskList()
         {
-            //List<Control> list = GetControlList();
-
-            //foreach(Control c in list)
-            //{
-            //    TaskView tv = (TaskView)c;
-            //    this.RemoveTask(tv);
-            //    this.Add(tv);
-            //}
-
-            //refresh TaskView(s) - Tasks which are displayed
             TaskView tv = (TaskView)GetFirstControl();
             while(tv != null)
             {
                 RemoveTask(tv);
                 Add(tv);
                 tv = (TaskView)GetNextControl(tv);
-            }
-
-            //refresh rest of the tasks which are not displayed
-            if (taskGroupRest.Count > 0)
-            {
-                MapNode node = taskGroupRest[0];
-                while(node != null)
-                {
-                    DateTime dueDate = node.GetDueDate();
-                    if (GetApplicableGroup(dueDate) != null)
-                    {
-                        taskGroupRest.RemoveAt(0);
-                        Add(node);
-                        node = taskGroupRest.Count > 0 ? taskGroupRest[0] : null;
-                    }
-                    else
-                    {
-                        node = null;
-                    }
-                }
-            }
+            }            
         }        
 
         public void Clear(MapTree tree)
@@ -400,8 +353,6 @@ namespace MindMate.Plugins.Tasks
 
                 tv = nextTV;                
             }
-
-            taskGroupRest.Clear(tree);
         }
     }
 }

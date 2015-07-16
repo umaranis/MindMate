@@ -255,7 +255,7 @@ namespace MindMate.Plugins.Tasks.Model
 
         public int IndexOf(MapNode item)
         {
-            return ((IList<MapNode>)tasks).IndexOf(item);
+            return tasks.BinarySearch(item);
         }
 
         private void Insert(int index, MapNode item)

@@ -37,7 +37,7 @@ namespace MindMate.Plugins.Tasks
                 StartTime = DateTime.Today.AddDays(1),
                 TaskAction = () =>
                 {
-                    taskListView.Invoke((Action)taskListView.RefreshTaskList);
+                    taskListView.Invoke((Action)RefreshTaskListView);
                 },
                 Recurrance = TimeSpan.FromDays(1)
             });

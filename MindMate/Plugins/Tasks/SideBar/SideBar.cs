@@ -31,7 +31,7 @@ namespace MindMate.Plugins.Tasks.SideBar
 
         private void AdjustMainPanelHeight()
         {
-            Control lastTaskGroup = GetLastControl();
+            Control lastTaskGroup = GetLastControlGroup();
             if (lastTaskGroup != null)
                 this.tablePanelMain.Height = lastTaskGroup.Location.Y + lastTaskGroup.Size.Height + lastTaskGroup.Margin.Bottom;
             else
@@ -49,7 +49,7 @@ namespace MindMate.Plugins.Tasks.SideBar
         {
             AdjustMainPanelHeight();
 
-            if (GetLastControl() == null) lblNoTasks.Visible = true;
+            if (GetLastControlGroup() == null) lblNoTasks.Visible = true;
         }
 
         //public Control GetControl(int index)
@@ -81,6 +81,17 @@ namespace MindMate.Plugins.Tasks.SideBar
             {
                 if (cg.Count > 0)
                     return cg[0];
+            }
+            return null;
+        }
+
+        public Control GetLastControl()
+        {
+            for(int i = ControlGroups.Count - 1; i >= 0; i--)
+            {
+                ControlGroup cg = ControlGroups[i];
+                if (cg.Count > 0)
+                    return cg[cg.Count - 1];
             }
             return null;
         }
@@ -209,8 +220,8 @@ namespace MindMate.Plugins.Tasks.SideBar
         /// <summary>
         /// 
         /// </summary>
-        /// <returns>return null if no Task Group is visible</returns>
-        private Control GetLastControl()
+        /// <returns>return null if no Control Group is visible</returns>
+        private Control GetLastControlGroup()
         {
             for(int i = this.tablePanelMain.RowCount - 1; i >= 0; i--)
             {

@@ -52,6 +52,37 @@ namespace MindMate.Plugins.Tasks
             }
         }
 
+        /// <summary>
+        /// Used to refresh task list view as date changes
+        /// </summary>
+        private void RefreshTaskListView()
+        {
+            taskListView.RefreshTaskList();
+
+            //refresh for rest of the tasks which are not displayed
+            TaskView lastTV = (TaskView)taskListView.GetLastControl();
+            if (lastTV != null)
+            {
+                int startIndex = pendingTasks.IndexOf(lastTV.MapNode) + 1;
+                MapNode node = (startIndex < pendingTasks.Count) ? pendingTasks[startIndex] : null;
+                while (node != null)
+                {
+                    DateTime dueDate = node.GetDueDate();
+                    if (taskListView.GetApplicableGroup(dueDate) != null)
+                    {
+                        taskListView.Add(node);
+                        startIndex++;
+                        node = (startIndex < pendingTasks.Count) ? pendingTasks[startIndex] : null;
+                    }
+                    else
+                    {
+                        node = null;
+                    }
+                }
+            }
+
+        }
+
         void taskList_TaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
         {
             switch (e)
