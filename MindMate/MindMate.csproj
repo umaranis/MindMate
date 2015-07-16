@@ -145,6 +145,7 @@
     </Compile>
     <Compile Include="Plugins\Tasks\TaskDueIcon.cs" />
     <Compile Include="Plugins\Tasks\TaskPlugin.SystemIcons.cs" />
+    <Compile Include="Plugins\Tasks\TaskPlugin.TaskListView.cs" />
     <Compile Include="Plugins\Tasks\TaskRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

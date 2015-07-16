@@ -118,12 +118,6 @@ namespace MindMate.Plugins.Tasks
             }
 
         }
-
-        private void OnTaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
-        {
-            TaskViewEvent(tv, e);
-        }
-
         private void RemoveTask(TaskView tv)
         {
             var taskGroup = GetControlGroup(tv);
@@ -197,6 +191,11 @@ namespace MindMate.Plugins.Tasks
             }
 
             return null;
+        }
+
+        private void OnTaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
+        {
+            TaskViewEvent(tv, e);
         }
 
         public void MoveDown(TaskView tv)
@@ -312,6 +311,18 @@ namespace MindMate.Plugins.Tasks
             tv.MapNode.UpdateDueDate(updateDate);
         }
 
+        public void SelectNode(MapNode node)
+        {
+            TaskView tv = FindTaskView(node, node.GetDueDate());
+            if (tv != null) tv.Selected = true;
+        }
+
+        public void DeselectNode(MapNode node)
+        {
+            TaskView tv = FindTaskView(node, node.GetDueDate());
+            if (tv != null) tv.Selected = false;
+        }
+
         /// <summary>
         /// Refreshes TaskList if Due Date is changed for a MapNode
         /// </summary>
@@ -320,6 +331,18 @@ namespace MindMate.Plugins.Tasks
         {
             RemoveTask(node, oldDueDate);
             Add(node);            
+        }
+
+        public void RefreshTaskText(MapNode node)
+        {
+            TaskView tv = FindTaskView(node, node.GetDueDate());
+            if (tv != null) tv.TaskTitle = node.Text;
+        }
+
+        public void RefreshTaskPath(MapNode node)
+        {
+            TaskView tv = FindTaskView(node, node.GetDueDate());
+            if (tv != null) tv.RefreshTaskPath();
         }
         
         /// <summary>
@@ -364,43 +387,7 @@ namespace MindMate.Plugins.Tasks
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// Refreshes TaskList for any changes to changedNode or its descendents
-        /// </summary>
-        /// <param name="changedNode"></param>
-        /// <param name="operation"></param>
-        public void RefreshTaskList(MapNode changedNode, Action<TaskView> operation)
-        {
-            //int taskViewCount = taskList.GetControlCount();
-            //for(int i = 0; i < taskViewCount; i++)
-            //{
-            //    TaskView tv = (TaskView)taskList.GetControl(i);
-            //    if (tv.MapNode == changedNode || tv.MapNode.isDescendent(changedNode))
-            //        operation(tv);
-            //}
-
-            if (!changedNode.HasChildren && changedNode.DueDateExists())
-            {
-                TaskView tv = this.FindTaskView(changedNode, changedNode.GetDueDate());
-                if(tv != null)
-                    operation(tv);
-            }
-            else
-            {
-                TaskView ctrl = (TaskView)this.GetFirstControl();
-                TaskView nextCtrl;
-
-                while (ctrl != null)
-                {
-                    nextCtrl = (TaskView)this.GetNextControl(ctrl); //this method has to be called before operation as operation might delete the ctrl
-                    if (ctrl.MapNode == changedNode || ctrl.MapNode.isDescendent(changedNode))
-                        operation(ctrl);
-                    ctrl = nextCtrl;
-                }
-            }
-        }
+        }        
 
         public void Clear(MapTree tree)
         {

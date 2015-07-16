@@ -43,7 +43,20 @@ namespace MindMate.Plugins.Tasks.Model
             tree.NodePropertyChanged -= Tree_NodePropertyChanged;
             tree.TreeStructureChanged -= Tree_TreeStructureChanged;
 
-            tasks.RemoveAll(n => n.Tree == tree);
+            Clear(tree);
+        }
+
+        private void Clear(MapTree tree)
+        {
+            for (int i = Count - 1; i >= 0; i--)
+            {
+                MapNode node = this[i];
+                if (node.Tree == tree)
+                {
+                    RemoveAt(i);
+                    TaskChanged(node, new CompletedTaskEventArgs() { TaskChange = CompletedTaskChange.TaskRemoved, OldCompletionDate = node.GetCompletionDate(), OldTaskStatus = node.GetTaskStatus() });
+                }
+            }
         }
 
         private void Tree_AttributeChanging(MapNode node, AttributeChangingEventArgs e)
@@ -214,12 +227,6 @@ namespace MindMate.Plugins.Tasks.Model
             else
                 tasks.Insert(~index, item);
         }
-
-        private void Clear(MapTree tree)
-        {
-            tasks.RemoveAll(node => node.Tree == tree);
-        }
-
         /// <summary>
         /// Compares two tasks in terms of their CompletionDate
         /// </summary>
