@@ -144,7 +144,7 @@ namespace MindMate.Serialization
                 {
                     xml.WriteStartElement("attribute");
                     xml.WriteAttributeString("NAME", a.AttributeSpec.Name);
-                    xml.WriteAttributeString("VALUE", a.value);
+                    xml.WriteAttributeString("VALUE", a.ValueString);
                     xml.WriteEndElement();
                 }
             }

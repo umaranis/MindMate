@@ -95,8 +95,6 @@ namespace MindMate.Plugins.Tasks.Model
                 completedTaskArgs.TaskChange = CompletedTaskChange.CompletionDateUpdated;
                 TaskChanged(node, completedTaskArgs);
             }
-
-            completedTaskArgs = null;
         }        
         
         private void Tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)

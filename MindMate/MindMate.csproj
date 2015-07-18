@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="MetaModel\Icon.cs" />
     <Compile Include="Model\AttributeSpec.cs" />
+    <Compile Include="Model\MapNode.Attribute.cs" />
     <Compile Include="Model\ClipboardManager.cs" />
     <Compile Include="Controller\ContextMenuCtrl.cs" />
     <Compile Include="Controller\IMainCtrl.cs" />

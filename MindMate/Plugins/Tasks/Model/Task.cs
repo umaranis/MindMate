@@ -31,7 +31,7 @@ namespace MindMate.Plugins.Tasks.Model
         {
             MapNode.Attribute att;
             DueDateAttribute.GetAttribute(node, out att);
-            return DateHelper.ToDateTime(att.value);
+            return DateHelper.ToDateTime(att.ValueString);
         }
         public static bool UpdateDueDate(this MapNode node, DateTime dueDate)
         {
@@ -60,7 +60,7 @@ namespace MindMate.Plugins.Tasks.Model
         {
             MapNode.Attribute att;
             CompletionDateAttribute.GetAttribute(node, out att);
-            return DateHelper.ToDateTime(att.value);
+            return DateHelper.ToDateTime(att.ValueString);
         }
 
         #region Task Status
@@ -84,7 +84,7 @@ namespace MindMate.Plugins.Tasks.Model
         {
             MapNode.Attribute att;
             if (TaskStatusAttribute.GetAttribute(node, out att))
-                return (TaskStatus)Enum.Parse(typeof(TaskStatus), att.value);
+                return (TaskStatus)Enum.Parse(typeof(TaskStatus), att.ValueString);
             else
                 return TaskStatus.None;
         }

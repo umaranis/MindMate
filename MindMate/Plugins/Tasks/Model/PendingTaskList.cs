@@ -107,7 +107,7 @@ namespace MindMate.Plugins.Tasks.Model
                 TaskChanged(node, pendingTaskArgs);
             }
             // task due date updated
-            else if(e.ChangeType == AttributeChange.ValueUpdated && e.AttributeSpec.IsDueDate())
+            else if(e.ChangeType == AttributeChange.ValueUpdated && e.AttributeSpec.IsDueDate() && pendingTaskArgs.OldTaskStatus != TaskStatus.Complete && node.GetTaskStatus() == TaskStatus.Complete)
             {
                 Remove(node);
                 Add(node);
