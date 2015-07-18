@@ -108,7 +108,7 @@ namespace MindMate.Plugins
             mainCtrl.ReturnFocusToMapView();
         }
 
-        public void ScheduleTask(TaskSchedular.Task task)
+        public void ScheduleTask(TaskSchedular.ITask task)
         {
             mainCtrl.ScheduleTask(task);
         }        

@@ -32,15 +32,15 @@ namespace MindMate.Plugins.Tasks
             taskListView = new TaskListView();
             taskListView.TaskViewEvent += taskList_TaskViewEvent;
 
-            pluginMgr.ScheduleTask(new TaskSchedular.Task()
-            {
-                StartTime = DateTime.Today.AddDays(1),
-                TaskAction = () =>
+            pluginMgr.ScheduleTask(new TaskSchedular.RecurringTask(
+                () =>
                 {
                     taskListView.Invoke((Action)RefreshTaskListView);
                 },
-                Recurrance = TimeSpan.FromDays(1)
-            });
+                DateTime.Today.AddDays(1),
+                TimeSpan.FromDays(1)
+                )
+            );
         }
                                                
         public void CreateMainMenuItems(out MenuItem[] menuItems, out MainMenuLocation position)

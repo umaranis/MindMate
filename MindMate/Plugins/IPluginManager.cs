@@ -10,6 +10,6 @@ namespace MindMate.Plugins
     {
         void FocusMapEditor();
 
-        void ScheduleTask(TaskSchedular.Task task);    
+        void ScheduleTask(TaskSchedular.ITask task);    
     }
 }

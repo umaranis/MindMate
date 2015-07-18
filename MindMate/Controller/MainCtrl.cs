@@ -233,7 +233,7 @@ namespace MindMate.Controller
             mapCtrl.SetMapViewBackColor(color);
         }
 
-        public void ScheduleTask(TaskSchedular.Task task)
+        public void ScheduleTask(TaskSchedular.ITask task)
         {
             schedular.AddTask(task);
         }
