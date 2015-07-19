@@ -83,7 +83,7 @@ namespace MindMate.Plugins.Tasks
 
         }
 
-        void taskList_TaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
+        public void OnTaskViewEvent(TaskView tv, TaskView.TaskViewEvent e)
         {
             switch (e)
             {

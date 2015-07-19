@@ -16,6 +16,11 @@ namespace MindMate.Plugins
         void Initialize(IPluginManager pluginMgr);
 
         /// <summary>
+        /// Called when application launching is completed and application is ready (main form loaded with MapTree)
+        /// </summary>
+        void OnApplicationReady();
+        
+        /// <summary>
         /// Plugin to create and provide a list of menu items for main menu. Will be called only once by PluginManager.
         /// </summary>
         void CreateMainMenuItems(out MenuItem[] menuItems, out MainMenuLocation location);

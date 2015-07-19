@@ -13,10 +13,18 @@ namespace MindMate.Plugins.Tasks
     {
 
         private PendingTaskList pendingTasks;
+        public PendingTaskList PendingTasks { get { return pendingTasks; } }
+
         private CompletedTaskList completedTasks;
-        private DateTimePicker dateTimePicker; 
+        private DateTimePicker dateTimePicker;
+
         private TaskListView taskListView;
+        public TaskListView TaskListView { get { return taskListView; } }
+
         private IPluginManager pluginManager;
+        public IPluginManager PluginManager { get { return pluginManager; } }
+
+        
 
         public void Initialize(IPluginManager pluginMgr)
         {
@@ -30,7 +38,7 @@ namespace MindMate.Plugins.Tasks
 
             dateTimePicker = new DateTimePicker();
             taskListView = new TaskListView();
-            taskListView.TaskViewEvent += taskList_TaskViewEvent;
+            taskListView.TaskViewEvent += OnTaskViewEvent;
 
             pluginMgr.ScheduleTask(new TaskSchedular.RecurringTask(
                 () =>
@@ -40,7 +48,12 @@ namespace MindMate.Plugins.Tasks
                 DateTime.Today.AddDays(1),
                 TimeSpan.FromDays(1)
                 )
-            );
+            );                        
+        }
+
+        public void OnApplicationReady()
+        {
+            new Reminder.ReminderCtrl(this);
         }
                                                
         public void CreateMainMenuItems(out MenuItem[] menuItems, out MainMenuLocation position)

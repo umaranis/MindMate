@@ -118,6 +118,15 @@
     <Compile Include="Plugins\Tasks\Model\Task.cs" />
     <Compile Include="Plugins\Tasks\Model\PendingTaskList.cs" />
     <Compile Include="Plugins\Tasks\Model\PendingTaskEventArgs.cs" />
+    <Compile Include="Plugins\Tasks\Reminder\ReminderType.cs" />
+    <Compile Include="Plugins\Tasks\Reminder\ReminderCtrl.cs" />
+    <Compile Include="Plugins\Tasks\Reminder\TaskReminder.cs" />
+    <Compile Include="Plugins\Tasks\Reminder\TaskReminderDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Plugins\Tasks\Reminder\TaskReminderDialog.Designer.cs">
+      <DependentUpon>TaskReminderDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Plugins\Tasks\SideBar\ControlGroupCollection.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -211,6 +220,9 @@
     <Compile Include="View\MapControls\Link.cs" />
     <Compile Include="View\MapControls\IconView.cs" />
     <Compile Include="Serialization\IconHandler.cs" />
+    <EmbeddedResource Include="Plugins\Tasks\Reminder\TaskReminderDialog.resx">
+      <DependentUpon>TaskReminderDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\NoteEditor.resx" />
     <None Include="images\filenew.png" />
     <None Include="View\Dialogs\IconSelector.cs">

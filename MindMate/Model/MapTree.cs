@@ -58,6 +58,11 @@ namespace MindMate.Model
             get { return attributeSpecs.Values; }
         }
 
+        /// <summary>
+        /// Returns null if AttributeSpec doesn't exist
+        /// </summary>
+        /// <param name="attributeName"></param>
+        /// <returns></returns>
         public AttributeSpec GetAttributeSpec(string attributeName)
         {
             AttributeSpec attSpec = null;

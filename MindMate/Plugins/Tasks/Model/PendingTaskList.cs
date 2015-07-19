@@ -107,7 +107,7 @@ namespace MindMate.Plugins.Tasks.Model
                 TaskChanged(node, pendingTaskArgs);
             }
             // task due date updated
-            else if(e.ChangeType == AttributeChange.ValueUpdated && e.AttributeSpec.IsDueDate() && pendingTaskArgs.OldTaskStatus != TaskStatus.Complete && node.GetTaskStatus() == TaskStatus.Complete)
+            else if(e.ChangeType == AttributeChange.ValueUpdated && e.AttributeSpec.IsDueDate() && pendingTaskArgs.OldTaskStatus != TaskStatus.Complete && node.GetTaskStatus() != TaskStatus.Complete)
             {
                 Remove(node);
                 Add(node);
@@ -174,6 +174,7 @@ namespace MindMate.Plugins.Tasks.Model
                 });
             }
         }
+
         private void SelectedNodes_NodeSelected(MapNode node, SelectedNodes selectedNodes)
         {
             if (TaskSelectionChanged == null) return;
@@ -274,6 +275,29 @@ namespace MindMate.Plugins.Tasks.Model
         public int IndexOf(MapNode item)
         {
             return tasks.BinarySearch(item, this);
+        }
+
+        public int IndexOfGreaterThan(DateTime value, bool includeEqualto = false)
+        {
+            int lo = 0;
+            int hi = 0 + tasks.Count - 1;
+            while (lo <= hi)
+            {
+                int i = lo + ((hi - lo) >> 1);
+                int order = DateTime.Compare(tasks[i].GetDueDate(), value);
+
+                if (order == 0) return i + (includeEqualto? 0 : 1);
+                if (order < 0)
+                {
+                    lo = i + 1;
+                }
+                else
+                {
+                    hi = i - 1;
+                }
+            }
+
+            return lo;
         }
 
         private void Insert(int index, MapNode item)

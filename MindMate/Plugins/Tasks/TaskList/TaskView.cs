@@ -17,9 +17,11 @@ namespace MindMate.Plugins.Tasks
         private bool isMouseOver = false;
 
         public TaskView(MapNode node, string dueOnText,
-            Action<TaskView, TaskViewEvent> onTaskViewEvent)
+            Action<TaskView, TaskViewEvent> onTaskViewEvent, bool showDeferOption = true)
         {
             InitializeComponent();
+
+            ShowDeferOption = showDeferOption;
 
             this.ContextMenuStrip = CreateContextMenu();
 
@@ -57,8 +59,8 @@ namespace MindMate.Plugins.Tasks
         {
             btnRemove.Visible = visible;
             btnComplete.Visible = visible;
-            btnDown.Visible = visible;
-            btnUp.Visible = visible;
+            btnDown.Visible = visible && ShowDeferOption;
+            btnUp.Visible = visible && ShowDeferOption;
         }
 
         public string TaskTitle
@@ -116,6 +118,11 @@ namespace MindMate.Plugins.Tasks
                 return MapNode.GetDueDate();
             }            
         }
+
+        /// <summary>
+        /// Determines if Defer and Expedite task actions are to be shown
+        /// </summary>
+        public bool ShowDeferOption { get; private set; }
 
         private Action<TaskView, TaskViewEvent> OnTaskViewEvent;
 
@@ -204,8 +211,11 @@ namespace MindMate.Plugins.Tasks
 
             menu.Items.Add("Complete Task", TaskRes.tick, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.Complete));
             menu.Items.Add("Remove Task", TaskRes.date_delete, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.Remove));
-            menu.Items.Add("Expedite", TaskRes.arrow_090_medium, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.Expedite));
-            menu.Items.Add("Defer", TaskRes.arrow_270_medium, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.Defer));
+            if (ShowDeferOption)
+            {
+                menu.Items.Add("Expedite", TaskRes.arrow_090_medium, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.Expedite));
+                menu.Items.Add("Defer", TaskRes.arrow_270_medium, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.Defer));
+            }
             menu.Items.Add("Edit Due Date ...", TaskRes.date_edit, (sender, e) => OnTaskViewEvent(this, TaskViewEvent.Edit));
 
             ToolStripMenuItem t = new ToolStripMenuItem("Quick Due Dates");

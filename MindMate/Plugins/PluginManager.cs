@@ -113,6 +113,16 @@ namespace MindMate.Plugins
             mainCtrl.ScheduleTask(task);
         }        
 
+        public void RescheduleTask(TaskSchedular.ITask task, DateTime startTime)
+        {
+            mainCtrl.RescheduleTask(task, startTime);
+        }
+
+        internal void OnApplicationReady()
+        {
+            Plugins.ForEach(p => p.OnApplicationReady());
+        }
+
         #endregion IPluginManager Interface
     }
 }

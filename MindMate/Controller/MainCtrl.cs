@@ -111,6 +111,7 @@ namespace MindMate.Controller
 
         private void mainForm_AfterReady(object sender, EventArgs args)
         {
+            pluginManager.OnApplicationReady();
             schedular.Start();
         }
 
@@ -236,6 +237,11 @@ namespace MindMate.Controller
         public void ScheduleTask(TaskSchedular.ITask task)
         {
             schedular.AddTask(task);
+        }
+
+        public void RescheduleTask(TaskSchedular.ITask task, DateTime startTime)
+        {
+            schedular.UpdateTask(task, startTime);
         }
 
         #endregion Coordinating actions and dialogs
