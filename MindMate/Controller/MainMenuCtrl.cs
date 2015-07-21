@@ -38,10 +38,13 @@ namespace MindMate.Controller
             form.asBMPToolStripMenuItem.Click += asBMPToolStripMenuItem_Click;
             form.exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
 
+            form.mUndo.Click += mUndo_Click;
+            form.mRedo.Click += mRedo_Click;
             form.mCut.Click += mCut_Click;
             form.mCopy.Click += mCopy_Click;
             form.mPaste.Click += mPaste_Click;
             form.mDelete.Click += mDelete_Click;
+            form.mEditMenu.DropDownOpening += mEditMenu_DropDownOpening;
             
             form.mBold.Click += mBold_Click;
             form.mItalic.Click += mItalic_Click;
@@ -71,8 +74,6 @@ namespace MindMate.Controller
 
             CreateRecentFilesMenuItems();
         }
-
-                                                       
         void mAbout_Click(object sender, EventArgs e)
         {
             mainCtrl.ShowAboutBox();
@@ -96,6 +97,16 @@ namespace MindMate.Controller
         void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Application.Exit();
+        }
+
+        private void mUndo_Click(object sender, EventArgs e)
+        {
+            mainCtrl.ChangeManager.Undo();
+        }
+
+        private void mRedo_Click(object sender, EventArgs e)
+        {
+            mainCtrl.ChangeManager.Redo();
         }
 
         void mCut_Click(object sender, EventArgs e)
@@ -125,6 +136,12 @@ namespace MindMate.Controller
         void mDelete_Click(object sender, EventArgs e)
         {
             mapCtrl.DeleteSelectedNodes();
+        }
+
+        private void mEditMenu_DropDownOpening(object sender, EventArgs e)
+        {
+            form.mUndo.Enabled = mainCtrl.ChangeManager.CanUndo;
+            form.mRedo.Enabled = mainCtrl.ChangeManager.CanRedo;
         }
 
 

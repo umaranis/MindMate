@@ -70,6 +70,9 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.mUndo = new System.Windows.Forms.ToolStripMenuItem();
+            this.mRedo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolbarButtonNew = new System.Windows.Forms.ToolStripButton();
             this.toolbarButtonOpen = new System.Windows.Forms.ToolStripButton();
             this.toolbarButtonSave = new System.Windows.Forms.ToolStripButton();
@@ -79,6 +82,7 @@
             this.toolbarButtonDelete = new System.Windows.Forms.ToolStripButton();
             this.toolbarButtonFormatBold = new System.Windows.Forms.ToolStripButton();
             this.toolbarButtonFormatItalic = new System.Windows.Forms.ToolStripButton();
+            this.toolbarButtonFormatFont = new System.Windows.Forms.ToolStripButton();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,7 +95,6 @@
             this.mBold = new System.Windows.Forms.ToolStripMenuItem();
             this.mItalic = new System.Windows.Forms.ToolStripMenuItem();
             this.mFont = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolbarButtonFormatFont = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -101,6 +104,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mFileMenu,
             this.mEditMenu,
@@ -109,7 +113,8 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(733, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(977, 28);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -126,54 +131,57 @@
             this.mSepRecentFilesEnd,
             this.exitToolStripMenuItem});
             this.mFileMenu.Name = "mFileMenu";
-            this.mFileMenu.Size = new System.Drawing.Size(37, 20);
+            this.mFileMenu.Size = new System.Drawing.Size(44, 24);
             this.mFileMenu.Text = "&File";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(170, 6);
             // 
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.asBMPToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // asBMPToolStripMenuItem
             // 
             this.asBMPToolStripMenuItem.Name = "asBMPToolStripMenuItem";
-            this.asBMPToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.asBMPToolStripMenuItem.Size = new System.Drawing.Size(145, 26);
             this.asBMPToolStripMenuItem.Text = "as BMP ...";
             // 
             // mSepRecentFilesStart
             // 
             this.mSepRecentFilesStart.Name = "mSepRecentFilesStart";
-            this.mSepRecentFilesStart.Size = new System.Drawing.Size(143, 6);
+            this.mSepRecentFilesStart.Size = new System.Drawing.Size(170, 6);
             // 
             // mSepRecentFilesEnd
             // 
             this.mSepRecentFilesEnd.Name = "mSepRecentFilesEnd";
-            this.mSepRecentFilesEnd.Size = new System.Drawing.Size(143, 6);
+            this.mSepRecentFilesEnd.Size = new System.Drawing.Size(170, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // mEditMenu
             // 
             this.mEditMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mUndo,
+            this.mRedo,
+            this.toolStripSeparator6,
             this.mCut,
             this.mCopy,
             this.mPaste,
             this.mDelete});
             this.mEditMenu.Name = "mEditMenu";
-            this.mEditMenu.Size = new System.Drawing.Size(39, 20);
+            this.mEditMenu.Size = new System.Drawing.Size(47, 24);
             this.mEditMenu.Text = "&Edit";
             // 
             // formatToolStripMenuItem
@@ -190,24 +198,24 @@
             this.mLineStyle,
             this.mLineColor});
             this.formatToolStripMenuItem.Name = "formatToolStripMenuItem";
-            this.formatToolStripMenuItem.Size = new System.Drawing.Size(57, 20);
+            this.formatToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
             this.formatToolStripMenuItem.Text = "For&mat";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(179, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(213, 6);
             // 
             // mTextColor
             // 
             this.mTextColor.Name = "mTextColor";
-            this.mTextColor.Size = new System.Drawing.Size(182, 22);
+            this.mTextColor.Size = new System.Drawing.Size(216, 26);
             this.mTextColor.Text = "Text Color ...";
             // 
             // mBackColor
             // 
             this.mBackColor.Name = "mBackColor";
-            this.mBackColor.Size = new System.Drawing.Size(182, 22);
+            this.mBackColor.Size = new System.Drawing.Size(216, 26);
             this.mBackColor.Text = "Background Color ...";
             // 
             // mShape
@@ -218,7 +226,7 @@
             this.mShapeBox,
             this.mShapeBullet});
             this.mShape.Name = "mShape";
-            this.mShape.Size = new System.Drawing.Size(182, 22);
+            this.mShape.Size = new System.Drawing.Size(216, 26);
             this.mShape.Text = "Shape";
             // 
             // mShapeFork
@@ -226,25 +234,25 @@
             this.mShapeFork.Checked = true;
             this.mShapeFork.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mShapeFork.Name = "mShapeFork";
-            this.mShapeFork.Size = new System.Drawing.Size(111, 22);
+            this.mShapeFork.Size = new System.Drawing.Size(131, 26);
             this.mShapeFork.Text = "Fork";
             // 
             // mShapeBubble
             // 
             this.mShapeBubble.Name = "mShapeBubble";
-            this.mShapeBubble.Size = new System.Drawing.Size(111, 22);
+            this.mShapeBubble.Size = new System.Drawing.Size(131, 26);
             this.mShapeBubble.Text = "Bubble";
             // 
             // mShapeBox
             // 
             this.mShapeBox.Name = "mShapeBox";
-            this.mShapeBox.Size = new System.Drawing.Size(111, 22);
+            this.mShapeBox.Size = new System.Drawing.Size(131, 26);
             this.mShapeBox.Text = "Box";
             // 
             // mShapeBullet
             // 
             this.mShapeBullet.Name = "mShapeBullet";
-            this.mShapeBullet.Size = new System.Drawing.Size(111, 22);
+            this.mShapeBullet.Size = new System.Drawing.Size(131, 26);
             this.mShapeBullet.Text = "Bullet";
             // 
             // mLineStyle
@@ -259,60 +267,60 @@
             this.mLineDotted,
             this.mLineMixed});
             this.mLineStyle.Name = "mLineStyle";
-            this.mLineStyle.Size = new System.Drawing.Size(182, 22);
+            this.mLineStyle.Size = new System.Drawing.Size(216, 26);
             this.mLineStyle.Text = "Line Style";
             // 
             // mLineThick1
             // 
             this.mLineThick1.Name = "mLineThick1";
-            this.mLineThick1.Size = new System.Drawing.Size(135, 22);
+            this.mLineThick1.Size = new System.Drawing.Size(158, 26);
             this.mLineThick1.Text = "Thickness 1";
             // 
             // mLineThick2
             // 
             this.mLineThick2.Name = "mLineThick2";
-            this.mLineThick2.Size = new System.Drawing.Size(135, 22);
+            this.mLineThick2.Size = new System.Drawing.Size(158, 26);
             this.mLineThick2.Text = "Thickness 2";
             // 
             // mLineThick4
             // 
             this.mLineThick4.Name = "mLineThick4";
-            this.mLineThick4.Size = new System.Drawing.Size(135, 22);
+            this.mLineThick4.Size = new System.Drawing.Size(158, 26);
             this.mLineThick4.Text = "Thickness 4";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(132, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(155, 6);
             // 
             // mLineSolid
             // 
             this.mLineSolid.Name = "mLineSolid";
-            this.mLineSolid.Size = new System.Drawing.Size(135, 22);
+            this.mLineSolid.Size = new System.Drawing.Size(158, 26);
             this.mLineSolid.Text = "Solid";
             // 
             // mLineDashed
             // 
             this.mLineDashed.Name = "mLineDashed";
-            this.mLineDashed.Size = new System.Drawing.Size(135, 22);
+            this.mLineDashed.Size = new System.Drawing.Size(158, 26);
             this.mLineDashed.Text = "Dashed";
             // 
             // mLineDotted
             // 
             this.mLineDotted.Name = "mLineDotted";
-            this.mLineDotted.Size = new System.Drawing.Size(135, 22);
+            this.mLineDotted.Size = new System.Drawing.Size(158, 26);
             this.mLineDotted.Text = "Dotted";
             // 
             // mLineMixed
             // 
             this.mLineMixed.Name = "mLineMixed";
-            this.mLineMixed.Size = new System.Drawing.Size(135, 22);
+            this.mLineMixed.Size = new System.Drawing.Size(158, 26);
             this.mLineMixed.Text = "Mixed";
             // 
             // mLineColor
             // 
             this.mLineColor.Name = "mLineColor";
-            this.mLineColor.Size = new System.Drawing.Size(182, 22);
+            this.mLineColor.Size = new System.Drawing.Size(216, 26);
             this.mLineColor.Text = "Line Color ...";
             // 
             // toolsToolStripMenuItem
@@ -320,13 +328,13 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.preferencesToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
             this.toolsToolStripMenuItem.Text = "&Tools";
             // 
             // preferencesToolStripMenuItem
             // 
             this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
             this.preferencesToolStripMenuItem.Text = "Preferences ...";
             // 
             // aboutToolStripMenuItem
@@ -334,13 +342,13 @@
             this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mAbout});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
             this.aboutToolStripMenuItem.Text = "Help";
             // 
             // mAbout
             // 
             this.mAbout.Name = "mAbout";
-            this.mAbout.Size = new System.Drawing.Size(180, 22);
+            this.mAbout.Size = new System.Drawing.Size(214, 26);
             this.mAbout.Text = "About Mind Mate ...";
             // 
             // fileToolStripMenuItem1
@@ -356,13 +364,15 @@
             // statusStrip1
             // 
             this.statusStrip1.BackColor = System.Drawing.SystemColors.Control;
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 529);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 653);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(733, 22);
+            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
+            this.statusStrip1.Size = new System.Drawing.Size(977, 25);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -370,31 +380,34 @@
             // 
             this.toolStripStatusLabel1.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(51, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(63, 20);
             this.toolStripStatusLabel1.Text = "Ready ...";
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(0, 17);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(0, 20);
             // 
             // toolStripStatusLabel3
             // 
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(0, 17);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(0, 20);
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 49);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 55);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Panel2MinSize = 0;
-            this.splitContainer1.Size = new System.Drawing.Size(733, 480);
-            this.splitContainer1.SplitterDistance = 551;
+            this.splitContainer1.Size = new System.Drawing.Size(977, 598);
+            this.splitContainer1.SplitterDistance = 734;
+            this.splitContainer1.SplitterWidth = 5;
             this.splitContainer1.TabIndex = 4;
             // 
             // toolStrip1
             // 
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolbarButtonNew,
             this.toolbarButtonOpen,
@@ -408,21 +421,42 @@
             this.toolbarButtonFormatBold,
             this.toolbarButtonFormatItalic,
             this.toolbarButtonFormatFont});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 28);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(733, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(977, 27);
             this.toolStrip1.TabIndex = 5;
             this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 27);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(178, 6);
+            // 
+            // mUndo
+            // 
+            this.mUndo.Image = global::MindMate.Properties.Resources.undo;
+            this.mUndo.Name = "mUndo";
+            this.mUndo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.mUndo.Size = new System.Drawing.Size(181, 26);
+            this.mUndo.Text = "Undo";
+            // 
+            // mRedo
+            // 
+            this.mRedo.Image = global::MindMate.Properties.Resources.redo;
+            this.mRedo.Name = "mRedo";
+            this.mRedo.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.mRedo.Size = new System.Drawing.Size(181, 26);
+            this.mRedo.Text = "Redo";
             // 
             // toolbarButtonNew
             // 
@@ -430,7 +464,7 @@
             this.toolbarButtonNew.Image = global::MindMate.Properties.Resources.filenew;
             this.toolbarButtonNew.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarButtonNew.Name = "toolbarButtonNew";
-            this.toolbarButtonNew.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonNew.Size = new System.Drawing.Size(24, 24);
             this.toolbarButtonNew.ToolTipText = "New";
             this.toolbarButtonNew.Click += new System.EventHandler(this.toolbarButtonNew_Click);
             // 
@@ -440,7 +474,7 @@
             this.toolbarButtonOpen.Image = global::MindMate.Properties.Resources.fileopen;
             this.toolbarButtonOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarButtonOpen.Name = "toolbarButtonOpen";
-            this.toolbarButtonOpen.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonOpen.Size = new System.Drawing.Size(24, 24);
             this.toolbarButtonOpen.ToolTipText = "Open";
             this.toolbarButtonOpen.Click += new System.EventHandler(this.toolbarButtonOpen_Click);
             // 
@@ -450,7 +484,7 @@
             this.toolbarButtonSave.Image = global::MindMate.Properties.Resources.filesave;
             this.toolbarButtonSave.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarButtonSave.Name = "toolbarButtonSave";
-            this.toolbarButtonSave.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonSave.Size = new System.Drawing.Size(24, 24);
             this.toolbarButtonSave.ToolTipText = "Save";
             this.toolbarButtonSave.Click += new System.EventHandler(this.toolbarButtonSave_Click);
             // 
@@ -460,7 +494,7 @@
             this.toolbarButtonCut.Image = global::MindMate.Properties.Resources.cut;
             this.toolbarButtonCut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarButtonCut.Name = "toolbarButtonCut";
-            this.toolbarButtonCut.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonCut.Size = new System.Drawing.Size(24, 24);
             this.toolbarButtonCut.ToolTipText = "Cut";
             this.toolbarButtonCut.Click += new System.EventHandler(this.toolbarButtonCut_Click);
             // 
@@ -470,7 +504,7 @@
             this.toolbarButtonCopy.Image = global::MindMate.Properties.Resources.page_copy;
             this.toolbarButtonCopy.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarButtonCopy.Name = "toolbarButtonCopy";
-            this.toolbarButtonCopy.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonCopy.Size = new System.Drawing.Size(24, 24);
             this.toolbarButtonCopy.ToolTipText = "Copy";
             this.toolbarButtonCopy.Click += new System.EventHandler(this.toolbarButtonCopy_Click);
             // 
@@ -480,7 +514,7 @@
             this.toolbarButtonPaste.Image = global::MindMate.Properties.Resources.page_paste;
             this.toolbarButtonPaste.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarButtonPaste.Name = "toolbarButtonPaste";
-            this.toolbarButtonPaste.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonPaste.Size = new System.Drawing.Size(24, 24);
             this.toolbarButtonPaste.ToolTipText = "Paste";
             this.toolbarButtonPaste.Click += new System.EventHandler(this.toolbarButtonPaste_Click);
             // 
@@ -490,7 +524,7 @@
             this.toolbarButtonDelete.Image = global::MindMate.Properties.Resources.remove_arrows;
             this.toolbarButtonDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarButtonDelete.Name = "toolbarButtonDelete";
-            this.toolbarButtonDelete.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonDelete.Size = new System.Drawing.Size(24, 24);
             this.toolbarButtonDelete.ToolTipText = "Delete";
             this.toolbarButtonDelete.Click += new System.EventHandler(this.toolbarButtonDelete_Click);
             // 
@@ -500,7 +534,7 @@
             this.toolbarButtonFormatBold.Image = global::MindMate.Properties.Resources.text_bold;
             this.toolbarButtonFormatBold.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarButtonFormatBold.Name = "toolbarButtonFormatBold";
-            this.toolbarButtonFormatBold.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonFormatBold.Size = new System.Drawing.Size(24, 24);
             this.toolbarButtonFormatBold.ToolTipText = "Bold";
             this.toolbarButtonFormatBold.Click += new System.EventHandler(this.toolbarButtonFormatBold_Click);
             // 
@@ -510,104 +544,9 @@
             this.toolbarButtonFormatItalic.Image = global::MindMate.Properties.Resources.text_italic;
             this.toolbarButtonFormatItalic.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarButtonFormatItalic.Name = "toolbarButtonFormatItalic";
-            this.toolbarButtonFormatItalic.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonFormatItalic.Size = new System.Drawing.Size(24, 24);
             this.toolbarButtonFormatItalic.ToolTipText = "Italic";
             this.toolbarButtonFormatItalic.Click += new System.EventHandler(this.toolbarButtonFormatItalic_Click);
-            // 
-            // newToolStripMenuItem
-            // 
-            this.newToolStripMenuItem.Image = global::MindMate.Properties.Resources.filenew;
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.newToolStripMenuItem.Text = "New";
-            // 
-            // openToolStripMenuItem
-            // 
-            this.openToolStripMenuItem.Image = global::MindMate.Properties.Resources.fileopen;
-            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.openToolStripMenuItem.Text = "Open";
-            // 
-            // saveToolStripMenuItem
-            // 
-            this.saveToolStripMenuItem.Image = global::MindMate.Properties.Resources.filesave;
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.saveToolStripMenuItem.Text = "Save";
-            // 
-            // saveAsToolStripMenuItem
-            // 
-            this.saveAsToolStripMenuItem.Image = global::MindMate.Properties.Resources.filesaveas;
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.saveAsToolStripMenuItem.Text = "Save As ...";
-            // 
-            // mCut
-            // 
-            this.mCut.Image = global::MindMate.Properties.Resources.cut;
-            this.mCut.Name = "mCut";
-            this.mCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.mCut.Size = new System.Drawing.Size(144, 22);
-            this.mCut.Text = "Cut";
-            // 
-            // mCopy
-            // 
-            this.mCopy.Image = global::MindMate.Properties.Resources.page_copy;
-            this.mCopy.Name = "mCopy";
-            this.mCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.mCopy.Size = new System.Drawing.Size(144, 22);
-            this.mCopy.Text = "Copy";
-            // 
-            // mPaste
-            // 
-            this.mPaste.Image = global::MindMate.Properties.Resources.page_paste;
-            this.mPaste.Name = "mPaste";
-            this.mPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.mPaste.Size = new System.Drawing.Size(144, 22);
-            this.mPaste.Text = "Paste";
-            // 
-            // mDelete
-            // 
-            this.mDelete.Image = global::MindMate.Properties.Resources.remove_arrows;
-            this.mDelete.Name = "mDelete";
-            this.mDelete.ShortcutKeyDisplayString = "Del";
-            this.mDelete.Size = new System.Drawing.Size(144, 22);
-            this.mDelete.Text = "Delete";
-            // 
-            // mSelectIcon
-            // 
-            this.mSelectIcon.Image = global::MindMate.Properties.Resources.kalzium;
-            this.mSelectIcon.Name = "mSelectIcon";
-            this.mSelectIcon.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.I)));
-            this.mSelectIcon.Size = new System.Drawing.Size(182, 22);
-            this.mSelectIcon.Text = "Select Icon ...";
-            // 
-            // mBold
-            // 
-            this.mBold.Image = global::MindMate.Properties.Resources.text_bold;
-            this.mBold.Name = "mBold";
-            this.mBold.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
-            this.mBold.Size = new System.Drawing.Size(182, 22);
-            this.mBold.Text = "Bold";
-            // 
-            // mItalic
-            // 
-            this.mItalic.Image = global::MindMate.Properties.Resources.text_italic;
-            this.mItalic.Name = "mItalic";
-            this.mItalic.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.mItalic.Size = new System.Drawing.Size(182, 22);
-            this.mItalic.Text = "Italic";
-            // 
-            // mFont
-            // 
-            this.mFont.Image = global::MindMate.Properties.Resources.font;
-            this.mFont.Name = "mFont";
-            this.mFont.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.mFont.Size = new System.Drawing.Size(182, 22);
-            this.mFont.Text = "Font ...";
             // 
             // toolbarButtonFormatFont
             // 
@@ -615,21 +554,117 @@
             this.toolbarButtonFormatFont.Image = global::MindMate.Properties.Resources.font;
             this.toolbarButtonFormatFont.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolbarButtonFormatFont.Name = "toolbarButtonFormatFont";
-            this.toolbarButtonFormatFont.Size = new System.Drawing.Size(23, 22);
+            this.toolbarButtonFormatFont.Size = new System.Drawing.Size(24, 24);
             this.toolbarButtonFormatFont.ToolTipText = "Font";
             this.toolbarButtonFormatFont.Click += new System.EventHandler(this.toolbarButtonFormatFont_Click);
             // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Image = global::MindMate.Properties.Resources.filenew;
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
+            this.newToolStripMenuItem.Text = "New";
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Image = global::MindMate.Properties.Resources.fileopen;
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
+            this.openToolStripMenuItem.Text = "Open";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Image = global::MindMate.Properties.Resources.filesave;
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
+            this.saveToolStripMenuItem.Text = "Save";
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Image = global::MindMate.Properties.Resources.filesaveas;
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(173, 26);
+            this.saveAsToolStripMenuItem.Text = "Save As ...";
+            // 
+            // mCut
+            // 
+            this.mCut.Image = global::MindMate.Properties.Resources.cut;
+            this.mCut.Name = "mCut";
+            this.mCut.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.mCut.Size = new System.Drawing.Size(181, 26);
+            this.mCut.Text = "Cut";
+            // 
+            // mCopy
+            // 
+            this.mCopy.Image = global::MindMate.Properties.Resources.page_copy;
+            this.mCopy.Name = "mCopy";
+            this.mCopy.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.mCopy.Size = new System.Drawing.Size(181, 26);
+            this.mCopy.Text = "Copy";
+            // 
+            // mPaste
+            // 
+            this.mPaste.Image = global::MindMate.Properties.Resources.page_paste;
+            this.mPaste.Name = "mPaste";
+            this.mPaste.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.mPaste.Size = new System.Drawing.Size(181, 26);
+            this.mPaste.Text = "Paste";
+            // 
+            // mDelete
+            // 
+            this.mDelete.Image = global::MindMate.Properties.Resources.remove_arrows;
+            this.mDelete.Name = "mDelete";
+            this.mDelete.ShortcutKeyDisplayString = "Del";
+            this.mDelete.Size = new System.Drawing.Size(181, 26);
+            this.mDelete.Text = "Delete";
+            // 
+            // mSelectIcon
+            // 
+            this.mSelectIcon.Image = global::MindMate.Properties.Resources.kalzium;
+            this.mSelectIcon.Name = "mSelectIcon";
+            this.mSelectIcon.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.I)));
+            this.mSelectIcon.Size = new System.Drawing.Size(216, 26);
+            this.mSelectIcon.Text = "Select Icon ...";
+            // 
+            // mBold
+            // 
+            this.mBold.Image = global::MindMate.Properties.Resources.text_bold;
+            this.mBold.Name = "mBold";
+            this.mBold.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.mBold.Size = new System.Drawing.Size(216, 26);
+            this.mBold.Text = "Bold";
+            // 
+            // mItalic
+            // 
+            this.mItalic.Image = global::MindMate.Properties.Resources.text_italic;
+            this.mItalic.Name = "mItalic";
+            this.mItalic.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.mItalic.Size = new System.Drawing.Size(216, 26);
+            this.mItalic.Text = "Italic";
+            // 
+            // mFont
+            // 
+            this.mFont.Image = global::MindMate.Properties.Resources.font;
+            this.mFont.Name = "mFont";
+            this.mFont.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+            this.mFont.Size = new System.Drawing.Size(216, 26);
+            this.mFont.Text = "Font ...";
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Snow;
-            this.ClientSize = new System.Drawing.Size(733, 551);
+            this.ClientSize = new System.Drawing.Size(977, 678);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.Text = "Mind Mate";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -694,7 +729,6 @@
         public System.Windows.Forms.ToolStripMenuItem mFileMenu;
         public System.Windows.Forms.ToolStripSeparator mSepRecentFilesStart;
         public System.Windows.Forms.ToolStripSeparator mSepRecentFilesEnd;
-        private System.Windows.Forms.ToolStripMenuItem mEditMenu;
         public System.Windows.Forms.ToolStripMenuItem mCopy;
         public System.Windows.Forms.ToolStripMenuItem mPaste;
         public System.Windows.Forms.ToolStripMenuItem mCut;
@@ -712,6 +746,10 @@
         private System.Windows.Forms.ToolStripButton toolbarButtonFormatBold;
         private System.Windows.Forms.ToolStripButton toolbarButtonFormatItalic;
         private System.Windows.Forms.ToolStripButton toolbarButtonFormatFont;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        public System.Windows.Forms.ToolStripMenuItem mUndo;
+        public System.Windows.Forms.ToolStripMenuItem mRedo;
+        public System.Windows.Forms.ToolStripMenuItem mEditMenu;
     }
 }
 

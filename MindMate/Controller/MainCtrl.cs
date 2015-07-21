@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using MindMate.Model;
 using MindMate.Serialization;
 using System.IO;
+using MindMate.Modules.Undo;
 
 namespace MindMate.Controller
 {
@@ -30,6 +31,10 @@ namespace MindMate.Controller
         private Plugins.PluginManager pluginManager;
 
         private MapCtrl mapCtrl;
+
+        private ChangeManager changeManager;
+        internal ChangeManager ChangeManager { get { return changeManager; } }
+
         private MainMenuCtrl mainMenuCtrl;
         private bool unsavedChanges = false;
 
@@ -84,6 +89,8 @@ namespace MindMate.Controller
             tree.SelectedNodes.Add(tree.RootNode);
 
             mapCtrl = new MapCtrl(tree, this);
+            changeManager = new ChangeManager();
+            changeManager.RegisterMap(tree);
             mainForm.AddMainView(mapCtrl.MapView.Canvas);            
             mapCtrl.MindMateFile = MetaModel.MetaModel.Instance.LastOpenedFile;
 
@@ -107,8 +114,8 @@ namespace MindMate.Controller
 
             mainForm.FormClosing += mainForm_FormClosing;
 
-        }        
-
+        }
+                
         private void mainForm_AfterReady(object sender, EventArgs args)
         {
             pluginManager.OnApplicationReady();
@@ -285,6 +292,7 @@ namespace MindMate.Controller
 
             mapCtrl.MindMateFile = null;
             mapCtrl.ChangeTree(tree);
+            changeManager.RegisterMap(tree);
 
             noteCrtl.MapTree = tree;
             statusBarCtrl.Register(tree);
@@ -336,6 +344,7 @@ namespace MindMate.Controller
 
             mapCtrl.MindMateFile = fileName;
             mapCtrl.ChangeTree(tree);
+            changeManager.RegisterMap(tree);
 
             noteCrtl.MapTree = tree;
             statusBarCtrl.Register(tree);
@@ -412,6 +421,7 @@ namespace MindMate.Controller
 
         private void CloseMap()
         {
+            changeManager.Unregister(this.mapCtrl.MapView.Tree);
             pluginManager.OnTreeDeleting(this.mapCtrl.MapView.Tree);
             statusBarCtrl.Unregister(this.mapCtrl.MapView.Tree);
             UnregisterForMapChangedNotification();
