@@ -105,6 +105,8 @@
     <Compile Include="Model\NodeChangedEventArgs.cs" />
     <Compile Include="Modules\Undo\ChangeFactory.cs" />
     <Compile Include="Modules\Undo\ChangeManager.cs" />
+    <Compile Include="Modules\Undo\Changes\AttachNode.cs" />
+    <Compile Include="Modules\Undo\Changes\NodeDelete.cs" />
     <Compile Include="Modules\Undo\Changes\TextChange.cs" />
     <Compile Include="Modules\Undo\IChange.cs" />
     <Compile Include="Plugins\IPlugin.cs" />

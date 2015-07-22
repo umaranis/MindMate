@@ -84,7 +84,9 @@ namespace MindMate.Modules.Undo
 
         private void Tree_TreeStructureChanged(MapNode node, TreeStructureChangedEventArgs e)
         {
-            
+            IChange change = factory.CreateChange(node, e);
+            if (change != null)
+                RecordChange(change);
         }
 
         private void Tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)

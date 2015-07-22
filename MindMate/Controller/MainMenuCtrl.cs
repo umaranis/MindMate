@@ -45,6 +45,7 @@ namespace MindMate.Controller
             form.mPaste.Click += mPaste_Click;
             form.mDelete.Click += mDelete_Click;
             form.mEditMenu.DropDownOpening += mEditMenu_DropDownOpening;
+            form.mEditMenu.DropDownClosed += mEditMenu_DropDownClosed;
             
             form.mBold.Click += mBold_Click;
             form.mItalic.Click += mItalic_Click;
@@ -144,6 +145,12 @@ namespace MindMate.Controller
             form.mRedo.Enabled = mainCtrl.ChangeManager.CanRedo;
         }
 
+
+        private void mEditMenu_DropDownClosed(object sender, EventArgs e)
+        {
+            form.mUndo.Enabled = true;
+            form.mRedo.Enabled = true;
+        }
 
         void mFont_Click(object sender, EventArgs e)
         {

@@ -602,18 +602,22 @@ namespace MindMate.Model
                     this.Next.Previous = this.Previous;
                 }
 
-                Parent.modified = DateTime.Now;
-
-                this.Parent = null;
-                this.Previous = null;
-                this.Next = null;
+                Parent.modified = DateTime.Now;              
 
             }
         }
 
+        /// <summary>
+        /// Descendents of a detached node are still considered attached
+        /// </summary>
         public bool Detached
         {
-            get { return this.Parent == null && this != this.Tree.RootNode; }
+            get
+            {
+                return  (Previous != null && Previous.Next != this) ||
+                        (Next != null && Next.Previous != this) ||
+                        Parent != null && !Parent.ChildNodes.Contains(this);
+            }
         }
 
         /// <summary>

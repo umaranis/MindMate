@@ -19,5 +19,19 @@ namespace MindMate.Modules.Undo
                     return null;
             }
         }
+
+        internal IChange CreateChange(MapNode node, TreeStructureChangedEventArgs e)
+        {
+            switch(e.ChangeType)
+            {
+                case TreeStructureChange.Deleting:
+                case TreeStructureChange.Detaching:
+                    return new NodeDelete(node);
+                case TreeStructureChange.Attached:
+                    return new NodeAttach(node);
+                default:
+                    return null;
+            }
+        }
     }
 }
