@@ -325,168 +325,168 @@ namespace MindMate.Model
         /// <param name="addAttributes"></param>
         /// <param name="updateAttributes">non existing attribute are ignored</param>
         /// <param name="deleteAttributes">non existing attribute are ignored</param>
-        public void AttributeBatchUpdate(Attribute[] addAttributes, Attribute[] updateAttributes, MapTree.AttributeSpec[] deleteAttributes)
-        {
-            // 1. initialization
-            EnsureAttributeListCreated();
+        //public void AttributeBatchUpdate(Attribute[] addAttributes, Attribute[] updateAttributes, MapTree.AttributeSpec[] deleteAttributes)
+        //{
+        //    // 1. initialization
+        //    EnsureAttributeListCreated();
 
-            List<AttributeChangeEventArgs> args;
-            int listCount = 0;
-            int[] indexForUpdate = null;
-            int[] indexForDelete = null;
+        //    List<AttributeChangeEventArgs> args;
+        //    int listCount = 0;
+        //    int[] indexForUpdate = null;
+        //    int[] indexForDelete = null;
 
-            if (addAttributes != null)
-            {
-                listCount += addAttributes.Length;
-            }
-            if (updateAttributes != null)
-            {
-                listCount += updateAttributes.Length;
-                indexForUpdate = new int[updateAttributes.Length];
-            }
-            if (deleteAttributes != null)
-            {
-                listCount += deleteAttributes.Length;
-                indexForDelete = new int[deleteAttributes.Length];
-            }
+        //    if (addAttributes != null)
+        //    {
+        //        listCount += addAttributes.Length;
+        //    }
+        //    if (updateAttributes != null)
+        //    {
+        //        listCount += updateAttributes.Length;
+        //        indexForUpdate = new int[updateAttributes.Length];
+        //    }
+        //    if (deleteAttributes != null)
+        //    {
+        //        listCount += deleteAttributes.Length;
+        //        indexForDelete = new int[deleteAttributes.Length];
+        //    }
 
-            args = new List<AttributeChangeEventArgs>(listCount);
-
-
-            // 2. raise attribute changing event
-            if (addAttributes != null)
-            {
-                foreach (Attribute a in addAttributes)
-                {
-                    Tree.FireEvent(this, new AttributeChangingEventArgs() { ChangeType = AttributeChange.Added, AttributeSpec = a.AttributeSpec, NewValue = a.ValueString });
-                }
-            }
-            if (indexForUpdate != null)
-            {
-                for (int i = 0; i < updateAttributes.Length; i++)
-                {
-                    Attribute a = updateAttributes[i];
-                    indexForUpdate[i] = FindAttributeIndex(a.AttributeSpec);
-                    if (indexForUpdate[i] > -1)
-                        Tree.FireEvent(this, new AttributeChangingEventArgs() { ChangeType = AttributeChange.ValueUpdated, AttributeSpec = a.AttributeSpec, NewValue = a.ValueString });
-                }
-            }
-            if (indexForDelete != null)
-            {
-                for (int i = 0; i < deleteAttributes.Length; i++)
-                {
-                    MapTree.AttributeSpec a = deleteAttributes[i];
-                    indexForDelete[i] = FindAttributeIndex(a);
-                    if (indexForDelete[i] > -1)
-                        Tree.FireEvent(this, new AttributeChangingEventArgs() { ChangeType = AttributeChange.Removed, AttributeSpec = a });
-                }
-            }
-
-            // 3. update attributes, update should be done before add / delete to avoid index changes
-            UpdateAttributesForBatch(indexForUpdate, updateAttributes, args);
-
-            // 4. delete attributes, delete should be done before add to avoid index changes
-            DeleteAttributesForBatch(indexForDelete, args);
-
-            // 5. add attributes
-            AddAttributesForBatch(addAttributes, args);
+        //    args = new List<AttributeChangeEventArgs>(listCount);
 
 
-            // 6. raise attribute changed event
-            args.ForEach(e => Tree.FireEvent(this, e));
+        //    // 2. raise attribute changing event
+        //    if (addAttributes != null)
+        //    {
+        //        foreach (Attribute a in addAttributes)
+        //        {
+        //            Tree.FireEvent(this, new AttributeChangingEventArgs() { ChangeType = AttributeChange.Added, AttributeSpec = a.AttributeSpec, NewValue = a.ValueString });
+        //        }
+        //    }
+        //    if (indexForUpdate != null)
+        //    {
+        //        for (int i = 0; i < updateAttributes.Length; i++)
+        //        {
+        //            Attribute a = updateAttributes[i];
+        //            indexForUpdate[i] = FindAttributeIndex(a.AttributeSpec);
+        //            if (indexForUpdate[i] > -1)
+        //                Tree.FireEvent(this, new AttributeChangingEventArgs() { ChangeType = AttributeChange.ValueUpdated, AttributeSpec = a.AttributeSpec, NewValue = a.ValueString });
+        //        }
+        //    }
+        //    if (indexForDelete != null)
+        //    {
+        //        for (int i = 0; i < deleteAttributes.Length; i++)
+        //        {
+        //            MapTree.AttributeSpec a = deleteAttributes[i];
+        //            indexForDelete[i] = FindAttributeIndex(a);
+        //            if (indexForDelete[i] > -1)
+        //                Tree.FireEvent(this, new AttributeChangingEventArgs() { ChangeType = AttributeChange.Removed, AttributeSpec = a });
+        //        }
+        //    }
 
-        }
+        //    // 3. update attributes, update should be done before add / delete to avoid index changes
+        //    UpdateAttributesForBatch(indexForUpdate, updateAttributes, args);
+
+        //    // 4. delete attributes, delete should be done before add to avoid index changes
+        //    DeleteAttributesForBatch(indexForDelete, args);
+
+        //    // 5. add attributes
+        //    AddAttributesForBatch(addAttributes, args);
+
+
+        //    // 6. raise attribute changed event
+        //    args.ForEach(e => Tree.FireEvent(this, e));
+
+        //}
 
         /// <summary>
         /// Add/Update/Remove multiple attributes as an atomic transaction.
         /// Attribute Change notifications are generated after all attributes are updated. This avoids notification with intermediate / invalid state.
         /// All Attribute Changing notification are generated before applying any change.
         /// </summary>
-        public void AttributeBatchUpdate(Attribute[] addUpdateAttributes, MapTree.AttributeSpec[] deleteAttributes)
-        {
-            var addAttributes = new List<Attribute>();
-            var updateAttributes = new List<Attribute>();
-            if (addUpdateAttributes != null)
-            {
-                int[] indexes = FindAttributeIndex(addUpdateAttributes);
-                for (int i = 0; i < indexes.Length; i++)
-                {
-                    if (indexes[i] > -1)
-                        updateAttributes.Add(addUpdateAttributes[i]);
-                    else
-                        addAttributes.Add(addUpdateAttributes[i]);
-                }
-            }
+        //public void AttributeBatchUpdate(Attribute[] addUpdateAttributes, MapTree.AttributeSpec[] deleteAttributes)
+        //{
+        //    var addAttributes = new List<Attribute>();
+        //    var updateAttributes = new List<Attribute>();
+        //    if (addUpdateAttributes != null)
+        //    {
+        //        int[] indexes = FindAttributeIndex(addUpdateAttributes);
+        //        for (int i = 0; i < indexes.Length; i++)
+        //        {
+        //            if (indexes[i] > -1)
+        //                updateAttributes.Add(addUpdateAttributes[i]);
+        //            else
+        //                addAttributes.Add(addUpdateAttributes[i]);
+        //        }
+        //    }
 
-            AttributeBatchUpdate(addAttributes.ToArray(), updateAttributes.ToArray(), deleteAttributes);
-        }
+        //    AttributeBatchUpdate(addAttributes.ToArray(), updateAttributes.ToArray(), deleteAttributes);
+        //}
 
-        private void AddAttributesForBatch(Attribute[] addAttributes, List<AttributeChangeEventArgs> args)
-        {
-            if (addAttributes != null)
-            {
-                for (int i = 0; i < addAttributes.Length; i++)
-                {
-                    Attribute newAtt = addAttributes[i];
+        //private void AddAttributesForBatch(Attribute[] addAttributes, List<AttributeChangeEventArgs> args)
+        //{
+        //    if (addAttributes != null)
+        //    {
+        //        for (int i = 0; i < addAttributes.Length; i++)
+        //        {
+        //            Attribute newAtt = addAttributes[i];
 
-                    attributeList.Add(newAtt);
+        //            attributeList.Add(newAtt);
 
-                    args.Add(new AttributeChangeEventArgs()
-                    {
-                        ChangeType = AttributeChange.Added,
-                        AttributeSpec = newAtt.AttributeSpec
-                    });
-                }
-            }
-        }
+        //            args.Add(new AttributeChangeEventArgs()
+        //            {
+        //                ChangeType = AttributeChange.Added,
+        //                AttributeSpec = newAtt.AttributeSpec
+        //            });
+        //        }
+        //    }
+        //}
 
-        private void UpdateAttributesForBatch(int[] indexForUpdate, Attribute[] updateAttributes, List<AttributeChangeEventArgs> args)
-        {
-            if (indexForUpdate != null)
-            {
-                for (int i = 0; i < indexForUpdate.Length; i++)
-                {
-                    if (indexForUpdate[i] > -1)
-                    {
-                        Attribute oldAtt = attributeList[indexForUpdate[i]];
+        //private void UpdateAttributesForBatch(int[] indexForUpdate, Attribute[] updateAttributes, List<AttributeChangeEventArgs> args)
+        //{
+        //    if (indexForUpdate != null)
+        //    {
+        //        for (int i = 0; i < indexForUpdate.Length; i++)
+        //        {
+        //            if (indexForUpdate[i] > -1)
+        //            {
+        //                Attribute oldAtt = attributeList[indexForUpdate[i]];
 
-                        attributeList[indexForUpdate[i]] = updateAttributes[i];
+        //                attributeList[indexForUpdate[i]] = updateAttributes[i];
 
-                        args.Add(new AttributeChangeEventArgs()
-                        {
-                            ChangeType = AttributeChange.ValueUpdated,
-                            AttributeSpec = oldAtt.AttributeSpec,
-                            oldValue = oldAtt.ValueString,
-                        });
-                    }
-                }
-            }
-        }
+        //                args.Add(new AttributeChangeEventArgs()
+        //                {
+        //                    ChangeType = AttributeChange.ValueUpdated,
+        //                    AttributeSpec = oldAtt.AttributeSpec,
+        //                    oldValue = oldAtt.ValueString,
+        //                });
+        //            }
+        //        }
+        //    }
+        //}
 
-        private void DeleteAttributesForBatch(int[] indexForDelete, List<AttributeChangeEventArgs> args)
-        {
-            if (indexForDelete != null)
-            {
-                Array.Sort(indexForDelete, (a, b) => b.CompareTo(a)); // sorted in desc order so that largest index is deleted first
+        //private void DeleteAttributesForBatch(int[] indexForDelete, List<AttributeChangeEventArgs> args)
+        //{
+        //    if (indexForDelete != null)
+        //    {
+        //        Array.Sort(indexForDelete, (a, b) => b.CompareTo(a)); // sorted in desc order so that largest index is deleted first
 
-                for (int i = 0; i < indexForDelete.Length; i++)
-                {
-                    int attIndex = indexForDelete[i];
-                    if (attIndex > -1)
-                    {
-                        Attribute oldAtt = attributeList[attIndex];
+        //        for (int i = 0; i < indexForDelete.Length; i++)
+        //        {
+        //            int attIndex = indexForDelete[i];
+        //            if (attIndex > -1)
+        //            {
+        //                Attribute oldAtt = attributeList[attIndex];
 
-                        this.attributeList.RemoveAt(attIndex);
+        //                this.attributeList.RemoveAt(attIndex);
 
-                        args.Add(new AttributeChangeEventArgs()
-                        {
-                            ChangeType = AttributeChange.Removed,
-                            AttributeSpec = oldAtt.AttributeSpec,
-                            oldValue = oldAtt.ValueString
-                        });
-                    }
-                }
-            }
-        }
+        //                args.Add(new AttributeChangeEventArgs()
+        //                {
+        //                    ChangeType = AttributeChange.Removed,
+        //                    AttributeSpec = oldAtt.AttributeSpec,
+        //                    oldValue = oldAtt.ValueString
+        //                });
+        //            }
+        //        }
+        //    }
+        //}
     }
 }

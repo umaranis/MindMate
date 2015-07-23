@@ -20,11 +20,11 @@ namespace MindMate.Plugins.Tasks.Model
         public CompletedTaskList()
         {
             tasks = new List<MapNode>();
+            completedTaskArgs = new CompletedTaskEventArgs();
         }
         public void RegisterMap(MapTree tree)
         {
             tree.AttributeChanged += Tree_AttributeChanged;
-            tree.AttributeChanging += Tree_AttributeChanging;
 
             tree.SelectedNodes.NodeSelected += SelectedNodes_NodeSelected;
             tree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
@@ -32,10 +32,10 @@ namespace MindMate.Plugins.Tasks.Model
             tree.NodePropertyChanged += Tree_NodePropertyChanged;
             tree.TreeStructureChanged += Tree_TreeStructureChanged;
         }
+
         public void UnregisterMap(MapTree tree)
         {
             tree.AttributeChanged -= Tree_AttributeChanged;
-            tree.AttributeChanging -= Tree_AttributeChanging;
 
             tree.SelectedNodes.NodeSelected -= SelectedNodes_NodeSelected;
             tree.SelectedNodes.NodeDeselected -= SelectedNodes_NodeDeselected;
@@ -59,14 +59,27 @@ namespace MindMate.Plugins.Tasks.Model
             }
         }
 
-        private void Tree_AttributeChanging(MapNode node, AttributeChangingEventArgs e)
+        private CompletedTaskEventArgs GetEventArgs(MapNode node, CompletedTaskChange change, AttributeChangeEventArgs e)
         {
-            if (e.AttributeSpec.IsTaskStatus() || e.AttributeSpec.IsCompletionDate())
+            completedTaskArgs.TaskChange = change;
+            completedTaskArgs.OldTaskStatus = (e.AttributeSpec.IsTaskStatus() && e.oldValue != null) ?
+                (TaskStatus)Enum.Parse(typeof(TaskStatus),e.oldValue) : node.GetTaskStatus();
+            if(e.AttributeSpec.IsCompletionDate())
             {
-                completedTaskArgs = new CompletedTaskEventArgs();
-                completedTaskArgs.OldTaskStatus = node.GetTaskStatus();
-                if (node.CompletionDateExists()) completedTaskArgs.OldCompletionDate = node.GetCompletionDate();
+                if (e.oldValue == null)
+                    completedTaskArgs.OldCompletionDate = DateTime.MinValue;
+                else
+                    completedTaskArgs.OldCompletionDate = DateHelper.ToDateTime(e.oldValue);
             }
+            else
+            {
+                if (node.CompletionDateExists())
+                    completedTaskArgs.OldCompletionDate = node.GetCompletionDate();
+                else
+                    completedTaskArgs.OldCompletionDate = DateTime.MinValue;
+            }
+
+            return completedTaskArgs;    
         }
 
         private void Tree_AttributeChanged(MapNode node, AttributeChangeEventArgs e)
@@ -75,16 +88,14 @@ namespace MindMate.Plugins.Tasks.Model
             if (e.ChangeType == AttributeChange.Added && e.AttributeSpec.IsCompletionDate())
             {
                 Add(node);
-                completedTaskArgs.TaskChange = CompletedTaskChange.TaskCompleted;
-                TaskChanged(node, completedTaskArgs);                
+                TaskChanged(node, GetEventArgs(node, CompletedTaskChange.TaskCompleted, e));                
             }
             // task removed
             else if (e.ChangeType == AttributeChange.Removed && e.AttributeSpec.IsCompletionDate())
             {
                 if (Remove(node))
                 {
-                    completedTaskArgs.TaskChange = CompletedTaskChange.TaskRemoved;
-                    TaskChanged(node, completedTaskArgs);                 
+                    TaskChanged(node, GetEventArgs(node, CompletedTaskChange.TaskRemoved, e));                 
                 }
             }
             // completion date updated
@@ -92,8 +103,7 @@ namespace MindMate.Plugins.Tasks.Model
             {
                 Remove(node);
                 Add(node);
-                completedTaskArgs.TaskChange = CompletedTaskChange.CompletionDateUpdated;
-                TaskChanged(node, completedTaskArgs);
+                TaskChanged(node, GetEventArgs(node, CompletedTaskChange.CompletionDateUpdated, e));
             }
         }        
         
@@ -254,6 +264,29 @@ namespace MindMate.Plugins.Tasks.Model
         public int IndexOf(MapNode item)
         {
             return tasks.BinarySearch(item);
+        }
+
+        public int IndexOfGreaterThan(DateTime value, bool includeEqualto = false)
+        {
+            int lo = 0;
+            int hi = 0 + tasks.Count - 1;
+            while (lo <= hi)
+            {
+                int i = lo + ((hi - lo) >> 1);
+                int order = DateTime.Compare(tasks[i].GetCompletionDate(), value);
+
+                if (order == 0) return i + (includeEqualto ? 0 : 1);
+                if (order < 0)
+                {
+                    lo = i + 1;
+                }
+                else
+                {
+                    hi = i - 1;
+                }
+            }
+
+            return lo;
         }
 
         private void Insert(int index, MapNode item)

@@ -67,6 +67,10 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Windows.Forms.Calendar, Version=1.0.5679.33393, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Binaries\System.Windows.Forms.Calendar.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -109,6 +113,13 @@
     <Compile Include="Plugins\IPluginSystemIcon.cs" />
     <Compile Include="Plugins\MenuItem.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
+    <Compile Include="Plugins\Tasks\Calender\ItemInfo.cs" />
+    <Compile Include="Plugins\Tasks\Calender\MindMateCalender.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Plugins\Tasks\Calender\MindMateCalender.Designer.cs">
+      <DependentUpon>MindMateCalender.cs</DependentUpon>
+    </Compile>
     <Compile Include="Plugins\Tasks\Model\CompletedTaskEventArgs.cs" />
     <Compile Include="Plugins\Tasks\Model\CompletionDateAttribute.cs" />
     <Compile Include="Plugins\Tasks\Model\CompletedTaskList.cs" />
@@ -359,6 +370,7 @@
   <ItemGroup>
     <Content Include="Binaries\CustomFontDialog.dll" />
     <Content Include="Binaries\protobuf-net.dll" />
+    <Content Include="Binaries\System.Windows.Forms.Calendar.dll" />
     <Content Include="Binaries\TaskSchedular.dll" />
     <Content Include="images\edittrash.png" />
     <Content Include="images\Executable.png" />
@@ -630,6 +642,7 @@
     <None Include="Resources\page_white_link.png" />
     <Content Include="Settings.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
