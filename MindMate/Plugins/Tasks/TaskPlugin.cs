@@ -82,5 +82,17 @@ namespace MindMate.Plugins.Tasks
 
             tree.AttributeChanged += Task.OnAttributeChanged;
         }        
+
+        public IEnumerable<MapNode> GetTasks()
+        {
+            foreach(MapNode node in pendingTasks)
+            {
+                yield return node;
+            }
+            foreach(MapNode node in completedTasks)
+            {
+                yield return node;
+            }
+        }
     }
 }

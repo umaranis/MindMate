@@ -131,6 +131,7 @@ namespace MindMate.Plugins.Tasks
 
                 node.CompleteTask();
             }
+            //CalendarDemo.DemoForm a = new CalendarDemo.DemoForm(this); a.Show();
         }
 
         private void RemoveTask_Click(MenuItem menu, SelectedNodes nodes)
