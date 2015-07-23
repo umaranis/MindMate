@@ -25,7 +25,6 @@ namespace MindMate.Plugins.Tasks.Model
         public void RegisterMap(MapTree tree)
         {
             tree.AttributeChanged += Tree_AttributeChanged;
-            tree.AttributeChanging += Tree_AttributeChanging;
 
             tree.SelectedNodes.NodeSelected += SelectedNodes_NodeSelected;
             tree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
@@ -36,7 +35,6 @@ namespace MindMate.Plugins.Tasks.Model
         public void UnregisterMap(MapTree tree)
         {
             tree.AttributeChanged -= Tree_AttributeChanged;
-            tree.AttributeChanging -= Tree_AttributeChanging;
 
             tree.SelectedNodes.NodeSelected -= SelectedNodes_NodeSelected;
             tree.SelectedNodes.NodeDeselected -= SelectedNodes_NodeDeselected;
@@ -59,17 +57,28 @@ namespace MindMate.Plugins.Tasks.Model
                 }
             }
         }
-
-        private void Tree_AttributeChanging(MapNode node, AttributeChangingEventArgs e)
+                
+        private PendingTaskEventArgs GetEventArgs(MapNode node, PendingTaskChange change, AttributeChangeEventArgs e)
         {
-            if (e.AttributeSpec.IsTaskStatus() || e.AttributeSpec.IsDueDate())
+            pendingTaskArgs.TaskChange = change;
+            pendingTaskArgs.OldTaskStatus = (e.AttributeSpec.IsTaskStatus() && e.oldValue != null) ?
+                (TaskStatus)Enum.Parse(typeof(TaskStatus), e.oldValue) : node.GetTaskStatus();
+            if (e.AttributeSpec.IsDueDate())
             {
-                pendingTaskArgs.OldTaskStatus = node.GetTaskStatus();
+                if (e.oldValue == null)
+                    pendingTaskArgs.OldDueDate = DateTime.MinValue;
+                else
+                    pendingTaskArgs.OldDueDate = DateHelper.ToDateTime(e.oldValue);
+            }
+            else
+            {
                 if (node.DueDateExists())
                     pendingTaskArgs.OldDueDate = node.GetDueDate();
                 else
                     pendingTaskArgs.OldDueDate = DateTime.MinValue;
             }
+
+            return pendingTaskArgs;
         }
 
         private void Tree_AttributeChanged(MapNode node, AttributeChangeEventArgs e)
@@ -78,36 +87,34 @@ namespace MindMate.Plugins.Tasks.Model
             if (e.ChangeType == AttributeChange.Added && e.AttributeSpec.IsDueDate() && node.GetTaskStatus() != TaskStatus.Complete) 
             {
                 Add(node);
-                pendingTaskArgs.TaskChange = PendingTaskChange.TaskAdded;
-                TaskChanged(node, pendingTaskArgs);                
+                TaskChanged(node, GetEventArgs(node, PendingTaskChange.TaskAdded, e));                
             }
             // task removed
-            else if (e.ChangeType == AttributeChange.Removed && e.AttributeSpec.IsDueDate() && pendingTaskArgs.OldTaskStatus != TaskStatus.Complete) 
+            else if (e.ChangeType == AttributeChange.Removed && e.AttributeSpec.IsDueDate() && node.GetTaskStatus() != TaskStatus.Complete) 
             {
                 if (Remove(node))
                 {
-                    pendingTaskArgs.TaskChange = PendingTaskChange.TaskRemoved;
-                    TaskChanged(node, pendingTaskArgs);
+                    TaskChanged(node, GetEventArgs(node, PendingTaskChange.TaskRemoved, e));
                 }                
             }
             // task completed
-            else if (e.AttributeSpec.IsTaskStatus() && node.GetTaskStatus() == TaskStatus.Complete && !pendingTaskArgs.IsOldDueDateEmpty) 
+            else if (e.AttributeSpec.IsTaskStatus() && node.GetTaskStatus() == TaskStatus.Complete && node.DueDateExists()) 
             {
                 if (Remove(node))
                 {
-                    pendingTaskArgs.TaskChange = PendingTaskChange.TaskCompleted;
-                    TaskChanged(node, pendingTaskArgs);
+                    TaskChanged(node, GetEventArgs(node, PendingTaskChange.TaskCompleted, e));
                 }              
             }
             // task reopened
-            else if (e.AttributeSpec.IsTaskStatus() && node.GetTaskStatus() != TaskStatus.Complete && pendingTaskArgs.OldTaskStatus == TaskStatus.Complete && !pendingTaskArgs.IsOldDueDateEmpty && node.DueDateExists()) 
+            else if (e.AttributeSpec.IsTaskStatus() && node.GetTaskStatus() != TaskStatus.Complete && node.DueDateExists() 
+                && e.oldValue != null && e.oldValue.Equals(TaskStatus.Complete.ToString())) 
             {
                 Add(node);
                 pendingTaskArgs.TaskChange = PendingTaskChange.TaskAdded;
                 TaskChanged(node, pendingTaskArgs);
             }
             // task due date updated
-            else if(e.ChangeType == AttributeChange.ValueUpdated && e.AttributeSpec.IsDueDate() && pendingTaskArgs.OldTaskStatus != TaskStatus.Complete && node.GetTaskStatus() != TaskStatus.Complete)
+            else if(e.ChangeType == AttributeChange.ValueUpdated && e.AttributeSpec.IsDueDate() && node.GetTaskStatus() != TaskStatus.Complete)
             {
                 Remove(node);
                 Add(node);

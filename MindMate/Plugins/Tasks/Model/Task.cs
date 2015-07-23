@@ -92,15 +92,21 @@ namespace MindMate.Plugins.Tasks.Model
         public static void SetDueDate(this MapNode node, DateTime dateTime)
         {
             if (node.GetTaskStatus() != TaskStatus.Open)
-                node.AttributeBatchUpdate(new MapNode.Attribute[]
-                    {
-                        new MapNode.Attribute(DueDateAttribute.GetOrCreateAttributeSpec(node.Tree), DateHelper.ToString(dateTime)),
-                        new MapNode.Attribute(TaskStatusAttribute.GetOrCreateAttributeSpec(node.Tree), TaskStatus.Open.ToString())
-                    }, 
-                    new MapTree.AttributeSpec[] 
-                    {
-                        CompletionDateAttribute.GetOrCreateAttributeSpec(node.Tree)
-                    });            
+            {
+                DueDateAttribute.SetDueDate(node, dateTime);
+                TaskStatusAttribute.SetTaskStatus(node, TaskStatus.Open);
+                CompletionDateAttribute.RemoveCompletionDate(node);
+
+                //node.AttributeBatchUpdate(new MapNode.Attribute[]
+                //    {
+                //        new MapNode.Attribute(DueDateAttribute.GetOrCreateAttributeSpec(node.Tree), DateHelper.ToString(dateTime)),
+                //        new MapNode.Attribute(TaskStatusAttribute.GetOrCreateAttributeSpec(node.Tree), TaskStatus.Open.ToString())
+                //    },
+                //    new MapTree.AttributeSpec[]
+                //    {
+                //        CompletionDateAttribute.GetOrCreateAttributeSpec(node.Tree)
+                //    });
+            }
             else
                 DueDateAttribute.SetDueDate(node, dateTime);
 
