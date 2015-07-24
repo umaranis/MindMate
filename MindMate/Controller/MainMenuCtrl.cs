@@ -499,5 +499,57 @@ namespace MindMate.Controller
 
         #endregion
 
+        #region Plugin Menu Items
+
+        public void InsertMenuItems(Plugins.MainMenuItem[] menuItems)
+        {
+            MenuStrip mainMenu = this.form.menuStrip;
+
+            foreach (Plugins.MainMenuItem menu in menuItems)
+            {
+                switch(menu.MainMenuLocation)
+                {
+                    case Plugins.MainMenuLocation.Separate:
+                        mainMenu.Items.Insert(mainMenu.Items.Count - 2, menu.UnderlyingMenuItem);
+                        break;
+                    case Plugins.MainMenuLocation.Tools:
+                        form.mTools.DropDownItems.Add(menu.UnderlyingMenuItem);
+                        break;
+                    case Plugins.MainMenuLocation.Edit:
+                        form.mEditMenu.DropDownItems.Add(menu.UnderlyingMenuItem);
+                        break;
+                    case Plugins.MainMenuLocation.File:
+                        form.mFileMenu.DropDownItems.Add(menu.UnderlyingMenuItem);
+                        break;
+                    case Plugins.MainMenuLocation.Format:
+                        form.mFormat.DropDownItems.Add(menu.UnderlyingMenuItem);
+                        break;
+                    case Plugins.MainMenuLocation.Help:
+                        form.mHelp.DropDownItems.Add(menu.UnderlyingMenuItem);
+                        break;
+                }
+                menu.UnderlyingMenuItem.Click += PluginMenuItem_Click;
+                SetClickHandlerForSubMenu(menu);
+            }
+        }
+
+        private void SetClickHandlerForSubMenu(Plugins.MenuItem menu)
+        {
+            foreach (ToolStripDropDownItem subMenuItem in menu.UnderlyingMenuItem.DropDownItems)
+            {
+                subMenuItem.Click += PluginMenuItem_Click;
+                SetClickHandlerForSubMenu((Plugins.MenuItem)(subMenuItem.Tag));
+            }
+        }
+
+        void PluginMenuItem_Click(object sender, EventArgs e)
+        {
+            Plugins.MenuItem menuItem = ((Plugins.MenuItem)((ToolStripMenuItem)sender).Tag);
+            if (menuItem.Click != null)
+                menuItem.Click(menuItem, this.mapCtrl.MapView.Tree.SelectedNodes);
+        }
+
+        #endregion Plugin Menu Items
+
     }
 }

@@ -105,6 +105,7 @@ namespace MindMate.Controller
             pluginManager.InitializeSideBarWindow(mainForm.SideBarTabs);
             
             mainMenuCtrl = new MainMenuCtrl(mainForm, mapCtrl, this);
+            pluginManager.InitializeMainMenu(mainMenuCtrl);
             statusBarCtrl = new WinFormsStatusBarCtrl(mainForm.statusStrip1);
             statusBarCtrl.Register(tree);
 

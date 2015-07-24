@@ -56,6 +56,20 @@ namespace MindMate.Plugins
             }
         }
 
+        internal void InitializeMainMenu(MainMenuCtrl mainManuCtrl)
+        {
+            foreach(IPlugin p in Plugins)
+            {
+                IPluginMainMenu plugin = p as IPluginMainMenu;
+                if(plugin != null)
+                {
+                    var menu = plugin.CreateMainMenuItems();
+                    if (menu != null)
+                        mainManuCtrl.InsertMenuItems(menu);
+                }
+            }
+        }
+
         public void InitializeSideBarWindow(TabControl sidebar)
         {
             foreach(IPlugin plugin in Plugins)
@@ -101,6 +115,16 @@ namespace MindMate.Plugins
             }
         }
 
+        internal void OnMainMenuOpening(Plugins.MainMenuLocation menu, SelectedNodes selectedNodes)
+        {
+
+        }
+
+        internal void OnApplicationReady()
+        {
+            Plugins.ForEach(p => p.OnApplicationReady());
+        }
+
         #region IPluginManager Interface
 
         public void FocusMapEditor()
@@ -117,12 +141,6 @@ namespace MindMate.Plugins
         {
             mainCtrl.RescheduleTask(task, startTime);
         }
-
-        internal void OnApplicationReady()
-        {
-            Plugins.ForEach(p => p.OnApplicationReady());
-        }
-
         #endregion IPluginManager Interface
     }
 }
