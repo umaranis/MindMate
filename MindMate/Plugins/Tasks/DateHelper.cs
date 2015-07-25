@@ -110,7 +110,7 @@ namespace MindMate.Plugins.Tasks
 
         public static DateTime GetDefaultDueDateToday()
         {
-            DateTime dateTime = DateTime.Now.AddHours(1);
+            DateTime dateTime = DateTime.Today.AddHours(DateTime.Now.Hour + 1.5);
             return IsToday(dateTime) ? dateTime : DateTime.Now;
         }
 
