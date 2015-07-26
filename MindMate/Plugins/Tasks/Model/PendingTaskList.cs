@@ -110,16 +110,14 @@ namespace MindMate.Plugins.Tasks.Model
                 && e.oldValue != null && e.oldValue.Equals(TaskStatus.Complete.ToString())) 
             {
                 Add(node);
-                pendingTaskArgs.TaskChange = PendingTaskChange.TaskAdded;
-                TaskChanged(node, pendingTaskArgs);
+                TaskChanged(node, GetEventArgs(node, PendingTaskChange.TaskAdded, e));
             }
             // task due date updated
             else if(e.ChangeType == AttributeChange.ValueUpdated && e.AttributeSpec.IsDueDate() && node.GetTaskStatus() != TaskStatus.Complete)
             {
                 Remove(node);
                 Add(node);
-                pendingTaskArgs.TaskChange = PendingTaskChange.DueDateUpdated;
-                TaskChanged(node, pendingTaskArgs);
+                TaskChanged(node, GetEventArgs(node, PendingTaskChange.DueDateUpdated, e));
             }
 
         }        
