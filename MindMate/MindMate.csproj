@@ -110,9 +110,11 @@
     <Compile Include="Modules\Undo\Changes\TextChange.cs" />
     <Compile Include="Modules\Undo\IChange.cs" />
     <Compile Include="Plugins\IPlugin.cs" />
+    <Compile Include="Plugins\IPluginMainMenu.cs" />
     <Compile Include="Plugins\IPluginManager.cs" />
     <Compile Include="Plugins\IPluginMapNodeContextMenu.cs" />
     <Compile Include="Plugins\IPluginSystemIcon.cs" />
+    <Compile Include="Plugins\MainMenuItem.cs" />
     <Compile Include="Plugins\MenuItem.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
     <Compile Include="Plugins\Tasks\Model\CompletedTaskEventArgs.cs" />
@@ -136,7 +138,6 @@
     <Compile Include="Plugins\Tasks\SideBar\ControlGroupCollection.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Plugins\Tasks\TaskList\TaskCollection.cs" />
     <Compile Include="Plugins\Tasks\TaskCompleteIcon.cs" />
     <Compile Include="Plugins\Tasks\SideBar\ControlGroup.cs">
       <SubType>Component</SubType>
