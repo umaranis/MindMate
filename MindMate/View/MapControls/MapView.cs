@@ -118,12 +118,15 @@ namespace MindMate.View.MapControls
 
             switch (e.ChangedProperty)
             {
+                case NodeProperties.Text:
+                    node.NodeView.RefreshText();
+                    if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
+                    RefreshChildNodePositions(tree.RootNode, node.Pos);
+                    break;
                 case NodeProperties.RichContentText:
-
                     node.NodeView.RefreshNoteIcon();
                     if (node == Tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
                     RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
-
                     break;              
             }
 

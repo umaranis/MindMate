@@ -209,10 +209,6 @@ namespace MindMate.View.MapControls
         public void UpdateNodeText(MapNode node, string newText)
         {
             node.Text = newText;
-            node.NodeView.RefreshText();
-            if (node == node.Tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-            mapView.RefreshChildNodePositions(node.Tree.RootNode, node.Pos);
-
         }
 
         private void editBoxLostFocus(object sender, EventArgs e)

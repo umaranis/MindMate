@@ -178,10 +178,7 @@ namespace MindMate.Controller
 
             if (frm.ShowDialog() == DialogResult.OK)
             {
-                node.Text = frm.txt.Text;
-                node.NodeView.RefreshText();
-                if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                MapView.RefreshChildNodePositions(tree.RootNode, node.Pos);
+                node.Text = frm.txt.Text;                
             }
 
         }
