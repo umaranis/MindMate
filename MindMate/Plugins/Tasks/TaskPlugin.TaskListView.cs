@@ -14,6 +14,7 @@ namespace MindMate.Plugins.Tasks
             switch (e.TaskChange)
             {
                 case PendingTaskChange.TaskAdded:
+                case PendingTaskChange.TaskReopened:
                     taskListView.Add(node);
                     break;
                 case PendingTaskChange.TaskCompleted:
@@ -103,19 +104,19 @@ namespace MindMate.Plugins.Tasks
                     SetDueDate(tv.MapNode);
                     break;
                 case TaskView.TaskViewEvent.Today:
-                    tv.MapNode.SetDueDate(DateHelper.GetDefaultDueDateToday());
+                    tv.MapNode.AddTask(DateHelper.GetDefaultDueDateToday());
                     break;
                 case TaskView.TaskViewEvent.Tomorrow:
-                    tv.MapNode.SetDueDate(DateHelper.GetDefaultDueDateTomorrow());
+                    tv.MapNode.AddTask(DateHelper.GetDefaultDueDateTomorrow());
                     break;
                 case TaskView.TaskViewEvent.NextWeek:
-                    tv.MapNode.SetDueDate(DateHelper.GetDefaultDueDateNextWeek());
+                    tv.MapNode.AddTask(DateHelper.GetDefaultDueDateNextWeek());
                     break;
                 case TaskView.TaskViewEvent.NextMonth:
-                    tv.MapNode.SetDueDate(DateHelper.GetDefaultDueDateNextMonth());
+                    tv.MapNode.AddTask(DateHelper.GetDefaultDueDateNextMonth());
                     break;
                 case TaskView.TaskViewEvent.NextQuarter:
-                    tv.MapNode.SetDueDate(DateHelper.GetDefaultDueDateNextQuarter());
+                    tv.MapNode.AddTask(DateHelper.GetDefaultDueDateNextQuarter());
                     break;
 
             }

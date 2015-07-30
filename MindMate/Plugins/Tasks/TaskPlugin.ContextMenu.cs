@@ -88,7 +88,7 @@ namespace MindMate.Plugins.Tasks
             {
                 for (int i = 0; i < nodes.Count; i++)
                 {
-                    nodes[i].SetDueDate(dateTimePicker.Value);
+                    nodes[i].AddTask(dateTimePicker.Value);
                 }
             }
         }
@@ -113,7 +113,7 @@ namespace MindMate.Plugins.Tasks
             // show and set due dates
             if (dateTimePicker.ShowDialog() == DialogResult.OK)
             {
-                node.SetDueDate(dateTimePicker.Value);
+                node.AddTask(dateTimePicker.Value);
             }
         }
         
@@ -145,7 +145,7 @@ namespace MindMate.Plugins.Tasks
         {
             for (int i = 0; i < nodes.Count; i++)
             {
-                nodes[i].SetDueDate(DateHelper.GetDefaultDueDateToday());
+                nodes[i].AddTask(DateHelper.GetDefaultDueDateToday());
             }
         }
 
@@ -153,7 +153,7 @@ namespace MindMate.Plugins.Tasks
         {
             for (int i = 0; i < nodes.Count; i++)
             {
-                nodes[i].SetDueDate(DateHelper.GetDefaultDueDateTomorrow());
+                nodes[i].AddTask(DateHelper.GetDefaultDueDateTomorrow());
             }
         }
 
@@ -161,7 +161,7 @@ namespace MindMate.Plugins.Tasks
         {
             for (int i = 0; i < nodes.Count; i++)
             {
-                nodes[i].SetDueDate(DateHelper.GetDefaultDueDateNextWeek());
+                nodes[i].AddTask(DateHelper.GetDefaultDueDateNextWeek());
             }            
         }
 
@@ -169,7 +169,7 @@ namespace MindMate.Plugins.Tasks
         {
             for (int i = 0; i < nodes.Count; i++)
             {
-                nodes[i].SetDueDate(DateHelper.GetDefaultDueDateNextMonth());
+                nodes[i].AddTask(DateHelper.GetDefaultDueDateNextMonth());
             } 
         }
 
@@ -177,7 +177,7 @@ namespace MindMate.Plugins.Tasks
         {
             for (int i = 0; i < nodes.Count; i++)
             {
-                nodes[i].SetDueDate(DateHelper.GetDefaultDueDateNextQuarter());
+                nodes[i].AddTask(DateHelper.GetDefaultDueDateNextQuarter());
             }            
         }
 
