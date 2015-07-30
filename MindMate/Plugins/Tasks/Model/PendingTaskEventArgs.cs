@@ -25,9 +25,11 @@ namespace MindMate.Plugins.Tasks.Model
     public enum PendingTaskChange
     {
         TaskAdded,
-        DueDateUpdated,
+        TaskReopened,
         TaskCompleted,
-        TaskRemoved
+        TaskRemoved,
+        DueDateUpdated
+
     }
 
     public delegate void PendingTaskChangedDelegate(MapNode node, PendingTaskEventArgs args);
