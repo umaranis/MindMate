@@ -121,10 +121,21 @@
     <Compile Include="Plugins\MainMenuItem.cs" />
     <Compile Include="Plugins\MenuItem.cs" />
     <Compile Include="Plugins\PluginManager.cs" />
+    <Compile Include="Plugins\Tasks\Calender\CalendarContextMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Plugins\Tasks\Calender\MindMateCalender.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Plugins\Tasks\Calender\MindMateCalender.Designer.cs">
+      <DependentUpon>MindMateCalender.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\Tasks\Model\BaseTaskList.cs" />
     <Compile Include="Plugins\Tasks\Model\CompletedTaskEventArgs.cs" />
     <Compile Include="Plugins\Tasks\Model\CompletionDateAttribute.cs" />
     <Compile Include="Plugins\Tasks\Model\CompletedTaskList.cs" />
     <Compile Include="Plugins\Tasks\Model\TaskEventArgs.cs" />
+    <Compile Include="Plugins\Tasks\Model\TaskList.cs" />
     <Compile Include="Plugins\Tasks\Model\TaskStatusAttribute.cs" />
     <Compile Include="Plugins\Tasks\Model\DueDateAttribute.cs" />
     <Compile Include="Plugins\Tasks\Model\Task.cs" />
@@ -231,6 +242,9 @@
     <Compile Include="View\MapControls\Link.cs" />
     <Compile Include="View\MapControls\IconView.cs" />
     <Compile Include="Serialization\IconHandler.cs" />
+    <EmbeddedResource Include="Plugins\Tasks\Calender\MindMateCalender.resx">
+      <DependentUpon>MindMateCalender.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Plugins\Tasks\Reminder\TaskReminderDialog.resx">
       <DependentUpon>TaskReminderDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -643,7 +657,12 @@
     <None Include="Resources\redo.png" />
     <Content Include="Settings.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\CalenderControl\DotNetCalender\System.Windows.Forms.Calendar\System.Windows.Forms.Calendar.csproj">
+      <Project>{25649f08-3046-4891-adb8-7ea787b57063}</Project>
+      <Name>System.Windows.Forms.Calendar</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

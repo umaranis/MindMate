@@ -9,13 +9,19 @@ using System.Windows.Forms;
 
 namespace MindMate.Plugins.Tasks
 {
-    public partial class TaskPlugin : IPlugin
+    public partial class TaskPlugin : IPlugin, IPluginMainMenu
     {
 
         private PendingTaskList pendingTasks;
         public PendingTaskList PendingTasks { get { return pendingTasks; } }
 
         private CompletedTaskList completedTasks;
+
+        /// <summary>
+        /// List of all tasks (completed + pending)
+        /// </summary>
+        public TaskList AllTasks { get; private set; }
+
         private DateTimePicker dateTimePicker;
 
         private TaskListView taskListView;
@@ -32,6 +38,7 @@ namespace MindMate.Plugins.Tasks
 
             pendingTasks = new PendingTaskList();
             completedTasks = new CompletedTaskList();
+            AllTasks = new TaskList(pendingTasks, completedTasks);
             pendingTasks.TaskChanged += PendingTasks_TaskChanged;
             pendingTasks.TaskTextChanged += PendingTasks_TaskTextChanged;
             pendingTasks.TaskSelectionChanged += PendingTasks_TaskSelectionChanged;
@@ -56,9 +63,22 @@ namespace MindMate.Plugins.Tasks
             new Reminder.ReminderCtrl(this);
         }
                                                
-        public void CreateMainMenuItems(out MenuItem[] menuItems, out MainMenuLocation position)
+        public MainMenuItem[] CreateMainMenuItems()
         {
-            throw new NotImplementedException();
+            var mTasks = new MainMenuItem("Tasks");
+            mTasks.MainMenuLocation = MainMenuLocation.Separate;
+
+            var mCalendar = new MainMenuItem("Calendar");
+            mCalendar.Click = OnCalendarMenuClick;
+            mTasks.AddDropDownItem(mCalendar);
+
+            return new MainMenuItem[] { mTasks };            
+        }
+
+        private void OnCalendarMenuClick(MenuItem m, SelectedNodes selectedNodes)
+        {
+            Calender.MindMateCalendar frmCalendar = new Calender.MindMateCalendar(this);
+            frmCalendar.Show();
         }
 
         public Control[] CreateSideBarWindows()
@@ -81,6 +101,6 @@ namespace MindMate.Plugins.Tasks
             completedTasks.UnregisterMap(tree);
 
             tree.AttributeChanged += Task.OnAttributeChanged;
-        }        
+        }  
     }
 }

@@ -19,6 +19,7 @@ namespace MindMate.Plugins.Tasks
                 switch(e.TaskChange)
                 {
                     case PendingTaskChange.TaskAdded:
+                    case PendingTaskChange.TaskReopened:
                         StatusChange(n, this, SystemIconStatusChange.Show);
                         break;
                     case PendingTaskChange.TaskCompleted:

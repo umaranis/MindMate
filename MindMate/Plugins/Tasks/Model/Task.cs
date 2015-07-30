@@ -23,7 +23,9 @@ namespace MindMate.Plugins.Tasks.Model
         }
 
         /// <summary>
-        /// Throws exception if there is no Due Date attribute
+        /// Get the date on which task is to be due. 
+        /// For completed tasks, it is the scheduled end date (while Completion Date is the actual).
+        /// Throws exception if there is no Due Date attribute.
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
@@ -33,6 +35,7 @@ namespace MindMate.Plugins.Tasks.Model
             DueDateAttribute.GetAttribute(node, out att);
             return DateHelper.ToDateTime(att.ValueString);
         }
+
         public static bool UpdateDueDate(this MapNode node, DateTime dueDate)
         {
             return node.UpdateAttribute(DueDateAttribute.ATTRIBUTE_NAME, DateHelper.ToString(dueDate));
@@ -67,7 +70,7 @@ namespace MindMate.Plugins.Tasks.Model
         
         public static bool IsTaskPending(this MapNode node)
         {
-            return node.DueDateExists() && node.GetTaskStatus() != TaskStatus.Complete;
+            return node.DueDateExists() && !node.CompletionDateExists();
         }
 
         public static bool IsTaskComplete(this MapNode node)
@@ -89,9 +92,9 @@ namespace MindMate.Plugins.Tasks.Model
                 return TaskStatus.None;
         }
 
-        public static void SetDueDate(this MapNode node, DateTime dateTime)
+        public static void AddTask(this MapNode node, DateTime dateTime)
         {
-            if (node.GetTaskStatus() != TaskStatus.Open)
+            if (!node.IsTaskPending())
             {
                 DueDateAttribute.SetDueDate(node, dateTime);
                 TaskStatusAttribute.SetTaskStatus(node, TaskStatus.Open);
@@ -108,7 +111,16 @@ namespace MindMate.Plugins.Tasks.Model
                 //    });
             }
             else
+            {
+                if (node.StartDateExists())
+                {
+                    TimeSpan duration = node.GetDueDate() - node.GetStartDate();
+                    node.SetStartDate(dateTime.Subtract(duration));
+                }
                 DueDateAttribute.SetDueDate(node, dateTime);
+                
+
+            }
 
         }
 
@@ -121,6 +133,7 @@ namespace MindMate.Plugins.Tasks.Model
 
         public static void CompleteTask(this MapNode node)
         {
+            CompletionDateAttribute.SetCompletionDate(node, DateTime.Now);
             TaskStatusAttribute.SetTaskStatus(node, TaskStatus.Complete);
         }
         #endregion
@@ -185,5 +198,69 @@ namespace MindMate.Plugins.Tasks.Model
         }
 
         #endregion On Attribute Change
+
+        #region Calender Dates
+
+        public const string START_DATE_ATTRIBUTE = "Start Date";
+
+        public static bool StartDateExists(this MapNode node)
+        {
+            return node.ContainsAttribute(START_DATE_ATTRIBUTE);
+        }
+
+        /// <summary>
+        /// Returns Start Date of the Task.
+        /// If Start Date is null, returns time 30 minutes prior to the Task Due Date
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public static DateTime GetStartDate(this MapNode node)
+        {
+            MapNode.Attribute attribute;
+            if (node.GetAttribute(START_DATE_ATTRIBUTE, out attribute))
+                return DateHelper.ToDateTime(attribute.ValueString);
+            else
+            {
+                return node.GetEndDate() - TimeSpan.FromMinutes(30);
+            }
+        }
+
+        public static void SetStartDate(this MapNode node, DateTime value)
+        {
+            MapTree.AttributeSpec aSpec = node.Tree.GetAttributeSpec(START_DATE_ATTRIBUTE);
+            if (aSpec == null)
+                aSpec = new MapTree.AttributeSpec(node.Tree, START_DATE_ATTRIBUTE, false, MapTree.AttributeDataType.DateTime, MapTree.AttributeListOption.NoList, null, MapTree.AttributeType.System);
+            node.AddUpdateAttribute(new MapNode.Attribute(aSpec, DateHelper.ToString(value)));
+        }
+
+        /// <summary>
+        /// End Date of the Task i.e. Completion Date or Due Date depending on status (pending or complete)
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public static DateTime GetEndDate(this MapNode node)
+        {
+            if (node.IsTaskComplete() && node.CompletionDateExists())
+                return node.GetCompletionDate();
+            else if (node.DueDateExists())
+                return node.GetDueDate();
+            else
+                return DateTime.MinValue;
+        }
+
+        /// <summary>
+        /// Sets the DueDate or Completion Date depending on status (pending or complete)
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="value"></param>
+        public static void SetEndDate(this MapNode node, DateTime value)
+        {
+            if (node.IsTaskComplete())
+                CompletionDateAttribute.SetCompletionDate(node, value);
+            else
+                DueDateAttribute.SetDueDate(node, value);
+        }
+
+        #endregion
     }
 }
