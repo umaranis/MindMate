@@ -148,7 +148,7 @@ namespace MindMate.Plugins.Tasks.Model
 
         private void Tree_TreeStructureChanged(MapNode node, TreeStructureChangedEventArgs e)
         {
-            if (e.ChangeType == TreeStructureChange.Deleting || e.ChangeType == TreeStructureChange.Detaching)
+            if (e.ChangeType == TreeStructureChange.Deleted || e.ChangeType == TreeStructureChange.Detached)
             {
                 node.ForEach(n =>
                     {

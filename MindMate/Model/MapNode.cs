@@ -587,7 +587,7 @@ namespace MindMate.Model
         {
             if (Parent != null)
             {
-                Tree.FireEvent(this, TreeStructureChange.Detaching);
+                Selected = false;
 
                 if (Parent.FirstChild == this) Parent.FirstChild = this.Next;
                 if (Parent.LastChild == this) Parent.LastChild = this.Previous;
@@ -600,9 +600,11 @@ namespace MindMate.Model
                 if (this.Next != null)
                 {
                     this.Next.Previous = this.Previous;
-                }
+                }                
 
                 Parent.modified = DateTime.Now;              
+
+                Tree.FireEvent(this, TreeStructureChange.Detached);
 
             }
         }
@@ -647,7 +649,7 @@ namespace MindMate.Model
         {
             if (this.Parent == null)    return;
 
-            Tree.FireEvent(this, TreeStructureChange.Deleting);
+            Selected = false;
 
             if (Parent.FirstChild == this) Parent.FirstChild = this.Next;
             if (Parent.LastChild == this) Parent.LastChild = this.Previous;
@@ -659,9 +661,11 @@ namespace MindMate.Model
             if (this.Next != null)
             {
                 this.Next.Previous = this.Previous;
-            }
+            }            
 
             Parent.modified = DateTime.Now;
+
+            Tree.FireEvent(this, TreeStructureChange.Deleted);
         }
 
 

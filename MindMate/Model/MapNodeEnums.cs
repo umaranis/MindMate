@@ -67,13 +67,13 @@ namespace MindMate.Model
         /// </summary>
         Attached,
         /// <summary>
-        /// Before a node is detached
+        /// After a node is detached
         /// </summary>
-        Detaching,
+        Detached,
         /// <summary>
-        /// Before a node is deleted
+        /// After a node is deleted
         /// </summary>
-        Deleting,
+        Deleted,
         MovedUp,
         MovedDown
     }

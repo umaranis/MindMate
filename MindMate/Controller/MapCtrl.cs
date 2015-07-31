@@ -282,25 +282,19 @@ namespace MindMate.Controller
 
             if (!mainCtrl.SeekDeleteConfirmation("Do you really want to delete selected node(s)?")) return;
 
-            var selNode = this.MapView.getNearestUnSelectedNode(MapView.SelectedNodes.Last);
+            MapView.SuspendLayout();
+            var selNode = tree.GetClosestUnselectedNode(MapView.SelectedNodes.Last);
 
             for (var i = this.MapView.SelectedNodes.Count - 1; i >= 0; i--)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
-                this.MapView.SelectedNodes.Remove(node);
-
-                if (node == null)
-                {
-                    continue;
-                }
 
                 node.DeleteNode();
                 
-                isDeleted = true;
-                
+                isDeleted = true;                
             }
 
-
+            MapView.ResumeLayout();
             if (isDeleted == true)
             {
                 MapView.RefreshChildNodePositions(tree.RootNode, NodePosition.Undefined);
@@ -852,9 +846,11 @@ namespace MindMate.Controller
             {
                 if (ClipboardManager.CanPaste)
                 {
+                    MapView.SuspendLayout();
                     MapNode pasteLocation = tree.SelectedNodes[0];
                     ClipboardManager.Paste(pasteLocation);
                     if (pasteLocation.Folded) pasteLocation.Folded = false;
+                    MapView.ResumeLayout();
                     MapView.RefreshChildNodePositions(tree.RootNode, pasteLocation.Pos);
                 }
             }
@@ -886,22 +882,18 @@ namespace MindMate.Controller
                 ClipboardManager.Copy(tree.SelectedNodes);
 
                 // 2) detach nodes from tree
-                var selNode = this.MapView.getNearestUnSelectedNode(MapView.SelectedNodes.Last);
+                MapView.SuspendLayout();
+                var selNode = this.MapView.Tree.GetClosestUnselectedNode(MapView.SelectedNodes.Last);
 
                 for (var i = this.MapView.SelectedNodes.Count - 1; i >= 0; i--)
                 {
                     MapNode node = this.MapView.SelectedNodes[i];
-                    this.MapView.SelectedNodes.Remove(node);
-
-                    if (node == null)
-                    {
-                        continue;
-                    }
 
                     node.Detach();
                     Debug.Assert(node.Detached, "Detached property is false for node just detached.");
                 }
 
+                MapView.ResumeLayout();
                 MapView.RefreshChildNodePositions(tree.RootNode, NodePosition.Undefined);
                 this.MapView.SelectedNodes.Add(selNode, false);
             }

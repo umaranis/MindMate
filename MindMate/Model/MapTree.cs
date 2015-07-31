@@ -114,8 +114,52 @@ namespace MindMate.Model
             this.rootNode.ForEach(action);
         }
 
+        public MapNode GetClosestUnselectedNode(MapNode node)
+        {
+            if (node == null)
+            {
+                return this.RootNode;
+            }
+
+            var parentNode = node.Parent;
+            var prevNode = node.Previous;
+            var nextNode = node.Next;
+
+            while (parentNode != null && parentNode.Pos != NodePosition.Root)
+            {
+                if (!this.SelectedNodes.Contains(parentNode))
+                {
+                    parentNode = parentNode.Parent;
+                    continue;
+                }
+                return this.GetClosestUnselectedNode(parentNode);
+            }
+
+            while (nextNode != null)
+            {
+                if (this.SelectedNodes.Contains(nextNode))
+                {
+                    nextNode = nextNode.Next;
+                    continue;
+                }
+                return nextNode;
+            }
+
+            while (prevNode != null)
+            {
+                if (this.SelectedNodes.Contains(prevNode))
+                {
+                    prevNode = prevNode.Previous;
+                    continue;
+                }
+                return prevNode;
+            }
+
+            return node.Parent;
+        }
 
         #region "Node Change Events"
+
         public event Action<MapNode, NodePropertyChangedEventArgs> NodePropertyChanged = delegate { };
         public event Action<MapNode, TreeStructureChangedEventArgs> TreeStructureChanged = delegate { };
         public event Action<MapNode, IconChangedEventArgs> IconChanged = delegate { };

@@ -25,6 +25,11 @@ namespace MindMate.Modules.Undo.Changes
 
         public void Undo()
         {
+            if (node.Selected = true && node.Tree.SelectedNodes.Count == 1)
+            {
+                MapNode nextSelection = node.Tree.GetClosestUnselectedNode(node);
+                node.Tree.SelectedNodes.Add(nextSelection);
+            }
             node.DeleteNode();
         }
     }

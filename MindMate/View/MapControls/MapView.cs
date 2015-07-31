@@ -160,10 +160,14 @@ namespace MindMate.View.MapControls
         {
             switch(e.ChangeType)
             {
-                case TreeStructureChange.Detaching:
-                case TreeStructureChange.Deleting:
+                case TreeStructureChange.Detached:
+                case TreeStructureChange.Deleted:
                     if (node.Parent != null && node.Parent.NodeView != null && node.Parent.NodeView.LastSelectedChild == node)
                         node.Parent.NodeView.LastSelectedChild = null; // clear LastSelectedChild in case it is deleted or detached
+                    RefreshChildNodePositions(tree.RootNode, NodePosition.Undefined);
+                    break;
+                case TreeStructureChange.Attached:
+                    RefreshChildNodePositions(tree.RootNode, node.Pos);
                     break;
             }
 
@@ -233,12 +237,21 @@ namespace MindMate.View.MapControls
             Canvas.Invalidate();
         }
 
-        
+        #region Refresh MapView
+
+        public bool LayoutSuspended { get; private set; }
+
+        public void SuspendLayout() { LayoutSuspended = true; }
+
+        public void ResumeLayout() { LayoutSuspended = false; }
+
         /// <summary>
         /// Refreshes or initializes node positions for the whole tree
         /// </summary>
         public void RefreshNodePositions()
         {
+            if (LayoutSuspended) return;
+
             NodeView nodeView = this.GetNodeView(Tree.RootNode);
 
             //var left = this.rootPosX;
@@ -262,6 +275,8 @@ namespace MindMate.View.MapControls
         /// <param name="sideToRefresh">Which side to refresh (left or right). For Undefined or Root, both sides will be refreshed.</param>
         public void RefreshChildNodePositions(MapNode node, NodePosition sideToRefresh)
         {
+            if (LayoutSuspended) return;
+
             NodeView nView = this.GetNodeView(node);
 
             if (!node.HasChildren || node.Folded)
@@ -313,7 +328,9 @@ namespace MindMate.View.MapControls
                 }
 
             }
-        }
+        }        
+
+        #endregion Refresh MapView
 
         public NodeView GetNodeView(MapNode node)
         {
@@ -365,52 +382,7 @@ namespace MindMate.View.MapControls
             this.Canvas.DrawToBitmap(bmp, new System.Drawing.Rectangle(0, 0, this.Canvas.Width, this.Canvas.Height));
             return bmp;
         }
-
-        public MapNode getNearestUnSelectedNode(MapNode node)
-        {
-            if (node == null)
-            {
-                return this.Tree.RootNode;
-            }
-
-            var parentNode = node.Parent;
-            var prevNode = node.Previous;
-            var nextNode = node.Next;
-
-            while (parentNode != null && parentNode.Pos != NodePosition.Root)
-            {
-                if (!this.SelectedNodes.Contains(parentNode))
-                {
-                    parentNode = parentNode.Parent;
-                    continue;
-                }
-                return this.getNearestUnSelectedNode(parentNode);
-            }
-
-            while (nextNode != null)
-            {
-                if (this.SelectedNodes.Contains(nextNode))
-                {
-                    nextNode = nextNode.Next;
-                    continue;
-                }
-                return nextNode;
-            }
-
-            while (prevNode != null)
-            {
-                if (this.SelectedNodes.Contains(prevNode))
-                {
-                    prevNode = prevNode.Previous;
-                    continue;
-                }
-                return prevNode;
-            }
-
-            return node.Parent;
-        }
-
-        
+                
         public MapNode GetMapNodeFromPoint(System.Drawing.Point point)
         {
             MapNode node = this.Tree.RootNode;

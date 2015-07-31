@@ -25,7 +25,10 @@ namespace MindMate.Modules.Undo.Changes
 
         public void Undo()
         {
-            node.AttachTo(node.Parent, node.Previous, true, node.Pos);
+            if (node.Previous != null)
+                node.AttachTo(node.Parent, node.Previous, true, node.Pos);
+            else // insert as the first child
+                node.AttachTo(node.Parent, node.Parent.FirstChild, false, node.Pos);
         }
     }
 }
