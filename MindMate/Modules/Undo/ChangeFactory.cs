@@ -28,6 +28,7 @@ namespace MindMate.Modules.Undo
                 case TreeStructureChange.Detached:
                     return new NodeDelete(node);
                 case TreeStructureChange.Attached:
+                case TreeStructureChange.New:
                     return new NodeAttach(node);
                 default:
                     return null;
