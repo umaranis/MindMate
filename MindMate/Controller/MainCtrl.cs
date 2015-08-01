@@ -252,6 +252,44 @@ namespace MindMate.Controller
             schedular.UpdateTask(task, startTime);
         }
 
+        public void Copy()
+        {
+            if (mainForm.IsNoteEditorActive)
+                mainForm.NoteEditor.Copy();
+            else
+                mapCtrl.Copy();
+        }
+
+        public void Cut()
+        {
+            if (mainForm.IsNoteEditorActive)
+                mainForm.NoteEditor.Cut();
+            else
+                mapCtrl.Cut();
+        }        
+
+        public void Paste()
+        {
+            if (mainForm.IsNoteEditorActive)
+                mainForm.NoteEditor.Paste();
+            else
+                mapCtrl.Paste();
+        }
+
+        public void Undo()
+        {
+            if (mapCtrl.MapView.NodeTextEditor.IsTextEditing)
+                mapCtrl.MapView.NodeTextEditor.Undo();
+            else
+                ChangeManager.Undo();
+        }
+
+        public void Redo()
+        {
+            if (!mapCtrl.MapView.NodeTextEditor.IsTextEditing)
+                ChangeManager.Redo();
+        }
+
         #endregion Coordinating actions and dialogs
 
         #region New / Open Map

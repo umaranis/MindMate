@@ -13,8 +13,8 @@ using System.Windows.Forms;
 namespace MindMate.Controller
 {
     /// <summary>
-    /// Controller for Main Menu
-    /// Manages state of Menu Items and passes the events to other controller
+    /// Controller for Main Menu.
+    /// Manages state of Menu Items and passes the events to other controllers (event handlers don't contain any business logic).
     /// </summary>
     class MainMenuCtrl
     {
@@ -102,36 +102,27 @@ namespace MindMate.Controller
 
         private void mUndo_Click(object sender, EventArgs e)
         {
-            mainCtrl.ChangeManager.Undo();
+            mainCtrl.Undo();
         }
 
         private void mRedo_Click(object sender, EventArgs e)
         {
-            mainCtrl.ChangeManager.Redo();
+            mainCtrl.Redo();
         }
 
         void mCut_Click(object sender, EventArgs e)
         {
-            if (form.IsNoteEditorActive)
-                form.NoteEditor.Cut();
-            else
-                mapCtrl.Cut();
+            mainCtrl.Cut();   
         }
 
         void mCopy_Click(object sender, EventArgs e)
         {
-            if (form.IsNoteEditorActive)
-                form.NoteEditor.Copy();
-            else
-                mapCtrl.Copy();
+            mainCtrl.Copy();
         }
 
         void mPaste_Click(object sender, EventArgs e)
         {
-            if (form.IsNoteEditorActive)
-                form.NoteEditor.Paste();
-            else
-                mapCtrl.Paste();
+            mainCtrl.Paste();
         }
 
         void mDelete_Click(object sender, EventArgs e)

@@ -107,28 +107,6 @@ namespace MindMate.View.MapControls
                 editBox.ContextMenuStrip = value;
             }
         }
-
-        public void PasteFromClipboard()
-        {
-            this.editBox.Paste();
-        }
-
-        /// <summary>
-        /// Cut selection to clipboard
-        /// </summary>
-        public void CutToClipboard()
-        {
-            this.editBox.Cut();
-        }
-
-        /// <summary>
-        /// Copy selection to clipboard
-        /// </summary>
-        public void CopyToClipboard()
-        {
-            this.editBox.Copy();
-        }
-
         public void BeginNodeEdit(NodeView nView, TextCursorPosition org)
         {
             if (!enabled) return;
@@ -242,6 +220,36 @@ namespace MindMate.View.MapControls
 
             mapView.Canvas.Invalidate();
         }
+
+        #region EditBox Commands
+
+        /// <summary>
+        /// Copy selection to clipboard
+        /// </summary>
+        public void CopyToClipboard()
+        {
+            this.editBox.Copy();
+        }
+
+        /// <summary>
+        /// Cut selection to clipboard
+        /// </summary>
+        public void CutToClipboard()
+        {
+            this.editBox.Cut();
+        }
+
+        public void PasteFromClipboard()
+        {
+            this.editBox.Paste();
+        }
+
+        internal void Undo()
+        {
+            this.editBox.Undo();
+        }
+
+        #endregion EditBox Commands
     }
-    
+
 }
