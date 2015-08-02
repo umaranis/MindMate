@@ -70,7 +70,7 @@ namespace MindMate.Plugins.Tasks.Calender
         {
             calendar1.SetViewRange(monthView1.SelectionStart, monthView1.SelectionEnd);
         }
-                
+
         #region Calendar Item Events
 
         private void calendar1_ItemCreated(object sender, CalendarItemCancelEventArgs e)
@@ -79,7 +79,7 @@ namespace MindMate.Plugins.Tasks.Calender
             if (!success)
             {
                 e.Cancel = true;
-            }
+        }
         }
 
         private void calendar1_ItemDatesChanged(object sender, CalendarItemEventArgs e)
@@ -194,7 +194,7 @@ namespace MindMate.Plugins.Tasks.Calender
         {
             MapNode firstNode = ((MapNode)calendar1.GetSelectedItems().First().Tag);
             DateTime dueDate = taskPlugin.ShowDueDatePicker(firstNode.GetEndDate());
-
+            
             if (dueDate != DateTime.MinValue)
             {
                 SetDateForSelected(n => n.AddTask(dueDate));
@@ -208,7 +208,7 @@ namespace MindMate.Plugins.Tasks.Calender
         private void SetDateForSelected(Action<MapNode> SetDate)
         {
             foreach (CalendarItem item in calendar1.GetSelectedItems())
-            {
+        {
                 MapNode node = (MapNode)item.Tag;
                 SetDate(node);
                 item.StartDate = node.GetStartDate();
@@ -222,7 +222,7 @@ namespace MindMate.Plugins.Tasks.Calender
         private void MenuRemoveTask_Click(object sender, EventArgs e)
         {
             foreach (CalendarItem item in calendar1.GetSelectedItems())
-            {
+        {
                 calendar1.Items.Remove(item);
                 ((MapNode)item.Tag).RemoveTask();
             }
