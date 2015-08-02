@@ -684,11 +684,7 @@ namespace MindMate.Controller
             for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
-                node.Bold = !node.Bold;
-                //node.NodeView.RefreshNodeView();
-                node.NodeView.RefreshFont();
-                if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                MapView.RefreshChildNodePositions(tree.RootNode, node.Pos);
+                node.Bold = !node.Bold;               
             }
         }
 
@@ -803,11 +799,15 @@ namespace MindMate.Controller
         /// </summary>
         public void ChangeFont()
         {
+            if (MapView.SelectedNodes.IsEmpty) return;
+
             System.Drawing.Font font = this.MapView.SelectedNodes.First != null ?
                 this.MapView.SelectedNodes.First.NodeView.Font : null;
             font = mainCtrl.ShowFontDialog(font);
             if (font == null) return;
 
+            NodePosition sideToRefresh = MapView.SelectedNodes.First.Pos;
+            MapView.SuspendLayout();
             for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
@@ -821,10 +821,13 @@ namespace MindMate.Controller
                     
                     //update view
                     node.NodeView.RefreshFont();
-                    if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                    MapView.RefreshChildNodePositions(tree.RootNode, node.Pos);
+
+                    if (sideToRefresh != node.Pos)
+                        sideToRefresh = NodePosition.Undefined;
                 }                
             }
+            MapView.ResumeLayout();
+            MapView.RefreshChildNodePositions(tree.RootNode, sideToRefresh);
         }
 
 

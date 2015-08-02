@@ -127,7 +127,12 @@ namespace MindMate.View.MapControls
                     node.NodeView.RefreshNoteIcon();
                     if (node == Tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
                     RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
-                    break;              
+                    break;
+                case NodeProperties.Bold:
+                    node.NodeView.RefreshFont();
+                    if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
+                    RefreshChildNodePositions(tree.RootNode, node.Pos);
+                    break;            
             }
 
             Canvas.Invalidate();
@@ -465,10 +470,6 @@ namespace MindMate.View.MapControls
 
         }
 
-
-
-
     }
-
         
 }

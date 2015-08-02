@@ -61,6 +61,8 @@ namespace MindMate.Model
             }
         }
 
+        public bool IsEmpty { get { return Count == 0; } }
+
         public MapNode this [int index]
         {
             get
