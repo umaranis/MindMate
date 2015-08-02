@@ -18,7 +18,6 @@ namespace MindMate.Plugins.Tasks.Calender
     {
         TaskPlugin taskPlugin;
 
-        List<CalendarItem> _items = new List<CalendarItem>();
         public MindMateCalendar(TaskPlugin taskPlugin)
         {
 
@@ -38,13 +37,6 @@ namespace MindMate.Plugins.Tasks.Calender
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            foreach (MapNode node in taskPlugin.AllTasks)
-            {
-                CalendarItem cal = new CalendarItem(calendar1, node.GetStartDate(), node.GetEndDate(), node.Text);
-                cal.Tag = node;
-                _items.Add(cal);
-            }
-
             PlaceItems();
         }
 
@@ -55,8 +47,10 @@ namespace MindMate.Plugins.Tasks.Calender
 
         private void PlaceItems()
         {
-            foreach (CalendarItem item in _items)
+            foreach (MapNode node in taskPlugin.AllTasks.GetTasksBetween(calendar1.ViewStart, calendar1.ViewEnd))
             {
+                CalendarItem item = new CalendarItem(calendar1, node.GetStartDate(), node.GetEndDate(), node.Text);
+                item.Tag = node;
                 if (calendar1.ViewIntersects(item))
                 {
                     calendar1.Items.Add(item);
@@ -75,18 +69,12 @@ namespace MindMate.Plugins.Tasks.Calender
         {
             calendar1.SetViewRange(monthView1.SelectionStart, monthView1.SelectionEnd);
         }
-
-        private void DeleteCalenderItem(CalendarItem item)
-        {
-            _items.Remove(item);
-            ((MapNode)item.Tag).RemoveTask();
-        }
-
+                
         #region Calendar Item Events
 
         private void calendar1_ItemCreated(object sender, CalendarItemCancelEventArgs e)
         {
-            _items.Add(e.Item);
+            //_items.Add(e.Item);
         }
 
         private void calendar1_ItemDatesChanged(object sender, CalendarItemEventArgs e)
@@ -117,7 +105,7 @@ namespace MindMate.Plugins.Tasks.Calender
 
         private void calendar1_ItemDeleted(object sender, CalendarItemEventArgs e)
         {
-            DeleteCalenderItem(e.Item);
+            ((MapNode)e.Item.Tag).RemoveTask(); 
         }
 
 
@@ -125,38 +113,40 @@ namespace MindMate.Plugins.Tasks.Calender
 
         #region Context Menu
 
-        private CalendarContextMenu calendarContextMenu;
-        public new CalendarContextMenu ContextMenuStrip
-        {
-            get
-            {
-                return calendarContextMenu;
-            }
-            private set
-            {
-                calendarContextMenu = value;
-                ((Control)this).ContextMenuStrip = ContextMenuStrip;
-            }
-        }
+        //private CalendarContextMenu calendarContextMenu;
+        //public new CalendarContextMenu ContextMenuStrip
+        //{
+        //    get
+        //    {
+        //        return calendarContextMenu;
+        //    }
+        //    private set
+        //    {
+        //        calendarContextMenu = value;
+        //        ((Control)this).ContextMenuStrip = ContextMenuStrip;
+        //    }
+        //}
 
         CalendarItem contextItem = null;
 
         private void BuildContextMenu()
         {
-            ContextMenuStrip = new CalendarContextMenu();            
+            CalendarContextMenu menu = new CalendarContextMenu();
 
-            ContextMenuStrip.Opening += contextMenuStrip1_Opening;
+            menu.Opening += contextMenuStrip1_Opening;
 
-            ContextMenuStrip.MenuHourTImescale.Click += new System.EventHandler(this.hourToolStripMenuItem_Click);
-            ContextMenuStrip.Menu30MinsTimeScale.Click += new System.EventHandler(this.minutesToolStripMenuItem_Click);
-            ContextMenuStrip.Menu15MinsTimescale.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
-            ContextMenuStrip.Menu10MinsTimescale.Click += new System.EventHandler(this.minutesToolStripMenuItem1_Click);
-            ContextMenuStrip.Menu6MinsTimescale.Click += new System.EventHandler(this.minutesToolStripMenuItem2_Click);
-            ContextMenuStrip.Menu5MinsTimeScale.Click += new System.EventHandler(this.minutesToolStripMenuItem3_Click);
+            menu.MenuHourTImescale.Click += new System.EventHandler(this.hourToolStripMenuItem_Click);
+            menu.Menu30MinsTimeScale.Click += new System.EventHandler(this.minutesToolStripMenuItem_Click);
+            menu.Menu15MinsTimescale.Click += new System.EventHandler(this.toolStripMenuItem4_Click);
+            menu.Menu10MinsTimescale.Click += new System.EventHandler(this.minutesToolStripMenuItem1_Click);
+            menu.Menu6MinsTimescale.Click += new System.EventHandler(this.minutesToolStripMenuItem2_Click);
+            menu.Menu5MinsTimeScale.Click += new System.EventHandler(this.minutesToolStripMenuItem3_Click);
+            
+            menu.MenuEditText.Click += new System.EventHandler(this.editItemToolStripMenuItem_Click);
+            menu.MenuRemoveTask.Click += MenuRemoveTask_Click;
+            menu.MenuEditDueDate.Click += MenuEditDueDate_Click;
 
-            ContextMenuStrip.MenuEditText.Click += new System.EventHandler(this.editItemToolStripMenuItem_Click);
-            ContextMenuStrip.MenuRemoveTask.Click += MenuRemoveTask_Click;
-            ContextMenuStrip.MenuEditDueDate.Click += MenuEditDueDate_Click;
+            ContextMenuStrip = menu;
 
         }
 
@@ -167,12 +157,16 @@ namespace MindMate.Plugins.Tasks.Calender
 
         private void MenuRemoveTask_Click(object sender, EventArgs e)
         {
-            DeleteCalenderItem(contextItem);
+            foreach (CalendarItem item in calendar1.GetSelectedItems())
+            {
+                calendar1.Items.Remove(item);
+                ((MapNode)item.Tag).RemoveTask();
+            }
         }
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
-            contextItem = calendar1.ItemAt(ContextMenuStrip.Bounds.Location);
+            contextItem = calendar1.ItemAt(calendar1.PointToClient(ContextMenuStrip.Bounds.Location));
         }
 
         private void minutesToolStripMenuItem2_Click(object sender, EventArgs e)

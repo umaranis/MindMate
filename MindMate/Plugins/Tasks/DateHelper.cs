@@ -157,5 +157,18 @@ namespace MindMate.Plugins.Tasks
                     return new DateTime(DateTime.Today.Year + 1, 2, 1, DEFAULT_HOUR, 0, 0);
             }
         }
+
+        /// <summary>
+        /// Returns a value indicating if two date ranges intersect
+        /// </summary>
+        /// <param name="startA"></param>
+        /// <param name="endA"></param>
+        /// <param name="startB"></param>
+        /// <param name="endB"></param>
+        /// <returns></returns>
+        public static bool DateIntersects(DateTime startA, DateTime endA, DateTime startB, DateTime endB)
+        {
+            return startB < endA && startA < endB;
+        }
     }
 }
