@@ -126,5 +126,32 @@ namespace MindMate.Plugins.Tasks.Model
         }
 
         #endregion IList<MapNode> interface
+
+        public IEnumerable<MapNode> GetTasksBetween(DateTime startDate, DateTime endDate)
+        {
+            int i = pendingTasks.IndexOfGreaterThan(startDate, true);
+
+            if(i >= 0)
+            {
+                for(; i < pendingTasks.Count; i++)
+                {
+                    MapNode node = pendingTasks[i];
+                    if (DateHelper.DateIntersects(startDate, endDate, node.GetStartDate(), node.GetEndDate()))
+                        yield return node;
+                }
+            }
+
+            i = completedTasks.IndexOfGreaterThan(startDate, true);
+
+            if (i >= 0)
+            {
+                for (; i < completedTasks.Count; i++)
+                {
+                    MapNode node = completedTasks[i];
+                    if (DateHelper.DateIntersects(startDate, endDate, node.GetStartDate(), node.GetEndDate()))
+                        yield return node;
+                }
+            }
+        }
     }
 }
