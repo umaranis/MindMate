@@ -115,7 +115,7 @@ namespace MindMate.Plugins.Tasks.Model
             }
 
             if (lo < Count)
-                return lo;
+            return lo;
             else
                 return -1;
         }          
@@ -152,7 +152,7 @@ namespace MindMate.Plugins.Tasks.Model
                     break;
             }
             return index;
-        }
+        }             
 
         protected void Insert(int index, MapNode item)
         {
