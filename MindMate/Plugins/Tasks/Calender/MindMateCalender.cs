@@ -11,6 +11,7 @@ using System.IO;
 using MindMate.Plugins.Tasks.Model;
 using MindMate.Plugins.Tasks;
 using MindMate.Model;
+using System.Linq;
 
 namespace MindMate.Plugins.Tasks.Calender
 {
@@ -152,7 +153,22 @@ namespace MindMate.Plugins.Tasks.Calender
 
         private void MenuEditDueDate_Click(object sender, EventArgs e)
         {
-            
+            MapNode firstNode = ((MapNode)calendar1.GetSelectedItems().First().Tag);
+            DateTime dueDate = taskPlugin.ShowDueDatePicker(firstNode.GetEndDate());
+
+            if (dueDate != DateTime.MinValue)
+            {
+                foreach (CalendarItem item in calendar1.GetSelectedItems())
+                {
+                    MapNode node = (MapNode)item.Tag;
+                    node.AddTask(dueDate);
+                    item.StartDate = node.GetStartDate();
+                    item.EndDate = node.GetEndDate();
+                }
+            }
+
+            calendar1.Renderer.PerformItemsLayout();
+            calendar1.Invalidate();
         }
 
         private void MenuRemoveTask_Click(object sender, EventArgs e)
