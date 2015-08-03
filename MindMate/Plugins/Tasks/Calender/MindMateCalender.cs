@@ -79,7 +79,7 @@ namespace MindMate.Plugins.Tasks.Calender
             if (!success)
             {
                 e.Cancel = true;
-            }
+        }
         }
 
         private void calendar1_ItemDatesChanged(object sender, CalendarItemEventArgs e)
@@ -214,7 +214,7 @@ namespace MindMate.Plugins.Tasks.Calender
                 item.StartDate = node.GetStartDate();
                 item.EndDate = node.GetEndDate();
             }
-
+            
             calendar1.Renderer.PerformItemsLayout();
             calendar1.Invalidate();
         }
