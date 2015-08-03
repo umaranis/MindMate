@@ -17,6 +17,8 @@ namespace MindMate.Modules.Undo
                     return new TextChange(node, e.OldValue != null ? (string)e.OldValue : null);
                 case NodeProperties.Bold:
                     return new BoldChange(node, (bool)e.OldValue);
+                case NodeProperties.Italic:
+                    return new ItalicChange(node, (bool)e.OldValue);
                 default:
                     return null;
             }

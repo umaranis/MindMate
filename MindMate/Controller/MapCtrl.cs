@@ -671,11 +671,7 @@ namespace MindMate.Controller
             for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
-                node.Italic = !node.Italic;
-                //node.NodeView.RefreshNodeView();
-                node.NodeView.RefreshFont();
-                if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                MapView.RefreshChildNodePositions(tree.RootNode, node.Pos);                
+                node.Italic = !node.Italic;                             
             }
         }
 
@@ -814,10 +810,10 @@ namespace MindMate.Controller
                 if (node.NodeView.Font != font)
                 {
                     //update model
-                    node.FontName = font.Name;
-                    node.FontSize = font.Size;
-                    node.Bold = font.Bold;
-                    node.Italic = font.Italic;
+                    if(node.FontName != font.Name) node.FontName = font.Name;
+                    if(node.FontSize != font.Size) node.FontSize = font.Size;
+                    if(node.Bold != font.Bold) node.Bold = font.Bold;
+                    if(node.Italic != font.Italic) node.Italic = font.Italic;
                     
                     //update view
                     node.NodeView.RefreshFont();

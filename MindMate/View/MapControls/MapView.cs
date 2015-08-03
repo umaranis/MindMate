@@ -132,6 +132,11 @@ namespace MindMate.View.MapControls
                     node.NodeView.RefreshFont();
                     if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
                     RefreshChildNodePositions(tree.RootNode, node.Pos);
+                    break;
+                case NodeProperties.Italic:
+                    node.NodeView.RefreshFont();
+                    if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
+                    RefreshChildNodePositions(tree.RootNode, node.Pos);
                     break;            
             }
 
