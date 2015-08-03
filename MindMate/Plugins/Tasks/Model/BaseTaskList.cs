@@ -100,7 +100,7 @@ namespace MindMate.Plugins.Tasks.Model
                 if (order == 0)
                 {
                     if (includeEqualto)
-                        return i;
+                        return IndexOfFirstEqualItem(i);
                     else
                         return IndexOfNextGreaterItem(i);
                 }
@@ -121,7 +121,7 @@ namespace MindMate.Plugins.Tasks.Model
         }          
         
         /// <summary>
-        /// Skips items with the same date to find the next item with greater value
+        /// Skips items with the same value to find the next item with greater value
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
@@ -136,6 +136,23 @@ namespace MindMate.Plugins.Tasks.Model
 
             return -1;
         }   
+
+        /// <summary>
+        /// Returns the first preceding item index that has same value as the given index
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        private int IndexOfFirstEqualItem(int index)
+        {
+            while(index > 0)
+            {
+                if (GetDate(tasks[index]).Equals(GetDate(tasks[index - 1])))
+                    index--;
+                else
+                    break;
+            }
+            return index;
+        }
 
         protected void Insert(int index, MapNode item)
         {
