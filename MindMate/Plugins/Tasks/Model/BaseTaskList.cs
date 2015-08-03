@@ -82,7 +82,8 @@ namespace MindMate.Plugins.Tasks.Model
         }
 
         /// <summary>
-        /// Returns the index of first task which is greater than given DateTime
+        /// Returns the index of first task which is greater than given DateTime.
+        /// Returns -1 if not found.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="includeEqualto"></param>
@@ -96,7 +97,13 @@ namespace MindMate.Plugins.Tasks.Model
                 int i = lo + ((hi - lo) >> 1);
                 int order = DateTime.Compare(GetDate(tasks[i]), value);
 
-                if (order == 0) return i + (includeEqualto ? 0 : 1);
+                if (order == 0)
+                {
+                    if (includeEqualto)
+                        return i;
+                    else
+                        return IndexOfNextGreaterItem(i);
+                }
                 if (order < 0)
                 {
                     lo = i + 1;
@@ -107,8 +114,28 @@ namespace MindMate.Plugins.Tasks.Model
                 }
             }
 
-            return lo;
-        }             
+            if (lo < Count)
+                return lo;
+            else
+                return -1;
+        }          
+        
+        /// <summary>
+        /// Skips items with the same date to find the next item with greater value
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        private int IndexOfNextGreaterItem(int index)
+        {
+            do
+            {
+                index++;
+                if (index < tasks.Count && GetDate(tasks[index-1]) < GetDate(tasks[index]))
+                    return index;
+            } while (index < tasks.Count);
+
+            return -1;
+        }   
 
         protected void Insert(int index, MapNode item)
         {
