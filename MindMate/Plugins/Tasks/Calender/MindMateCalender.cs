@@ -79,7 +79,7 @@ namespace MindMate.Plugins.Tasks.Calender
             if (!success)
             {
                 e.Cancel = true;
-        }
+            }
         }
 
         private void calendar1_ItemDatesChanged(object sender, CalendarItemEventArgs e)
@@ -207,13 +207,13 @@ namespace MindMate.Plugins.Tasks.Calender
         /// <param name="SetDate">action for all selected MapNode(s)</param>
         private void SetDateForSelected(Action<MapNode> SetDate)
         {
-                foreach (CalendarItem item in calendar1.GetSelectedItems())
-                {
-                    MapNode node = (MapNode)item.Tag;
+            foreach (CalendarItem item in calendar1.GetSelectedItems())
+            {
+                MapNode node = (MapNode)item.Tag;
                 SetDate(node);
-                    item.StartDate = node.GetStartDate();
-                    item.EndDate = node.GetEndDate();
-                }
+                item.StartDate = node.GetStartDate();
+                item.EndDate = node.GetEndDate();
+            }
 
             calendar1.Renderer.PerformItemsLayout();
             calendar1.Invalidate();

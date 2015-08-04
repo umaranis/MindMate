@@ -178,7 +178,7 @@ namespace MindMate.Controller
 
             if (frm.ShowDialog() == DialogResult.OK)
             {
-                node.Text = frm.txt.Text;
+                node.Text = frm.txt.Text;                
             }
 
         }
@@ -289,7 +289,7 @@ namespace MindMate.Controller
 
                 node.DeleteNode();
                 
-                isDeleted = true;
+                isDeleted = true;                
             }
 
             MapView.ResumeLayout();
@@ -308,8 +308,8 @@ namespace MindMate.Controller
                 MapNode node = this.MapView.SelectedNodes.First;
 
                 node.MoveUp();
-                }
             }
+        }
 
         public void MoveNodeDown()
         {
@@ -318,8 +318,8 @@ namespace MindMate.Controller
                 MapNode node = this.MapView.SelectedNodes.First;
 
                 node.MoveDown();                
-                }
             }
+        }
 
         public void SelectAllSiblingsAbove()
         {
@@ -663,7 +663,7 @@ namespace MindMate.Controller
             for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
-                node.Italic = !node.Italic;
+                node.Italic = !node.Italic;                             
             }
         }
 
@@ -672,7 +672,7 @@ namespace MindMate.Controller
             for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
-                node.Bold = !node.Bold;
+                node.Bold = !node.Bold;               
             }
         }
 
