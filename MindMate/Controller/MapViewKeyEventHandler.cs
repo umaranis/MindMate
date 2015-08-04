@@ -64,7 +64,7 @@ namespace MindMate.Controller
                     mapCtrl.ToggleNode();
                     break;
                 case Keys.Enter:
-                    mapCtrl.appendNodeAndEdit();
+                    mapCtrl.AppendNodeAndEdit();
                     break;                
                 case Keys.PageUp:
                     mapCtrl.SelectTopSibling();
@@ -80,7 +80,7 @@ namespace MindMate.Controller
                     break;                
                 case Keys.Insert:
                 case Keys.Tab:
-                    mapCtrl.appendChildNodeAndEdit();
+                    mapCtrl.AppendChildNodeAndEdit();
                     break;
                 case Keys.Delete:
                     mapCtrl.DeleteSelectedNodes();

@@ -177,6 +177,7 @@ namespace MindMate.View.MapControls
                     RefreshChildNodePositions(tree.RootNode, NodePosition.Undefined);
                     break;
                 case TreeStructureChange.Attached:
+                case TreeStructureChange.New:
                     RefreshChildNodePositions(tree.RootNode, node.Pos);
                     break;
                 case TreeStructureChange.MovedLeft:
