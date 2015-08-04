@@ -126,6 +126,7 @@ namespace MindMate.Controller
         #endregion Launch MindMate application
 
         #region Shutdown MindMate application
+
         void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (PromptForUnsavedChanges() == ContinueOperation.Continue &&

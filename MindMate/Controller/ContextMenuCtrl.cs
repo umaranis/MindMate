@@ -135,7 +135,7 @@ namespace MindMate.Controller
 
         private void mInsertChild_Click(object sender, EventArgs e)
         {
-            mapCtrl.appendChildNodeAndEdit();
+            mapCtrl.AppendChildNodeAndEdit();
         }
 
         void mSelectIcon_Click(object sender, EventArgs e)
