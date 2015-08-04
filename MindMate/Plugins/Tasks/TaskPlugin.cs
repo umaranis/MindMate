@@ -155,5 +155,42 @@ namespace MindMate.Plugins.Tasks
             else
                 return DateTime.MinValue;
         }
+
+        public void SetDueDateToday(MapNode node)
+        {
+            SetDueDateKeepTimePart(node, DateHelper.GetDefaultDueDateToday());
+        }
+
+        public void SetDueDateTomorrow(MapNode node)
+        {
+            SetDueDateKeepTimePart(node, DateHelper.GetDefaultDueDateTomorrow());
+        }
+
+        public void SetDueDateNextWeek(MapNode node)
+        {
+            SetDueDateKeepTimePart(node, DateHelper.GetDefaultDueDateNextWeek());
+        }
+
+        public void SetDueDateNextMonth(MapNode node)
+        {
+            SetDueDateKeepTimePart(node, DateHelper.GetDefaultDueDateNextMonth());
+        }
+
+        public void SetDueDateNextQuarter(MapNode node)
+        {
+            SetDueDateKeepTimePart(node, DateHelper.GetDefaultDueDateNextQuarter());
+        }
+
+        /// <summary>
+        /// Sets the date component of DueDate. Time component is set if it is empty, otherwise left unchanged.
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="dueDate"></param>
+        private void SetDueDateKeepTimePart(MapNode node, DateTime dueDate)
+        {
+            if (node.DueDateExists())
+                dueDate = dueDate.Date.Add(node.GetDueDate().TimeOfDay);
+            node.AddTask(dueDate);
+        }
     }
 }
