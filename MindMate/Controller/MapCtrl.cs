@@ -200,79 +200,77 @@ namespace MindMate.Controller
 
         #endregion
 
-        public void appendNodeAndEdit()
+        public void AppendNodeAndEdit()
         {
             if (MapView.SelectedNodes.Count == 1)
             {
                 if (MapView.SelectedNodes.First.Pos == NodePosition.Root)
                 {
-                    appendChildNodeAndEdit();
+                    AppendChildNodeAndEdit();
                 }
                 else
                 {
-                    appendSiblingNodeAndEdit();
+                    AppendSiblingNodeAndEdit();
                 }
             }
         }
 
-        public void appendChildNodeAndEdit()
+        public void AppendChildNodeAndEdit()
         {
             if (MapView.SelectedNodes.Count == 1)
             {
                 MapNode node = this.MapView.SelectedNodes.First;
 
-                MapNode tmpNode = this.appendChildNode(node); 
-                if (tmpNode != null)
+                MapNode newNode = this.AppendChildNode(node); 
+                if (newNode != null)
                 {
-                    this.BeginNodeEdit(tmpNode, TextCursorPosition.Undefined);
+                    this.BeginNodeEdit(newNode, TextCursorPosition.Undefined);
                 }
             }
         }
 
-        public MapNode appendChildNode(MapNode parent)
+        public MapNode AppendChildNode(MapNode parent)
         {
-            MapNode tmpNode = new MapNode(parent, "");
-            if (tmpNode != null)
+            MapNode newNode = new MapNode(parent, "");
+            if (newNode != null)
             {
                 if (parent.Folded)
                 {
                     this.ToggleNode(parent);
                 }
 
-                MapView.RefreshChildNodePositions(tree.RootNode, tmpNode.Pos);
+                MapView.RefreshChildNodePositions(tree.RootNode, newNode.Pos);
 
-                this.MapView.SelectedNodes.Add(tmpNode, false);
+                this.MapView.SelectedNodes.Add(newNode, false);
             }
-            return tmpNode;
+            return newNode;
         }
 
-        public void appendSiblingNodeAndEdit()
+        public void AppendSiblingNodeAndEdit()
         {        
             if (MapView.SelectedNodes.Count == 1)
             {
-                MapNode node = this.MapView.SelectedNodes.First;
+                MapNode node = MapView.SelectedNodes.First;
 
-                MapNode tmpNode = this.appendSiblingNode(node);
-                if (tmpNode != null)
+                MapNode newNode = AppendSiblingNode(node);
+                if (newNode != null)
                 {
-                    this.BeginNodeEdit(tmpNode, TextCursorPosition.Undefined);
+                    this.BeginNodeEdit(newNode, TextCursorPosition.Undefined);
                 }
             }
         }
 
-        public MapNode appendSiblingNode(MapNode node)
+        public MapNode AppendSiblingNode(MapNode node)
         {
             if (node.Pos == NodePosition.Root)
             {
                 return null;
             }
-            MapNode tmpNode = new MapNode(node.Parent, "", NodePosition.Undefined, null, node);
+            MapNode newNode = new MapNode(node.Parent, "", NodePosition.Undefined, null, node);
             
-            this.MapView.RefreshChildNodePositions(tree.RootNode, tmpNode.Pos);
-            
-            this.MapView.SelectedNodes.Add(tmpNode, false);
+            this.MapView.SelectedNodes.Add(newNode, false);
 
-            return tmpNode;
+            return newNode;
         }
 
                       

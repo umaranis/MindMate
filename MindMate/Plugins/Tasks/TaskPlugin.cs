@@ -192,5 +192,26 @@ namespace MindMate.Plugins.Tasks
                 dueDate = dueDate.Date.Add(node.GetDueDate().TimeOfDay);
             node.AddTask(dueDate);
         }
+
+        /// <summary>
+        /// Create a child MapNode and adds task to it
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        public bool AddSubTask(string text, DateTime startDate, DateTime endDate)
+        {
+            if(pluginManager.ActiveNodes.Count == 1)
+            {
+                MapNode node = new MapNode(pluginManager.ActiveNodes.First, text);
+                node.SetStartDate(startDate);
+                node.SetEndDate(endDate);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

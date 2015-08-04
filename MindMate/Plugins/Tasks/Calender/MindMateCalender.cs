@@ -75,7 +75,11 @@ namespace MindMate.Plugins.Tasks.Calender
 
         private void calendar1_ItemCreated(object sender, CalendarItemCancelEventArgs e)
         {
-            //_items.Add(e.Item);
+            bool success = taskPlugin.AddSubTask(e.Item.Text, e.Item.StartDate, e.Item.EndDate);
+            if (!success)
+            {
+                e.Cancel = true;
+            }
         }
 
         private void calendar1_ItemDatesChanged(object sender, CalendarItemEventArgs e)
