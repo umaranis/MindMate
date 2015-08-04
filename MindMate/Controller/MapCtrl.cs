@@ -309,10 +309,7 @@ namespace MindMate.Controller
             {
                 MapNode node = this.MapView.SelectedNodes.First;
 
-                if (node.MoveUp())
-                {
-                    this.MapView.RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
-                }
+                node.MoveUp();
             }
         }
 
@@ -322,10 +319,7 @@ namespace MindMate.Controller
             {
                 MapNode node = this.MapView.SelectedNodes.First;
 
-                if (node.MoveDown())
-                {
-                    this.MapView.RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
-                }
+                node.MoveDown();                
             }
         }
 

@@ -34,6 +34,12 @@ namespace MindMate.Modules.Undo
                 case TreeStructureChange.Attached:
                 case TreeStructureChange.New:
                     return new NodeAttach(node);
+                case TreeStructureChange.MovedLeft:
+                case TreeStructureChange.MovedDown:
+                    return new MoveDown(node);
+                case TreeStructureChange.MovedRight:
+                case TreeStructureChange.MovedUp:
+                    return new MoveUp(node);
                 default:
                     return null;
             }

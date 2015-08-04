@@ -179,6 +179,12 @@ namespace MindMate.View.MapControls
                 case TreeStructureChange.Attached:
                     RefreshChildNodePositions(tree.RootNode, node.Pos);
                     break;
+                case TreeStructureChange.MovedLeft:
+                case TreeStructureChange.MovedRight:
+                case TreeStructureChange.MovedUp:
+                case TreeStructureChange.MovedDown:
+                    RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+                    break;
             }
 
             Canvas.Invalidate();
