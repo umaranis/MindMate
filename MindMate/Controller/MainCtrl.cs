@@ -126,6 +126,7 @@ namespace MindMate.Controller
         #endregion Launch MindMate application
 
         #region Shutdown MindMate application
+
         void mainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (PromptForUnsavedChanges() == ContinueOperation.Continue &&
@@ -288,6 +289,17 @@ namespace MindMate.Controller
         {
             if (!mapCtrl.MapView.NodeTextEditor.IsTextEditing)
                 ChangeManager.Redo();
+        }
+
+        /// <summary>
+        /// Selected Nodes of the currently active MapView
+        /// </summary>
+        public SelectedNodes ActiveNodes
+        {
+            get
+            {
+                return mapCtrl.MapView.Tree.SelectedNodes;
+            }
         }
 
         #endregion Coordinating actions and dialogs

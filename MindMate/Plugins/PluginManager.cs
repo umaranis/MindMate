@@ -141,6 +141,15 @@ namespace MindMate.Plugins
         {
             mainCtrl.RescheduleTask(task, startTime);
         }
+
+        /// <summary>
+        /// Selected Nodes of the currently active MapTree
+        /// </summary>
+        public SelectedNodes ActiveNodes
+        {
+            get { return mainCtrl.ActiveNodes; }
+        }
+
         #endregion IPluginManager Interface
     }
 }
