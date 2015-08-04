@@ -146,9 +146,44 @@ namespace MindMate.Plugins.Tasks.Calender
             menu.MenuEditText.Click += new System.EventHandler(this.editItemToolStripMenuItem_Click);
             menu.MenuRemoveTask.Click += MenuRemoveTask_Click;
             menu.MenuEditDueDate.Click += MenuEditDueDate_Click;
+            menu.MenuDueDateToday.Click += MenuDueDateToday_Click;
+            menu.MenuDueDateTomorrow.Click += MenuDueDateTomorrow_Click;
+            menu.MenuDueDateNextWeek.Click += MenuDueDateNextWeek_Click;
+            menu.MenuDueDateNextMonth.Click += MenuDueDateNextMonth_Click;
+            menu.MenuDueDateNextQuarter.Click += MenuDueDateNextQuarter_Click;
 
             ContextMenuStrip = menu;
 
+        }
+
+        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            contextItem = calendar1.ItemAt(calendar1.PointToClient(ContextMenuStrip.Bounds.Location));
+        }
+
+        private void MenuDueDateNextQuarter_Click(object sender, EventArgs e)
+        {
+            SetDateForSelected(n => taskPlugin.SetDueDateNextQuarter(n));
+        }
+
+        private void MenuDueDateNextMonth_Click(object sender, EventArgs e)
+        {
+            SetDateForSelected(n => taskPlugin.SetDueDateNextMonth(n));
+        }
+
+        private void MenuDueDateNextWeek_Click(object sender, EventArgs e)
+        {
+            SetDateForSelected(n => taskPlugin.SetDueDateNextWeek(n));
+        }
+
+        private void MenuDueDateTomorrow_Click(object sender, EventArgs e)
+        {
+            SetDateForSelected(n => taskPlugin.SetDueDateTomorrow(n));
+        }
+
+        private void MenuDueDateToday_Click(object sender, EventArgs e)
+        {
+            SetDateForSelected(n => taskPlugin.SetDueDateToday(n));
         }
 
         private void MenuEditDueDate_Click(object sender, EventArgs e)
@@ -158,13 +193,22 @@ namespace MindMate.Plugins.Tasks.Calender
 
             if (dueDate != DateTime.MinValue)
             {
-                foreach (CalendarItem item in calendar1.GetSelectedItems())
-                {
-                    MapNode node = (MapNode)item.Tag;
-                    node.AddTask(dueDate);
-                    item.StartDate = node.GetStartDate();
-                    item.EndDate = node.GetEndDate();
-                }
+                SetDateForSelected(n => n.AddTask(dueDate));
+            }           
+        }
+
+        /// <summary>
+        /// Executes the action for all selected MapNode(s) and updates their CalenderItem(s)
+        /// </summary>
+        /// <param name="SetDate">action for all selected MapNode(s)</param>
+        private void SetDateForSelected(Action<MapNode> SetDate)
+        {
+            foreach (CalendarItem item in calendar1.GetSelectedItems())
+            {
+                MapNode node = (MapNode)item.Tag;
+                SetDate(node);
+                item.StartDate = node.GetStartDate();
+                item.EndDate = node.GetEndDate();
             }
 
             calendar1.Renderer.PerformItemsLayout();
@@ -178,11 +222,6 @@ namespace MindMate.Plugins.Tasks.Calender
                 calendar1.Items.Remove(item);
                 ((MapNode)item.Tag).RemoveTask();
             }
-        }
-
-        private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
-        {
-            contextItem = calendar1.ItemAt(calendar1.PointToClient(ContextMenuStrip.Bounds.Location));
         }
 
         private void minutesToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -204,6 +243,7 @@ namespace MindMate.Plugins.Tasks.Calender
         {
             calendar1.TimeScale = CalendarTimeScale.FifteenMinutes;
         }
+
         private void minutesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             calendar1.TimeScale = CalendarTimeScale.TenMinutes;
