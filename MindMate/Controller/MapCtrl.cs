@@ -510,8 +510,7 @@ namespace MindMate.Controller
         {
             if (node.Pos != NodePosition.Root)
             {
-                node.Folded = !node.Folded;
-                MapView.RefreshChildNodePositions(tree.RootNode, node.Pos);
+                node.Folded = !node.Folded;                
             }
         }
 
