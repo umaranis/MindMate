@@ -137,7 +137,7 @@ namespace MindMate.Plugins.Tasks.Model
                     foreach(MapNode n in this)
                     {
                         if (n.isDescendent(node))
-                            TaskTextChanged(n, new TaskTextEventArgs() { ChangeType = TaskTextChange.TextChange, ChangedAncestor = node, OldText = (string)e.OldValue });
+                            TaskTextChanged(n, new TaskTextEventArgs() { ChangeType = TaskTextChange.AncestorTextChange, ChangedAncestor = node, OldText = (string)e.OldValue });
                     }
                 }
             }
