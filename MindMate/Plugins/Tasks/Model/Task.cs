@@ -203,6 +203,11 @@ namespace MindMate.Plugins.Tasks.Model
 
         public const string START_DATE_ATTRIBUTE = "Start Date";
 
+        public static bool IsStartDate(this MapTree.AttributeSpec aSpec)
+        {
+            return aSpec.Name.Equals(START_DATE_ATTRIBUTE);
+        }
+
         public static bool StartDateExists(this MapNode node)
         {
             return node.ContainsAttribute(START_DATE_ATTRIBUTE);
@@ -210,7 +215,7 @@ namespace MindMate.Plugins.Tasks.Model
 
         /// <summary>
         /// Returns Start Date of the Task.
-        /// If Start Date is null, returns time 30 minutes prior to the Task Due Date
+        /// If Start Date is null, returns time 30 minutes prior to the Task Due Date or Completion Date
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>

@@ -124,7 +124,6 @@ namespace MindMate.Plugins.Tasks.Model
                 yield return node;
             }
         }
-
         #endregion IList<MapNode> interface
 
         public IEnumerable<MapNode> GetTasksBetween(DateTime startDate, DateTime endDate)
@@ -153,5 +152,66 @@ namespace MindMate.Plugins.Tasks.Model
                 }
             }
         }
+
+        #region Events
+
+        public class TaskChangeEventArgs {  }
+
+        public delegate void TaskChangedDelegate(MapNode node, TaskChangeEventArgs args);
+
+        public event TaskChangedDelegate TaskChanged;
+        
+        internal void RegisterMap(MapTree tree)
+        {
+            tree.AttributeChanged += Tree_AttributeChanged;
+        }        
+
+        internal void UnregisterMap(MapTree tree)
+        {
+            tree.AttributeChanged -= Tree_AttributeChanged;
+        }
+
+        private void Tree_AttributeChanged(MapNode node, AttributeChangeEventArgs e)
+        {
+            if(TaskChanged != null &&
+                (
+                e.AttributeSpec.IsCompletionDate() ||
+                e.AttributeSpec.IsDueDate() ||
+                e.AttributeSpec.IsStartDate()
+                ))
+            {
+                TaskChanged(node, new TaskChangeEventArgs());
+            }
+        }
+
+        public event TaskTextChangedDelegate TaskTextChanged
+        {
+            add
+            {
+                pendingTasks.TaskTextChanged += value;
+                completedTasks.TaskTextChanged += value;
+            }
+            remove
+            {
+                pendingTasks.TaskTextChanged -= value;
+                completedTasks.TaskTextChanged -= value;
+            }
+        }
+
+        public event TaskSelectionChangedDelegate TaskSelectionChanged
+        {
+            add
+            {
+                pendingTasks.TaskSelectionChanged += value;
+                completedTasks.TaskSelectionChanged += value;
+            }
+            remove
+            {
+                pendingTasks.TaskSelectionChanged -= value;
+                completedTasks.TaskSelectionChanged -= value;
+            }
+        }
+
+        #endregion Events
     }
 }

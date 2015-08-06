@@ -19,6 +19,11 @@ namespace MindMate.Plugins.Tasks.Calender
     {
         TaskPlugin taskPlugin;
 
+        /// <summary>
+        /// Flag is used to avoid refreshing the Calendar from task list when it is editing data internal
+        /// </summary>
+        public bool SuspendRefreshFromTaskList { get; private set; }
+
         public MindMateCalendar(TaskPlugin taskPlugin)
         {
 
@@ -36,16 +41,63 @@ namespace MindMate.Plugins.Tasks.Calender
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form_Load(object sender, EventArgs e)
         {
-            PlaceItems();
+            InitializeCalenderFromTaskList();
         }
 
-        private void calendar1_LoadItems(object sender, CalendarLoadEventArgs e)
+        private void Form_FormClosing(object sender, FormClosingEventArgs e)
         {
-            PlaceItems();
+            DisconnectCalenderFromTaskList();
         }
 
+        #region Refresh Calendar from Task List
+
+        /// <summary>
+        /// Called when the form is loaded
+        /// </summary>
+        private void InitializeCalenderFromTaskList()
+        {
+            PlaceItems();
+
+            taskPlugin.AllTasks.TaskChanged += AllTasks_TaskChanged;
+            taskPlugin.AllTasks.TaskTextChanged += AllTasks_TaskTextChanged;
+        }
+
+        /// <summary>
+        /// Called whent the form is closed
+        /// </summary>
+        private void DisconnectCalenderFromTaskList()
+        {
+            taskPlugin.AllTasks.TaskChanged -= AllTasks_TaskChanged;
+            taskPlugin.AllTasks.TaskTextChanged -= AllTasks_TaskTextChanged;
+        }
+
+        private void AllTasks_TaskTextChanged(MapNode node, TaskTextEventArgs e)
+        {
+            RefreshCalenderFromTaskList();
+        }
+
+        private void AllTasks_TaskChanged(MapNode node, TaskList.TaskChangeEventArgs args)
+        {
+            RefreshCalenderFromTaskList();
+        }
+
+        /// <summary>
+        /// Clear calendar items and reload them from Task List
+        /// </summary>
+        private void RefreshCalenderFromTaskList()
+        {
+            if (!SuspendRefreshFromTaskList)
+            {
+                calendar1.Items.Clear();
+                PlaceItems();
+            }
+        }
+
+        /// <summary>
+        /// Load task list to Calendar's Items collection
+        /// </summary>
         private void PlaceItems()
         {
             foreach (MapNode node in taskPlugin.AllTasks.GetTasksBetween(calendar1.ViewStart, calendar1.ViewEnd))
@@ -58,9 +110,16 @@ namespace MindMate.Plugins.Tasks.Calender
                 }
             }
         }
-        private void DemoForm_FormClosing(object sender, FormClosingEventArgs e)
+
+        #endregion Refresh Calendar from Task List
+
+        #region Calendar Events
+
+        private void calendar1_LoadItems(object sender, CalendarLoadEventArgs e)
         {
+            PlaceItems();
         }
+
         private void calendar1_DayHeaderClick(object sender, CalendarDayEventArgs e)
         {
             calendar1.SetViewRange(e.CalendarDay.Date, e.CalendarDay.Date);
@@ -70,20 +129,26 @@ namespace MindMate.Plugins.Tasks.Calender
         {
             calendar1.SetViewRange(monthView1.SelectionStart, monthView1.SelectionEnd);
         }
-                
+
+        #endregion Calendar Events
+
         #region Calendar Item Events
 
         private void calendar1_ItemCreated(object sender, CalendarItemCancelEventArgs e)
         {
+            SuspendRefreshFromTaskList = true;
             bool success = taskPlugin.AddSubTask(e.Item.Text, e.Item.StartDate, e.Item.EndDate);
             if (!success)
             {
                 e.Cancel = true;
             }
+            SuspendRefreshFromTaskList = false;
         }
 
         private void calendar1_ItemDatesChanged(object sender, CalendarItemEventArgs e)
         {
+            SuspendRefreshFromTaskList = true;
+
             MapNode node = (MapNode)e.Item.Tag;
 
             if (node.GetStartDate() != e.Item.StartDate)
@@ -91,11 +156,15 @@ namespace MindMate.Plugins.Tasks.Calender
 
             if (!node.GetEndDate().Equals(e.Item.EndDate))
                 node.SetEndDate(e.Item.EndDate);
+
+            SuspendRefreshFromTaskList = false;
         }
 
         private void calendar1_ItemTextEdited(object sender, CalendarItemCancelEventArgs e)
         {
+            SuspendRefreshFromTaskList = true;
             ((MapNode)e.Item.Tag).Text = e.Item.Text;
+            SuspendRefreshFromTaskList = false;
         }
 
         private void calendar1_ItemClick(object sender, CalendarItemEventArgs e)
@@ -110,7 +179,9 @@ namespace MindMate.Plugins.Tasks.Calender
 
         private void calendar1_ItemDeleted(object sender, CalendarItemEventArgs e)
         {
-            ((MapNode)e.Item.Tag).RemoveTask(); 
+            SuspendRefreshFromTaskList = true;
+            ((MapNode)e.Item.Tag).RemoveTask();
+            SuspendRefreshFromTaskList = false;
         }
 
 
@@ -207,6 +278,8 @@ namespace MindMate.Plugins.Tasks.Calender
         /// <param name="SetDate">action for all selected MapNode(s)</param>
         private void SetDateForSelected(Action<MapNode> SetDate)
         {
+            SuspendRefreshFromTaskList = true;
+
             foreach (CalendarItem item in calendar1.GetSelectedItems())
             {
                 MapNode node = (MapNode)item.Tag;
@@ -217,15 +290,21 @@ namespace MindMate.Plugins.Tasks.Calender
 
             calendar1.Renderer.PerformItemsLayout();
             calendar1.Invalidate();
+
+            SuspendRefreshFromTaskList = false;
         }
 
         private void MenuRemoveTask_Click(object sender, EventArgs e)
         {
+            SuspendRefreshFromTaskList = true;
+
             foreach (CalendarItem item in calendar1.GetSelectedItems())
             {
                 calendar1.Items.Remove(item);
                 ((MapNode)item.Tag).RemoveTask();
             }
+
+            SuspendRefreshFromTaskList = false;
         }
 
         private void minutesToolStripMenuItem2_Click(object sender, EventArgs e)

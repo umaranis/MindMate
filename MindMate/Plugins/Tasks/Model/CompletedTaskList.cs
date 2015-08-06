@@ -83,6 +83,7 @@ namespace MindMate.Plugins.Tasks.Model
 
         private void Tree_AttributeChanged(MapNode node, AttributeChangeEventArgs e)
         {
+            //// Task List Change
             // task completed
             if (e.ChangeType == AttributeChange.Added && e.AttributeSpec.IsCompletionDate())
             {
@@ -103,6 +104,14 @@ namespace MindMate.Plugins.Tasks.Model
                 Remove(node);
                 Add(node);
                 TaskChanged(node, GetEventArgs(node, CompletedTaskChange.CompletionDateUpdated, e));
+            }
+
+            //// Task Property Change (which doesn't affect list)
+            else if(CompletedTaskPropertyChanged != null && e.AttributeSpec.IsStartDate() && node.IsTaskComplete())
+            {
+                var args = new CompletedTaskPropertyEventArgs(){ PropertyChanged = CompletedTaskProperty.StartDate };
+                if (!string.IsNullOrEmpty(e.oldValue)) args.OldValue = DateHelper.ToDateTime(e.oldValue);
+                CompletedTaskPropertyChanged(node, args);
             }
         }        
         
@@ -194,6 +203,8 @@ namespace MindMate.Plugins.Tasks.Model
 
         private CompletedTaskEventArgs completedTaskArgs;
         public event CompletedTaskChangedDelegate TaskChanged = delegate { };
-                
+
+        event CompletedTaskPropertyChanged CompletedTaskPropertyChanged;
+
     }
 }

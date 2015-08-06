@@ -126,8 +126,8 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MindMateCalendar";
             this.Text = "Calendar - Mind Mate";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DemoForm_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_FormClosing);
+            this.Load += new System.EventHandler(this.Form_Load);
             this.ResumeLayout(false);
 
         }

@@ -132,8 +132,10 @@
     </Compile>
     <Compile Include="Plugins\Tasks\Model\BaseTaskList.cs" />
     <Compile Include="Plugins\Tasks\Model\CompletedTaskEventArgs.cs" />
+    <Compile Include="Plugins\Tasks\Model\CompletedTaskPropertyEventArgs.cs" />
     <Compile Include="Plugins\Tasks\Model\CompletionDateAttribute.cs" />
     <Compile Include="Plugins\Tasks\Model\CompletedTaskList.cs" />
+    <Compile Include="Plugins\Tasks\Model\PendingTaskPropertyEventArgs.cs" />
     <Compile Include="Plugins\Tasks\Model\TaskEventArgs.cs" />
     <Compile Include="Plugins\Tasks\Model\TaskList.cs" />
     <Compile Include="Plugins\Tasks\Model\TaskStatusAttribute.cs" />
@@ -658,7 +660,7 @@
     <Content Include="Settings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\CalenderControl\DotNetCalender\System.Windows.Forms.Calendar\System.Windows.Forms.Calendar.csproj">
+    <ProjectReference Include="..\..\..\CalendarControl\DotNetCalender\System.Windows.Forms.Calendar\System.Windows.Forms.Calendar.csproj">
       <Project>{25649f08-3046-4891-adb8-7ea787b57063}</Project>
       <Name>System.Windows.Forms.Calendar</Name>
     </ProjectReference>

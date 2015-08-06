@@ -91,6 +91,7 @@ namespace MindMate.Plugins.Tasks
         {
             pendingTasks.RegisterMap(tree);
             completedTasks.RegisterMap(tree);
+            AllTasks.RegisterMap(tree);
 
             tree.AttributeChanged += Task.OnAttributeChanged;
         }
@@ -99,6 +100,7 @@ namespace MindMate.Plugins.Tasks
         {
             pendingTasks.UnregisterMap(tree);
             completedTasks.UnregisterMap(tree);
+            AllTasks.UnregisterMap(tree);
 
             tree.AttributeChanged += Task.OnAttributeChanged;
         }
