@@ -105,7 +105,7 @@ namespace MindMate.Model
                 object oldValue = fontName;
                 fontName = value;
                 modified = DateTime.Now;
-                Tree.FireEvent(this, NodeProperties.FontName, fontName);
+                Tree.FireEvent(this, NodeProperties.FontName, oldValue);
             }
         }
 

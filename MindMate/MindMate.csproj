@@ -107,6 +107,7 @@
     <Compile Include="Modules\Undo\ChangeManager.cs" />
     <Compile Include="Modules\Undo\Changes\AttachNode.cs" />
     <Compile Include="Modules\Undo\Changes\FoldChange.cs" />
+    <Compile Include="Modules\Undo\Changes\FontNameChange.cs" />
     <Compile Include="Modules\Undo\Changes\MoveDown.cs" />
     <Compile Include="Modules\Undo\Changes\MoveUp.cs" />
     <Compile Include="Modules\Undo\Changes\ItalicChange.cs" />
