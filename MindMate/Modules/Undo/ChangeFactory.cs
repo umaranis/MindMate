@@ -14,7 +14,7 @@ namespace MindMate.Modules.Undo
             switch (e.ChangedProperty)
             {
                 case NodeProperties.Text:
-                    return new TextChange(node, e.OldValue != null ? (string)e.OldValue : null);
+                    return new TextChange(node, (string)e.OldValue);
                 case NodeProperties.Bold:
                     return new BoldChange(node, (bool)e.OldValue);
                 case NodeProperties.Italic:
@@ -23,6 +23,8 @@ namespace MindMate.Modules.Undo
                     return new FoldChange(node, (bool)e.OldValue);
                 case NodeProperties.FontName:
                     return new FontNameChange(node, (string)e.OldValue);
+                case NodeProperties.FontSize:
+                    return new FontSizeChange(node, (float)e.OldValue);
                     
                 default:
                     return null;

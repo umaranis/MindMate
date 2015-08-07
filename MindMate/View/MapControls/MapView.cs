@@ -129,19 +129,16 @@ namespace MindMate.View.MapControls
                     RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
                     break;
                 case NodeProperties.Bold:
-                    node.NodeView.RefreshFont();
-                    if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                    RefreshChildNodePositions(tree.RootNode, node.Pos);
-                    break;
                 case NodeProperties.Italic:
                     node.NodeView.RefreshFont();
                     if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
                     RefreshChildNodePositions(tree.RootNode, node.Pos);
-                    break;
+                    break;                
                 case NodeProperties.Folded:
                     RefreshChildNodePositions(tree.RootNode, node.Pos);
                     break;
                 case NodeProperties.FontName:
+                case NodeProperties.FontSize:
                     node.NodeView.RefreshFont();
                     if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
                     RefreshChildNodePositions(tree.RootNode, node.Pos);
