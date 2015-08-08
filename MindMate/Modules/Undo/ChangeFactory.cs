@@ -51,5 +51,18 @@ namespace MindMate.Modules.Undo
                     return null;
             }
         }
+
+        internal IChange CreateChange(MapNode node, IconChangedEventArgs e)
+        {
+            switch(e.ChangeType)
+            {
+                case IconChange.Added:
+                    return new IconAdd(node, e.Icon);
+                case IconChange.Removed:
+                    return new IconRemove(node, e.Icon);
+                default:
+                    return null;
+            }
+        }
     }
 }
