@@ -104,10 +104,13 @@ namespace MindMate.Plugins.Tasks.Calender
             {
                 CalendarItem item = new CalendarItem(calendar1, node.GetStartDate(), node.GetEndDate(), node.Text);
                 item.Tag = node;
-                if (calendar1.ViewIntersects(item))
+                if (node.IsTaskComplete())
                 {
-                    calendar1.Items.Add(item);
+                    item.Image = TaskRes.tick;
+                    item.ShowTime = false;
                 }
+
+                calendar1.Items.Add(item);
             }
         }
 
@@ -286,6 +289,7 @@ namespace MindMate.Plugins.Tasks.Calender
                 SetDate(node);
                 item.StartDate = node.GetStartDate();
                 item.EndDate = node.GetEndDate();
+                if(!node.IsTaskComplete()) { item.Image = null; }
             }
 
             calendar1.Renderer.PerformItemsLayout();
