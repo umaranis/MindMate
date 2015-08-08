@@ -20,8 +20,8 @@ namespace MindMate.Plugins.Tasks.Calender
             MenuRemoveTask = (ToolStripMenuItem)Items.Add("Remove Task", TaskRes.date_delete);
             MenuEditDueDate = (ToolStripMenuItem)Items.Add("Edit Due Date ...", TaskRes.date_edit);
 
-            ToolStripMenuItem t = new ToolStripMenuItem("Quick Due Dates");
-            Items.Add(t);
+            MenuQuickDates = new ToolStripMenuItem("Quick Due Dates");
+            Items.Add(MenuQuickDates);
 
             MenuDueDateToday = new ToolStripMenuItem("Today");
             MenuDueDateTomorrow = new ToolStripMenuItem("Tomorrow");
@@ -29,17 +29,15 @@ namespace MindMate.Plugins.Tasks.Calender
             MenuDueDateNextMonth = new ToolStripMenuItem("Next Month");
             MenuDueDateNextQuarter = new ToolStripMenuItem("Next Quarter");
 
-            t.DropDownItems.Add(MenuDueDateToday);
-            t.DropDownItems.Add(MenuDueDateTomorrow);
-            t.DropDownItems.Add(MenuDueDateNextWeek);
-            t.DropDownItems.Add(MenuDueDateNextMonth);
-            t.DropDownItems.Add(MenuDueDateNextQuarter);
+            MenuQuickDates.DropDownItems.Add(MenuDueDateToday);
+            MenuQuickDates.DropDownItems.Add(MenuDueDateTomorrow);
+            MenuQuickDates.DropDownItems.Add(MenuDueDateNextWeek);
+            MenuQuickDates.DropDownItems.Add(MenuDueDateNextMonth);
+            MenuQuickDates.DropDownItems.Add(MenuDueDateNextQuarter);
 
             Items.Add(new ToolStripSeparator());
 
             MenuEditText = (ToolStripMenuItem)Items.Add("Edit text");
-
-
 
             this.MenuTimescale = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuHourTImescale = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,13 +100,16 @@ namespace MindMate.Plugins.Tasks.Calender
             this.Menu5MinsTimeScale.Name = "Menu5MinsTimeScale";
             this.Menu5MinsTimeScale.Size = new System.Drawing.Size(181, 26);
             this.Menu5MinsTimeScale.Text = "5 minutes";
-            
+
+            Items.Add(MenuTimescale);
+
 
         }
 
         public ToolStripMenuItem MenuCompleteTask { get; private set; }
         public ToolStripMenuItem MenuRemoveTask { get; private set; }
         public ToolStripMenuItem MenuEditDueDate { get; private set; }
+        public ToolStripMenuItem MenuQuickDates { get; private set; }
         public ToolStripMenuItem MenuDueDateToday { get; private set; }
         public ToolStripMenuItem MenuDueDateTomorrow { get; private set; }
         public ToolStripMenuItem MenuDueDateNextWeek { get; private set; }

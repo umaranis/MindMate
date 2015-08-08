@@ -237,6 +237,39 @@ namespace MindMate.Plugins.Tasks.Calender
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
             contextItem = calendar1.ItemAt(calendar1.PointToClient(ContextMenuStrip.Bounds.Location));
+
+            
+            if (contextItem != null)
+            {
+                SetTimeScaleMenuVisibility(false);
+                SetCalendarItemMenuVisibility(true);                
+            }
+            else
+            {
+                SetTimeScaleMenuVisibility(true);
+                SetCalendarItemMenuVisibility(false);
+            }
+        }
+
+        private void SetCalendarItemMenuVisibility(bool value)
+        {
+            CalendarContextMenu menu = (CalendarContextMenu)ContextMenuStrip;
+            menu.MenuRemoveTask.Available = value;
+            menu.MenuEditText.Available = value;
+            menu.MenuEditDueDate.Available = value;
+            menu.MenuQuickDates.Available = value;
+            //menu.MenuDueDateTomorrow.Available = value;
+            //menu.MenuDueDateToday.Available = value;
+            //menu.MenuDueDateNextWeek.Available = value;
+            //menu.MenuDueDateNextQuarter.Available = value;
+            //menu.MenuDueDateNextMonth.Available = value;
+            menu.MenuCompleteTask.Available = value;
+        }
+
+        private void SetTimeScaleMenuVisibility(bool value)
+        {
+            CalendarContextMenu menu = (CalendarContextMenu)ContextMenuStrip;
+            menu.MenuTimescale.Available = value;
         }
 
         private void MenuDueDateNextQuarter_Click(object sender, EventArgs e)
