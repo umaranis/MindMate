@@ -129,6 +129,7 @@ namespace MindMate.Plugins.Tasks.Model
             DueDateAttribute.RemoveDueDate(node);
             CompletionDateAttribute.RemoveCompletionDate(node);
             TaskStatusAttribute.RemoveTaskStatus(node);
+            node.RemoveStartDate();
         }
 
         public static void CompleteTask(this MapNode node)
@@ -238,17 +239,22 @@ namespace MindMate.Plugins.Tasks.Model
             node.AddUpdateAttribute(new MapNode.Attribute(aSpec, DateHelper.ToString(value)));
         }
 
+        public static void RemoveStartDate(this MapNode node)
+        {
+            node.DeleteAttribute(START_DATE_ATTRIBUTE);
+        }
+
         /// <summary>
-        /// End Date of the Task i.e. Completion Date or Due Date depending on status (pending or complete)
+        /// End Date of the Task i.e. Due Date.  If due date doesn't exits, then completion date is returned 
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
         public static DateTime GetEndDate(this MapNode node)
         {
-            if (node.IsTaskComplete() && node.CompletionDateExists())
-                return node.GetCompletionDate();
-            else if (node.DueDateExists())
+            if (node.DueDateExists())
                 return node.GetDueDate();
+            else if (node.CompletionDateExists())
+                return node.GetCompletionDate();
             else
                 return DateTime.MinValue;
         }

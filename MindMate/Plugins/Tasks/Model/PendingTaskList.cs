@@ -97,7 +97,7 @@ namespace MindMate.Plugins.Tasks.Model
                 }                
             }
             // task completed
-            else if (e.AttributeSpec.IsTaskStatus() && node.GetTaskStatus() == TaskStatus.Complete && node.DueDateExists()) 
+            else if (e.ChangeType == AttributeChange.Added && e.AttributeSpec.IsCompletionDate() && node.DueDateExists()) 
             {
                 if (Remove(node))
                 {
