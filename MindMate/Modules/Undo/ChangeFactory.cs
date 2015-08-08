@@ -25,6 +25,8 @@ namespace MindMate.Modules.Undo
                     return new FontNameChange(node, (string)e.OldValue);
                 case NodeProperties.FontSize:
                     return new FontSizeChange(node, (float)e.OldValue);
+                case NodeProperties.Link:
+                    return new LinkChange(node, (string)e.OldValue);
                     
                 default:
                     return null;

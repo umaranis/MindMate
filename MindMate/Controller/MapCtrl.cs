@@ -93,17 +93,6 @@ namespace MindMate.Controller
                     if (file.ShowDialog() == DialogResult.OK)
                     {
                         node.Link = file.FileName;
-                        node.NodeView.RefreshLink();
-                        if (node == tree.RootNode)
-                        {
-                            node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                            MapView.RefreshChildNodePositions(node, NodePosition.Undefined);
-                        }
-                        else
-                        {
-                            MapView.RefreshChildNodePositions(node.Parent, NodePosition.Undefined);
-                        }
-
                     }
                 }
                 else
@@ -112,18 +101,7 @@ namespace MindMate.Controller
                     frm.LinkText = node.Link;
                     if (frm.ShowDialog() == DialogResult.OK)
                     {
-                        node.Link = frm.LinkText == ""? null : frm.LinkText;
-                        //node.NodeView.RefreshNodeView();
-                        node.NodeView.RefreshLink();
-                        if (node == tree.RootNode)
-                        {
-                            node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                            MapView.RefreshChildNodePositions(node, NodePosition.Undefined);
-                        }
-                        else
-                        {
-                            MapView.RefreshChildNodePositions(node.Parent, NodePosition.Undefined);
-                        }
+                        node.Link = frm.LinkText == ""? null : frm.LinkText;                        
                     }
                 }
             }
