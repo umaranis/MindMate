@@ -62,10 +62,7 @@
             this.mAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1 = new StatusBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
@@ -96,7 +93,6 @@
             this.mItalic = new System.Windows.Forms.ToolStripMenuItem();
             this.mFont = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -360,38 +356,6 @@
             // 
             this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
             this.openToolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.BackColor = System.Drawing.SystemColors.Control;
-            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.toolStripStatusLabel2,
-            this.toolStripStatusLabel3});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 653);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-            this.statusStrip1.Size = new System.Drawing.Size(977, 25);
-            this.statusStrip1.TabIndex = 3;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(63, 20);
-            this.toolStripStatusLabel1.Text = "Ready ...";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(0, 20);
-            // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(0, 20);
             // 
             // splitContainer1
             // 
@@ -670,8 +634,6 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
@@ -689,12 +651,9 @@
         public System.Windows.Forms.ToolStripMenuItem mFormat;
         public System.Windows.Forms.ToolStripMenuItem mTools;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        internal System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        internal System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        internal System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         internal System.Windows.Forms.SplitContainer splitContainer1;
         public System.Windows.Forms.ToolStripMenuItem mSelectIcon;
-        public System.Windows.Forms.StatusStrip statusStrip1;
+        public StatusBar statusStrip1;
         public System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;

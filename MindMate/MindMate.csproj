@@ -238,6 +238,9 @@
     <Compile Include="View\MapControls\Link.cs" />
     <Compile Include="View\MapControls\IconView.cs" />
     <Compile Include="Serialization\IconHandler.cs" />
+    <Compile Include="View\StatusBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="Plugins\Tasks\Reminder\TaskReminderDialog.resx">
       <DependentUpon>TaskReminderDialog.cs</DependentUpon>
     </EmbeddedResource>
