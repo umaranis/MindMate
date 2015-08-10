@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using MindMate.Model;
 using MindMate.Modules.Undo.Changes;
+using System.Drawing;
 
 namespace MindMate.Modules.Undo
 {
@@ -27,6 +28,8 @@ namespace MindMate.Modules.Undo
                     return new FontSizeChange(node, (float)e.OldValue);
                 case NodeProperties.Link:
                     return new LinkChange(node, (string)e.OldValue);
+                case NodeProperties.BackColor:
+                    return new BackColorChange(node, (Color)e.OldValue);
                     
                 default:
                     return null;
