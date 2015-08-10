@@ -106,12 +106,17 @@ namespace MindMate.Plugins.Tasks.Calender
                 item.Tag = node;
                 if (node.IsTaskComplete())
                 {
-                    item.Image = TaskRes.tick;
-                    item.ShowTime = false;
+                    MarkComplete(item);
                 }
 
                 calendar1.Items.Add(item);
             }
+        }
+
+        private void MarkComplete(CalendarItem item)
+        {
+            item.Image = TaskRes.tick;
+            item.ShowTime = false;
         }
 
         #endregion Refresh Calendar from Task List
@@ -223,6 +228,7 @@ namespace MindMate.Plugins.Tasks.Calender
             
             menu.MenuEditText.Click += new System.EventHandler(this.editItemToolStripMenuItem_Click);
             menu.MenuRemoveTask.Click += MenuRemoveTask_Click;
+            menu.MenuCompleteTask.Click += MenuCompleteTask_Click;
             menu.MenuEditDueDate.Click += MenuEditDueDate_Click;
             menu.MenuDueDateToday.Click += MenuDueDateToday_Click;
             menu.MenuDueDateTomorrow.Click += MenuDueDateTomorrow_Click;
@@ -233,7 +239,6 @@ namespace MindMate.Plugins.Tasks.Calender
             ContextMenuStrip = menu;
 
         }
-
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
         {
             contextItem = calendar1.ItemAt(calendar1.PointToClient(ContextMenuStrip.Bounds.Location));
@@ -323,6 +328,23 @@ namespace MindMate.Plugins.Tasks.Calender
                 item.StartDate = node.GetStartDate();
                 item.EndDate = node.GetEndDate();
                 if(!node.IsTaskComplete()) { item.Image = null; }
+            }
+
+            calendar1.Renderer.PerformItemsLayout();
+            calendar1.Invalidate();
+
+            SuspendRefreshFromTaskList = false;
+        }
+
+        private void MenuCompleteTask_Click(object sender, EventArgs e)
+        {
+            SuspendRefreshFromTaskList = true;
+
+            foreach (CalendarItem item in calendar1.GetSelectedItems())
+            {
+                MapNode node = (MapNode)item.Tag;
+                node.CompleteTask();
+                MarkComplete(item);
             }
 
             calendar1.Renderer.PerformItemsLayout();
