@@ -220,6 +220,9 @@
     <Compile Include="View\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\MainMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\MapControls\Drawing\MapPainter.cs" />
     <Compile Include="Model\SelectedNodes.cs" />
     <Compile Include="View\MapControls\Drawing\TextRenderer.cs" />
@@ -239,6 +242,9 @@
     <Compile Include="View\MapControls\IconView.cs" />
     <Compile Include="Serialization\IconHandler.cs" />
     <Compile Include="View\StatusBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\Toolbar.cs">
       <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="Plugins\Tasks\Reminder\TaskReminderDialog.resx">

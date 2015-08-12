@@ -16,6 +16,7 @@ namespace MindMate.View
         public MainForm()
         {
             InitializeComponent();
+            toolStrip1.MainMenu = MainMenu;
             SetupSideBar();
 
             notesEditor.GotFocus += (a, b) => this.focusedControl = notesEditor; 
@@ -26,6 +27,8 @@ namespace MindMate.View
             // changing side bar tab gives focus away to tab control header, below event focuses relevant control again
             SideBarTabs.SelectedIndexChanged += SideBarTabs_SelectedIndexChanged;
         }
+
+        public MainMenu MainMenu { get { return menuStrip; } }
 
         private void SideBarTabs_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -93,55 +96,7 @@ namespace MindMate.View
             mapViewPanel.GotFocus += (sender, e) => focusedControl = this.mapViewPanel;
         }
 
-        #region toolbar click events (routed to main menu items)
-        private void toolbarButtonNew_Click(object sender, EventArgs e)
-        {
-            newToolStripMenuItem.PerformClick();
-        }
-
-        private void toolbarButtonOpen_Click(object sender, EventArgs e)
-        {
-            openToolStripMenuItem.PerformClick();
-        }
-
-        private void toolbarButtonSave_Click(object sender, EventArgs e)
-        {
-            saveToolStripMenuItem.PerformClick();
-        }
-        private void toolbarButtonCut_Click(object sender, EventArgs e)
-        {
-            mCut.PerformClick();
-        }
-        private void toolbarButtonCopy_Click(object sender, EventArgs e)
-        {
-            mCopy.PerformClick();
-        }
-
-        private void toolbarButtonPaste_Click(object sender, EventArgs e)
-        {
-            mPaste.PerformClick();
-        }
-
-        private void toolbarButtonDelete_Click(object sender, EventArgs e)
-        {
-            mDelete.PerformClick();
-        }
-
-        private void toolbarButtonFormatBold_Click(object sender, EventArgs e)
-        {
-            mBold.PerformClick();
-        }
-
-        private void toolbarButtonFormatItalic_Click(object sender, EventArgs e)
-        {
-            mItalic.PerformClick();
-        }
-
-        private void toolbarButtonFormatFont_Click(object sender, EventArgs e)
-        {
-            mFont.PerformClick();
-        }
-        #endregion toolbar click events (routed to main menu items)
+        
 
     }
 }
