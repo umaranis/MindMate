@@ -32,6 +32,8 @@ namespace MindMate.Modules.Undo
                     return new BackColorChange(node, (Color)e.OldValue);
                 case NodeProperties.Color:
                     return new ColorChange(node, (Color)e.OldValue);
+                case NodeProperties.Shape:
+                    return new ShapeChange(node, (NodeShape)e.OldValue);
                     
                 default:
                     return null;
