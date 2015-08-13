@@ -28,50 +28,50 @@ namespace MindMate.Controller
             mapCtrl = c;
             this.mainCtrl = mainCtrl;
 
-            form.mSelectIcon.Click += mSelectIcon_Click;
+            form.MainMenu.mSelectIcon.Click += mSelectIcon_Click;
 
-            form.newToolStripMenuItem.Click += newToolStripMenuItem_Click;
-            form.openToolStripMenuItem.Click += this.openToolStripMenuItem_Click;
-            form.saveToolStripMenuItem.Click += this.saveToolStripMenuItem_Click;
-            form.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
-            form.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
-            form.asBMPToolStripMenuItem.Click += asBMPToolStripMenuItem_Click;
-            form.exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
+            form.MainMenu.newToolStripMenuItem.Click += newToolStripMenuItem_Click;
+            form.MainMenu.openToolStripMenuItem.Click += this.openToolStripMenuItem_Click;
+            form.MainMenu.saveToolStripMenuItem.Click += this.saveToolStripMenuItem_Click;
+            form.MainMenu.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            form.MainMenu.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
+            form.MainMenu.asBMPToolStripMenuItem.Click += asBMPToolStripMenuItem_Click;
+            form.MainMenu.exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
 
-            form.mUndo.Click += mUndo_Click;
-            form.mRedo.Click += mRedo_Click;
-            form.mCut.Click += mCut_Click;
-            form.mCopy.Click += mCopy_Click;
-            form.mPaste.Click += mPaste_Click;
-            form.mDelete.Click += mDelete_Click;
-            form.mEditMenu.DropDownOpening += mEditMenu_DropDownOpening;
-            form.mEditMenu.DropDownClosed += mEditMenu_DropDownClosed;
+            form.MainMenu.mUndo.Click += mUndo_Click;
+            form.MainMenu.mRedo.Click += mRedo_Click;
+            form.MainMenu.mCut.Click += mCut_Click;
+            form.MainMenu.mCopy.Click += mCopy_Click;
+            form.MainMenu.mPaste.Click += mPaste_Click;
+            form.MainMenu.mDelete.Click += mDelete_Click;
+            form.MainMenu.mEditMenu.DropDownOpening += mEditMenu_DropDownOpening;
+            form.MainMenu.mEditMenu.DropDownClosed += mEditMenu_DropDownClosed;
             
-            form.mBold.Click += mBold_Click;
-            form.mItalic.Click += mItalic_Click;
+            form.MainMenu.mBold.Click += mBold_Click;
+            form.MainMenu.mItalic.Click += mItalic_Click;
 
-            form.mFont.Click += mFont_Click;
-            form.mTextColor.Click += mTextColor_Click;
-            form.mBackColor.Click += mBackColor_Click;
+            form.MainMenu.mFont.Click += mFont_Click;
+            form.MainMenu.mTextColor.Click += mTextColor_Click;
+            form.MainMenu.mBackColor.Click += mBackColor_Click;
 
-            form.mShapeFork.Click += mStyleFork_Click;
-            form.mShapeBubble.Click += mStyleBubble_Click;
-            form.mShapeBox.Click += mShapeBox_Click;
-            form.mShapeBullet.Click += mShapeBullet_Click;
-            form.mShape.DropDownOpening += mShape_DropDownOpening;
+            form.MainMenu.mShapeFork.Click += mStyleFork_Click;
+            form.MainMenu.mShapeBubble.Click += mStyleBubble_Click;
+            form.MainMenu.mShapeBox.Click += mShapeBox_Click;
+            form.MainMenu.mShapeBullet.Click += mShapeBullet_Click;
+            form.MainMenu.mShape.DropDownOpening += mShape_DropDownOpening;
 
-            form.mLineThick1.Click += mLineThick1_Click;
-            form.mLineThick2.Click += mLineThick2_Click;
-            form.mLineThick4.Click += mLineThick4_Click;
-            form.mLineStyle.DropDownOpening += mLineStyle_DropDownOpening;
-            form.mLineSolid.Click += mLineSolid_Click;
-            form.mLineDashed.Click += mLineDashed_Click;
-            form.mLineDotted.Click += mLineDotted_Click;
-            form.mLineMixed.Click += mLineMixed_Click;
+            form.MainMenu.mLineThick1.Click += mLineThick1_Click;
+            form.MainMenu.mLineThick2.Click += mLineThick2_Click;
+            form.MainMenu.mLineThick4.Click += mLineThick4_Click;
+            form.MainMenu.mLineStyle.DropDownOpening += mLineStyle_DropDownOpening;
+            form.MainMenu.mLineSolid.Click += mLineSolid_Click;
+            form.MainMenu.mLineDashed.Click += mLineDashed_Click;
+            form.MainMenu.mLineDotted.Click += mLineDotted_Click;
+            form.MainMenu.mLineMixed.Click += mLineMixed_Click;
 
-            form.mLineColor.Click += mLineColor_Click;
+            form.MainMenu.mLineColor.Click += mLineColor_Click;
 
-            form.mAbout.Click += mAbout_Click;
+            form.MainMenu.mAbout.Click += mAbout_Click;
 
             CreateRecentFilesMenuItems();
         }
@@ -132,15 +132,15 @@ namespace MindMate.Controller
 
         private void mEditMenu_DropDownOpening(object sender, EventArgs e)
         {
-            form.mUndo.Enabled = mainCtrl.ChangeManager.CanUndo;
-            form.mRedo.Enabled = mainCtrl.ChangeManager.CanRedo;
+            form.MainMenu.mUndo.Enabled = mainCtrl.ChangeManager.CanUndo;
+            form.MainMenu.mRedo.Enabled = mainCtrl.ChangeManager.CanRedo;
         }
 
 
         private void mEditMenu_DropDownClosed(object sender, EventArgs e)
         {
-            form.mUndo.Enabled = true;
-            form.mRedo.Enabled = true;
+            form.MainMenu.mUndo.Enabled = true;
+            form.MainMenu.mRedo.Enabled = true;
         }
 
         void mFont_Click(object sender, EventArgs e)
@@ -177,108 +177,108 @@ namespace MindMate.Controller
         {
             if (mapCtrl.MapView.SelectedNodes.Count == 1)
             {
-                form.mLineThick1.Enabled = true;
-                form.mLineThick2.Enabled = true;
-                form.mLineThick4.Enabled = true;
+                form.MainMenu.mLineThick1.Enabled = true;
+                form.MainMenu.mLineThick2.Enabled = true;
+                form.MainMenu.mLineThick4.Enabled = true;
 
-                form.mLineSolid.Enabled = true;
-                form.mLineDashed.Enabled = true;
-                form.mLineDotted.Enabled = true;
-                form.mLineMixed.Enabled = true;
+                form.MainMenu.mLineSolid.Enabled = true;
+                form.MainMenu.mLineDashed.Enabled = true;
+                form.MainMenu.mLineDotted.Enabled = true;
+                form.MainMenu.mLineMixed.Enabled = true;
 
                 switch(mapCtrl.MapView.SelectedNodes.First.LineWidth)
                 {
                     case 1:
-                        form.mLineThick1.Checked = true;
-                        form.mLineThick2.Checked = false;
-                        form.mLineThick4.Checked = false;
+                        form.MainMenu.mLineThick1.Checked = true;
+                        form.MainMenu.mLineThick2.Checked = false;
+                        form.MainMenu.mLineThick4.Checked = false;
                         break;
                     case 2:
-                        form.mLineThick1.Checked = false;
-                        form.mLineThick2.Checked = true;
-                        form.mLineThick4.Checked = false;
+                        form.MainMenu.mLineThick1.Checked = false;
+                        form.MainMenu.mLineThick2.Checked = true;
+                        form.MainMenu.mLineThick4.Checked = false;
                         break;
                     case 4:
-                        form.mLineThick1.Checked = false;
-                        form.mLineThick2.Checked = false;
-                        form.mLineThick4.Checked = true;
+                        form.MainMenu.mLineThick1.Checked = false;
+                        form.MainMenu.mLineThick2.Checked = false;
+                        form.MainMenu.mLineThick4.Checked = true;
                         break;
                     default:
-                        form.mLineThick1.Checked = false;
-                        form.mLineThick2.Checked = false;
-                        form.mLineThick4.Checked = false;
+                        form.MainMenu.mLineThick1.Checked = false;
+                        form.MainMenu.mLineThick2.Checked = false;
+                        form.MainMenu.mLineThick4.Checked = false;
                         break;
                 }
 
                 switch (mapCtrl.MapView.SelectedNodes.First.LinePattern)
                 {
                     case System.Drawing.Drawing2D.DashStyle.Solid:
-                        form.mLineSolid.Checked = true;
-                        form.mLineDashed.Checked = false;
-                        form.mLineDotted.Checked = false;
-                        form.mLineMixed.Checked = false;
+                        form.MainMenu.mLineSolid.Checked = true;
+                        form.MainMenu.mLineDashed.Checked = false;
+                        form.MainMenu.mLineDotted.Checked = false;
+                        form.MainMenu.mLineMixed.Checked = false;
                         break;
                     case System.Drawing.Drawing2D.DashStyle.Dash:
-                        form.mLineSolid.Checked = false;
-                        form.mLineDashed.Checked = true;
-                        form.mLineDotted.Checked = false;
-                        form.mLineMixed.Checked = false;
+                        form.MainMenu.mLineSolid.Checked = false;
+                        form.MainMenu.mLineDashed.Checked = true;
+                        form.MainMenu.mLineDotted.Checked = false;
+                        form.MainMenu.mLineMixed.Checked = false;
                         break;
                     case System.Drawing.Drawing2D.DashStyle.Dot:
-                        form.mLineSolid.Checked = false;
-                        form.mLineDashed.Checked = false;
-                        form.mLineDotted.Checked = true;
-                        form.mLineMixed.Checked = false;
+                        form.MainMenu.mLineSolid.Checked = false;
+                        form.MainMenu.mLineDashed.Checked = false;
+                        form.MainMenu.mLineDotted.Checked = true;
+                        form.MainMenu.mLineMixed.Checked = false;
                         break;
                     case System.Drawing.Drawing2D.DashStyle.DashDotDot:
-                        form.mLineSolid.Checked = false;
-                        form.mLineDashed.Checked = false;
-                        form.mLineDotted.Checked = false;
-                        form.mLineMixed.Checked = true;
+                        form.MainMenu.mLineSolid.Checked = false;
+                        form.MainMenu.mLineDashed.Checked = false;
+                        form.MainMenu.mLineDotted.Checked = false;
+                        form.MainMenu.mLineMixed.Checked = true;
                         break;
                     default:
-                        form.mLineSolid.Checked = false;
-                        form.mLineDashed.Checked = false;
-                        form.mLineDotted.Checked = false;
-                        form.mLineMixed.Checked = false;
+                        form.MainMenu.mLineSolid.Checked = false;
+                        form.MainMenu.mLineDashed.Checked = false;
+                        form.MainMenu.mLineDotted.Checked = false;
+                        form.MainMenu.mLineMixed.Checked = false;
                         break;
                 }
             }
             else if (mapCtrl.MapView.SelectedNodes.Contains(mapCtrl.MapView.Tree.RootNode) || mapCtrl.MapView.SelectedNodes.First == null)
             {
-                form.mLineThick1.Enabled = false;
-                form.mLineThick2.Enabled = false;
-                form.mLineThick4.Enabled = false;
-                form.mLineThick1.Checked = false;
-                form.mLineThick2.Checked = false;
-                form.mLineThick4.Checked = false;
+                form.MainMenu.mLineThick1.Enabled = false;
+                form.MainMenu.mLineThick2.Enabled = false;
+                form.MainMenu.mLineThick4.Enabled = false;
+                form.MainMenu.mLineThick1.Checked = false;
+                form.MainMenu.mLineThick2.Checked = false;
+                form.MainMenu.mLineThick4.Checked = false;
 
-                form.mLineSolid.Enabled = false;
-                form.mLineDashed.Enabled = false;
-                form.mLineDotted.Enabled = false;
-                form.mLineMixed.Enabled = false;
-                form.mLineSolid.Checked = false;
-                form.mLineDashed.Checked = false;
-                form.mLineDotted.Checked = false;
-                form.mLineMixed.Checked = false;
+                form.MainMenu.mLineSolid.Enabled = false;
+                form.MainMenu.mLineDashed.Enabled = false;
+                form.MainMenu.mLineDotted.Enabled = false;
+                form.MainMenu.mLineMixed.Enabled = false;
+                form.MainMenu.mLineSolid.Checked = false;
+                form.MainMenu.mLineDashed.Checked = false;
+                form.MainMenu.mLineDotted.Checked = false;
+                form.MainMenu.mLineMixed.Checked = false;
             }
             else //multiple nodes selected
             {
-                form.mLineThick1.Enabled = true;
-                form.mLineThick2.Enabled = true;
-                form.mLineThick4.Enabled = true;
-                form.mLineThick1.Checked = false;
-                form.mLineThick2.Checked = false;
-                form.mLineThick4.Checked = false;
+                form.MainMenu.mLineThick1.Enabled = true;
+                form.MainMenu.mLineThick2.Enabled = true;
+                form.MainMenu.mLineThick4.Enabled = true;
+                form.MainMenu.mLineThick1.Checked = false;
+                form.MainMenu.mLineThick2.Checked = false;
+                form.MainMenu.mLineThick4.Checked = false;
 
-                form.mLineSolid.Enabled = true;
-                form.mLineDashed.Enabled = true;
-                form.mLineDotted.Enabled = true;
-                form.mLineMixed.Enabled = true;
-                form.mLineSolid.Checked = false;
-                form.mLineDashed.Checked = false;
-                form.mLineDotted.Checked = false;
-                form.mLineMixed.Checked = false;
+                form.MainMenu.mLineSolid.Enabled = true;
+                form.MainMenu.mLineDashed.Enabled = true;
+                form.MainMenu.mLineDotted.Enabled = true;
+                form.MainMenu.mLineMixed.Enabled = true;
+                form.MainMenu.mLineSolid.Checked = false;
+                form.MainMenu.mLineDashed.Checked = false;
+                form.MainMenu.mLineDotted.Checked = false;
+                form.MainMenu.mLineMixed.Checked = false;
             }
         }
 
@@ -301,51 +301,51 @@ namespace MindMate.Controller
         {
             if (mapCtrl.MapView.SelectedNodes.Count == 1)
             {
-                form.mShapeBubble.Enabled = true;
-                form.mShapeBox.Enabled = true;
-                form.mShapeFork.Enabled = true;
+                form.MainMenu.mShapeBubble.Enabled = true;
+                form.MainMenu.mShapeBox.Enabled = true;
+                form.MainMenu.mShapeFork.Enabled = true;
 
                 switch (mapCtrl.MapView.SelectedNodes.First.Shape)
                 {
                     case Model.NodeShape.Box:
-                        form.mShapeBox.Checked = true;
-                        form.mShapeBubble.Checked = false;
-                        form.mShapeFork.Checked = false;
+                        form.MainMenu.mShapeBox.Checked = true;
+                        form.MainMenu.mShapeBubble.Checked = false;
+                        form.MainMenu.mShapeFork.Checked = false;
                         break;
                     case Model.NodeShape.Bubble:
-                        form.mShapeBubble.Checked = true;
-                        form.mShapeBox.Checked = false;
-                        form.mShapeFork.Checked = false;
+                        form.MainMenu.mShapeBubble.Checked = true;
+                        form.MainMenu.mShapeBox.Checked = false;
+                        form.MainMenu.mShapeFork.Checked = false;
                         break;
                     case Model.NodeShape.Fork:
-                        form.mShapeBubble.Checked = false;
-                        form.mShapeBox.Checked = false;
-                        form.mShapeFork.Checked = true;
+                        form.MainMenu.mShapeBubble.Checked = false;
+                        form.MainMenu.mShapeBox.Checked = false;
+                        form.MainMenu.mShapeFork.Checked = true;
                         break;
                     default:
-                        form.mShapeBubble.Checked = false;
-                        form.mShapeBox.Checked = false;
-                        form.mShapeFork.Checked = false;
+                        form.MainMenu.mShapeBubble.Checked = false;
+                        form.MainMenu.mShapeBox.Checked = false;
+                        form.MainMenu.mShapeFork.Checked = false;
                         break;
                 }
             }
             else if (mapCtrl.MapView.SelectedNodes.Contains(mapCtrl.MapView.Tree.RootNode) || mapCtrl.MapView.SelectedNodes.First == null)
             {
-                form.mShapeBubble.Enabled = false;
-                form.mShapeBox.Enabled = false;
-                form.mShapeFork.Enabled = false;
-                form.mShapeBubble.Checked = false;
-                form.mShapeBox.Checked = false;
-                form.mShapeFork.Checked = false;
+                form.MainMenu.mShapeBubble.Enabled = false;
+                form.MainMenu.mShapeBox.Enabled = false;
+                form.MainMenu.mShapeFork.Enabled = false;
+                form.MainMenu.mShapeBubble.Checked = false;
+                form.MainMenu.mShapeBox.Checked = false;
+                form.MainMenu.mShapeFork.Checked = false;
             }
             else //multiple nodes selected
             {
-                form.mShapeBubble.Enabled = true;
-                form.mShapeBox.Enabled = true;
-                form.mShapeFork.Enabled = true;
-                form.mShapeBubble.Checked = false;
-                form.mShapeBox.Checked = false;
-                form.mShapeFork.Checked = false;
+                form.MainMenu.mShapeBubble.Enabled = true;
+                form.MainMenu.mShapeBox.Enabled = true;
+                form.MainMenu.mShapeFork.Enabled = true;
+                form.MainMenu.mShapeBubble.Checked = false;
+                form.MainMenu.mShapeBox.Checked = false;
+                form.MainMenu.mShapeFork.Checked = false;
             }
 
         }
@@ -415,7 +415,7 @@ namespace MindMate.Controller
 
         private void CreateRecentFilesMenuItems()
         {
-            int index = form.mFileMenu.DropDownItems.IndexOf(form.mSepRecentFilesStart);
+            int index = form.MainMenu.mFileMenu.DropDownItems.IndexOf(form.MainMenu.mSepRecentFilesStart);
             for(int i =0; i < MetaModel.MetaModel.Instance.RecentFiles.Count; i++)
             {
                 ToolStripMenuItem menuItem;
@@ -437,14 +437,14 @@ namespace MindMate.Controller
                 menuItem.Click += RecentFiles_Click;
                 
                 // adding menu item to File Menu
-                form.mFileMenu.DropDownItems.Insert(index + i + 1, menuItem);
+                form.MainMenu.mFileMenu.DropDownItems.Insert(index + i + 1, menuItem);
             }
         }
 
         public void RefreshRecentFilesMenuItems()
         {
-            int index = form.mFileMenu.DropDownItems.IndexOf(form.mSepRecentFilesStart);
-            int indexEnd = form.mFileMenu.DropDownItems.IndexOf(form.mSepRecentFilesEnd);
+            int index = form.MainMenu.mFileMenu.DropDownItems.IndexOf(form.MainMenu.mSepRecentFilesStart);
+            int indexEnd = form.MainMenu.mFileMenu.DropDownItems.IndexOf(form.MainMenu.mSepRecentFilesEnd);
             
             for (int i = 0; i < MetaModel.MetaModel.Instance.RecentFiles.Count; i++)
             {
@@ -454,11 +454,11 @@ namespace MindMate.Controller
                 {
                     menuItem = new ToolStripMenuItem();
                     menuItem.Click += RecentFiles_Click;
-                    form.mFileMenu.DropDownItems.Insert(index + i + 1, menuItem);
+                    form.MainMenu.mFileMenu.DropDownItems.Insert(index + i + 1, menuItem);
                 }
                 else
                 {
-                    menuItem = (ToolStripMenuItem)form.mFileMenu.DropDownItems[index + i + 1];
+                    menuItem = (ToolStripMenuItem)form.MainMenu.mFileMenu.DropDownItems[index + i + 1];
                 }
 
                 // setting file path for menu item
@@ -494,7 +494,7 @@ namespace MindMate.Controller
 
         public void InsertMenuItems(Plugins.MainMenuItem[] menuItems)
         {
-            MenuStrip mainMenu = this.form.menuStrip;
+            MenuStrip mainMenu = this.form.MainMenu;
 
             foreach (Plugins.MainMenuItem menu in menuItems)
             {
@@ -504,19 +504,19 @@ namespace MindMate.Controller
                         mainMenu.Items.Insert(mainMenu.Items.Count - 2, menu.UnderlyingMenuItem);
                         break;
                     case Plugins.MainMenuLocation.Tools:
-                        form.mTools.DropDownItems.Add(menu.UnderlyingMenuItem);
+                        form.MainMenu.mTools.DropDownItems.Add(menu.UnderlyingMenuItem);
                         break;
                     case Plugins.MainMenuLocation.Edit:
-                        form.mEditMenu.DropDownItems.Add(menu.UnderlyingMenuItem);
+                        form.MainMenu.mEditMenu.DropDownItems.Add(menu.UnderlyingMenuItem);
                         break;
                     case Plugins.MainMenuLocation.File:
-                        form.mFileMenu.DropDownItems.Add(menu.UnderlyingMenuItem);
+                        form.MainMenu.mFileMenu.DropDownItems.Add(menu.UnderlyingMenuItem);
                         break;
                     case Plugins.MainMenuLocation.Format:
-                        form.mFormat.DropDownItems.Add(menu.UnderlyingMenuItem);
+                        form.MainMenu.mFormat.DropDownItems.Add(menu.UnderlyingMenuItem);
                         break;
                     case Plugins.MainMenuLocation.Help:
-                        form.mHelp.DropDownItems.Add(menu.UnderlyingMenuItem);
+                        form.MainMenu.mHelp.DropDownItems.Add(menu.UnderlyingMenuItem);
                         break;
                 }
                 menu.UnderlyingMenuItem.Click += PluginMenuItem_Click;
