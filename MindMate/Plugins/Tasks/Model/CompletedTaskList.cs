@@ -10,18 +10,17 @@ namespace MindMate.Plugins.Tasks.Model
     /// <summary>
     /// List of Completed Tasks with Completion Date in sorted order.
     /// List keeps itself updated by listening with MapTree events.
-    /// Collection is only aware about CompletionDate and TaskStatus attributes and it doesn't change any MapNode attributes.
+    /// Collection doesn't change any MapNode attributes.
     /// If completion date of a task is changed, it should be removed and re-added to maintain sort order.
     /// </summary>
-    public class CompletedTaskList : IComparer<MapNode>, IEnumerable<MapNode>/*, IList<MapNode>*/
+    public class CompletedTaskList : BaseTaskList
     {
-        private List<MapNode> tasks;
 
-        public CompletedTaskList()
+        public CompletedTaskList() : base(n => n.GetCompletionDate())
         {
-            tasks = new List<MapNode>();
             completedTaskArgs = new CompletedTaskEventArgs();
         }
+
         public void RegisterMap(MapTree tree)
         {
             tree.AttributeChanged += Tree_AttributeChanged;
@@ -84,6 +83,7 @@ namespace MindMate.Plugins.Tasks.Model
 
         private void Tree_AttributeChanged(MapNode node, AttributeChangeEventArgs e)
         {
+            //// Task List Change
             // task completed
             if (e.ChangeType == AttributeChange.Added && e.AttributeSpec.IsCompletionDate())
             {
@@ -105,6 +105,14 @@ namespace MindMate.Plugins.Tasks.Model
                 Add(node);
                 TaskChanged(node, GetEventArgs(node, CompletedTaskChange.CompletionDateUpdated, e));
             }
+
+            //// Task Property Change (which doesn't affect list)
+            else if(CompletedTaskPropertyChanged != null && e.AttributeSpec.IsStartDate() && node.IsTaskComplete())
+            {
+                var args = new CompletedTaskPropertyEventArgs(){ PropertyChanged = CompletedTaskProperty.StartDate };
+                if (!string.IsNullOrEmpty(e.oldValue)) args.OldValue = DateHelper.ToDateTime(e.oldValue);
+                CompletedTaskPropertyChanged(node, args);
+            }
         }        
         
         private void Tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
@@ -125,7 +133,7 @@ namespace MindMate.Plugins.Tasks.Model
                     foreach(MapNode n in this)
                     {
                         if (n.isDescendent(node))
-                            TaskTextChanged(n, new TaskTextEventArgs() { ChangeType = TaskTextChange.TextChange, ChangedAncestor = node, OldText = (string)e.OldValue });
+                            TaskTextChanged(n, new TaskTextEventArgs() { ChangeType = TaskTextChange.AncestorTextChange, ChangedAncestor = node, OldText = (string)e.OldValue });
                     }
                 }
             }
@@ -195,121 +203,8 @@ namespace MindMate.Plugins.Tasks.Model
 
         private CompletedTaskEventArgs completedTaskArgs;
         public event CompletedTaskChangedDelegate TaskChanged = delegate { };
-        
 
-        #region IList<MapNode>
-
-        public MapNode this[int index]
-        {
-            get
-            {
-                return ((IList<MapNode>)tasks)[index];
-            }
-            //set
-            //{
-            //    ((IList<MapNode>)tasks)[index] = value;
-            //}
-        }
-
-        public int Count
-        {
-            get
-            {
-                return ((IList<MapNode>)tasks).Count;
-            }
-        }
-
-        //public bool IsReadOnly
-        //{
-        //    get
-        //    {
-        //        return ((IList<MapNode>)tasks).IsReadOnly;
-        //    }
-        //}
-
-        private void Add(MapNode item)
-        {
-            int index = tasks.BinarySearch(item, this);
-            if (index > -1)
-                tasks.Insert(index + 1, item);
-            else
-                tasks.Insert(~index, item);
-        }
-        /// <summary>
-        /// Compares two tasks in terms of their CompletionDate
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        public int Compare(MapNode x, MapNode y)
-        {
-            return DateTime.Compare(x.GetCompletionDate(), y.GetCompletionDate());            
-        }
-
-        public bool Contains(MapNode item)
-        {
-            return ((IList<MapNode>)tasks).Contains(item);
-        }
-
-        public void CopyTo(MapNode[] array, int arrayIndex)
-        {
-            ((IList<MapNode>)tasks).CopyTo(array, arrayIndex);
-        }
-
-        public IEnumerator<MapNode> GetEnumerator()
-        {
-            return tasks.GetEnumerator();
-        }
-
-        public int IndexOf(MapNode item)
-        {
-            return tasks.BinarySearch(item);
-        }
-
-        public int IndexOfGreaterThan(DateTime value, bool includeEqualto = false)
-        {
-            int lo = 0;
-            int hi = 0 + tasks.Count - 1;
-            while (lo <= hi)
-            {
-                int i = lo + ((hi - lo) >> 1);
-                int order = DateTime.Compare(tasks[i].GetCompletionDate(), value);
-
-                if (order == 0) return i + (includeEqualto ? 0 : 1);
-                if (order < 0)
-                {
-                    lo = i + 1;
-                }
-                else
-                {
-                    hi = i - 1;
-                }
-            }
-
-            return lo;
-        }
-
-        private void Insert(int index, MapNode item)
-        {
-            ((IList<MapNode>)tasks).Insert(index, item);
-        }
-
-        private bool Remove(MapNode item)
-        {
-            return ((IList<MapNode>)tasks).Remove(item);
-        }
-
-        private void RemoveAt(int index)
-        {
-            ((IList<MapNode>)tasks).RemoveAt(index);
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return tasks.GetEnumerator();
-        }
-
-        #endregion #region IList<MapNode>
+        event CompletedTaskPropertyChanged CompletedTaskPropertyChanged;
 
     }
 }

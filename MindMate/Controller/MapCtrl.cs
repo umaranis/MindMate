@@ -225,12 +225,12 @@ namespace MindMate.Controller
         {        
             if (MapView.SelectedNodes.Count == 1)
             {
-                MapNode node = this.MapView.SelectedNodes.First;
+                MapNode node = MapView.SelectedNodes.First;
 
-                MapNode tmpNode = this.AppendSiblingNode(node);
-                if (tmpNode != null)
+                MapNode newNode = AppendSiblingNode(node);
+                if (newNode != null)
                 {
-                    this.BeginNodeEdit(tmpNode, TextCursorPosition.Undefined);
+                    this.BeginNodeEdit(newNode, TextCursorPosition.Undefined);
                 }
             }
         }

@@ -31,51 +31,57 @@ namespace MindMate.Plugins.Tasks.Reminder
             StartTime = DateTime.Now.AddSeconds(5);
             TaskId = "TaskReminder";
             this.syncControl = syncControl;
-        }        
+        }
 
         public void IssueReminder()
         {
             TimeSpan tolerance = TimeSpan.FromSeconds(1);
 
             int i = taskList.IndexOfGreaterThan(lastAdvancedReminder);
-            while(i < taskList.Count)
+            if (i >= 0)
             {
-                MapNode node = taskList[i];
-                DateTime dueDate = node.GetDueDate();
-                if (dueDate - DateTime.Now < tolerance)
+                while (i < taskList.Count)
                 {
-                    // task due
-                    lastAdvancedReminder = dueDate;
+                    MapNode node = taskList[i];
+                    DateTime dueDate = node.GetDueDate();
+                    if (dueDate - DateTime.Now < tolerance)
+                    {
+                        // task due
+                        lastAdvancedReminder = dueDate;
+                    }
+                    else if (dueDate - DateTime.Now < TimeSpan.FromMinutes(ADVANCED_REMINDER_MINUTES))
+                    {
+                        // task due soon
+                        lastAdvancedReminder = dueDate;
+                        if (TaskDue != null) TaskDue(node, ReminderType.First);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                    i++;
                 }
-                else if (dueDate - DateTime.Now < TimeSpan.FromMinutes(ADVANCED_REMINDER_MINUTES))
-                {
-                    // task due soon
-                    lastAdvancedReminder = dueDate;
-                    if (TaskDue != null) TaskDue(node, ReminderType.First);
-                }
-                else
-                {
-                    break;
-                }
-                i++;
             }
 
             i = taskList.IndexOfGreaterThan(lastReminder);
-            while (i < taskList.Count)
+            if (i >= 0)
             {
-                MapNode node = taskList[i];
-                DateTime dueDate = node.GetDueDate();
-                if (dueDate - DateTime.Now < tolerance)
+                while (i < taskList.Count)
                 {
-                    // task due
-                    lastReminder = dueDate;
-                    if (TaskDue != null) TaskDue(node, ReminderType.Final);
-                }                
-                else
-                {
-                    break;
+                    MapNode node = taskList[i];
+                    DateTime dueDate = node.GetDueDate();
+                    if (dueDate - DateTime.Now < tolerance)
+                    {
+                        // task due
+                        lastReminder = dueDate;
+                        if (TaskDue != null) TaskDue(node, ReminderType.Final);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                    i++;
                 }
-                i++;
             }
         }
 
@@ -156,10 +162,10 @@ namespace MindMate.Plugins.Tasks.Reminder
             DateTime nextRunTime = DateTime.Now.AddDays(1);
 
             int i = taskList.IndexOfGreaterThan(lastReminder);
-            if (i < taskList.Count) nextRunTime = taskList[i].GetDueDate();
+            if (i >= 0) nextRunTime = taskList[i].GetDueDate();
 
             i = taskList.IndexOfGreaterThan(lastAdvancedReminder);
-            if(i < taskList.Count)
+            if(i >= 0)
             {
                 DateTime tempNext = taskList[i].GetDueDate().Subtract(TimeSpan.FromMinutes(ADVANCED_REMINDER_MINUTES));
                 if (tempNext < nextRunTime) nextRunTime = tempNext;

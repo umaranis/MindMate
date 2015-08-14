@@ -8,13 +8,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 namespace MindMate.Model
 {
     /// <summary>
     /// Maintain a list of currently selected nodes
     /// </summary>
-    public class SelectedNodes
+    public class SelectedNodes : IEnumerable<MapNode>
     {
         // list of currently selected nodes
         private System.Collections.Generic.List<MapNode> selectedNodes;
@@ -150,7 +151,15 @@ namespace MindMate.Model
         {
             return selectedNodes.Contains(node);            
         }
-        
 
+        public IEnumerator<MapNode> GetEnumerator()
+        {
+            return selectedNodes.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return selectedNodes.GetEnumerator();
+        }
     }
 }

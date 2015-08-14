@@ -10,16 +10,14 @@ namespace MindMate.Plugins.Tasks.Model
     /// <summary>
     /// List of Pending Tasks with Due Date in sorted order.
     /// List keeps itself updated by listening with MapTree events.
-    /// Collection is only aware about DueDate and TaskStatus attributes and it doesn't change any MapNode attributes.
+    /// Collection  doesn't change any MapNode attributes.
     /// If due date of a task is changed, it should be removed and re-added to maintain sort order.
     /// </summary>
-    public class PendingTaskList : IComparer<MapNode>, IEnumerable<MapNode>/*, IList<MapNode>*/
+    public class PendingTaskList : BaseTaskList
     {
-        private List<MapNode> tasks;
-
-        public PendingTaskList()
+        
+        public PendingTaskList() : base(n => n.GetDueDate())
         {
-            tasks = new List<MapNode>();
             pendingTaskArgs = new PendingTaskEventArgs();
         }
         public void RegisterMap(MapTree tree)
@@ -83,14 +81,15 @@ namespace MindMate.Plugins.Tasks.Model
 
         private void Tree_AttributeChanged(MapNode node, AttributeChangeEventArgs e)
         {
+            //// Task List Change
             // task added
-            if (e.ChangeType == AttributeChange.Added && e.AttributeSpec.IsDueDate() && node.GetTaskStatus() != TaskStatus.Complete) 
+            if (e.ChangeType == AttributeChange.Added && e.AttributeSpec.IsDueDate() && !node.IsTaskComplete()) 
             {
                 Add(node);
                 TaskChanged(node, GetEventArgs(node, PendingTaskChange.TaskAdded, e));                
             }
             // task removed
-            else if (e.ChangeType == AttributeChange.Removed && e.AttributeSpec.IsDueDate() && node.GetTaskStatus() != TaskStatus.Complete) 
+            else if (e.ChangeType == AttributeChange.Removed && e.AttributeSpec.IsDueDate() && !node.IsTaskComplete()) 
             {
                 if (Remove(node))
                 {
@@ -98,7 +97,7 @@ namespace MindMate.Plugins.Tasks.Model
                 }                
             }
             // task completed
-            else if (e.AttributeSpec.IsTaskStatus() && node.GetTaskStatus() == TaskStatus.Complete && node.DueDateExists()) 
+            else if (e.ChangeType == AttributeChange.Added && e.AttributeSpec.IsCompletionDate() && node.DueDateExists()) 
             {
                 if (Remove(node))
                 {
@@ -106,18 +105,25 @@ namespace MindMate.Plugins.Tasks.Model
                 }              
             }
             // task reopened
-            else if (e.AttributeSpec.IsTaskStatus() && node.GetTaskStatus() != TaskStatus.Complete && node.DueDateExists() 
-                && e.oldValue != null && e.oldValue.Equals(TaskStatus.Complete.ToString())) 
+            else if (e.ChangeType == AttributeChange.Removed && e.AttributeSpec.IsCompletionDate() && node.DueDateExists()) 
             {
                 Add(node);
-                TaskChanged(node, GetEventArgs(node, PendingTaskChange.TaskAdded, e));
+                TaskChanged(node, GetEventArgs(node, PendingTaskChange.TaskReopened, e));
             }
             // task due date updated
-            else if(e.ChangeType == AttributeChange.ValueUpdated && e.AttributeSpec.IsDueDate() && node.GetTaskStatus() != TaskStatus.Complete)
+            else if(e.ChangeType == AttributeChange.ValueUpdated && e.AttributeSpec.IsDueDate() && !node.IsTaskComplete())
             {
                 Remove(node);
                 Add(node);
                 TaskChanged(node, GetEventArgs(node, PendingTaskChange.DueDateUpdated, e));
+            }
+
+            //// Task Property Change (which doesn't affect list)
+            else if(PendingTaskPropertyChanged != null && e.AttributeSpec.IsStartDate() && node.IsTaskPending())
+            {
+                var args = new PendingTaskPropertyEventArgs() { PropertyChanged = PendingTaskProperty.StartDate };
+                if (!string.IsNullOrEmpty(e.oldValue)) args.OldValue = DateHelper.ToDateTime(e.oldValue);
+                PendingTaskPropertyChanged(node, args);
             }
 
         }        
@@ -140,7 +146,7 @@ namespace MindMate.Plugins.Tasks.Model
                     foreach(MapNode n in this)
                     {
                         if (n.isDescendent(node))
-                            TaskTextChanged(n, new TaskTextEventArgs() { ChangeType = TaskTextChange.TextChange, ChangedAncestor = node, OldText = (string)e.OldValue });
+                            TaskTextChanged(n, new TaskTextEventArgs() { ChangeType = TaskTextChange.AncestorTextChange, ChangedAncestor = node, OldText = (string)e.OldValue });
                     }
                 }
             }
@@ -211,121 +217,8 @@ namespace MindMate.Plugins.Tasks.Model
 
         private PendingTaskEventArgs pendingTaskArgs;
         public event PendingTaskChangedDelegate TaskChanged = delegate { };
-        
 
-        #region IList<MapNode>
-
-        public MapNode this[int index]
-        {
-            get
-            {
-                return ((IList<MapNode>)tasks)[index];
-            }
-            //set
-            //{
-            //    ((IList<MapNode>)tasks)[index] = value;
-            //}
-        }
-
-        public int Count
-        {
-            get
-            {
-                return ((IList<MapNode>)tasks).Count;
-            }
-        }
-
-        //public bool IsReadOnly
-        //{
-        //    get
-        //    {
-        //        return ((IList<MapNode>)tasks).IsReadOnly;
-        //    }
-        //}
-
-        private void Add(MapNode item)
-        {
-            int index = tasks.BinarySearch(item, this);
-            if (index > -1)
-                tasks.Insert(index + 1, item);
-            else
-                tasks.Insert(~index, item);
-        }
-        /// <summary>
-        /// Compares two tasks in terms of their DueDate
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <returns></returns>
-        public int Compare(MapNode x, MapNode y)
-        {
-            return DateTime.Compare(x.GetDueDate(), y.GetDueDate());            
-        }
-
-        public bool Contains(MapNode item)
-        {
-            return ((IList<MapNode>)tasks).Contains(item);
-        }
-
-        public void CopyTo(MapNode[] array, int arrayIndex)
-        {
-            ((IList<MapNode>)tasks).CopyTo(array, arrayIndex);
-        }
-
-        public IEnumerator<MapNode> GetEnumerator()
-        {
-            return tasks.GetEnumerator();
-        }
-
-        public int IndexOf(MapNode item)
-        {
-            return tasks.BinarySearch(item, this);
-        }
-
-        public int IndexOfGreaterThan(DateTime value, bool includeEqualto = false)
-        {
-            int lo = 0;
-            int hi = 0 + tasks.Count - 1;
-            while (lo <= hi)
-            {
-                int i = lo + ((hi - lo) >> 1);
-                int order = DateTime.Compare(tasks[i].GetDueDate(), value);
-
-                if (order == 0) return i + (includeEqualto? 0 : 1);
-                if (order < 0)
-                {
-                    lo = i + 1;
-                }
-                else
-                {
-                    hi = i - 1;
-                }
-            }
-
-            return lo;
-        }
-
-        private void Insert(int index, MapNode item)
-        {
-            ((IList<MapNode>)tasks).Insert(index, item);
-        }
-
-        private bool Remove(MapNode item)
-        {
-            return ((IList<MapNode>)tasks).Remove(item);
-        }
-
-        private void RemoveAt(int index)
-        {
-            ((IList<MapNode>)tasks).RemoveAt(index);
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return tasks.GetEnumerator();
-        }
-
-        #endregion #region IList<MapNode>
+        event PendingTaskPropertyChanged PendingTaskPropertyChanged;
 
     }
 }
