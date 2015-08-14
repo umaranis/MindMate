@@ -404,6 +404,7 @@
   <ItemGroup>
     <Content Include="Binaries\CustomFontDialog.dll" />
     <Content Include="Binaries\protobuf-net.dll" />
+    <Content Include="Binaries\System.Windows.Forms.Calendar.dll" />
     <Content Include="Binaries\TaskSchedular.dll" />
     <Content Include="images\edittrash.png" />
     <Content Include="images\Executable.png" />
