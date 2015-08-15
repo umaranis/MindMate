@@ -32,7 +32,6 @@ namespace MindMate.View
             // 
             // toolStrip1
             // 
-            this.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolbarButtonNew,
             this.toolbarButtonOpen,
