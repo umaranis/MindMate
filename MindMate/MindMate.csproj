@@ -113,6 +113,7 @@
     <Compile Include="Modules\Undo\Changes\FontSizeChange.cs" />
     <Compile Include="Modules\Undo\Changes\IconRemove.cs" />
     <Compile Include="Modules\Undo\Changes\IconAdd.cs" />
+    <Compile Include="Modules\Undo\Changes\LineWidthChange.cs" />
     <Compile Include="Modules\Undo\Changes\LinkChange.cs" />
     <Compile Include="Modules\Undo\Changes\MoveDown.cs" />
     <Compile Include="Modules\Undo\Changes\MoveUp.cs" />

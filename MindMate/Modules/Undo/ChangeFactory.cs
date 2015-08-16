@@ -34,6 +34,8 @@ namespace MindMate.Modules.Undo
                     return new ColorChange(node, (Color)e.OldValue);
                 case NodeProperties.Shape:
                     return new ShapeChange(node, (NodeShape)e.OldValue);
+                case NodeProperties.LineWidth:
+                    return new LineWidthChange(node, (int)e.OldValue);
                     
                 default:
                     return null;
