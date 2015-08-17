@@ -36,6 +36,8 @@ namespace MindMate.Modules.Undo
                     return new ShapeChange(node, (NodeShape)e.OldValue);
                 case NodeProperties.LineWidth:
                     return new LineWidthChange(node, (int)e.OldValue);
+                case NodeProperties.LinePattern:
+                    return new LinePatternChange(node, (System.Drawing.Drawing2D.DashStyle)e.OldValue);
                     
                 default:
                     return null;
