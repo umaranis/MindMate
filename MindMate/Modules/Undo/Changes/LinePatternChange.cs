@@ -21,7 +21,7 @@ namespace MindMate.Modules.Undo.Changes
         {
             get
             {
-                return "Line Width Change";
+                return "Line Pattern Change";
             }
         }
 
