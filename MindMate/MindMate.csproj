@@ -122,6 +122,7 @@
     <Compile Include="Modules\Undo\Changes\ItalicChange.cs" />
     <Compile Include="Modules\Undo\Changes\BoldChange.cs" />
     <Compile Include="Modules\Undo\Changes\NodeDelete.cs" />
+    <Compile Include="Modules\Undo\Changes\RichContentTypeChange.cs" />
     <Compile Include="Modules\Undo\Changes\ShapeChange.cs" />
     <Compile Include="Modules\Undo\Changes\TextChange.cs" />
     <Compile Include="Modules\Undo\IChange.cs" />
