@@ -124,6 +124,7 @@ namespace MindMate.View.MapControls
                     RefreshChildNodePositions(tree.RootNode, node.Pos);
                     break;
                 case NodeProperties.RichContentText:
+                case NodeProperties.RichContentType:
                     node.NodeView.RefreshNoteIcon();
                     if (node == Tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
                     RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);

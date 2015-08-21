@@ -42,6 +42,8 @@ namespace MindMate.Modules.Undo
                     return new LineColorChange(node, (Color)e.OldValue);
                 case NodeProperties.RichContentType:
                     return new RichContentTypeChange(node, (NodeRichContentType)e.OldValue);
+                case NodeProperties.RichContentText:
+                    return new RichContextTextChange(node, (string)e.OldValue);
                     
                 default:
                     return null;
