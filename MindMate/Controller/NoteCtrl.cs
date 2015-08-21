@@ -22,6 +22,11 @@ namespace MindMate.Controller
     {
         
         private NoteEditor editor;
+
+        /// <summary>
+        /// Ignore <see cref="MapTree.NodePropertyChanged"/> event when <see cref="MapNode.RichContentText"/> property is changed by <see cref="NoteCtrl"/> itself.
+        /// </summary>
+        private bool ignoreModelChange;
         
         public NoteCtrl(NoteEditor editor)
         {
@@ -67,10 +72,12 @@ namespace MindMate.Controller
                 // events for nodes selected in future
                 tree.SelectedNodes.NodeSelected += MapView_nodeSelected;
                 tree.SelectedNodes.NodeDeselected += MapView_nodeDeselected;
-
+                // event for Node's Rich Content change (required where Note content is changed outside of Note window)
+                tree.NodePropertyChanged += Tree_NodePropertyChanged;
                 
             }            
         }
+        
 
         void editor_LostFocus(object sender, EventArgs e)
         {
@@ -83,7 +90,8 @@ namespace MindMate.Controller
             if (tree != null)
             {
                 tree.SelectedNodes.NodeSelected -= MapView_nodeSelected;
-                tree.SelectedNodes.NodeDeselected -= MapView_nodeDeselected;                
+                tree.SelectedNodes.NodeDeselected -= MapView_nodeDeselected;
+                tree.NodePropertyChanged -= Tree_NodePropertyChanged;
             }
         }
 
@@ -126,6 +134,7 @@ namespace MindMate.Controller
         {
             if (editor.Dirty)
             {
+                ignoreModelChange = true;
                 if (!editor.Empty)
                 {
                     node.RichContentType = NodeRichContentType.NOTE;
@@ -137,6 +146,7 @@ namespace MindMate.Controller
                     node.RichContentText = null;
                 }
                 editor.Dirty = false;
+                ignoreModelChange = false;
             }
         }
 
@@ -144,6 +154,16 @@ namespace MindMate.Controller
         {
             if (tree.SelectedNodes.Count == 1)
                 UpdateNodeFromEditor(tree.SelectedNodes.First);
+        }
+
+        private void Tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
+        {
+            if (ignoreModelChange) return;
+
+            if (node.Selected)
+            {
+                MapView_nodeSelected(node, node.Tree.SelectedNodes);
+            }
         }
 
         public void SetNoteEditorBackColor(Color color)
