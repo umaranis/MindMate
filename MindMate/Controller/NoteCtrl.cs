@@ -137,7 +137,7 @@ namespace MindMate.Controller
                 ignoreModelChange = true;
                 if (!editor.Empty)
                 {
-                    node.RichContentType = NodeRichContentType.NOTE;
+                    if (node.RichContentType != NodeRichContentType.NOTE) { node.RichContentType = NodeRichContentType.NOTE; }
                     node.RichContentText = editor.HTML;
                 }
                 else
