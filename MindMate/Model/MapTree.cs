@@ -10,6 +10,7 @@ using System.Text;
 using System.Drawing;
 using System.Globalization;
 using MindMate.Model;
+using MindMate.Modules.Undo;
 
 namespace MindMate.Model
 {
@@ -213,5 +214,34 @@ namespace MindMate.Model
 
         #endregion
 
+        #region Change Manager
+
+        public ChangeManager ChangeManager
+        {
+            get;
+            private set;
+        }
+
+        public bool ChangeManagerOn 
+        {
+            get { return ChangeManager != null; }
+        }
+
+        public void TurnOnChangeManager()
+        {
+            if(!ChangeManagerOn)
+            {
+                ChangeManager = new ChangeManager();
+                ChangeManager.RegisterMap(this);
+            }
+        }
+
+        public void TurnOffChangeManager()
+        {
+            ChangeManager.Unregister(this);
+            ChangeManager = null;
+        }
+
+        #endregion Change Manager
     }
 }

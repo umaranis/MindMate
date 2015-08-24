@@ -103,6 +103,7 @@
     <Compile Include="Model\IconList.cs" />
     <Compile Include="Model\MapNodeEnums.cs" />
     <Compile Include="Model\NodeChangedEventArgs.cs" />
+    <Compile Include="Modules\Undo\BatchChange.cs" />
     <Compile Include="Modules\Undo\ChangeFactory.cs" />
     <Compile Include="Modules\Undo\ChangeManager.cs" />
     <Compile Include="Modules\Undo\Changes\AttachNode.cs" />

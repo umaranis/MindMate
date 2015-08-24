@@ -32,8 +32,7 @@ namespace MindMate.Controller
 
         private MapCtrl mapCtrl;
 
-        private ChangeManager changeManager;
-        internal ChangeManager ChangeManager { get { return changeManager; } }
+        internal ChangeManager ChangeManager { get { return mapCtrl.MapView.Tree.ChangeManager; } }
 
         private MainMenuCtrl mainMenuCtrl;
         private bool unsavedChanges = false;
@@ -89,8 +88,7 @@ namespace MindMate.Controller
             tree.SelectedNodes.Add(tree.RootNode);
 
             mapCtrl = new MapCtrl(tree, this);
-            changeManager = new ChangeManager();
-            changeManager.RegisterMap(tree);
+            tree.TurnOnChangeManager();
             mainForm.AddMainView(mapCtrl.MapView.Canvas);            
             mapCtrl.MindMateFile = MetaModel.MetaModel.Instance.LastOpenedFile;
 
@@ -343,7 +341,7 @@ namespace MindMate.Controller
 
             mapCtrl.MindMateFile = null;
             mapCtrl.ChangeTree(tree);
-            changeManager.RegisterMap(tree);
+            tree.TurnOnChangeManager();
 
             noteCrtl.MapTree = tree;
             statusBarCtrl.Register(tree);
@@ -395,7 +393,7 @@ namespace MindMate.Controller
 
             mapCtrl.MindMateFile = fileName;
             mapCtrl.ChangeTree(tree);
-            changeManager.RegisterMap(tree);
+            tree.TurnOnChangeManager();
 
             noteCrtl.MapTree = tree;
             statusBarCtrl.Register(tree);
@@ -472,7 +470,6 @@ namespace MindMate.Controller
 
         private void CloseMap()
         {
-            changeManager.Unregister(this.mapCtrl.MapView.Tree);
             pluginManager.OnTreeDeleting(this.mapCtrl.MapView.Tree);
             statusBarCtrl.Unregister(this.mapCtrl.MapView.Tree);
             UnregisterForMapChangedNotification();

@@ -9,7 +9,7 @@ namespace MindMate.Modules.Undo
     /// <summary>
     /// Each MapTree should have its own instance of ChangeManager.
     /// </summary>
-    class ChangeManager
+    public class ChangeManager
     {
 
         Stack<IChange> undoStack;
@@ -71,7 +71,11 @@ namespace MindMate.Modules.Undo
 
         private void RecordChange(IChange change)
         {
-            if (state != State.Undoing)
+            if (batch != null)
+            {
+                batch.Changes.Add(change);
+            }
+            else if (state != State.Undoing)
             {
                 undoStack.Push(change);
                 if (state != State.Redoing) redoStack.Clear();
@@ -109,5 +113,38 @@ namespace MindMate.Modules.Undo
         {
             
         }
+
+        #region Batch Changes
+
+        private BatchChange batch;
+
+        /// <summary>
+        /// Are batch changes in progress.
+        /// While batch is open, all changes are added to the batch till EndBatch is called.
+        /// </summary>
+        public bool IsBatchOpen
+        {
+            get
+            {
+                return batch != null;
+            }
+        }
+
+        public void StartBatch(string changeDescription)
+        {
+            if (batch != null) throw new ApplicationException("Change Manager: Cannot start a new batch as one is already in progress.");
+            
+            batch = new BatchChange(changeDescription, this);
+        }
+
+        public void EndBatch()
+        {
+            var tempBatch = batch;
+            batch = null;
+            RecordChange(tempBatch);
+            
+        }
+
+        #endregion Batch Changes
     }
 }
