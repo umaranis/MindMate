@@ -134,6 +134,7 @@ namespace MindMate.Controller
         {
             if (editor.Dirty)
             {
+                node.Tree.ChangeManager.StartBatch("Change Note");
                 ignoreModelChange = true;
                 if (!editor.Empty)
                 {
@@ -147,6 +148,7 @@ namespace MindMate.Controller
                 }
                 editor.Dirty = false;
                 ignoreModelChange = false;
+                node.Tree.ChangeManager.EndBatch();
             }
         }
 
