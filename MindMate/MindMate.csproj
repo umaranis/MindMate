@@ -107,6 +107,8 @@
     <Compile Include="Modules\Undo\ChangeFactory.cs" />
     <Compile Include="Modules\Undo\ChangeManager.cs" />
     <Compile Include="Modules\Undo\Changes\AttachNode.cs" />
+    <Compile Include="Modules\Undo\Changes\AttributeDelete.cs" />
+    <Compile Include="Modules\Undo\Changes\AttributeAdd.cs" />
     <Compile Include="Modules\Undo\Changes\BackColorChange.cs" />
     <Compile Include="Modules\Undo\Changes\ColorChange.cs" />
     <Compile Include="Modules\Undo\Changes\FoldChange.cs" />

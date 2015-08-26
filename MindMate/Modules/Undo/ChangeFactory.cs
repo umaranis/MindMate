@@ -83,5 +83,31 @@ namespace MindMate.Modules.Undo
                     return null;
             }
         }
+
+        internal IChange CreateChange(MapNode node, AttributeChangeEventArgs e)
+        {
+            switch(e.ChangeType)
+            {
+                case AttributeChange.Added:
+                    MapNode.Attribute att;
+                    node.GetAttribute(e.AttributeSpec, out att);
+                    return new AttributeAdd(node, att);
+                case AttributeChange.Removed:
+                    node.GetAttribute(e.AttributeSpec, out att);
+                    return new AttributeDelete(node, new MapNode.Attribute(e.AttributeSpec, e.oldValue));
+                default:
+                    return null;
+            }
+        }
+
+        internal IChange CreateChange(MapTree.AttributeSpec node, MapTree.AttributeSpecEventArgs e)
+        {
+            throw new NotImplementedException();
+            //switch(e.Change)
+            //{
+            //    case MapTree.AttributeSpecChange.Addded:
+                    
+            //}
+        }        
     }
 }

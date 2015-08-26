@@ -104,15 +104,17 @@ namespace MindMate.Modules.Undo
             if (change != null) { RecordChange(change); }
         }
 
-        private void Tree_AttributeSpecChangeEvent(MapTree.AttributeSpec node, MapTree.AttributeSpecEventArgs e)
-        {
-            
-        }
-
         private void Tree_AttributeChanged(MapNode node, AttributeChangeEventArgs e)
         {
-            
+            IChange change = factory.CreateChange(node, e);
+            if (change != null) { RecordChange(change); }
         }
+
+        private void Tree_AttributeSpecChangeEvent(MapTree.AttributeSpec node, MapTree.AttributeSpecEventArgs e)
+        {
+            IChange change = factory.CreateChange(node, e);
+            if (change != null) { RecordChange(change); }
+        }        
 
         #region Batch Changes
 
