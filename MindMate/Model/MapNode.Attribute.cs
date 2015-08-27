@@ -252,6 +252,30 @@ namespace MindMate.Model
             return false;
 
         }
+
+        /// <summary>
+        /// Returns false if attribute not found
+        /// </summary>
+        /// <param name="aSpec">AttributeSpec</param>
+        /// <param name="value">New value</param>
+        /// <returns></returns>
+        public bool UpdateAttribute(MapTree.AttributeSpec aSpec, string value)
+        {
+            if (attributeList != null)
+            {
+                for (int i = 0; i < attributeList.Count; i++)
+                {
+                    if (attributeList[i].AttributeSpec == aSpec)
+                    {
+                        UpdateAttribute(i, value);
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
         /// <summary>
         /// Attribute is added if doesn't already exist. Otherwise it is updated.
         /// </summary>

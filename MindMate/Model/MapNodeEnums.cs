@@ -51,7 +51,10 @@ namespace MindMate.Model
     public enum TreeStructureChange
     {
         /// <summary>
-        /// Not invoked if existing node is attached. 
+        /// New Node is created. 
+        /// Not invoked if 
+        ///     - existing node is attached
+        ///     - detached node is created
         /// </summary>
         New,       
         /// <summary>

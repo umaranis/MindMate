@@ -352,9 +352,11 @@ namespace MindMate.Model
 
             // attaching to tree
             this.Tree = tree;
-            if(!detached) tree.RootNode = this;
-
-            Tree.FireEvent(this, TreeStructureChange.New);
+            if (!detached)
+            {
+                tree.RootNode = this;
+                Tree.FireEvent(this, TreeStructureChange.New);
+            }
         }
 
         /// <summary>
