@@ -93,8 +93,9 @@ namespace MindMate.Modules.Undo
                     node.GetAttribute(e.AttributeSpec, out att);
                     return new AttributeAdd(node, att);
                 case AttributeChange.Removed:
-                    node.GetAttribute(e.AttributeSpec, out att);
                     return new AttributeDelete(node, new MapNode.Attribute(e.AttributeSpec, e.oldValue));
+                case AttributeChange.ValueUpdated:
+                    return new AttributeUpdate(node, new MapNode.Attribute(e.AttributeSpec, e.oldValue));
                 default:
                     return null;
             }

@@ -109,6 +109,7 @@
     <Compile Include="Modules\Undo\Changes\AttachNode.cs" />
     <Compile Include="Modules\Undo\Changes\AttributeDelete.cs" />
     <Compile Include="Modules\Undo\Changes\AttributeAdd.cs" />
+    <Compile Include="Modules\Undo\Changes\AttributeUpdate.cs" />
     <Compile Include="Modules\Undo\Changes\BackColorChange.cs" />
     <Compile Include="Modules\Undo\Changes\ColorChange.cs" />
     <Compile Include="Modules\Undo\Changes\FoldChange.cs" />
