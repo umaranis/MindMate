@@ -96,9 +96,13 @@ namespace MindMate.Plugins.Tasks.Model
         {
             if (!node.IsTaskPending())
             {
+                node.Tree.ChangeManager.StartBatch("Add Task");
+
                 DueDateAttribute.SetDueDate(node, dateTime);
                 TaskStatusAttribute.SetTaskStatus(node, TaskStatus.Open);
                 CompletionDateAttribute.RemoveCompletionDate(node);
+
+                node.Tree.ChangeManager.EndBatch();
 
                 //node.AttributeBatchUpdate(new MapNode.Attribute[]
                 //    {
@@ -112,30 +116,40 @@ namespace MindMate.Plugins.Tasks.Model
             }
             else
             {
+                node.Tree.ChangeManager.StartBatch("Update Task Due Date");
+
                 if (node.StartDateExists())
                 {
                     TimeSpan duration = node.GetDueDate() - node.GetStartDate();
                     node.SetStartDate(dateTime.Subtract(duration));
                 }
                 DueDateAttribute.SetDueDate(node, dateTime);
-                
 
+                node.Tree.ChangeManager.EndBatch();
             }
 
         }
 
         public static void RemoveTask(this MapNode node)
         {
+            node.Tree.ChangeManager.StartBatch("Remove Task");
+
             DueDateAttribute.RemoveDueDate(node);
             CompletionDateAttribute.RemoveCompletionDate(node);
             TaskStatusAttribute.RemoveTaskStatus(node);
             node.RemoveStartDate();
+
+            node.Tree.ChangeManager.EndBatch();
         }
 
         public static void CompleteTask(this MapNode node)
         {
+            node.Tree.ChangeManager.StartBatch("Complete Task");
+
             CompletionDateAttribute.SetCompletionDate(node, DateTime.Now);
             TaskStatusAttribute.SetTaskStatus(node, TaskStatus.Complete);
+
+            node.Tree.ChangeManager.EndBatch();
         }
         #endregion
 
