@@ -103,12 +103,10 @@ namespace MindMate.Modules.Undo
 
         internal IChange CreateChange(MapTree.AttributeSpec node, MapTree.AttributeSpecEventArgs e)
         {
-            throw new NotImplementedException();
-            //switch(e.Change)
-            //{
-            //    case MapTree.AttributeSpecChange.Addded:
-                    
-            //}
+            //TODO: Implement Undo/Redo for AttributeSpec changes
+            // 1- Undo for Add and Delete attribute spec will not work. AttributeSpec can be added for one attribute and then used for many.
+            // 2- It seems that only property changes for AttributeSpec should be included in Undo / Redo.
+            return null;
         }        
     }
 }
