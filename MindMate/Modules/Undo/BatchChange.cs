@@ -33,7 +33,10 @@ namespace MindMate.Modules.Undo
         public void Undo()
         {
             changeManager.StartBatch(Description);
-            changes.ForEach(a => a.Undo());
+            for(int i = changes.Count - 1; i >= 0; i--)
+            {
+                changes[i].Undo();
+            }            
             changeManager.EndBatch();
         }
     }
