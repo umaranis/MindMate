@@ -260,6 +260,7 @@ namespace MindMate.Controller
 
             MapView.SuspendLayout();
             var selNode = tree.GetClosestUnselectedNode(MapView.SelectedNodes.Last);
+            if (tree.SelectedNodes.Count > 1) { tree.ChangeManager.StartBatch("Delete Nodes"); }
 
             for (var i = this.MapView.SelectedNodes.Count - 1; i >= 0; i--)
             {
@@ -270,6 +271,7 @@ namespace MindMate.Controller
                 isDeleted = true;                
             }
 
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
             MapView.ResumeLayout();
             if (isDeleted == true)
             {
