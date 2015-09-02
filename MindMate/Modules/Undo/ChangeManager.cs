@@ -134,8 +134,7 @@ namespace MindMate.Modules.Undo
 
         public void StartBatch(string changeDescription)
         {
-            if (batch != null) throw new ApplicationException("Change Manager: Cannot start a new batch as one is already in progress.");
-            
+            //if a batch is already open when StartBatch is called, the older batch is simply ignored this helps in handling exception more gracefully
             batch = new BatchChange(changeDescription, this);
         }
 
