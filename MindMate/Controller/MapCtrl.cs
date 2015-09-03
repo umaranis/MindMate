@@ -510,9 +510,11 @@ namespace MindMate.Controller
 
         public void RemoveAllIcon()
         {
-            int nSelCnt = this.MapView.SelectedNodes.Count;
+            int selectCnt = this.MapView.SelectedNodes.Count;
 
-            for (int i = 0; i < nSelCnt; i++)
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Remove Icons"); }
+
+            for (int i = 0; i < selectCnt; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
 
@@ -525,13 +527,17 @@ namespace MindMate.Controller
 
             }
 
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
+
         }
 
         public void AppendIcon(string iconSrc)
         {
-            int nSelCnt = this.MapView.SelectedNodes.Count;
+            int selectCnt = this.MapView.SelectedNodes.Count;
 
-            for (int i = 0; i < nSelCnt; i++)
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Add Icons"); }
+
+            for (int i = 0; i < selectCnt; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
 
@@ -542,6 +548,8 @@ namespace MindMate.Controller
 
                 node.Icons.Add(iconSrc);                                
             }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
 
         }
 
@@ -872,6 +880,6 @@ namespace MindMate.Controller
         public void SetMapViewBackColor(Color color)
         {
             MapView.Canvas.BackColor = color;
-        }
+        }        
     }
 }
