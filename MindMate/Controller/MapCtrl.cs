@@ -611,38 +611,62 @@ namespace MindMate.Controller
         
         public void MakeSelectedNodeShapeBubble()
         {
-            for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
+            int selectCnt = this.MapView.SelectedNodes.Count;
+
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Add Icons"); }
+
+            for (int i = 0; i < selectCnt; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
                 node.Shape = NodeShape.Bubble;
             }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
         public void MakeSelectedNodeShapeBox()
         {
-            for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
+            int selectCnt = this.MapView.SelectedNodes.Count;
+
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Add Icons"); }
+
+            for (int i = 0; i < selectCnt; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
                 node.Shape = NodeShape.Box;
             }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
         public void MakeSelectedNodeShapeFork()
         {
-            for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
+            int selectCnt = this.MapView.SelectedNodes.Count;
+
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Add Icons"); }
+
+            for (int i = 0; i < selectCnt; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
                 node.Shape = NodeShape.Fork;
             }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
         public void MakeSelectedNodeShapeBullet()
         {
-            for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
+            int selectCnt = this.MapView.SelectedNodes.Count;
+
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Add Icons"); }
+
+            for (int i = 0; i < selectCnt; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
                 node.Shape = NodeShape.Bullet;
             }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
         public void MakeSelectedNodeItalic()
