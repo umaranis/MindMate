@@ -613,7 +613,7 @@ namespace MindMate.Controller
         {
             int selectCnt = this.MapView.SelectedNodes.Count;
 
-            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Add Icons"); }
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Node Shape Bubble"); }
 
             for (int i = 0; i < selectCnt; i++)
             {
@@ -628,7 +628,7 @@ namespace MindMate.Controller
         {
             int selectCnt = this.MapView.SelectedNodes.Count;
 
-            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Add Icons"); }
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Node Shape Box"); }
 
             for (int i = 0; i < selectCnt; i++)
             {
@@ -643,7 +643,7 @@ namespace MindMate.Controller
         {
             int selectCnt = this.MapView.SelectedNodes.Count;
 
-            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Add Icons"); }
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Node Shape Fork"); }
 
             for (int i = 0; i < selectCnt; i++)
             {
@@ -658,7 +658,7 @@ namespace MindMate.Controller
         {
             int selectCnt = this.MapView.SelectedNodes.Count;
 
-            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Add Icons"); }
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Node Shape Bullet"); }
 
             for (int i = 0; i < selectCnt; i++)
             {
