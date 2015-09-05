@@ -671,20 +671,32 @@ namespace MindMate.Controller
 
         public void MakeSelectedNodeItalic()
         {
-            for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
+            int selectCnt = this.MapView.SelectedNodes.Count;
+
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Italic"); }
+
+            for (int i = 0; i < selectCnt; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
                 node.Italic = !node.Italic;                             
             }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
         public void MakeSelectedNodeBold()
         {
-            for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
+            int selectCnt = this.MapView.SelectedNodes.Count;
+
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Bold"); }
+
+            for (int i = 0; i < selectCnt; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
                 node.Bold = !node.Bold;               
             }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
         public void ChangeLineWidth(int width)
