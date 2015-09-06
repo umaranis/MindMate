@@ -701,7 +701,11 @@ namespace MindMate.Controller
 
         public void ChangeLineWidth(int width)
         {
-            for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
+            int selectCnt = this.MapView.SelectedNodes.Count;
+
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Line Width Change"); }
+
+            for (int i = 0; i < selectCnt; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
                 if (node.LineWidth != width)
@@ -709,11 +713,17 @@ namespace MindMate.Controller
                     node.LineWidth = width;
                 }                
             }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
         public void ChangeLinePattern(System.Drawing.Drawing2D.DashStyle pattern)
         {
-            for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
+            int selectCnt = this.MapView.SelectedNodes.Count;
+
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Line Pattern Change"); }
+
+            for (int i = 0; i < selectCnt; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
                 if (node.LinePattern != pattern)
@@ -721,6 +731,8 @@ namespace MindMate.Controller
                     node.LinePattern = pattern;
                 }
             }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
         /// <summary>
