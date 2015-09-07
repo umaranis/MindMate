@@ -751,9 +751,13 @@ namespace MindMate.Controller
             //get new color specified by user
             color = mainCtrl.ShowColorPicker(color);
             if (color.IsEmpty) return;
-            
+
             //set new color
-            for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
+            int selectCnt = this.MapView.SelectedNodes.Count;
+
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Line Color Change"); }
+
+            for (int i = 0; i < selectCnt; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
                 if (node.LineColor != color)
@@ -761,6 +765,8 @@ namespace MindMate.Controller
                     node.LineColor = color;
                 }
             }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
         /// <summary>
@@ -781,7 +787,11 @@ namespace MindMate.Controller
             if (color.IsEmpty) return;
 
             //set new color
-            for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
+            int selectCnt = this.MapView.SelectedNodes.Count;
+
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Text Color Change"); }
+
+            for (int i = 0; i < selectCnt; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
                 if (node.Color != color)
@@ -789,6 +799,8 @@ namespace MindMate.Controller
                     node.Color = color;
                 }
             }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
         /// <summary>
@@ -807,7 +819,11 @@ namespace MindMate.Controller
             if (color.IsEmpty) return;
 
             //set new color
-            for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
+            int selectCnt = this.MapView.SelectedNodes.Count;
+
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Background Color Change"); }
+
+            for (int i = 0; i < selectCnt; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
                 if (node.BackColor != color)
@@ -815,6 +831,8 @@ namespace MindMate.Controller
                     node.BackColor = color;
                 }
             }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
         /// <summary>
