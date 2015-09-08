@@ -849,7 +849,9 @@ namespace MindMate.Controller
 
             NodePosition sideToRefresh = MapView.SelectedNodes.First.Pos;
             MapView.SuspendLayout();
-            for (int i = 0; i < this.MapView.SelectedNodes.Count; i++)
+            int selectCnt = this.MapView.SelectedNodes.Count;
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Font Change"); }
+            for (int i = 0; i < selectCnt; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
                 if (node.NodeView.Font != font)
@@ -867,6 +869,7 @@ namespace MindMate.Controller
                         sideToRefresh = NodePosition.Undefined;
                 }                
             }
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
             MapView.ResumeLayout();
             MapView.RefreshChildNodePositions(tree.RootNode, sideToRefresh);
         }
