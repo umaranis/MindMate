@@ -63,6 +63,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Binaries\protobuf-net.dll</HintPath>
     </Reference>
+    <Reference Include="Ribbon">
+      <HintPath>..\..\..\Ribbon\RibbonLib_v2.6\Ribbon\bin\Debug\Ribbon.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -256,6 +259,8 @@
     <Compile Include="View\MapControls\Link.cs" />
     <Compile Include="View\MapControls\IconView.cs" />
     <Compile Include="Serialization\IconHandler.cs" />
+    <Compile Include="View\Ribbon\Ribbon.cs" />
+    <Compile Include="View\Ribbon\RibbonMarkupCommands.cs" />
     <Compile Include="View\StatusBar.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -371,6 +376,7 @@
     <None Include="Settings.bin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <EmbeddedResource Include="View\Ribbon\RibbonMarkup.ribbon" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -634,6 +640,17 @@
     <Content Include="images\plugins\kalzium.png" />
     <Content Include="images\remove.png" />
     <Content Include="LICENSE.txt" />
+    <Content Include="View\Ribbon\Res\Exit32.bmp" />
+    <Content Include="View\Ribbon\Res\Exit16.bmp" />
+    <Content Include="View\Ribbon\Res\New16.bmp" />
+    <Content Include="View\Ribbon\Res\New32.bmp" />
+    <Content Include="View\Ribbon\Res\Open32.bmp" />
+    <Content Include="View\Ribbon\Res\open16.bmp" />
+    <Content Include="View\Ribbon\Res\Save32.bmp" />
+    <Content Include="View\Ribbon\Res\save16.bmp" />
+    <None Include="View\Ribbon\RibbonMarkup.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\application_view_columns.png" />
     <None Include="Resources\application_view_detail.png" />
     <None Include="Resources\application_view_icons.png" />
@@ -684,7 +701,15 @@
       <Name>System.Windows.Forms.Calendar</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\UICC.exe" "$(ProjectDir)View\Ribbon\RibbonMarkup.xml" "$(ProjectDir)View\Ribbon\RibbonMarkup.bml" /res:"$(ProjectDir)View\Ribbon\RibbonMarkup.rc" 
+
+"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\rc.exe" /v "$(ProjectDir)View\Ribbon\RibbonMarkup.rc" 
+
+cmd /c "("$(DevEnvDir)..\..\VC\bin\vcvars32.bat") &amp;&amp; ("$(DevEnvDir)..\..\VC\bin\link.exe" /VERBOSE /NOENTRY /DLL /OUT:"$(ProjectDir)View\Ribbon\RibbonMarkup.ribbon" "$(ProjectDir)View\Ribbon\RibbonMarkup.res")"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

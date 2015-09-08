@@ -58,16 +58,16 @@ namespace MindMate.Plugins
 
         internal void InitializeMainMenu(MainMenuCtrl mainManuCtrl)
         {
-            foreach(IPlugin p in Plugins)
-            {
-                IPluginMainMenu plugin = p as IPluginMainMenu;
-                if(plugin != null)
-                {
-                    var menu = plugin.CreateMainMenuItems();
-                    if (menu != null)
-                        mainManuCtrl.InsertMenuItems(menu);
-                }
-            }
+            //foreach(IPlugin p in Plugins)
+            //{
+            //    IPluginMainMenu plugin = p as IPluginMainMenu;
+            //    if(plugin != null)
+            //    {
+            //        var menu = plugin.CreateMainMenuItems();
+            //        if (menu != null)
+            //            mainManuCtrl.InsertMenuItems(menu);
+            //    }
+            //}
         }
 
         public void InitializeSideBarWindow(TabControl sidebar)

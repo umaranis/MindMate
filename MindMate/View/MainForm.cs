@@ -15,8 +15,11 @@ namespace MindMate.View
                 
         public MainForm()
         {
+            Ribbon = new RibbonLib.Ribbon();
+            Ribbon.ResourceName = "MindMate.View.Ribbon.RibbonMarkup.ribbon";
             InitializeComponent();
-            toolStrip1.MainMenu = MainMenu;
+            this.Controls.Add(Ribbon);
+            //toolStrip1.MainMenu = MainMenu;
             SetupSideBar();
 
             notesEditor.GotFocus += (a, b) => this.focusedControl = notesEditor; 
@@ -48,6 +51,11 @@ namespace MindMate.View
         public TabControl SideBarTabs
         {
             get { return sideBarTabs; }
+        }
+
+        public RibbonLib.Ribbon Ribbon
+        {
+            get; private set;
         }
 
         private Control focusedControl;

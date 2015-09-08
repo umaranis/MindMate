@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.toolStrip1 = new Toolbar();
-            this.menuStrip = new MainMenu();            
+            //this.toolStrip1 = new Toolbar();
+            //this.menuStrip = new MainMenu();            
             this.statusStrip1 = new StatusBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -55,9 +55,9 @@
             this.BackColor = System.Drawing.Color.Snow;
             this.ClientSize = new System.Drawing.Size(977, 678);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.toolStrip1);
+            //this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.menuStrip);
+            //this.Controls.Add(this.menuStrip);
             this.DoubleBuffered = true;
             this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";

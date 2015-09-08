@@ -1,0 +1,78 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<Application xmlns='http://schemas.microsoft.com/windows/2009/Ribbon'>
+  <Application.Commands>
+
+    <Command Name="cmdApplicationMenu" Id="1000" />
+
+    <Command Name="cmdButtonNew"
+				 Id="1001"
+				 LabelTitle="&amp;New"
+				 LabelDescription="New Description"
+				 TooltipTitle="New"
+				 TooltipDescription="Create a new image.">
+      <Command.LargeImages>
+        <Image>Res/New32.bmp</Image>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image>Res/New16.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdButtonOpen"
+				 Id="1002"
+				 LabelTitle="Open"
+				 LabelDescription="Open Description"
+				 TooltipTitle="Open"
+				 TooltipDescription="Open an existing image.">
+      <Command.LargeImages>
+        <Image>Res/Open32.bmp</Image>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image>Res/Open16.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdButtonSave"
+				 Id="1003"
+				 LabelTitle="Save"
+				 LabelDescription="Save Description"
+				 TooltipTitle="Save"
+				 TooltipDescription="Save the current image.">
+      <Command.LargeImages>
+        <Image>Res/Save32.bmp</Image>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image>Res/Save16.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdButtonExit"
+				 Id="1004"
+				 LabelTitle="Exit"
+				 LabelDescription="Exit Description"
+				 TooltipTitle="Exit"
+				 TooltipDescription="Exit application">
+      <Command.LargeImages>
+        <Image>Res/Exit32.bmp</Image>
+      </Command.LargeImages>
+      <Command.SmallImages>
+        <Image>Res/Exit16.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+  </Application.Commands>
+
+  <Application.Views>
+    <Ribbon>
+      <Ribbon.ApplicationMenu>
+        <ApplicationMenu CommandName="cmdApplicationMenu">
+          <MenuGroup>
+            <Button CommandName='cmdButtonNew' />
+            <Button CommandName='cmdButtonOpen' />
+            <Button CommandName='cmdButtonSave' />
+          </MenuGroup>
+          <MenuGroup>
+            <Button CommandName='cmdButtonExit' />
+          </MenuGroup>
+        </ApplicationMenu>
+      </Ribbon.ApplicationMenu>
+    </Ribbon>
+  </Application.Views>
+
+</Application>
