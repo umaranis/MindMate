@@ -894,9 +894,11 @@ namespace MindMate.Controller
                 if (ClipboardManager.CanPaste)
                 {
                     MapView.SuspendLayout();
+                    tree.ChangeManager.StartBatch("Paste");
                     MapNode pasteLocation = tree.SelectedNodes[0];
                     ClipboardManager.Paste(pasteLocation);
                     if (pasteLocation.Folded) pasteLocation.Folded = false;
+                    tree.ChangeManager.EndBatch();
                     MapView.ResumeLayout();
                     MapView.RefreshChildNodePositions(tree.RootNode, pasteLocation.Pos);
                 }
