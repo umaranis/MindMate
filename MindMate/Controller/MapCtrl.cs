@@ -934,13 +934,15 @@ namespace MindMate.Controller
                 MapView.SuspendLayout();
                 var selNode = this.MapView.Tree.GetClosestUnselectedNode(MapView.SelectedNodes.Last);
 
-                for (var i = this.MapView.SelectedNodes.Count - 1; i >= 0; i--)
+                if (MapView.SelectedNodes.Count > 1) { tree.ChangeManager.StartBatch("Cut Nodes"); }
+                for (var i = MapView.SelectedNodes.Count - 1; i >= 0; i--)
                 {
                     MapNode node = this.MapView.SelectedNodes[i];
 
                     node.Detach();
                     Debug.Assert(node.Detached, "Detached property is false for node just detached.");
                 }
+                if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
 
                 MapView.ResumeLayout();
                 MapView.RefreshChildNodePositions(tree.RootNode, NodePosition.Undefined);
