@@ -101,17 +101,12 @@ namespace MindMate.Modules.Undo
             }
         }
 
-        internal IChange CreateChange(MapTree.AttributeSpec spec, MapTree.AttributeSpecEventArgs e)
+        internal IChange CreateChange(MapTree.AttributeSpec node, MapTree.AttributeSpecEventArgs e)
         {
-            switch(e.Change)
-            {
-                case MapTree.AttributeSpecChange.Added:
-                    return new AttributeSpecAdd(spec);
-                case MapTree.AttributeSpecChange.Removed:
-                    return new AttributeSpecDelete(spec);
-                default:
-                    return null;
-            }
+            //TODO: Implement Undo/Redo for AttributeSpec changes
+            // 1- Undo for Add and Delete attribute spec will not work. AttributeSpec can be added for one attribute and then used for many.
+            // 2- It seems that only property changes for AttributeSpec should be included in Undo / Redo.
+            return null;
         }        
     }
 }

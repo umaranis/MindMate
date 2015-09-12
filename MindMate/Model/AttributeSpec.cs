@@ -27,7 +27,7 @@ namespace MindMate.Model
             else
                 Tree.attributeSpecs.Add(":" + this.Name, this); //attributes apart from calculated should not start from ':' as it is reserved for calculated attributes
 
-            Tree.FireEvent(this, new AttributeSpecEventArgs() {  Change = AttributeSpecChange.Added  } );
+            Tree.FireEvent(this, new AttributeSpecEventArgs() {  Change = AttributeSpecChange.Addded  } );
 
         }
 
@@ -152,7 +152,7 @@ namespace MindMate.Model
     public enum AttributeListOption { RestrictedList, OptionalList, NoList }
 
     public enum AttributeSpecChange { 
-        Added, Removed, 
+        Addded, Removed, 
         NameChanged, VisibilityChanged, DataTypedChanged, TypeChanged, 
         ListTypeChanged, ListValueAdded, ListValueRemoved 
     }
