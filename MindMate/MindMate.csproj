@@ -109,6 +109,7 @@
     <Compile Include="Modules\Undo\Changes\AttachNode.cs" />
     <Compile Include="Modules\Undo\Changes\AttributeDelete.cs" />
     <Compile Include="Modules\Undo\Changes\AttributeAdd.cs" />
+    <Compile Include="Modules\Undo\Changes\AttributeSpecName.cs" />
     <Compile Include="Modules\Undo\Changes\AttributeSpecDelete.cs" />
     <Compile Include="Modules\Undo\Changes\AttributeSpecAdd.cs" />
     <Compile Include="Modules\Undo\Changes\AttributeUpdate.cs" />

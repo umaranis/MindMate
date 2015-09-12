@@ -109,6 +109,8 @@ namespace MindMate.Modules.Undo
                     return new AttributeSpecAdd(spec);
                 case MapTree.AttributeSpecChange.Removed:
                     return new AttributeSpecDelete(spec);
+                case MapTree.AttributeSpecChange.NameChanged:
+                    return new AttributeSpecName(spec, (string)e.OldValue);
                 default:
                     return null;
             }
