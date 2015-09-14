@@ -113,6 +113,8 @@ namespace MindMate.Modules.Undo
                     return new AttributeSpecName(spec, (string)e.OldValue);
                 case MapTree.AttributeSpecChange.VisibilityChanged:
                     return new AttributeSpecVisibility(spec, (bool)e.OldValue);
+                case MapTree.AttributeSpecChange.DataTypedChanged:
+                    return new AttributeSpecDataType(spec, (MapTree.AttributeDataType)e.OldValue);
                 default:
                     return null;
             }
