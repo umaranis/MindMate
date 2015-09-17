@@ -117,6 +117,8 @@ namespace MindMate.Modules.Undo
                     return new AttributeSpecDataType(spec, (MapTree.AttributeDataType)e.OldValue);
                 case MapTree.AttributeSpecChange.TypeChanged:
                     return new AttributeSpecType(spec, (MapTree.AttributeType)e.OldValue);
+                case MapTree.AttributeSpecChange.ListTypeChanged:
+                    return new AttributeSpecListType(spec, (MapTree.AttributeListOption)e.OldValue);
                 default:
                     return null;
             }
