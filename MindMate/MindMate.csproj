@@ -110,6 +110,8 @@
     <Compile Include="Modules\Undo\Changes\AttributeDelete.cs" />
     <Compile Include="Modules\Undo\Changes\AttributeAdd.cs" />
     <Compile Include="Modules\Undo\Changes\AttributeSpecListType.cs" />
+    <Compile Include="Modules\Undo\Changes\AttributeSpecValueRemove.cs" />
+    <Compile Include="Modules\Undo\Changes\AttributeSpecValueAdd.cs" />
     <Compile Include="Modules\Undo\Changes\AttributeSpecType.cs" />
     <Compile Include="Modules\Undo\Changes\AttributeSpecDataType.cs" />
     <Compile Include="Modules\Undo\Changes\AttributeSpecVisibility.cs" />
