@@ -170,6 +170,11 @@ namespace MindMate.View.MapControls
             {
                 UpdateNodeText(node, this.editBox.Text);                
             }
+            else if(!updateNode && node.IsEmpty())
+            {
+                node.Tree.GetClosestUnselectedNode(node).Selected = true;
+                node.DeleteNode();
+            }
             else
             {
                 ResetNodeTextSize(node.NodeView);

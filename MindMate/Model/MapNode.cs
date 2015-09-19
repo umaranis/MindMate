@@ -966,6 +966,20 @@ namespace MindMate.Model
             return newNode;
         }
 
+        public bool IsEmpty()
+        {
+            if
+                (
+                string.IsNullOrEmpty(Text) &&
+                Icons.Count == 0 &&
+                AttributeCount == 0 &&
+                RichContentType == NodeRichContentType.NONE &&
+                !HasChildren
+                )
+            { return true; }
+            else { return false; }
+        }
+
         public override string ToString()
         {
             return Text;
