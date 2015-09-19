@@ -358,27 +358,37 @@ namespace MindMate.Controller
             {
                 if (!MapView.SelectedNodes.Contains(node.Previous))
                 {
-                    this.MapView.SelectedNodes.Add(node.Previous, expandSelection);
+                    this.MapView.SelectedNodes.Add(node.Previous, expandSelection); //select or expand selection
+                }
+                else if(expandSelection)
+                {
+                    MapView.SelectedNodes.Remove(node);//reduce selection
+                }
+                else
+                {
+                    MapView.SelectedNodes.Add(node.Previous);//clear selection and select previous
+                }
+            }
+            else if (node.Parent.Previous != null && node.Parent.Previous.LastChild  != null && !node.Parent.Previous.Folded)
+            {
+                if (!MapView.SelectedNodes.Contains(node.Parent.Previous.LastChild))
+                {
+                    this.MapView.SelectedNodes.Add(node.Parent.Previous.LastChild, expandSelection);
                 }
                 else if(expandSelection)
                 {
                     MapView.SelectedNodes.Remove(node);
                 }
-            }
-            else
-            {
-                if (node.Parent.Previous != null && node.Parent.Previous.LastChild  != null && !node.Parent.Previous.Folded)
+                else
                 {
-                    if (!MapView.SelectedNodes.Contains(node.Parent.Previous.LastChild))
-                    {
-                        this.MapView.SelectedNodes.Add(node.Parent.Previous.LastChild, expandSelection);
-                    }
-                    else if(expandSelection)
-                    {
-                        MapView.SelectedNodes.Remove(node);
-                    }
+                    this.MapView.SelectedNodes.Add(node.Parent.Previous.LastChild);
                 }
             }
+            else if(!expandSelection)
+            {
+                MapView.SelectedNodes.Add(node);
+            }
+            
         }
 
         /// <summary>
@@ -401,21 +411,31 @@ namespace MindMate.Controller
                 {
                     MapView.SelectedNodes.Remove(node);
                 }
-            }
-            else
-            {
-                if (node.Parent.Next != null && node.Parent.Next.FirstChild != null &&!node.Parent.Next.Folded)
+                else
                 {
-                    if (!MapView.SelectedNodes.Contains(node.Parent.Next.FirstChild))
-                    {
-                        this.MapView.SelectedNodes.Add(node.Parent.Next.FirstChild, expandSelection);
-                    }
-                    else if(expandSelection)
-                    {
-                        MapView.SelectedNodes.Remove(node);
-                    }
+                    MapView.SelectedNodes.Add(node.Next);
                 }
             }
+            else if (node.Parent.Next != null && node.Parent.Next.FirstChild != null &&!node.Parent.Next.Folded)
+            {
+                if (!MapView.SelectedNodes.Contains(node.Parent.Next.FirstChild))
+                {
+                    this.MapView.SelectedNodes.Add(node.Parent.Next.FirstChild, expandSelection);
+                }
+                else if (expandSelection)
+                {
+                    MapView.SelectedNodes.Remove(node);
+                }
+                else
+                {
+                    this.MapView.SelectedNodes.Add(node.Parent.Next.FirstChild);
+                }
+            }
+            else if (!expandSelection)
+            {
+                MapView.SelectedNodes.Add(node);
+            }
+            
         }
 
         
