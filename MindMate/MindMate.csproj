@@ -67,6 +67,10 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Windows.Forms.Calendar, Version=1.0.5704.28890, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Binaries\System.Windows.Forms.Calendar.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -695,12 +699,6 @@
     <None Include="Resources\undo.png" />
     <None Include="Resources\redo.png" />
     <Content Include="Settings.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\CalendarControl\DotNetCalender\System.Windows.Forms.Calendar\System.Windows.Forms.Calendar.csproj">
-      <Project>{25649f08-3046-4891-adb8-7ea787b57063}</Project>
-      <Name>System.Windows.Forms.Calendar</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
