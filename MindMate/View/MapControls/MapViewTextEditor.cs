@@ -47,7 +47,7 @@ namespace MindMate.View.MapControls
             editBox.PreviewKeyDown += editBox_PreviewKeyDown;
             editBox.LostFocus += new EventHandler(editBoxLostFocus);
             editBox.KeyDown += new KeyEventHandler(editBoxKeyDown);
-            //increases the EditBox size as text is entered. Commented out as performance is affected with very large maps.
+            //increases the EditBox size as text is entered. Commented out as performance is affected with very large maps (also doesn't work nicely with left side nodes).
             //editBox.TextChanged += EditBox_TextChanged;                                          
         }
 
