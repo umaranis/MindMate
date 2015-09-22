@@ -55,8 +55,9 @@ namespace MindMate.Modules.Undo
             switch(e.ChangeType)
             {
                 case TreeStructureChange.Deleted:
-                case TreeStructureChange.Detached:
                     return new NodeDelete(node);
+                case TreeStructureChange.Detached:
+                    return new NodeDetach(node);
                 case TreeStructureChange.Attached:
                 case TreeStructureChange.New:
                     return new NodeAttach(node);
