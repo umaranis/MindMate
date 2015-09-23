@@ -229,26 +229,26 @@ namespace MindMate.View.MapControls
             if (visibleRect.Left > nView.Left)
             {
                 Canvas.IgnoreNextMouseMove = true;
-                Canvas.Left += (int)(visibleRect.Left - nView.Left);
+                Canvas.Left += (int)(visibleRect.Left - nView.Left + 10);
             }
             if (visibleRect.Top > nView.Top)
             {
                 Canvas.IgnoreNextMouseMove = true;
-                Canvas.Top += (int)(visibleRect.Top - nView.Top);
+                Canvas.Top += (int)(visibleRect.Top - nView.Top + 10);
             }
             int visibleRectRight = visibleRect.Right;
             int nViewRight = (int)(nView.Left + nView.Width);
             if (visibleRectRight < nViewRight)
             {
                 Canvas.IgnoreNextMouseMove = true;
-                Canvas.Left += (int)(visibleRectRight - nViewRight);
+                Canvas.Left += (int)(visibleRectRight - nViewRight - 10);
             }
             int visibleRectBottom = visibleRect.Bottom;
             int nViewBottom = (int)(nView.Top + nView.Height);
             if (visibleRectBottom < nViewBottom)
             {
                 Canvas.IgnoreNextMouseMove = true;
-                Canvas.Top += (int)(visibleRectBottom - nViewBottom);
+                Canvas.Top += (int)(visibleRectBottom - nViewBottom - 10);
             }
         }
 
