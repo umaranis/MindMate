@@ -49,6 +49,8 @@ namespace MindMate.View.Dialogs
             listView.Columns.Add(columnHeader1);
             listView.Columns.Add(columnHeader2);
 
+            listView.Items[0].Selected = true;
+
 
             listView.ItemActivate += listView_ItemActivate;
             SetViewButtonEnable(listView.View, false);
