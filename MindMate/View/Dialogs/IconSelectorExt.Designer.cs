@@ -205,7 +205,7 @@
             this.tbnViewLargeIcons.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbnViewLargeIcons.Name = "tbnViewLargeIcons";
             this.tbnViewLargeIcons.Size = new System.Drawing.Size(23, 22);
-            this.tbnViewLargeIcons.Text = "Large Icon";
+            this.tbnViewLargeIcons.Text = "Large Icon View";
             this.tbnViewLargeIcons.Click += new System.EventHandler(this.tbnViewLargeIcons_Click);
             // 
             // tbnViewSmallIcons
@@ -215,7 +215,7 @@
             this.tbnViewSmallIcons.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbnViewSmallIcons.Name = "tbnViewSmallIcons";
             this.tbnViewSmallIcons.Size = new System.Drawing.Size(23, 22);
-            this.tbnViewSmallIcons.Text = "Small Icon";
+            this.tbnViewSmallIcons.Text = "Small Icon View";
             this.tbnViewSmallIcons.Click += new System.EventHandler(this.tbnViewSmallIcons_Click);
             // 
             // tbnViewList
@@ -225,7 +225,7 @@
             this.tbnViewList.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbnViewList.Name = "tbnViewList";
             this.tbnViewList.Size = new System.Drawing.Size(23, 22);
-            this.tbnViewList.Text = "List";
+            this.tbnViewList.Text = "List Icon View";
             this.tbnViewList.Click += new System.EventHandler(this.tbnViewList_Click);
             // 
             // tbnViewTile
@@ -235,7 +235,7 @@
             this.tbnViewTile.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbnViewTile.Name = "tbnViewTile";
             this.tbnViewTile.Size = new System.Drawing.Size(23, 22);
-            this.tbnViewTile.Text = "Tile";
+            this.tbnViewTile.Text = "Tile Icon View";
             this.tbnViewTile.Click += new System.EventHandler(this.tbnViewTile_Click);
             // 
             // tbnViewDetail
@@ -245,7 +245,7 @@
             this.tbnViewDetail.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbnViewDetail.Name = "tbnViewDetail";
             this.tbnViewDetail.Size = new System.Drawing.Size(23, 22);
-            this.tbnViewDetail.Text = "Detail";
+            this.tbnViewDetail.Text = "Detail Icon View";
             this.tbnViewDetail.Click += new System.EventHandler(this.tbnViewDetail_Click);
             // 
             // tbnShowTitle
