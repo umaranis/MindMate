@@ -55,6 +55,10 @@
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.ttbShortcut = new System.Windows.Forms.ToolStripTextBox();
+            this.btnOK = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnCancel = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.SuspendLayout();
@@ -63,6 +67,10 @@
             // 
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnOK,
+            this.toolStripSeparator8,
+            this.btnCancel,
+            this.toolStripSeparator7,
             this.tbnRemoveLast,
             this.tbnRemoveAll,
             this.toolStripSeparator1,
@@ -103,7 +111,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView.Location = new System.Drawing.Point(10, 28);
             this.listView.Name = "listView";
-            this.listView.Size = new System.Drawing.Size(322, 264);
+            this.listView.Size = new System.Drawing.Size(392, 264);
             this.listView.TabIndex = 3;
             this.listView.UseCompatibleStateImageBehavior = false;
             // 
@@ -288,11 +296,38 @@
             this.ttbShortcut.ToolTipText = "Icon Shortcust";
             this.ttbShortcut.TextChanged += new System.EventHandler(this.ttbShortcut_TextChanged);
             // 
+            // btnOK
+            // 
+            this.btnOK.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnOK.Image = ((System.Drawing.Image)(resources.GetObject("btnOK.Image")));
+            this.btnOK.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(40, 29);
+            this.btnOK.Text = "OK";
+            this.btnOK.ToolTipText = "Add icon to selected node(s)";
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
+            this.btnCancel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(67, 29);
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.ToolTipText = "Close dialog without selecting Icon";
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 32);
+            // 
             // IconSelectorExt
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(345, 304);
+            this.ClientSize = new System.Drawing.Size(415, 304);
             this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.listView);
             this.Controls.Add(this.toolStrip1);
@@ -314,7 +349,7 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
+        }        
 
         #endregion
 
@@ -343,5 +378,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripTextBox ttbShortcut;
+        private System.Windows.Forms.ToolStripButton btnOK;
+        private System.Windows.Forms.ToolStripButton btnCancel;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
     }
 }

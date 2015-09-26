@@ -201,6 +201,16 @@ namespace MindMate.View.Dialogs
             }
         }
 
+        private void btnOK_Click(object sender, System.EventArgs e)
+        {
+            this.listView_ItemActivate(listView, new EventArgs());
+        }
+
+        private void btnCancel_Click(object sender, System.EventArgs e)
+        {
+            DialogResult = System.Windows.Forms.DialogResult.Cancel;
+        }
+
         #region Customize Icon Selector Dialog *********************************
 
         public bool IsCustomizing
