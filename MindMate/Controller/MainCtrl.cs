@@ -342,6 +342,7 @@ namespace MindMate.Controller
             mapCtrl.MindMateFile = null;
             mapCtrl.ChangeTree(tree);
             tree.TurnOnChangeManager();
+            mapCtrl.MapView.CenterOnForm();
 
             noteCrtl.MapTree = tree;
             statusBarCtrl.Register(tree);
@@ -394,6 +395,7 @@ namespace MindMate.Controller
             mapCtrl.MindMateFile = fileName;
             mapCtrl.ChangeTree(tree);
             tree.TurnOnChangeManager();
+            mapCtrl.MapView.CenterOnForm();
 
             noteCrtl.MapTree = tree;
             statusBarCtrl.Register(tree);
