@@ -571,6 +571,11 @@ namespace MindMate.Model
                 if(this.Previous != null) this.Previous.Next = this;
                 adjacentToSib.Previous = this;
             }
+            else
+            {
+                this.Previous = null;
+                this.Next = null;
+            }
 
             // link with parent
             if (this.Previous == null) parent.FirstChild = this;
