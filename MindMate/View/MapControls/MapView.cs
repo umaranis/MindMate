@@ -203,6 +203,7 @@ namespace MindMate.View.MapControls
                 case TreeStructureChange.MovedUp:
                 case TreeStructureChange.MovedDown:
                     RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+                    AdjustLocationToShowNodeView(node.NodeView);
                     break;
             }
 
