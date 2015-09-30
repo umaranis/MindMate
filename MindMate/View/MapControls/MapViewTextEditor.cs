@@ -107,6 +107,7 @@ namespace MindMate.View.MapControls
                 editBox.ContextMenuStrip = value;
             }
         }
+
         public void BeginNodeEdit(NodeView nView, TextCursorPosition org)
         {
             if (!enabled) return;
@@ -125,6 +126,8 @@ namespace MindMate.View.MapControls
             {
                 IncreaseNodeTextSize(nView, (int)(nView.RecText.Width + TEXTBOX_PADDING));
             }
+
+            mapView.AdjustLocationToShowNodeView(nView);
 
             this.editBox.Location = new Point(
                 (int)nView.RecText.X,

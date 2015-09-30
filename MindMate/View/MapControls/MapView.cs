@@ -223,7 +223,7 @@ namespace MindMate.View.MapControls
             Canvas.Invalidate();
         }
 
-        private void AdjustLocationToShowNodeView(NodeView nView)
+        internal void AdjustLocationToShowNodeView(NodeView nView)
         {
             Rectangle visibleRect = Canvas.GetVisibleRectangle();
 
