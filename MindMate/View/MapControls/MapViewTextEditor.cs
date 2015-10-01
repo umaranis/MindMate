@@ -171,7 +171,8 @@ namespace MindMate.View.MapControls
 
             if (updateNode && editBox.CanUndo)
             {
-                UpdateNodeText(node, this.editBox.Text);                
+                UpdateNodeText(node, this.editBox.Text);
+                mapView.AdjustLocationToShowNodeView(node.NodeView);    
             }
             else if(!updateNode && node.IsEmpty())
             {
