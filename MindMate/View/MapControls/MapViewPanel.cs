@@ -99,14 +99,8 @@ namespace MindMate.View.MapControls
         {
             if (e.Button != MouseButtons.Left) return;
 
-            MapNode node = mapView.GetMapNodeFromPoint(e.Location);
-            if (node != null)
-            {
-                NodeMouseEventArgs args = new NodeMouseEventArgs(e);
-                args.NodePortion = mapView.GetNodeView(node).GetNodeClickPortion(e.Location);
-                NodeClick(node, args);
-            }
-            else
+            mouseOverNode = mapView.GetMapNodeFromPoint(e.Location);
+            if (mouseOverNode == null)
             {
                 this.dragObject = this;
                 this.dragStartPoint = e.Location;
@@ -175,7 +169,7 @@ namespace MindMate.View.MapControls
                     TRACKMOUSEEVENT trackMouseEvent = new TRACKMOUSEEVENT(TMEFlags.TME_HOVER, this.Handle, HOVER_TIME);
                     TrackMouseEvent(ref trackMouseEvent);
                     resetHoverEvent = false;
-            }
+                }
             }             
 
             base.OnMouseMove(e);
@@ -189,13 +183,17 @@ namespace MindMate.View.MapControls
             this.dragObject = null;
             this.Cursor = Cursors.Default;
 
-            if (e.Button == System.Windows.Forms.MouseButtons.Right && mouseOverNode != null)
-                NodeRightClick(mouseOverNode, new NodeMouseEventArgs(e));
-
+            if (mouseOverNode != null)
+            {
+                if (e.Button == System.Windows.Forms.MouseButtons.Right)
+                    NodeRightClick(mouseOverNode, new NodeMouseEventArgs(e));
+                else
+                    NodeClick(mouseOverNode, new NodeMouseEventArgs(e));
+            }
                         
             //base.OnMouseUp(e);            
             
-        }
+        }        
 
         public Rectangle GetVisibleRectangle()
         {
