@@ -40,8 +40,7 @@ namespace MindMate.View.MapControls
         /// Node where mouse lies right now.
         /// </summary>
         private MapNode mouseOverNode;
-        private Object dragObject;
-        private Point dragStartPoint;
+        
 
         /// <summary>
         /// Moving canvas triggers mouse move event, this flag is used to skip it
@@ -95,29 +94,24 @@ namespace MindMate.View.MapControls
             }
         }
 
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            if (e.Button != MouseButtons.Left) return;
+        //protected override void OnMouseDown(MouseEventArgs e)
+        //{
+        //    if (e.Button != MouseButtons.Left) return;
 
-            mouseOverNode = mapView.GetMapNodeFromPoint(e.Location);
-            if (mouseOverNode == null)
-            {
-                this.dragObject = this;
-                this.dragStartPoint = e.Location;
-                mapView.Canvas.Focus();
-                //if (mapView.NodeTextEditor.IsTextEditing)
-                //{
-                //    mapView.NodeTextEditor.EndNodeEdit(true, true);
-                //}
-                //else
-                //{
-                //    mapView.Canvas.Focus();
-                //}
+        //    //mouseOverNode = mapView.GetMapNodeFromPoint(e.Location);
+        //    //if (mouseOverNode == null)
+        //    //{
+        //    //    this.dragObject = this;
+        //    //    this.dragStartPoint = e.Location;
+        //    //    mapView.Canvas.Focus();
+        //    //}
+        //    //else
+        //    //{
+        //    //    this.dragObject = mouseOverNode;
+        //    //}
 
-            }
-
-            //base.OnMouseDown(e);
-        }
+        //    //base.OnMouseDown(e);
+        //}
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
@@ -127,15 +121,9 @@ namespace MindMate.View.MapControls
                 return;
             }
 
-            if (this.dragObject != null && !mapView.NodeTextEditor.IsTextEditing)
+            if (e.Button != System.Windows.Forms.MouseButtons.None && !mapView.NodeTextEditor.IsTextEditing)
             {
-                mapView.Canvas.SuspendLayout();
-                mapView.Canvas.Top = mapView.Canvas.Top + (e.Y - this.dragStartPoint.Y);
-                mapView.Canvas.Left = mapView.Canvas.Left + (e.X - this.dragStartPoint.X);
-                mapView.Canvas.ResumeLayout();
-
-                mapView.Canvas.Cursor = Cursors.SizeAll;
-                    //new Cursor(new System.IO.MemoryStream(MindMate.Properties.Resources.move_r));
+                OnMouseDrag(e);
             }
             else
             {
@@ -151,11 +139,7 @@ namespace MindMate.View.MapControls
                         }
                         mouseOverNode = node;
                         NodeMouseEnter(node, e);
-                    }
-
-                    //NodeMouseEventArgs args = new NodeMouseEventArgs(e);
-                    //args.NodePortion = mapView.GetNodeView(node).GetNodeClickPortion(e.Location);
-                    //NodeMouseOver(node, args);
+                    }                    
                 }
                 else if(mouseOverNode != null)
                 {
@@ -173,23 +157,28 @@ namespace MindMate.View.MapControls
             }             
 
             base.OnMouseMove(e);
-        }
+        }       
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            if (mouseOverNode == null && this.Cursor == Cursors.Default) // IF 'event is not over node' AND 'canvas is not dragged'
-                CanvasClick(e);
-
-            this.dragObject = null;
-            this.Cursor = Cursors.Default;
-
-            if (mouseOverNode != null)
+            if (IsDragging)
             {
-                if (e.Button == System.Windows.Forms.MouseButtons.Right)
-                    NodeRightClick(mouseOverNode, new NodeMouseEventArgs(e));
-                else
-                    NodeClick(mouseOverNode, new NodeMouseEventArgs(e));
+                OnMouseDrop(e);
             }
+            else
+            {
+                if (mouseOverNode == null) // IF 'event is not over node' AND 'canvas is not dragged'
+                {
+                    CanvasClick(e);
+                }
+                else                
+                {
+                    if (e.Button == System.Windows.Forms.MouseButtons.Right)
+                        NodeRightClick(mouseOverNode, new NodeMouseEventArgs(e));
+                    else
+                        NodeClick(mouseOverNode, new NodeMouseEventArgs(e));
+                }
+            }           
                         
             //base.OnMouseUp(e);            
             
@@ -287,5 +276,59 @@ namespace MindMate.View.MapControls
 
         #endregion Mouse Hover Event
 
+        #region Mouse Drag
+
+        private Object dragObject;
+        private Point dragStartPoint;
+
+        private void OnMouseDrag(MouseEventArgs e)
+        {
+            if(this.dragObject == null)
+            {
+                MapNode node = mapView.GetMapNodeFromPoint(e.Location);
+                if (node == null)
+                {
+                    this.dragObject = this;
+                    this.dragStartPoint = e.Location;
+                    mapView.Canvas.Focus();
+                }
+                else
+                {
+                    this.dragObject = node;
+                }
+            }
+            else if (this.dragObject == this)
+            {
+                mapView.Canvas.SuspendLayout();
+                mapView.Canvas.Top = mapView.Canvas.Top + (e.Y - this.dragStartPoint.Y);
+                mapView.Canvas.Left = mapView.Canvas.Left + (e.X - this.dragStartPoint.X);
+                mapView.Canvas.ResumeLayout();
+
+                mapView.Canvas.Cursor = Cursors.SizeAll;
+                //new Cursor(new System.IO.MemoryStream(MindMate.Properties.Resources.move_r));
+            }
+            else
+            {
+
+            }
+        }
+
+        private void OnMouseDrop(MouseEventArgs e)
+        {
+            this.dragObject = null;
+            this.Cursor = Cursors.Default;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public bool IsDragging
+        {
+            get { return this.dragObject != null; }
+        }
+
+        #endregion Mouse Drag
     }
 }
