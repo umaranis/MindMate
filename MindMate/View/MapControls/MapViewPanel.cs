@@ -47,37 +47,33 @@ namespace MindMate.View.MapControls
         /// </summary>
         public bool IgnoreNextMouseMove { get; set; }
         
-        public MapViewPanel()
+        public MapViewPanel(MapView mapView)
         {
             InitializeComponent();
             this.DoubleBuffered = true;
-
+            this.MapView = mapView;
+            dragHandler = new MapViewDragHandler(MapView);
         }
 
                 
         protected override void OnPaint(PaintEventArgs pe)
         {
             
-            if (mapView != null && mapView.Tree != null)
+            if (MapView != null && MapView.Tree != null)
             {
-                MapControls.Drawing.MapPainter.DrawTree(mapView, pe.Graphics);
-                MapControls.Drawing.MapPainter.drawNodeLinker(mapView.Tree.RootNode, mapView, pe.Graphics);                
+                MapControls.Drawing.MapPainter.DrawTree(MapView, pe.Graphics);
+                MapControls.Drawing.MapPainter.drawNodeLinker(MapView.Tree.RootNode, MapView, pe.Graphics);                
             }
             ////base.OnPaint(pe);            
         }
 
-        private MapView mapView;
         public MapView MapView
         {
-            get
-            {
-                return  mapView;
-            }
-            set
-            {
-                mapView = value;
-            }
+            get;
+            private set;
         }
+
+        private MapViewDragHandler dragHandler; 
 
                 
         private void NodeLinksPanel_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -98,12 +94,12 @@ namespace MindMate.View.MapControls
         //{
         //    if (e.Button != MouseButtons.Left) return;
 
-        //    //mouseOverNode = mapView.GetMapNodeFromPoint(e.Location);
+        //    //mouseOverNode = MapView.GetMapNodeFromPoint(e.Location);
         //    //if (mouseOverNode == null)
         //    //{
         //    //    this.dragObject = this;
         //    //    this.dragStartPoint = e.Location;
-        //    //    mapView.Canvas.Focus();
+        //    //    MapView.Canvas.Focus();
         //    //}
         //    //else
         //    //{
@@ -121,13 +117,13 @@ namespace MindMate.View.MapControls
                 return;
             }
 
-            if (e.Button != System.Windows.Forms.MouseButtons.None && !mapView.NodeTextEditor.IsTextEditing)
+            if (e.Button != System.Windows.Forms.MouseButtons.None && !MapView.NodeTextEditor.IsTextEditing)
             {
-                OnMouseDrag(e);
+                dragHandler.OnMouseDrag(e);
             }
             else
             {
-                MapNode node = mapView.GetMapNodeFromPoint(e.Location);
+                MapNode node = MapView.GetMapNodeFromPoint(e.Location);
                                 
                 if (node != null)
                 {
@@ -161,9 +157,9 @@ namespace MindMate.View.MapControls
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            if (IsDragging)
+            if (dragHandler.IsDragging)
             {
-                OnMouseDrop(e);
+                dragHandler.OnMouseDrop(e);
             }
             else
             {
@@ -209,12 +205,12 @@ namespace MindMate.View.MapControls
             resetHoverEvent = true;
                                    
             Point clickPosition = this.PointToClient(Cursor.Position);
-            mouseOverNode = mapView.GetMapNodeFromPoint(clickPosition);
+            mouseOverNode = MapView.GetMapNodeFromPoint(clickPosition);
             if(mouseOverNode != null)
             {
                 NodeMouseEventArgs args = new NodeMouseEventArgs(
                     new MouseEventArgs(System.Windows.Forms.MouseButtons.None, 0, clickPosition.X, clickPosition.Y, 0));
-                args.NodePortion = mapView.GetNodeView(mouseOverNode).GetNodeClickPortion(clickPosition);
+                args.NodePortion = MapView.GetNodeView(mouseOverNode).GetNodeClickPortion(clickPosition);
                 NodeMouseOver(mouseOverNode, args);
             }
 
@@ -275,60 +271,6 @@ namespace MindMate.View.MapControls
         }
 
         #endregion Mouse Hover Event
-
-        #region Mouse Drag
-
-        private Object dragObject;
-        private Point dragStartPoint;
-
-        private void OnMouseDrag(MouseEventArgs e)
-        {
-            if(this.dragObject == null)
-            {
-                MapNode node = mapView.GetMapNodeFromPoint(e.Location);
-                if (node == null)
-                {
-                    this.dragObject = this;
-                    this.dragStartPoint = e.Location;
-                    mapView.Canvas.Focus();
-                }
-                else
-                {
-                    this.dragObject = node;
-                }
-            }
-            else if (this.dragObject == this)
-            {
-                mapView.Canvas.SuspendLayout();
-                mapView.Canvas.Top = mapView.Canvas.Top + (e.Y - this.dragStartPoint.Y);
-                mapView.Canvas.Left = mapView.Canvas.Left + (e.X - this.dragStartPoint.X);
-                mapView.Canvas.ResumeLayout();
-
-                mapView.Canvas.Cursor = Cursors.SizeAll;
-                //new Cursor(new System.IO.MemoryStream(MindMate.Properties.Resources.move_r));
-            }
-            else
-            {
-
-            }
-        }
-
-        private void OnMouseDrop(MouseEventArgs e)
-        {
-            this.dragObject = null;
-            this.Cursor = Cursors.Default;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="e"></param>
-        /// <returns></returns>
-        public bool IsDragging
-        {
-            get { return this.dragObject != null; }
-        }
-
-        #endregion Mouse Drag
+        
     }
 }

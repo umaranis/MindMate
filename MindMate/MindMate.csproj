@@ -264,6 +264,7 @@
     <Compile Include="View\MapControls\Drawing\MapPainter.cs" />
     <Compile Include="Model\SelectedNodes.cs" />
     <Compile Include="View\MapControls\Drawing\TextRenderer.cs" />
+    <Compile Include="View\MapControls\MapViewDragHandler.cs" />
     <Compile Include="View\MapControls\MapViewTextEditor.cs" />
     <Compile Include="View\MapControls\NodeMouseEventArgs.cs" />
     <Compile Include="View\MapControls\NoteIcon.cs" />

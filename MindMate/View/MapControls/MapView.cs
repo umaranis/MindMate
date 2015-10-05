@@ -97,8 +97,7 @@ namespace MindMate.View.MapControls
         {
             MetaModel.MetaModel.Instance.SystemIconList.ForEach(a => a.StatusChange += systemIcon_StatusChange);
 
-            this.Canvas = new MapViewPanel();
-            this.Canvas.MapView = this;
+            this.Canvas = new MapViewPanel(this);            
             
             this.Canvas.BackColor = System.Drawing.Color.White;
             this.Canvas.Location = new System.Drawing.Point(0, 0);
