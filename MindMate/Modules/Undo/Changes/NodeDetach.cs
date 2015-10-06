@@ -11,12 +11,14 @@ namespace MindMate.Modules.Undo.Changes
         MapNode node;
         MapNode parent;
         MapNode siblingAbove;
+        NodePosition position;
 
         public NodeDetach(MapNode node)
         {
             this.node = node;
             this.parent = node.Parent;
             this.siblingAbove = node.Previous;
+            this.position = node.Pos;
         }
 
         public string Description
@@ -30,9 +32,9 @@ namespace MindMate.Modules.Undo.Changes
         public void Undo()
         {
             if (siblingAbove != null)
-                node.AttachTo(parent, siblingAbove, true, node.Pos);
+                node.AttachTo(parent, siblingAbove, true, position);
             else // insert as the first child
-                node.AttachTo(parent, parent.FirstChild, false, node.Pos);
+                node.AttachTo(parent, parent.FirstChild, false, position);
         }
     }
 }
