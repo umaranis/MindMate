@@ -22,31 +22,15 @@ namespace MindMate.View.MapControls
 
         public void OnMouseDrag(MouseEventArgs e)
         {
-            if (this.dragObject == null)
+            if (!IsDragging)
             {
-                MapNode node = MapView.GetMapNodeFromPoint(e.Location);
-                if (node == null)
-                {
-                    this.dragObject = this;
-                    this.dragStartPoint = e.Location;
-                    MapView.Canvas.Focus();
-                }
-                else
-                {
-                    this.dragObject = node;
-                }
+                DragStart(e);
             }
-            else if (this.dragObject == this)
+            else if (IsCanvasDragging)
             {
-                MapView.Canvas.SuspendLayout();
-                MapView.Canvas.Top = MapView.Canvas.Top + (e.Y - this.dragStartPoint.Y);
-                MapView.Canvas.Left = MapView.Canvas.Left + (e.X - this.dragStartPoint.X);
-                MapView.Canvas.ResumeLayout();
-
-                MapView.Canvas.Cursor = Cursors.SizeAll;
-                //new Cursor(new System.IO.MemoryStream(MindMate.Properties.Resources.move_r));
+                MoveCanvas(e);
             }
-            else
+            else if(IsNodeDragging)
             {
 
             }
@@ -67,6 +51,47 @@ namespace MindMate.View.MapControls
         {
             get { return this.dragObject != null; }
         }
-        
+
+        public bool IsCanvasDragging
+        {
+            get { return dragObject == MapView.Canvas; }
+        }
+
+        public bool IsNodeDragging
+        {
+            get { return dragObject != null && dragObject != MapView.Canvas;  }
+        }
+
+        #region Private Methods
+
+        private void DragStart(MouseEventArgs e)
+        {
+            MapNode node = MapView.GetMapNodeFromPoint(e.Location);
+            if (node == null)
+            {
+                this.dragObject = MapView.Canvas;
+                this.dragStartPoint = e.Location;
+                MapView.Canvas.Focus();
+            }
+            else
+            {
+                this.dragObject = node;
+            }
+        }
+
+        private void MoveCanvas(MouseEventArgs e)
+        {
+            MapView.Canvas.SuspendLayout();
+            MapView.Canvas.Top = MapView.Canvas.Top + (e.Y - this.dragStartPoint.Y);
+            MapView.Canvas.Left = MapView.Canvas.Left + (e.X - this.dragStartPoint.X);
+            MapView.Canvas.ResumeLayout();
+
+            MapView.Canvas.Cursor = Cursors.SizeAll;
+            //new Cursor(new System.IO.MemoryStream(MindMate.Properties.Resources.move_r));
+        }
+
+
+        #endregion Private Methods
+
     }
 }
