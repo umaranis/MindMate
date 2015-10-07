@@ -45,7 +45,7 @@ namespace MindMate.Model
                 MapTextSerializer serializer = new MapTextSerializer();
                 if (nodes.Count > 1)
                 {
-                    bool[] exclude = ExcludeNodesAlreadyPartOfHierarchy(nodes);
+                    bool[] exclude = nodes.ExcludeNodesAlreadyPartOfHierarchy();
                     for (int i = 0; i < nodes.Count; i++ )
                     {
                         if (!exclude[i])
@@ -132,46 +132,7 @@ namespace MindMate.Model
             }
 
             return null;            
-        }
-        
-
-        private static bool[] ExcludeNodesAlreadyPartOfHierarchy(SelectedNodes nodes)
-        {
-            int[] depth = new int[nodes.Count];
-            bool[] exclude = new bool[nodes.Count]; // default value is false
-
-            for (int i = 0; i < nodes.Count; i++)
-            {
-                depth[i] = nodes[i].GetNodeDepth();
-            }
-
-            for (int i = 0; i < nodes.Count; i++)
-            {
-                if (exclude[i]) continue;
-
-                MapNode node1 = nodes[i];
-
-                for (int j = i + 1; j < nodes.Count; j++)
-                {
-                    MapNode node2 = nodes[j];
-
-                    if (depth[i] == depth[j] || exclude[j])
-                    {
-                        continue;
-                    }
-                    else if (depth[i] < depth[j] && node2.isDescendent(node1))
-                    {
-                        exclude[j] = true;
-                    }
-                    else if (node1.isDescendent(node2))
-                    {
-                        exclude[i] = true;
-                    }
-                }
-            }
-
-            return exclude;
-        }
+        }        
 
         class MindMateTextDataObject : IDataObject
         {

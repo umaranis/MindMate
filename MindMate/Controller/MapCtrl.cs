@@ -981,17 +981,22 @@ namespace MindMate.Controller
             Debug.Assert(!location.IsEmpty);
             if (this.MapView.SelectedNodes.Last == null || MapView.SelectedNodes.Contains(tree.RootNode)) return;
 
-            MapNode [] nodes = MapView.SelectedNodes.ToArray();
+            MapNode[] nodes = MapView.SelectedNodes.ToArray();
+            bool[] exclude = MapView.SelectedNodes.ExcludeNodesAlreadyPartOfHierarchy();
 
             MapView.SuspendLayout();
             
             tree.ChangeManager.StartBatch("Drag/Drop Node" + (nodes.Length > 0? "s" : ""));
-            foreach(MapNode n in nodes)
+            for(int i = 0; i < nodes.Length; i++)
             {
-                n.Detach();
-                Debug.Assert(n.Detached, "Detached property is false for node just detached.");
-                n.AttachTo(location.Parent, location.Sibling, location.insertAfterSibling);
-                MapView.SelectedNodes.Add(n, true);
+                MapNode n = nodes[i];
+                if (!exclude[i])
+                {
+                    n.Detach();
+                    Debug.Assert(n.Detached, "Detached property is false for node just detached.");
+                    n.AttachTo(location.Parent, location.Sibling, location.insertAfterSibling);
+                    MapView.SelectedNodes.Add(n, true);
+                }
             }
 
             if (location.Parent.Folded) location.Parent.Folded = false;
@@ -1000,10 +1005,8 @@ namespace MindMate.Controller
 
             MapView.ResumeLayout();
             MapView.RefreshChildNodePositions(tree.RootNode, NodePosition.Undefined);
-
-
             
-        }
+        }         
 
         public void SetMapViewBackColor(Color color)
         {
