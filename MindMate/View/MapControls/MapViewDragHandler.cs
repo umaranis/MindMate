@@ -84,7 +84,9 @@ namespace MindMate.View.MapControls
             if (node == null)
             {
                 this.dragObject = MapView.Canvas;
-                this.dragStartPoint = e.Location;                
+                this.dragStartPoint = e.Location;
+                MapView.Canvas.Cursor = Cursors.SizeAll;
+                //new Cursor(new System.IO.MemoryStream(MindMate.Properties.Resources.move_r));                
             }
             else
             {
@@ -98,10 +100,7 @@ namespace MindMate.View.MapControls
             MapView.Canvas.SuspendLayout();
             MapView.Canvas.Top = MapView.Canvas.Top + (e.Y - this.dragStartPoint.Y);
             MapView.Canvas.Left = MapView.Canvas.Left + (e.X - this.dragStartPoint.X);
-            MapView.Canvas.ResumeLayout();
-
-            MapView.Canvas.Cursor = Cursors.SizeAll;
-            //new Cursor(new System.IO.MemoryStream(MindMate.Properties.Resources.move_r));
+            MapView.Canvas.ResumeLayout();            
         }
 
         private DropLocation CalculateDropLocation(Point p)
