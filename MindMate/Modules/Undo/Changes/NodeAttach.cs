@@ -19,7 +19,7 @@ namespace MindMate.Modules.Undo.Changes
         {
             get
             {
-                return "Restore Node";
+                return "Attach Node";
             }
         }
 
@@ -30,7 +30,7 @@ namespace MindMate.Modules.Undo.Changes
                 MapNode nextSelection = node.Tree.GetClosestUnselectedNode(node);
                 node.Tree.SelectedNodes.Add(nextSelection);
             }
-            node.DeleteNode();
+            node.Detach();
         }
     }
 }

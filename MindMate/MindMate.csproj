@@ -110,7 +110,8 @@
     <Compile Include="Modules\Undo\BatchChange.cs" />
     <Compile Include="Modules\Undo\ChangeFactory.cs" />
     <Compile Include="Modules\Undo\ChangeManager.cs" />
-    <Compile Include="Modules\Undo\Changes\AttachNode.cs" />
+    <Compile Include="Modules\Undo\Changes\NodeNew.cs" />
+    <Compile Include="Modules\Undo\Changes\NodeAttach.cs" />
     <Compile Include="Modules\Undo\Changes\AttributeDelete.cs" />
     <Compile Include="Modules\Undo\Changes\AttributeAdd.cs" />
     <Compile Include="Modules\Undo\Changes\AttributeSpecListType.cs" />

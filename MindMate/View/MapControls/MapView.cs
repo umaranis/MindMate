@@ -276,6 +276,11 @@ namespace MindMate.View.MapControls
 
         public bool LayoutSuspended { get; private set; }
 
+        /// <summary>
+        /// Suspends recalculating NodeView positions for MapView.
+        /// Useful if multiple changes are to be done in MapTree.
+        /// Call <see cref="ResumeLayout"/> when changes are completed.
+        /// </summary>
         public void SuspendLayout() { LayoutSuspended = true; }
 
         public void ResumeLayout() { LayoutSuspended = false; }

@@ -32,7 +32,7 @@ namespace MindMate.Controller
     {
         private IMainCtrl mainCtrl;
 
-        public MapViewMouseEventHandler map;
+        private MapViewMouseEventHandler map;
         
         public MindMate.View.MapControls.MapView MapView;
         
@@ -58,7 +58,9 @@ namespace MindMate.Controller
             MapView.Canvas.NodeMouseEnter += map.NodeMouseEnter;
             MapView.Canvas.NodeMouseExit += map.NodeMouseExit;
             MapView.Canvas.KeyDown += new MapViewKeyEventHandler(this).canvasKeyDown;
-            
+            MapView.Canvas.DragDropHandler.NodeDragStart += map.NodeDragStart;
+            MapView.Canvas.DragDropHandler.NodeDragDrop += map.NodeDragDrop;
+                        
             MapView.NodeTextEditor.Enabled = true;
 
             MapView.Canvas.BackColor = MetaModel.MetaModel.Instance.MapEditorBackColor;
@@ -968,6 +970,39 @@ namespace MindMate.Controller
                 MapView.RefreshChildNodePositions(tree.RootNode, NodePosition.Undefined);
                 this.MapView.SelectedNodes.Add(selNode, false);
             }
+        }
+
+        /// <summary>
+        /// Drag and Drop node(s) to a new location
+        /// </summary>
+        /// <param name="location"></param>
+        public void MoveNodes(DropLocation location)
+        {
+            Debug.Assert(!location.IsEmpty);
+            if (this.MapView.SelectedNodes.Last == null || MapView.SelectedNodes.Contains(tree.RootNode)) return;
+
+            MapNode [] nodes = MapView.SelectedNodes.ToArray();
+
+            MapView.SuspendLayout();
+            
+            tree.ChangeManager.StartBatch("Drag/Drop Node" + (nodes.Length > 0? "s" : ""));
+            foreach(MapNode n in nodes)
+            {
+                n.Detach();
+                Debug.Assert(n.Detached, "Detached property is false for node just detached.");
+                n.AttachTo(location.Parent, location.Sibling, location.insertAfterSibling);
+                MapView.SelectedNodes.Add(n, true);
+            }
+
+            if (location.Parent.Folded) location.Parent.Folded = false;
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
+
+            MapView.ResumeLayout();
+            MapView.RefreshChildNodePositions(tree.RootNode, NodePosition.Undefined);
+
+
+            
         }
 
         public void SetMapViewBackColor(Color color)

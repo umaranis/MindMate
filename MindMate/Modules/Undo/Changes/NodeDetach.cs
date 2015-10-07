@@ -31,10 +31,12 @@ namespace MindMate.Modules.Undo.Changes
 
         public void Undo()
         {
-            if (siblingAbove != null)
+            if (siblingAbove != null) //attach after sibling
                 node.AttachTo(parent, siblingAbove, true, position);
-            else // insert as the first child
+            else if (parent.FirstChild != null) //insert as the first child
                 node.AttachTo(parent, parent.FirstChild, false, position);
+            else //attach as only child
+                node.AttachTo(parent, null, true, position);
         }
     }
 }

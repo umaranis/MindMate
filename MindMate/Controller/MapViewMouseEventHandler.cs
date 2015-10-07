@@ -79,7 +79,7 @@ namespace MindMate.Controller
                 }
             }
 
-        }
+        }        
 
         internal void NodeRightClick(MapNode node, NodeMouseEventArgs e)
         {
@@ -156,6 +156,19 @@ namespace MindMate.Controller
             }
 
             mapCtrl.MapView.ClearHighlightedNode();
+        }
+
+        internal void NodeDragStart(MapNode node, NodeMouseEventArgs e)
+        {
+            if(!node.Selected)
+            {
+                node.Selected = true;
+            }
+        }
+
+        internal void NodeDragDrop(MapTree tree, DropLocation location)
+        {
+            mapCtrl.MoveNodes(location);
         }
         
     }

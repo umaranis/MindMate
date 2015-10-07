@@ -34,7 +34,7 @@ namespace MindMate.View.MapControls
         public event NodeMouseOverDelegate NodeMouseOver = delegate { };
 
         public event Action<MapNode, MouseEventArgs> NodeMouseEnter = delegate { };
-        public event Action<MapNode, MouseEventArgs> NodeMouseExit = delegate { };
+        public event Action<MapNode, MouseEventArgs> NodeMouseExit = delegate { };        
 
         /// <summary>
         /// Node where mouse lies right now.
@@ -52,7 +52,7 @@ namespace MindMate.View.MapControls
             InitializeComponent();
             this.DoubleBuffered = true;
             this.MapView = mapView;
-            dragHandler = new MapViewDragHandler(MapView);
+            DragDropHandler = new MapViewDragHandler(MapView);
         }
 
                 
@@ -73,7 +73,7 @@ namespace MindMate.View.MapControls
             private set;
         }
 
-        private MapViewDragHandler dragHandler; 
+        public MapViewDragHandler DragDropHandler { get; private set; } 
 
                 
         private void NodeLinksPanel_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -90,24 +90,10 @@ namespace MindMate.View.MapControls
             }
         }
 
-        //protected override void OnMouseDown(MouseEventArgs e)
-        //{
-        //    if (e.Button != MouseButtons.Left) return;
-
-        //    //mouseOverNode = MapView.GetMapNodeFromPoint(e.Location);
-        //    //if (mouseOverNode == null)
-        //    //{
-        //    //    this.dragObject = this;
-        //    //    this.dragStartPoint = e.Location;
-        //    //    MapView.Canvas.Focus();
-        //    //}
-        //    //else
-        //    //{
-        //    //    this.dragObject = mouseOverNode;
-        //    //}
-
-        //    //base.OnMouseDown(e);
-        //}
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            MapView.Canvas.Focus();            
+        }
 
         protected override void OnMouseMove(MouseEventArgs e)
         {
@@ -119,7 +105,7 @@ namespace MindMate.View.MapControls
 
             if (e.Button != System.Windows.Forms.MouseButtons.None && !MapView.NodeTextEditor.IsTextEditing)
             {
-                dragHandler.OnMouseDrag(e);
+                DragDropHandler.OnMouseDrag(e);
             }
             else
             {
@@ -157,9 +143,9 @@ namespace MindMate.View.MapControls
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            if (dragHandler.IsDragging)
+            if (DragDropHandler.IsDragging)
             {
-                dragHandler.OnMouseDrop(e);
+                DragDropHandler.OnMouseDrop(e);                
             }
             else
             {
@@ -203,7 +189,8 @@ namespace MindMate.View.MapControls
         protected override void OnMouseHover(EventArgs e)
         {
             resetHoverEvent = true;
-                                   
+            if (DragDropHandler.IsDragging) { return; }
+
             Point clickPosition = this.PointToClient(Cursor.Position);
             mouseOverNode = MapView.GetMapNodeFromPoint(clickPosition);
             if(mouseOverNode != null)

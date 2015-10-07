@@ -8,19 +8,24 @@ using System.Windows.Forms;
 
 namespace MindMate.View.MapControls
 {
-    class MapViewDragHandler
+    public class MapViewDragHandler
     {
         private Object dragObject;
         private Point dragStartPoint;
 
         private MapView MapView { get; set; }
 
-        public MapViewDragHandler(MapView mapView)
+        public delegate void NodeDragStartDelegate(MapNode node, NodeMouseEventArgs e);
+        public event NodeDragStartDelegate NodeDragStart;
+        public delegate void NodeDragDropDelegate(MapTree tree, DropLocation location);
+        public event NodeDragDropDelegate NodeDragDrop;        
+
+        internal MapViewDragHandler(MapView mapView)
         {
             MapView = mapView;
         }
 
-        public void OnMouseDrag(MouseEventArgs e)
+        internal void OnMouseDrag(MouseEventArgs e)
         {
             if (!IsDragging)
             {
@@ -36,8 +41,17 @@ namespace MindMate.View.MapControls
             }
         }        
 
-        public void OnMouseDrop(MouseEventArgs e)
+        internal void OnMouseDrop(MouseEventArgs e)
         {
+            if (IsNodeDragging)
+            {
+                DropLocation dropLocation = CalculateDropLocation(e.Location);
+                if (IsValidDropLocation(dropLocation) && NodeDragDrop != null)
+                {
+                    NodeDragDrop(MapView.Tree, dropLocation);
+                }
+            }           
+
             dragObject = null;
             MapView.Canvas.Cursor = Cursors.Default;
         }
@@ -70,12 +84,12 @@ namespace MindMate.View.MapControls
             if (node == null)
             {
                 this.dragObject = MapView.Canvas;
-                this.dragStartPoint = e.Location;
-                MapView.Canvas.Focus();
+                this.dragStartPoint = e.Location;                
             }
             else
             {
                 this.dragObject = node;
+                if(NodeDragStart != null) { NodeDragStart(node, new NodeMouseEventArgs(e)); }
             }
         }
 
@@ -90,8 +104,57 @@ namespace MindMate.View.MapControls
             //new Cursor(new System.IO.MemoryStream(MindMate.Properties.Resources.move_r));
         }
 
+        private DropLocation CalculateDropLocation(Point p)
+        {
+            MapNode node = MapView.GetMapNodeFromPoint(p);
+
+            if (node != null)
+            {
+                return new DropLocation() { Parent = node, insertAfterSibling = true };
+            }
+            else
+            {
+                return new DropLocation();
+            }
+        }
+
+        private bool IsValidDropLocation(DropLocation location)
+        {
+            if(location.IsEmpty) { return false; }
+
+            foreach(MapNode n in MapView.Tree.SelectedNodes)
+            {
+                if(n == location.Parent) { return false; } //drop location is included in moved nodes
+
+                if (n.Parent == location.Parent)
+                {
+                    if(n.Next != null && n.Next == location.Sibling && !location.insertAfterSibling) //same location as present
+                    { return false; }
+                    if(n.Previous != null && n.Previous == location.Sibling && location.insertAfterSibling) //same location as present
+                    { return false; }                    
+                }
+
+                if (n.Pos == NodePosition.Root) { return false; } //can't move root
+
+                if (location.Parent.isDescendent(n)) { return false; } //can't move ancentor to child
+            }                
+            
+            return true;
+        }
 
         #endregion Private Methods
 
+    }
+
+    public struct DropLocation
+    {
+        public MapNode Parent;
+        public MapNode Sibling;
+        public bool insertAfterSibling;
+
+        public bool IsEmpty
+        {
+            get { return Parent == null; }
+        }
     }
 }
