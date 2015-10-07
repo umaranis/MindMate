@@ -23,6 +23,9 @@ namespace MindMate.View.MapControls
         internal MapViewDragHandler(MapView mapView)
         {
             MapView = mapView;
+            nodeDragCursor = new Cursor(new System.IO.MemoryStream(MindMate.Properties.Resources.DragMove));
+            canvasDragCursor = new Cursor(new System.IO.MemoryStream(MindMate.Properties.Resources.HandDrag));
+
         }
 
         internal void OnMouseDrag(MouseEventArgs e)
@@ -76,6 +79,9 @@ namespace MindMate.View.MapControls
             get { return dragObject != null && dragObject != MapView.Canvas;  }
         }
 
+        private Cursor nodeDragCursor;
+        private Cursor canvasDragCursor;
+
         #region Private Methods
 
         private void DragStart(MouseEventArgs e)
@@ -85,13 +91,14 @@ namespace MindMate.View.MapControls
             {
                 this.dragObject = MapView.Canvas;
                 this.dragStartPoint = e.Location;
-                MapView.Canvas.Cursor = Cursors.SizeAll;
-                //new Cursor(new System.IO.MemoryStream(MindMate.Properties.Resources.move_r));                
+                MapView.Canvas.Cursor = canvasDragCursor;
+                //MapView.Canvas.Cursor = Cursors.SizeAll;                
             }
             else
             {
                 this.dragObject = node;
                 if(NodeDragStart != null) { NodeDragStart(node, new NodeMouseEventArgs(e)); }
+                MapView.Canvas.Cursor = nodeDragCursor;
             }
         }
 
