@@ -424,11 +424,13 @@ namespace MindMate.View.MapControls
                 {
                     drawCursorLeft += INTER_CONTROL_PADDING;
                     noteIcon.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+                    drawCursorLeft += noteIcon.Size.Width;
                 }
                 if (link != null)
                 {
                     drawCursorLeft += INTER_CONTROL_PADDING;
                     link.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+                    drawCursorLeft += link.Size.Width;
                 }
             }
                     
