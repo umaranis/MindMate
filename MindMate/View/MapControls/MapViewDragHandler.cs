@@ -40,7 +40,7 @@ namespace MindMate.View.MapControls
             }
             else if(IsNodeDragging)
             {
-
+                ShowDropHint(e);
             }
         }        
 
@@ -48,10 +48,10 @@ namespace MindMate.View.MapControls
         {
             if (IsNodeDragging)
             {
-                DropLocation dropLocation = CalculateDropLocation(e.Location);
-                if (IsValidDropLocation(dropLocation) && NodeDragDrop != null)
+                RefreshNodeDropLocation(e.Location);
+                if (!NodeDropLocation.IsEmpty && NodeDragDrop != null)
                 {
-                    NodeDragDrop(MapView.Tree, dropLocation);
+                    NodeDragDrop(MapView.Tree, NodeDropLocation);
                 }
             }           
 
@@ -77,6 +77,11 @@ namespace MindMate.View.MapControls
         public bool IsNodeDragging
         {
             get { return dragObject != null && dragObject != MapView.Canvas;  }
+        }
+
+        public DropLocation NodeDropLocation
+        {
+            get; private set;
         }
 
         private Cursor nodeDragCursor;
@@ -110,13 +115,32 @@ namespace MindMate.View.MapControls
             MapView.Canvas.ResumeLayout();            
         }
 
+        private void RefreshNodeDropLocation(Point p)
+        {
+            DropLocation location = CalculateDropLocation(p);
+            if(!location.Equals(NodeDropLocation))
+            {
+                if(IsValidDropLocation(location))
+                {
+                    NodeDropLocation = location;
+                    MapView.Canvas.Invalidate();
+                }
+                else if(!NodeDropLocation.IsEmpty)
+                {
+                    NodeDropLocation = new DropLocation();
+                    MapView.Canvas.Invalidate();
+                }
+                
+            }            
+        }
+
         private DropLocation CalculateDropLocation(Point p)
         {
             MapNode node = MapView.GetMapNodeFromPoint(p);
 
             if (node != null)
             {
-                return new DropLocation() { Parent = node, insertAfterSibling = true };
+                return new DropLocation() { Parent = node, InsertAfterSibling = true };
             }
             else
             {
@@ -126,7 +150,7 @@ namespace MindMate.View.MapControls
 
         private bool IsValidDropLocation(DropLocation location)
         {
-            if(location.IsEmpty) { return false; }
+            if (location.IsEmpty) { return false; }
 
             foreach(MapNode n in MapView.Tree.SelectedNodes)
             {
@@ -134,9 +158,9 @@ namespace MindMate.View.MapControls
 
                 if (n.Parent == location.Parent)
                 {
-                    if(n.Next != null && n.Next == location.Sibling && !location.insertAfterSibling) //same location as present
+                    if(n.Next != null && n.Next == location.Sibling && !location.InsertAfterSibling) //same location as present
                     { return false; }
-                    if(n.Previous != null && n.Previous == location.Sibling && location.insertAfterSibling) //same location as present
+                    if(n.Previous != null && n.Previous == location.Sibling && location.InsertAfterSibling) //same location as present
                     { return false; }                    
                 }
 
@@ -146,6 +170,11 @@ namespace MindMate.View.MapControls
             }                
             
             return true;
+        }       
+
+        private void ShowDropHint(MouseEventArgs e)
+        {
+            RefreshNodeDropLocation(e.Location);            
         }
 
         #endregion Private Methods
@@ -156,11 +185,23 @@ namespace MindMate.View.MapControls
     {
         public MapNode Parent;
         public MapNode Sibling;
-        public bool insertAfterSibling;
-
+        public bool InsertAfterSibling;
+        
         public bool IsEmpty
         {
             get { return Parent == null; }
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is DropLocation  && Equals((DropLocation)obj);
+        }
+
+        public bool Equals(DropLocation loc)
+        {
+            return loc.Parent == this.Parent && loc.Sibling == this.Sibling && loc.InsertAfterSibling == this.InsertAfterSibling;
+
+        }
+        
     }
 }

@@ -994,7 +994,7 @@ namespace MindMate.Controller
                 {
                     n.Detach();
                     Debug.Assert(n.Detached, "Detached property is false for node just detached.");
-                    n.AttachTo(location.Parent, location.Sibling, location.insertAfterSibling);
+                    n.AttachTo(location.Parent, location.Sibling, location.InsertAfterSibling);
                     MapView.SelectedNodes.Add(n, true);
                 }
             }

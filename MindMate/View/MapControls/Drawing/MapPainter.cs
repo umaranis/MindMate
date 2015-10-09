@@ -19,6 +19,12 @@ namespace MindMate.View.MapControls.Drawing
     {
 
         public static Brush HighlightBrush = new SolidBrush(Color.FromArgb(235, 235, 235));
+        private static Pen dropHintPen = new Pen(Color.Red);
+
+        static MapPainter()
+        {
+            dropHintPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+        }
 
         internal static void DrawTree(MapView mapView, System.Drawing.Graphics g)
         {
@@ -121,12 +127,12 @@ namespace MindMate.View.MapControls.Drawing
         /// </summary>
         /// <param name="node"></param>
         /// <param name="g"></param>
-        internal static void drawNodeLinker(MapNode node, MapView mapView, Graphics g)
+        internal static void DrawNodeLinker(MapNode node, MapView mapView, Graphics g)
         {
-            drawNodeLinker(node, mapView, g, true);
+            DrawNodeLinker(node, mapView, g, true);
         }
 
-        internal static void drawNodeLinker(MapNode node, MapView mapView, Graphics g, bool drawChildren)
+        internal static void DrawNodeLinker(MapNode node, MapView mapView, Graphics g, bool drawChildren)
         {
             if (node.Parent != null)
             {
@@ -227,7 +233,7 @@ namespace MindMate.View.MapControls.Drawing
             {
                 foreach (MapNode cNode in node.ChildNodes)
                 {
-                    drawNodeLinker(cNode, mapView, g);
+                    DrawNodeLinker(cNode, mapView, g);
                 }
             }
         }
@@ -320,9 +326,18 @@ namespace MindMate.View.MapControls.Drawing
                     g.DrawLine(p, x, y, x - INDICATOR_MARGIN, y);
                 }
             }
- 
+
         }
 
+        internal static void DrawNodeDropHint(DropLocation location, Graphics g)
+        {
+            NodeView pView = location.Parent.NodeView;
+            
+            g.DrawLine(dropHintPen, pView.Left, pView.Top, pView.Right, pView.Top);
+            g.DrawLine(dropHintPen, pView.Left, pView.Bottom - 1, pView.Right, pView.Bottom - 1);
+            g.DrawArc(dropHintPen, pView.Right - 2, pView.Top, 5, pView.Height - 1, 270, 180);
+            g.DrawArc(dropHintPen, pView.Left - 3, pView.Top, 5, pView.Height - 1, 90, 180);            
+        }
 
     }
 }

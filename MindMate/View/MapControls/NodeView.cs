@@ -135,6 +135,16 @@ namespace MindMate.View.MapControls
             get { return width; }            
         }
 
+        public float Bottom
+        {
+            get { return top + height; }
+        }
+
+        public float Right
+        {
+            get { return left + width; }
+        }
+
         public bool IsMultiline
         {
             get

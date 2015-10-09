@@ -62,7 +62,9 @@ namespace MindMate.View.MapControls
             if (MapView != null && MapView.Tree != null)
             {
                 MapControls.Drawing.MapPainter.DrawTree(MapView, pe.Graphics);
-                MapControls.Drawing.MapPainter.drawNodeLinker(MapView.Tree.RootNode, MapView, pe.Graphics);                
+                MapControls.Drawing.MapPainter.DrawNodeLinker(MapView.Tree.RootNode, MapView, pe.Graphics);
+                if (DragDropHandler.IsNodeDragging && !DragDropHandler.NodeDropLocation.IsEmpty)
+                    { MapControls.Drawing.MapPainter.DrawNodeDropHint(DragDropHandler.NodeDropLocation, pe.Graphics); }            
             }
             ////base.OnPaint(pe);            
         }
