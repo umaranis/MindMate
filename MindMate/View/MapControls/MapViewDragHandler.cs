@@ -25,7 +25,7 @@ namespace MindMate.View.MapControls
             MapView = mapView;
             nodeDragCursor = new Cursor(new System.IO.MemoryStream(MindMate.Properties.Resources.DragMove));
             canvasDragCursor = new Cursor(new System.IO.MemoryStream(MindMate.Properties.Resources.HandDrag));
-
+            
         }
 
         internal void OnMouseDrag(MouseEventArgs e)
@@ -53,6 +53,7 @@ namespace MindMate.View.MapControls
                 {
                     NodeDragDrop(MapView.Tree, NodeDropLocation);
                 }
+                MapView.Canvas.KeyDown -= Canvas_KeyDown;
             }           
 
             dragObject = null;
@@ -104,8 +105,9 @@ namespace MindMate.View.MapControls
                 this.dragObject = node;
                 if(NodeDragStart != null) { NodeDragStart(node, new NodeMouseEventArgs(e)); }
                 MapView.Canvas.Cursor = nodeDragCursor;
+                MapView.Canvas.KeyDown += Canvas_KeyDown;
             }
-        }
+        }        
 
         private void MoveCanvas(MouseEventArgs e)
         {
@@ -175,6 +177,16 @@ namespace MindMate.View.MapControls
         private void ShowDropHint(MouseEventArgs e)
         {
             RefreshNodeDropLocation(e.Location);            
+        }
+
+        private void Canvas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                MapView.Canvas.KeyDown -= Canvas_KeyDown;
+                this.dragObject = null;
+                MapView.Canvas.Cursor = Cursors.Default;
+            }
         }
 
         #endregion Private Methods
