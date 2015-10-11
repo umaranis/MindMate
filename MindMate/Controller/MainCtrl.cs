@@ -439,7 +439,7 @@ namespace MindMate.Controller
             file.AddExtension = true;
             file.DefaultExt = "mm";
             file.Filter = "MindMap files (*.mm)|*.mm|All files (*.*)|*.*|Text (*.txt)|*.txt";
-            file.FileName = mapCtrl.MindMateFile;
+            file.FileName = mapCtrl.MindMateFile != null? mapCtrl.MindMateFile : mapCtrl.MapView.Tree.RootNode.Text;
             if (file.ShowDialog() == DialogResult.OK)
             {
                 mapCtrl.MindMateFile = file.FileName;
