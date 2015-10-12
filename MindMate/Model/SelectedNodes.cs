@@ -106,6 +106,10 @@ namespace MindMate.Model
 
                 if (node.Parent != null)
                 {
+                    node.ForEachAncestor(n =>
+                        {
+                            if (n.Folded) n.Folded = false;
+                        });
                     node.Parent.NodeView.LastSelectedChild = node;
                 }
 

@@ -813,7 +813,7 @@ namespace MindMate.Model
         /// <summary>
         /// Performs the given action for node and it's descendents
         /// </summary>
-        /// <param name="function"></param>
+        /// <param name="action"></param>
         public void ForEach(Action<MapNode> action)
         {
             action(this);
@@ -821,6 +821,20 @@ namespace MindMate.Model
             foreach(MapNode cNode in this.ChildNodes)
             {
                 cNode.ForEach(action);
+            }
+        }
+
+        /// <summary>
+        /// Performs the given action for node's ancestors (excluding the node itself)
+        /// </summary>
+        /// <param name="action"></param>
+        public void ForEachAncestor(Action<MapNode> action)
+        {
+            MapNode parent = this.Parent;
+            while(parent != null)
+            {
+                action(parent);
+                parent = parent.Parent;
             }
         }
 
