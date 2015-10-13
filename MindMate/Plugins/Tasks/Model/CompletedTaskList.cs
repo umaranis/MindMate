@@ -160,7 +160,7 @@ namespace MindMate.Plugins.Tasks.Model
             {
                 node.ForEach((n) =>
                 {
-                    if (n.GetTaskStatus() == TaskStatus.Open && n.CompletionDateExists())
+                    if (n.IsTaskComplete())
                     {
                         Add(n);
                         var evtTask = new CompletedTaskEventArgs();
@@ -176,7 +176,7 @@ namespace MindMate.Plugins.Tasks.Model
         {
             if (TaskSelectionChanged == null) return;
 
-            if (node.GetTaskStatus() == TaskStatus.Open && node.CompletionDateExists())
+            if (node.IsTaskComplete())
             {
                 TaskSelectionChanged(node, new TaskSelectionEventArgs() { ChangeType = TaskSelectionChange.Selected });
             }
@@ -186,7 +186,7 @@ namespace MindMate.Plugins.Tasks.Model
         {
             if (TaskSelectionChanged == null) return;
 
-            if (node.GetTaskStatus() == TaskStatus.Open && node.CompletionDateExists())
+            if (node.IsTaskComplete())
             {
                 TaskSelectionChanged(node, new TaskSelectionEventArgs() { ChangeType = TaskSelectionChange.Deselected });
             }

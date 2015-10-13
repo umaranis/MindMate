@@ -173,7 +173,7 @@ namespace MindMate.Plugins.Tasks.Model
             {
                 node.ForEach((n) =>
                 {
-                    if (n.GetTaskStatus() == TaskStatus.Open && n.DueDateExists())
+                    if (n.IsTaskPending())
                     {
                         Add(n);
                         var evtTask = new PendingTaskEventArgs();
@@ -190,7 +190,7 @@ namespace MindMate.Plugins.Tasks.Model
         {
             if (TaskSelectionChanged == null) return;
 
-            if (node.GetTaskStatus() == TaskStatus.Open && node.DueDateExists())
+            if (node.IsTaskPending())
             {
                 TaskSelectionChanged(node, new TaskSelectionEventArgs() { ChangeType = TaskSelectionChange.Selected });
             }
@@ -200,7 +200,7 @@ namespace MindMate.Plugins.Tasks.Model
         {
             if (TaskSelectionChanged == null) return;
 
-            if (node.GetTaskStatus() == TaskStatus.Open && node.DueDateExists())
+            if (node.IsTaskPending())
             {
                 TaskSelectionChanged(node, new TaskSelectionEventArgs() { ChangeType = TaskSelectionChange.Deselected });
             }
