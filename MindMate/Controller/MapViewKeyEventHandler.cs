@@ -104,7 +104,7 @@ namespace MindMate.Controller
                     break;
                 case Keys.K:
                     mapCtrl.EditHyperlink(false);
-                    break;
+                    break;                
             }
 
 
@@ -126,7 +126,10 @@ namespace MindMate.Controller
                     break;
                 case Keys.PageDown:
                     mapCtrl.SelectAllSiblingsBelow();
-                    break;                                
+                    break;
+                case Keys.Enter:
+                    mapCtrl.AppendSiblingAboveAndEdit();
+                    break;
             }
         }
 

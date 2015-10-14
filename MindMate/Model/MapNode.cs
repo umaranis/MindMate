@@ -366,9 +366,9 @@ namespace MindMate.Model
         /// <param name="text"></param>
         /// <param name="pos">If undefined, determined from parent node. In case of root node, balances the tree.</param>
         /// <param name="id">could be null</param>  
-        /// <param name="appendAfter">Appended at the end if null.</param>
+        /// <param name="adjacentToSib">Appended at the end if null.</param>
         public MapNode(MapNode parent, string text, NodePosition pos = NodePosition.Undefined,
-            string id = null, MapNode appendAfter = null)
+            string id = null, MapNode adjacentToSib = null, bool insertAfterSib = true)
         {
             System.Diagnostics.Debug.Assert(parent != null, "parent parameter should not be null. Use other constructor for root node.");
 
@@ -380,7 +380,7 @@ namespace MindMate.Model
             this.Icons = new IconList(this);
 
             // attaching to tree
-            AttachTo(parent, appendAfter, true, pos, false);
+            AttachTo(parent, adjacentToSib, insertAfterSib, pos, false);
 
             Tree.FireEvent(this, TreeStructureChange.New);
         }

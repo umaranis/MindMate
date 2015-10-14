@@ -250,6 +250,33 @@ namespace MindMate.Controller
             return newNode;
         }
 
+        public void AppendSiblingAboveAndEdit()
+        {
+            if(MapView.SelectedNodes.Count == 1)
+            {
+                MapNode node = MapView.SelectedNodes.First;
+
+                MapNode newNode = AppendSiblingAbove(node);
+                if(newNode != null)
+                {
+                    BeginNodeEdit(newNode, TextCursorPosition.Undefined);
+                }
+            }
+        }
+
+        public MapNode AppendSiblingAbove(MapNode node)
+        {
+            if (node.Pos == NodePosition.Root)
+            {
+                return null;
+            }
+            MapNode newNode = new MapNode(node.Parent, "", NodePosition.Undefined, null, node, false);
+
+            MapView.SelectedNodes.Add(newNode, false);
+
+            return newNode;
+        }
+
         #endregion Adding New Node
 
         public void DeleteSelectedNodes()
