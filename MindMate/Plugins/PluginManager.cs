@@ -56,7 +56,7 @@ namespace MindMate.Plugins
             }
         }
 
-        internal void InitializeMainMenu(MainMenuCtrl mainManuCtrl)
+        internal void InitializeMainMenu(View.IMainForm mainManuCtrl)
         {
             foreach(IPlugin p in Plugins)
             {

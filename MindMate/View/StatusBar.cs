@@ -8,7 +8,7 @@ namespace MindMate.View
 {
     public class StatusBar : StatusStrip
     {
-        internal StatusBar()
+        public StatusBar()
         {
             InitializeComponents();
         }

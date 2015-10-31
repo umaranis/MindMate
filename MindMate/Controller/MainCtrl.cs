@@ -25,16 +25,15 @@ namespace MindMate.Controller
     /// </summary>
     public class MainCtrl : IMainCtrl
     {
-        private View.MainForm mainForm;
+        private View.IMainForm mainForm;
         
 
         private Plugins.PluginManager pluginManager;
 
-        private MapCtrl mapCtrl;
+        public MapCtrl mapCtrl;
 
-        internal ChangeManager ChangeManager { get { return mapCtrl.MapView.Tree.ChangeManager; } }
+        public ChangeManager ChangeManager { get { return mapCtrl.MapView.Tree.ChangeManager; } }
 
-        private MainMenuCtrl mainMenuCtrl;
         private bool unsavedChanges = false;
 
         public WinFormsStatusBarCtrl statusBarCtrl;
@@ -49,17 +48,15 @@ namespace MindMate.Controller
 
 		#region Launch MindMate application
         
-        public MainForm LaunchMindMate()
+        public void LaunchMindMate(IMainForm mainForm)
         {
+            this.mainForm = mainForm;
             MetaModel.MetaModel.Initialize();
             schedular = new TaskSchedular.TaskSchedular();
-            mainForm = new MainForm();
             pluginManager = new Plugins.PluginManager(this);
             pluginManager.Initialize();
             mainForm.Load += mainForm_Load;
             mainForm.Shown += mainForm_AfterReady;
-
-            return mainForm;
         }
 
         void mainForm_Load(object sender, EventArgs e)
@@ -102,9 +99,8 @@ namespace MindMate.Controller
 
             pluginManager.InitializeSideBarWindow(mainForm.SideBarTabs);
             
-            mainMenuCtrl = new MainMenuCtrl(mainForm, mapCtrl, this);
-            pluginManager.InitializeMainMenu(mainMenuCtrl);
-            statusBarCtrl = new WinFormsStatusBarCtrl(mainForm.statusStrip1);
+            pluginManager.InitializeMainMenu(mainForm);
+            statusBarCtrl = new WinFormsStatusBarCtrl(mainForm.StatusBar);
             statusBarCtrl.Register(tree);
 
             UpdateTitleBar();
@@ -406,7 +402,7 @@ namespace MindMate.Controller
             unsavedChanges = false;
             UpdateTitleBar();
             MetaModel.MetaModel.Instance.RecentFiles.Add(fileName);
-            mainMenuCtrl.RefreshRecentFilesMenuItems();
+            mainForm.RefreshRecentFilesMenuItems();
         }
 
         private void RegisterForMapChangedNotification()
@@ -463,7 +459,7 @@ namespace MindMate.Controller
             unsavedChanges = false;
             UpdateTitleBar();
             MetaModel.MetaModel.Instance.RecentFiles.Add(fileName);
-            mainMenuCtrl.RefreshRecentFilesMenuItems();
+            mainForm.RefreshRecentFilesMenuItems();
         }
 
         #endregion Save Map

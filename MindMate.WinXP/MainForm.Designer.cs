@@ -1,4 +1,4 @@
-﻿namespace MindMate.View
+﻿namespace MindMate.WinXP
 {
     partial class MainForm
     {
@@ -30,7 +30,7 @@
         {
             this.toolStrip1 = new Toolbar();
             this.menuStrip = new MainMenu();            
-            this.statusStrip1 = new StatusBar();
+            this.statusStrip1 = new View.StatusBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
@@ -73,7 +73,7 @@
         #endregion
 
         private MainMenu menuStrip;
-        public StatusBar statusStrip1;
+        public View.StatusBar statusStrip1;
         internal System.Windows.Forms.SplitContainer splitContainer1;
         private Toolbar toolStrip1;
     }

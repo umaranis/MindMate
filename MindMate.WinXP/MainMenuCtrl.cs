@@ -9,23 +9,23 @@ using System.Linq;
 using System.Text;
 using MindMate.View;
 using System.Windows.Forms;
+using MindMate.Controller;
 
-namespace MindMate.Controller
+namespace MindMate.WinXP
 {
     /// <summary>
     /// Controller for Main Menu.
     /// Manages state of Menu Items and passes the events to other controllers (event handlers don't contain any business logic).
     /// </summary>
-    class MainMenuCtrl
+    public class MainMenuCtrl
     {
         public MainForm form;
-        public MapCtrl mapCtrl;
+        public MapCtrl mapCtrl { get { return mainCtrl.mapCtrl; } }
         private MainCtrl mainCtrl; 
 
-        public MainMenuCtrl(MainForm f, MapCtrl c, MainCtrl mainCtrl)
+        public MainMenuCtrl(MainForm f, MainCtrl mainCtrl)
         {
             form = f;
-            mapCtrl = c;
             this.mainCtrl = mainCtrl;
 
             form.MainMenu.mSelectIcon.Click += mSelectIcon_Click;

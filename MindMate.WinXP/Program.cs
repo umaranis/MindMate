@@ -1,16 +1,11 @@
-﻿/* Author: Syed Umar Anis (mail@umaranis.com)                    
- * Copyright (c) 2014 Syed Umar Anis                             
- * This software is licensed under MIT (see LICENSE.txt)    
- */
-
+﻿using MindMate.Controller;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using MindMate.MetaModel;
-using MindMate.View;
-using MindMate.Controller;
 
-namespace MindMate
+namespace MindMate.WinXP
 {
     static class Program
     {
@@ -19,16 +14,20 @@ namespace MindMate
         /// </summary>
         [STAThread]
         static void Main()
-        {            
+        {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var traceLog = new System.Diagnostics.TextWriterTraceListener("MindMate_Trace.log");
             System.Diagnostics.Trace.Listeners.Add(traceLog);
             System.Diagnostics.Trace.AutoFlush = true;
             //MyWebMind.Debug.IconListCreator.GenerateIconXML();
-            Application.Run(new MainCtrl().LaunchMindMate());
+            MainForm form = new MainForm();
+            MainCtrl mainCtrl = new MainCtrl();
+            mainCtrl.LaunchMindMate(form);
+            MainMenuCtrl mainMenuCtrl = new MainMenuCtrl(form, mainCtrl);
+            form.MainMenuCtrl = mainMenuCtrl;
+            Application.Run(form);
             traceLog.Close();
         }
-
     }
 }

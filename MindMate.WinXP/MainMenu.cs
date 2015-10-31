@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MindMate.View
+namespace MindMate.WinXP
 {
     public class MainMenu : MenuStrip
     {

@@ -5,13 +5,14 @@
 
 using System;
 using System.Windows.Forms;
+using MindMate.Plugins;
 using MindMate.View.NoteEditing;
 
-namespace MindMate.View
+namespace MindMate.WinXP
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, View.IMainForm
     {
-        private MapControls.MapViewPanel mapViewPanel;
+        private View.MapControls.MapViewPanel mapViewPanel;
                 
         public MainForm()
         {
@@ -49,6 +50,8 @@ namespace MindMate.View
         {
             get { return sideBarTabs; }
         }
+
+        public View.StatusBar StatusBar { get { return this.statusStrip1; } }
 
         private Control focusedControl;
 
@@ -96,7 +99,15 @@ namespace MindMate.View
             mapViewPanel.GotFocus += (sender, e) => focusedControl = this.mapViewPanel;
         }
 
-        
+        public MainMenuCtrl MainMenuCtrl { get; set; }
+        public void InsertMenuItems(MainMenuItem[] menuItems)
+        {
+            MainMenuCtrl.InsertMenuItems(menuItems);
+        }
 
+        public void RefreshRecentFilesMenuItems()
+        {
+            MainMenuCtrl.RefreshRecentFilesMenuItems();
+        }
     }
 }

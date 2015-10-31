@@ -6,7 +6,7 @@
     <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{5940EE6D-1EF0-4745-9983-BA0F9B9FD5CD}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MindMate</RootNamespace>
     <AssemblyName>MindMate</AssemblyName>
@@ -51,6 +51,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CustomFontDialog, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -94,7 +97,6 @@
     <Compile Include="Model\ClipboardManager.cs" />
     <Compile Include="Controller\ContextMenuCtrl.cs" />
     <Compile Include="Controller\IMainCtrl.cs" />
-    <Compile Include="Controller\MainMenuCtrl.cs" />
     <Compile Include="Controller\MainCtrl.cs" />
     <Compile Include="Controller\MapViewKeyEventHandler.cs" />
     <Compile Include="Controller\WinFormsStatusBarCtrl.cs" />
@@ -253,15 +255,7 @@
       <DependentUpon>IconSelectorExt.cs</DependentUpon>
     </Compile>
     <Compile Include="MetaModel\ISystemIcon.cs" />
-    <Compile Include="View\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\MainMenu.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="View\IMainForm.cs" />
     <Compile Include="View\MapControls\Drawing\MapPainter.cs" />
     <Compile Include="Model\SelectedNodes.cs" />
     <Compile Include="View\MapControls\Drawing\TextRenderer.cs" />
@@ -282,9 +276,6 @@
     <Compile Include="View\MapControls\IconView.cs" />
     <Compile Include="Serialization\IconHandler.cs" />
     <Compile Include="View\StatusBar.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="View\Toolbar.cs">
       <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="Plugins\Tasks\Calender\MindMateCalender.resx">
@@ -314,7 +305,6 @@
       <DependentUpon>MultiLineNodeEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="View\MapControls\NodeView.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\MapControls\TextCursorPosition.cs" />
     <Compile Include="View\NoteEditing\Interop.cs" />
@@ -347,16 +337,12 @@
       <DependentUpon>IconSelectorExt.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="View\MapControls\MapViewPanel.resx">
       <DependentUpon>MapViewPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
