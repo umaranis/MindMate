@@ -16,7 +16,10 @@ namespace MindMate.Win7
                 
         public MainForm()
         {
+            Ribbon = new RibbonLib.Ribbon();
+            Ribbon.ResourceName = "MindMate.Win7.View.Ribbon.RibbonMarkup.ribbon";
             InitializeComponent();
+            this.Controls.Add(Ribbon);
             SetupSideBar();
 
             notesEditor.GotFocus += (a, b) => this.focusedControl = notesEditor; 
@@ -27,6 +30,8 @@ namespace MindMate.Win7
             // changing side bar tab gives focus away to tab control header, below event focuses relevant control again
             SideBarTabs.SelectedIndexChanged += SideBarTabs_SelectedIndexChanged;
         }
+
+        public RibbonLib.Ribbon Ribbon { get; private set; }
 
         private void SideBarTabs_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -95,7 +100,7 @@ namespace MindMate.Win7
             mapViewPanel.MapView.CenterOnForm();
             mapViewPanel.GotFocus += (sender, e) => focusedControl = this.mapViewPanel;
         }
-
+        
         public void InsertMenuItems(MainMenuItem[] menuItems)
         {
             //throw new NotImplementedException();
