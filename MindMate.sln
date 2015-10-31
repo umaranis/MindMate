@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MindMate", "MindMate\MindMa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MindMate.WinXP", "MindMate.WinXP\MindMate.WinXP.csproj", "{0A5B3905-EE9E-41D1-B9C3-A42FE17818F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MindMate.Win7", "MindMate.Win7\MindMate.Win7.csproj", "{E7D630E3-91AB-401D-ABC2-279A9D63D91E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,18 @@ Global
 		{0A5B3905-EE9E-41D1-B9C3-A42FE17818F3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{0A5B3905-EE9E-41D1-B9C3-A42FE17818F3}.Release|x86.ActiveCfg = Release|Any CPU
 		{0A5B3905-EE9E-41D1-B9C3-A42FE17818F3}.Release|x86.Build.0 = Release|Any CPU
+		{E7D630E3-91AB-401D-ABC2-279A9D63D91E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7D630E3-91AB-401D-ABC2-279A9D63D91E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7D630E3-91AB-401D-ABC2-279A9D63D91E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E7D630E3-91AB-401D-ABC2-279A9D63D91E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E7D630E3-91AB-401D-ABC2-279A9D63D91E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E7D630E3-91AB-401D-ABC2-279A9D63D91E}.Debug|x86.Build.0 = Debug|Any CPU
+		{E7D630E3-91AB-401D-ABC2-279A9D63D91E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7D630E3-91AB-401D-ABC2-279A9D63D91E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7D630E3-91AB-401D-ABC2-279A9D63D91E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E7D630E3-91AB-401D-ABC2-279A9D63D91E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E7D630E3-91AB-401D-ABC2-279A9D63D91E}.Release|x86.ActiveCfg = Release|Any CPU
+		{E7D630E3-91AB-401D-ABC2-279A9D63D91E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
