@@ -24,7 +24,7 @@ namespace MindMate.WinXP
             MainForm form = new MainForm();
             MainCtrl mainCtrl = new MainCtrl();
             mainCtrl.LaunchMindMate(form);
-            MainMenuCtrl mainMenuCtrl = new MainMenuCtrl(form, mainCtrl);
+            MainMenuCtrl mainMenuCtrl = new MainMenuCtrl(form.MainMenu, mainCtrl);
             form.MainMenuCtrl = mainMenuCtrl;
             Application.Run(form);
             traceLog.Close();
