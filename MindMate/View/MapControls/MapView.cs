@@ -103,6 +103,8 @@ namespace MindMate.View.MapControls
             this.Canvas.Location = new System.Drawing.Point(0, 0);
             this.Canvas.Size = new System.Drawing.Size(200, 300);
             this.Canvas.TabIndex = 0;
+            this.Canvas.Width = 4096;
+            this.Canvas.Height = 4096;
 
             this.ChangeTree(tree);
 

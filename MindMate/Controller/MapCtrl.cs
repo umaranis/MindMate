@@ -38,10 +38,7 @@ namespace MindMate.Controller
         
         public string MindMateFile;
         
-        private MapTree tree = null;
-
-        const int w = 4096;
-        const int h = 4096;
+        private MapTree tree = null;           
 
         public MapCtrl(MapTree tree, IMainCtrl mainCtrl)
         {
@@ -65,10 +62,7 @@ namespace MindMate.Controller
 
             MapView.Canvas.BackColor = MetaModel.MetaModel.Instance.MapEditorBackColor;
 
-            //mainCtrl.AddMainPanel(this.MapView.Canvas);
-
-            this.MapView.Canvas.Width = w;
-            this.MapView.Canvas.Height = h;
+            //mainCtrl.AddMainPanel(this.MapView.Canvas);              
                         
             MapView.RefreshNodePositions();           
             
