@@ -12,5 +12,12 @@ namespace MindMate.View.Ribbon
         cmdButtonOpen = 1002,
         cmdButtonSave = 1003,
         cmdButtonExit = 1004,
+        cmdTabHome = 2000,
+        cmdNewNode = 2010,
+        cmdNewChildNode = 2011,
+        cmdNewLongNode = 2012,
+        cmdNewNodeAbove = 2013,
+        cmdNewNodeBelow = 2014,
+        cmdNewNodeParent = 2015
     }
 }

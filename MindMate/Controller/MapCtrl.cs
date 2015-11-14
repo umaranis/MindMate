@@ -208,7 +208,7 @@ namespace MindMate.Controller
             }
         }
 
-        public MapNode AppendChildNode(MapNode parent)
+        private MapNode AppendChildNode(MapNode parent)
         {
             MapNode newNode = new MapNode(parent, "");
             if (newNode != null)
@@ -221,6 +221,22 @@ namespace MindMate.Controller
                 this.MapView.SelectedNodes.Add(newNode, false);
             }
             return newNode;
+        }
+
+        /// <summary>
+        /// Adds a multi-line child node
+        /// </summary>
+        public void AppendMultiLineNodeAndEdit()
+        {
+            if (MapView.SelectedNodes.Count == 1)
+            {
+                View.Dialogs.MultiLineNodeEdit frm = new View.Dialogs.MultiLineNodeEdit();
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    MapNode newNode = this.AppendChildNode(MapView.SelectedNodes.First);
+                    newNode.Text = frm.txt.Text;
+                }
+            }
         }
 
         public void AppendSiblingNodeAndEdit()
@@ -237,7 +253,7 @@ namespace MindMate.Controller
             }
         }
 
-        public MapNode AppendSiblingNode(MapNode node)
+        private MapNode AppendSiblingNode(MapNode node)
         {
             if (node.Pos == NodePosition.Root)
             {
@@ -264,7 +280,7 @@ namespace MindMate.Controller
             }
         }
 
-        public MapNode AppendSiblingAbove(MapNode node)
+        private MapNode AppendSiblingAbove(MapNode node)
         {
             if (node.Pos == NodePosition.Root)
             {
@@ -275,6 +291,29 @@ namespace MindMate.Controller
             MapView.SelectedNodes.Add(newNode, false);
 
             return newNode;
+        }
+
+        public void InsertParentAndEdit()
+        {
+            if(MapView.SelectedNodes.Count == 1 && MapView.SelectedNodes.First.Pos != NodePosition.Root)
+            {
+                MapView.SuspendLayout();
+                if (tree.SelectedNodes.Count > 1) { tree.ChangeManager.StartBatch("Add Parent Node"); }
+
+                MapNode childNode = MapView.SelectedNodes.First;
+                MapNode currentParent = childNode.Parent;
+                MapNode newParent = new MapNode(currentParent, "", NodePosition.Undefined, null, childNode);
+                childNode.Detach();
+                childNode.AttachTo(newParent);                
+
+                if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
+                MapView.ResumeLayout();
+
+                MapView.RefreshChildNodePositions(tree.RootNode, childNode.Pos);
+
+                newParent.Selected = true;
+                this.BeginCurrentNodeEdit(TextCursorPosition.Undefined);
+            }
         }
 
         #endregion Adding New Node

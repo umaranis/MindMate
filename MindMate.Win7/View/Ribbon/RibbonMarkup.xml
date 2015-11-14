@@ -2,14 +2,10 @@
 <Application xmlns='http://schemas.microsoft.com/windows/2009/Ribbon'>
   <Application.Commands>
 
+    <!--Application Menu-->
     <Command Name="cmdApplicationMenu" Id="1000" />
 
-    <Command Name="cmdButtonNew"
-				 Id="1001"
-				 LabelTitle="&amp;New"
-				 LabelDescription="New Description"
-				 TooltipTitle="New"
-				 TooltipDescription="Create a new image.">
+    <Command Name="cmdButtonNew" Id="1001" LabelTitle="&amp;New" LabelDescription="New Description" TooltipTitle="New" TooltipDescription="Create a new Mind Map">
       <Command.LargeImages>
         <Image>Res/New32.bmp</Image>
       </Command.LargeImages>
@@ -17,12 +13,7 @@
         <Image>Res/New16.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="cmdButtonOpen"
-				 Id="1002"
-				 LabelTitle="Open"
-				 LabelDescription="Open Description"
-				 TooltipTitle="Open"
-				 TooltipDescription="Open an existing image.">
+    <Command Name="cmdButtonOpen" Id="1002" LabelTitle="Open" LabelDescription="Open Description" TooltipTitle="Open" TooltipDescription="Open an existing Mind Map">
       <Command.LargeImages>
         <Image>Res/Open32.bmp</Image>
       </Command.LargeImages>
@@ -30,12 +21,7 @@
         <Image>Res/Open16.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="cmdButtonSave"
-				 Id="1003"
-				 LabelTitle="Save"
-				 LabelDescription="Save Description"
-				 TooltipTitle="Save"
-				 TooltipDescription="Save the current image.">
+    <Command Name="cmdButtonSave" Id="1003" LabelTitle="Save" LabelDescription="Save Description" TooltipTitle="Save" TooltipDescription="Save current map">
       <Command.LargeImages>
         <Image>Res/Save32.bmp</Image>
       </Command.LargeImages>
@@ -43,12 +29,7 @@
         <Image>Res/Save16.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="cmdButtonExit"
-				 Id="1004"
-				 LabelTitle="Exit"
-				 LabelDescription="Exit Description"
-				 TooltipTitle="Exit"
-				 TooltipDescription="Exit application">
+    <Command Name="cmdButtonExit" Id="1004" LabelTitle="Exit" LabelDescription="Exit Description" TooltipTitle="Exit" TooltipDescription="Exit application">
       <Command.LargeImages>
         <Image>Res/Exit32.bmp</Image>
       </Command.LargeImages>
@@ -56,10 +37,48 @@
         <Image>Res/Exit16.bmp</Image>
       </Command.SmallImages>
     </Command>
+
+    <!--Tab: Home-->
+    <Command Name="cmdTabHome"
+        Id="2000"
+        LabelTitle="Home">
+    </Command>
+
+    <!--Group: New Node-->
+    <Command Name="cmdNewNode" Id="2010" LabelTitle="New Node" />
+    <Command Name="cmdNewChildNode" Id="2011" LabelTitle="New Child" TooltipDescription="Create a new child node">
+      <Command.LargeImages>
+        <Image>Res/node-insert-child.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="cmdNewLongNode" Id="2012" LabelTitle="New Long Text" TooltipDescription="Create a multi-line child node">
+      <Command.SmallImages>
+        <Image>Res/align_compact.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdNewNodeAbove" Id="2013" LabelTitle="Node Above" TooltipDescription="Create a sibling node above">
+      <Command.LargeImages>
+        <Image>Res/node-insert-previous.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="cmdNewNodeBelow" Id="2014" LabelTitle="Node below" TooltipDescription="Create a sibling node below">
+      <Command.LargeImages>
+        <Image>Res/node-insert-next.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="cmdNewNodeParent" Id="2015" LabelTitle="New Parent" TooltipDescription="Create a new node between curent node and it's parent">
+      <Command.LargeImages>
+        <Image>Res/node-insert.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+
+
+
   </Application.Commands>
 
   <Application.Views>
     <Ribbon>
+
       <Ribbon.ApplicationMenu>
         <ApplicationMenu CommandName="cmdApplicationMenu">
           <MenuGroup>
@@ -72,6 +91,42 @@
           </MenuGroup>
         </ApplicationMenu>
       </Ribbon.ApplicationMenu>
+
+      <Ribbon.Tabs>
+        <Tab CommandName='cmdTabHome'>
+          <Group CommandName='cmdNewNode'>
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name='button1' />
+                <ControlNameDefinition Name='button2' />
+                <ControlNameDefinition Name='button3' />
+                <ControlNameDefinition Name='button4' />
+              </ControlNameMap>
+              <GroupSizeDefinition Size='Large'>
+                <Row>
+                  <ControlSizeDefinition ControlName='button1' ImageSize='Large' IsLabelVisible='true' />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName='button2' ImageSize='Small' IsLabelVisible='true' />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName='button3' ImageSize='Small' IsLabelVisible='true' />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName='button4' ImageSize='Small' IsLabelVisible='true' />
+                </Row>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <SplitButton>
+              <Button CommandName='cmdNewChildNode' />
+              <Button CommandName='cmdNewLongNode' />
+            </SplitButton>
+            <Button CommandName='cmdNewNodeAbove' />
+            <Button CommandName='cmdNewNodeBelow' />
+            <Button CommandName='cmdNewNodeParent' />
+          </Group>
+        </Tab>
+      </Ribbon.Tabs>
     </Ribbon>
   </Application.Views>
 
