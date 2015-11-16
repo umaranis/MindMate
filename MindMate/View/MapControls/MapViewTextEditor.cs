@@ -213,7 +213,7 @@ namespace MindMate.View.MapControls
             nView.RefreshText(new SizeF(width, nView.RecText.Height));
             
             if (node == node.Tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-            mapView.RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+            mapView.RefreshNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
 
             mapView.Canvas.Invalidate();
         }
@@ -225,7 +225,7 @@ namespace MindMate.View.MapControls
             nView.RefreshText();
 
             if (node == node.Tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-            mapView.RefreshChildNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+            mapView.RefreshNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
 
             mapView.Canvas.Invalidate();
         }

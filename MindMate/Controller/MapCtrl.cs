@@ -64,7 +64,7 @@ namespace MindMate.Controller
 
             //mainCtrl.AddMainPanel(this.MapView.Canvas);              
                         
-            MapView.RefreshNodePositions();           
+            //MapView.RefreshNodePositions();           
             
         }        
 
@@ -72,7 +72,7 @@ namespace MindMate.Controller
         {
             this.tree = tree;
             this.MapView.ChangeTree(tree);
-            MapView.RefreshNodePositions();
+            //MapView.RefreshNodePositions();
             MapView.SelectedNodes.Add(tree.RootNode, false);
         }              
 
@@ -301,9 +301,7 @@ namespace MindMate.Controller
                 childNode.AttachTo(newParent);                
 
                 if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
-                MapView.ResumeLayout();
-
-                MapView.RefreshChildNodePositions(tree.RootNode, childNode.Pos);
+                MapView.ResumeLayout(true, childNode.Pos);
 
                 newParent.Selected = true;
                 this.BeginCurrentNodeEdit(TextCursorPosition.Undefined);
@@ -334,11 +332,15 @@ namespace MindMate.Controller
             }
 
             if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
-            MapView.ResumeLayout();
+            
             if (isDeleted == true)
             {
-                MapView.RefreshChildNodePositions(tree.RootNode, NodePosition.Undefined);
+                MapView.ResumeLayout(true);
                 this.MapView.SelectedNodes.Add(selNode, false);
+            }
+            else
+            {
+                MapView.ResumeLayout();
             }
         }
                
@@ -952,8 +954,7 @@ namespace MindMate.Controller
                 }                
             }
             if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
-            MapView.ResumeLayout();
-            MapView.RefreshChildNodePositions(tree.RootNode, sideToRefresh);
+            MapView.ResumeLayout(true, sideToRefresh);
         }
 
 
@@ -981,8 +982,7 @@ namespace MindMate.Controller
                     ClipboardManager.Paste(pasteLocation);
                     if (pasteLocation.Folded) pasteLocation.Folded = false;
                     tree.ChangeManager.EndBatch();
-                    MapView.ResumeLayout();
-                    MapView.RefreshChildNodePositions(tree.RootNode, pasteLocation.Pos);
+                    MapView.ResumeLayout(true, pasteLocation.Pos);
                 }
             }
             else // if multiple nodes are selected
@@ -1026,8 +1026,7 @@ namespace MindMate.Controller
                 }
                 if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
 
-                MapView.ResumeLayout();
-                MapView.RefreshChildNodePositions(tree.RootNode, NodePosition.Undefined);
+                MapView.ResumeLayout(true);
                 this.MapView.SelectedNodes.Add(selNode, false);
             }
         }
@@ -1063,9 +1062,7 @@ namespace MindMate.Controller
 
             if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
 
-            MapView.ResumeLayout();
-            MapView.RefreshChildNodePositions(tree.RootNode, NodePosition.Undefined);
-            
+            MapView.ResumeLayout(true);            
         }         
 
         public void SetMapViewBackColor(Color color)
