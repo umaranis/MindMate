@@ -22,8 +22,14 @@ namespace MindMate.View.Ribbon
         private RibbonButton _btnNewChildNode;
         private RibbonButton _btnNewLongNode;
         private RibbonButton _btnNewNodeAbove;
+
         private RibbonButton _btnNewNodeBelow;
         private RibbonButton _btnNewParent;
+
+        private RibbonGroup _groupEdit;
+        private RibbonButton _btnEditText;
+        private RibbonButton _btnEditLong;
+        private RibbonButton _btnDeleteNode;
 
         public Ribbon(RibbonLib.Ribbon ribbon, Controller.MainCtrl mainCtrl)
         {
@@ -57,6 +63,16 @@ namespace MindMate.View.Ribbon
             _btnNewNodeAbove.ExecuteEvent += _btnNewNodeAbove_ExecuteEvent;
             _btnNewNodeBelow.ExecuteEvent += _btnNewNodeBelow_ExecuteEvent;
             _btnNewParent.ExecuteEvent += _btnNewParent_ExecuteEvent;
+
+            //Home Tab: Edit Group
+            _groupEdit = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.cmdEdit);
+            _btnEditText = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.cmdEditText);
+            _btnEditLong = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.cmdEditLong);
+            _btnDeleteNode = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.cmdDeleteNode);
+
+            _btnEditText.ExecuteEvent += _btnEditText_ExecuteEvent;
+            _btnEditLong.ExecuteEvent += _btnEditLong_ExecuteEvent;
+            _btnDeleteNode.ExecuteEvent += _btnDeleteNode_ExecuteEvent;
 
         }
         private void _buttonSave_ExecuteEvent(object sender, ExecuteEventArgs e)
@@ -104,6 +120,21 @@ namespace MindMate.View.Ribbon
         private void _btnNewParent_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.mapCtrl.InsertParentAndEdit();
+        }
+
+        private void _btnEditText_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.mapCtrl.BeginCurrentNodeEdit(MapControls.TextCursorPosition.Undefined);
+        }
+
+        private void _btnEditLong_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.mapCtrl.MultiLineNodeEdit();
+        }
+
+        private void _btnDeleteNode_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.mapCtrl.DeleteSelectedNodes();
         }
 
         #endregion Home Tab

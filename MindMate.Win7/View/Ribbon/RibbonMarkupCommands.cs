@@ -18,6 +18,10 @@ namespace MindMate.View.Ribbon
         cmdNewLongNode = 2012,
         cmdNewNodeAbove = 2013,
         cmdNewNodeBelow = 2014,
-        cmdNewNodeParent = 2015
+        cmdNewNodeParent = 2015,
+        cmdEdit = 2030,
+        cmdEditText = 2031,
+        cmdEditLong = 2032,
+        cmdDeleteNode = 2033,
     }
 }

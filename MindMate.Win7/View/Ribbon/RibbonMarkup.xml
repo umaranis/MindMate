@@ -72,7 +72,24 @@
       </Command.LargeImages>
     </Command>
 
-
+    <!--Group: Edit-->
+    <Command Name="cmdEdit" Id="2030" LabelTitle="Edit"/>
+    <Command Name="cmdEditText" Id="2031" LabelTitle="Edit Text" TooltipDescription="Edit text of the node">
+      <Command.SmallImages>
+        <Image>Res/edit.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdEditLong" Id="2032" LabelTitle="Edit Multi-line" TooltipDescription="Edit text of the node in multi-line editor">
+    <Command.SmallImages>
+        <Image>Res/align_compact.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="cmdDeleteNode" Id="2033" LabelTitle="Delete" TooltipDescription="Edit selected node(s)">     
+      <Command.SmallImages>
+        <Image>Res/cross-script.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    
 
   </Application.Commands>
 
@@ -124,6 +141,11 @@
             <Button CommandName='cmdNewNodeAbove' />
             <Button CommandName='cmdNewNodeBelow' />
             <Button CommandName='cmdNewNodeParent' />
+          </Group>
+          <Group CommandName='cmdEdit'>
+            <Button CommandName='cmdEditText' />
+            <Button CommandName='cmdEditLong' />
+            <Button CommandName='cmdDeleteNode' />
           </Group>
         </Tab>
       </Ribbon.Tabs>
