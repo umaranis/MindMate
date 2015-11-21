@@ -979,8 +979,7 @@ namespace MindMate.Controller
                     MapView.SuspendLayout();
                     tree.ChangeManager.StartBatch("Paste");
                     MapNode pasteLocation = tree.SelectedNodes[0];
-                    ClipboardManager.Paste(pasteLocation);
-                    if (pasteLocation.Folded) pasteLocation.Folded = false;
+                    ClipboardManager.Paste(pasteLocation);                    
                     tree.ChangeManager.EndBatch();
                     MapView.ResumeLayout(true, pasteLocation.Pos);
                 }
@@ -1008,22 +1007,14 @@ namespace MindMate.Controller
                     "Overwrite Clipboard Data!", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation,
                     MessageBoxDefaultButton.Button2) == DialogResult.No)
                     return;
-
-                // 1) copy to system clipboard as text
-                ClipboardManager.Copy(tree.SelectedNodes);
-
-                // 2) detach nodes from tree
+                                                
                 MapView.SuspendLayout();
                 var selNode = this.MapView.Tree.GetClosestUnselectedNode(MapView.SelectedNodes.Last);
 
                 if (MapView.SelectedNodes.Count > 1) { tree.ChangeManager.StartBatch("Cut Nodes"); }
-                for (var i = MapView.SelectedNodes.Count - 1; i >= 0; i--)
-                {
-                    MapNode node = this.MapView.SelectedNodes[i];
 
-                    node.Detach();
-                    Debug.Assert(node.Detached, "Detached property is false for node just detached.");
-                }
+                ClipboardManager.Cut(tree.SelectedNodes);
+
                 if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
 
                 MapView.ResumeLayout(true);

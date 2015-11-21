@@ -591,7 +591,9 @@ namespace MindMate.Model
 
 
         }
-
+        /// <summary>
+        /// Post Conditions: Detached == true && Selected == false
+        /// </summary>
         public void Detach()
         {
             if (Parent != null)

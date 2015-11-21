@@ -43,29 +43,51 @@ namespace MindMate.Model
 
                 StringBuilder str = new StringBuilder();
                 MapTextSerializer serializer = new MapTextSerializer();
-                if (nodes.Count > 1)
+                
+                bool[] exclude = nodes.ExcludeNodesAlreadyPartOfHierarchy();
+                for (int i = 0; i < nodes.Count; i++ )
                 {
-                    bool[] exclude = nodes.ExcludeNodesAlreadyPartOfHierarchy();
-                    for (int i = 0; i < nodes.Count; i++ )
+                    if (!exclude[i])
                     {
-                        if (!exclude[i])
-                        {
-                            internalClipboard.Add(nodes[i]);
-                            serializer.Serialize(nodes[i], str);
-                        }
+                        internalClipboard.Add(nodes[i].Clone());
+                        serializer.Serialize(nodes[i], str);
                     }
-
-                }
-                else if (nodes.Count == 1)
-                {
-                    internalClipboard.Add(nodes[0]);
-                    serializer.Serialize(nodes[0], str);
-                }
-
+                }                
+                
                 var cbData = new MindMateTextDataObject();
                 cbData.SetData(str.ToString());
                 Clipboard.SetDataObject(cbData);
                 //Clipboard.SetText(str.ToString(), TextDataFormat.Text);
+            }
+        }
+
+        public static void Cut(SelectedNodes nodes)
+        {
+            if(nodes.Count > 0)
+            {
+                internalClipboard.Clear();
+
+                StringBuilder str = new StringBuilder();
+                MapTextSerializer serializer = new MapTextSerializer();
+
+                bool[] exclude = nodes.ExcludeNodesAlreadyPartOfHierarchy();
+                for (int i = 0; i < nodes.Count; i++)
+                {
+                    if(!exclude[i])
+                    {
+                        internalClipboard.Add(nodes[i]);
+                    }
+                }
+                internalClipboard.ForEach(n =>
+                    {
+                        serializer.Serialize(n, str);
+                        n.Detach();
+                    });
+                
+
+                var cbData = new MindMateTextDataObject();
+                cbData.SetData(str.ToString());
+                Clipboard.SetDataObject(cbData);
             }
         }
 
@@ -105,6 +127,8 @@ namespace MindMate.Model
             {
                 PasteFileDropList(pasteLocation);
             }
+
+            if(pasteLocation.Folded) { pasteLocation.Folded = false; }
         }
 
         private static void PasteFileDropList(MapNode pasteLocation)
