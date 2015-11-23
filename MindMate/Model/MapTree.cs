@@ -227,6 +227,9 @@ namespace MindMate.Model
             get { return ChangeManager != null; }
         }
 
+        /// <summary>
+        /// Change Manager is off by default
+        /// </summary>
         public void TurnOnChangeManager()
         {
             if(!ChangeManagerOn)

@@ -332,13 +332,12 @@ namespace MindMate.Model
         #region Constructors
 
         /// <summary>
-        /// Creates root node or detached node
+        /// Creates root node
         /// </summary>
         /// <param name="tree"></param>
         /// <param name="text"></param>
         /// <param name="id"></param>
-        /// <param name="detached">Detached node doesn't have a parent but it is not set as the MapTree.RootNode</param>
-        public MapNode(MapTree tree, string text, string id = null, bool detached = false)
+        public MapNode(MapTree tree, string text, string id = null)
         {
             this.Id = id;
             this.text = text;
@@ -352,15 +351,13 @@ namespace MindMate.Model
 
             // attaching to tree
             this.Tree = tree;
-            if (!detached)
-            {
-                tree.RootNode = this;
-                Tree.FireEvent(this, TreeStructureChange.New);
-            }
+            tree.RootNode = this;
+
+            Tree.FireEvent(this, TreeStructureChange.New);
         }
 
         /// <summary>
-        /// Creates a node. 
+        /// Creates a child node. 
         /// </summary>
         /// <param name="parent">Should not be null</param>
         /// <param name="text"></param>
@@ -402,8 +399,241 @@ namespace MindMate.Model
             return leftNodeCnt < rightNodeCnt ? NodePosition.Left : NodePosition.Right;
         }
 
+        public void AttachTo(MapNode parent, MapNode adjacentToSib = null, bool insertAfterSib = true,
+                    NodePosition pos = NodePosition.Undefined, bool raiseAttachEvent = true)
+        {
+            Debug.Assert(!(adjacentToSib == null && insertAfterSib == false)); 
+
+            this.Parent = parent;
+            this.Tree = parent.Tree;
+
+            // setting NodePosition
+            if (pos != NodePosition.Undefined) this.pos = pos;
+            else if (parent == null) this.pos = NodePosition.Root;
+            else if (adjacentToSib != null) this.pos = adjacentToSib.Pos;
+            else if (parent.Pos == NodePosition.Root) this.pos = parent.GetNodePositionToBalance();
+            else this.pos = parent.Pos;
+
+            // get the last sib if appendAfter is not given
+            if (adjacentToSib == null) adjacentToSib = parent.GetLastChild(this.Pos);
+
+            // if last child is not available on the given pos, then try on the other side
+            if (adjacentToSib == null)
+            {
+                if (this.Pos == NodePosition.Left)
+                {
+                    adjacentToSib = parent.LastChild;
+                    insertAfterSib = true;
+                }
+                else
+                {
+                    adjacentToSib = parent.FirstChild;
+                    insertAfterSib = false;
+                }
+            }
+
+            // link with siblings
+            if (adjacentToSib != null && insertAfterSib == true)
+            {
+                this.Previous = adjacentToSib;
+                this.Next = adjacentToSib.Next;
+                adjacentToSib.Next = this;
+                if (this.Next != null) this.Next.Previous = this;
+            }
+            else if(adjacentToSib != null && insertAfterSib == false)
+            {
+                this.Previous = adjacentToSib.Previous;
+                this.Next = adjacentToSib;
+                if(this.Previous != null) this.Previous.Next = this;
+                adjacentToSib.Previous = this;
+            }
+            else
+            {
+                this.Previous = null;
+                this.Next = null;
+            }
+
+            // link with parent
+            if (this.Previous == null) parent.FirstChild = this;
+            if (this.Next == null) parent.LastChild = this;
+
+            if (this.HasChildren)
+                ForEach(n => n.pos = this.pos);
+
+            parent.modified = DateTime.Now;
+            if(raiseAttachEvent)    Tree.FireEvent(this, TreeStructureChange.Attached);
+
+
+        }
         #endregion
 
+
+        #region Detached Node
+
+        /// <summary>
+        /// Post Conditions: Detached == true && Selected == false
+        /// </summary>
+        public void Detach()
+        {
+            if (Parent != null)
+            {
+                Selected = false;
+
+                if (Parent.FirstChild == this) Parent.FirstChild = this.Next;
+                if (Parent.LastChild == this) Parent.LastChild = this.Previous;
+
+                if (this.Previous != null)
+                {
+                    this.Previous.Next = this.Next;
+                }
+
+                if (this.Next != null)
+                {
+                    this.Next.Previous = this.Previous;
+                }
+
+                Parent.modified = DateTime.Now;
+
+                Tree.FireEvent(this, TreeStructureChange.Detached);
+
+            }
+        }
+
+        /// <summary>
+        /// No operation should be performed on detached node or its decendents except restoring them.
+        /// Descendents of a detached node are still return Detached as false.
+        /// </summary>
+        public bool Detached
+        {
+            get
+            {
+                return (Previous != null && Previous.Next != this) ||
+                        (Next != null && Next.Previous != this) ||
+                        Parent != null && !Parent.ChildNodes.Contains(this);
+            }
+        }
+
+        /// <summary>
+        /// Create a detached node. Detached node represents deleted/cut/copied nodes. They should not be modified in any way, should only be restored.
+        /// 
+        /// Modifying them will generate events which is not expected.
+        /// </summary>
+        /// <returns></returns>
+        public MapNode CloneAsDetached()
+        {
+            var newNode = new MapNode(Tree);
+            newNode.pos = this.Pos;
+            this.CopyNodePropertiesTo(newNode);
+            
+            foreach (MapNode childNode in this.ChildNodes)
+            {
+                childNode.CloneAsDetached(newNode);
+            }
+
+            return newNode;
+        }
+
+        /// <summary>
+        /// Copy this node with descendents and attach it to the location (parameter)
+        /// </summary>
+        /// <param name="location"></param>
+        /// <param name="includeDescendents"></param>
+        private void CloneAsDetached(MapNode location)
+        {
+            var node = new MapNode(location.Tree);
+
+            // attaching to tree
+            node.AttachTo(location, null, true, location.pos, false);
+            this.CopyNodePropertiesTo(node);
+
+            foreach (MapNode childNode in this.ChildNodes)
+            {
+                childNode.CloneAsDetached(node);
+            }
+        }
+
+        private MapNode(MapTree tree)
+        {
+            this.Created = DateTime.Now;
+            this.modified = DateTime.Now;
+            this.richContentType = NodeRichContentType.NONE;
+            this.Icons = new IconList(this);
+
+            this.Tree = tree;
+        }
+                
+        /// <summary>
+        /// Copy all current node properties on to the node passed as parameter. No property change notifications are triggered.
+        /// </summary>
+        /// <param name="node"></param>
+        private void CopyNodePropertiesTo(MapNode node)
+        {
+            // node.Id, node.Created, node.Modified, node.Pos -- shouldn't be copied
+            node.text = this.text;
+            node.folded = this.folded;
+                       
+            node.link = this.link;
+
+            node.richContentText = this.richContentText;
+            node.richContentType = this.richContentType;
+
+            this.CopyAttributesTo(node);
+            this.CopyIconsTo(node);
+            this.CopyFormattingTo(node);
+        }
+
+        /// <summary>
+        /// No property change notifications are triggered
+        /// </summary>
+        /// <param name="node"></param>
+        private void CopyFormattingTo(MapNode node)
+        {
+            node.backColor = this.backColor;
+            node.bold = this.bold;
+            node.color = this.color;
+            node.fontName = this.fontName;
+            node.fontSize = this.fontSize;
+            node.italic = this.italic;
+            node.lineColor = this.lineColor;
+            node.linePattern = this.linePattern;
+            node.lineWidth = this.lineWidth;
+            node.shape = this.shape;
+        }
+
+        /// <summary>
+        /// No property change notiifcations are triggered
+        /// </summary>
+        /// <param name="node"></param>
+        private void CopyAttributesTo(MapNode node)
+        {
+            if (this.attributeList != null)
+            {
+                node.EnsureAttributeListCreated();
+                foreach (Attribute att in attributeList)
+                {
+                    node.attributeList.Add(att);
+                }
+            }
+            else if (node.attributeList != null)
+            {
+                node.attributeList.Clear();
+            }
+        }
+
+        /// <summary>
+        /// No property change notifications are generated
+        /// </summary>
+        /// <param name="node"></param>
+        private void CopyIconsTo(MapNode node)
+        {
+            node.Icons.Clear();
+            foreach (string icon in this.Icons)
+            {
+                node.Icons.Add(icon);
+            }
+        }
+
+        #endregion Detached Node
 
         public MapNode GetFirstSib()
         {
@@ -524,115 +754,6 @@ namespace MindMate.Model
             modified = DateTime.Now;
             Tree.FireEvent(this, pos == NodePosition.Left? TreeStructureChange.MovedLeft : TreeStructureChange.MovedRight);
         }
-
-        public void AttachTo(MapNode parent, MapNode adjacentToSib = null, bool insertAfterSib = true, 
-            NodePosition pos = NodePosition.Undefined, bool raiseAttachEvent = true)
-        {
-            Debug.Assert(!(adjacentToSib == null && insertAfterSib == false)); 
-
-            this.Parent = parent;
-            this.Tree = parent.Tree;
-
-            // setting NodePosition
-            if (pos != NodePosition.Undefined) this.pos = pos;
-            else if (parent == null) this.pos = NodePosition.Root;
-            else if (adjacentToSib != null) this.pos = adjacentToSib.Pos;
-            else if (parent.Pos == NodePosition.Root) this.pos = parent.GetNodePositionToBalance();
-            else this.pos = parent.Pos;
-
-            // get the last sib if appendAfter is not given
-            if (adjacentToSib == null) adjacentToSib = parent.GetLastChild(this.Pos);
-
-            // if last child is not available on the given pos, then try on the other side
-            if (adjacentToSib == null)
-            {
-                if (this.Pos == NodePosition.Left)
-                {
-                    adjacentToSib = parent.LastChild;
-                    insertAfterSib = true;
-                }
-                else
-                {
-                    adjacentToSib = parent.FirstChild;
-                    insertAfterSib = false;
-                }
-            }
-
-            // link with siblings
-            if (adjacentToSib != null && insertAfterSib == true)
-            {
-                this.Previous = adjacentToSib;
-                this.Next = adjacentToSib.Next;
-                adjacentToSib.Next = this;
-                if (this.Next != null) this.Next.Previous = this;
-            }
-            else if(adjacentToSib != null && insertAfterSib == false)
-            {
-                this.Previous = adjacentToSib.Previous;
-                this.Next = adjacentToSib;
-                if(this.Previous != null) this.Previous.Next = this;
-                adjacentToSib.Previous = this;
-            }
-            else
-            {
-                this.Previous = null;
-                this.Next = null;
-            }
-
-            // link with parent
-            if (this.Previous == null) parent.FirstChild = this;
-            if (this.Next == null) parent.LastChild = this;
-
-            if (this.HasChildren)
-                ForEach(n => n.pos = this.pos);
-
-            parent.modified = DateTime.Now;
-            if(raiseAttachEvent)    Tree.FireEvent(this, TreeStructureChange.Attached);
-
-
-        }
-        /// <summary>
-        /// Post Conditions: Detached == true && Selected == false
-        /// </summary>
-        public void Detach()
-        {
-            if (Parent != null)
-            {
-                Selected = false;
-
-                if (Parent.FirstChild == this) Parent.FirstChild = this.Next;
-                if (Parent.LastChild == this) Parent.LastChild = this.Previous;
-
-                if (this.Previous != null)
-                {
-                    this.Previous.Next = this.Next;
-                }
-
-                if (this.Next != null)
-                {
-                    this.Next.Previous = this.Previous;
-                }                
-
-                Parent.modified = DateTime.Now;              
-
-                Tree.FireEvent(this, TreeStructureChange.Detached);
-
-            }
-        }
-
-        /// <summary>
-        /// Descendents of a detached node are still considered attached
-        /// </summary>
-        public bool Detached
-        {
-            get
-            {
-                return  (Previous != null && Previous.Next != this) ||
-                        (Next != null && Next.Previous != this) ||
-                        Parent != null && !Parent.ChildNodes.Contains(this);
-            }
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -907,88 +1028,6 @@ namespace MindMate.Model
             }
             return depth;
         }
-
-        /// <summary>
-        /// Copy node properties on to the node passed as parameter
-        /// </summary>
-        /// <param name="node"></param>
-        public void CopyNodePropertiesTo(MapNode node)
-        {
-            node.backColor = this.backColor;
-            node.bold = this.bold;
-            node.color = this.color;
-            
-            if(this.attributeList != null)
-            {
-                node.EnsureAttributeListCreated();
-                foreach (Attribute att in attributeList)
-                {
-                    node.attributeList.Add(att);
-                }
-            }
-            else if(node.attributeList != null)
-            {
-                node.attributeList.Clear();
-            }
-
-            node.folded = this.folded;
-            node.fontName = this.fontName;
-            node.fontSize = this.fontSize;
-
-            node.Icons.Clear();
-            foreach(string icon in this.Icons)
-            {
-                node.Icons.Add(icon);
-            }
-            
-            // node.Id, node.Created, node.Modified, node.Pos -- shouldn't be copied
-            
-            node.italic = this.italic;
-            node.lineColor = this.lineColor;
-            node.linePattern = this.linePattern;
-            node.lineWidth = this.lineWidth;
-            node.link = this.link;
-            node.richContentText = this.richContentText;
-            node.richContentType = this.richContentType;
-            node.shape = this.shape;
-            node.text = this.text;            
-        }
-
-        /// <summary>
-        /// Copy this node with descendents and attach it to the location (parameter)
-        /// </summary>
-        /// <param name="location"></param>
-        /// <param name="includeDescendents"></param>
-        public void CloneTo(MapNode location, bool includeDescendents = true)
-        {
-            var newNode = new MapNode(location, null);
-            this.CopyNodePropertiesTo(newNode);
-
-            if (includeDescendents)
-            {
-                foreach (MapNode childNode in this.ChildNodes)
-                {
-                    childNode.CloneTo(newNode);
-                }
-            }
-        }
-
-        public MapNode Clone(bool includeDescendents = true)
-        {
-            var newNode = new MapNode(Tree, null, null, true);
-            this.CopyNodePropertiesTo(newNode);
-
-            if (includeDescendents)
-            {
-                foreach (MapNode childNode in this.ChildNodes)
-                {
-                    childNode.CloneTo(newNode);
-                }
-            }
-
-            return newNode;
-        }
-
         public bool IsEmpty()
         {
             if

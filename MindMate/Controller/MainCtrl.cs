@@ -263,12 +263,12 @@ namespace MindMate.Controller
                 mapCtrl.Cut();
         }        
 
-        public void Paste()
+        public void Paste(bool asText = false)
         {
             if (mainForm.IsNoteEditorActive)
                 mainForm.NoteEditor.Paste();
             else
-                mapCtrl.Paste();
+                mapCtrl.Paste(asText);
         }
 
         public void Undo()

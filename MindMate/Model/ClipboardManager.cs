@@ -14,6 +14,7 @@ namespace MindMate.Model
 
         public const string MindMateTextFormat = "MindMateText";
 
+        private static bool hasCutNode;
         /// <summary>
         /// Clipboard contains cut node (detached node)
         /// </summary>
@@ -21,7 +22,7 @@ namespace MindMate.Model
         {
             get
             {
-                return internalClipboard.Count > 0 && internalClipboard[0].Detached;
+                return internalClipboard.Count > 0 && hasCutNode;
             }
         }
 
@@ -49,7 +50,7 @@ namespace MindMate.Model
                 {
                     if (!exclude[i])
                     {
-                        internalClipboard.Add(nodes[i].Clone());
+                        internalClipboard.Add(nodes[i].CloneAsDetached());
                         serializer.Serialize(nodes[i], str);
                     }
                 }                
@@ -58,6 +59,8 @@ namespace MindMate.Model
                 cbData.SetData(str.ToString());
                 Clipboard.SetDataObject(cbData);
                 //Clipboard.SetText(str.ToString(), TextDataFormat.Text);
+
+                hasCutNode = false;
             }
         }
 
@@ -88,22 +91,24 @@ namespace MindMate.Model
                 var cbData = new MindMateTextDataObject();
                 cbData.SetData(str.ToString());
                 Clipboard.SetDataObject(cbData);
+
+                hasCutNode = true;
             }
         }
 
-        public static void Paste(MapNode pasteLocation)
+        public static void Paste(MapNode pasteLocation, bool asText = false)
         {
             if(Clipboard.ContainsData(MindMateTextFormat))
             {
                 foreach(MapNode node in internalClipboard)
                 {
-                    if (node.Detached)                                  // cut & paste (detached nodes are attached)
+                    if(asText)
                     {
-                        node.AttachTo(pasteLocation);
+                        new MapNode(pasteLocation, node.Text);
                     }
-                    else                                                // copy & paste (nodes are copied)   
+                    else
                     {
-                        node.Clone().AttachTo(pasteLocation);
+                        node.CloneAsDetached().AttachTo(pasteLocation);
                     }
                 }
             }
@@ -115,28 +120,38 @@ namespace MindMate.Model
                 serializer.Deserialize(Clipboard.GetText(TextDataFormat.Text), pasteLocation, 
                     (parent, text) =>
                     {
-                        string tempLink = link;
-                        if (text.StartsWith("http://", StringComparison.OrdinalIgnoreCase)
-                            || text.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
-                            tempLink = text;
-                        return new MapNode(parent, text) { Link = tempLink };
+                        if (asText)
+                        {
+                            return new MapNode(parent, text);
+                        }
+                        else
+                        {
+                            string tempLink = link;
+                            if (text.StartsWith("http://", StringComparison.OrdinalIgnoreCase)
+                                || text.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+                                tempLink = text;
+                            return new MapNode(parent, text) { Link = tempLink };
+                        }
                     });
 
             }
             else if(Clipboard.ContainsFileDropList())
             {
-                PasteFileDropList(pasteLocation);
+                PasteFileDropList(pasteLocation, asText);
             }
+
+            hasCutNode = false;
 
             if(pasteLocation.Folded) { pasteLocation.Folded = false; }
         }
 
-        private static void PasteFileDropList(MapNode pasteLocation)
+        private static void PasteFileDropList(MapNode pasteLocation, bool asText = false)
         {
             var fileList = Clipboard.GetFileDropList();
             foreach(string file in fileList)
             {
-                new MapNode(pasteLocation, file) { Link = file };
+                MapNode n = new MapNode(pasteLocation, file);
+                if (!asText) { n.Link = file; }
             }
         }
 

@@ -966,7 +966,7 @@ namespace MindMate.Controller
                 ClipboardManager.Copy(tree.SelectedNodes);
         }
 
-        public void Paste()
+        public void Paste(bool asText = false)
         {
             if(MapView.NodeTextEditor.IsTextEditing)
             {
@@ -979,7 +979,7 @@ namespace MindMate.Controller
                     MapView.SuspendLayout();
                     tree.ChangeManager.StartBatch("Paste");
                     MapNode pasteLocation = tree.SelectedNodes[0];
-                    ClipboardManager.Paste(pasteLocation);                    
+                    ClipboardManager.Paste(pasteLocation, asText);                    
                     tree.ChangeManager.EndBatch();
                     MapView.ResumeLayout(true, pasteLocation.Pos);
                 }
