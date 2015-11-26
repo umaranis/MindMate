@@ -91,12 +91,7 @@ namespace MindMate.View.MapControls
                     break;
             }
         }
-
-        protected override void OnMouseDown(MouseEventArgs e)
-        {
-            MapView.Canvas.Focus();            
-        }
-
+                
         protected override void OnMouseMove(MouseEventArgs e)
         {
             if (IgnoreNextMouseMove)
@@ -157,15 +152,18 @@ namespace MindMate.View.MapControls
                 }
                 else                
                 {
+                    var args = new NodeMouseEventArgs(e);
+                    args.NodePortion = MapView.GetNodeView(mouseOverNode).GetNodeClickPortion(e.Location);
                     if (e.Button == System.Windows.Forms.MouseButtons.Right)
-                        NodeRightClick(mouseOverNode, new NodeMouseEventArgs(e));
+                        NodeRightClick(mouseOverNode, args);
                     else
-                        NodeClick(mouseOverNode, new NodeMouseEventArgs(e));
+                        NodeClick(mouseOverNode, args);
                 }
-            }           
-                        
+            }
+
+            MapView.Canvas.Focus();
             //base.OnMouseUp(e);            
-            
+
         }        
 
         public Rectangle GetVisibleRectangle()
