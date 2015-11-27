@@ -24,7 +24,8 @@ namespace MindMate.Win7
             MainForm form = new MainForm();
             MainCtrl mainCtrl = new MainCtrl();
             mainCtrl.LaunchMindMate(form);
-            new View.Ribbon.Ribbon(form.Ribbon, mainCtrl);
+            var ribbonHandler = new View.Ribbon.Ribbon(form.Ribbon, mainCtrl);
+            form.Shown += (n, e) => ribbonHandler.RegisterForChange();            
             Application.Run(form);
             traceLog.Close();
         }

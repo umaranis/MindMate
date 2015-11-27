@@ -37,8 +37,9 @@
     <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Ribbon">
-      <HintPath>..\..\..\Ribbon\RibbonLib_v2.6\Ribbon\bin\Debug\Ribbon.dll</HintPath>
+    <Reference Include="Ribbon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Binaries\Ribbon.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -98,6 +99,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Binaries\Ribbon.dll" />
     <Content Include="View\Ribbon\Res\align_compact.bmp" />
     <Content Include="View\Ribbon\Res\cross-script.bmp" />
     <Content Include="View\Ribbon\Res\edit.bmp" />

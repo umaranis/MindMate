@@ -3,9 +3,9 @@
   <Application.Commands>
 
     <!--Application Menu-->
-    <Command Name="cmdApplicationMenu" Id="1000" />
+    <Command Name="ApplicationMenu" Id="1000" />
 
-    <Command Name="cmdButtonNew" Id="1001" LabelTitle="&amp;New" LabelDescription="New Description" TooltipTitle="New" TooltipDescription="Create a new Mind Map">
+    <Command Name="ButtonNew" Id="1001" LabelTitle="&amp;New" LabelDescription="New Description" TooltipTitle="New" TooltipDescription="Create a new Mind Map">
       <Command.LargeImages>
         <Image>Res/New32.bmp</Image>
       </Command.LargeImages>
@@ -13,7 +13,7 @@
         <Image>Res/New16.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="cmdButtonOpen" Id="1002" LabelTitle="Open" LabelDescription="Open Description" TooltipTitle="Open" TooltipDescription="Open an existing Mind Map">
+    <Command Name="ButtonOpen" Id="1002" LabelTitle="Open" LabelDescription="Open Description" TooltipTitle="Open" TooltipDescription="Open an existing Mind Map">
       <Command.LargeImages>
         <Image>Res/Open32.bmp</Image>
       </Command.LargeImages>
@@ -21,7 +21,7 @@
         <Image>Res/Open16.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="cmdButtonSave" Id="1003" LabelTitle="Save" LabelDescription="Save Description" TooltipTitle="Save" TooltipDescription="Save current map">
+    <Command Name="ButtonSave" Id="1003" LabelTitle="Save" LabelDescription="Save Description" TooltipTitle="Save" TooltipDescription="Save current map">
       <Command.LargeImages>
         <Image>Res/Save32.bmp</Image>
       </Command.LargeImages>
@@ -29,7 +29,7 @@
         <Image>Res/Save16.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="cmdButtonExit" Id="1004" LabelTitle="Exit" LabelDescription="Exit Description" TooltipTitle="Exit" TooltipDescription="Exit application">
+    <Command Name="ButtonExit" Id="1004" LabelTitle="Exit" LabelDescription="Exit Description" TooltipTitle="Exit" TooltipDescription="Exit application">
       <Command.LargeImages>
         <Image>Res/Exit32.bmp</Image>
       </Command.LargeImages>
@@ -39,57 +39,89 @@
     </Command>
 
     <!--Tab: Home-->
-    <Command Name="cmdTabHome"
+    <Command Name="TabHome"
         Id="2000"
         LabelTitle="Home">
     </Command>
 
     <!--Group: New Node-->
-    <Command Name="cmdNewNode" Id="2010" LabelTitle="New Node" />
-    <Command Name="cmdNewChildNode" Id="2011" LabelTitle="New Child" TooltipDescription="Create a new child node">
+    <Command Name="NewNode" Id="2010" LabelTitle="New Node" />
+    <Command Name="NewChildNode" Id="2011" LabelTitle="New Child" TooltipDescription="Create a new child node">
       <Command.LargeImages>
         <Image>Res/node-insert-child.bmp</Image>
       </Command.LargeImages>
     </Command>
-    <Command Name="cmdNewLongNode" Id="2012" LabelTitle="New Long Text" TooltipDescription="Create a multi-line child node">
+    <Command Name="NewLongNode" Id="2012" LabelTitle="New Long Text" TooltipDescription="Create a multi-line child node">
       <Command.SmallImages>
         <Image>Res/align_compact.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="cmdNewNodeAbove" Id="2013" LabelTitle="Node Above" TooltipDescription="Create a sibling node above">
+    <Command Name="NewNodeAbove" Id="2013" LabelTitle="Node Above" TooltipDescription="Create a sibling node above">
       <Command.LargeImages>
         <Image>Res/node-insert-previous.bmp</Image>
       </Command.LargeImages>
     </Command>
-    <Command Name="cmdNewNodeBelow" Id="2014" LabelTitle="Node below" TooltipDescription="Create a sibling node below">
+    <Command Name="NewNodeBelow" Id="2014" LabelTitle="Node below" TooltipDescription="Create a sibling node below">
       <Command.LargeImages>
         <Image>Res/node-insert-next.bmp</Image>
       </Command.LargeImages>
     </Command>
-    <Command Name="cmdNewNodeParent" Id="2015" LabelTitle="New Parent" TooltipDescription="Create a new node between curent node and it's parent">
+    <Command Name="NewNodeParent" Id="2015" LabelTitle="New Parent" TooltipDescription="Create a new node between curent node and it's parent">
       <Command.LargeImages>
         <Image>Res/node-insert.bmp</Image>
       </Command.LargeImages>
     </Command>
 
     <!--Group: Edit-->
-    <Command Name="cmdEdit" Id="2030" LabelTitle="Edit"/>
-    <Command Name="cmdEditText" Id="2031" LabelTitle="Edit Text" TooltipDescription="Edit text of the node">
+    <Command Name="GrpEdit" Id="2030" LabelTitle="Edit"/>
+    <Command Name="EditText" Id="2031" LabelTitle="Edit Text" TooltipDescription="Edit text of the node">
       <Command.SmallImages>
         <Image>Res/edit.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="cmdEditLong" Id="2032" LabelTitle="Edit Multi-line" TooltipDescription="Edit text of the node in multi-line editor">
+    <Command Name="EditLong" Id="2032" LabelTitle="Edit Multi-line" TooltipDescription="Edit text of the node in multi-line editor">
     <Command.SmallImages>
         <Image>Res/align_compact.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="cmdDeleteNode" Id="2033" LabelTitle="Delete" TooltipDescription="Edit selected node(s)">     
+    <Command Name="DeleteNode" Id="2033" LabelTitle="Delete" TooltipDescription="Edit selected node(s)">     
       <Command.SmallImages>
         <Image>Res/cross-script.bmp</Image>
       </Command.SmallImages>
     </Command>
-    
+
+    <!--Group: Clipboard-->
+    <Command Name="GrpClipboard" Id="2050" LabelTitle="Clipboard" />
+    <Command Name="Paste" Id="2051" LabelTitle="Paste" >
+      <Command.LargeImages>
+        <Image>Res/page_white_paste.bmp</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="PasteAsText" Id="2052" LabelTitle="Paste as Text" >
+      <Command.SmallImages>
+        <Image>Res/paste_plain.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="Cut" Id="2053" LabelTitle="Cut" >
+      <Command.SmallImages>
+        <Image>Res/cut.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="Copy" Id="2054" LabelTitle="Copy" >
+      <Command.SmallImages>
+        <Image>Res/page_white_copy.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="FormatPainter" Id="2055" LabelTitle="Format Painter" >
+      <Command.SmallImages>
+        <Image>Res/format_painter.bmp</Image>
+      </Command.SmallImages>
+    </Command>
+
+    <!--Group: Font-->
+    <Command Name="GrpFont" Id="2070" LabelTitle="Font" />
+    <Command Name="RichFont" Id="2071" LabelTitle="RichFont" />
+
 
   </Application.Commands>
 
@@ -97,21 +129,28 @@
     <Ribbon>
 
       <Ribbon.ApplicationMenu>
-        <ApplicationMenu CommandName="cmdApplicationMenu">
+        <ApplicationMenu CommandName="ApplicationMenu">
           <MenuGroup>
-            <Button CommandName='cmdButtonNew' />
-            <Button CommandName='cmdButtonOpen' />
-            <Button CommandName='cmdButtonSave' />
+            <Button CommandName='ButtonNew' />
+            <Button CommandName='ButtonOpen' />
+            <Button CommandName='ButtonSave' />
           </MenuGroup>
           <MenuGroup>
-            <Button CommandName='cmdButtonExit' />
+            <Button CommandName='ButtonExit' />
           </MenuGroup>
         </ApplicationMenu>
       </Ribbon.ApplicationMenu>
 
       <Ribbon.Tabs>
-        <Tab CommandName='cmdTabHome'>
-          <Group CommandName='cmdNewNode'>
+        <Tab CommandName='TabHome'>
+          <Tab.ScalingPolicy>
+            <ScalingPolicy>
+              <ScalingPolicy.IdealSizes>
+                <Scale Group='GrpClipboard' Size='Medium' />
+              </ScalingPolicy.IdealSizes>
+            </ScalingPolicy>
+          </Tab.ScalingPolicy>
+          <Group CommandName='NewNode'>
             <SizeDefinition>
               <ControlNameMap>
                 <ControlNameDefinition Name='button1' />
@@ -135,17 +174,29 @@
               </GroupSizeDefinition>
             </SizeDefinition>
             <SplitButton>
-              <Button CommandName='cmdNewChildNode' />
-              <Button CommandName='cmdNewLongNode' />
+              <Button CommandName='NewChildNode' />
+              <Button CommandName='NewLongNode' />
             </SplitButton>
-            <Button CommandName='cmdNewNodeAbove' />
-            <Button CommandName='cmdNewNodeBelow' />
-            <Button CommandName='cmdNewNodeParent' />
+            <Button CommandName='NewNodeAbove' />
+            <Button CommandName='NewNodeBelow' />
+            <Button CommandName='NewNodeParent' />
           </Group>
-          <Group CommandName='cmdEdit'>
-            <Button CommandName='cmdEditText' />
-            <Button CommandName='cmdEditLong' />
-            <Button CommandName='cmdDeleteNode' />
+          <Group CommandName='GrpEdit'>
+            <Button CommandName='EditText' />
+            <Button CommandName='EditLong' />
+            <Button CommandName='DeleteNode' />
+          </Group>
+          <Group CommandName='GrpClipboard' SizeDefinition='FourButtons'>
+            <SplitButton>
+              <Button CommandName='Paste'/>
+              <Button CommandName='PasteAsText' />
+            </SplitButton>
+            <Button CommandName='Cut' />
+            <Button CommandName='Copy' />
+            <ToggleButton CommandName='FormatPainter' />
+          </Group>
+          <Group CommandName='GrpFont' SizeDefinition='OneFontControl'>
+            <FontControl CommandName="RichFont" FontType="RichFont" />
           </Group>
         </Tab>
       </Ribbon.Tabs>
