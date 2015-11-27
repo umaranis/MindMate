@@ -111,6 +111,11 @@ namespace MindMate.Controller
 
         }
                 
+        /// <summary>
+        /// Form.Shown event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void mainForm_AfterReady(object sender, EventArgs args)
         {
             pluginManager.OnApplicationReady();

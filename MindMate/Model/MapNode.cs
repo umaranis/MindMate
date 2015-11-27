@@ -1028,6 +1028,7 @@ namespace MindMate.Model
             }
             return depth;
         }
+
         public bool IsEmpty()
         {
             if
@@ -1040,6 +1041,20 @@ namespace MindMate.Model
                 )
             { return true; }
             else { return false; }
+        }
+
+        public void CopyFormatTo(MapNode node)
+        {
+            node.BackColor = this.BackColor;
+            node.Bold = this.Bold;
+            node.Color = this.Color;
+            node.FontName = this.FontName;
+            node.FontSize = this.FontSize;
+            node.Italic = this.Italic;
+            node.LineColor = this.LineColor;
+            node.LinePattern = this.LinePattern;
+            node.LineWidth = this.LineWidth;
+            node.Shape = this.Shape;
         }
 
         public override string ToString()

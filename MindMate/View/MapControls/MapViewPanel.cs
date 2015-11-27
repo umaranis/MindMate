@@ -144,6 +144,10 @@ namespace MindMate.View.MapControls
             {
                 DragDropHandler.OnMouseDrop(e);                
             }
+            else if(MapView.FormatPainter.Active)
+            {
+                MapView.FormatPainter.ExecuteMouseClick(mouseOverNode);
+            }
             else
             {
                 if (mouseOverNode == null) // IF 'event is not over node' AND 'canvas is not dragged'
@@ -189,7 +193,7 @@ namespace MindMate.View.MapControls
         protected override void OnMouseHover(EventArgs e)
         {
             resetHoverEvent = true;
-            if (DragDropHandler.IsDragging) { return; }
+            if (DragDropHandler.IsDragging || MapView.FormatPainter.Active) { return; }
 
             Point clickPosition = this.PointToClient(Cursor.Position);
             mouseOverNode = MapView.GetMapNodeFromPoint(clickPosition);

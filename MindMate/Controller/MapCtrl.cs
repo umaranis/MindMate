@@ -1059,6 +1059,38 @@ namespace MindMate.Controller
         public void SetMapViewBackColor(Color color)
         {
             MapView.Canvas.BackColor = color;
-        }        
+        }
+
+        public void CopyFormat()
+        {
+            if (MapView.SelectedNodes.Count == 1)
+            {
+                MapView.FormatPainter.Copy(MapView.SelectedNodes.First);
+            }
+        }
+
+        public void EnableFormatMultiApply()
+        {
+            MapView.FormatPainter.EnableMultiApply();
+        }
+
+        public void PasteFormat()
+        {
+            MapView.SuspendLayout();
+
+            tree.ChangeManager.StartBatch("Copy/Paste Format");
+
+            MapView.FormatPainter.Paste(MapView.SelectedNodes);
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
+
+            MapView.ResumeLayout(true, MapView.SelectedNodes.Count == 1? MapView.SelectedNodes.First.Pos : NodePosition.Undefined);
+
+        }
+
+        public void ClearFormatPainter()
+        {
+            MapView.FormatPainter.Clear();
+        }
     }
 }

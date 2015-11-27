@@ -55,7 +55,7 @@ namespace MindMate.Controller
                     mapCtrl.FollowLink(node);
                 }
             }
-            // (deselect already selected node)ctrl key + node already selected
+            // deselect already selected node (ctrl key + node already selected)
             else if (mapCtrl.MapView.SelectedNodes.Count > 1 && mapCtrl.MapView.SelectedNodes.Contains(node) && ctrlKeyDown)
             {
                 mapCtrl.MapView.SelectedNodes.Remove(node);

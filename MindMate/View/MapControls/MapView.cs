@@ -78,6 +78,8 @@ namespace MindMate.View.MapControls
             }
         }
 
+        public MapViewFormatPainter FormatPainter { get; private set; }
+
         private MapNode highlightedNode;
         public MapNode HighlightedNode
         {
@@ -110,7 +112,8 @@ namespace MindMate.View.MapControls
 
             this.ChangeTree(tree);
 
-            this.nodeTextEditor = new MapViewTextEditor(this, NodeView.DefaultFont);                     
+            this.nodeTextEditor = new MapViewTextEditor(this, NodeView.DefaultFont);
+            FormatPainter = new MapViewFormatPainter(this);                 
 
         }
 

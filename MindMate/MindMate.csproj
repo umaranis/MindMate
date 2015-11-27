@@ -260,6 +260,7 @@
     <Compile Include="Model\SelectedNodes.cs" />
     <Compile Include="View\MapControls\Drawing\TextRenderer.cs" />
     <Compile Include="View\MapControls\MapViewDragHandler.cs" />
+    <Compile Include="View\MapControls\MapViewFormatPainter.cs" />
     <Compile Include="View\MapControls\MapViewTextEditor.cs" />
     <Compile Include="View\MapControls\NodeMouseEventArgs.cs" />
     <Compile Include="View\MapControls\NoteIcon.cs" />
@@ -689,6 +690,7 @@
     <None Include="Resources\redo.png" />
     <None Include="Resources\DragMove.cur" />
     <None Include="Resources\HandDrag.cur" />
+    <None Include="Resources\painter.cur" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
