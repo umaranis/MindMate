@@ -295,7 +295,8 @@ namespace MindMate.View.MapControls
             LayoutSuspended = false;
             if(refreshLayout)
             {
-                RefreshNodePositions(Tree.RootNode, sideToRefresh);                
+                RefreshNodePositions(Tree.RootNode, sideToRefresh);
+                Canvas.Invalidate();
             }
         }
 
