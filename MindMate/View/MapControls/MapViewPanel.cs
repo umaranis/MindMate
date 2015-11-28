@@ -91,7 +91,16 @@ namespace MindMate.View.MapControls
                     break;
             }
         }
-                
+
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            if (!MapView.NodeTextEditor.IsTextEditing)
+            {
+                MapView.Canvas.Focus();
+            }
+            //base.OnMouseDown(e);
+        }
+
         protected override void OnMouseMove(MouseEventArgs e)
         {
             if (IgnoreNextMouseMove)
@@ -164,8 +173,7 @@ namespace MindMate.View.MapControls
                         NodeClick(mouseOverNode, args);
                 }
             }
-
-            MapView.Canvas.Focus();
+            
             //base.OnMouseUp(e);            
 
         }        
