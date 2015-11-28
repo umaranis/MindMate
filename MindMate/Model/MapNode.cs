@@ -759,7 +759,7 @@ namespace MindMate.Model
         /// </summary>
         /// <param name="node">node to be tested for being ancestor of 'this' node</param>
         /// <returns></returns>
-        public bool isDescendent(MapNode node)
+        public bool IsDescendent(MapNode node)
         {
             if(this.Parent != null)
             {
@@ -767,7 +767,7 @@ namespace MindMate.Model
                     return true;
                 else
                 {
-                    return this.Parent.isDescendent(node);
+                    return this.Parent.IsDescendent(node);
                 }
             }
             else
@@ -775,6 +775,39 @@ namespace MindMate.Model
                 return false;
             }
         }
+
+        /// <summary>
+        /// Returns the location of sibling (above this node, below this node or not sibling)
+        /// </summary>
+        /// <param name="sibling"></param>
+        public SiblingLocaton GetSiblingLocation(MapNode sibling)
+        {
+            if(sibling.Parent == this.Parent)
+            {
+                MapNode temp = this.Parent.FirstChild;
+                do
+                {
+                    if(temp == sibling)
+                    {
+                        return SiblingLocaton.Above;
+                    }
+                    else if(temp == this)
+                    {
+                        return SiblingLocaton.Below;
+                    }
+                    else
+                    {
+                        temp = temp.Next;
+                    }
+                } while (true);
+            }
+            else
+            {
+                return SiblingLocaton.NotSibling;
+            }
+        }
+
+        public enum SiblingLocaton { NotSibling, Above, Below }
 
 
         public void DeleteNode()

@@ -192,11 +192,11 @@ namespace MindMate.Model
                     {
                         continue;
                     }
-                    else if (depth[i] < depth[j] && node2.isDescendent(node1))
+                    else if (depth[i] < depth[j] && node2.IsDescendent(node1))
                     {
                         exclude[j] = true;
                     }
-                    else if (node1.isDescendent(node2))
+                    else if (node1.IsDescendent(node2))
                     {
                         exclude[i] = true;
                     }

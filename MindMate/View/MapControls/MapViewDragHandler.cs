@@ -168,7 +168,7 @@ namespace MindMate.View.MapControls
 
                 if (n.Pos == NodePosition.Root) { return false; } //can't move root
 
-                if (location.Parent.isDescendent(n)) { return false; } //can't move ancentor to child
+                if (location.Parent.IsDescendent(n)) { return false; } //can't move ancentor to child
             }                
             
             return true;

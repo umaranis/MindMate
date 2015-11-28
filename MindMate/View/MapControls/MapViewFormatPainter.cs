@@ -91,9 +91,43 @@ namespace MindMate.View.MapControls
             }
             else
             {
+                mapView.SuspendLayout();
+                mapView.Tree.ChangeManager.StartBatch("Copy/Paste Format");
+
                 bool clearPainter = (Control.ModifierKeys & Keys.Control) != Keys.Control;
+                bool shiftKey = (Control.ModifierKeys & Keys.Control) != Keys.Control;
+
                 Paste(node, clearPainter);
+                if(shiftKey) { ApplyFormatToNodesInBetween(node); }
                 node.Selected = true;
+
+                if (mapView.Tree.ChangeManager.IsBatchOpen) { mapView.Tree.ChangeManager.EndBatch(); }
+                mapView.ResumeLayout(true, !shiftKey? mapView.SelectedNodes.First.Pos : NodePosition.Undefined);
+            }
+        }
+
+        private void ApplyFormatToNodesInBetween(MapNode node)
+        {
+            MapNode startNode = null, endNode = null;
+            switch (node.GetSiblingLocation(formatSource))
+            {
+                case MapNode.SiblingLocaton.Above:
+                    startNode = formatSource;
+                    endNode = node;
+                    break;
+                case MapNode.SiblingLocaton.Below:
+                    startNode = node;
+                    endNode = formatSource;
+                    break;
+                case MapNode.SiblingLocaton.NotSibling:
+                    return;
+            }
+
+            startNode = startNode.Next;
+            while(startNode != endNode)
+            {
+                formatSource.CopyFormatTo(startNode);
+                startNode = startNode.Next;
             }
         }
 
