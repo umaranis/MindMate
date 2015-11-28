@@ -190,7 +190,8 @@ namespace MindMate.View.Ribbon
         {
             if (_btnFormatPainter.BooleanValue)
             {
-                mainCtrl.mapCtrl.CopyFormat();
+                bool ctrlKeyDown = (Control.ModifierKeys & Keys.Control) == Keys.Control;
+                mainCtrl.mapCtrl.CopyFormat(ctrlKeyDown);
             }
             else
             {

@@ -1061,11 +1061,11 @@ namespace MindMate.Controller
             MapView.Canvas.BackColor = color;
         }
 
-        public void CopyFormat()
+        public void CopyFormat(bool multiApply = false)
         {
             if (MapView.SelectedNodes.Count == 1)
             {
-                MapView.FormatPainter.Copy(MapView.SelectedNodes.First);
+                MapView.FormatPainter.Copy(MapView.SelectedNodes.First, multiApply);
             }
         }
 

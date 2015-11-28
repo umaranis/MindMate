@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace MindMate.View.MapControls
 {
@@ -42,13 +43,13 @@ namespace MindMate.View.MapControls
             if (StateChanged != null) { StateChanged(this); }
         }
 
-        public void Paste(MapNode target)
+        public void Paste(MapNode target, bool clearPainter = true)
         {
             Debug.Assert(target != null, "Copy/Paste format: Target node is null");
 
             formatSource.CopyFormatTo(target);
 
-            if(Status == FormatPainterStatus.SingleApply) { Clear(); }
+            if(Status == FormatPainterStatus.SingleApply && clearPainter) { Clear(); }
 
             if (StateChanged != null) { StateChanged(this); }
         }
@@ -90,7 +91,8 @@ namespace MindMate.View.MapControls
             }
             else
             {
-                Paste(node);
+                bool clearPainter = (Control.ModifierKeys & Keys.Control) != Keys.Control;
+                Paste(node, clearPainter);
                 node.Selected = true;
             }
         }
