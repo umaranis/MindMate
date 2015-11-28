@@ -543,7 +543,7 @@ namespace MindMate.Model
             var node = new MapNode(location.Tree);
 
             // attaching to tree
-            node.AttachTo(location, null, true, location.pos, false);
+            node.AttachTo(location, null, true, this.pos, false);
             this.CopyNodePropertiesTo(node);
 
             foreach (MapNode childNode in this.ChildNodes)
