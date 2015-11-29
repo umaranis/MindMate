@@ -8,11 +8,13 @@ using System.Windows.Forms;
 
 namespace MindMate.Model
 {
-    static class ClipboardManager
+    public static class ClipboardManager
     {
         private static List<MapNode> internalClipboard = new List<MapNode>();
 
         public const string MindMateTextFormat = "MindMateText";
+
+        public static event Action StatusChanged;
 
         private static bool hasCutNode;
         /// <summary>
@@ -61,6 +63,8 @@ namespace MindMate.Model
                 //Clipboard.SetText(str.ToString(), TextDataFormat.Text);
 
                 hasCutNode = false;
+
+                if(StatusChanged != null) { StatusChanged(); }
             }
         }
 
@@ -93,6 +97,7 @@ namespace MindMate.Model
                 Clipboard.SetDataObject(cbData);
 
                 hasCutNode = true;
+                if (StatusChanged != null) { StatusChanged(); }
             }
         }
 
@@ -141,8 +146,9 @@ namespace MindMate.Model
             }
 
             hasCutNode = false;
+            if (StatusChanged != null) { StatusChanged(); }
 
-            if(pasteLocation.Folded) { pasteLocation.Folded = false; }
+            if (pasteLocation.Folded) { pasteLocation.Folded = false; }
         }
 
         private static void PasteFileDropList(MapNode pasteLocation, bool asText = false)

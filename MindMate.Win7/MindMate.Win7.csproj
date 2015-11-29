@@ -102,9 +102,14 @@
     <Content Include="Binaries\Ribbon.dll" />
     <Content Include="View\Ribbon\Res\align_compact.bmp" />
     <Content Include="View\Ribbon\Res\cross-script.bmp" />
+    <None Include="View\Ribbon\Res\cut.png" />
+    <None Include="View\Ribbon\Res\cut_red.png" />
+    <None Include="View\Ribbon\Res\cut_red_small.png" />
+    <None Include="View\Ribbon\Res\cut_small.png" />
     <Content Include="View\Ribbon\Res\edit.bmp" />
     <Content Include="View\Ribbon\Res\Exit16.bmp" />
     <Content Include="View\Ribbon\Res\Exit32.bmp" />
+    <Content Include="View\Ribbon\Res\format_painter.bmp" />
     <Content Include="View\Ribbon\Res\New16.bmp" />
     <Content Include="View\Ribbon\Res\New32.bmp" />
     <Content Include="View\Ribbon\Res\node-insert-child.bmp" />
@@ -113,6 +118,8 @@
     <Content Include="View\Ribbon\Res\node-insert.bmp" />
     <Content Include="View\Ribbon\Res\open16.bmp" />
     <Content Include="View\Ribbon\Res\Open32.bmp" />
+    <Content Include="View\Ribbon\Res\page_white_paste.bmp" />
+    <Content Include="View\Ribbon\Res\paste_plain.bmp" />
     <Content Include="View\Ribbon\Res\save16.bmp" />
     <Content Include="View\Ribbon\Res\Save32.bmp" />
     <Content Include="View\Ribbon\RibbonMarkup.xml" />
@@ -120,9 +127,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\UICC.exe" "$(ProjectDir)View\Ribbon\RibbonMarkup.xml" "$(ProjectDir)View\Ribbon\RibbonMarkup.bml" /res:"$(ProjectDir)View\Ribbon\RibbonMarkup.rc" 
+    <PreBuildEvent>"C:\Program Files (x86)\Windows Kits\8.1\bin\x86\UICC.exe" "$(ProjectDir)View\Ribbon\RibbonMarkup.xml" "$(ProjectDir)View\Ribbon\RibbonMarkup.bml" /res:"$(ProjectDir)View\Ribbon\RibbonMarkup.rc" 
 
-"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\rc.exe" /v "$(ProjectDir)View\Ribbon\RibbonMarkup.rc" 
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe" /v "$(ProjectDir)View\Ribbon\RibbonMarkup.rc" 
 
 cmd /c "("$(DevEnvDir)..\..\VC\bin\vcvars32.bat") &amp;&amp; ("$(DevEnvDir)..\..\VC\bin\link.exe" /VERBOSE /NOENTRY /DLL /OUT:"$(ProjectDir)View\Ribbon\RibbonMarkup.ribbon" "$(ProjectDir)View\Ribbon\RibbonMarkup.res")"</PreBuildEvent>
   </PropertyGroup>

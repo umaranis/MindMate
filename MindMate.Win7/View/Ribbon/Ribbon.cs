@@ -1,4 +1,5 @@
-﻿using RibbonLib.Controls;
+﻿using MindMate.Model;
+using RibbonLib.Controls;
 using RibbonLib.Controls.Events;
 using System;
 using System.Collections.Generic;
@@ -41,8 +42,11 @@ namespace MindMate.View.Ribbon
         private RibbonGroup _grpFont;
         private RibbonFontControl _RichFont;
 
+        private RibbonLib.Ribbon ribbon;
+
         public Ribbon(RibbonLib.Ribbon ribbon, Controller.MainCtrl mainCtrl)
         {
+            this.ribbon = ribbon;
             this.mainCtrl = mainCtrl;
 
             //Application Menu
@@ -88,7 +92,7 @@ namespace MindMate.View.Ribbon
             _grpClipboard = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpClipboard);
             _btnPaste = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Paste);
             _btnPasteAsText = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.PasteAsText);
-            _btnCut = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Cut);
+            _btnCut = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Cut);            
             _btnCopy = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Copy);
             _btnFormatPainter = new RibbonToggleButton(ribbon, (uint)RibbonMarkupCommands.FormatPainter);
 
@@ -100,7 +104,7 @@ namespace MindMate.View.Ribbon
 
             //Home Tab: Font group
             _grpFont = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpFont);
-            _RichFont = new RibbonFontControl(ribbon, (uint)RibbonMarkupCommands.RichFont);                        
+            _RichFont = new RibbonFontControl(ribbon, (uint)RibbonMarkupCommands.RichFont);        
             
         }
 
@@ -201,9 +205,26 @@ namespace MindMate.View.Ribbon
 
         #endregion Home Tab
 
-        internal void RegisterForChange()
+        /// <summary>
+        /// This method is called after ribbon is initialized and ready for use. 
+        /// </summary>
+        internal void Initialize()
         {
             mainCtrl.mapCtrl.MapView.FormatPainter.StateChanged += FormatPainter_StateChanged;
+            MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
+            //_btnCut.LargeImage = ribbon.ConvertToUIImage(Win7.Properties.Resources.cut_small);
+        }
+
+        private void ClipboardManager_StatusChanged()
+        {
+            if (ClipboardManager.HasCutNode)
+            {
+                _btnCut.SmallImage = ribbon.ConvertToUIImage(Win7.Properties.Resources.cut_red_small);
+            }
+            else
+            {
+                _btnCut.SmallImage = ribbon.ConvertToUIImage(Win7.Properties.Resources.cut_small);
+            }
         }
 
         private void FormatPainter_StateChanged(MapControls.MapViewFormatPainter painter)

@@ -103,13 +103,13 @@
       </Command.SmallImages>
     </Command>
     <Command Name="Cut" Id="2053" LabelTitle="Cut" >
-      <Command.SmallImages>
-        <Image>Res/cut.bmp</Image>
-      </Command.SmallImages>
+      <Command.LargeImages>
+        <Image>Res/cut.png</Image>
+      </Command.LargeImages>
     </Command>
     <Command Name="Copy" Id="2054" LabelTitle="Copy" >
       <Command.SmallImages>
-        <Image>Res/page_white_copy.bmp</Image>
+        <Image>Res/page_white_copy.png</Image>
       </Command.SmallImages>
     </Command>
     <Command Name="FormatPainter" Id="2055" LabelTitle="Format Painter" >
@@ -196,7 +196,7 @@
             <ToggleButton CommandName='FormatPainter' />
           </Group>
           <Group CommandName='GrpFont' SizeDefinition='OneFontControl'>
-            <FontControl CommandName="RichFont" FontType="RichFont" />
+            <FontControl CommandName="RichFont" FontType="FontWithColor" IsUnderlineButtonVisible="false" IsHighlightButtonVisible="true" />
           </Group>
         </Tab>
       </Ribbon.Tabs>
