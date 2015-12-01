@@ -117,46 +117,69 @@ namespace MindMate.Win7
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if((keyData & Keys.Control) == Keys.Control)
+            if ((keyData & Keys.Control) == Keys.Control)
             {
-                if(keyData == (Keys.Control | Keys.N))
+                if (keyData == (Keys.Control | Keys.N))
                 {
                     mainCtrl.NewMap();
                     return true;
                 }
-                else if(keyData == (Keys.Control | Keys.O))
+                else if (keyData == (Keys.Control | Keys.O))
                 {
                     mainCtrl.OpenMap();
                     return true;
                 }
-                else if(keyData == (Keys.Control | Keys.S))
+                else if (keyData == (Keys.Control | Keys.S))
                 {
                     mainCtrl.SaveMap();
                     return true;
                 }
-                else if(keyData == (Keys.Control | Keys.Z))
+                else if (keyData == (Keys.Control | Keys.Z))
                 {
                     mainCtrl.Undo();
                     return true;
                 }
-                else if(keyData == (Keys.Control | Keys.Y))
+                else if (keyData == (Keys.Control | Keys.Y))
                 {
                     mainCtrl.Redo();
                     return true;
                 }
-                else if(keyData == (Keys.Control | Keys.C))
+                else if (keyData == (Keys.Control | Keys.C))
                 {
                     mainCtrl.Copy();
                     return true;
                 }
-                else if(keyData == (Keys.Control | Keys.V))
+                else if (keyData == (Keys.Control | Keys.V))
                 {
                     mainCtrl.Paste();
                     return true;
                 }
-                else if(keyData == (Keys.Control | Keys.X))
+                else if (keyData == (Keys.Control | Keys.X))
                 {
                     mainCtrl.Cut();
+                    return true;
+                }
+                else if (keyData == (Keys.Control | Keys.B))
+                {
+                    mainCtrl.mapCtrl.MakeSelectedNodeBold();
+                    return true;
+                }
+                else if (keyData == (Keys.Control | Keys.I))
+                {
+                    mainCtrl.mapCtrl.MakeSelectedNodeItalic();
+                    return true;
+                }
+                else if (keyData == (Keys.Control | Keys.D))
+                {
+                    mainCtrl.mapCtrl.ChangeFont();
+                    return true;
+                }
+            }
+            else if ((keyData & Keys.Alt) == Keys.Alt)
+            {
+                if (keyData == (Keys.Alt | Keys.I))
+                {
+                    mainCtrl.mapCtrl.AppendIconFromIconSelectorExt();
                     return true;
                 }
             }            
