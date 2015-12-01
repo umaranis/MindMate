@@ -5,7 +5,7 @@
     <!--Application Menu-->
     <Command Name="ApplicationMenu" Id="1000" />
 
-    <Command Name="ButtonNew" Id="1001" LabelTitle="&amp;New" LabelDescription="New Description" TooltipTitle="New" TooltipDescription="Create a new Mind Map">
+    <Command Name="ButtonNew" Id="1001" LabelTitle="&amp;New" LabelDescription="New Description" TooltipTitle="New" TooltipDescription="Create new Mind Map (Ctrl + N)">
       <Command.LargeImages>
         <Image>Res/New32.bmp</Image>
       </Command.LargeImages>
@@ -13,7 +13,7 @@
         <Image>Res/New16.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="ButtonOpen" Id="1002" LabelTitle="Open" LabelDescription="Open Description" TooltipTitle="Open" TooltipDescription="Open an existing Mind Map">
+    <Command Name="ButtonOpen" Id="1002" LabelTitle="Open" LabelDescription="Open Description" TooltipTitle="Open" TooltipDescription="Open existing Mind Map (Ctrl + O)">
       <Command.LargeImages>
         <Image>Res/Open32.bmp</Image>
       </Command.LargeImages>
@@ -21,7 +21,7 @@
         <Image>Res/Open16.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="ButtonSave" Id="1003" LabelTitle="Save" LabelDescription="Save Description" TooltipTitle="Save" TooltipDescription="Save current map">
+    <Command Name="ButtonSave" Id="1003" LabelTitle="Save" LabelDescription="Save Description" TooltipTitle="Save" TooltipDescription="Save current map (Ctrl + S)">
       <Command.LargeImages>
         <Image>Res/Save32.bmp</Image>
       </Command.LargeImages>
@@ -29,7 +29,7 @@
         <Image>Res/Save16.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="ButtonExit" Id="1004" LabelTitle="Exit" LabelDescription="Exit Description" TooltipTitle="Exit" TooltipDescription="Exit application">
+    <Command Name="ButtonExit" Id="1004" LabelTitle="Exit" LabelDescription="Exit Description" TooltipTitle="Exit" TooltipDescription="Exit application (Alt + F4)">
       <Command.LargeImages>
         <Image>Res/Exit32.bmp</Image>
       </Command.LargeImages>
@@ -46,7 +46,7 @@
 
     <!--Group: New Node-->
     <Command Name="NewNode" Id="2010" LabelTitle="New Node" />
-    <Command Name="NewChildNode" Id="2011" LabelTitle="New Child" TooltipDescription="Create a new child node">
+    <Command Name="NewChildNode" Id="2011" LabelTitle="New Child" TooltipDescription="Create new child node (Tab)">
       <Command.LargeImages>
         <Image>Res/node-insert-child.bmp</Image>
       </Command.LargeImages>
@@ -56,12 +56,12 @@
         <Image>Res/align_compact.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="NewNodeAbove" Id="2013" LabelTitle="Node Above" TooltipDescription="Create a sibling node above">
+    <Command Name="NewNodeAbove" Id="2013" LabelTitle="Node Above" TooltipDescription="Create sibling node above (Shift + Enter)">
       <Command.LargeImages>
         <Image>Res/node-insert-previous.bmp</Image>
       </Command.LargeImages>
     </Command>
-    <Command Name="NewNodeBelow" Id="2014" LabelTitle="Node below" TooltipDescription="Create a sibling node below">
+    <Command Name="NewNodeBelow" Id="2014" LabelTitle="Node below" TooltipDescription="Create sibling node below (Enter)">
       <Command.LargeImages>
         <Image>Res/node-insert-next.bmp</Image>
       </Command.LargeImages>
@@ -74,17 +74,17 @@
 
     <!--Group: Edit-->
     <Command Name="GrpEdit" Id="2030" LabelTitle="Edit"/>
-    <Command Name="EditText" Id="2031" LabelTitle="Edit Text" TooltipDescription="Edit text of the node">
+    <Command Name="EditText" Id="2031" LabelTitle="Edit Text" TooltipDescription="Edit text of the node (F2)">
       <Command.SmallImages>
         <Image>Res/edit.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="EditLong" Id="2032" LabelTitle="Edit Multi-line" TooltipDescription="Edit text of the node in multi-line editor">
+    <Command Name="EditLong" Id="2032" LabelTitle="Edit Multi-line" TooltipDescription="Edit text of node in multi-line editor (Alt + Enter)">
     <Command.SmallImages>
         <Image>Res/align_compact.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="DeleteNode" Id="2033" LabelTitle="Delete" TooltipDescription="Edit selected node(s)">     
+    <Command Name="DeleteNode" Id="2033" LabelTitle="Delete" TooltipDescription="Edit selected node(s) (Del)">     
       <Command.SmallImages>
         <Image>Res/cross-script.bmp</Image>
       </Command.SmallImages>
@@ -92,7 +92,7 @@
 
     <!--Group: Clipboard-->
     <Command Name="GrpClipboard" Id="2050" LabelTitle="Clipboard" />
-    <Command Name="Paste" Id="2051" LabelTitle="Paste" >
+    <Command Name="Paste" Id="2051" LabelTitle="Paste" TooltipDescription="Paste (Ctrl + V)">
       <Command.LargeImages>
         <Image>Res/page_white_paste.bmp</Image>
       </Command.LargeImages>
@@ -102,12 +102,12 @@
         <Image>Res/paste_plain.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="Cut" Id="2053" LabelTitle="Cut" >
+    <Command Name="Cut" Id="2053" LabelTitle="Cut" TooltipDescription="Cut (Ctrl + X)">
       <Command.LargeImages>
         <Image>Res/cut.png</Image>
       </Command.LargeImages>
     </Command>
-    <Command Name="Copy" Id="2054" LabelTitle="Copy" >
+    <Command Name="Copy" Id="2054" LabelTitle="Copy" TooltipDescription="Copy (Ctrl + C)">
       <Command.SmallImages>
         <Image>Res/page_white_copy.png</Image>
       </Command.SmallImages>

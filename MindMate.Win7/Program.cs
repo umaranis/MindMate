@@ -21,8 +21,8 @@ namespace MindMate.Win7
             System.Diagnostics.Trace.Listeners.Add(traceLog);
             System.Diagnostics.Trace.AutoFlush = true;
             //MyWebMind.Debug.IconListCreator.GenerateIconXML();
-            MainForm form = new MainForm();
             MainCtrl mainCtrl = new MainCtrl();
+            MainForm form = new MainForm(mainCtrl);            
             mainCtrl.LaunchMindMate(form);
             var ribbonHandler = new View.Ribbon.Ribbon(form.Ribbon, mainCtrl);
             form.Load += (n, e) => ribbonHandler.Initialize();            

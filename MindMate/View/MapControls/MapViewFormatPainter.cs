@@ -95,7 +95,7 @@ namespace MindMate.View.MapControls
                 mapView.Tree.ChangeManager.StartBatch("Copy/Paste Format");
 
                 bool clearPainter = (Control.ModifierKeys & Keys.Control) != Keys.Control;
-                bool shiftKey = (Control.ModifierKeys & Keys.Control) != Keys.Control;
+                bool shiftKey = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
 
                 Paste(node, clearPainter);
                 if(shiftKey) { ApplyFormatToNodesInBetween(node); }

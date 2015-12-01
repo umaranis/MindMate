@@ -7,15 +7,18 @@ using System;
 using System.Windows.Forms;
 using MindMate.Plugins;
 using MindMate.View.NoteEditing;
+using MindMate.Controller;
 
 namespace MindMate.Win7
 {
     public partial class MainForm : Form, View.IMainForm
     {
         private View.MapControls.MapViewPanel mapViewPanel;
+        private MainCtrl mainCtrl;
                 
-        public MainForm()
+        public MainForm(MainCtrl mainCtrl)
         {
+            this.mainCtrl = mainCtrl;
             Ribbon = new RibbonLib.Ribbon();
             Ribbon.ResourceName = "MindMate.Win7.View.Ribbon.RibbonMarkup.ribbon";
             InitializeComponent();
@@ -29,6 +32,7 @@ namespace MindMate.Win7
 
             // changing side bar tab gives focus away to tab control header, below event focuses relevant control again
             SideBarTabs.SelectedIndexChanged += SideBarTabs_SelectedIndexChanged;
+
         }
 
         public RibbonLib.Ribbon Ribbon { get; private set; }
@@ -109,6 +113,55 @@ namespace MindMate.Win7
         public void RefreshRecentFilesMenuItems()
         {
             //MainMenuCtrl.RefreshRecentFilesMenuItems();
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if((keyData & Keys.Control) == Keys.Control)
+            {
+                if(keyData == (Keys.Control | Keys.N))
+                {
+                    mainCtrl.NewMap();
+                    return true;
+                }
+                else if(keyData == (Keys.Control | Keys.O))
+                {
+                    mainCtrl.OpenMap();
+                    return true;
+                }
+                else if(keyData == (Keys.Control | Keys.S))
+                {
+                    mainCtrl.SaveMap();
+                    return true;
+                }
+                else if(keyData == (Keys.Control | Keys.Z))
+                {
+                    mainCtrl.Undo();
+                    return true;
+                }
+                else if(keyData == (Keys.Control | Keys.Y))
+                {
+                    mainCtrl.Redo();
+                    return true;
+                }
+                else if(keyData == (Keys.Control | Keys.C))
+                {
+                    mainCtrl.Copy();
+                    return true;
+                }
+                else if(keyData == (Keys.Control | Keys.V))
+                {
+                    mainCtrl.Paste();
+                    return true;
+                }
+                else if(keyData == (Keys.Control | Keys.X))
+                {
+                    mainCtrl.Cut();
+                    return true;
+                }
+            }            
+
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }
