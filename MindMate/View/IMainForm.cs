@@ -7,6 +7,7 @@ namespace MindMate.View
 {
     public interface IMainForm
     {
+        EditorTabs.EditorTabs EditorTabs { get; }
         bool IsNoteEditorActive { get; }
         NoteEditor NoteEditor { get; }
         TabControl SideBarTabs { get; }
@@ -17,7 +18,6 @@ namespace MindMate.View
         event EventHandler Shown;
         event FormClosingEventHandler FormClosing;
 
-        void AddMainView(MapViewPanel mapViewPanel);
         void FocusMapView();
         void InsertMenuItems(Plugins.MainMenuItem[] menuItems);
         void RefreshRecentFilesMenuItems();

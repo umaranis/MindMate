@@ -30,24 +30,22 @@ namespace MindMate.Controller
     /// </summary>
     public class MapCtrl
     {
-        private IMainCtrl mainCtrl;
+        private readonly IMainCtrl mainCtrl;
 
-        private MapViewMouseEventHandler map;
-        
         public MindMate.View.MapControls.MapView MapView;
-        
-        public string MindMateFile;
-        
-        private MapTree tree = null;           
 
-        public MapCtrl(MapTree tree, IMainCtrl mainCtrl)
+        public ContextMenuCtrl ContextMenuCtrl { get; private set; }
+        
+        private MapTree tree { get { return MapView.Tree; } }
+
+        public MapCtrl(MapView mapView, IMainCtrl mainCtrl)
         {
             this.mainCtrl = mainCtrl;
 
-            map = new MapViewMouseEventHandler(this);
-            this.tree = tree;
-                       
-            MapView = new MapView(tree);
+            MapViewMouseEventHandler map = new MapViewMouseEventHandler(this);
+
+            MapView = mapView;
+
             MapView.Canvas.NodeClick += map.MapNodeClick;
             MapView.Canvas.NodeRightClick += map.NodeRightClick;
             MapView.Canvas.CanvasClick += map.CanvasClick;
@@ -62,20 +60,8 @@ namespace MindMate.Controller
 
             MapView.Canvas.BackColor = MetaModel.MetaModel.Instance.MapEditorBackColor;
 
-            //mainCtrl.AddMainPanel(this.MapView.Canvas);              
-                        
-            //MapView.RefreshNodePositions();           
-            
+            ContextMenuCtrl = new ContextMenuCtrl(this);            
         }        
-
-        public void ChangeTree(MapTree tree)
-        {
-            this.tree = tree;
-            this.MapView.ChangeTree(tree);
-            //MapView.RefreshNodePositions();
-            MapView.SelectedNodes.Add(tree.RootNode, false);
-        }              
-
 
         public void EditHyperlink(bool useFileDialog)
         {

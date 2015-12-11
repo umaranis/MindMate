@@ -10,7 +10,7 @@ namespace MindMate.Model
 {
     public static class ClipboardManager
     {
-        private static List<MapNode> internalClipboard = new List<MapNode>();
+        private static readonly List<MapNode> internalClipboard = new List<MapNode>();
 
         public const string MindMateTextFormat = "MindMateText";
 

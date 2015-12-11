@@ -132,42 +132,42 @@ namespace MindMate.View.Ribbon
 
         private void _btnNewChildNode_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.mapCtrl.AppendChildNodeAndEdit();
+            mainCtrl.CurrentMapCtrl.AppendChildNodeAndEdit();
         }
 
         private void _btnNewLongNode_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.mapCtrl.AppendMultiLineNodeAndEdit();
+            mainCtrl.CurrentMapCtrl.AppendMultiLineNodeAndEdit();
         }
 
         private void _btnNewNodeAbove_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.mapCtrl.AppendSiblingAboveAndEdit();
+            mainCtrl.CurrentMapCtrl.AppendSiblingAboveAndEdit();
         }
 
         private void _btnNewNodeBelow_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.mapCtrl.AppendSiblingNodeAndEdit();
+            mainCtrl.CurrentMapCtrl.AppendSiblingNodeAndEdit();
         }
 
         private void _btnNewParent_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.mapCtrl.InsertParentAndEdit();
+            mainCtrl.CurrentMapCtrl.InsertParentAndEdit();
         }
 
         private void _btnEditText_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.mapCtrl.BeginCurrentNodeEdit(MapControls.TextCursorPosition.Undefined);
+            mainCtrl.CurrentMapCtrl.BeginCurrentNodeEdit(MapControls.TextCursorPosition.Undefined);
         }
 
         private void _btnEditLong_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.mapCtrl.MultiLineNodeEdit();
+            mainCtrl.CurrentMapCtrl.MultiLineNodeEdit();
         }
 
         private void _btnDeleteNode_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.mapCtrl.DeleteSelectedNodes();
+            mainCtrl.CurrentMapCtrl.DeleteSelectedNodes();
         }
 
         private void _btnPaste_ExecuteEvent(object sender, ExecuteEventArgs e)
@@ -195,11 +195,11 @@ namespace MindMate.View.Ribbon
             if (_btnFormatPainter.BooleanValue)
             {
                 bool ctrlKeyDown = (Control.ModifierKeys & Keys.Control) == Keys.Control;
-                mainCtrl.mapCtrl.CopyFormat(ctrlKeyDown);
+                mainCtrl.CurrentMapCtrl.CopyFormat(ctrlKeyDown);
             }
             else
             {
-                mainCtrl.mapCtrl.ClearFormatPainter();
+                mainCtrl.CurrentMapCtrl.ClearFormatPainter();
             }
         }
 
@@ -210,7 +210,7 @@ namespace MindMate.View.Ribbon
         /// </summary>
         internal void Initialize()
         {
-            mainCtrl.mapCtrl.MapView.FormatPainter.StateChanged += FormatPainter_StateChanged;
+            mainCtrl.CurrentMapCtrl.MapView.FormatPainter.StateChanged += FormatPainter_StateChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
             //_btnCut.LargeImage = ribbon.ConvertToUIImage(Win7.Properties.Resources.cut_small);
         }

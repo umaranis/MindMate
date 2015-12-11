@@ -20,7 +20,7 @@ namespace MindMate.WinXP
     public class MainMenuCtrl
     {
         public MainMenu mainMenu;
-        public MapCtrl mapCtrl { get { return mainCtrl.mapCtrl; } }
+        public MapCtrl mapCtrl { get { return mainCtrl.CurrentMapCtrl; } }
         private MainCtrl mainCtrl; 
 
         public MainMenuCtrl(MainMenu mainMenu, MainCtrl mainCtrl)
@@ -407,7 +407,7 @@ namespace MindMate.WinXP
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mainCtrl.SaveAsMap();
+            mainCtrl.SaveCurrentMapAs();
         }
 
 

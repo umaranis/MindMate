@@ -16,7 +16,8 @@ namespace MindMate.Controller
 {
     public class ContextMenuCtrl
     {
-        private MapCtrl mapCtrl;
+        //TODO: Extract out ContextMenu from MapViewPanel into a separate class and ContextMenuCrtl should pass the events to Selected Map's Controller
+        private readonly MapCtrl mapCtrl;
         
 
         public ContextMenuCtrl(MapCtrl c)
@@ -42,14 +43,7 @@ namespace MindMate.Controller
 
         private void ContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if(mapCtrl.MapView.NodeTextEditor.IsTextEditing)
-            {
-                mapCtrl.MapView.Canvas.mEditNode.Text = "End Editing";
-            }
-            else
-            {
-                mapCtrl.MapView.Canvas.mEditNode.Text = "Edit Node";
-            }
+            mapCtrl.MapView.Canvas.mEditNode.Text = mapCtrl.MapView.NodeTextEditor.IsTextEditing ? "End Editing" : "Edit Node";
         }
 
         public void InsertMenuItems(Plugins.MenuItem [] menuItems)
@@ -103,7 +97,7 @@ namespace MindMate.Controller
             ContextMenuStrip contextMenu = mapCtrl.MapView.Canvas.contextMenu;
             int index = contextMenu.Items.IndexOf(mapCtrl.MapView.Canvas.mSepPluginEnd);
             ToolStripItem menuItem = contextMenu.Items[--index];
-            while (menuItem is ToolStripSeparator || (menuItem != null && menuItem.Tag != null))
+            while (menuItem is ToolStripSeparator || (menuItem?.Tag != null))
             {
                 if (!(menuItem is ToolStripSeparator))
                 {

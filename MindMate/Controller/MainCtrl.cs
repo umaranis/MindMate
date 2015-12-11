@@ -14,6 +14,7 @@ using MindMate.Model;
 using MindMate.Serialization;
 using System.IO;
 using MindMate.Modules.Undo;
+using MindMate.View.EditorTabs;
 
 namespace MindMate.Controller
 {
@@ -30,11 +31,16 @@ namespace MindMate.Controller
 
         private Plugins.PluginManager pluginManager;
 
-        public MapCtrl mapCtrl;
+        public MapCtrl CurrentMapCtrl
+        {
+            get
+            {
+                Tab tab = mainForm.EditorTabs.SelectedTab as Tab;
+                return (MapCtrl)tab?.ControllerTag;
+            }
+        }
 
-        public ChangeManager ChangeManager { get { return mapCtrl.MapView.Tree.ChangeManager; } }
-
-        private bool unsavedChanges = false;
+        public ChangeManager ChangeManager { get { return CurrentMapCtrl.MapView.Tree.ChangeManager; } }
 
         public WinFormsStatusBarCtrl statusBarCtrl;
         private NoteCtrl noteCrtl;
@@ -43,6 +49,11 @@ namespace MindMate.Controller
         private CustomFontDialog.FontDialog fontDialog;
 
         private TaskSchedular.TaskSchedular schedular;
+
+        public PersistenceManager PersistenceManager
+        {
+            get; private set;
+        }
 
         public const string APPLICATION_NAME = "Mind Mate";
 
@@ -53,7 +64,9 @@ namespace MindMate.Controller
             this.mainForm = mainForm;
             MetaModel.MetaModel.Initialize();
             schedular = new TaskSchedular.TaskSchedular();
+            PersistenceManager = new PersistenceManager();            
             pluginManager = new Plugins.PluginManager(this);
+            new TabController(this, mainForm);
             pluginManager.Initialize();
             mainForm.Load += mainForm_Load;
             mainForm.Shown += mainForm_AfterReady;
@@ -65,47 +78,43 @@ namespace MindMate.Controller
 
             if (MetaModel.MetaModel.Instance.LastOpenedFile == null)
             {
-                tree = CreateNewMapTree();          
+                tree = PersistenceManager.NewTree().Tree;          
             }
             else
             {
                 try
                 {
-                    string xmlString = System.IO.File.ReadAllText(MetaModel.MetaModel.Instance.LastOpenedFile);
-                    tree = CreateEmptyTree();
-                    new MindMapSerializer().Deserialize(xmlString, tree);
+                    tree = PersistenceManager.OpenTree(MetaModel.MetaModel.Instance.LastOpenedFile).Tree;
                 }
                 catch(Exception exp)
                 {
-                    tree = CreateNewMapTree();
+                    tree = PersistenceManager.NewTree().Tree;
                     MetaModel.MetaModel.Instance.LastOpenedFile = null;
                     System.Diagnostics.Trace.TraceWarning(DateTime.Now.ToString() + ": Couldn't load last opened file. " + exp.Message);
                 }
             }
-            tree.SelectedNodes.Add(tree.RootNode);
-
-            mapCtrl = new MapCtrl(tree, this);
-            tree.TurnOnChangeManager();
-            mainForm.AddMainView(mapCtrl.MapView.Canvas);            
-            mapCtrl.MindMateFile = MetaModel.MetaModel.Instance.LastOpenedFile;
-
+            
             noteCrtl = new NoteCtrl(mainForm.NoteEditor);
+            //TODO: Should used PersistenceManager events
             noteCrtl.MapTree = tree;            
 
-            ContextMenuCtrl cmCtrl = new ContextMenuCtrl(mapCtrl);
+            ContextMenuCtrl cmCtrl = new ContextMenuCtrl(CurrentMapCtrl);
             pluginManager.InitializeContextMenu(cmCtrl);
-            mapCtrl.MapView.Canvas.contextMenu.Opening += 
-                (s, evt) => pluginManager.OnMapNodeContextMenuOpening(mapCtrl.MapView.SelectedNodes); 
+            CurrentMapCtrl.MapView.Canvas.contextMenu.Opening += 
+                (s, evt) => pluginManager.OnMapNodeContextMenuOpening(CurrentMapCtrl.MapView.SelectedNodes); 
 
             pluginManager.InitializeSideBarWindow(mainForm.SideBarTabs);
             
             pluginManager.InitializeMainMenu(mainForm);
             statusBarCtrl = new WinFormsStatusBarCtrl(mainForm.StatusBar);
-            statusBarCtrl.Register(tree);
+            statusBarCtrl.Register(tree); //TODO: Handle through persistence manager events
 
-            UpdateTitleBar();
-            RegisterForMapChangedNotification();                 // register for map changes (register/unregister with tree)
-            mainForm.NoteEditor.OnDirty += (a) => MapChanged(); // register for NoteEditor changes
+            mainForm.NoteEditor.OnDirty += (a) => {
+                if(PersistenceManager.CurrentTree != null)
+                {
+                    PersistenceManager.CurrentTree.IsDirty = true;
+                }
+                }; // register for NoteEditor changes
 
             mainForm.FormClosing += mainForm_FormClosing;
 
@@ -143,19 +152,13 @@ namespace MindMate.Controller
         private void SaveSettingsAtClose()
         {
             //TODO: Save changes only when a new file is saved or opened
-            MetaModel.MetaModel.Instance.LastOpenedFile = mapCtrl.MindMateFile;
+            MetaModel.MetaModel.Instance.LastOpenedFile = PersistenceManager.CurrentTree?.FileName;
             MetaModel.MetaModel.Instance.Save();
         }
 
         #endregion Shutdown MindMate application
 
         #region Coordinating actions and dialogs
-        
-        private void MapChanged()
-        {
-            unsavedChanges = true;
-            UpdateTitleBar();
-        }
 
         public void ReturnFocusToMapView()
         {
@@ -168,13 +171,6 @@ namespace MindMate.Controller
             frm.ShowDialog();
         }
 
-        void UpdateTitleBar()
-        {
-            mainForm.Text = mapCtrl.MapView.Tree.RootNode.Text + " - " + APPLICATION_NAME + " - " + mapCtrl.MindMateFile;
-
-            if (unsavedChanges) mainForm.Text += "*";
-        }
-
         public void ExportAsBMP()
         {
             SaveFileDialog file = new SaveFileDialog();
@@ -183,7 +179,7 @@ namespace MindMate.Controller
             file.Filter = "Bitmap Image (*.bmp)|*.bmp|All files (*.*)|*.*";
             if (file.ShowDialog() == DialogResult.OK)
             {
-                using (var bmp = mapCtrl.MapView.DrawToBitmap())
+                using (var bmp = CurrentMapCtrl.MapView.DrawToBitmap())
                 {
                     bmp.Save(file.FileName);
                 }
@@ -239,7 +235,7 @@ namespace MindMate.Controller
 
         public void SetMapViewBackColor(System.Drawing.Color color)
         {
-            mapCtrl.SetMapViewBackColor(color);
+            CurrentMapCtrl.SetMapViewBackColor(color);
         }
 
         public void ScheduleTask(TaskSchedular.ITask task)
@@ -257,7 +253,7 @@ namespace MindMate.Controller
             if (mainForm.IsNoteEditorActive)
                 mainForm.NoteEditor.Copy();
             else
-                mapCtrl.Copy();
+                CurrentMapCtrl.Copy();
         }
 
         public void Cut()
@@ -265,7 +261,7 @@ namespace MindMate.Controller
             if (mainForm.IsNoteEditorActive)
                 mainForm.NoteEditor.Cut();
             else
-                mapCtrl.Cut();
+                CurrentMapCtrl.Cut();
         }        
 
         public void Paste(bool asText = false)
@@ -273,20 +269,20 @@ namespace MindMate.Controller
             if (mainForm.IsNoteEditorActive)
                 mainForm.NoteEditor.Paste();
             else
-                mapCtrl.Paste(asText);
+                CurrentMapCtrl.Paste(asText);
         }
 
         public void Undo()
         {
-            if (mapCtrl.MapView.NodeTextEditor.IsTextEditing)
-                mapCtrl.MapView.NodeTextEditor.Undo();
+            if (CurrentMapCtrl.MapView.NodeTextEditor.IsTextEditing)
+                CurrentMapCtrl.MapView.NodeTextEditor.Undo();
             else
                 ChangeManager.Undo();
         }
 
         public void Redo()
         {
-            if (!mapCtrl.MapView.NodeTextEditor.IsTextEditing)
+            if (!CurrentMapCtrl.MapView.NodeTextEditor.IsTextEditing)
                 ChangeManager.Redo();
         }
 
@@ -297,36 +293,13 @@ namespace MindMate.Controller
         {
             get
             {
-                return mapCtrl.MapView.Tree.SelectedNodes;
+                return CurrentMapCtrl.MapView.Tree.SelectedNodes;
             }
         }
 
         #endregion Coordinating actions and dialogs
 
         #region New / Open Map
-
-        /// <summary>
-        /// Creates an empty MapTree which could be used to (1) deserialize tree or (2) create a default new map      
-        /// </summary>
-        /// <returns></returns>
-        private MapTree CreateEmptyTree()
-        {
-            MapTree tree = new MapTree();
-            pluginManager.OnTreeCreating(tree);
-            return tree;
-        }
-
-        /// <summary>
-        /// Creates a new MapTree with default node
-        /// </summary>
-        /// <returns></returns>
-        private MapTree CreateNewMapTree()
-        {
-            MapTree tree = CreateEmptyTree();
-            tree.RootNode = new MapNode(tree, "New Map");
-
-            return tree;
-        }
 
         /// <summary>
         /// Create a new Mind Map
@@ -338,19 +311,11 @@ namespace MindMate.Controller
 
             CloseMap();
 
-            MapTree tree = CreateNewMapTree();
+            MapTree tree = PersistenceManager.NewTree().Tree;
 
-            mapCtrl.MindMateFile = null;
-            mapCtrl.ChangeTree(tree);
-            tree.TurnOnChangeManager();
-            mapCtrl.MapView.CenterOnForm();
-
+            //TODO: Handle through persistence manager
             noteCrtl.MapTree = tree;
             statusBarCtrl.Register(tree);
-            RegisterForMapChangedNotification();
-
-            unsavedChanges = false;
-            UpdateTitleBar();
         }
 
         public void OpenMap(string fileName = null)
@@ -370,10 +335,10 @@ namespace MindMate.Controller
 
             Debugging.Utility.StartTimeCounter("Loading Map", fileName);
 
-            string xmlString;
+            MapTree tree;
             try
             {
-                xmlString = System.IO.File.ReadAllText(fileName);
+                tree = PersistenceManager.OpenTree(fileName).Tree;
             }
             catch (FileNotFoundException)
             {
@@ -388,35 +353,17 @@ namespace MindMate.Controller
                 return;
             }
 
-            MapTree tree = CreateEmptyTree();
-            new MindMapSerializer().Deserialize(xmlString, tree);
-
             CloseMap();
 
-            mapCtrl.MindMateFile = fileName;
-            mapCtrl.ChangeTree(tree);
-            tree.TurnOnChangeManager();
-            mapCtrl.MapView.CenterOnForm();
-
+            //TODO: Handle through persistence manager events
             noteCrtl.MapTree = tree;
             statusBarCtrl.Register(tree);
-            RegisterForMapChangedNotification();
 
             Debugging.Utility.EndTimeCounter("Loading Map");
 
-            unsavedChanges = false;
-            UpdateTitleBar();
             MetaModel.MetaModel.Instance.RecentFiles.Add(fileName);
             mainForm.RefreshRecentFilesMenuItems();
-        }
-
-        private void RegisterForMapChangedNotification()
-        {
-            mapCtrl.MapView.Tree.NodePropertyChanged += (a, b) => MapChanged();
-            mapCtrl.MapView.Tree.TreeStructureChanged += (a, b) => MapChanged();
-            mapCtrl.MapView.Tree.IconChanged += (a, b) => MapChanged();
-            mapCtrl.MapView.Tree.AttributeChanged += (a, b) => MapChanged();
-        }
+        }        
 
         #endregion New / Open Map
 
@@ -424,27 +371,57 @@ namespace MindMate.Controller
 
         public void SaveMap()
         {
-            if (mapCtrl.MindMateFile != null)
+            SaveMap(PersistenceManager.CurrentTree);            
+        }
+
+        public void SaveMap(PersistentTree tree)
+        {
+            if (tree != null)
             {
-                SaveMap(mapCtrl.MindMateFile);
-            }
-            else
-            {
-                SaveAsMap();
+                if (tree.IsNewMap)
+                {
+                    SaveCurrentMapAs();
+                }
+                else
+                {
+                    SaveMapInternal();
+                }
             }
         }
 
-        public void SaveAsMap()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tree">should not be null</param>
+        public void SaveAsMap(PersistentTree tree)
         {
             SaveFileDialog file = new SaveFileDialog();
             file.AddExtension = true;
             file.DefaultExt = "mm";
             file.Filter = "MindMap files (*.mm)|*.mm|All files (*.*)|*.*|Text (*.txt)|*.txt";
-            file.FileName = mapCtrl.MindMateFile != null? mapCtrl.MindMateFile : mapCtrl.MapView.Tree.RootNode.Text;
+            file.FileName = tree.IsNewMap? CurrentMapCtrl.MapView.Tree.RootNode.Text : PersistenceManager.CurrentTree.FileName;
             if (file.ShowDialog() == DialogResult.OK)
             {
-                mapCtrl.MindMateFile = file.FileName;
-                SaveMap(mapCtrl.MindMateFile);
+                SaveMapInternal(file.FileName);
+            }
+        }
+
+        public void SaveCurrentMapAs()
+        {
+            if (PersistenceManager.CurrentTree != null)
+            {
+                SaveAsMap(PersistenceManager.CurrentTree);
+            }
+        }
+
+        public void SaveAll()
+        {
+            foreach (PersistentTree tree in PersistenceManager)
+            {
+                if (tree.IsDirty)
+                {
+                    SaveMap(tree);
+                }
             }
         }
 
@@ -452,19 +429,24 @@ namespace MindMate.Controller
         /// Method which actually saves the file to disk. Other methods like SaveAsMap and SaveMap invoke this.
         /// </summary>
         /// <param name="fileName"></param>
-        private void SaveMap(string fileName)
+        private void SaveMapInternal(string fileName = null)
         {
             noteCrtl.UpdateNodeFromEditor();
 
-            var serializer = new MindMapSerializer();
-            var fileStream = new FileStream(fileName, FileMode.Create, FileAccess.Write);
-            serializer.Serialize(fileStream, this.mapCtrl.MapView.Tree);
-            fileStream.Close();
-
-            unsavedChanges = false;
-            UpdateTitleBar();
-            MetaModel.MetaModel.Instance.RecentFiles.Add(fileName);
-            mainForm.RefreshRecentFilesMenuItems();
+            if (PersistenceManager.CurrentTree != null)
+            {
+                if (fileName == null)
+                {
+                    PersistenceManager.CurrentTree.Save();
+                }
+                else
+                {
+                    PersistenceManager.CurrentTree.Save(fileName);
+                }
+                
+                MetaModel.MetaModel.Instance.RecentFiles.Add(fileName);
+                mainForm.RefreshRecentFilesMenuItems();
+            }
         }
 
         #endregion Save Map
@@ -473,23 +455,22 @@ namespace MindMate.Controller
 
         private void CloseMap()
         {
-            pluginManager.OnTreeDeleting(this.mapCtrl.MapView.Tree);
-            statusBarCtrl.Unregister(this.mapCtrl.MapView.Tree);
-            UnregisterForMapChangedNotification();
+            //TODO: Should be managed through PersistenceManager events
+            statusBarCtrl.Unregister(this.CurrentMapCtrl.MapView.Tree);
         }
 
         private enum ContinueOperation { Continue, Cancel };
 
         private ContinueOperation PromptForUnsavedChanges()
         {
-            if (unsavedChanges)
+            if (PersistenceManager.IsDirty)
             {
                 DialogResult result = MessageBox.Show("Do you want to save changes?", "Unsaved Changes",
                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
                 switch (result)
                 {
                     case DialogResult.Yes:
-                        SaveMap();
+                        SaveAll();
                         break;
                     case DialogResult.Cancel:
                         return ContinueOperation.Cancel;
@@ -512,16 +493,7 @@ namespace MindMate.Controller
             {
                 return ContinueOperation.Continue;
             }
-        }
-
-        private void UnregisterForMapChangedNotification()
-        {
-            //TODO: check if this works with lambda expressions
-            mapCtrl.MapView.Tree.NodePropertyChanged -= (a, b) => MapChanged();
-            mapCtrl.MapView.Tree.TreeStructureChanged -= (a, b) => MapChanged();
-            mapCtrl.MapView.Tree.IconChanged -= (a, b) => MapChanged();
-            mapCtrl.MapView.Tree.AttributeChanged -= (a, b) => MapChanged();
-        }
+        }       
 
         #endregion Close Map
     }

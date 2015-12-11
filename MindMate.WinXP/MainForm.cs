@@ -6,10 +6,12 @@
 using System;
 using System.Windows.Forms;
 using MindMate.Plugins;
+using MindMate.View.EditorTabs;
 using MindMate.View.NoteEditing;
 
 namespace MindMate.WinXP
 {
+    //TODO: Compare with Win& and bring multiple tab functionality here
     public partial class MainForm : Form, View.IMainForm
     {
         private View.MapControls.MapViewPanel mapViewPanel;
@@ -57,8 +59,7 @@ namespace MindMate.WinXP
 
         private void FocusLastControl()
         {
-            if (focusedControl != null)
-                focusedControl.Focus();
+            focusedControl?.Focus();
         }
 
         public bool IsNoteEditorActive
@@ -91,6 +92,7 @@ namespace MindMate.WinXP
             this.splitContainer1.Panel2.Controls.Add(sideBarTabs);
         }
 
+        //TODO: Update this to support editor tabs
         public void AddMainView(View.MapControls.MapViewPanel mapViewPanel)
         {
             this.mapViewPanel = mapViewPanel;
@@ -100,6 +102,15 @@ namespace MindMate.WinXP
         }
 
         public MainMenuCtrl MainMenuCtrl { get; set; }
+
+        public EditorTabs EditorTabs
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public void InsertMenuItems(MainMenuItem[] menuItems)
         {
             MainMenuCtrl.InsertMenuItems(menuItems);

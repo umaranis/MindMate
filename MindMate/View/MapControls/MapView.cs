@@ -25,7 +25,34 @@ namespace MindMate.View.MapControls
         public const int HOR_MARGIN = 20;
         public const int VER_MARGIN = 3;
 
-        private MapTree tree;
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tree"></param>
+        public MapView(MapTree tree)
+        {
+            this.tree = tree;
+            MetaModel.MetaModel.Instance.SystemIconList.ForEach(a => a.StatusChange += systemIcon_StatusChange);
+
+            Canvas = new MapViewPanel(this);            
+            
+            Canvas.BackColor = System.Drawing.Color.White;
+            Canvas.Location = new System.Drawing.Point(0, 0);
+            Canvas.Size = new System.Drawing.Size(200, 300);
+            Canvas.TabIndex = 0;
+            Canvas.Width = 4096;
+            Canvas.Height = 4096;
+
+            this.RegisterTreeEvents(tree);
+            RefreshNodePositions();
+            Canvas.Invalidate();
+
+            this.nodeTextEditor = new MapViewTextEditor(this, NodeView.DefaultFont);
+            FormatPainter = new MapViewFormatPainter(this);                 
+
+        }
+
+        private readonly MapTree tree;
         public MapTree Tree
         {
             get { return tree; }            
@@ -33,30 +60,17 @@ namespace MindMate.View.MapControls
 
         public void CenterOnForm()
         {
-            Canvas.Left = (int)((Canvas.Parent.Width - Canvas.Width) / 2);
-            Canvas.Top = 0 - (Canvas.Height / 2) + 300;
+            Canvas.Left = (Canvas.Parent.Width - Canvas.Width) / 2;
+            Canvas.Top = (Canvas.Parent.Height - Canvas.Height) / 2;
         }
 
-        public void ChangeTree(MapTree tree)
+        public void RegisterTreeEvents(MapTree tree)
         {
-            if (this.tree != null) 
-            {
-                this.tree.NodePropertyChanged -= tree_NodePropertyChanged;
-                this.tree.TreeStructureChanged -= tree_TreeStructureChanged;
-                this.tree.IconChanged -= tree_IconChanged;
-                this.tree.SelectedNodes.NodeSelected -= SelectedNodes_NodeSelected;
-                this.tree.SelectedNodes.NodeDeselected -= SelectedNodes_NodeDeselected;  
-            }
-            this.tree = tree;
             this.tree.NodePropertyChanged += tree_NodePropertyChanged;
             this.tree.TreeStructureChanged += tree_TreeStructureChanged;
             this.tree.IconChanged += tree_IconChanged;
             this.tree.SelectedNodes.NodeSelected += SelectedNodes_NodeSelected;
             this.tree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
-
-            RefreshNodePositions();
-
-            Canvas.Invalidate();
         }
                                                
         public MapViewPanel Canvas { get; set; }
@@ -92,30 +106,6 @@ namespace MindMate.View.MapControls
         public void HighlightNode(MapNode node) { highlightedNode = node; Canvas.Invalidate(); }
 
         public void ClearHighlightedNode() { highlightedNode = null; Canvas.Invalidate(); }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="tree"></param>
-        public MapView(MapTree tree)
-        {
-            MetaModel.MetaModel.Instance.SystemIconList.ForEach(a => a.StatusChange += systemIcon_StatusChange);
-
-            this.Canvas = new MapViewPanel(this);            
-            
-            this.Canvas.BackColor = System.Drawing.Color.White;
-            this.Canvas.Location = new System.Drawing.Point(0, 0);
-            this.Canvas.Size = new System.Drawing.Size(200, 300);
-            this.Canvas.TabIndex = 0;
-            this.Canvas.Width = 4096;
-            this.Canvas.Height = 4096;
-
-            this.ChangeTree(tree);
-
-            this.nodeTextEditor = new MapViewTextEditor(this, NodeView.DefaultFont);
-            FormatPainter = new MapViewFormatPainter(this);                 
-
-        }
 
         //TODO: all updates to the view should handled this way (rather than relying on controller) 
         void tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)

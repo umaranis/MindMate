@@ -91,6 +91,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\TabController.cs" />
     <Compile Include="MetaModel\Icon.cs" />
     <Compile Include="Model\AttributeSpec.cs" />
     <Compile Include="Model\MapNode.Attribute.cs" />
@@ -242,6 +243,8 @@
     <Compile Include="Serialization\Convert.cs" />
     <Compile Include="Serialization\MindMapSerializer.cs" />
     <Compile Include="Serialization\MapTextSerializer.cs" />
+    <Compile Include="Serialization\PersistenceManager.cs" />
+    <Compile Include="Serialization\PersistentTree.cs" />
     <Compile Include="View\Dialogs\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -255,6 +258,15 @@
       <DependentUpon>IconSelectorExt.cs</DependentUpon>
     </Compile>
     <Compile Include="MetaModel\ISystemIcon.cs" />
+    <Compile Include="View\EditorTabs\EditorTabs.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\EditorTabs\Tab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="View\EditorTabs\TabBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\IMainForm.cs" />
     <Compile Include="View\MapControls\Drawing\MapPainter.cs" />
     <Compile Include="Model\SelectedNodes.cs" />

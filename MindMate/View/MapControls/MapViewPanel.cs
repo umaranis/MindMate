@@ -20,7 +20,7 @@ namespace MindMate.View.MapControls
     /// The drawing canvas for MapView.
     /// Manages and fires Node related events.
     /// </summary>
-    public partial class MapViewPanel : Control
+    public sealed partial class MapViewPanel : Control
     {
 
         public delegate void NodeClickDelegate(MapNode node, NodeMouseEventArgs args);
@@ -58,13 +58,11 @@ namespace MindMate.View.MapControls
                 
         protected override void OnPaint(PaintEventArgs pe)
         {
-            
-            if (MapView != null && MapView.Tree != null)
+            MapControls.Drawing.MapPainter.DrawTree(MapView, pe.Graphics);
+            MapControls.Drawing.MapPainter.DrawNodeLinker(MapView.Tree.RootNode, MapView, pe.Graphics);
+            if (DragDropHandler.IsNodeDragging && !DragDropHandler.NodeDropLocation.IsEmpty)
             {
-                MapControls.Drawing.MapPainter.DrawTree(MapView, pe.Graphics);
-                MapControls.Drawing.MapPainter.DrawNodeLinker(MapView.Tree.RootNode, MapView, pe.Graphics);
-                if (DragDropHandler.IsNodeDragging && !DragDropHandler.NodeDropLocation.IsEmpty)
-                    { MapControls.Drawing.MapPainter.DrawNodeDropHint(DragDropHandler.NodeDropLocation, pe.Graphics); }            
+                MapControls.Drawing.MapPainter.DrawNodeDropHint(DragDropHandler.NodeDropLocation, pe.Graphics);
             }
             ////base.OnPaint(pe);            
         }

@@ -1,5 +1,6 @@
 ﻿using MindMate.Controller;
 using MindMate.Model;
+using MindMate.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace MindMate.Plugins
 {
     public class PluginManager : IPluginManager
     {
-        private MainCtrl mainCtrl;
+        private readonly MainCtrl mainCtrl;
 
         public List<IPlugin> Plugins { get; private set; }
 
@@ -21,6 +22,11 @@ namespace MindMate.Plugins
             Plugins = new List<IPlugin>();
 
             LoadPlugins();
+
+            mainCtrl.PersistenceManager.NewTreeCreated += PersistentManager_NewTreeCreated;
+            mainCtrl.PersistenceManager.TreeOpened += PersistentManager_TreeOpened;
+            mainCtrl.PersistenceManager.TreeClosed += PersistentManager_TreeClosed;
+
         }
 
         private void LoadPlugins()
@@ -83,25 +89,8 @@ namespace MindMate.Plugins
                     tPage.Controls.Add(ctrl);
                     sidebar.TabPages.Add(tPage);
                 }
-            }            
-        }
-
-        internal void OnTreeCreating(MapTree tree)
-        {
-            foreach (IPlugin plugin in Plugins)
-            {
-                plugin.OnCreatingTree(tree);
-            } 
-        }
-
-        internal void OnTreeDeleting(MapTree tree)
-        {
-            foreach (IPlugin plugin in Plugins)
-            {
-                plugin.OnDeletingTree(tree);
             }
         }
-
 
         internal void OnMapNodeContextMenuOpening(SelectedNodes selectedNodes)
         {
@@ -124,6 +113,42 @@ namespace MindMate.Plugins
         {
             Plugins.ForEach(p => p.OnApplicationReady());
         }
+
+        #region New/Open/Close Tree
+
+        private void OnTreeCreating(MapTree tree)
+        {
+            foreach (IPlugin plugin in Plugins)
+            {
+                plugin.OnCreatingTree(tree);
+            } 
+        }
+
+        private void OnTreeDeleting(MapTree tree)
+        {
+            foreach (IPlugin plugin in Plugins)
+            {
+                plugin.OnDeletingTree(tree);
+            }
+        }
+
+        private void PersistentManager_NewTreeCreated(Serialization.PersistenceManager manager, Serialization.PersistentTree tree)
+        {
+            OnTreeCreating(tree.Tree);         
+        }
+
+
+        private void PersistentManager_TreeOpened(Serialization.PersistenceManager manager, Serialization.PersistentTree tree)
+        {
+            OnTreeCreating(tree.Tree);
+        }
+
+        private void PersistentManager_TreeClosed(Serialization.PersistenceManager manager, Serialization.PersistentTree tree)
+        {
+            OnTreeDeleting(tree.Tree);
+        }
+
+        #endregion New/Open/Close Tree
 
         #region IPluginManager Interface
 

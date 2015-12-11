@@ -1,6 +1,6 @@
 ﻿namespace MindMate.View.MapControls
 {
-    partial class MapViewPanel
+    sealed partial class MapViewPanel
     {
         /// <summary>
         /// Required designer variable.
