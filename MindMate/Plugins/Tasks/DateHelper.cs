@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -34,9 +35,9 @@ namespace MindMate.Plugins.Tasks
         public static void GetWeek(DateTime now, System.Globalization.CultureInfo cultureInfo, out DateTime begining, out DateTime end)
         {
             if (now == null)
-                throw new ArgumentNullException("now");
+                throw new ArgumentNullException(nameof(now));
             if (cultureInfo == null)
-                throw new ArgumentNullException("cultureInfo");
+                throw new ArgumentNullException(nameof(cultureInfo));
 
             var firstDayOfWeek = cultureInfo.DateTimeFormat.FirstDayOfWeek;
 
@@ -94,13 +95,13 @@ namespace MindMate.Plugins.Tasks
         public static DateTime ToDateTime(string dateTimeString)
         {
             DateTime dateTime;
-            DateTime.TryParse(dateTimeString, out dateTime);
+            DateTime.TryParse(dateTimeString, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime);
             return dateTime;
         }
 
         public static string ToString(DateTime dateTime)
         {
-            return dateTime.ToString();
+            return dateTime.ToString(CultureInfo.InvariantCulture);
         }
 
         public static DateTime GetDefaultDueDate()
