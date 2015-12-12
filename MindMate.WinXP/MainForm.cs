@@ -6,32 +6,55 @@
 using System;
 using System.Windows.Forms;
 using MindMate.Plugins;
-using MindMate.View.EditorTabs;
 using MindMate.View.NoteEditing;
+using MindMate.View.EditorTabs;
+
 
 namespace MindMate.WinXP
 {
-    //TODO: Compare with Win& and bring multiple tab functionality here
     public partial class MainForm : Form, View.IMainForm
     {
-        private View.MapControls.MapViewPanel mapViewPanel;
-                
+                        
         public MainForm()
         {
             InitializeComponent();
             toolStrip1.MainMenu = MainMenu;
             SetupSideBar();
 
-            notesEditor.GotFocus += (a, b) => this.focusedControl = notesEditor; 
-
             // moving splitter makes it the focused control, below event focuses the last control again
             splitContainer1.GotFocus += (a, b) => FocusLastControl();
+            splitContainer1.MouseDown += SplitContainer1_MouseDown;
 
             // changing side bar tab gives focus away to tab control header, below event focuses relevant control again
             SideBarTabs.SelectedIndexChanged += SideBarTabs_SelectedIndexChanged;
+
+            EditorTabs = new EditorTabs();
+            splitContainer1.Panel1.Controls.Add(EditorTabs);
         }
 
         public MainMenu MainMenu { get { return menuStrip; } }
+
+        #region Manage Focus
+
+        private Control focusedControl;
+
+        private void FocusLastControl()
+        {
+            if (focusedControl != null)
+                focusedControl.Focus();
+            else
+                EditorTabs.SelectedTab.Control.Focus();
+        }
+
+        public void FocusMapView()
+        {
+            EditorTabs.Focus();
+        }
+
+        private void SplitContainer1_MouseDown(object sender, MouseEventArgs e)
+        {
+            focusedControl = NoteEditor.Focused ? NoteEditor : EditorTabs.SelectedTab.Control;
+        }
 
         private void SideBarTabs_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -41,74 +64,40 @@ namespace MindMate.WinXP
                 FocusMapView();
         }
 
-        private NoteEditor notesEditor;
-        public NoteEditor NoteEditor
-        {
-            get { return this.notesEditor; }
-        }
+        #endregion
 
-        private TabControl sideBarTabs;
-        public TabControl SideBarTabs
-        {
-            get { return sideBarTabs; }
-        }
+        public MainMenuCtrl MainMenuCtrl { get; set; }        
+
+        public EditorTabs EditorTabs { get; private set; }
+        public TabControl SideBarTabs { get; private set; }
+        public NoteEditor NoteEditor { get; private set; }
 
         public View.StatusBar StatusBar { get { return this.statusStrip1; } }
 
-        private Control focusedControl;
-
-        private void FocusLastControl()
-        {
-            focusedControl?.Focus();
-        }
-
         public bool IsNoteEditorActive
         {
-            get { return ActiveControl == splitContainer1 && splitContainer1.ActiveControl == notesEditor; }
-        }        
-
-        public void FocusMapView()
-        {
-            mapViewPanel.Focus();
+            get { return ActiveControl == splitContainer1 && splitContainer1.ActiveControl == NoteEditor; }
         }
 
         private void SetupSideBar()
         {
-            sideBarTabs = new TabControl();
-            sideBarTabs.Dock = DockStyle.Fill;
+            SideBarTabs = new TabControl
+            {
+                Dock = DockStyle.Fill,
+                Alignment = TabAlignment.Bottom
+            };
 
             ImageList imageList = new ImageList();
             imageList.Images.Add(MindMate.Properties.Resources.knotes);
-            sideBarTabs.ImageList = imageList;
+            SideBarTabs.ImageList = imageList;
 
-            TabPage tPage = new TabPage("Note Editor");
-            tPage.ImageIndex = 0;
-            notesEditor = new NoteEditor();
-            notesEditor.Dock = DockStyle.Fill;
-            tPage.Controls.Add(notesEditor);
+            TabPage tPage = new TabPage("Note Editor") {ImageIndex = 0};
+            NoteEditor = new NoteEditor {Dock = DockStyle.Fill};
+            tPage.Controls.Add(NoteEditor);
 
 
-            sideBarTabs.TabPages.Add(tPage);
-            this.splitContainer1.Panel2.Controls.Add(sideBarTabs);
-        }
-
-        //TODO: Update this to support editor tabs
-        public void AddMainView(View.MapControls.MapViewPanel mapViewPanel)
-        {
-            this.mapViewPanel = mapViewPanel;
-            splitContainer1.Panel1.Controls.Add(mapViewPanel);
-            mapViewPanel.MapView.CenterOnForm();
-            mapViewPanel.GotFocus += (sender, e) => focusedControl = this.mapViewPanel;
-        }
-
-        public MainMenuCtrl MainMenuCtrl { get; set; }
-
-        public EditorTabs EditorTabs
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            SideBarTabs.TabPages.Add(tPage);
+            this.splitContainer1.Panel2.Controls.Add(SideBarTabs);
         }
 
         public void InsertMenuItems(MainMenuItem[] menuItems)

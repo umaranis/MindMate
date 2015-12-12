@@ -21,8 +21,8 @@ namespace MindMate.WinXP
             System.Diagnostics.Trace.Listeners.Add(traceLog);
             System.Diagnostics.Trace.AutoFlush = true;
             //MyWebMind.Debug.IconListCreator.GenerateIconXML();
-            MainForm form = new MainForm();
             MainCtrl mainCtrl = new MainCtrl();
+			MainForm form = new MainForm();
             mainCtrl.LaunchMindMate(form);
             MainMenuCtrl mainMenuCtrl = new MainMenuCtrl(form.MainMenu, mainCtrl);
             form.MainMenuCtrl = mainMenuCtrl;
