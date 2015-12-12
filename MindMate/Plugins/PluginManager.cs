@@ -23,9 +23,9 @@ namespace MindMate.Plugins
 
             LoadPlugins();
 
-            mainCtrl.PersistenceManager.NewTreeCreated += PersistentManager_NewTreeCreated;
-            mainCtrl.PersistenceManager.TreeOpened += PersistentManager_TreeOpened;
-            mainCtrl.PersistenceManager.TreeClosed += PersistentManager_TreeClosed;
+            mainCtrl.PersistenceManager.NewTreeCreating += PersistentManager_NewTreeCreating;
+            mainCtrl.PersistenceManager.TreeOpening += PersistentManager_TreeOpening;
+            mainCtrl.PersistenceManager.TreeClosing += PersistentManager_TreeClosing;
 
         }
 
@@ -132,18 +132,18 @@ namespace MindMate.Plugins
             }
         }
 
-        private void PersistentManager_NewTreeCreated(Serialization.PersistenceManager manager, Serialization.PersistentTree tree)
+        private void PersistentManager_NewTreeCreating(Serialization.PersistenceManager manager, Serialization.PersistentTree tree)
         {
             OnTreeCreating(tree.Tree);         
         }
 
 
-        private void PersistentManager_TreeOpened(Serialization.PersistenceManager manager, Serialization.PersistentTree tree)
+        private void PersistentManager_TreeOpening(Serialization.PersistenceManager manager, Serialization.PersistentTree tree)
         {
             OnTreeCreating(tree.Tree);
         }
 
-        private void PersistentManager_TreeClosed(Serialization.PersistenceManager manager, Serialization.PersistentTree tree)
+        private void PersistentManager_TreeClosing(Serialization.PersistenceManager manager, Serialization.PersistentTree tree)
         {
             OnTreeDeleting(tree.Tree);
         }

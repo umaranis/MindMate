@@ -30,6 +30,7 @@ namespace MindMate.Plugins.Tasks.Model
             tree.NodePropertyChanged += Tree_NodePropertyChanged;
             tree.TreeStructureChanged += Tree_TreeStructureChanged;
         }
+
         public void UnregisterMap(MapTree tree)
         {
             tree.AttributeChanged -= Tree_AttributeChanged;
@@ -63,17 +64,11 @@ namespace MindMate.Plugins.Tasks.Model
                 (TaskStatus)Enum.Parse(typeof(TaskStatus), e.oldValue) : node.GetTaskStatus();
             if (e.AttributeSpec.IsDueDate())
             {
-                if (e.oldValue == null)
-                    pendingTaskArgs.OldDueDate = DateTime.MinValue;
-                else
-                    pendingTaskArgs.OldDueDate = DateHelper.ToDateTime(e.oldValue);
+                pendingTaskArgs.OldDueDate = e.oldValue == null ? DateTime.MinValue : DateHelper.ToDateTime(e.oldValue);
             }
             else
             {
-                if (node.DueDateExists())
-                    pendingTaskArgs.OldDueDate = node.GetDueDate();
-                else
-                    pendingTaskArgs.OldDueDate = DateTime.MinValue;
+                pendingTaskArgs.OldDueDate = node.DueDateExists() ? node.GetDueDate() : DateTime.MinValue;
             }
 
             return pendingTaskArgs;

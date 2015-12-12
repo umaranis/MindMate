@@ -11,11 +11,18 @@ namespace MindMate.Serialization
     public class PersistentTree
     {
         /// <summary>
-        /// Create a new Tree
+        /// Call <see cref="PersistentTree.Initialize"/> before using the object
         /// </summary>
         public PersistentTree()
         {
             Tree = new MapTree();
+        }
+
+        /// <summary>
+        /// Initialize a new Tree
+        /// </summary>
+        public void Initialize()
+        {
             Tree.RootNode = new MapNode(Tree, "New Map");
             Tree.SelectedNodes.Add(Tree.RootNode);
             Tree.TurnOnChangeManager();
@@ -23,13 +30,12 @@ namespace MindMate.Serialization
         }
 
         /// <summary>
-        /// Open an existing Tree. Throws exception if file not found.
+        /// Deserialze an existing Tree. Throws exception if file not found.
         /// </summary>
         /// <param name="fileName"></param>
-        public PersistentTree(string fileName)
+        public void Initialize(string fileName)
         {
             FileName = fileName;
-            Tree = new MapTree();
             string xmlString = System.IO.File.ReadAllText(FileName);
             new MindMapSerializer().Deserialize(xmlString, Tree);
             Tree.SelectedNodes.Add(Tree.RootNode);

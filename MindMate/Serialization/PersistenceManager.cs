@@ -17,6 +17,10 @@ namespace MindMate.Serialization
         public delegate void CurrentTreeChangedDelete(PersistenceManager manager, PersistentTree oldTree, PersistentTree newTree);
         public event CurrentTreeChangedDelete CurrentTreeChanged;
 
+        public event Action<PersistenceManager, PersistentTree> NewTreeCreating;
+        public event Action<PersistenceManager, PersistentTree> TreeOpening;
+        public event Action<PersistenceManager, PersistentTree> TreeClosing;
+
         public PersistenceManager()
         {
             fileList = new List<PersistentTree>();
@@ -74,6 +78,10 @@ namespace MindMate.Serialization
         public PersistentTree NewTree()
         {
             PersistentTree tree = new PersistentTree();
+
+            NewTreeCreating?.Invoke(this, tree);
+
+            tree.Initialize();
             fileList.Add(tree);
 
             NewTreeCreated?.Invoke(this, tree);
@@ -82,6 +90,7 @@ namespace MindMate.Serialization
             return tree;
         }
 
+        //TODO: Check if the Tree is already open
         /// <summary>
         /// Throws exception if file not found
         /// </summary>
@@ -89,7 +98,11 @@ namespace MindMate.Serialization
         /// <returns></returns>
         public PersistentTree OpenTree(string fileName)
         {
-            PersistentTree tree = new PersistentTree(fileName);
+            PersistentTree tree = new PersistentTree();
+
+            TreeOpening?.Invoke(this, tree);
+
+            tree.Initialize(fileName);
             fileList.Add(tree);
 
             TreeOpened?.Invoke(this, tree);
@@ -109,6 +122,8 @@ namespace MindMate.Serialization
 
         public void Close(PersistentTree tree)
         {
+            TreeClosing?.Invoke(this, tree);
+
             if(tree == CurrentTree)
             {
                 CurrentTree = null;

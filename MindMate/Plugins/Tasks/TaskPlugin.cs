@@ -137,7 +137,6 @@ namespace MindMate.Plugins.Tasks
         /// <summary>
         /// Returns DateTime.MinValue if nothing is selected
         /// </summary>
-        /// <param name="defaultValue"></param>
         /// <returns>Returns DateTime.MinValue if nothing is selected</returns>
         public DateTime ShowDueDatePicker()
         {
