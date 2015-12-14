@@ -11,6 +11,7 @@ using MindMate.Model;
 using MindMate.View.MapControls;
 using MindMate.View;
 using System.Drawing;
+using MindMate.Serialization;
 using MindMate.View.NoteEditing;
 
 namespace MindMate.Controller
@@ -21,152 +22,183 @@ namespace MindMate.Controller
     public class NoteCtrl
     {
         
-        private NoteEditor editor;
+        private readonly NoteEditor editor;
+        private MapNode mapNode;
 
         /// <summary>
         /// Ignore <see cref="MapTree.NodePropertyChanged"/> event when <see cref="MapNode.RichContentText"/> property is changed by <see cref="NoteCtrl"/> itself.
         /// </summary>
         private bool ignoreModelChange;
         
-        public NoteCtrl(NoteEditor editor)
+        public NoteCtrl(NoteEditor editor, PersistenceManager manager)
         {
             this.editor = editor;
-            this.editor.BackColor = MetaModel.MetaModel.Instance.NoteEditorBackColor; //System.Drawing.Color.LightYellow;            
-        }
+            this.editor.BackColor = MetaModel.MetaModel.Instance.NoteEditorBackColor; //System.Drawing.Color.LightYellow;     
+                   
+            manager.CurrentTreeChanged += Manager_CurrentTreeChanged;
+            if (manager.CurrentTree != null) { Register(manager.CurrentTree.Tree); }
 
-        private MapTree tree;
-        public MapTree MapTree
-        {
-            get { return tree; }
-            set
+            if (editor.DocumentReady)
             {
-                Unregister();
-                tree = value;
-                Register();
+                editor.Document.Body.LostFocus += editor_LostFocus; // setup editor lost focus event
+            }
+            else // same as above block in case the document is not ready yet
+            {
+                editor.Ready += (obj) => {
+                    editor.Document.Body.LostFocus += editor_LostFocus;
+                };
             }
         }
 
+        #region Setting & Updating back Content
+
+        /// <summary>
+        /// Based on SelectedNodes status, set NoteEditor content. If multiple selection, NoteEditor is cleared.
+        /// </summary>
+        /// <param name="selectedNodes"></param>
+        private void SetEditorContent(SelectedNodes selectedNodes)
+        {
+            if (selectedNodes.Count == 1 && selectedNodes.First.RichContentType == NodeRichContentType.NOTE)
+            {
+                mapNode = selectedNodes.First;
+                editor.Enabled = true;
+                editor.HTML = this.mapNode.RichContentText;
+                editor.ClearUndoStack();
+
+            }
+            else if (selectedNodes.Count > 1)
+            {
+                mapNode = null;
+                editor.Enabled = false;
+                editor.Clear();
+                editor.ClearUndoStack();
+            }
+            else if (!editor.Empty)
+            {
+                mapNode = null;
+                editor.Enabled = true;
+                editor.Clear();
+                editor.ClearUndoStack();
+            }
+        }
+
+        public void UpdateNodeFromEditor()
+        {
+            if (editor.Dirty && mapNode != null)
+            {
+                mapNode.Tree.ChangeManager.StartBatch("Change Note");
+                ignoreModelChange = true;
+                if (!editor.Empty)
+                {
+                    if (mapNode.RichContentType != NodeRichContentType.NOTE)
+                    {
+                        mapNode.RichContentType = NodeRichContentType.NOTE;
+                    }
+                    mapNode.RichContentText = editor.HTML;
+                }
+                else
+                {
+                    mapNode.RichContentType = NodeRichContentType.NONE;
+                    mapNode.RichContentText = null;
+                }
+                editor.Dirty = false;
+                ignoreModelChange = false;
+                mapNode.Tree.ChangeManager.EndBatch();
+            }
+        }
+
+        #endregion
+
+        #region Registering for Change Events
+
+        private void Manager_CurrentTreeChanged(PersistenceManager manager, PersistentTree oldTree, PersistentTree newTree)
+        {
+            if (oldTree != null)
+            {
+                Unregister(oldTree.Tree);
+            }
+            if (newTree != null)
+            {
+                Register(newTree.Tree);
+            }
+        }
 
         /// <summary>
         /// Only one MapTree should be registered at a time
         /// </summary>
         /// <param name="tree"></param>
-        private void Register()
+        private void Register(MapTree tree)
         {
             if (tree != null)
             {
                 
                 if (editor.DocumentReady)
                 {
-                    MapView_nodeSelected(tree.SelectedNodes.First, tree.SelectedNodes); // setup the NoteEditor for already selected node
-                    editor.Document.Body.LostFocus += editor_LostFocus; // setup editor lost focus event
+                    SetEditorContent(tree.SelectedNodes); // setup the NoteEditor for already selected node
                 }
                 else // same as above block in case the document is not ready yet
                 {
-                    editor.Ready += (obj) => { 
-                        if (tree.SelectedNodes.Count == 1) MapView_nodeSelected(tree.SelectedNodes.First, tree.SelectedNodes); 
-                        editor.Document.Body.LostFocus += editor_LostFocus;
-                    };
+                    editor.Ready += (obj) => SetEditorContent(tree.SelectedNodes); 
                 }
 
                 // events for nodes selected in future
-                tree.SelectedNodes.NodeSelected += MapView_nodeSelected;
-                tree.SelectedNodes.NodeDeselected += MapView_nodeDeselected;
+                tree.SelectedNodes.NodeSelected += Tree_NodeSelected;
+                tree.SelectedNodes.NodeDeselected += Tree_NodeDeselected;
                 // event for Node's Rich Content change (required where Note content is changed outside of Note window)
                 tree.NodePropertyChanged += Tree_NodePropertyChanged;
                 
             }            
         }
-        
+
+
+        private void Unregister(MapTree tree)
+        {
+            if (tree != null)
+            {
+                tree.SelectedNodes.NodeSelected -= Tree_NodeSelected;
+                tree.SelectedNodes.NodeDeselected -= Tree_NodeDeselected;
+                tree.NodePropertyChanged -= Tree_NodePropertyChanged;
+            }
+        }
+
+        #endregion
+
+        #region Change Events
+
+        void Tree_NodeSelected(Model.MapNode node, SelectedNodes selectedNodes)
+        {
+            SetEditorContent(selectedNodes);
+        }
+
+        void Tree_NodeDeselected(MapNode node, SelectedNodes selectedNodes) 
+        {
+            UpdateNodeFromEditor();
+
+            // in case deselection has resulted in 'selection of one node'
+            SetEditorContent(selectedNodes);
+        }
+
+        /// <summary>
+        /// Event for Node's Rich Content change (required where Note content is changed outside of Note window)
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="e"></param>
+        private void Tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
+        {
+            if (ignoreModelChange) return;
+
+            if (node.Selected && e.ChangedProperty == NodeProperties.RichContentText)
+            {
+                SetEditorContent(node.Tree.SelectedNodes);
+            }
+        }
 
         void editor_LostFocus(object sender, EventArgs e)
         {
             UpdateNodeFromEditor();
         }
-        
 
-        private void Unregister()
-        {
-            if (tree != null)
-            {
-                tree.SelectedNodes.NodeSelected -= MapView_nodeSelected;
-                tree.SelectedNodes.NodeDeselected -= MapView_nodeDeselected;
-                tree.NodePropertyChanged -= Tree_NodePropertyChanged;
-            }
-        }
-
-        void MapView_nodeSelected(Model.MapNode node, SelectedNodes selectedNodes)
-        {
-            if (selectedNodes.First.RichContentType == NodeRichContentType.NOTE &&
-                selectedNodes.Count == 1)
-            {
-                editor.Enabled = true;
-                editor.HTML = selectedNodes.First.RichContentText;
-                editor.ClearUndoStack();
-
-            }
-            else if(selectedNodes.Count > 1)
-            {
-                editor.Enabled = false;
-                editor.Clear();
-                editor.ClearUndoStack();
-            }
-            else if (!editor.Empty) 
-            {
-                editor.Enabled = true;
-                editor.Clear();
-                editor.ClearUndoStack();
-            }
-        }
-
-        void MapView_nodeDeselected(MapNode node, SelectedNodes selectedNodes) 
-        {
-            UpdateNodeFromEditor(node);
-
-            if (selectedNodes.Count == 1)
-            {
-                editor.Enabled = true;
-                MapView_nodeSelected(selectedNodes.First, selectedNodes);
-            }
-        }
-
-        private void UpdateNodeFromEditor(MapNode node)
-        {
-            if (editor.Dirty)
-            {
-                node.Tree.ChangeManager.StartBatch("Change Note");
-                ignoreModelChange = true;
-                if (!editor.Empty)
-                {
-                    if (node.RichContentType != NodeRichContentType.NOTE) { node.RichContentType = NodeRichContentType.NOTE; }
-                    node.RichContentText = editor.HTML;
-                }
-                else
-                {
-                    node.RichContentType = NodeRichContentType.NONE;
-                    node.RichContentText = null;
-                }
-                editor.Dirty = false;
-                ignoreModelChange = false;
-                node.Tree.ChangeManager.EndBatch();
-            }
-        }
-
-        public void UpdateNodeFromEditor()
-        {
-            if (tree.SelectedNodes.Count == 1)
-                UpdateNodeFromEditor(tree.SelectedNodes.First);
-        }
-
-        private void Tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
-        {
-            if (ignoreModelChange) return;
-
-            if (node.Selected)
-            {
-                MapView_nodeSelected(node, node.Tree.SelectedNodes);
-            }
-        }
+        #endregion
 
         public void SetNoteEditorBackColor(Color color)
         {

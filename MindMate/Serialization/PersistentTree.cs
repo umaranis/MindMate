@@ -88,9 +88,10 @@ namespace MindMate.Serialization
             Debug.Assert(FileName != null, "Persistent Tree: File name is null.");
 
             var serializer = new MindMapSerializer();
-            var fileStream = new FileStream(FileName, FileMode.Create, FileAccess.Write);
-            serializer.Serialize(fileStream, Tree);
-            fileStream.Close();
+            using (var fileStream = new FileStream(FileName, FileMode.Create, FileAccess.Write))
+            {
+                serializer.Serialize(fileStream, Tree);
+            }
 
             IsDirty = false;
         }

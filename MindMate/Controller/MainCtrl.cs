@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using MindMate.View;
@@ -94,9 +95,7 @@ namespace MindMate.Controller
                 }
             }
             
-            noteCrtl = new NoteCtrl(mainForm.NoteEditor);
-            //TODO: Should used PersistenceManager events
-            noteCrtl.MapTree = tree;            
+            noteCrtl = new NoteCtrl(mainForm.NoteEditor, PersistenceManager);
 
             ContextMenuCtrl cmCtrl = new ContextMenuCtrl(CurrentMapCtrl);
             pluginManager.InitializeContextMenu(cmCtrl);
@@ -313,14 +312,12 @@ namespace MindMate.Controller
 
             MapTree tree = PersistenceManager.NewTree().Tree;
 
-            //TODO: Handle through persistence manager
-            noteCrtl.MapTree = tree;
             statusBarCtrl.Register(tree);
         }
 
         public void OpenMap(string fileName = null)
         {
-            if (PromptForUnsavedChanges() == ContinueOperation.Cancel)
+            if (PromptForUnsavedChanges() == ContinueOperation.Cancel) //TODO: No need for this if multiple files can be opened
                 return;
 
             if (fileName == null)
@@ -355,8 +352,6 @@ namespace MindMate.Controller
 
             CloseMap();
 
-            //TODO: Handle through persistence manager events
-            noteCrtl.MapTree = tree;
             statusBarCtrl.Register(tree);
 
             Debugging.Utility.EndTimeCounter("Loading Map");
@@ -369,7 +364,7 @@ namespace MindMate.Controller
 
         #region Save Map
 
-        public void SaveMap()
+        public void SaveCurrentMap()
         {
             SaveMap(PersistenceManager.CurrentTree);            
         }
@@ -380,29 +375,12 @@ namespace MindMate.Controller
             {
                 if (tree.IsNewMap)
                 {
-                    SaveCurrentMapAs();
+                    SaveAsMap(tree);
                 }
                 else
                 {
-                    SaveMapInternal();
+                    SaveMapInternal(tree);
                 }
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="tree">should not be null</param>
-        public void SaveAsMap(PersistentTree tree)
-        {
-            SaveFileDialog file = new SaveFileDialog();
-            file.AddExtension = true;
-            file.DefaultExt = "mm";
-            file.Filter = "MindMap files (*.mm)|*.mm|All files (*.*)|*.*|Text (*.txt)|*.txt";
-            file.FileName = tree.IsNewMap? CurrentMapCtrl.MapView.Tree.RootNode.Text : PersistenceManager.CurrentTree.FileName;
-            if (file.ShowDialog() == DialogResult.OK)
-            {
-                SaveMapInternal(file.FileName);
             }
         }
 
@@ -426,25 +404,45 @@ namespace MindMate.Controller
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tree">should not be null</param>
+        public void SaveAsMap(PersistentTree tree)
+        {
+            SaveFileDialog file = new SaveFileDialog();
+            file.AddExtension = true;
+            file.DefaultExt = "mm";
+            file.Filter = "MindMap files (*.mm)|*.mm|All files (*.*)|*.*|Text (*.txt)|*.txt";
+            file.FileName = tree.IsNewMap? CurrentMapCtrl.MapView.Tree.RootNode.Text : PersistenceManager.CurrentTree.FileName;
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                SaveMapInternal(tree, file.FileName);
+            }
+        }
+
+        /// <summary>
         /// Method which actually saves the file to disk. Other methods like SaveAsMap and SaveMap invoke this.
         /// </summary>
+        /// <param name="tree"></param>
         /// <param name="fileName"></param>
-        private void SaveMapInternal(string fileName = null)
+        private void SaveMapInternal(PersistentTree tree, string fileName = null)
         {
+            Debug.Assert(tree.FileName == null || fileName == null, "Saving: Missing file name.");
+
             noteCrtl.UpdateNodeFromEditor();
 
-            if (PersistenceManager.CurrentTree != null)
+            if (tree != null)
             {
                 if (fileName == null)
                 {
-                    PersistenceManager.CurrentTree.Save();
+                    tree.Save();
                 }
                 else
                 {
-                    PersistenceManager.CurrentTree.Save(fileName);
+                    tree.Save(fileName);
                 }
                 
-                MetaModel.MetaModel.Instance.RecentFiles.Add(fileName);
+                MetaModel.MetaModel.Instance.RecentFiles.Add(tree.FileName);
                 mainForm.RefreshRecentFilesMenuItems();
             }
         }

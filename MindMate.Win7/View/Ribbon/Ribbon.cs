@@ -110,7 +110,7 @@ namespace MindMate.View.Ribbon
 
         private void _buttonSave_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.SaveMap();
+            mainCtrl.SaveCurrentMap();
         }
 
         private void _buttonOpen_ExecuteEvent(object sender, ExecuteEventArgs e)

@@ -402,7 +402,7 @@ namespace MindMate.WinXP
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mainCtrl.SaveMap();
+            mainCtrl.SaveCurrentMap();
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)

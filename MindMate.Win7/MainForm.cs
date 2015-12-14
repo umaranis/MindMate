@@ -127,7 +127,7 @@ namespace MindMate.Win7
                         mainCtrl.OpenMap();
                         return true;
                     case (Keys.Control | Keys.S):
-                        mainCtrl.SaveMap();
+                        mainCtrl.SaveCurrentMap();
                         return true;
                     case (Keys.Control | Keys.Z):
                         mainCtrl.Undo();
