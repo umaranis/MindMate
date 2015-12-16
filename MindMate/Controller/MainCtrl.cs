@@ -305,9 +305,6 @@ namespace MindMate.Controller
         /// </summary>
         public void NewMap()
         {
-            if (PromptForUnsavedChanges() == ContinueOperation.Cancel)
-                return;
-
             CloseMap();
 
             MapTree tree = PersistenceManager.NewTree().Tree;
@@ -317,9 +314,6 @@ namespace MindMate.Controller
 
         public void OpenMap(string fileName = null)
         {
-            if (PromptForUnsavedChanges() == ContinueOperation.Cancel) //TODO: No need for this if multiple files can be opened
-                return;
-
             if (fileName == null)
             {
                 OpenFileDialog file = new OpenFileDialog();

@@ -30,17 +30,15 @@ namespace MindMate.Controller
         {
             Tab tab = mainForm.EditorTabs.OpenTab(e);
             tab.ControllerTag = new MapCtrl(tab.MapView, mainCtrl);
-            mainForm.EditorTabs.SelectedTab = tab;
         }
 
         private void PersistenceManager_TreeOpened(Serialization.PersistenceManager manager, Serialization.PersistentTree e)
         {
             Tab tab = mainForm.EditorTabs.OpenTab(e);
             tab.ControllerTag = new MapCtrl(tab.MapView, mainCtrl);
-
-            mainForm.EditorTabs.SelectedTab = tab;
         }
 
+        //TODO: If a tab is closed, how current tree will be updated in PersistenceManager
         private void PersistenceManager_TreeClosed(Serialization.PersistenceManager manager, Serialization.PersistentTree e)
         {
             Tab tab = mainForm.EditorTabs.SelectedTab as Tab;
@@ -56,7 +54,8 @@ namespace MindMate.Controller
 
         private void PersistenceManager_CurrentTreeChanged(Serialization.PersistenceManager manager, Serialization.PersistentTree oldTree, Serialization.PersistentTree newTree)
         {
-            mainForm.EditorTabs.FindTab(newTree)?.Select();
+            Tab tab = mainForm.EditorTabs.FindTab(newTree);
+            mainForm.EditorTabs.SelectedTab = tab;
         }
 
         private void EditorTabsOnSelectedIndexChanged(object sender, EventArgs eventArgs)
