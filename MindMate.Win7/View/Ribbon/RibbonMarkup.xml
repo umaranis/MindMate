@@ -1,5 +1,6 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
 <Application xmlns='http://schemas.microsoft.com/windows/2009/Ribbon'>
+  
   <Application.Commands>
 
     <!--Application Menu-->
@@ -28,6 +29,11 @@
       <Command.SmallImages>
         <Image>Res/Save16.bmp</Image>
       </Command.SmallImages>
+    </Command>
+    <Command Name="Close" Id="1005" LabelTitle="Close" LabelDescription="Close Mind Map" TooltipTitle="Close" TooltipDescription="Close current Mind Map">
+      <Command.LargeImages>
+        <!--<Image>Res/305_Close_48x48_72.png</Image>-->
+      </Command.LargeImages>
     </Command>
     <Command Name="ButtonExit" Id="1004" LabelTitle="Exit" LabelDescription="Exit Description" TooltipTitle="Exit" TooltipDescription="Exit application (Alt + F4)">
       <Command.LargeImages>
@@ -134,6 +140,9 @@
             <Button CommandName='ButtonNew' />
             <Button CommandName='ButtonOpen' />
             <Button CommandName='ButtonSave' />
+          </MenuGroup>
+          <MenuGroup>
+            <Button CommandName='Close' />
           </MenuGroup>
           <MenuGroup>
             <Button CommandName='ButtonExit' />

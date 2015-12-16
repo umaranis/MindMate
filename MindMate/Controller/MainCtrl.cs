@@ -305,10 +305,8 @@ namespace MindMate.Controller
         /// </summary>
         public void NewMap()
         {
-            CloseMap();
-
             MapTree tree = PersistenceManager.NewTree().Tree;
-
+            //TODO: Use PersistenceManager events
             statusBarCtrl.Register(tree);
         }
 
@@ -344,15 +342,14 @@ namespace MindMate.Controller
                 return;
             }
 
-            CloseMap();
-
+            //TODO:Use PersistenceManager events
             statusBarCtrl.Register(tree);
 
             Debugging.Utility.EndTimeCounter("Loading Map");
 
             MetaModel.MetaModel.Instance.RecentFiles.Add(fileName);
             mainForm.RefreshRecentFilesMenuItems();
-        }        
+        }
 
         #endregion New / Open Map
 
@@ -445,10 +442,12 @@ namespace MindMate.Controller
 
         #region Close Map
 
-        private void CloseMap()
+        public void CloseCurrentMap()
         {
             //TODO: Should be managed through PersistenceManager events
             statusBarCtrl.Unregister(this.CurrentMapCtrl.MapView.Tree);
+
+            PersistenceManager.CloseCurerntTree();
         }
 
         private enum ContinueOperation { Continue, Cancel };

@@ -11,38 +11,39 @@ namespace MindMate.View.Ribbon
 {
     public class Ribbon
     {
-        private Controller.MainCtrl mainCtrl;
+        private readonly Controller.MainCtrl mainCtrl;
 
-        private RibbonApplicationMenu _applicationMenu;
-        private RibbonButton _buttonNew;
-        private RibbonButton _buttonOpen;
-        private RibbonButton _buttonSave;
-        private RibbonButton _buttonExit;
+        private readonly RibbonApplicationMenu _applicationMenu;
+        private readonly RibbonButton _buttonNew;
+        private readonly RibbonButton _buttonOpen;
+        private readonly RibbonButton _buttonSave;
+        private readonly RibbonButton closeMap;
+        private readonly RibbonButton _buttonExit;
 
         private RibbonGroup _grpNewNode;
-        private RibbonButton _btnNewChildNode;
-        private RibbonButton _btnNewLongNode;
-        private RibbonButton _btnNewNodeAbove;
+        private readonly RibbonButton _btnNewChildNode;
+        private readonly RibbonButton _btnNewLongNode;
+        private readonly RibbonButton _btnNewNodeAbove;
 
-        private RibbonButton _btnNewNodeBelow;
-        private RibbonButton _btnNewParent;
+        private readonly RibbonButton _btnNewNodeBelow;
+        private readonly RibbonButton _btnNewParent;
 
         private RibbonGroup _grpEdit;
-        private RibbonButton _btnEditText;
-        private RibbonButton _btnEditLong;
-        private RibbonButton _btnDeleteNode;
+        private readonly RibbonButton _btnEditText;
+        private readonly RibbonButton _btnEditLong;
+        private readonly RibbonButton _btnDeleteNode;
 
         private RibbonGroup _grpClipboard;
-        private RibbonButton _btnPaste;
-        private RibbonButton _btnPasteAsText;
-        private RibbonButton _btnCut;
-        private RibbonButton _btnCopy;
-        private RibbonToggleButton _btnFormatPainter;
+        private readonly RibbonButton _btnPaste;
+        private readonly RibbonButton _btnPasteAsText;
+        private readonly RibbonButton _btnCut;
+        private readonly RibbonButton _btnCopy;
+        private readonly RibbonToggleButton _btnFormatPainter;
 
         private RibbonGroup _grpFont;
         private RibbonFontControl _RichFont;
 
-        private RibbonLib.Ribbon ribbon;
+        private readonly RibbonLib.Ribbon ribbon;
 
         public Ribbon(RibbonLib.Ribbon ribbon, Controller.MainCtrl mainCtrl)
         {
@@ -54,6 +55,7 @@ namespace MindMate.View.Ribbon
             _buttonNew = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ButtonNew);
             _buttonOpen = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ButtonOpen);
             _buttonSave = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ButtonSave);
+            closeMap = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Close);
             _buttonExit = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ButtonExit);
 
             _applicationMenu.TooltipTitle = "Menu";
@@ -63,6 +65,7 @@ namespace MindMate.View.Ribbon
             _buttonExit.ExecuteEvent += _buttonExit_ExecuteEvent;
             _buttonOpen.ExecuteEvent += _buttonOpen_ExecuteEvent;
             _buttonSave.ExecuteEvent += _buttonSave_ExecuteEvent;
+            closeMap.ExecuteEvent += CloseMap_ExecuteEvent;
 
             //Home Tab : New Node group
             _grpNewNode = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.NewNode);
@@ -126,6 +129,11 @@ namespace MindMate.View.Ribbon
         void _buttonNew_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.NewMap();
+        }
+
+        private void CloseMap_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CloseCurrentMap();
         }
 
         #region Home Tab

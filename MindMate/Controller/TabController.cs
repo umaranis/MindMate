@@ -54,8 +54,11 @@ namespace MindMate.Controller
 
         private void PersistenceManager_CurrentTreeChanged(Serialization.PersistenceManager manager, Serialization.PersistentTree oldTree, Serialization.PersistentTree newTree)
         {
-            Tab tab = mainForm.EditorTabs.FindTab(newTree);
-            mainForm.EditorTabs.SelectedTab = tab;
+            if (newTree != null)
+            {
+                Tab tab = mainForm.EditorTabs.FindTab(newTree);
+                mainForm.EditorTabs.SelectedTab = tab;
+            }
         }
 
         private void EditorTabsOnSelectedIndexChanged(object sender, EventArgs eventArgs)

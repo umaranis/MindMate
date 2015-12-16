@@ -122,16 +122,16 @@ namespace MindMate.Serialization
 
         public void Close(PersistentTree tree)
         {
-            TreeClosing?.Invoke(this, tree);
-
-            if(tree == CurrentTree)
+            if (tree == CurrentTree)
             {
                 CurrentTree = null;
             }
+
+            TreeClosing?.Invoke(this, tree);
+            
             fileList.Remove(tree);
 
             TreeClosed?.Invoke(this, tree);
-            CurrentTree = tree;
         }
 
     }

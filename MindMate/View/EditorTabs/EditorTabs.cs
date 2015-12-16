@@ -20,15 +20,22 @@ namespace MindMate.View.EditorTabs
         public EditorTabs()
         {
             Dock = DockStyle.Fill;
-            //HideHeader();  //TODO: Hide header if only one window
+            HideHeader();  
             SelectedIndexChanged += EditorTabs_SelectedIndexChanged;
-
         }
+
         private void HideHeader()
         {
             Appearance = TabAppearance.FlatButtons;
             ItemSize = new System.Drawing.Size(0, 1);
             SizeMode = TabSizeMode.Fixed; 
+        }
+
+        private void ShowHeader()
+        {
+            Appearance = TabAppearance.Normal;
+            ItemSize = new System.Drawing.Size(0, 0);
+            SizeMode = TabSizeMode.Normal;
         }
 
         public new TabBase SelectedTab
@@ -46,12 +53,9 @@ namespace MindMate.View.EditorTabs
         {
             MapView mapView = new MapView(tree.Tree);
             Tab tab = new Tab(mapView, tree);
-            TabPages.Add(tab);
-            mapView.CenterOnForm();
             tab.UpdateTitle();
-
-            if(TabCount == 1) { UpdateAppTitle(); }
-            tab.TextChanged += Tab_TextChanged;
+            OpenTabInternal(tab);
+            mapView.CenterOnForm();
 
             return tab;
         }
@@ -66,10 +70,20 @@ namespace MindMate.View.EditorTabs
         {
             TabBase tab = new TabBase(control);
             tab.Text = text;
-            tab.TextChanged += Tab_TextChanged;
+            
+            OpenTabInternal(tab);
+            
             return tab;
         }
-                
+
+        private void OpenTabInternal(TabBase tab)
+        {
+            TabPages.Add(tab);
+            tab.TextChanged += Tab_TextChanged;
+            if (TabCount == 1) { UpdateAppTitle(); }
+            if (TabCount == 2) { ShowHeader(); }
+        }
+
         public void CloseTab(PersistentTree tree)
         {
             Tab tab = FindTab(tree);
@@ -83,6 +97,8 @@ namespace MindMate.View.EditorTabs
         {
             tab.TextChanged -= Tab_TextChanged;
             tab.Close();
+
+            if(TabCount == 1) { HideHeader(); }
         }       
 
         /// <summary>
@@ -95,6 +111,8 @@ namespace MindMate.View.EditorTabs
 
         public Tab FindTab(PersistentTree tree)
         {
+            if (tree == null) return null;
+
             Tab tab = SelectedTab as Tab;
 
             if(tab != null && tab.Tree == tree)
@@ -147,7 +165,8 @@ namespace MindMate.View.EditorTabs
 
         protected override void OnGotFocus(EventArgs e)
         {
-            SelectedTab.Control.Focus();
+            //Ideally selected tab should never be null, but it happens internally in TabControl during ShowHeader
+            SelectedTab?.Control.Focus();
             //base.OnGotFocus(e);
         }
 

@@ -11,6 +11,7 @@ namespace MindMate.View.Ribbon
         ButtonNew = 1001,
         ButtonOpen = 1002,
         ButtonSave = 1003,
+        Close = 1005,
         ButtonExit = 1004,
         TabHome = 2000,
         NewNode = 2010,

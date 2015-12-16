@@ -100,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Binaries\Ribbon.dll" />
+    <Content Include="View\Ribbon\Res\305_Close_48x48_72.png" />
     <Content Include="View\Ribbon\Res\align_compact.bmp" />
     <Content Include="View\Ribbon\Res\cross-script.bmp" />
     <None Include="View\Ribbon\Res\cut.png" />
