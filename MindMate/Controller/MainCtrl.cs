@@ -444,10 +444,17 @@ namespace MindMate.Controller
 
         public void CloseCurrentMap()
         {
-            //TODO: Should be managed through PersistenceManager events
-            statusBarCtrl.Unregister(this.CurrentMapCtrl.MapView.Tree);
+            if (mainForm.EditorTabs.TabCount == 1)
+            {
+                Application.Exit();
+            }
+            else
+            {
+                //TODO: Should be managed through PersistenceManager events
+                statusBarCtrl.Unregister(this.CurrentMapCtrl.MapView.Tree);
 
-            PersistenceManager.CloseCurerntTree();
+                PersistenceManager.CloseCurerntTree();
+            }
         }
 
         private enum ContinueOperation { Continue, Cancel };
