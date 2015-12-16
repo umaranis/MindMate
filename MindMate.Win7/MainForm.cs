@@ -83,11 +83,9 @@ namespace MindMate.Win7
 
         private void SetupSideBar()
         {
-            SideBarTabs = new TabControl
-            {
-                Dock = DockStyle.Fill,
-                Alignment = TabAlignment.Bottom
-            };
+            SideBarTabs = new TabControl();
+            SideBarTabs.Dock = DockStyle.Fill;
+            //SideBarTabs.Alignment = TabAlignment.Bottom;
 
             ImageList imageList = new ImageList();
             imageList.Images.Add(MindMate.Properties.Resources.knotes);
