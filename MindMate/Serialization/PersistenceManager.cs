@@ -57,6 +57,11 @@ namespace MindMate.Serialization
             }
         }
 
+        public PersistentTree Find(System.Predicate<PersistentTree> match)
+        {
+            return fileList.Find(match);
+        }
+
         #endregion Tree List
 
         private PersistentTree currentTree;

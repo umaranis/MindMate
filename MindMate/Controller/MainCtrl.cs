@@ -322,6 +322,14 @@ namespace MindMate.Controller
                     fileName = file.FileName;
             }
 
+            //file already open
+            PersistentTree persistentTree = PersistenceManager.Find(t => t.FileName == fileName);
+            if (persistentTree != null)
+            {
+                PersistenceManager.CurrentTree = persistentTree;
+                return;
+            }
+
             Debugging.Utility.StartTimeCounter("Loading Map", fileName);
 
             MapTree tree;
