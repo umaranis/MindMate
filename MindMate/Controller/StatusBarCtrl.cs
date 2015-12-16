@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MindMate.Model;
+using MindMate.Serialization;
 using MindMate.View.MapControls;
 
 namespace MindMate.Controller
@@ -19,12 +20,26 @@ namespace MindMate.Controller
     {
         protected object statusBar;
 
-        public StatusBarCtrl(object statusBar)
+        public StatusBarCtrl(object statusBar, PersistenceManager persistenceManager)
         {
             this.statusBar = statusBar;
+
+            persistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
         }
 
-        public void Register(MapTree tree)
+        private void PersistenceManager_CurrentTreeChanged(PersistenceManager manager, PersistentTree oldTree, PersistentTree newTree)
+        {
+            if (oldTree != null)
+            {
+                Unregister(oldTree.Tree);
+            }
+            if (newTree != null)
+            {
+                Register(newTree.Tree);
+            }
+        }
+
+        private void Register(MapTree tree)
         {
             tree.SelectedNodes.NodeSelected += MapView_nodeSelected;
             tree.SelectedNodes.NodeDeselected += MapView_nodeDeselected;
@@ -34,7 +49,7 @@ namespace MindMate.Controller
             tree.IconChanged += MapNode_IconChanged;
         }
 
-        public void Unregister(MapTree tree)
+        private void Unregister(MapTree tree)
         {
             tree.SelectedNodes.NodeSelected -= MapView_nodeSelected;
             tree.SelectedNodes.NodeDeselected -= MapView_nodeDeselected;

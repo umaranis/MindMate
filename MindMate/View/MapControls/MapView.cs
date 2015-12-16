@@ -107,7 +107,6 @@ namespace MindMate.View.MapControls
 
         public void ClearHighlightedNode() { highlightedNode = null; Canvas.Invalidate(); }
 
-        //TODO: all updates to the view should handled this way (rather than relying on controller) 
         void tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
         {
             if (node.NodeView == null) return;
@@ -123,7 +122,7 @@ namespace MindMate.View.MapControls
                 case NodeProperties.RichContentType:
                     node.NodeView.RefreshNoteIcon();
                     if (node == Tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                    RefreshNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+                    RefreshNodePositions(node.Parent ?? node, NodePosition.Undefined);
                     break;
                 case NodeProperties.Bold:
                 case NodeProperties.Italic:

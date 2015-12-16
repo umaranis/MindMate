@@ -38,7 +38,6 @@ namespace MindMate.Controller
             tab.ControllerTag = new MapCtrl(tab.MapView, mainCtrl);
         }
 
-        //TODO: If a tab is closed, how current tree will be updated in PersistenceManager
         private void PersistenceManager_TreeClosed(Serialization.PersistenceManager manager, Serialization.PersistentTree e)
         {
             mainForm.EditorTabs.CloseTab(e);

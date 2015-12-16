@@ -69,6 +69,7 @@ namespace MindMate.Controller
             pluginManager = new Plugins.PluginManager(this);
             new TabController(this, mainForm);
             pluginManager.Initialize();
+            statusBarCtrl = new WinFormsStatusBarCtrl(mainForm.StatusBar, PersistenceManager);
             mainForm.Load += mainForm_Load;
             mainForm.Shown += mainForm_AfterReady;
         }
@@ -105,9 +106,7 @@ namespace MindMate.Controller
             pluginManager.InitializeSideBarWindow(mainForm.SideBarTabs);
             
             pluginManager.InitializeMainMenu(mainForm);
-            statusBarCtrl = new WinFormsStatusBarCtrl(mainForm.StatusBar);
-            statusBarCtrl.Register(tree); //TODO: Handle through persistence manager events
-
+            
             mainForm.NoteEditor.OnDirty += (a) => {
                 if(PersistenceManager.CurrentTree != null)
                 {
@@ -305,9 +304,7 @@ namespace MindMate.Controller
         /// </summary>
         public void NewMap()
         {
-            MapTree tree = PersistenceManager.NewTree().Tree;
-            //TODO: Use PersistenceManager events
-            statusBarCtrl.Register(tree);
+            PersistenceManager.NewTree();
         }
 
         public void OpenMap(string fileName = null)
@@ -349,9 +346,6 @@ namespace MindMate.Controller
                 Debugging.Utility.EndTimeCounter("Loading Map");
                 return;
             }
-
-            //TODO:Use PersistenceManager events
-            statusBarCtrl.Register(tree);
 
             Debugging.Utility.EndTimeCounter("Loading Map");
 
@@ -458,9 +452,6 @@ namespace MindMate.Controller
             }
             else
             {
-                //TODO: Should be managed through PersistenceManager events
-                statusBarCtrl.Unregister(this.CurrentMapCtrl.MapView.Tree);
-
                 PersistenceManager.CloseCurerntTree();
             }
         }

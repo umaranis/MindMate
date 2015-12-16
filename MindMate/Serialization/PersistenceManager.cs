@@ -95,7 +95,6 @@ namespace MindMate.Serialization
             return tree;
         }
 
-        //TODO: Check if the Tree is already open
         /// <summary>
         /// Throws exception if file not found
         /// </summary>
@@ -116,7 +115,6 @@ namespace MindMate.Serialization
             return tree;
         }
 
-        //TODO: Implement close map menu command
         public void CloseCurerntTree()
         {
             if(CurrentTree != null)

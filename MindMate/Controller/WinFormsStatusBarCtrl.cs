@@ -10,6 +10,7 @@ using System.Text;
 using MindMate.Model;
 using MindMate.View.MapControls;
 using System.Windows.Forms;
+using MindMate.Serialization;
 
 namespace MindMate.Controller
 {
@@ -18,7 +19,7 @@ namespace MindMate.Controller
     /// </summary>
     public class WinFormsStatusBarCtrl : StatusBarCtrl
     {
-        public WinFormsStatusBarCtrl(object statusBar) : base(statusBar)
+        public WinFormsStatusBarCtrl(object statusBar, PersistenceManager persistenceManager) : base(statusBar, persistenceManager)
         {
         }
                 
