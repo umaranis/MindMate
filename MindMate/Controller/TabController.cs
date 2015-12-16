@@ -41,15 +41,7 @@ namespace MindMate.Controller
         //TODO: If a tab is closed, how current tree will be updated in PersistenceManager
         private void PersistenceManager_TreeClosed(Serialization.PersistenceManager manager, Serialization.PersistentTree e)
         {
-            Tab tab = mainForm.EditorTabs.SelectedTab as Tab;
-            if (tab != null)
-            {
-                tab.Close();
-            }
-            else
-            {
-                mainForm.EditorTabs.FindTab(e)?.Close();
-            }
+            mainForm.EditorTabs.CloseTab(e);
         }
 
         private void PersistenceManager_CurrentTreeChanged(Serialization.PersistenceManager manager, Serialization.PersistentTree oldTree, Serialization.PersistentTree newTree)
