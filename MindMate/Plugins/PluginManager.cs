@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using MindMate.View.MapControls;
 
 namespace MindMate.Plugins
 {
@@ -48,19 +49,79 @@ namespace MindMate.Plugins
             });
         }
 
-        public void InitializeContextMenu(ContextMenuCtrl contextMenuCtrl)
+        #region Initialize ContextMenu
+
+        public void InitializeContextMenu(NodeContextMenu nodeContextMenu)
         {
-            foreach(IPlugin p in Plugins)
+            foreach (IPlugin p in Plugins)
             {
                 IPluginMapNodeContextMenu plugin = p as IPluginMapNodeContextMenu;
                 if (plugin != null)
                 {
                     var menu = plugin.CreateContextMenuItemsForNode();
                     if (menu != null)
-                        contextMenuCtrl.InsertMenuItems(menu);
+                        InsertMenuItems(menu, nodeContextMenu);
                 }
             }
+
+            //register event to notify plugins on context menu opening
+            nodeContextMenu.Opening +=
+                (s, evt) => this.OnMapNodeContextMenuOpening(mainCtrl.CurrentMapCtrl.MapView.SelectedNodes);
         }
+
+        private void InsertMenuItems(Plugins.MenuItem[] menuItems, NodeContextMenu nodeContextMenu)
+        {
+            ContextMenuStrip contextMenu = nodeContextMenu;
+
+            int index = contextMenu.Items.IndexOf(nodeContextMenu.mSepPluginEnd);
+
+            contextMenu.Items.Insert(index++, new ToolStripSeparator());
+
+            foreach (Plugins.MenuItem menu in menuItems)
+            {
+                contextMenu.Items.Insert(index++, menu.UnderlyingMenuItem);
+                menu.UnderlyingMenuItem.Click += PluginMenuItem_Click;
+                SetClickHandlerForSubMenu(menu);
+            }
+        }
+
+        private void SetClickHandlerForSubMenu(Plugins.MenuItem menu)
+        {
+            foreach (ToolStripDropDownItem subMenuItem in menu.UnderlyingMenuItem.DropDownItems)
+            {
+                subMenuItem.Click += PluginMenuItem_Click;
+                SetClickHandlerForSubMenu((Plugins.MenuItem)(subMenuItem.Tag));
+            }
+        }
+
+        void PluginMenuItem_Click(object sender, EventArgs e)
+        {
+            Plugins.MenuItem menuItem = ((Plugins.MenuItem)((ToolStripMenuItem)sender).Tag);
+            if (menuItem.Click != null)
+                menuItem.Click(menuItem, mainCtrl.CurrentMapCtrl.MapView.Tree.SelectedNodes);
+        }
+
+        /// <summary>
+        /// Executes an action for each of the menu items added by Plugins.
+        /// </summary>
+        /// <param name="action"></param>
+        public void ForEachPluginMenuItem(Action<Plugins.MenuItem> action)
+        {
+            ContextMenuStrip contextMenu = mainCtrl.NodeContextMenu;
+            int index = contextMenu.Items.IndexOf(mainCtrl.NodeContextMenu.mSepPluginEnd);
+            ToolStripItem menuItem = contextMenu.Items[--index];
+            while (menuItem is ToolStripSeparator || (menuItem?.Tag != null))
+            {
+                if (!(menuItem is ToolStripSeparator))
+                {
+                    Plugins.MenuItem menuItemAdaptor = ((Plugins.MenuItem)menuItem.Tag);
+                    action(menuItemAdaptor);
+                }
+                menuItem = contextMenu.Items[--index];
+            }
+        }
+
+        #endregion
 
         internal void InitializeMainMenu(View.IMainForm mainManuCtrl)
         {

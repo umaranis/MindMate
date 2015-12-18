@@ -14,127 +14,58 @@ using MindMate.View.MapControls;
 
 namespace MindMate.Controller
 {
+    /// <summary>
+    /// Handle events for NodeContextMenu items
+    /// </summary>
     public class ContextMenuCtrl
     {
-        //TODO: Extract out ContextMenu from MapViewPanel into a separate class and ContextMenuCrtl should pass the events to Selected Map's Controller
-        private readonly MapCtrl mapCtrl;
-        
+        private MapCtrl CurrentMapCtrl { get { return mainCtrl.CurrentMapCtrl; } }
 
-        public ContextMenuCtrl(MapCtrl c)
+        private readonly MainCtrl mainCtrl;
+
+        public NodeContextMenu NodeContextMenu { get; private set; }
+
+        public ContextMenuCtrl(MainCtrl c, NodeContextMenu nodeContextMenu)
         {
-            this.mapCtrl = c;
+            this.mainCtrl = c;
+            NodeContextMenu = nodeContextMenu;
+
+            NodeContextMenu.mEditNode.Click += new EventHandler(mEditNode_Click);
+            NodeContextMenu.mInsertChild.Click += mInsertChild_Click;
+            NodeContextMenu.mDeleteNode.Click += mDeleteNode_Click;
+            NodeContextMenu.mSelectIcon.Click += mSelectIcon_Click;
+
+            NodeContextMenu.mSelectIcon.Image = MindMate.Properties.Resources.kalzium;
             
-
-            mapCtrl.MapView.Canvas.mEditNode.Click += new EventHandler(mEditNode_Click);
-            mapCtrl.MapView.Canvas.mInsertChild.Click += mInsertChild_Click;
-            mapCtrl.MapView.Canvas.mDeleteNode.Click += mDeleteNode_Click;
-            mapCtrl.MapView.Canvas.mSelectIcon.Click += mSelectIcon_Click;
-
-            mapCtrl.MapView.Canvas.mSelectIcon.Image = MindMate.Properties.Resources.kalzium;
-
-            mapCtrl.MapView.Canvas.NodeRightClick += Canvas_NodeRightClick;
-            mapCtrl.MapView.Canvas.KeyDown += Canvas_KeyDown;
-
-            mapCtrl.MapView.Canvas.contextMenu.Opening += ContextMenu_Opening;
-
-            mapCtrl.MapView.NodeTextEditor.ContextMenu = mapCtrl.MapView.Canvas.contextMenu;
-
+            NodeContextMenu.Opening += ContextMenu_Opening;
         }
 
         private void ContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            mapCtrl.MapView.Canvas.mEditNode.Text = mapCtrl.MapView.NodeTextEditor.IsTextEditing ? "End Editing" : "Edit Node";
+            NodeContextMenu.mEditNode.Text = CurrentMapCtrl.MapView.NodeTextEditor.IsTextEditing ? "End Editing" : "Edit Node";
         }
-
-        public void InsertMenuItems(Plugins.MenuItem [] menuItems)
-        {            
-            ContextMenuStrip contextMenu = mapCtrl.MapView.Canvas.contextMenu;
-
-            int index = contextMenu.Items.IndexOf(mapCtrl.MapView.Canvas.mSepPluginEnd);        
-  
-            contextMenu.Items.Insert(index++, new ToolStripSeparator());
-            
-            foreach(Plugins.MenuItem menu in menuItems)
-            {
-                contextMenu.Items.Insert(index++, menu.UnderlyingMenuItem);
-                menu.UnderlyingMenuItem.Click += PluginMenuItem_Click;
-                SetClickHandlerForSubMenu(menu);
-            }
-        }
-
-        private void SetClickHandlerForSubMenu(Plugins.MenuItem menu)
-        {
-            foreach(ToolStripDropDownItem subMenuItem in menu.UnderlyingMenuItem.DropDownItems)
-            {
-                subMenuItem.Click += PluginMenuItem_Click;
-                SetClickHandlerForSubMenu((Plugins.MenuItem)(subMenuItem.Tag));
-            }
-        }
-
-        void PluginMenuItem_Click(object sender, EventArgs e)
-        {
-            Plugins.MenuItem menuItem = ((Plugins.MenuItem)((ToolStripMenuItem)sender).Tag);
-            if(menuItem.Click != null)
-                menuItem.Click(menuItem, this.mapCtrl.MapView.Tree.SelectedNodes);
-        }
-
-        void Canvas_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Apps && mapCtrl.MapView.SelectedNodes.First != null)
-            {
-                NodeView nodeView = mapCtrl.MapView.GetNodeView(mapCtrl.MapView.SelectedNodes.First);
-                mapCtrl.MapView.Canvas.contextMenu.Show(mapCtrl.MapView.Canvas, new Point((int)nodeView.Left + 2, (int)(nodeView.Top + nodeView.Height - 2)));                  
-            }
-        }
-
-        
-        /// <summary>
-        /// Executes an action for each of the menu items added by Plugins.
-        /// </summary>
-        /// <param name="action"></param>
-        public void ForEachPluginMenuItem(Action<Plugins.MenuItem> action)
-        {
-            ContextMenuStrip contextMenu = mapCtrl.MapView.Canvas.contextMenu;
-            int index = contextMenu.Items.IndexOf(mapCtrl.MapView.Canvas.mSepPluginEnd);
-            ToolStripItem menuItem = contextMenu.Items[--index];
-            while (menuItem is ToolStripSeparator || (menuItem?.Tag != null))
-            {
-                if (!(menuItem is ToolStripSeparator))
-                {
-                    Plugins.MenuItem menuItemAdaptor = ((Plugins.MenuItem)menuItem.Tag);
-                    action(menuItemAdaptor);
-                }
-                menuItem = contextMenu.Items[--index];
-            }
-        }
-        
-        void Canvas_NodeRightClick(MapNode node, NodeMouseEventArgs args)
-        {
-            mapCtrl.MapView.Canvas.contextMenu.Show(mapCtrl.MapView.Canvas, args.Location);
-        }
-
 
         private void mDeleteNode_Click(object sender, EventArgs e)
         {
-            mapCtrl.DeleteSelectedNodes();
+            CurrentMapCtrl.DeleteSelectedNodes();
         }
 
         private void mEditNode_Click(object sender, EventArgs e)
         {
-            if (mapCtrl.MapView.NodeTextEditor.IsTextEditing)
-                mapCtrl.EndNodeEdit();
+            if (CurrentMapCtrl.MapView.NodeTextEditor.IsTextEditing)
+                CurrentMapCtrl.EndNodeEdit();
             else
-                mapCtrl.BeginCurrentNodeEdit(TextCursorPosition.Undefined);
+                CurrentMapCtrl.BeginCurrentNodeEdit(TextCursorPosition.Undefined);
         }
 
         private void mInsertChild_Click(object sender, EventArgs e)
         {
-            mapCtrl.AppendChildNodeAndEdit();
+            CurrentMapCtrl.AppendChildNodeAndEdit();
         }
 
         void mSelectIcon_Click(object sender, EventArgs e)
         {
-            mapCtrl.AppendIconFromIconSelectorExt();
+            CurrentMapCtrl.AppendIconFromIconSelectorExt();
         }
 
 

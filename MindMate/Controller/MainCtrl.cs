@@ -16,6 +16,7 @@ using MindMate.Serialization;
 using System.IO;
 using MindMate.Modules.Undo;
 using MindMate.View.EditorTabs;
+using MindMate.View.MapControls;
 
 namespace MindMate.Controller
 {
@@ -46,6 +47,7 @@ namespace MindMate.Controller
         public WinFormsStatusBarCtrl statusBarCtrl;
         private NoteCtrl noteCrtl;
 
+        public NodeContextMenu NodeContextMenu { get; private set; }
         private ColorDialog colorDialog;
         private CustomFontDialog.FontDialog fontDialog;
 
@@ -70,6 +72,7 @@ namespace MindMate.Controller
             new TabController(this, mainForm);
             pluginManager.Initialize();
             statusBarCtrl = new WinFormsStatusBarCtrl(mainForm.StatusBar, PersistenceManager);
+            NodeContextMenu = new NodeContextMenu();
             mainForm.Load += mainForm_Load;
             mainForm.Shown += mainForm_AfterReady;
         }
@@ -98,11 +101,10 @@ namespace MindMate.Controller
             
             noteCrtl = new NoteCtrl(mainForm.NoteEditor, PersistenceManager);
 
-            ContextMenuCtrl cmCtrl = new ContextMenuCtrl(CurrentMapCtrl);
-            pluginManager.InitializeContextMenu(cmCtrl);
-            CurrentMapCtrl.MapView.Canvas.contextMenu.Opening += 
-                (s, evt) => pluginManager.OnMapNodeContextMenuOpening(CurrentMapCtrl.MapView.SelectedNodes); 
-
+            pluginManager.InitializeContextMenu(NodeContextMenu);
+            
+            new ContextMenuCtrl(this, NodeContextMenu);
+            
             pluginManager.InitializeSideBarWindow(mainForm.SideBarTabs);
             
             pluginManager.InitializeMainMenu(mainForm);

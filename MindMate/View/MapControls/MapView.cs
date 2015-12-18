@@ -248,6 +248,7 @@ namespace MindMate.View.MapControls
             }
         }
 
+        //TODO: Bug: Justs called as many number of times as the open Maps, every time impacting the same node
         void systemIcon_StatusChange(MapNode node, ISystemIcon icon, MetaModel.SystemIconStatusChange e)
         {
             if (node.NodeView == null) return;

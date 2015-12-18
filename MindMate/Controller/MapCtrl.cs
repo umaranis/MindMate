@@ -60,7 +60,7 @@ namespace MindMate.Controller
 
             MapView.Canvas.BackColor = MetaModel.MetaModel.Instance.MapEditorBackColor;
 
-            ContextMenuCtrl = new ContextMenuCtrl(this);            
+            new ContextMenuAttacher(mainCtrl.NodeContextMenu, MapView);
         }        
 
         public void EditHyperlink(bool useFileDialog)
@@ -88,9 +88,7 @@ namespace MindMate.Controller
                 }
             }
         }
-
-                           
-
+        
         #region Node Editing
 
         public void BeginCurrentNodeEdit(TextCursorPosition org)
