@@ -25,6 +25,7 @@ namespace MindMate.MetaModel
         /// 1- Icon is no more applicable to the node and should be hidden.
         /// 2- Icon is now applicable to the node and should be displayed.
         /// Views should listen to this event to make appropriate changes.
+        /// View should verify that MapNode belongs to its Tree before taking any action (if multiple maps are open all will get notification)
         /// </summary>
         event Action<MapNode, ISystemIcon, SystemIconStatusChange> StatusChange;
 

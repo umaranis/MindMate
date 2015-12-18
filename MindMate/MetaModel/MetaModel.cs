@@ -62,7 +62,7 @@ namespace MindMate.MetaModel
 
         #endregion
 
-        private List<ModelIcon> iconsList = new List<ModelIcon>();
+        private readonly List<ModelIcon> iconsList = new List<ModelIcon>();
 
         [ProtoBuf.ProtoMember(1)]
         public List<ModelIcon> IconsList
@@ -70,7 +70,7 @@ namespace MindMate.MetaModel
             get { return iconsList;  }
         }
 
-        private List<ISystemIcon> systemIconList = new List<ISystemIcon>();
+        private readonly List<ISystemIcon> systemIconList = new List<ISystemIcon>();
         public List<ISystemIcon> SystemIconList
         {
             get { return systemIconList; }
@@ -79,7 +79,7 @@ namespace MindMate.MetaModel
         [ProtoBuf.ProtoMember(2)]
         public string LastOpenedFile { get; set; }
 
-        private CustomFontDialog.RecentlyUsedList<string> recentFiles = new CustomFontDialog.RecentlyUsedList<string>(8);
+        private readonly CustomFontDialog.RecentlyUsedList<string> recentFiles = new CustomFontDialog.RecentlyUsedList<string>(8);
         [ProtoBuf.ProtoMember(3)]
         public CustomFontDialog.RecentlyUsedList<string> RecentFiles { 
             get

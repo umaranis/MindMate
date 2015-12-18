@@ -83,7 +83,7 @@ namespace MindMate.View.MapControls
             }
         }        
 
-        private MapViewTextEditor nodeTextEditor;
+        private readonly MapViewTextEditor nodeTextEditor;
         public MapViewTextEditor NodeTextEditor
         {
             get
@@ -174,7 +174,7 @@ namespace MindMate.View.MapControls
             }
 
             if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-            RefreshNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+            RefreshNodePositions(node.Parent ?? node, NodePosition.Undefined);
 
             Canvas.Invalidate();
         }
@@ -248,9 +248,9 @@ namespace MindMate.View.MapControls
             }
         }
 
-        //TODO: Bug: Justs called as many number of times as the open Maps, every time impacting the same node
         void systemIcon_StatusChange(MapNode node, ISystemIcon icon, MetaModel.SystemIconStatusChange e)
         {
+            if (node.Tree != Tree) return; //event could be due to change in some other MapView
             if (node.NodeView == null) return;
 
             switch(e)
@@ -264,7 +264,7 @@ namespace MindMate.View.MapControls
             }
 
             if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-            RefreshNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+            RefreshNodePositions(node.Parent ?? node, NodePosition.Undefined);
 
             Canvas.Invalidate();
         }
