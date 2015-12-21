@@ -59,6 +59,7 @@ namespace MindMate.Model
             }
             set
             {
+                if (folded == value) return;
                 folded = value;
                 Tree.FireEvent(this, NodeProperties.Folded, !folded);
             }
@@ -73,6 +74,7 @@ namespace MindMate.Model
             }
             set
             {
+                if (bold == value) return;
                 bold = value;
                 modified = DateTime.Now;
                 Tree.FireEvent(this, NodeProperties.Bold, !bold);
@@ -88,6 +90,7 @@ namespace MindMate.Model
             }
             set
             {
+                if (italic == value) return;
                 italic = value;
                 modified = DateTime.Now;
                 Tree.FireEvent(this, NodeProperties.Italic, !italic);
