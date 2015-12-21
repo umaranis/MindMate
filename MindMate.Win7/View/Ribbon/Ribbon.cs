@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using RibbonLib.Interop;
+using System.Diagnostics;
 
 namespace MindMate.View.Ribbon
 {
@@ -107,8 +109,11 @@ namespace MindMate.View.Ribbon
 
             //Home Tab: Font group
             _grpFont = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpFont);
-            _RichFont = new RibbonFontControl(ribbon, (uint)RibbonMarkupCommands.RichFont);        
-            
+            _RichFont = new RibbonFontControl(ribbon, (uint)RibbonMarkupCommands.RichFont);
+
+            _RichFont.ExecuteEvent += _RichFont_ExecuteEvent;
+
+            mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
         }
 
         private void _buttonSave_ExecuteEvent(object sender, ExecuteEventArgs e)
@@ -211,6 +216,31 @@ namespace MindMate.View.Ribbon
             }
         }
 
+        private void _RichFont_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            
+            PropVariant propChangesProperties;
+            e.CommandExecutionProperties.GetValue(ref RibbonProperties.FontProperties_ChangedProperties, out propChangesProperties);
+            IPropertyStore changedProperties = (IPropertyStore)propChangesProperties.Value;
+            uint changedPropertiesNumber;
+            changedProperties.GetCount(out changedPropertiesNumber);
+
+            for (uint i = 0; i < changedPropertiesNumber; ++i)
+            {
+                PropertyKey propertyKey;
+                changedProperties.GetAt(i, out propertyKey);
+                //Debug.WriteLine(RibbonProperties.GetPropertyKeyName(ref propertyKey));
+                if (propertyKey == RibbonProperties.FontProperties_Bold)
+                {
+                    mainCtrl.CurrentMapCtrl.MakeSelectedNodeBold();
+                }
+                else if (propertyKey == RibbonProperties.FontProperties_Italic)
+                {
+                    mainCtrl.CurrentMapCtrl.MakeSelectedNodeItalic();
+                }
+            }
+        }
+
         #endregion Home Tab
 
         /// <summary>
@@ -221,6 +251,56 @@ namespace MindMate.View.Ribbon
             mainCtrl.CurrentMapCtrl.MapView.FormatPainter.StateChanged += FormatPainter_StateChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
             //_btnCut.LargeImage = ribbon.ConvertToUIImage(Win7.Properties.Resources.cut_small);
+        }
+
+        #region Events to Refresh Command State
+        
+        private void PersistenceManager_CurrentTreeChanged(Serialization.PersistenceManager manager, Serialization.PersistentTree oldTree, Serialization.PersistentTree newTree)
+        {
+            if (newTree != null)
+            {
+                newTree.Tree.SelectedNodes.NodeSelected += SelectedNodes_NodeSelected;
+                newTree.Tree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
+            }
+            if (oldTree != null)
+            {
+                oldTree.Tree.SelectedNodes.NodeSelected -= SelectedNodes_NodeSelected;
+                oldTree.Tree.SelectedNodes.NodeDeselected -= SelectedNodes_NodeDeselected;
+            }
+        }
+
+        private void SelectedNodes_NodeSelected(MapNode node, SelectedNodes selectedNodes)
+        {
+            UpdateFontControl(selectedNodes);
+        }
+
+        private void SelectedNodes_NodeDeselected(MapNode node, SelectedNodes selectedNodes)
+        {
+            UpdateFontControl(selectedNodes);
+        }
+
+        private void UpdateFontControl(SelectedNodes nodes)
+        {
+            if (nodes.Count == 1)
+            {
+                UpdateFontControl(nodes.First);
+            }
+            else
+            {
+                ClearFontControl();
+            }
+        }
+
+        private void UpdateFontControl(MapNode n)
+        {
+            _RichFont.Bold = n.Bold ? FontProperties.Set : FontProperties.NotSet;
+            _RichFont.Italic = n.Italic ? FontProperties.Set : FontProperties.NotSet;
+        }
+
+        private void ClearFontControl()
+        {
+            _RichFont.Bold = FontProperties.NotSet;
+            _RichFont.Italic = FontProperties.NotSet;
         }
 
         private void ClipboardManager_StatusChanged()
@@ -248,8 +328,6 @@ namespace MindMate.View.Ribbon
                     break;
             }
         }
-
-        #region Events to Refresh Command State
 
         #endregion
 
