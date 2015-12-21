@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using RibbonLib.Interop;
 using System.Diagnostics;
+using MindMate.View.EditorTabs;
 
 namespace MindMate.View.Ribbon
 {
@@ -47,7 +48,7 @@ namespace MindMate.View.Ribbon
 
         private readonly RibbonLib.Ribbon ribbon;
 
-        public Ribbon(RibbonLib.Ribbon ribbon, Controller.MainCtrl mainCtrl)
+        public Ribbon(RibbonLib.Ribbon ribbon, Controller.MainCtrl mainCtrl, EditorTabs.EditorTabs tabs)
         {
             this.ribbon = ribbon;
             this.mainCtrl = mainCtrl;
@@ -114,6 +115,11 @@ namespace MindMate.View.Ribbon
             _RichFont.ExecuteEvent += _RichFont_ExecuteEvent;
 
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
+            MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
+            tabs.ControlAdded += Tabs_ControlAdded;
+            tabs.ControlRemoved += Tabs_ControlRemoved;
+            tabs.SelectedIndexChanged += Tabs_SelectedIndexChanged;
+            
         }
 
         private void _buttonSave_ExecuteEvent(object sender, ExecuteEventArgs e)
@@ -242,31 +248,28 @@ namespace MindMate.View.Ribbon
         }
 
         #endregion Home Tab
-
-        /// <summary>
-        /// This method is called after ribbon is initialized and ready for use. 
-        /// </summary>
-        internal void Initialize()
-        {
-            mainCtrl.CurrentMapCtrl.MapView.FormatPainter.StateChanged += FormatPainter_StateChanged;
-            MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
-            //_btnCut.LargeImage = ribbon.ConvertToUIImage(Win7.Properties.Resources.cut_small);
-        }
-
+        
         #region Events to Refresh Command State
         
         private void PersistenceManager_CurrentTreeChanged(Serialization.PersistenceManager manager, Serialization.PersistentTree oldTree, Serialization.PersistentTree newTree)
         {
-            if (newTree != null)
-            {
-                newTree.Tree.SelectedNodes.NodeSelected += SelectedNodes_NodeSelected;
-                newTree.Tree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
-            }
             if (oldTree != null)
             {
                 oldTree.Tree.SelectedNodes.NodeSelected -= SelectedNodes_NodeSelected;
                 oldTree.Tree.SelectedNodes.NodeDeselected -= SelectedNodes_NodeDeselected;
             }
+
+            if (newTree != null)
+            {
+                newTree.Tree.SelectedNodes.NodeSelected += SelectedNodes_NodeSelected;
+                newTree.Tree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
+                UpdateFontControl(newTree.Tree.SelectedNodes);
+            }
+            else
+            {
+                ClearFontControl();
+            }
+            
         }
 
         private void SelectedNodes_NodeSelected(MapNode node, SelectedNodes selectedNodes)
@@ -315,9 +318,45 @@ namespace MindMate.View.Ribbon
             }
         }
 
+        private void Tabs_ControlAdded(object sender, ControlEventArgs e)
+        {
+            Tab tab = e.Control as Tab;
+            if (tab != null)
+            {
+                tab.MapView.FormatPainter.StateChanged += FormatPainter_StateChanged;
+            }
+        }
+
+        private void Tabs_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            Tab tab = e.Control as Tab;
+            if (tab != null)
+            {
+                tab.MapView.FormatPainter.StateChanged -= FormatPainter_StateChanged;
+            }
+        }
+
+        private void Tabs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Tab tab = ((EditorTabs.EditorTabs)sender).SelectedTab as Tab;
+            if (tab != null)
+            {
+                UpdateFormatPainter(tab.MapView.FormatPainter);
+            }
+            else
+            {
+                _btnFormatPainter.BooleanValue = false;
+            }
+        }
+
         private void FormatPainter_StateChanged(MapControls.MapViewFormatPainter painter)
         {
-            switch(painter.Status)
+            UpdateFormatPainter(painter);
+        }
+
+        private void UpdateFormatPainter(MapControls.MapViewFormatPainter painter)
+        {
+            switch (painter.Status)
             {
                 case MapControls.FormatPainterStatus.Empty:
                     _btnFormatPainter.BooleanValue = false;
