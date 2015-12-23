@@ -448,17 +448,39 @@ namespace MindMate.Controller
 
         public void CloseCurrentMap()
         {
-            if (mainForm.EditorTabs.TabCount == 1)
+            if (PromptForUnsavedChanges(PersistenceManager.CurrentTree) == ContinueOperation.Continue)
             {
-                Application.Exit();
-            }
-            else
-            {
-                PersistenceManager.CloseCurerntTree();
+                if (mainForm.EditorTabs.TabCount == 1)
+                {
+                    Application.Exit();
+                }
+                else
+                {
+                    PersistenceManager.CloseCurerntTree();
+                }
             }
         }
 
         private enum ContinueOperation { Continue, Cancel };
+
+        private ContinueOperation PromptForUnsavedChanges(PersistentTree tree)
+        {
+            if (tree.IsDirty)
+            {
+                DialogResult result = MessageBox.Show("Do you want to save changes?", "Unsaved Changes",
+                    MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+                switch (result)
+                {
+                    case DialogResult.Yes:
+                        SaveMap(tree);
+                        break;
+                    case DialogResult.Cancel:
+                        return ContinueOperation.Cancel;
+                }
+            }
+
+            return ContinueOperation.Continue;
+        }
 
         private ContinueOperation PromptForUnsavedChanges()
         {
