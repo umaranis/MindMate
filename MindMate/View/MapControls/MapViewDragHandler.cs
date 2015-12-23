@@ -57,6 +57,7 @@ namespace MindMate.View.MapControls
             }           
 
             dragObject = null;
+            NodeDropLocation = new DropLocation();
             MapView.Canvas.Cursor = Cursors.Default;
         }
 
