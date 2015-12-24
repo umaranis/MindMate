@@ -13,6 +13,7 @@ using System.Text;
 using System.Windows.Forms;
 using MindMate.View.MapControls;
 using MindMate.Model;
+using System.Diagnostics;
 
 namespace MindMate.View.MapControls
 {
@@ -40,10 +41,13 @@ namespace MindMate.View.MapControls
         /// Node where mouse lies right now.
         /// </summary>
         private MapNode mouseOverNode;
-        
+
 
         /// <summary>
-        /// Moving canvas triggers mouse move event, this flag is used to skip it
+        /// This flag is used to skip extra mouse move events when:
+        /// - programatically moving canvas, 
+        /// - canvas getting focus,
+        /// - context menu is dismissed by clicking on canvas
         /// </summary>
         public bool IgnoreNextMouseMove { get; set; }
         
@@ -109,6 +113,7 @@ namespace MindMate.View.MapControls
 
             if (e.Button != System.Windows.Forms.MouseButtons.None && !MapView.NodeTextEditor.IsTextEditing)
             {
+                //Debug.WriteLine("Mouse Move: Dragging. MouseButtons: " + e.Button);
                 DragDropHandler.OnMouseDrag(e);
             }
             else
@@ -147,28 +152,34 @@ namespace MindMate.View.MapControls
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
+            MapNode clickedNode = MapView.GetMapNodeFromPoint(e.Location);
+
+            //Debug.WriteLine("Mouse Up: " + DragDropHandler.IsDragging);
             if (DragDropHandler.IsDragging)
             {
-                DragDropHandler.OnMouseDrop(e);                
+                DragDropHandler.OnMouseDrop(e);               
             }
             else if(MapView.FormatPainter.Active)
             {
-                MapView.FormatPainter.ExecuteMouseClick(mouseOverNode);
+                MapView.FormatPainter.ExecuteMouseClick(clickedNode);
             }
             else
             {
-                if (mouseOverNode == null) // IF 'event is not over node' AND 'canvas is not dragged'
+                if (clickedNode == null) // IF 'event is not over node' AND 'canvas is not dragged'
                 {
                     CanvasClick(e);
                 }
                 else                
                 {
                     var args = new NodeMouseEventArgs(e);
-                    args.NodePortion = MapView.GetNodeView(mouseOverNode).GetNodeClickPortion(e.Location);
+                    args.NodePortion = MapView.GetNodeView(clickedNode).GetNodeClickPortion(e.Location);
                     if (e.Button == System.Windows.Forms.MouseButtons.Right)
-                        NodeRightClick(mouseOverNode, args);
+                    {
+                        NodeRightClick(clickedNode, args);
+                        IgnoreNextMouseMove = true;
+                    }
                     else
-                        NodeClick(mouseOverNode, args);
+                        NodeClick(clickedNode, args);
                 }
             }
             
