@@ -238,11 +238,15 @@ namespace MindMate.View.Ribbon
                 //Debug.WriteLine(RibbonProperties.GetPropertyKeyName(ref propertyKey));
                 if (propertyKey == RibbonProperties.FontProperties_Bold)
                 {
-                    mainCtrl.CurrentMapCtrl.MakeSelectedNodeBold();
+                    mainCtrl.CurrentMapCtrl.ToggleSelectedNodeBold();
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_Italic)
                 {
-                    mainCtrl.CurrentMapCtrl.MakeSelectedNodeItalic();
+                    mainCtrl.CurrentMapCtrl.ToggleSelectedNodeItalic();
+                }
+                else if (propertyKey == RibbonProperties.FontProperties_Strikethrough)
+                {
+                    mainCtrl.CurrentMapCtrl.ToggleSelectedNodeStrikeout();
                 }
             }
         }

@@ -143,10 +143,10 @@ namespace MindMate.Win7
                         mainCtrl.Cut();
                         return true;
                     case (Keys.Control | Keys.B):
-                        mainCtrl.CurrentMapCtrl.MakeSelectedNodeBold();
+                        mainCtrl.CurrentMapCtrl.ToggleSelectedNodeBold();
                         return true;
                     case (Keys.Control | Keys.I):
-                        mainCtrl.CurrentMapCtrl.MakeSelectedNodeItalic();
+                        mainCtrl.CurrentMapCtrl.ToggleSelectedNodeItalic();
                         return true;
                     case (Keys.Control | Keys.D):
                         mainCtrl.CurrentMapCtrl.ChangeFont();

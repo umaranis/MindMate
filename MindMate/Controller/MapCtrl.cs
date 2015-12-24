@@ -737,7 +737,7 @@ namespace MindMate.Controller
             if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
-        public void MakeSelectedNodeItalic()
+        public void ToggleSelectedNodeItalic()
         {
             int selectCnt = this.MapView.SelectedNodes.Count;
 
@@ -752,7 +752,7 @@ namespace MindMate.Controller
             if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
-        public void MakeSelectedNodeBold()
+        public void ToggleSelectedNodeBold()
         {
             int selectCnt = this.MapView.SelectedNodes.Count;
 

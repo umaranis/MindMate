@@ -118,6 +118,8 @@ namespace MindMate.View.MapControls
                     if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
                     RefreshNodePositions(tree.RootNode, node.Pos);
                     break;
+                case NodeProperties.Label:
+                    throw new NotImplementedException();
                 case NodeProperties.RichContentText:
                 case NodeProperties.RichContentType:
                     node.NodeView.RefreshNoteIcon();
@@ -126,6 +128,7 @@ namespace MindMate.View.MapControls
                     break;
                 case NodeProperties.Bold:
                 case NodeProperties.Italic:
+                case NodeProperties.Strikeout:
                     node.NodeView.RefreshFont();
                     if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
                     RefreshNodePositions(tree.RootNode, node.Pos);
@@ -151,6 +154,9 @@ namespace MindMate.View.MapControls
                         RefreshNodePositions(node.Parent, NodePosition.Undefined);
                     }
                     break;
+                case NodeProperties.Image:
+                case NodeProperties.ImageAlignment:
+                    throw new NotImplementedException();
             }
 
             Canvas.Invalidate();
