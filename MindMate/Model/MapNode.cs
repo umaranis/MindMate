@@ -97,6 +97,20 @@ namespace MindMate.Model
             }
         }
 
+        private bool strikeout;
+
+        public bool Strikeout
+        {
+            get { return strikeout; }
+            set
+            {
+                if (strikeout == value) return;
+                strikeout = value;
+                modified = DateTime.Now;
+                Tree.FireEvent(this, NodeProperties.Strikeout, !strikeout);
+            }
+        }
+
         private string fontName;
         public string FontName {
             get
@@ -295,7 +309,46 @@ namespace MindMate.Model
                 modified = DateTime.Now;
                 Tree.FireEvent(this, NodeProperties.RichContentText, oldValue);
             }
-        }        
+        }
+
+        private Image image;
+        public Image Image
+        {
+            get { return image; }
+            set
+            {
+                Image oldValue = image;
+                image = value;
+                modified = DateTime.Now;
+                Tree.FireEvent(this, NodeProperties.Image, oldValue); 
+            }
+        }
+
+        private ImageAlignment imageAlignment;
+        public ImageAlignment ImageAlignment
+        {
+            get { return imageAlignment; }
+            set
+            {
+                ImageAlignment oldValue = imageAlignment;
+                imageAlignment = value;
+                modified = DateTime.Now;
+                Tree.FireEvent(this, NodeProperties.ImageAlignment, oldValue);
+            }
+        }
+
+        private string label;
+        public string Label
+        {
+            get { return label; }
+            set
+            {
+                string oldValue = Label;
+                label = value;
+                modified = DateTime.Now;
+                Tree.FireEvent(this,NodeProperties.Label, oldValue);
+            }
+        }
 
         #endregion
 
@@ -573,12 +626,16 @@ namespace MindMate.Model
         {
             // node.Id, node.Created, node.Modified, node.Pos -- shouldn't be copied
             node.text = this.text;
+            node.label = this.label;
             node.folded = this.folded;
                        
             node.link = this.link;
 
             node.richContentText = this.richContentText;
             node.richContentType = this.richContentType;
+
+            node.image = this.image;
+            node.imageAlignment = this.imageAlignment;
 
             this.CopyAttributesTo(node);
             this.CopyIconsTo(node);
@@ -597,6 +654,7 @@ namespace MindMate.Model
             node.fontName = this.fontName;
             node.fontSize = this.fontSize;
             node.italic = this.italic;
+            node.strikeout = this.strikeout;
             node.lineColor = this.lineColor;
             node.linePattern = this.linePattern;
             node.lineWidth = this.lineWidth;
@@ -1067,16 +1125,13 @@ namespace MindMate.Model
 
         public bool IsEmpty()
         {
-            if
-                (
-                string.IsNullOrEmpty(Text) &&
-                Icons.Count == 0 &&
-                AttributeCount == 0 &&
-                RichContentType == NodeRichContentType.NONE &&
-                !HasChildren
-                )
-            { return true; }
-            else { return false; }
+            return string.IsNullOrEmpty(Text) &&
+                   string.IsNullOrEmpty(Label) &&
+                   Icons.Count == 0 &&
+                   AttributeCount == 0 &&
+                   RichContentType == NodeRichContentType.NONE &&
+                   Image == null &&
+                   !HasChildren;
         }
 
         public void CopyFormatTo(MapNode node)
@@ -1087,6 +1142,7 @@ namespace MindMate.Model
             node.FontName = this.FontName;
             node.FontSize = this.FontSize;
             node.Italic = this.Italic;
+            node.Strikeout = this.Strikeout;
             node.LineColor = this.LineColor;
             node.LinePattern = this.LinePattern;
             node.LineWidth = this.LineWidth;
@@ -1107,7 +1163,7 @@ namespace MindMate.Model
             set { nodeView = value; }
         }
 
-        #endregion        
+        #endregion
 
     }
 }

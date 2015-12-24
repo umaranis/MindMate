@@ -113,6 +113,9 @@
     <Compile Include="Modules\Undo\BatchChange.cs" />
     <Compile Include="Modules\Undo\ChangeFactory.cs" />
     <Compile Include="Modules\Undo\ChangeManager.cs" />
+    <Compile Include="Modules\Undo\Changes\ImageAlignmentChange.cs" />
+    <Compile Include="Modules\Undo\Changes\ImageChange.cs" />
+    <Compile Include="Modules\Undo\Changes\StrikeoutChange.cs" />
     <Compile Include="Modules\Undo\Changes\NodeNew.cs" />
     <Compile Include="Modules\Undo\Changes\NodeAttach.cs" />
     <Compile Include="Modules\Undo\Changes\AttributeDelete.cs" />
@@ -147,6 +150,7 @@
     <Compile Include="Modules\Undo\Changes\RichContentTypeChange.cs" />
     <Compile Include="Modules\Undo\Changes\RichContextText.cs" />
     <Compile Include="Modules\Undo\Changes\ShapeChange.cs" />
+    <Compile Include="Modules\Undo\Changes\LabelChange.cs" />
     <Compile Include="Modules\Undo\Changes\TextChange.cs" />
     <Compile Include="Modules\Undo\IChange.cs" />
     <Compile Include="Plugins\IPlugin.cs" />

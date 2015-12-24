@@ -44,7 +44,15 @@ namespace MindMate.Modules.Undo
                     return new RichContentTypeChange(node, (NodeRichContentType)e.OldValue);
                 case NodeProperties.RichContentText:
                     return new RichContextTextChange(node, (string)e.OldValue);
-                    
+                case NodeProperties.Image:
+                    return new ImageChange(node, (Image)e.OldValue);
+                case NodeProperties.ImageAlignment:
+                    return new ImageAlignmentChange(node, (ImageAlignment)e.OldValue);    
+                case NodeProperties.Label:
+                    return new LabelChange(node, (string)e.OldValue);
+                case NodeProperties.Strikeout:
+                    return new StrikeoutChange(node, (bool)e.OldValue);
+
                 default:
                     return null;
             }

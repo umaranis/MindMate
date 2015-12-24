@@ -7,6 +7,7 @@ using MindMate.Model;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -82,6 +83,7 @@ namespace MindMate.Serialization
                 xml.WriteAttributeString("FOLDED", "true");
 
             xml.WriteAttributeString("TEXT", mapNode.Text);
+            xml.WriteAttributeString("LABEL", mapNode.Label);
 
             xml.WriteAttributeString("CREATED", ((long)(mapNode.Created.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds)).ToString());
             xml.WriteAttributeString("MODIFIED", ((long)(mapNode.Modified.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds)).ToString());
@@ -101,11 +103,12 @@ namespace MindMate.Serialization
                 xml.WriteAttributeString("STYLE", Convert.ToString(mapNode.Shape));
 
 
-            if (mapNode.Bold || mapNode.Italic || mapNode.FontName != null || mapNode.FontSize != 0)
+            if (mapNode.Bold || mapNode.Italic || mapNode.Strikeout || mapNode.FontName != null || mapNode.FontSize != 0)
             {
                 xml.WriteStartElement("font");
                 if (mapNode.Bold) xml.WriteAttributeString("BOLD", mapNode.Bold ? "true" : "false");
                 if (mapNode.Italic) xml.WriteAttributeString("ITALIC", mapNode.Italic ? "true" : "false");
+                if (mapNode.Strikeout) xml.WriteAttributeString("STRIKEOUT", mapNode.Strikeout ? "true" : "false");
                 if (mapNode.FontName != null) xml.WriteAttributeString("NAME", mapNode.FontName);
                 if (mapNode.FontSize != 0) xml.WriteAttributeString("SIZE", mapNode.FontSize.ToString());
                 xml.WriteEndElement();
@@ -135,6 +138,20 @@ namespace MindMate.Serialization
                 xml.WriteAttributeString("TYPE",
                     (mapNode.RichContentType == NodeRichContentType.NODE ? "NODE" : "NOTE"));
                 xml.WriteString(mapNode.RichContentText);
+                xml.WriteEndElement();
+            }
+
+            if (mapNode.Image != null)
+            {
+                xml.WriteStartElement("image");
+                xml.WriteAttributeString("ALIGNMENT", mapNode.ImageAlignment.ToString());
+                using (MemoryStream m = new MemoryStream())
+                {
+                    //TODO: Make sure all images are disposed on unloading MapTree
+                    mapNode.Image.Save(m, ImageFormat.Png);
+                    byte[] bytes = m.ToArray();
+                    xml.WriteBase64(bytes, 0, bytes.Length);
+                }
                 xml.WriteEndElement();
             }
 
@@ -255,6 +272,11 @@ namespace MindMate.Serialization
             MapNode node = (parent != null ? 
                 new MapNode(parent, text, pos, id) : new MapNode(tree, text, id) );
 
+            if ((att = xmlElement.Attributes["LABEL"]) != null)
+            {
+                node.Label = att.Value;
+            }
+
             string folded;
             if ((att = xmlElement.Attributes["FOLDED"]) != null)
             {
@@ -324,6 +346,11 @@ namespace MindMate.Serialization
                         }
                     }
 
+                    if (tmpXNode.Attributes["STRIKEOUT"] != null)
+                    {
+                        node.Strikeout = (tmpXNode.Attributes["STRIKEOUT"].Value == "true");
+                    }
+
                     if (tmpXNode.Attributes["NAME"] != null)
                     {
                         node.FontName = tmpXNode.Attributes["NAME"].Value;
@@ -364,6 +391,19 @@ namespace MindMate.Serialization
                             node.RichContentType = NodeRichContentType.NOTE;
 
                         node.RichContentText = tmpXNode.InnerText;
+                    }
+                }
+                else if (tmpXNode.Name == "image")
+                {
+                    if (tmpXNode.Attributes["ALIGNMENT"] != null)
+                    {
+                        node.ImageAlignment = (ImageAlignment) Enum.Parse(typeof (ImageAlignment), tmpXNode.Attributes["ALIGNMENT"].Value);
+                    }
+                    string strImage = tmpXNode.InnerText;
+                    byte[] bytes = System.Convert.FromBase64String(strImage);
+                    using (MemoryStream m = new MemoryStream(bytes))
+                    {
+                        node.Image = Image.FromStream(m);
                     }
                 }
                 else if(tmpXNode.Name == "attribute")

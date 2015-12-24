@@ -11,11 +11,10 @@ namespace MindMate.Modules.Undo
     /// </summary>
     public class ChangeManager
     {
+        readonly Stack<IChange> undoStack;
+        readonly Stack<IChange> redoStack;
 
-        Stack<IChange> undoStack;
-        Stack<IChange> redoStack;
-
-        ChangeFactory factory = new ChangeFactory();
+        readonly ChangeFactory factory = new ChangeFactory();
 
         enum State { None, Undoing, Redoing }
         State state = State.None;

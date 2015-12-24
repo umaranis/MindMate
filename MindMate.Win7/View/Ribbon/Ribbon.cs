@@ -298,12 +298,14 @@ namespace MindMate.View.Ribbon
         {
             _RichFont.Bold = n.Bold ? FontProperties.Set : FontProperties.NotSet;
             _RichFont.Italic = n.Italic ? FontProperties.Set : FontProperties.NotSet;
+            _RichFont.Strikethrough = n.Strikeout ? FontProperties.Set : FontProperties.NotSet;
         }
 
         private void ClearFontControl()
         {
             _RichFont.Bold = FontProperties.NotSet;
             _RichFont.Italic = FontProperties.NotSet;
+            _RichFont.Strikethrough = FontProperties.NotSet;
         }
 
         private void ClipboardManager_StatusChanged()

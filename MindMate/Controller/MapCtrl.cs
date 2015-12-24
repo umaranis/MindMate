@@ -767,6 +767,21 @@ namespace MindMate.Controller
             if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
+        public void ToggleSelectedNodeStrikeout()
+        {
+            int selectCnt = this.MapView.SelectedNodes.Count;
+
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Strikeout"); }
+
+            for (int i = 0; i < selectCnt; i++)
+            {
+                MapNode node = this.MapView.SelectedNodes[i];
+                node.Strikeout = !node.Strikeout;
+            }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
+        }
+
         public void ChangeLineWidth(int width)
         {
             int selectCnt = this.MapView.SelectedNodes.Count;
@@ -929,6 +944,7 @@ namespace MindMate.Controller
                     if(node.FontSize != font.Size) node.FontSize = font.Size;
                     if(node.Bold != font.Bold) node.Bold = font.Bold;
                     if(node.Italic != font.Italic) node.Italic = font.Italic;
+                    if(node.Strikeout != font.Strikeout) node.Strikeout = font.Strikeout;
                     
                     //update view
                     node.NodeView.RefreshFont();

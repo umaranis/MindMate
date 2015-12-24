@@ -194,6 +194,7 @@ namespace MindMate.View.MapControls
             FontStyle style = FontStyle.Regular;
             if (node.Bold)  style |= FontStyle.Bold;
             if (node.Italic)    style |= FontStyle.Italic;
+            if (node.Strikeout)  style |= FontStyle.Strikeout;
             
             if (style == FontStyle.Regular && node.FontName == null && node.FontSize == 0) //set the default font
             {

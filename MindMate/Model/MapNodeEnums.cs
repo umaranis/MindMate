@@ -22,6 +22,7 @@ namespace MindMate.Model
         Folded,
         Bold,
         Italic,
+        Strikeout,
         FontName,
         FontSize,
         Link,
@@ -32,7 +33,10 @@ namespace MindMate.Model
         LinePattern,
         LineColor,
         RichContentType,
-        RichContentText
+        RichContentText,
+        Image,
+        ImageAlignment,
+        Label
     }
 
     public enum IconChange
@@ -93,6 +97,16 @@ namespace MindMate.Model
         InternetLink,
         EmailLink,
         Empty
-    }       
+    }
+
+    public enum ImageAlignment
+    {
+        AboveLeft,
+        AboveCenter,
+        AboveRight,
+        BelowLeft,
+        BelowCenter,
+        BelowRight
+    } 
     
 }
