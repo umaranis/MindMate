@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using RibbonLib.Interop;
 using System.Diagnostics;
+using System.Drawing;
 using MindMate.View.EditorTabs;
 using MindMate.View.MapControls;
 
@@ -236,6 +237,10 @@ namespace MindMate.View.Ribbon
             {
                 PropertyKey propertyKey;
                 changedProperties.GetAt(i, out propertyKey);
+                
+                //get property name
+                //Debug.WriteLine(RibbonProperties.GetPropertyKeyName(ref propertyKey));
+
                 if (propertyKey == RibbonProperties.FontProperties_Bold)
                 {
                     mainCtrl.CurrentMapCtrl.ToggleSelectedNodeBold();
@@ -255,6 +260,14 @@ namespace MindMate.View.Ribbon
                 else if (propertyKey == RibbonProperties.FontProperties_Size)
                 {
                     mainCtrl.CurrentMapCtrl.SetFontSize((float)_RichFont.Size);
+                }
+                else if (propertyKey == RibbonProperties.FontProperties_BackgroundColor)
+                {
+                    mainCtrl.CurrentMapCtrl.ChangeBackColor(_RichFont.BackgroundColor);
+                }
+                else if (propertyKey == RibbonProperties.FontProperties_BackgroundColorType)
+                {
+                    mainCtrl.CurrentMapCtrl.ChangeBackColor(Color.Empty);
                 }
             }
         }

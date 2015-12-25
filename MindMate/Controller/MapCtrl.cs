@@ -916,10 +916,11 @@ namespace MindMate.Controller
             if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
+        //TODO: No option in ribbon to launch Color Picker dialog for BackColor
         /// <summary>
         /// Change Background Color for selected nodes using Color Picker Dialog
         /// </summary>
-        public void ChangeBackgroundColor()
+        public void ChangeBackColorByPicker()
         {
             System.Drawing.Color color = new Color();
 
@@ -932,6 +933,11 @@ namespace MindMate.Controller
             if (color.IsEmpty) return;
 
             //set new color
+            ChangeBackColor(color);
+        }
+
+        public void ChangeBackColor(Color color)
+        {
             int selectCnt = this.MapView.SelectedNodes.Count;
 
             if (selectCnt > 1) { tree.ChangeManager.StartBatch("Background Color Change"); }

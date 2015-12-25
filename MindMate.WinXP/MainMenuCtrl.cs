@@ -82,7 +82,7 @@ namespace MindMate.WinXP
 
         void mBackColor_Click(object sender, EventArgs e)
         {
-            mapCtrl.ChangeBackgroundColor();
+            mapCtrl.ChangeBackColorByPicker();
         }
 
         void mTextColor_Click(object sender, EventArgs e)

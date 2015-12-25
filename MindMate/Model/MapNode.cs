@@ -178,6 +178,9 @@ namespace MindMate.Model
         }
 
         private Color backColor;
+        /// <summary>
+        /// Default value is Color.Empty
+        /// </summary>
         public Color BackColor
         {
             get
@@ -194,6 +197,9 @@ namespace MindMate.Model
         }
 
         private Color color;
+        /// <summary>
+        /// Default value is Color.Empty
+        /// </summary>
         public Color Color
         {
             get
