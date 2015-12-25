@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using RibbonLib.Interop;
 using System.Diagnostics;
 using MindMate.View.EditorTabs;
+using MindMate.View.MapControls;
 
 namespace MindMate.View.Ribbon
 {
@@ -235,7 +236,6 @@ namespace MindMate.View.Ribbon
             {
                 PropertyKey propertyKey;
                 changedProperties.GetAt(i, out propertyKey);
-                //Debug.WriteLine(RibbonProperties.GetPropertyKeyName(ref propertyKey));
                 if (propertyKey == RibbonProperties.FontProperties_Bold)
                 {
                     mainCtrl.CurrentMapCtrl.ToggleSelectedNodeBold();
@@ -251,6 +251,10 @@ namespace MindMate.View.Ribbon
                 else if (propertyKey == RibbonProperties.FontProperties_Family)
                 {
                     mainCtrl.CurrentMapCtrl.SetFontFamily(_RichFont.Family);
+                }
+                else if (propertyKey == RibbonProperties.FontProperties_Size)
+                {
+                    mainCtrl.CurrentMapCtrl.SetFontSize((float)_RichFont.Size);
                 }
             }
         }
@@ -307,7 +311,8 @@ namespace MindMate.View.Ribbon
             _RichFont.Bold = n.Bold ? FontProperties.Set : FontProperties.NotSet;
             _RichFont.Italic = n.Italic ? FontProperties.Set : FontProperties.NotSet;
             _RichFont.Strikethrough = n.Strikeout ? FontProperties.Set : FontProperties.NotSet;
-            _RichFont.Family = n.FontName;
+            _RichFont.Family = n.NodeView.Font.Name;
+            _RichFont.Size = (decimal)n.NodeView.Font.Size;
         }
 
         private void ClearFontControl()
@@ -316,6 +321,7 @@ namespace MindMate.View.Ribbon
             _RichFont.Italic = FontProperties.NotSet;
             _RichFont.Strikethrough = FontProperties.NotSet;
             _RichFont.Family = null;
+            _RichFont.Size = 0;
         }
 
         private void ClipboardManager_StatusChanged()
