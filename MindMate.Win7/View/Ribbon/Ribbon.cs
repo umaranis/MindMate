@@ -269,6 +269,14 @@ namespace MindMate.View.Ribbon
                 {
                     mainCtrl.CurrentMapCtrl.ChangeBackColor(Color.Empty);
                 }
+                else if (propertyKey == RibbonProperties.FontProperties_ForegroundColor)
+                {
+                    mainCtrl.CurrentMapCtrl.ChangeTextColor(_RichFont.ForegroundColor);
+                }
+                else if (propertyKey == RibbonProperties.FontProperties_ForegroundColorType)
+                {
+                    mainCtrl.CurrentMapCtrl.ChangeTextColor(Color.Empty);
+                }
             }
         }
 

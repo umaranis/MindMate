@@ -87,7 +87,7 @@ namespace MindMate.WinXP
 
         void mTextColor_Click(object sender, EventArgs e)
         {
-            mapCtrl.ChangeTextColor();
+            mapCtrl.ChangeTextColorByPicker();
         }
 
         void asBMPToolStripMenuItem_Click(object sender, EventArgs e)

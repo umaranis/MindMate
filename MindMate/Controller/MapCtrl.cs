@@ -885,7 +885,7 @@ namespace MindMate.Controller
         /// <summary>
         /// Change Text Color for selected nodes using Color Picker Dialog
         /// </summary>
-        public void ChangeTextColor()
+        public void ChangeTextColorByPicker()
         {
             System.Drawing.Color color = new Color();
 
@@ -900,6 +900,11 @@ namespace MindMate.Controller
             if (color.IsEmpty) return;
 
             //set new color
+            ChangeTextColor(color);
+        }
+
+        public void ChangeTextColor(Color color)
+        {
             int selectCnt = this.MapView.SelectedNodes.Count;
 
             if (selectCnt > 1) { tree.ChangeManager.StartBatch("Text Color Change"); }
