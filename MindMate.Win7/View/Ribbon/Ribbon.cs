@@ -248,6 +248,10 @@ namespace MindMate.View.Ribbon
                 {
                     mainCtrl.CurrentMapCtrl.ToggleSelectedNodeStrikeout();
                 }
+                else if (propertyKey == RibbonProperties.FontProperties_Family)
+                {
+                    mainCtrl.CurrentMapCtrl.SetFontFamily(_RichFont.Family);
+                }
             }
         }
 
@@ -303,6 +307,7 @@ namespace MindMate.View.Ribbon
             _RichFont.Bold = n.Bold ? FontProperties.Set : FontProperties.NotSet;
             _RichFont.Italic = n.Italic ? FontProperties.Set : FontProperties.NotSet;
             _RichFont.Strikethrough = n.Strikeout ? FontProperties.Set : FontProperties.NotSet;
+            _RichFont.Family = n.FontName;
         }
 
         private void ClearFontControl()
@@ -310,6 +315,7 @@ namespace MindMate.View.Ribbon
             _RichFont.Bold = FontProperties.NotSet;
             _RichFont.Italic = FontProperties.NotSet;
             _RichFont.Strikethrough = FontProperties.NotSet;
+            _RichFont.Family = null;
         }
 
         private void ClipboardManager_StatusChanged()

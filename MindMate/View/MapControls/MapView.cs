@@ -43,7 +43,7 @@ namespace MindMate.View.MapControls
             Canvas.Width = 4096;
             Canvas.Height = 4096;
 
-            this.RegisterTreeEvents(tree);
+            RegisterTreeEvents();
             RefreshNodePositions();
             Canvas.Invalidate();
 
@@ -64,7 +64,7 @@ namespace MindMate.View.MapControls
             Canvas.Top = (Canvas.Parent.Height - Canvas.Height) / 2;
         }
 
-        public void RegisterTreeEvents(MapTree tree)
+        public void RegisterTreeEvents()
         {
             this.tree.NodePropertyChanged += tree_NodePropertyChanged;
             this.tree.TreeStructureChanged += tree_TreeStructureChanged;
@@ -203,7 +203,7 @@ namespace MindMate.View.MapControls
                 case TreeStructureChange.MovedRight:
                 case TreeStructureChange.MovedUp:
                 case TreeStructureChange.MovedDown:
-                    RefreshNodePositions(node.Parent != null ? node.Parent : node, NodePosition.Undefined);
+                    RefreshNodePositions(node.Parent ?? node, NodePosition.Undefined);
                     AdjustLocationToShowNodeView(node.NodeView);
                     break;
             }

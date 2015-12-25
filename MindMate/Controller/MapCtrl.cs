@@ -782,6 +782,21 @@ namespace MindMate.Controller
             if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
+        public void SetFontFamily(string family)
+        {
+            int selectCnt = this.MapView.SelectedNodes.Count;
+
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Font"); }
+
+            for (int i = 0; i < selectCnt; i++)
+            {
+                MapNode node = this.MapView.SelectedNodes[i];
+                node.FontName = family;
+            }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
+        }
+
         public void ChangeLineWidth(int width)
         {
             int selectCnt = this.MapView.SelectedNodes.Count;

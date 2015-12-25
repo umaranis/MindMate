@@ -190,6 +190,8 @@ namespace MindMate.View.MapControls
 
         public void RefreshFont()
         {
+            if(font != null && font != DefaultFont) font.Dispose();
+
             //step 1: refresh font from MapNode
             FontStyle style = FontStyle.Regular;
             if (node.Bold)  style |= FontStyle.Bold;
