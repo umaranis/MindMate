@@ -711,6 +711,7 @@
     <None Include="Resources\DragMove.cur" />
     <None Include="Resources\HandDrag.cur" />
     <None Include="Resources\painter.cur" />
+    <None Include="Resources\MindMap-2m.ico" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

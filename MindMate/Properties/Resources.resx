@@ -244,4 +244,7 @@
   <data name="painter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\painter.cur;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="MindMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MindMap-2m.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

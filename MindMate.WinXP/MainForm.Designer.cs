@@ -29,24 +29,24 @@
         private void InitializeComponent()
         {
             this.toolStrip1 = new Toolbar();
-            this.menuStrip = new MainMenu();            
+            this.menuStrip = new MainMenu();
             this.statusStrip1 = new View.StatusBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
-            this.SuspendLayout();            
+            this.SuspendLayout();
             // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 55);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Panel2MinSize = 0;
             this.splitContainer1.Size = new System.Drawing.Size(977, 598);
             this.splitContainer1.SplitterDistance = 734;
             this.splitContainer1.SplitterWidth = 5;
-            this.splitContainer1.TabIndex = 4;            
+            this.splitContainer1.TabIndex = 4;
             // 
             // MainForm
             // 
@@ -59,7 +59,8 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Icon = MindMate.Properties.Resources.MindMap;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "MainForm";
             this.Text = "Mind Mate";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
