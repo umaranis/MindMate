@@ -32,15 +32,18 @@
     </Command>
     <Command Name="Close" Id="1005" LabelTitle="Close" LabelDescription="Close Mind Map" TooltipTitle="Close" TooltipDescription="Close current Mind Map">
       <Command.LargeImages>
-        <!--<Image>Res/305_Close_48x48_72.png</Image>-->
+        <Image>Res/Close3.png</Image> 
       </Command.LargeImages>
+      <Command.SmallImages>
+        <Image>Res/Close4.png</Image> 
+      </Command.SmallImages>
     </Command>
     <Command Name="ButtonExit" Id="1004" LabelTitle="Exit" LabelDescription="Exit Description" TooltipTitle="Exit" TooltipDescription="Exit application (Alt + F4)">
       <Command.LargeImages>
-        <Image>Res/Exit32.bmp</Image>
+        <Image>Res/Exit.png</Image>
       </Command.LargeImages>
       <Command.SmallImages>
-        <Image>Res/Exit16.bmp</Image>
+        <Image>Res/Exit.png</Image>
       </Command.SmallImages>
     </Command>
 
@@ -140,8 +143,6 @@
             <Button CommandName='ButtonNew' />
             <Button CommandName='ButtonOpen' />
             <Button CommandName='ButtonSave' />
-          </MenuGroup>
-          <MenuGroup>
             <Button CommandName='Close' />
           </MenuGroup>
           <MenuGroup>

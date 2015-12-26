@@ -102,14 +102,15 @@
     <Content Include="Binaries\Ribbon.dll" />
     <Content Include="View\Ribbon\Res\305_Close_48x48_72.png" />
     <Content Include="View\Ribbon\Res\align_compact.bmp" />
+    <Content Include="View\Ribbon\Res\Close3.png" />
+    <Content Include="View\Ribbon\Res\Close4.png" />
     <Content Include="View\Ribbon\Res\cross-script.bmp" />
     <None Include="View\Ribbon\Res\cut.png" />
     <None Include="View\Ribbon\Res\cut_red.png" />
     <None Include="View\Ribbon\Res\cut_red_small.png" />
     <None Include="View\Ribbon\Res\cut_small.png" />
     <Content Include="View\Ribbon\Res\edit.bmp" />
-    <Content Include="View\Ribbon\Res\Exit16.bmp" />
-    <Content Include="View\Ribbon\Res\Exit32.bmp" />
+    <Content Include="View\Ribbon\Res\Exit.png" />
     <Content Include="View\Ribbon\Res\format_painter.bmp" />
     <Content Include="View\Ribbon\Res\New16.bmp" />
     <Content Include="View\Ribbon\Res\New32.bmp" />
