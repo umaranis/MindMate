@@ -33,6 +33,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>MindMap.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Win32Resource>
+    </Win32Resource>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -100,7 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Binaries\Ribbon.dll" />
-    <Content Include="View\Ribbon\Res\305_Close_48x48_72.png" />
+    <Content Include="MindMap.ico" />
     <Content Include="View\Ribbon\Res\align_compact.bmp" />
     <Content Include="View\Ribbon\Res\Close3.png" />
     <Content Include="View\Ribbon\Res\Close4.png" />
