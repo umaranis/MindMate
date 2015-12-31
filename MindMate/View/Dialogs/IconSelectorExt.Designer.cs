@@ -176,7 +176,7 @@
             // 
             // tbnEditTitle
             // 
-            this.tbnEditTitle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tbnEditTitle.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.ImageAndText;
             this.tbnEditTitle.Image = global::MindMate.Properties.Resources.text_edit;
             this.tbnEditTitle.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tbnEditTitle.Name = "tbnEditTitle";
@@ -188,8 +188,7 @@
             // tbnRemoveLast
             // 
             this.tbnRemoveLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbnRemoveLast.Image = global::MindMate.Properties.Resources.remove;
-            this.tbnRemoveLast.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbnRemoveLast.Image = global::MindMate.Properties.Resources.minus;
             this.tbnRemoveLast.Name = "tbnRemoveLast";
             this.tbnRemoveLast.Size = new System.Drawing.Size(23, 22);
             this.tbnRemoveLast.Text = "Remove Last Icon";
@@ -198,8 +197,7 @@
             // tbnRemoveAll
             // 
             this.tbnRemoveAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.tbnRemoveAll.Image = global::MindMate.Properties.Resources.edittrash;
-            this.tbnRemoveAll.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tbnRemoveAll.Image = global::MindMate.Properties.Resources.cross_script;
             this.tbnRemoveAll.Name = "tbnRemoveAll";
             this.tbnRemoveAll.Size = new System.Drawing.Size(23, 22);
             this.tbnRemoveAll.Text = "Remove All Icons";

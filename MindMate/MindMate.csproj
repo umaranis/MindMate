@@ -712,6 +712,10 @@
     <None Include="Resources\HandDrag.cur" />
     <None Include="Resources\painter.cur" />
     <None Include="Resources\MindMap-2m.ico" />
+    <None Include="Resources\smartart_change_color_gallery-32.png" />
+    <None Include="Resources\smartart_change_color_gallery-16.png" />
+    <None Include="Resources\minus.png" />
+    <None Include="Resources\cross-script.png" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

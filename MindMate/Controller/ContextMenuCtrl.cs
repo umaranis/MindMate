@@ -35,7 +35,7 @@ namespace MindMate.Controller
             NodeContextMenu.mDeleteNode.Click += mDeleteNode_Click;
             NodeContextMenu.mSelectIcon.Click += mSelectIcon_Click;
 
-            NodeContextMenu.mSelectIcon.Image = MindMate.Properties.Resources.kalzium;
+            NodeContextMenu.mSelectIcon.Image = MindMate.Properties.Resources.smartart_change_color_gallery_16;
             
             NodeContextMenu.Opening += ContextMenu_Opening;
         }

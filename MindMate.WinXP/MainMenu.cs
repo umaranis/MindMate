@@ -411,7 +411,7 @@ namespace MindMate.WinXP
             // 
             // mSelectIcon
             // 
-            this.mSelectIcon.Image = global::MindMate.Properties.Resources.kalzium;
+            this.mSelectIcon.Image = global::MindMate.Properties.Resources.smartart_change_color_gallery_16;
             this.mSelectIcon.Name = "mSelectIcon";
             this.mSelectIcon.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.I)));
             this.mSelectIcon.Size = new System.Drawing.Size(216, 26);

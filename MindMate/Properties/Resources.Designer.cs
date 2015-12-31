@@ -143,6 +143,16 @@ namespace MindMate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap cross_script {
+            get {
+                object obj = ResourceManager.GetObject("cross_script", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap cut {
             get {
                 object obj = ResourceManager.GetObject("cut", resourceCulture);
@@ -157,16 +167,6 @@ namespace MindMate.Properties {
             get {
                 object obj = ResourceManager.GetObject("DragMove", resourceCulture);
                 return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap edittrash {
-            get {
-                object obj = ResourceManager.GetObject("edittrash", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -236,16 +236,6 @@ namespace MindMate.Properties {
         public static System.Drawing.Bitmap InputBoxQuestion {
             get {
                 object obj = ResourceManager.GetObject("InputBoxQuestion", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        public static System.Drawing.Bitmap kalzium {
-            get {
-                object obj = ResourceManager.GetObject("kalzium", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -351,6 +341,16 @@ namespace MindMate.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap minus {
+            get {
+                object obj = ResourceManager.GetObject("minus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         public static byte[] move_r {
@@ -403,9 +403,9 @@ namespace MindMate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap remove {
+        public static System.Drawing.Bitmap remove_arrows {
             get {
-                object obj = ResourceManager.GetObject("remove", resourceCulture);
+                object obj = ResourceManager.GetObject("remove_arrows", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -413,9 +413,19 @@ namespace MindMate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap remove_arrows {
+        public static System.Drawing.Bitmap smartart_change_color_gallery_16 {
             get {
-                object obj = ResourceManager.GetObject("remove_arrows", resourceCulture);
+                object obj = ResourceManager.GetObject("smartart_change_color_gallery_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap smartart_change_color_gallery_32 {
+            get {
+                object obj = ResourceManager.GetObject("smartart_change_color_gallery_32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
