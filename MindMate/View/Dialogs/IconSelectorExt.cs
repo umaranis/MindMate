@@ -272,7 +272,10 @@ namespace MindMate.View.Dialogs
 
         void listView_AfterLabelEdit(object sender, LabelEditEventArgs e)
         {
-            MetaModel.MetaModel.Instance.IconsList[e.Item].Title = e.Label;
+            if (e.Label != null) //e.Label is null if editing ended without any change
+            {
+                MetaModel.MetaModel.Instance.IconsList[e.Item].Title = e.Label;
+            }
         }
 
         void listView_SelectedIndexChanged(object sender, EventArgs e)
