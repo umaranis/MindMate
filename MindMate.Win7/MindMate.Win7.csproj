@@ -69,6 +69,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\Ribbon\Ribbon.Controls.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Ribbon.Controls.tt</DependentUpon>
+    </Compile>
     <Compile Include="View\Ribbon\GalleryIconPropertySet.cs" />
     <Compile Include="View\Ribbon\Ribbon.cs" />
     <Compile Include="View\Ribbon\RibbonMarkupCommands.cs">
@@ -113,6 +118,10 @@
   <ItemGroup>
     <Content Include="Binaries\Ribbon.dll" />
     <Content Include="MindMap.ico" />
+    <Content Include="View\Ribbon\Ribbon.Controls.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Ribbon.Controls.cs</LastGenOutput>
+    </Content>
     <Content Include="View\Ribbon\Res\align_compact.bmp" />
     <Content Include="View\Ribbon\Res\Close3.png" />
     <Content Include="View\Ribbon\Res\Close4.png" />

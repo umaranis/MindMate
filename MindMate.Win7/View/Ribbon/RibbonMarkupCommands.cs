@@ -22,6 +22,7 @@ namespace MindMate.View.Ribbon
 		ButtonSave = 1003,		
 		Close = 1005,		
 		ButtonExit = 1004,		
+		RecentItems = 1020,		
 		TabHome = 2000,		
 		NewNode = 2010,		
 		NewChildNode = 2011,		
@@ -45,6 +46,6 @@ namespace MindMate.View.Ribbon
 		IconsGallery = 2081,		
 		RemoveLastIcon = 2082,		
 		RemoveAllIcons = 2083,		
-		IconsDialog = 2084,		
+		LaunchIconsDialog = 2084,		
 	}
 }

@@ -16,46 +16,9 @@ using RibbonLib;
 
 namespace MindMate.View.Ribbon
 {
-    public class Ribbon
+    public partial class Ribbon
     {
         private readonly Controller.MainCtrl mainCtrl;
-
-        private readonly RibbonApplicationMenu _applicationMenu;
-        private readonly RibbonButton _buttonNew;
-        private readonly RibbonButton _buttonOpen;
-        private readonly RibbonButton _buttonSave;
-        private readonly RibbonButton closeMap;
-        private readonly RibbonButton _buttonExit;
-
-        private RibbonGroup _grpNewNode;
-        private readonly RibbonButton _btnNewChildNode;
-        private readonly RibbonButton _btnNewLongNode;
-        private readonly RibbonButton _btnNewNodeAbove;
-
-        private readonly RibbonButton _btnNewNodeBelow;
-        private readonly RibbonButton _btnNewParent;
-
-        private RibbonGroup _grpEdit;
-        private readonly RibbonButton _btnEditText;
-        private readonly RibbonButton _btnEditLong;
-        private readonly RibbonButton _btnDeleteNode;
-
-        private RibbonGroup _grpClipboard;
-        private readonly RibbonButton _btnPaste;
-        private readonly RibbonButton _btnPasteAsText;
-        private readonly RibbonButton _btnCut;
-        private readonly RibbonButton _btnCopy;
-        private readonly RibbonToggleButton _btnFormatPainter;
-
-        private RibbonGroup _grpFont;
-        private RibbonFontControl _RichFont;
-
-        private RibbonGroup _grpIcons;
-        private RibbonInRibbonGallery _iconGallery;
-        private RibbonButton _removeLastIcon;
-        private RibbonButton _removeAllIcons;
-        private RibbonButton _launchIconsDialog;
-
         private readonly RibbonLib.Ribbon ribbon;
 
         public Ribbon(RibbonLib.Ribbon ribbon, Controller.MainCtrl mainCtrl, EditorTabs.EditorTabs tabs)
@@ -63,79 +26,46 @@ namespace MindMate.View.Ribbon
             this.ribbon = ribbon;
             this.mainCtrl = mainCtrl;
 
+            InitializeComponents();
+
             //Application Menu
-            _applicationMenu = new RibbonApplicationMenu(ribbon, (uint)RibbonMarkupCommands.ApplicationMenu);
-            _buttonNew = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ButtonNew);
-            _buttonOpen = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ButtonOpen);
-            _buttonSave = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ButtonSave);
-            closeMap = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Close);
-            _buttonExit = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ButtonExit);
+            ApplicationMenu.TooltipTitle = "Menu";
+            ApplicationMenu.TooltipDescription = "Application main menu";
 
-            _applicationMenu.TooltipTitle = "Menu";
-            _applicationMenu.TooltipDescription = "Application main menu";
-
-            _buttonNew.ExecuteEvent += _buttonNew_ExecuteEvent;
-            _buttonExit.ExecuteEvent += _buttonExit_ExecuteEvent;
-            _buttonOpen.ExecuteEvent += _buttonOpen_ExecuteEvent;
-            _buttonSave.ExecuteEvent += _buttonSave_ExecuteEvent;
-            closeMap.ExecuteEvent += CloseMap_ExecuteEvent;
+            ButtonNew.ExecuteEvent += _buttonNew_ExecuteEvent;
+            ButtonExit.ExecuteEvent += _buttonExit_ExecuteEvent;
+            ButtonOpen.ExecuteEvent += _buttonOpen_ExecuteEvent;
+            ButtonSave.ExecuteEvent += _buttonSave_ExecuteEvent;
+            Close.ExecuteEvent += Close_ExecuteEvent;
 
             //Home Tab : New Node group
-            _grpNewNode = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.NewNode);
-            _btnNewChildNode = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NewChildNode);
-            _btnNewLongNode = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NewLongNode);
-            _btnNewNodeAbove = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NewNodeAbove);
-            _btnNewNodeBelow = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NewNodeBelow);
-            _btnNewParent = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NewNodeParent);
-
-            _btnNewChildNode.ExecuteEvent += _btnNewChildNode_ExecuteEvent;
-            _btnNewLongNode.ExecuteEvent += _btnNewLongNode_ExecuteEvent;
-            _btnNewNodeAbove.ExecuteEvent += _btnNewNodeAbove_ExecuteEvent;
-            _btnNewNodeBelow.ExecuteEvent += _btnNewNodeBelow_ExecuteEvent;
-            _btnNewParent.ExecuteEvent += _btnNewParent_ExecuteEvent;
+            NewChildNode.ExecuteEvent += NewChildNode_ExecuteEvent;
+            NewLongNode.ExecuteEvent += NewLongNode_ExecuteEvent;
+            NewNodeAbove.ExecuteEvent += NewNodeAbove_ExecuteEvent;
+            NewNodeBelow.ExecuteEvent += NewNodeBelow_ExecuteEvent;
+            NewNodeParent.ExecuteEvent += NewParent_ExecuteEvent;
 
             //Home Tab: Edit group
-            _grpEdit = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpEdit);
-            _btnEditText = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.EditText);
-            _btnEditLong = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.EditLong);
-            _btnDeleteNode = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.DeleteNode);
-
-            _btnEditText.ExecuteEvent += _btnEditText_ExecuteEvent;
-            _btnEditLong.ExecuteEvent += _btnEditLong_ExecuteEvent;
-            _btnDeleteNode.ExecuteEvent += _btnDeleteNode_ExecuteEvent;
+            EditText.ExecuteEvent += _btnEditText_ExecuteEvent;
+            EditLong.ExecuteEvent += _btnEditLong_ExecuteEvent;
+            DeleteNode.ExecuteEvent += _btnDeleteNode_ExecuteEvent;
 
             //Home Tab: Cipboard group
-            _grpClipboard = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpClipboard);
-            _btnPaste = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Paste);
-            _btnPasteAsText = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.PasteAsText);
-            _btnCut = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Cut);            
-            _btnCopy = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Copy);
-            _btnFormatPainter = new RibbonToggleButton(ribbon, (uint)RibbonMarkupCommands.FormatPainter);
-
-            _btnPaste.ExecuteEvent += _btnPaste_ExecuteEvent;
-            _btnPasteAsText.ExecuteEvent += _btnPasteAsText_ExecuteEvent;
-            _btnCut.ExecuteEvent += _btnCut_ExecuteEvent;
-            _btnCopy.ExecuteEvent += _btnCopy_ExecuteEvent;
-            _btnFormatPainter.ExecuteEvent += _btnFormatPainter_ExecuteEvent;
+            Paste.ExecuteEvent += _btnPaste_ExecuteEvent;
+            PasteAsText.ExecuteEvent += _btnPasteAsText_ExecuteEvent;
+            Cut.ExecuteEvent += _btnCut_ExecuteEvent;
+            Copy.ExecuteEvent += _btnCopy_ExecuteEvent;
+            FormatPainter.ExecuteEvent += _btnFormatPainter_ExecuteEvent;
 
             //Home Tab: Font group
-            _grpFont = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpFont);
-            _RichFont = new RibbonFontControl(ribbon, (uint)RibbonMarkupCommands.RichFont);
-
-            _RichFont.ExecuteEvent += _RichFont_ExecuteEvent;
+            RichFont.ExecuteEvent += _RichFont_ExecuteEvent;
             
             //Home Tab: Icons Group
-            _grpIcons = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpIcons);
-            _iconGallery = new RibbonInRibbonGallery(ribbon, (uint)RibbonMarkupCommands.IconsGallery);
-            _removeLastIcon = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.RemoveLastIcon);
-            _removeAllIcons = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.RemoveAllIcons);
-            _launchIconsDialog = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.IconsDialog);
-
-            _iconGallery.ItemsSourceReady += _iconGallery_ItemsSourceReady;
-            _iconGallery.ExecuteEvent += _iconGallery_ExecuteEvent;
-            _launchIconsDialog.ExecuteEvent += _launchIconsDialog_ExecuteEvent;
-            _removeLastIcon.ExecuteEvent += _removeLastIcon_ExecuteEvent;
-            _removeAllIcons.ExecuteEvent += _removeAllIcons_ExecuteEvent;
+            IconsGallery.ItemsSourceReady += _iconGallery_ItemsSourceReady;
+            IconsGallery.ExecuteEvent += _iconGallery_ExecuteEvent;
+            LaunchIconsDialog.ExecuteEvent += _launchIconsDialog_ExecuteEvent;
+            RemoveLastIcon.ExecuteEvent += _removeLastIcon_ExecuteEvent;
+            RemoveAllIcons.ExecuteEvent += _removeAllIcons_ExecuteEvent;
 
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
@@ -166,34 +96,34 @@ namespace MindMate.View.Ribbon
             mainCtrl.NewMap();
         }
 
-        private void CloseMap_ExecuteEvent(object sender, ExecuteEventArgs e)
+        private void Close_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.CloseCurrentMap();
         }
 
         #region Home Tab
 
-        private void _btnNewChildNode_ExecuteEvent(object sender, ExecuteEventArgs e)
+        private void NewChildNode_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.CurrentMapCtrl.AppendChildNodeAndEdit();
         }
 
-        private void _btnNewLongNode_ExecuteEvent(object sender, ExecuteEventArgs e)
+        private void NewLongNode_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.CurrentMapCtrl.AppendMultiLineNodeAndEdit();
         }
 
-        private void _btnNewNodeAbove_ExecuteEvent(object sender, ExecuteEventArgs e)
+        private void NewNodeAbove_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.CurrentMapCtrl.AppendSiblingAboveAndEdit();
         }
 
-        private void _btnNewNodeBelow_ExecuteEvent(object sender, ExecuteEventArgs e)
+        private void NewNodeBelow_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.CurrentMapCtrl.AppendSiblingNodeAndEdit();
         }
 
-        private void _btnNewParent_ExecuteEvent(object sender, ExecuteEventArgs e)
+        private void NewParent_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.CurrentMapCtrl.InsertParentAndEdit();
         }
@@ -235,7 +165,7 @@ namespace MindMate.View.Ribbon
 
         private void _btnFormatPainter_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            if (_btnFormatPainter.BooleanValue)
+            if (FormatPainter.BooleanValue)
             {
                 bool ctrlKeyDown = (Control.ModifierKeys & Keys.Control) == Keys.Control;
                 mainCtrl.CurrentMapCtrl.CopyFormat(ctrlKeyDown);
@@ -277,15 +207,15 @@ namespace MindMate.View.Ribbon
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_Family)
                 {
-                    mainCtrl.CurrentMapCtrl.SetFontFamily(_RichFont.Family);
+                    mainCtrl.CurrentMapCtrl.SetFontFamily(RichFont.Family);
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_Size)
                 {
-                    mainCtrl.CurrentMapCtrl.SetFontSize((float)_RichFont.Size);
+                    mainCtrl.CurrentMapCtrl.SetFontSize((float)RichFont.Size);
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_BackgroundColor)
                 {
-                    mainCtrl.CurrentMapCtrl.ChangeBackColor(_RichFont.BackgroundColor);
+                    mainCtrl.CurrentMapCtrl.ChangeBackColor(RichFont.BackgroundColor);
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_BackgroundColorType)
                 {
@@ -293,7 +223,7 @@ namespace MindMate.View.Ribbon
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_ForegroundColor)
                 {
-                    mainCtrl.CurrentMapCtrl.ChangeTextColor(_RichFont.ForegroundColor);
+                    mainCtrl.CurrentMapCtrl.ChangeTextColor(RichFont.ForegroundColor);
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_ForegroundColorType)
                 {
@@ -304,7 +234,7 @@ namespace MindMate.View.Ribbon
 
         private void _iconGallery_ItemsSourceReady(object sender, EventArgs e)
         {
-            IUICollection itemsSource = _iconGallery.ItemsSource;
+            IUICollection itemsSource = IconsGallery.ItemsSource;
             itemsSource.Clear();
 
             foreach (ModelIcon icon in MetaModel.MetaModel.Instance.IconsList)
@@ -312,9 +242,9 @@ namespace MindMate.View.Ribbon
                 itemsSource.Add(new GalleryIconPropertySet(icon, ribbon));
             }
 
-            _removeLastIcon.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.minus);
-            _removeAllIcons.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.cross_script);
-            _launchIconsDialog.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.smartart_change_color_gallery_16);
+            RemoveLastIcon.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.minus);
+            RemoveAllIcons.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.cross_script);
+            LaunchIconsDialog.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.smartart_change_color_gallery_16);
         }
 
         private void _iconGallery_ExecuteEvent(object sender, ExecuteEventArgs e)
@@ -390,31 +320,31 @@ namespace MindMate.View.Ribbon
 
         private void UpdateFontControl(MapNode n)
         {
-            _RichFont.Bold = n.Bold ? FontProperties.Set : FontProperties.NotSet;
-            _RichFont.Italic = n.Italic ? FontProperties.Set : FontProperties.NotSet;
-            _RichFont.Strikethrough = n.Strikeout ? FontProperties.Set : FontProperties.NotSet;
-            _RichFont.Family = n.NodeView.Font.Name;
-            _RichFont.Size = (decimal)n.NodeView.Font.Size;
+            RichFont.Bold = n.Bold ? FontProperties.Set : FontProperties.NotSet;
+            RichFont.Italic = n.Italic ? FontProperties.Set : FontProperties.NotSet;
+            RichFont.Strikethrough = n.Strikeout ? FontProperties.Set : FontProperties.NotSet;
+            RichFont.Family = n.NodeView.Font.Name;
+            RichFont.Size = (decimal)n.NodeView.Font.Size;
         }
 
         private void ClearFontControl()
         {
-            _RichFont.Bold = FontProperties.NotSet;
-            _RichFont.Italic = FontProperties.NotSet;
-            _RichFont.Strikethrough = FontProperties.NotSet;
-            _RichFont.Family = null;
-            _RichFont.Size = 0;
+            RichFont.Bold = FontProperties.NotSet;
+            RichFont.Italic = FontProperties.NotSet;
+            RichFont.Strikethrough = FontProperties.NotSet;
+            RichFont.Family = null;
+            RichFont.Size = 0;
         }
 
         private void ClipboardManager_StatusChanged()
         {
             if (ClipboardManager.HasCutNode)
             {
-                _btnCut.SmallImage = ribbon.ConvertToUIImage(Win7.Properties.Resources.cut_red_small);
+                Cut.SmallImage = ribbon.ConvertToUIImage(Win7.Properties.Resources.cut_red_small);
             }
             else
             {
-                _btnCut.SmallImage = ribbon.ConvertToUIImage(Win7.Properties.Resources.cut_small);
+                Cut.SmallImage = ribbon.ConvertToUIImage(Win7.Properties.Resources.cut_small);
             }
         }
 
@@ -445,7 +375,7 @@ namespace MindMate.View.Ribbon
             }
             else
             {
-                _btnFormatPainter.BooleanValue = false;
+                FormatPainter.BooleanValue = false;
             }
         }
 
@@ -459,11 +389,11 @@ namespace MindMate.View.Ribbon
             switch (painter.Status)
             {
                 case MapControls.FormatPainterStatus.Empty:
-                    _btnFormatPainter.BooleanValue = false;
+                    FormatPainter.BooleanValue = false;
                     break;
                 case MapControls.FormatPainterStatus.SingleApply:
                 case MapControls.FormatPainterStatus.MultiApply:
-                    _btnFormatPainter.BooleanValue = true;
+                    FormatPainter.BooleanValue = true;
                     break;
             }
         }

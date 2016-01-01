@@ -47,6 +47,8 @@
       </Command.SmallImages>
     </Command>
 
+    <Command Name="RecentItems" Id="1020" LabelTitle="Recent Mind Maps"/>
+    
     <!--Tab: Home-->
     <Command Name="TabHome"
         Id="2000"
@@ -136,7 +138,7 @@
     <Command Name="IconsGallery" Id="2081" LabelTitle="Icons Gallery" />
     <Command Name="RemoveLastIcon" Id="2082" LabelTitle="Remove Last Icon" TooltipDescription="Remove recently added icon from selected node(s)" />
     <Command Name="RemoveAllIcons" Id="2083" LabelTitle="Remove All Icons" TooltipDescription="Remove all icons from the selected node(s)" />
-    <Command Name="IconsDialog" Id="2084" LabelTitle="Launch Icons Dialog ..." TooltipDescription="Launch Icons Dialog to select or customize icons" />
+    <Command Name="LaunchIconsDialog" Id="2084" LabelTitle="Launch Icons Dialog ..." TooltipDescription="Launch Icons Dialog to select or customize icons" />
 
   </Application.Commands>
 
@@ -145,6 +147,11 @@
 
       <Ribbon.ApplicationMenu>
         <ApplicationMenu CommandName="ApplicationMenu">
+          
+          <ApplicationMenu.RecentItems>
+            <RecentItems CommandName="RecentItems" />
+          </ApplicationMenu.RecentItems>
+
           <MenuGroup>
             <Button CommandName='ButtonNew' />
             <Button CommandName='ButtonOpen' />
@@ -154,6 +161,7 @@
           <MenuGroup>
             <Button CommandName='ButtonExit' />
           </MenuGroup>
+          
         </ApplicationMenu>
       </Ribbon.ApplicationMenu>
 
@@ -224,7 +232,7 @@
                 <MenuGroup>
                   <Button CommandName="RemoveLastIcon"/>
                   <Button CommandName="RemoveAllIcons" />
-                  <Button CommandName="IconsDialog" />
+                  <Button CommandName="LaunchIconsDialog" />
                 </MenuGroup>
               </InRibbonGallery.MenuGroups>
             </InRibbonGallery>

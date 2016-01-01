@@ -464,7 +464,7 @@ namespace MindMate.Model
         public void AttachTo(MapNode parent, MapNode adjacentToSib = null, bool insertAfterSib = true,
                     NodePosition pos = NodePosition.Undefined, bool raiseAttachEvent = true)
         {
-            Debug.Assert(!(adjacentToSib == null && insertAfterSib == false)); 
+            //Debug.Assert(!(adjacentToSib == null && insertAfterSib == false)); //AttachTo handles this case
 
             this.Parent = parent;
             this.Tree = parent.Tree;
