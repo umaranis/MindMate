@@ -69,8 +69,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\Ribbon\GalleryIconPropertySet.cs" />
     <Compile Include="View\Ribbon\Ribbon.cs" />
-    <Compile Include="View\Ribbon\RibbonMarkupCommands.cs" />
+    <Compile Include="View\Ribbon\RibbonMarkupCommands.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RibbonMarkupCommands.tt</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -131,8 +136,17 @@
     <Content Include="View\Ribbon\Res\paste_plain.bmp" />
     <Content Include="View\Ribbon\Res\save16.bmp" />
     <Content Include="View\Ribbon\Res\Save32.bmp" />
-    <Content Include="View\Ribbon\RibbonMarkup.xml" />
-    <Content Include="View\Ribbon\RibbonMarkupCommands.xslt" />
+    <Content Include="View\Ribbon\RibbonMarkup.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="View\Ribbon\RibbonMarkupCommands.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RibbonMarkupCommands.cs</LastGenOutput>
+    </None>
+    <None Include="View\Ribbon\RibbonMarkupCommands.xslt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

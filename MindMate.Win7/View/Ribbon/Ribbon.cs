@@ -9,8 +9,10 @@ using System.Windows.Forms;
 using RibbonLib.Interop;
 using System.Diagnostics;
 using System.Drawing;
+using MindMate.MetaModel;
 using MindMate.View.EditorTabs;
 using MindMate.View.MapControls;
+using RibbonLib;
 
 namespace MindMate.View.Ribbon
 {
@@ -47,6 +49,12 @@ namespace MindMate.View.Ribbon
 
         private RibbonGroup _grpFont;
         private RibbonFontControl _RichFont;
+
+        private RibbonGroup _grpIcons;
+        private RibbonInRibbonGallery _iconGallery;
+        private RibbonButton _removeLastIcon;
+        private RibbonButton _removeAllIcons;
+        private RibbonButton _launchIconsDialog;
 
         private readonly RibbonLib.Ribbon ribbon;
 
@@ -115,13 +123,27 @@ namespace MindMate.View.Ribbon
             _RichFont = new RibbonFontControl(ribbon, (uint)RibbonMarkupCommands.RichFont);
 
             _RichFont.ExecuteEvent += _RichFont_ExecuteEvent;
+            
+            //Home Tab: Icons Group
+            _grpIcons = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpIcons);
+            _iconGallery = new RibbonInRibbonGallery(ribbon, (uint)RibbonMarkupCommands.IconsGallery);
+            _removeLastIcon = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.RemoveLastIcon);
+            _removeAllIcons = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.RemoveAllIcons);
+            _launchIconsDialog = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.IconsDialog);
 
+            _iconGallery.ItemsSourceReady += _iconGallery_ItemsSourceReady;
+            _iconGallery.ExecuteEvent += _iconGallery_ExecuteEvent;
+            _launchIconsDialog.ExecuteEvent += _launchIconsDialog_ExecuteEvent;
+            _removeLastIcon.ExecuteEvent += _removeLastIcon_ExecuteEvent;
+            _removeAllIcons.ExecuteEvent += _removeAllIcons_ExecuteEvent;
+
+            //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
             tabs.ControlAdded += Tabs_ControlAdded;
             tabs.ControlRemoved += Tabs_ControlRemoved;
             tabs.SelectedIndexChanged += Tabs_SelectedIndexChanged;
-            
+
         }
 
         private void _buttonSave_ExecuteEvent(object sender, ExecuteEventArgs e)
@@ -278,6 +300,45 @@ namespace MindMate.View.Ribbon
                     mainCtrl.CurrentMapCtrl.ChangeTextColor(Color.Empty);
                 }
             }
+        }
+
+        private void _iconGallery_ItemsSourceReady(object sender, EventArgs e)
+        {
+            IUICollection itemsSource = _iconGallery.ItemsSource;
+            itemsSource.Clear();
+
+            foreach (ModelIcon icon in MetaModel.MetaModel.Instance.IconsList)
+            {
+                itemsSource.Add(new GalleryIconPropertySet(icon, ribbon));
+            }
+
+            _removeLastIcon.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.minus);
+            _removeAllIcons.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.cross_script);
+            _launchIconsDialog.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.smartart_change_color_gallery_16);
+        }
+
+        private void _iconGallery_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            GalleryIconPropertySet iconPropertySet = (GalleryIconPropertySet) e.CommandExecutionProperties;
+            if (iconPropertySet != null)
+            {
+                mainCtrl.CurrentMapCtrl.AppendIcon(iconPropertySet.Name);
+            }
+        }
+
+        private void _launchIconsDialog_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.AppendIconFromIconSelectorExt();
+        }
+
+        private void _removeLastIcon_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.RemoveLastIcon();
+        }
+
+        private void _removeAllIcons_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.RemoveAllIcon();
         }
 
         #endregion Home Tab
