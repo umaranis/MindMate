@@ -38,6 +38,9 @@ namespace MindMate.View.Ribbon
             ButtonSave.ExecuteEvent += _buttonSave_ExecuteEvent;
             Close.ExecuteEvent += Close_ExecuteEvent;
 
+            RecentItems.RecentItems = CreateRecentItemsList();
+            RecentItems.ExecuteEvent += RecentItems_ExecuteEvent;
+
             //Home Tab : New Node group
             NewChildNode.ExecuteEvent += NewChildNode_ExecuteEvent;
             NewLongNode.ExecuteEvent += NewLongNode_ExecuteEvent;
@@ -76,6 +79,8 @@ namespace MindMate.View.Ribbon
 
         }
 
+        #region Application Menu
+
         private void _buttonSave_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.SaveCurrentMap();
@@ -100,6 +105,77 @@ namespace MindMate.View.Ribbon
         {
             mainCtrl.CloseCurrentMap();
         }
+
+        private List<RecentItemsPropertySet> CreateRecentItemsList()
+        {
+            var recentItems = new List<RecentItemsPropertySet>(MetaModel.MetaModel.RecentFilesCount);
+            for (int i = 0; i < MetaModel.MetaModel.Instance.RecentFiles.Count; i++)
+            {
+                string recentFile = MetaModel.MetaModel.Instance.RecentFiles[i];
+                recentItems.Add(new RecentItemsPropertySet()
+                {
+                    Label = System.IO.Path.GetFileName(recentFile),
+                    LabelDescription = recentFile,
+                    Pinned = false
+                });
+            }
+            return recentItems;
+        }
+
+        public void RefreshRecentItemsList()
+        {
+            var ribbonRecentItems = RecentItems.RecentItems;
+            var recentFiles = MetaModel.MetaModel.Instance.RecentFiles;
+
+            // start: make two list same in size
+            int countDiff = recentFiles.Count - ribbonRecentItems.Count;
+            if (countDiff != 0)
+            {
+                if (countDiff > 0)
+                {
+                    do
+                    {
+                        ribbonRecentItems.Add(new RecentItemsPropertySet());
+                        countDiff--;
+                    } while (countDiff != 0);
+                }
+                else
+                {
+                    do
+                    {
+                        ribbonRecentItems.RemoveAt(ribbonRecentItems.Count - 1);
+                        countDiff++;
+                    } while (countDiff != 0);
+                }
+            }
+            // end: make two list same in size
+
+            // refresh ribbon recent items list
+            for (int i = 0; i < recentFiles.Count; i++)
+            {
+                string fileName = recentFiles[i];
+                ribbonRecentItems[i].Label = System.IO.Path.GetFileName(fileName);
+                ribbonRecentItems[i].LabelDescription = fileName;
+                ribbonRecentItems[i].Pinned = false;
+            }
+        }
+
+        private void RecentItems_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            if (e.Key.PropertyKey == RibbonProperties.SelectedItem)
+            {
+                // get selected item label description
+                PropVariant propLabelDescription;
+                e.CommandExecutionProperties.GetValue(ref RibbonProperties.LabelDescription,
+                                                    out propLabelDescription);
+                string labelDescription = (string)propLabelDescription.Value;
+                
+                // open file
+                mainCtrl.OpenMap(labelDescription);
+            }
+        }
+
+        #endregion
 
         #region Home Tab
 

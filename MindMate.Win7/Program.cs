@@ -23,8 +23,9 @@ namespace MindMate.Win7
             //MyWebMind.Debug.IconListCreator.GenerateIconXML();
             MainCtrl mainCtrl = new MainCtrl();
             MainForm form = new MainForm(mainCtrl);            
-            mainCtrl.LaunchMindMate(form);
+            mainCtrl.InitMindMate(form);
             var ribbonHandler = new View.Ribbon.Ribbon(form.Ribbon, mainCtrl, form.EditorTabs);
+            form.RibbonCtrl = ribbonHandler;
             Application.Run(form);
             traceLog.Close();
         }

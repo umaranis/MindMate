@@ -69,6 +69,7 @@ namespace MindMate.Win7
         #endregion
 
         public RibbonLib.Ribbon Ribbon { get; private set; }
+        public View.Ribbon.Ribbon RibbonCtrl { get; set; }
 
         public EditorTabs EditorTabs { get; private set; }
         public TabControl SideBarTabs { get; private set; }
@@ -106,10 +107,9 @@ namespace MindMate.Win7
             //throw new NotImplementedException();
         }
 
-        //TODO: Implement this functionality for Ribbon
         public void RefreshRecentFilesMenuItems()
         {
-            //MainMenuCtrl.RefreshRecentFilesMenuItems();
+            RibbonCtrl.RefreshRecentItemsList();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)

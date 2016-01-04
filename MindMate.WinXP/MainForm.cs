@@ -31,9 +31,7 @@ namespace MindMate.WinXP
             EditorTabs = new EditorTabs();
             splitContainer1.Panel1.Controls.Add(EditorTabs);
         }
-
-        public MainMenu MainMenu { get { return menuStrip; } }
-
+    
         #region Manage Focus
 
         private Control focusedControl;
@@ -66,6 +64,7 @@ namespace MindMate.WinXP
 
         #endregion
 
+		public MainMenu MainMenu { get { return menuStrip; } }
         public MainMenuCtrl MainMenuCtrl { get; set; }        
 
         public EditorTabs EditorTabs { get; private set; }

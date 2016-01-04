@@ -23,7 +23,7 @@ namespace MindMate.WinXP
             //MyWebMind.Debug.IconListCreator.GenerateIconXML();
             MainCtrl mainCtrl = new MainCtrl();
 			MainForm form = new MainForm();
-            mainCtrl.LaunchMindMate(form);
+            mainCtrl.InitMindMate(form);
             MainMenuCtrl mainMenuCtrl = new MainMenuCtrl(form.MainMenu, mainCtrl);
             form.MainMenuCtrl = mainMenuCtrl;
             Application.Run(form);

@@ -149,7 +149,7 @@
         <ApplicationMenu CommandName="ApplicationMenu">
           
           <ApplicationMenu.RecentItems>
-            <RecentItems CommandName="RecentItems" />
+            <RecentItems CommandName="RecentItems" MaxCount="12" EnablePinning="false"/>
           </ApplicationMenu.RecentItems>
 
           <MenuGroup>

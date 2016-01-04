@@ -22,7 +22,6 @@ namespace MindMate.MetaModel
     [ProtoBuf.ProtoContract]
     public class MetaModel
     {
-
         
         #region Singleton
 
@@ -79,7 +78,9 @@ namespace MindMate.MetaModel
         [ProtoBuf.ProtoMember(2)]
         public string LastOpenedFile { get; set; }
 
-        private readonly CustomFontDialog.RecentlyUsedList<string> recentFiles = new CustomFontDialog.RecentlyUsedList<string>(8);
+        public const int RecentFilesCount = 12;
+
+        private readonly CustomFontDialog.RecentlyUsedList<string> recentFiles = new CustomFontDialog.RecentlyUsedList<string>(RecentFilesCount);
         [ProtoBuf.ProtoMember(3)]
         public CustomFontDialog.RecentlyUsedList<string> RecentFiles { 
             get
@@ -105,7 +106,7 @@ namespace MindMate.MetaModel
             get { return NoteEditorBackColor.ToArgb(); }
             set { NoteEditorBackColor = System.Drawing.Color.FromArgb(value); }
         }
-
+        
         private static MetaModel Load()
         {
             MetaModel model;

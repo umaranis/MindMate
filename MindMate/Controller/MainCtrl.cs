@@ -62,7 +62,7 @@ namespace MindMate.Controller
 
 		#region Launch MindMate application
         
-        public void LaunchMindMate(IMainForm mainForm)
+        public void InitMindMate(IMainForm mainForm)
         {
             this.mainForm = mainForm;
             MetaModel.MetaModel.Initialize();
@@ -438,7 +438,6 @@ namespace MindMate.Controller
                 }
                 
                 MetaModel.MetaModel.Instance.RecentFiles.Add(tree.FileName);
-                mainForm.RefreshRecentFilesMenuItems();
             }
         }
 
@@ -458,6 +457,7 @@ namespace MindMate.Controller
                 {
                     PersistenceManager.CloseCurerntTree();
                 }
+                mainForm.RefreshRecentFilesMenuItems();
             }
         }
 
