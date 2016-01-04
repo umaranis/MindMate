@@ -36,6 +36,7 @@ namespace MindMate.View.Ribbon
             ButtonExit.ExecuteEvent += _buttonExit_ExecuteEvent;
             ButtonOpen.ExecuteEvent += _buttonOpen_ExecuteEvent;
             ButtonSave.ExecuteEvent += _buttonSave_ExecuteEvent;
+            SaveAll.ExecuteEvent += SaveAll_ExecuteEvent;
             Close.ExecuteEvent += Close_ExecuteEvent;
 
             RecentItems.RecentItems = CreateRecentItemsList();
@@ -81,11 +82,6 @@ namespace MindMate.View.Ribbon
 
         #region Application Menu
 
-        private void _buttonSave_ExecuteEvent(object sender, ExecuteEventArgs e)
-        {
-            mainCtrl.SaveCurrentMap();
-        }
-
         private void _buttonOpen_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.OpenMap();
@@ -99,6 +95,16 @@ namespace MindMate.View.Ribbon
         void _buttonNew_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.NewMap();
+        }
+
+        private void _buttonSave_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.SaveCurrentMap();
+        }
+
+        private void SaveAll_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.SaveAll();
         }
 
         private void Close_ExecuteEvent(object sender, ExecuteEventArgs e)

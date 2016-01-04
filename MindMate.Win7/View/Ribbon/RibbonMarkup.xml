@@ -30,21 +30,17 @@
         <Image>Res/Save16.bmp</Image>
       </Command.SmallImages>
     </Command>
+    <Command Name="SaveAll" Id="1006" LabelTitle="Save All" LabelDescription="Save all files" TooltipTitle="Save all files (Ctrl + Shift + S)">
+      <Command.LargeImages><Image>Res/SaveAll32.png</Image></Command.LargeImages>
+      <Command.SmallImages><Image>Res/SaveAllHS.png</Image></Command.SmallImages>
+    </Command>
     <Command Name="Close" Id="1005" LabelTitle="Close" LabelDescription="Close Mind Map" TooltipTitle="Close" TooltipDescription="Close current Mind Map">
-      <Command.LargeImages>
-        <Image>Res/Close3.png</Image> 
-      </Command.LargeImages>
-      <Command.SmallImages>
-        <Image>Res/Close4.png</Image> 
-      </Command.SmallImages>
+      <Command.LargeImages><Image>Res/Close3.png</Image></Command.LargeImages>
+      <Command.SmallImages><Image>Res/Close4.png</Image></Command.SmallImages>
     </Command>
     <Command Name="ButtonExit" Id="1004" LabelTitle="Exit" LabelDescription="Exit Description" TooltipTitle="Exit" TooltipDescription="Exit application (Alt + F4)">
-      <Command.LargeImages>
-        <Image>Res/Exit.png</Image>
-      </Command.LargeImages>
-      <Command.SmallImages>
-        <Image>Res/Exit.png</Image>
-      </Command.SmallImages>
+      <Command.LargeImages><Image>Res/Exit.png</Image></Command.LargeImages>
+      <Command.SmallImages><Image>Res/Exit.png</Image></Command.SmallImages>
     </Command>
 
     <Command Name="RecentItems" Id="1020" LabelTitle="Recent Mind Maps"/>
@@ -155,7 +151,12 @@
           <MenuGroup>
             <Button CommandName='ButtonNew' />
             <Button CommandName='ButtonOpen' />
+          </MenuGroup>
+          <MenuGroup>
             <Button CommandName='ButtonSave' />
+            <Button CommandName='SaveAll' />
+          </MenuGroup>
+          <MenuGroup>
             <Button CommandName='Close' />
           </MenuGroup>
           <MenuGroup>
