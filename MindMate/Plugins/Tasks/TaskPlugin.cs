@@ -53,7 +53,8 @@ namespace MindMate.Plugins.Tasks
                     taskListView.Invoke((Action)RefreshTaskListView);
                 },
                 DateTime.Today.AddDays(1),
-                TimeSpan.FromDays(1)
+                TimeSpan.FromDays(1),
+                "TaskListRefreshNewDay"
                 )
             );                        
         }
