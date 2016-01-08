@@ -83,7 +83,9 @@ namespace MindMate.Serialization
                 xml.WriteAttributeString("FOLDED", "true");
 
             xml.WriteAttributeString("TEXT", mapNode.Text);
-            xml.WriteAttributeString("LABEL", mapNode.Label);
+
+            if(mapNode.Label != null)
+                xml.WriteAttributeString("LABEL", mapNode.Label);
 
             xml.WriteAttributeString("CREATED", ((long)(mapNode.Created.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds)).ToString());
             xml.WriteAttributeString("MODIFIED", ((long)(mapNode.Modified.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds)).ToString());
