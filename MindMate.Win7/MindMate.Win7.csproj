@@ -119,6 +119,9 @@
   <ItemGroup>
     <Content Include="Binaries\Ribbon.dll" />
     <Content Include="MindMap.ico" />
+    <Content Include="View\Ribbon\Res\page_white_copy.png" />
+    <Content Include="View\Ribbon\Res\SaveAll32.png" />
+    <Content Include="View\Ribbon\Res\SaveAllHS.png" />
     <Content Include="View\Ribbon\Res\smartart_change_color_gallery-16.png" />
     <Content Include="View\Ribbon\Res\smartart_change_color_gallery-32.png" />
     <Content Include="View\Ribbon\Ribbon.Controls.tt">
