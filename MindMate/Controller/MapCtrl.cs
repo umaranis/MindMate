@@ -186,7 +186,7 @@ namespace MindMate.Controller
             }
         }
 
-        private MapNode AppendChildNode(MapNode parent)
+        public MapNode AppendChildNode(MapNode parent)
         {
             MapNode newNode = new MapNode(parent, "");
             if (newNode != null)
