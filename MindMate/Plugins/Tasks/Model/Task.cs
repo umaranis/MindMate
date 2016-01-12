@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MindMate.Plugins.Tasks.Model
 {
-    static class Task
+    public static class Task
     {
         /// <summary>
         /// Checks if Due Date attribute exists on the given node

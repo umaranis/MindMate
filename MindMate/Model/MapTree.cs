@@ -228,7 +228,8 @@ namespace MindMate.Model
         }
 
         /// <summary>
-        /// Change Manager is off by default
+        /// Change Manager is off by default (helps in deserialization).
+        /// It is mandatory to turn on ChangeManager (MapCtrl and others assume that it is on).
         /// </summary>
         public void TurnOnChangeManager()
         {
