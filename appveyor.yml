@@ -4,7 +4,8 @@ install:
     - nuget restore
 
 build:
-  verbosity: detailed
+    project: MindMate.sln
+    verbosity: detailed
 
 environment:
     COVERALLS_REPO_TOKEN:  
