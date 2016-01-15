@@ -16,6 +16,6 @@ after_test:
 #   -cmd: packages\OpenCover.4.6.166\tools\OpenCover.Console.exe -register:user -filter:"+[*]*" -target:"packages\NUnit.Runners.2.6.4\tools\nunit-console.exe" -targetargs:"/noshadow /domain:single YOURPROJECT.Tests\bin\debug\YOURPROJECT.Tests.dll" -output:coverage.xml
 
 # generate report for MSTest testing framework:
-     - packages\OpenCover.4.6.166\OpenCover.Console.exe -register:user -filter:"+[*]*" -target:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe" -targetargs:"/testcontainer:MindMate.Tests/bin/debug/MindMate.Tests.dll" -output:coverage.xml
+     - cmd:packages\OpenCover.4.6.166\OpenCover.Console.exe -register:user -filter:"+[*]*" -target:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe" -targetargs:"/testcontainer:MindMate.Tests/bin/debug/MindMate.Tests.dll" -output:coverage.xml
 
      - cmd: packages\coveralls.net.0.6.0\tools\coveralls.net.exe --opencover coverage.xml
