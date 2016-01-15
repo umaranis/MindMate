@@ -434,10 +434,10 @@
     <None Include="images\knotes.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Binaries\CustomFontDialog.dll" />
-    <Content Include="Binaries\protobuf-net.dll" />
-    <Content Include="Binaries\System.Windows.Forms.Calendar.dll" />
-    <Content Include="Binaries\TaskSchedular.dll" />
+    <None Include="Binaries\CustomFontDialog.dll" />
+    <None Include="Binaries\protobuf-net.dll" />
+    <None Include="Binaries\System.Windows.Forms.Calendar.dll" />
+    <None Include="Binaries\TaskSchedular.dll" />
     <Content Include="images\edittrash.png" />
     <Content Include="images\Executable.png" />
     <Content Include="images\fileopen.png" />

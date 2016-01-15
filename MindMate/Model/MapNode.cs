@@ -571,7 +571,8 @@ namespace MindMate.Model
             {
                 return (Previous != null && Previous.Next != this) ||
                         (Next != null && Next.Previous != this) ||
-                        Parent != null && !Parent.ChildNodes.Contains(this);
+                        (Parent != null && !Parent.ChildNodes.Contains(this)) ||
+                        (Parent == null && Pos != NodePosition.Root);
             }
         }
 
@@ -1105,7 +1106,7 @@ namespace MindMate.Model
             {
                 linkType = NodeLinkType.VideoFile;
             }
-            else if((i = link.LastIndexOf('\\')) > 0 && link.IndexOf('.', i) < 0)
+            else if((i = link.LastIndexOf('\\')) >= 0 && link.IndexOf('.', i) < 0)
             {
                 linkType = NodeLinkType.Folder;
             }

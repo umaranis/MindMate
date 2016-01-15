@@ -15,7 +15,7 @@ namespace MindMate.View.MapControls.Drawing
     /// <summary>
     /// Performs all drawing on the panel surface.
     /// </summary>
-    static class MapPainter
+    public static class MapPainter
     {
 
         public static Brush HighlightBrush = new SolidBrush(Color.FromArgb(235, 235, 235));
@@ -26,7 +26,7 @@ namespace MindMate.View.MapControls.Drawing
             dropHintPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
         }
 
-        internal static void DrawTree(MapView mapView, System.Drawing.Graphics g)
+        public static void DrawTree(MapView mapView, System.Drawing.Graphics g)
         {
             //Draw root node
             NodeView nView = mapView.GetNodeView(mapView.Tree.RootNode);
@@ -48,7 +48,7 @@ namespace MindMate.View.MapControls.Drawing
             }
         }
 
-        internal static void DrawNode(NodeView node, bool bDrawChildren, MapView mapView, System.Drawing.Graphics g)
+        public static void DrawNode(NodeView node, bool bDrawChildren, MapView mapView, System.Drawing.Graphics g)
         {
 
             DrawNode(node, g, mapView.HighlightedNode == node.Node);
@@ -127,12 +127,12 @@ namespace MindMate.View.MapControls.Drawing
         /// </summary>
         /// <param name="node"></param>
         /// <param name="g"></param>
-        internal static void DrawNodeLinker(MapNode node, MapView mapView, Graphics g)
+        public static void DrawNodeLinker(MapNode node, MapView mapView, Graphics g)
         {
             DrawNodeLinker(node, mapView, g, true);
         }
 
-        internal static void DrawNodeLinker(MapNode node, MapView mapView, Graphics g, bool drawChildren)
+        public static void DrawNodeLinker(MapNode node, MapView mapView, Graphics g, bool drawChildren)
         {
             if (node.Parent != null)
             {
@@ -329,7 +329,7 @@ namespace MindMate.View.MapControls.Drawing
 
         }
 
-        internal static void DrawNodeDropHint(DropLocation location, Graphics g)
+        public static void DrawNodeDropHint(DropLocation location, Graphics g)
         {
             NodeView pView = location.Parent.NodeView;
             
