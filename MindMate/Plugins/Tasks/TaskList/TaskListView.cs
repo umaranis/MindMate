@@ -8,6 +8,10 @@ namespace MindMate.Plugins.Tasks
 {
     public class TaskListView : MindMate.Plugins.Tasks.SideBar.SideBar
     {
+        /// <summary>
+        /// Today's date as per TaskListView. This is used to ensure that TaskListView is upto date.
+        /// </summary>
+        private DateTime todayDate = DateTime.Today;
         
         public TaskListView()
         {
@@ -144,6 +148,11 @@ namespace MindMate.Plugins.Tasks
         /// <returns>returns null if not found</returns>
         public TaskView FindTaskView(MapNode node, DateTime dueDate)
         {
+            if (!todayDate.Equals(DateTime.Today))
+            {
+                RefreshTaskList();
+            }
+
             for (int i = 0; i < this.ControlGroups.Count; i++)
             {
                 ControlGroup ctrlGroup = this.ControlGroups[i];
@@ -339,7 +348,9 @@ namespace MindMate.Plugins.Tasks
                 RemoveTask(tv);
                 Add(tv);
                 tv = (TaskView)GetNextControl(tv);
-            }            
+            }          
+            
+            todayDate = DateTime.Today;  
         }        
 
         public void Clear(MapTree tree)
