@@ -257,6 +257,7 @@ namespace MindMate.Serialization
         /// MapNode with it's descendent are created using 'xmlElement'
         /// </summary>
         /// <param name="xmlElement">Should be 'node' the element</param>
+        /// <param name="tree"></param>
         /// <param name="parent">Parent to which deserialized MapNode is attached</param>
         /// <returns></returns>
         public MapNode Deserialize(XmlNode xmlElement, MapTree tree, MapNode parent = null)

@@ -334,6 +334,19 @@ namespace MindMate.Tests.Model
         }
 
         [TestMethod()]
+        public void IsDescendent_FalseCase()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var cc1 = new MapNode(c1, "cc1");
+            var cc2 = new MapNode(c1, "cc2");
+            var cc3 = new MapNode(c1, "cc3");
+            var c2 = new MapNode(r, "c2");
+
+            Assert.IsFalse(r.IsDescendent(c1));
+        }
+
+        [TestMethod()]
         public void GetSiblingLocation_Above()
         {
             var r = new MapNode(new MapTree(), "r");
@@ -344,6 +357,21 @@ namespace MindMate.Tests.Model
             var c2 = new MapNode(r, "c2");
 
             Assert.AreEqual(cc3.GetSiblingLocation(cc1), MindMate.Model.MapNode.SiblingLocaton.Above);
+        }
+
+        [TestMethod()]
+        public void GetSiblingLocation_Above_NotFirstChild()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var cc1 = new MapNode(c1, "cc1");
+            var cc2 = new MapNode(c1, "cc2");
+            var cc3 = new MapNode(c1, "cc3");
+            var cc4 = new MapNode(c1, "cc4");
+            var cc5 = new MapNode(c1, "cc5");
+            var c2 = new MapNode(r, "c2");
+
+            Assert.AreEqual(cc4.GetSiblingLocation(cc2), MindMate.Model.MapNode.SiblingLocaton.Above);
         }
 
         [TestMethod()]
@@ -360,6 +388,21 @@ namespace MindMate.Tests.Model
         }
 
         [TestMethod()]
+        public void GetSiblingLocation_Below_NotLastChild()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var cc1 = new MapNode(c1, "cc1");
+            var cc2 = new MapNode(c1, "cc2");
+            var cc3 = new MapNode(c1, "cc3");
+            var cc4 = new MapNode(c1, "cc4");
+            var cc5 = new MapNode(c1, "cc5");
+            var c2 = new MapNode(r, "c2");
+
+            Assert.AreEqual(cc2.GetSiblingLocation(cc5), MindMate.Model.MapNode.SiblingLocaton.Below);
+        }
+
+        [TestMethod()]
         public void GetSiblingLocation_NotSibling()
         {
             var r = new MapNode(new MapTree(), "r");
@@ -373,7 +416,35 @@ namespace MindMate.Tests.Model
         }
 
         [TestMethod()]
-        public void DeleteNode()
+        public void DeleteNode_RootNode()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var cc1 = new MapNode(c1, "cc1");
+            var cc2 = new MapNode(c1, "cc2");
+            var c2 = new MapNode(r, "c2");
+
+            r.DeleteNode();
+
+            Assert.AreEqual(r, r.Tree.RootNode);
+        }
+
+        [TestMethod()]
+        public void DeleteNode_LastChild()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var cc1 = new MapNode(c1, "cc1");
+            var cc2 = new MapNode(c1, "cc2");
+            var c2 = new MapNode(r, "c2");
+
+            cc2.DeleteNode();
+
+            Assert.AreEqual(c1.LastChild, cc1);
+        }
+
+        [TestMethod()]
+        public void DeleteNode_FirstChild()
         {
             var r = new MapNode(new MapTree(), "r");
             var c1 = new MapNode(r, "c1");
@@ -412,6 +483,50 @@ namespace MindMate.Tests.Model
             cc1.MoveUp();
 
             Assert.AreEqual(c1.FirstChild, cc1);
+            Assert.IsFalse(cc1.MoveUp());
+        }
+
+        [TestMethod()]
+        public void MoveUp_RootNode_NoChange()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var cc1 = new MapNode(c1, "cc1");
+            var cc2 = new MapNode(c1, "cc2");
+            var c2 = new MapNode(r, "c2");
+
+            bool result = r.MoveUp();
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod()]
+        public void MoveUp_LeftToRight()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1", NodePosition.Right);
+            var cc1 = new MapNode(c1, "cc1");
+            var cc2 = new MapNode(c1, "cc2");
+            var c2 = new MapNode(r, "c2", NodePosition.Left);
+
+            c2.MoveUp();
+
+            Assert.AreEqual(c2.Pos, NodePosition.Right);
+        }
+
+        [TestMethod()]
+        public void MoveUp_LeftToRightAndBack()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1", NodePosition.Right);
+            var cc1 = new MapNode(c1, "cc1");
+            var cc2 = new MapNode(c1, "cc2");
+            var c2 = new MapNode(r, "c2", NodePosition.Left);
+
+            c2.MoveUp();
+            c2.MoveDown();
+
+            Assert.AreEqual(c2.Pos, NodePosition.Left);
         }
 
         [TestMethod()]
@@ -440,6 +555,50 @@ namespace MindMate.Tests.Model
             cc2.MoveDown();
 
             Assert.AreEqual(c1.LastChild, cc2);
+            Assert.IsFalse(cc2.MoveDown());
+        }
+
+        [TestMethod()]
+        public void MoveDown_RootNode_NoChange()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var cc1 = new MapNode(c1, "cc1");
+            var cc2 = new MapNode(c1, "cc2");
+            var c2 = new MapNode(r, "c2");
+
+            bool result = r.MoveDown();
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod()]
+        public void MoveDown_RightToLeft()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1", NodePosition.Right);
+            var cc1 = new MapNode(c1, "cc1");
+            var cc2 = new MapNode(c1, "cc2");
+            var c2 = new MapNode(r, "c2", NodePosition.Left);
+
+            c1.MoveDown();
+
+            Assert.AreEqual(c1.Pos, NodePosition.Left);
+        }
+
+        [TestMethod()]
+        public void MoveDown_RightToLeftAndBack()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1", NodePosition.Right);
+            var cc1 = new MapNode(c1, "cc1");
+            var cc2 = new MapNode(c1, "cc2");
+            var c2 = new MapNode(r, "c2", NodePosition.Left);
+
+            c1.MoveDown();
+            c1.MoveUp();
+
+            Assert.AreEqual(c1.Pos, NodePosition.Right);
         }
 
         [TestMethod()]
@@ -583,6 +742,14 @@ namespace MindMate.Tests.Model
             var n = new MapNode(new MapTree(), null);
             n.Link = @"\abc.a";
             Assert.AreEqual(n.GetLinkType(), NodeLinkType.File);
+        }
+
+        [TestMethod()]
+        public void GetLinkType_MindMateNode()
+        {
+            var n = new MapNode(new MapTree(), null);
+            n.Link = @"#abc";
+            Assert.AreEqual(n.GetLinkType(), NodeLinkType.MindMapNode);
         }
 
         [TestMethod()]
