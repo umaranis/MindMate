@@ -19,7 +19,3 @@ after_test:
      - cmd: packages\OpenCover.4.6.166\tools\OpenCover.Console.exe -register:user -filter:"+[*]*" -target:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe" -targetargs:"/testcontainer:MindMate.Tests/bin/debug/MindMate.Tests.dll" -output:coverage.xml
 
      - cmd: packages\coveralls.io.1.3.4\tools\coveralls.net.exe --opencover coverage.xml
-     
-     "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
-    - pip install codecov
-    - codecov -f "coverage.xml"
