@@ -6,7 +6,7 @@ using MindMate.Plugins.Tasks.Model;
 namespace MindMate.Tests.IntegrationTest
 {
     [TestClass]
-    public class TaskPlugin
+    public class TaskPluginTests
     {
         [TestMethod]
         public void AddTask_RetrieveIt()

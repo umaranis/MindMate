@@ -63,11 +63,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="IntegrationTest\MapView.cs" />
-    <Compile Include="IntegrationTest\TaskPlugin.cs" />
+    <Compile Include="IntegrationTest\MapViewTest.cs" />
+    <Compile Include="IntegrationTest\TaskPluginTests.cs" />
+    <Compile Include="IntegrationTest\MapCtrlTests.cs" />
     <Compile Include="Model\MapNodeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\MindMapSerializerTests.cs" />
+    <Compile Include="Stubs\MainCtrlStub.cs" />
     <Compile Include="Stubs\PluginManagerStub.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -93,6 +95,21 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Feature Display.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\MapCtrl1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\MapCtrl2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\MapCtrl3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\MapCtrl4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\MapCtrl5.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Sample Map.png">

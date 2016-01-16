@@ -6,11 +6,13 @@ using System.Drawing;
 using MindMate.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using XnaFan.ImageComparison;
+using MindMate.Controller;
+using MindMate.Tests.Stubs;
 
 namespace MindMateTest
 {
     [TestClass]
-    public class IntegrationTest
+    public class MapViewTest
     {
         public const bool SAVE_ACTUAL_IMAGE = true;
 
@@ -23,16 +25,6 @@ namespace MindMateTest
 
             MindMate.MetaModel.MetaModel.Initialize();
             MapView view = new MapView(tree);
-            
-            //var form = new System.Windows.Forms.Form();
-            const int w = 4096;
-            const int h = 4096;
-            view.Canvas.Width = w;
-            view.Canvas.Height = h;
-            //view.RefreshNodePositions();
-            //form.Controls.Add(view.Canvas);
-            
-            //form.Show();
             
             var image = view.DrawToBitmap();
             if(SAVE_ACTUAL_IMAGE) image.Save(@"Resources\Sample Map - Actual.png");
@@ -57,16 +49,6 @@ namespace MindMateTest
             MindMate.MetaModel.MetaModel.Initialize();
             MapView view = new MapView(tree);
 
-            //var form = new System.Windows.Forms.Form();
-            const int w = 4096;
-            const int h = 4096;
-            view.Canvas.Width = w;
-            view.Canvas.Height = h;
-            //view.RefreshNodePositions();
-            //form.Controls.Add(view.Canvas);
-
-            //form.Show();
-
             var image = view.DrawToBitmap();
             if (SAVE_ACTUAL_IMAGE) image.Save(@"Resources\Feature Display - Actual.png");
             var refImage = (Bitmap)Bitmap.FromFile(@"Resources\Feature Display.png");
@@ -79,6 +61,5 @@ namespace MindMateTest
             image.Dispose();
             refImage.Dispose();
         }
-
     }
 }
