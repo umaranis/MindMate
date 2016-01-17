@@ -855,5 +855,62 @@ namespace MindMate.Tests.Model
             var node = new MapNode(new MapTree(), text);
             Assert.AreEqual<string>(text, node.ToString());
         }
+
+        [TestMethod()]
+        public void BoldSet_AlreadyBold_NoChange()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "Root") {Bold = true};
+            DateTime time = r.Modified;
+            t.NodePropertyChanged += (node, args) => Assert.Fail();
+            r.Bold = true;
+            Assert.IsTrue(r.Bold);
+            Assert.AreEqual(r.Modified, time);
+        }
+
+        [TestMethod]
+        public void ItalicSet_AlreadyItalic_NoChange()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "Root") { Italic = true };
+            DateTime time = r.Modified;
+            t.NodePropertyChanged += (node, args) => Assert.Fail();
+            r.Italic = true;
+            Assert.IsTrue(r.Italic);
+            Assert.AreEqual(r.Modified, time);
+        }
+
+        [TestMethod]
+        public void StrikeoutSet_AlreadyStrikeout_NoChange()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "Root") { Strikeout = true };
+            DateTime time = r.Modified;
+            t.NodePropertyChanged += (node, args) => Assert.Fail();
+            r.Strikeout = true;
+            Assert.IsTrue(r.Strikeout);
+            Assert.AreEqual(r.Modified, time);
+        }
+
+        [TestMethod]
+        public void FoldedSet_AlreadyFolded_NoChange()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "Root") { Folded = true };
+            DateTime time = r.Modified;
+            t.NodePropertyChanged += (node, args) => Assert.Fail();
+            r.Folded = true;
+            Assert.IsTrue(r.Folded);
+            Assert.AreEqual(r.Modified, time);
+        }
+
+        [TestMethod]
+        public void Selected_Test()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "Root") { Selected = true };
+            Assert.AreEqual(t.SelectedNodes.First, r);
+            Assert.AreEqual(t.SelectedNodes.Count, 1);
+        }
     }
 }
