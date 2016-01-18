@@ -17,7 +17,7 @@ namespace MindMate.Tests.IntegrationTest
     public class MapCtrlTests
     {
         public const bool SAVE_ACTUAL_IMAGE = true;
-        public const bool CONDUCT_INTERMEDIATE_TESTS = true;
+        public const bool CONDUCT_INTERMEDIATE_TESTS = false;
 
         [TestMethod]
         public void MapCtrl_Test()
@@ -146,8 +146,10 @@ namespace MindMate.Tests.IntegrationTest
             //*****
             ImageTest(mapCtrl.MapView, "MapCtrl5");
 
+            VerifyUndoRedo(mapCtrl, "Feature Display");
 
             VerifySerializeDeserialize(mapCtrl);
+            
             form.Dispose();
             //form.Close();                 
 
@@ -161,30 +163,57 @@ namespace MindMate.Tests.IntegrationTest
         {
             //1. save MapView as image
             mapCtrl.MapView.SelectedNodes.Add(mapCtrl.MapView.Tree.RootNode, false);
-            var refImage = mapCtrl.MapView.DrawToBitmap();
+            using (var refImage = mapCtrl.MapView.DrawToBitmap())
+            {
 
-            //2. serialize
-            var s = new MindMapSerializer();
-            MemoryStream stream = new MemoryStream();
-            s.Serialize(stream, mapCtrl.MapView.Tree);
-            stream.Position = 0;
-            string generatedText = new StreamReader(stream).ReadToEnd();
-            stream.Close();
+                //2. serialize
+                var s = new MindMapSerializer();
+                MemoryStream stream = new MemoryStream();
+                s.Serialize(stream, mapCtrl.MapView.Tree);
+                stream.Position = 0;
+                string generatedText = new StreamReader(stream).ReadToEnd();
+                stream.Close();
 
-            //3. deserialize
-            MapTree newTree = new MapTree();
-            s.Deserialize(generatedText, newTree);
-            newTree.SelectedNodes.Add(newTree.RootNode, false);
-            mapCtrl = new MapCtrl(new MapView(newTree), new MainCtrlStub(new Form()));
+                //3. deserialize
+                MapTree newTree = new MapTree();
+                s.Deserialize(generatedText, newTree);
+                newTree.SelectedNodes.Add(newTree.RootNode, false);
+                MapCtrl mapCtrl2 = new MapCtrl(new MapView(newTree), new MainCtrlStub(new Form()));
 
-            //4. save new MapView image and compare
-            var image = mapCtrl.MapView.DrawToBitmap();
-            if (SAVE_ACTUAL_IMAGE) refImage.Save(@"Resources\MapCtrl_BeforeSerialization.png");
-            if (SAVE_ACTUAL_IMAGE) image.Save(@"Resources\MapCtrl_AfterDeseriallization.png");
-            Assert.AreEqual(0.0f, refImage.PercentageDifference(image, 0), "MapCtrl Test: Final image doesn't match.");
+                //4. save new MapView image and compare
+                using (var image = mapCtrl2.MapView.DrawToBitmap())
+                {
+                    if (SAVE_ACTUAL_IMAGE) refImage.Save(@"Resources\MapCtrl_BeforeSerialization.png");
+                    if (SAVE_ACTUAL_IMAGE) image.Save(@"Resources\MapCtrl_AfterDeseriallization.png");
+                    Assert.AreEqual(0.0f, refImage.PercentageDifference(image, 0),
+                        "MapCtrl Test: Final image doesn't match.");
 
-            image.Dispose();
-            refImage.Dispose();
+                }
+            }
+        }
+
+        private void VerifyUndoRedo(MapCtrl mapCtrl, string originalFile)
+        {
+            mapCtrl.MapView.Tree.SelectedNodes.Clear();
+            using (var refRedoImage = mapCtrl.MapView.DrawToBitmap())
+            {
+                while (mapCtrl.MapView.Tree.ChangeManager.CanUndo)
+                {
+                    mapCtrl.MapView.Tree.ChangeManager.Undo();
+                }
+
+                ImageTest(mapCtrl.MapView, "Feature Display");
+
+                while (mapCtrl.MapView.Tree.ChangeManager.CanRedo)
+                {
+                    mapCtrl.MapView.Tree.ChangeManager.Redo();
+                }
+
+                using (var image = mapCtrl.MapView.DrawToBitmap())
+                {
+                    Assert.AreEqual(0.0f, refRedoImage.PercentageDifference(image, 0));
+                }
+            }
         }
 
         private void ImageTest(MapView view, string imageName)
