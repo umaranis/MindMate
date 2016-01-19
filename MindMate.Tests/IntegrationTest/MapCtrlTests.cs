@@ -144,7 +144,23 @@ namespace MindMate.Tests.IntegrationTest
             mapCtrl.SelectNodeRightOrUnfold();
 
             //*****
-            ImageTest(mapCtrl.MapView, "MapCtrl5");
+            if (CONDUCT_INTERMEDIATE_TESTS) ImageTest(mapCtrl.MapView, "MapCtrl5");
+
+            //select top/bottom sibling
+            mapCtrl.SelectTopSibling();
+            mapCtrl.AppendSiblingAboveAndEdit();
+            mapCtrl.MapView.NodeTextEditor.EndNodeEdit(true, true);
+            mapCtrl.UpdateNodeText(tree.SelectedNodes.First, "SelectTopSibling");
+            mapCtrl.MakeSelectedNodeShapeBubble();
+            mapCtrl.SelectBottomSibling();
+
+            //insert parent
+            mapCtrl.InsertParentAndEdit();
+            mapCtrl.MapView.NodeTextEditor.EndNodeEdit(true, true);
+            mapCtrl.UpdateNodeText(tree.SelectedNodes.First, "Parent Inserted");
+            mapCtrl.MakeSelectedNodeShapeBullet();
+
+            ImageTest(mapCtrl.MapView, "MapCtrl6");
 
             VerifyUndoRedo(mapCtrl, "Feature Display");
 
