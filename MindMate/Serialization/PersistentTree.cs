@@ -13,8 +13,9 @@ namespace MindMate.Serialization
         /// <summary>
         /// Call <see cref="PersistentTree.Initialize"/> before using the object
         /// </summary>
-        public PersistentTree()
+        public PersistentTree(PersistenceManager persistenceManager)
         {
+            manager = persistenceManager;
             Tree = new MapTree();
         }
 
@@ -43,9 +44,12 @@ namespace MindMate.Serialization
             RegisterForMapChangedNotification();
         }
 
+        private PersistenceManager manager;
+
         public MapTree Tree { get; private set; }
 
         public string FileName { get; private set; }
+
         public bool IsNewMap
         {
             get
@@ -94,6 +98,8 @@ namespace MindMate.Serialization
             }
 
             IsDirty = false;
+
+            manager._InvokeTreeSaved(this);
         }
 
         #region IsDirty

@@ -142,7 +142,7 @@ namespace MindMate.View.EditorTabs
             UpdateAppTitle();
         }
 
-        private void UpdateAppTitle()
+        public void UpdateAppTitle()
         {
             Debug.Assert(TopLevelControl != null, "TopLevelControl != null");
 

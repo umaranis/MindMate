@@ -20,6 +20,7 @@ namespace MindMate.View.Ribbon
 		ButtonNew = 1001,		
 		ButtonOpen = 1002,		
 		ButtonSave = 1003,		
+		SaveAs = 1007,		
 		SaveAll = 1006,		
 		Close = 1005,		
 		ButtonExit = 1004,		

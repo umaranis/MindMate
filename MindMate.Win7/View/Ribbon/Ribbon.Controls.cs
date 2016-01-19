@@ -20,6 +20,7 @@ namespace MindMate.View.Ribbon
 		private RibbonButton ButtonNew;		
 		private RibbonButton ButtonOpen;		
 		private RibbonButton ButtonSave;		
+		private RibbonButton SaveAs;		
 		private RibbonButton SaveAll;		
 		private RibbonButton Close;		
 		private RibbonButton ButtonExit;		
@@ -56,6 +57,7 @@ namespace MindMate.View.Ribbon
 			ButtonNew = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ButtonNew);
 			ButtonOpen = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ButtonOpen);
 			ButtonSave = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ButtonSave);
+			SaveAs = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SaveAs);
 			SaveAll = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SaveAll);
 			Close = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Close);
 			ButtonExit = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ButtonExit);

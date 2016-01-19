@@ -408,11 +408,13 @@ namespace MindMate.Controller
             file.AddExtension = true;
             file.DefaultExt = "mm";
             file.Filter = "MindMap files (*.mm)|*.mm|All files (*.*)|*.*|Text (*.txt)|*.txt";
+            file.InitialDirectory = Path.GetDirectoryName(PersistenceManager.CurrentTree.FileName);
             file.FileName = tree.IsNewMap? CurrentMapCtrl.MapView.Tree.RootNode.Text : PersistenceManager.CurrentTree.FileName;
             if (file.ShowDialog() == DialogResult.OK)
             {
                 SaveMapInternal(tree, file.FileName);
             }
+            mainForm.EditorTabs.UpdateAppTitle();
         }
 
         /// <summary>
@@ -422,7 +424,7 @@ namespace MindMate.Controller
         /// <param name="fileName"></param>
         private void SaveMapInternal(PersistentTree tree, string fileName = null)
         {
-            Debug.Assert(tree.FileName == null || fileName == null, "Saving: Missing file name.");
+            Debug.Assert(tree.FileName != null || fileName != null, "Saving: Missing file name.");
 
             noteCrtl.UpdateNodeFromEditor();
 

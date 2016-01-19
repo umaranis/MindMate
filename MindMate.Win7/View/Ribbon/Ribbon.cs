@@ -36,6 +36,7 @@ namespace MindMate.View.Ribbon
             ButtonExit.ExecuteEvent += _buttonExit_ExecuteEvent;
             ButtonOpen.ExecuteEvent += _buttonOpen_ExecuteEvent;
             ButtonSave.ExecuteEvent += _buttonSave_ExecuteEvent;
+            SaveAs.ExecuteEvent += SaveAs_ExecuteEvent;
             SaveAll.ExecuteEvent += SaveAll_ExecuteEvent;
             Close.ExecuteEvent += Close_ExecuteEvent;
 
@@ -100,6 +101,11 @@ namespace MindMate.View.Ribbon
         private void _buttonSave_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.SaveCurrentMap();
+        }
+
+        private void SaveAs_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.SaveCurrentMapAs();
         }
 
         private void SaveAll_ExecuteEvent(object sender, ExecuteEventArgs e)

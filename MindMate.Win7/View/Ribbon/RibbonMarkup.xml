@@ -15,20 +15,15 @@
       </Command.SmallImages>
     </Command>
     <Command Name="ButtonOpen" Id="1002" LabelTitle="Open" LabelDescription="Open Description" TooltipTitle="Open" TooltipDescription="Open existing Mind Map (Ctrl + O)">
-      <Command.LargeImages>
-        <Image>Res/Open32.bmp</Image>
-      </Command.LargeImages>
-      <Command.SmallImages>
-        <Image>Res/Open16.bmp</Image>
-      </Command.SmallImages>
+      <Command.LargeImages><Image>Res/Open32.bmp</Image></Command.LargeImages>
+      <Command.SmallImages><Image>Res/Open16.bmp</Image></Command.SmallImages>
     </Command>
     <Command Name="ButtonSave" Id="1003" LabelTitle="Save" LabelDescription="Save Description" TooltipTitle="Save" TooltipDescription="Save current map (Ctrl + S)">
-      <Command.LargeImages>
-        <Image>Res/Save32.bmp</Image>
-      </Command.LargeImages>
-      <Command.SmallImages>
-        <Image>Res/Save16.bmp</Image>
-      </Command.SmallImages>
+      <Command.LargeImages><Image>Res/Save32.bmp</Image></Command.LargeImages>
+      <Command.SmallImages><Image>Res/Save16.bmp</Image></Command.SmallImages>
+    </Command>
+    <Command Name="SaveAs" Id="1007" LabelTitle="Save As" LabelDescription="Save As a new file" TooltipTitle="Save As" TooltipDescription="Save As a new file" >
+      <Command.LargeImages><Image>Res/SaveAsHH.png</Image></Command.LargeImages>
     </Command>
     <Command Name="SaveAll" Id="1006" LabelTitle="Save All" LabelDescription="Save all files" TooltipTitle="Save all files (Ctrl + Shift + S)">
       <Command.LargeImages><Image>Res/SaveAll32.png</Image></Command.LargeImages>
@@ -154,6 +149,7 @@
           </MenuGroup>
           <MenuGroup>
             <Button CommandName='ButtonSave' />
+            <Button CommandName='SaveAs' />
             <Button CommandName='SaveAll' />
           </MenuGroup>
           <MenuGroup>
