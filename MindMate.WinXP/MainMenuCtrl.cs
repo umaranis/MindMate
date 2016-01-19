@@ -92,7 +92,7 @@ namespace MindMate.WinXP
 
         void asBMPToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mainCtrl.ExportAsBMP();
+            mainCtrl.ExportAsBmp();
         }
 
         void exitToolStripMenuItem_Click(object sender, EventArgs e)

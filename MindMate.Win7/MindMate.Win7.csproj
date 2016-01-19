@@ -119,38 +119,41 @@
   <ItemGroup>
     <Content Include="Binaries\Ribbon.dll" />
     <Content Include="MindMap.ico" />
-    <Content Include="View\Ribbon\Res\page_white_copy.png" />
-    <Content Include="View\Ribbon\Res\SaveAll32.png" />
-    <Content Include="View\Ribbon\Res\SaveAllHS.png" />
-    <Content Include="View\Ribbon\Res\smartart_change_color_gallery-16.png" />
-    <Content Include="View\Ribbon\Res\smartart_change_color_gallery-32.png" />
+    <None Include="View\Ribbon\Res\JPG Filled-32.png" />
+    <None Include="View\Ribbon\Res\page_white_copy.png" />
+    <None Include="View\Ribbon\Res\PNG Filled-32.png" />
+    <None Include="View\Ribbon\Res\SaveAll32.png" />
+    <None Include="View\Ribbon\Res\SaveAllHS.png" />
+    <None Include="View\Ribbon\Res\SaveAsHH.png" />
+    <None Include="View\Ribbon\Res\smartart_change_color_gallery-16.png" />
+    <None Include="View\Ribbon\Res\smartart_change_color_gallery-32.png" />
     <Content Include="View\Ribbon\Ribbon.Controls.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Ribbon.Controls.cs</LastGenOutput>
     </Content>
-    <Content Include="View\Ribbon\Res\align_compact.bmp" />
-    <Content Include="View\Ribbon\Res\Close3.png" />
-    <Content Include="View\Ribbon\Res\Close4.png" />
-    <Content Include="View\Ribbon\Res\cross-script.bmp" />
+    <None Include="View\Ribbon\Res\align_compact.bmp" />
+    <None Include="View\Ribbon\Res\Close3.png" />
+    <None Include="View\Ribbon\Res\Close4.png" />
+    <None Include="View\Ribbon\Res\cross-script.bmp" />
     <None Include="View\Ribbon\Res\cut.png" />
     <None Include="View\Ribbon\Res\cut_red.png" />
     <None Include="View\Ribbon\Res\cut_red_small.png" />
     <None Include="View\Ribbon\Res\cut_small.png" />
-    <Content Include="View\Ribbon\Res\edit.bmp" />
-    <Content Include="View\Ribbon\Res\Exit.png" />
-    <Content Include="View\Ribbon\Res\format_painter.bmp" />
-    <Content Include="View\Ribbon\Res\New16.bmp" />
-    <Content Include="View\Ribbon\Res\New32.bmp" />
-    <Content Include="View\Ribbon\Res\node-insert-child.bmp" />
-    <Content Include="View\Ribbon\Res\node-insert-next.bmp" />
-    <Content Include="View\Ribbon\Res\node-insert-previous.bmp" />
-    <Content Include="View\Ribbon\Res\node-insert.bmp" />
-    <Content Include="View\Ribbon\Res\open16.bmp" />
-    <Content Include="View\Ribbon\Res\Open32.bmp" />
-    <Content Include="View\Ribbon\Res\page_white_paste.bmp" />
-    <Content Include="View\Ribbon\Res\paste_plain.bmp" />
-    <Content Include="View\Ribbon\Res\save16.bmp" />
-    <Content Include="View\Ribbon\Res\Save32.bmp" />
+    <None Include="View\Ribbon\Res\edit.bmp" />
+    <None Include="View\Ribbon\Res\Exit.png" />
+    <None Include="View\Ribbon\Res\format_painter.bmp" />
+    <None Include="View\Ribbon\Res\New16.bmp" />
+    <None Include="View\Ribbon\Res\New32.bmp" />
+    <None Include="View\Ribbon\Res\node-insert-child.bmp" />
+    <None Include="View\Ribbon\Res\node-insert-next.bmp" />
+    <None Include="View\Ribbon\Res\node-insert-previous.bmp" />
+    <None Include="View\Ribbon\Res\node-insert.bmp" />
+    <None Include="View\Ribbon\Res\open16.bmp" />
+    <None Include="View\Ribbon\Res\Open32.bmp" />
+    <None Include="View\Ribbon\Res\page_white_paste.bmp" />
+    <None Include="View\Ribbon\Res\paste_plain.bmp" />
+    <None Include="View\Ribbon\Res\save16.bmp" />
+    <None Include="View\Ribbon\Res\Save32.bmp" />
     <Content Include="View\Ribbon\RibbonMarkup.xml">
       <SubType>Designer</SubType>
     </Content>

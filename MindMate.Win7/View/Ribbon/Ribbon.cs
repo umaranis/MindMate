@@ -12,6 +12,7 @@ using System.Drawing;
 using MindMate.MetaModel;
 using MindMate.View.EditorTabs;
 using MindMate.View.MapControls;
+using MindMate.View.MapControls.Drawing;
 using RibbonLib;
 
 namespace MindMate.View.Ribbon
@@ -38,6 +39,8 @@ namespace MindMate.View.Ribbon
             ButtonSave.ExecuteEvent += _buttonSave_ExecuteEvent;
             SaveAs.ExecuteEvent += SaveAs_ExecuteEvent;
             SaveAll.ExecuteEvent += SaveAll_ExecuteEvent;
+            ExportAsPNG.ExecuteEvent += ExportAsPNG_ExecuteEvent;
+            ExportAsJPG.ExecuteEvent += ExportAsJPG_ExecuteEvent;
             Close.ExecuteEvent += Close_ExecuteEvent;
 
             RecentItems.RecentItems = CreateRecentItemsList();
@@ -111,6 +114,16 @@ namespace MindMate.View.Ribbon
         private void SaveAll_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.SaveAll();
+        }
+
+        private void ExportAsPNG_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.ExportAsPng();
+        }
+
+        private void ExportAsJPG_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.ExportAsJpg();
         }
 
         private void Close_ExecuteEvent(object sender, ExecuteEventArgs e)

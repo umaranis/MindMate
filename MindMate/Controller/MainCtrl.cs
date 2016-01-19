@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using MindMate.View;
@@ -171,7 +172,7 @@ namespace MindMate.Controller
             frm.ShowDialog();
         }
 
-        public void ExportAsBMP()
+        public void ExportAsBmp()
         {
             SaveFileDialog file = new SaveFileDialog();
             file.AddExtension = true;
@@ -182,6 +183,36 @@ namespace MindMate.Controller
                 using (var bmp = CurrentMapCtrl.MapView.DrawToBitmap())
                 {
                     bmp.Save(file.FileName);
+                }
+            }
+        }
+
+        public void ExportAsPng()
+        {
+            SaveFileDialog file = new SaveFileDialog();
+            file.AddExtension = true;
+            file.DefaultExt = "png";
+            file.Filter = "PNG Image (*.png)|*.png|All files (*.*)|*.*";
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                using (var bmp = CurrentMapCtrl.MapView.DrawToBitmap())
+                {
+                    bmp.Save(file.FileName, ImageFormat.Png);
+                }
+            }
+        }
+
+        public void ExportAsJpg()
+        {
+            SaveFileDialog file = new SaveFileDialog();
+            file.AddExtension = true;
+            file.DefaultExt = "jpg";
+            file.Filter = "JPEG Image (*.jpg)|*.jpg|All files (*.*)|*.*";
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                using (var bmp = CurrentMapCtrl.MapView.DrawToBitmap())
+                {
+                    bmp.Save(file.FileName, ImageFormat.Jpeg);
                 }
             }
         }
@@ -361,7 +392,7 @@ namespace MindMate.Controller
 
         public void SaveCurrentMap()
         {
-            SaveMap(PersistenceManager.CurrentTree);            
+            SaveMap(PersistenceManager.CurrentTree);       
         }
 
         public void SaveMap(PersistentTree tree)

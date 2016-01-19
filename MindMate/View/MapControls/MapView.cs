@@ -429,7 +429,19 @@ namespace MindMate.View.MapControls
         public System.Drawing.Bitmap DrawToBitmap()
         {
             System.Drawing.Bitmap bmp = new System.Drawing.Bitmap(this.Canvas.Width, this.Canvas.Height);
-            this.Canvas.DrawToBitmap(bmp, new System.Drawing.Rectangle(0, 0, this.Canvas.Width, this.Canvas.Height));
+
+            //built-in way of getting image
+            //it is not working properly (shows a black rectangle) from the Ribbon project
+            //works perfectly from WinXP project
+            //this.Canvas.DrawToBitmap(bmp, new System.Drawing.Rectangle(0, 0, this.Canvas.Width, this.Canvas.Height));
+
+            using (Graphics g = Graphics.FromImage(bmp))
+            {
+                g.Clear(Canvas.BackColor); //set background color
+                Drawing.MapPainter.DrawTree(this, g);
+                Drawing.MapPainter.DrawNodeLinker(Tree.RootNode, this, g, true);
+            }
+
             return bmp;
         }
                 

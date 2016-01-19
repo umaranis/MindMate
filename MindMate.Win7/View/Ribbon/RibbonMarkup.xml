@@ -29,6 +29,14 @@
       <Command.LargeImages><Image>Res/SaveAll32.png</Image></Command.LargeImages>
       <Command.SmallImages><Image>Res/SaveAllHS.png</Image></Command.SmallImages>
     </Command>
+    <Command Name="Export" Id="1010" LabelTitle="Export">
+    </Command>
+    <Command Name="ExportAsPNG" Id="1008" LabelTitle="As Image (PNG)" LabelDescription="PNG file format" >
+      <Command.LargeImages><Image>Res/PNG Filled-32.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="ExportAsJPG" Id="1009" LabelTitle="As Image (JPG)" LabelDescription="Jpeg file format" >
+      <Command.LargeImages><Image>Res/JPG Filled-32.png</Image></Command.LargeImages>
+    </Command>
     <Command Name="Close" Id="1005" LabelTitle="Close" LabelDescription="Close Mind Map" TooltipTitle="Close" TooltipDescription="Close current Mind Map">
       <Command.LargeImages><Image>Res/Close3.png</Image></Command.LargeImages>
       <Command.SmallImages><Image>Res/Close4.png</Image></Command.SmallImages>
@@ -151,6 +159,12 @@
             <Button CommandName='ButtonSave' />
             <Button CommandName='SaveAs' />
             <Button CommandName='SaveAll' />
+            <DropDownButton CommandName='Export'>
+              <MenuGroup Class='MajorItems'>
+                <Button CommandName='ExportAsPNG' />
+                <Button CommandName='ExportAsJPG' />
+              </MenuGroup>
+            </DropDownButton>
           </MenuGroup>
           <MenuGroup>
             <Button CommandName='Close' />
