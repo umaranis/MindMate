@@ -10,6 +10,7 @@ using MindMate.Controller;
 using System.IO;
 using XnaFan.ImageComparison;
 using System.Drawing;
+using System.Linq;
 
 namespace MindMate.Tests.IntegrationTest
 {
@@ -156,9 +157,31 @@ namespace MindMate.Tests.IntegrationTest
 
             //insert parent
             mapCtrl.InsertParentAndEdit();
-            mapCtrl.MapView.NodeTextEditor.EndNodeEdit(true, true);
+            mapCtrl.EndNodeEdit();
             mapCtrl.UpdateNodeText(tree.SelectedNodes.First, "Parent Inserted");
             mapCtrl.MakeSelectedNodeShapeBullet();
+
+            //move nodes
+            var n = mapCtrl.MapView.SelectedNodes.First;
+            tree.RootNode.GetLastChild(NodePosition.Right).Selected = true;
+            mapCtrl.SelectNodeAbove(true);
+            mapCtrl.MapView.SelectedNodes.Last.ForEach(a => tree.SelectedNodes.Add(a, true));
+            mapCtrl.MoveNodes(new DropLocation()
+            {
+                Parent = n,
+                InsertAfterSibling = false
+            });
+            mapCtrl.SelectNodeBelow(true);
+
+            //change node shape
+            mapCtrl.MakeSelectedNodeShapeBox();
+            mapCtrl.MapView.SelectedNodes.Add(tree.SelectedNodes.First(a => a.Text == "Deep Hierarchy"));
+            mapCtrl.ToggleNode();
+            mapCtrl.SelectNodeLeftOrUnfold();
+            mapCtrl.SelectNodeLeftOrUnfold();
+            mapCtrl.SelectNodeBelow(true);
+            mapCtrl.SelectNodeAbove(true);
+            mapCtrl.MakeSelectedNodeShapeFork();
 
             ImageTest(mapCtrl.MapView, "MapCtrl6");
 
