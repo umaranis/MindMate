@@ -47,7 +47,7 @@ namespace MindMate.Tests.Model
             var c3 = new MapNode(r, "c3", NodePosition.Left);
             var c31 = new MapNode(c3, "c31");
             var c32 = new MapNode(c3, "c32");
-            
+
             var n = new MapNode(c1, null, NodePosition.Undefined, null, c12, false);
 
             Assert.AreEqual(c12.Previous, n);
@@ -151,7 +151,7 @@ namespace MindMate.Tests.Model
         public void MapNode_RootNode_Position()
         {
             var r = new MapNode(new MapTree(), "r");
-            
+
             Assert.AreEqual(r.Pos, NodePosition.Root);
             Assert.AreEqual(r.Parent, null);
         }
@@ -458,6 +458,21 @@ namespace MindMate.Tests.Model
         }
 
         [TestMethod()]
+        public void LastSelectedChild()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "cc1");
+            var c12 = new MapNode(c1, "cc2");
+            var c2 = new MapNode(r, "c2");
+
+            c12.Selected = true;
+            c12.DeleteNode();
+
+            Assert.IsNull(c1.LastSelectedChild);
+        }
+
+        [TestMethod()]
         public void MoveUp()
         {
             var r = new MapNode(new MapTree(), "r");
@@ -625,7 +640,7 @@ namespace MindMate.Tests.Model
             var c2 = new MapNode(r, "c2");
 
             var list = r.FindAll(n => n.Text.StartsWith("r") || n.Text.EndsWith("2"));
-            
+
             Assert.AreEqual(list.Count, 3);
         }
 
@@ -643,6 +658,101 @@ namespace MindMate.Tests.Model
             Assert.AreEqual(c1.Text, "Updated");
             Assert.AreEqual(cc1.Text, "Updated");
             Assert.AreEqual(c2.Text, "Updated");
+        }
+
+        [TestMethod()]
+        public void Find_ByTextSearch()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+
+            var result = t.RootNode.Find(n => n.Text.EndsWith("2"));
+
+            Assert.AreEqual(c12, result);
+
+        }
+
+        [TestMethod()]
+        public void FindAll_ByTextSearch()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+
+            var result = t.RootNode.FindAll(n => n.Text.EndsWith("2"));
+
+            Assert.AreEqual(3, result.Count);
+        }
+
+        [TestMethod()]
+        public void ForEach_UpdateText()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+
+            t.RootNode.ForEach(n => n.Text = "Updated");
+
+            Assert.AreEqual("Updated", c12.Text);
+            Assert.AreEqual("Updated", c2.Text);
+            Assert.AreEqual("Updated", c32.Text);
+        }
+
+        [TestMethod]
+        public void ForEach_SkipFolded()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+
+            r.ForEach(n => n.Text = "Updated", n => n.Folded == false);
+
+            Assert.AreEqual(r.Text, "Updated");
+            Assert.AreEqual(c1.Text, "Updated");
+            Assert.AreEqual(c11.Text, "Updated");
+            Assert.AreEqual(c12.Text, "Updated");
+            Assert.AreEqual(c12.Text, "Updated");
+            Assert.AreEqual(c2.Text, "Updated");
+            Assert.AreEqual(c3.Text, "Updated");
+            Assert.AreEqual(c31.Text, "c31");
+            Assert.AreEqual(c311.Text, "c311");
+            Assert.AreEqual(c32.Text, "c32");
         }
 
         [TestMethod()]
@@ -767,7 +877,7 @@ namespace MindMate.Tests.Model
             {
                 n = new MapNode(n, null);
             }
-            
+
             Assert.AreEqual(n.GetNodeDepth(), 5);
         }
 
@@ -860,7 +970,7 @@ namespace MindMate.Tests.Model
         public void BoldSet_AlreadyBold_NoChange()
         {
             var t = new MapTree();
-            var r = new MapNode(t, "Root") {Bold = true};
+            var r = new MapNode(t, "Root") { Bold = true };
             DateTime time = r.Modified;
             t.NodePropertyChanged += (node, args) => Assert.Fail();
             r.Bold = true;
@@ -911,6 +1021,269 @@ namespace MindMate.Tests.Model
             var r = new MapNode(t, "Root") { Selected = true };
             Assert.AreEqual(t.SelectedNodes.First, r);
             Assert.AreEqual(t.SelectedNodes.Count, 1);
+        }
+
+        [TestMethod()]
+        public void RollUpAggregate_CountNodesWith2Param()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            int count = r.RollUpAggregate(n => 1, (a, b) => a + b);
+            Assert.AreEqual(9, count);
+        }
+
+        [TestMethod()]
+        public void RollUpAggregate_CountNodesWith4Param()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            int count = r.RollUpAggregate(n => 1, (a, b) => a + b, (node, i) => { }, node => false);
+            Assert.AreEqual(9, count);
+        }
+
+        [TestMethod()]
+        public void RollUpAggregate_CountNodesUnfolded()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            int count = r.RollUpAggregate(n => 1, (a, b) => a + b, (node, i) => { node.Text = i.ToString(); }, node => node.Folded);
+
+            Assert.AreEqual(7, count);
+            Assert.AreEqual("4", c1.Text);
+        }
+
+        [TestMethod]
+        public void RollDownAggregate()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            r.RollDownAggregate(
+                (n, v) =>
+                {
+                    n.Text = v.ToString();
+                    return v + 1;
+                },
+                0);
+
+            Assert.AreEqual("0", r.Text);
+            Assert.AreEqual("2", c13.Text);
+        }
+
+        [TestMethod()]
+        public void RollDownAggregate_DeepestNodeUnfolded()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            c13.Folded = true;
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            int deepestYet = 0;
+            MapNode deepNodeYet = r;
+
+            r.RollDownAggregate(
+                (n, v) =>
+                {
+                    if (v > deepestYet)
+                    {
+                        deepestYet = v;
+                        deepNodeYet = n;
+                    }
+                    return v + 1;
+                },
+                0,
+                (n, v) => !n.Folded
+                );
+
+            Assert.AreEqual(c121, deepNodeYet);
+            Assert.AreEqual(3, deepestYet);
+
+        }
+
+        [TestMethod]
+        public void ForEachSibling()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c14 = new MapNode(c1, "c14");
+            var c15 = new MapNode(c1, "c15");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            c13.ForEachSibling(n => n.Text = "Updated");
+
+            Assert.AreEqual("Updated", c11.Text);
+            Assert.AreEqual("Updated", c12.Text);
+            Assert.AreNotEqual("Updated", c13.Text);
+            Assert.AreEqual("Updated", c14.Text);
+            Assert.AreEqual("Updated", c15.Text);
+            Assert.AreNotEqual("Updated", c2.Text);
+        }
+
+        [TestMethod()]
+        public void ForEachSameLevelNode_AllBranchesHaveLevel2()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c14 = new MapNode(c1, "c14");
+            var c15 = new MapNode(c1, "c15");
+            var c2 = new MapNode(r, "c2");
+            var c21 = new MapNode(c2, "c21");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            c13.ForEachSameLevelNode(n => n.Text = "Updated");
+
+            Assert.AreEqual(7, r.RollUpAggregate(n => n.Text == "Updated" ? 1 : 0, (i, i1) => i + i1));
+        }
+
+        [TestMethod()]
+        public void ForEachSameLevelNode_AllBranchesBelowDonotHaveLevel2()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c14 = new MapNode(c1, "c14");
+            var c15 = new MapNode(c1, "c15");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            c13.ForEachSameLevelNode(n => n.Text = "Updated");
+
+            Assert.AreEqual(6, r.RollUpAggregate(n => n.Text == "Updated" ? 1 : 0, (i, i1) => i + i1));
+        }
+
+        [TestMethod()]
+        public void ForEachSameLevelNode_AllBranchesAboveDonotHaveLevel2()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c14 = new MapNode(c1, "c14");
+            var c15 = new MapNode(c1, "c15");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            c31.ForEachSameLevelNode(n => n.Text = "Updated");
+
+            Assert.AreEqual(6, r.RollUpAggregate(n => n.Text == "Updated" ? 1 : 0, (i, i1) => i + i1));
+        }
+
+        [TestMethod()]
+        public void GetClosestSameLevelNodeAbove()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c14 = new MapNode(c1, "c14");
+            var c15 = new MapNode(c1, "c15");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            Assert.AreEqual(c15, c31.GetClosestSameLevelNodeAbove());
+        }
+
+        [TestMethod()]
+        public void GetClosestSameLevelNodeAbove_WithDoubleGap()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c4 = new MapNode(r, "c4");
+            var c5 = new MapNode(r, "c5");
+            var c6 = new MapNode(r, "c6");
+            var c61 = new MapNode(c6, "c61");
+
+            Assert.AreEqual(c31, c61.GetClosestSameLevelNodeAbove());
+        }
+
+        [TestMethod()]
+        public void GetClosestSameLevelNodeBelow()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c4 = new MapNode(r, "c4");
+            var c5 = new MapNode(r, "c5");
+            var c6 = new MapNode(r, "c6");
+            var c61 = new MapNode(c6, "c61");
+
+            Assert.AreEqual(c61, c31.GetClosestSameLevelNodeBelow());
         }
     }
 }

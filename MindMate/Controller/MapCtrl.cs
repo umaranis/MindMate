@@ -1133,5 +1133,43 @@ namespace MindMate.Controller
         {
             MapView.FormatPainter.Clear();
         }
+
+        public void SelectAllNodes()
+        {
+            var location = MapView.Canvas.Location;
+
+            MapView.Tree.SelectAllNodes();
+
+            //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
+            MapView.Canvas.Location = location;
+        }
+
+        /// <summary>
+        /// Select all nodes at the given level i.e. depth from root
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="expandSelection"></param>
+        public void SelectLevel(int level, bool expandSelection = false)
+        {
+            var location = MapView.Canvas.Location;
+
+            if (!expandSelection) { MapView.SelectedNodes.Clear(); }
+
+            MapView.Tree.RootNode.RollDownAggregate(
+                (n, v) =>
+                {
+                    if (level == v)
+                    {
+                        MapView.SelectedNodes.Add(n, true);
+                    }
+                    return v + 1;
+                },
+                0,
+                (n, v) => !n.Folded
+                );
+
+            //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
+            MapView.Canvas.Location = location;
+        }
     }
 }

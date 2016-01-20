@@ -36,7 +36,9 @@ namespace MindMate.Model
             }
         }
 
-        private SelectedNodes selectedNodes;
+        #region Selected Nodes
+
+        private readonly SelectedNodes selectedNodes;
         public SelectedNodes SelectedNodes
         {
             get
@@ -45,9 +47,19 @@ namespace MindMate.Model
             }
         }
 
-        /// <summary>
-        /// Indicates that MapTree is currently being deserialized and MapTree data is not completely loaded
-        /// </summary>
+        public void SelectAllNodes()
+        {
+            RootNode.ForEach(
+                n => SelectedNodes.Add(n, true), //action
+                n => n.Folded == false           //condition for traversing descendents   
+                );
+        }
+
+        #endregion
+
+            /// <summary>
+            /// Indicates that MapTree is currently being deserialized and MapTree data is not completely loaded
+            /// </summary>
         public bool Deserializing { get; set; }
 
         #region AttributeSpec
@@ -92,27 +104,6 @@ namespace MindMate.Model
             // may want to add some code here to assist garbage collection
             //this.RootNode.Icons.Clear();
             this.RootNode.NodeView = null;            
-        }
-                     
-        
-        /// <summary>
-        /// Finds the first node that matches the provided condition
-        /// </summary>
-        /// <param name="condition"></param>
-        /// <returns>MapNode that matches the condition or null if no such node found</returns>
-        public MapNode Find(Func<MapNode, bool> condition)
-        {
-            return this.rootNode.Find(condition);            
-        }       
-        
-        public List<MapNode> FindAll(Func<MapNode, bool> condition)
-        {
-            return this.rootNode.FindAll(condition);            
-        }
-
-        public void ForEach(Action<MapNode> action)
-        {
-            this.rootNode.ForEach(action);
         }
 
         public MapNode GetClosestUnselectedNode(MapNode node)

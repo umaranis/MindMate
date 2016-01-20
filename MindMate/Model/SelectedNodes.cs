@@ -110,7 +110,7 @@ namespace MindMate.Model
                         {
                             if (n.Folded) n.Folded = false;
                         });
-                    node.Parent.NodeView.LastSelectedChild = node;
+                    node.Parent.LastSelectedChild = node;
                 }
 
                 NodeSelected(node, this);

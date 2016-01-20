@@ -138,6 +138,48 @@
     <Command Name="RemoveLastIcon" Id="2082" LabelTitle="Remove Last Icon" TooltipDescription="Remove recently added icon from selected node(s)" />
     <Command Name="RemoveAllIcons" Id="2083" LabelTitle="Remove All Icons" TooltipDescription="Remove all icons from the selected node(s)" />
     <Command Name="LaunchIconsDialog" Id="2084" LabelTitle="Launch Icons Dialog ..." TooltipDescription="Launch Icons Dialog to select or customize icons" />
+    
+    <!--Tab: Edit-->
+    <Command Name="TabEdit" Id="3000" LabelTitle="Edit" />
+    
+    <!--Group: Select-->
+    <Command Name="GrpSelect" Id="3010" LabelTitle="Select" />
+    <Command Name="SelectAll" Id="3011" LabelTitle="Select All" TooltipDescription="Select all nodes" >
+      <Command.SmallImages><Image>Res/node-select-all.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="SelectSiblings" Id="3012" LabelTitle="Siblings"
+             TooltipDescription="Select all siblings of selected node. 
+             
+Note:    
+
+- Select all siblings above (Shift + Page Up) 
+- Select all siblings below (Shift + Page Down)" >
+      <Command.SmallImages><Image>Res/node-select-child.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="SelectAncestors" Id="3013" LabelTitle="Ancestors" TooltipDescription="Select parent and grandparents of the selected node" >
+      <Command.SmallImages><Image>Res/node-select.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="SelectChildren" Id="3014" LabelTitle="Children" TooltipDescription="Select all children" >
+      <Command.SmallImages><Image>Res/node-select-children.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="SelectDescendents" Id="3015" LabelTitle="Descentdents" TooltipDescription="Select all descendents i.e. branch" >
+      <Command.SmallImages><Image>Res/node-select-descendents.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="SelectDescendentsUpto1" Id="3016" LabelTitle="Upto depth 1" TooltipDescription="Select all descendents upto depth 1 (i.e. children)" />
+    <Command Name="SelectDescendentsUpto2" Id="3017" LabelTitle="Upto depth 2" TooltipDescription="Select all descendents upto depth 2" />
+    <Command Name="SelectDescendentsUpto3" Id="3018" LabelTitle="Upto depth 3" TooltipDescription="Select all descendents upto depth 3" />
+    <Command Name="SelectDescendentsUpto4" Id="3019" LabelTitle="Upto depth 4" TooltipDescription="Select all descendents upto depth 4" />
+    <Command Name="SelectDescendentsUpto5" Id="3020" LabelTitle="Upto depth 5" TooltipDescription="Select all descendents upto depth 5" />
+    <Command Name="IncludeSelected" Id="3021" LabelTitle="Expand Selection" TooltipDescription="Include currently selected nodes" />
+    <Command Name="SelectLevel" Id="3022" LabelTitle="Select Level" TooltipDescription="Select all nodes at a certain level from center" >
+      <Command.LargeImages><Image>Res/node-select-level.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="SelectLevel1" Id="3023" LabelTitle="Select Level 1" TooltipDescription="Select nodes at level(depth) 1 from center" />
+    <Command Name="SelectLevel2" Id="3024" LabelTitle="Select Level 2" TooltipDescription="Select nodes at level(depth) 2 from center" />
+    <Command Name="SelectLevel3" Id="3025" LabelTitle="Select Level 3" TooltipDescription="Select nodes at level(depth) 3 from center" />
+    <Command Name="SelectLevel4" Id="3026" LabelTitle="Select Level 4" TooltipDescription="Select nodes at level(depth) 4 from center" />
+    <Command Name="SelectLevel5" Id="3027" LabelTitle="Select Level 5" TooltipDescription="Select nodes at level(depth) 5 from center" />
+    <Command Name="SelectLevelCurrent" Id="3028" LabelTitle="Select Current Level" TooltipDescription="Select nodes at the level of current node" />
 
   </Application.Commands>
 
@@ -247,6 +289,65 @@
                 </MenuGroup>
               </InRibbonGallery.MenuGroups>
             </InRibbonGallery>
+          </Group>
+        </Tab>
+        <Tab CommandName="TabEdit">
+          <Group CommandName="GrpSelect">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name="button1" />
+                <ControlNameDefinition Name="button2" />
+                <ControlNameDefinition Name="button3" />
+                <ControlNameDefinition Name="button4" />
+                <ControlNameDefinition Name="button5" />
+                <ControlNameDefinition Name="button6" />
+                <ControlNameDefinition Name="button7" />
+              </ControlNameMap>
+              <GroupSizeDefinition Size="Large" >
+                <Row>
+                  <ControlSizeDefinition ControlName="button1" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName="button2" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName="button3" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName="button4" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName="button5" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName="button6" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName="button7" ImageSize="Large" IsLabelVisible="true" />
+                </Row>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <Button CommandName="SelectAll" />
+            <Button CommandName="SelectSiblings" />
+            <Button CommandName="SelectAncestors" />
+            <Button CommandName="SelectChildren" />
+            <SplitButton>
+              <Button CommandName="SelectDescendents" />
+              <Button CommandName="SelectDescendentsUpto1" />
+              <Button CommandName="SelectDescendentsUpto2" />
+              <Button CommandName="SelectDescendentsUpto3" />
+              <Button CommandName="SelectDescendentsUpto4" />
+              <Button CommandName="SelectDescendentsUpto5" />
+            </SplitButton>
+            <CheckBox CommandName="IncludeSelected" />
+            <DropDownButton CommandName="SelectLevel" >
+              <Button CommandName="SelectLevel1" />
+              <Button CommandName="SelectLevel2" />
+              <Button CommandName="SelectLevel3" />
+              <Button CommandName="SelectLevel4" />
+              <Button CommandName="SelectLevel5" />
+              <Button CommandName="SelectLevelCurrent" /> 
+            </DropDownButton>
           </Group>
         </Tab>
       </Ribbon.Tabs>

@@ -127,6 +127,12 @@
     <None Include="View\Ribbon\Res\SaveAsHH.png" />
     <None Include="View\Ribbon\Res\smartart_change_color_gallery-16.png" />
     <None Include="View\Ribbon\Res\smartart_change_color_gallery-32.png" />
+    <None Include="View\Ribbon\Res\node-select-all.png" />
+    <None Include="View\Ribbon\Res\node-select-child.png" />
+    <None Include="View\Ribbon\Res\node-select.png" />
+    <None Include="View\Ribbon\Res\node-select-children.png" />
+    <None Include="View\Ribbon\Res\node-select-descendents.png" />
+    <None Include="View\Ribbon\Res\node-select-level.png" />
     <Content Include="View\Ribbon\Ribbon.Controls.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Ribbon.Controls.cs</LastGenOutput>

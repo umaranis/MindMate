@@ -153,8 +153,6 @@ namespace MindMate.View.MapControls
             }
         }
 
-        public MapNode LastSelectedChild { get; set; }
-
         /// <summary>
         /// Returns last selected child node or the first child
         /// </summary>
@@ -162,7 +160,7 @@ namespace MindMate.View.MapControls
         /// <returns></returns>
         public MapNode GetLastSelectedChild(NodePosition pos)
         {
-            MapNode resultNode = this.LastSelectedChild;
+            MapNode resultNode = node.LastSelectedChild;
 
             if (resultNode == null || resultNode.Pos != pos)
                 resultNode = this.node.GetFirstChild(pos);

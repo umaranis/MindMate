@@ -365,6 +365,7 @@ namespace MindMate.Model
         public MapNode Next { get; private set; }
         public MapNode FirstChild { get; set; }
         public MapNode LastChild { get; set; }
+        public MapNode LastSelectedChild { get; set; }
 
         #endregion
 
@@ -894,7 +895,9 @@ namespace MindMate.Model
             if (this.Next != null)
             {
                 this.Next.Previous = this.Previous;
-            }            
+            }
+
+            if (Parent.LastSelectedChild == this) { Parent.LastSelectedChild = null; }
 
             Parent.modified = DateTime.Now;
 
@@ -1049,6 +1052,24 @@ namespace MindMate.Model
         }
 
         /// <summary>
+        /// Performs the given action for node and it's descendents
+        /// </summary>
+        /// <param name="action">action to be performed on each MapNode</param>
+        /// <param name="includeDescendents">Should action be performed on descendents of node. Provide a way to skip branches. For example, this can be used to include only unfolded branches.</param>
+        public void ForEach(Action<MapNode> action, Func<MapNode, bool> includeDescendents)
+        {
+            action(this);
+
+            if (includeDescendents(this))
+            {
+                foreach (MapNode cNode in this.ChildNodes)
+                {
+                    cNode.ForEach(action, includeDescendents);
+                } 
+            }
+        }
+
+        /// <summary>
         /// Performs the given action for node's ancestors (excluding the node itself)
         /// </summary>
         /// <param name="action"></param>
@@ -1059,6 +1080,224 @@ namespace MindMate.Model
             {
                 action(parent);
                 parent = parent.Parent;
+            }
+        }
+
+        /// <summary>
+        /// Executes the given action for all siblings excluding the node itself.
+        /// </summary>
+        /// <param name="action"></param>
+        public void ForEachSibling(Action<MapNode> action)
+        {
+            //1- apply to siblings above
+            MapNode node = this.Previous;
+            while (node != null)
+            {
+                action(node);
+                node = node.Previous;
+            }
+
+            //2- apply to siblings below
+            node = this.Next;
+            while (node != null)
+            {
+                action(node);
+                node = node.Next;
+            }
+        }
+
+        /// <summary>
+        /// Returns the sibling above or the closest same level(depth) node above
+        /// </summary>
+        /// <returns></returns>
+        public MapNode GetClosestSameLevelNodeAbove()
+        {
+            MapNode node = this;
+            if (node.Previous != null)
+            {
+                return node.Previous; //found (sibling)
+            }
+            else if (node.Parent?.Previous != null)
+            {
+                var pPrevious = node.Parent.Previous;
+                while (pPrevious != null)
+                {
+                    if (pPrevious.LastChild != null)
+                    {
+                        return pPrevious.LastChild; //found (same level but different parent)
+                    }
+                    else
+                    {
+                        pPrevious = pPrevious.Previous;
+                    }
+                }
+
+                return null; //not found
+            }
+            else
+            {
+                return null; //not found
+            }
+        }
+
+        /// <summary>
+        /// Returns the sibling below or the closest same level(depth) node below
+        /// </summary>
+        /// <returns></returns>
+        public MapNode GetClosestSameLevelNodeBelow()
+        {
+            MapNode node = this;
+            if (node.Next != null)
+            {
+                return node.Next;
+            }
+            else if (node.Parent?.Next != null)
+            {
+                var pNext = node.Parent.Next;
+                while (pNext != null)
+                {
+                    if (pNext.FirstChild != null)
+                    {
+                        return pNext.FirstChild;
+                    }
+                    else
+                    {
+                        pNext = pNext.Next;
+                    }
+                }
+
+                return null;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Applies the given action to all nodes at the same depth from root. Action to NOT applied to 'this' node.
+        /// </summary>
+        /// <param name="action"></param>
+        public void ForEachSameLevelNode(Action<MapNode> action)
+        {
+            MapNode node = this;
+            do
+            {
+                node = node.GetClosestSameLevelNodeAbove();
+
+                if (node != null)
+                {
+                    action(node);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            while (true);
+
+            node = this;
+            do
+            {
+                node = node.GetClosestSameLevelNodeBelow();
+
+                if (node != null)
+                {
+                    action(node);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            while (true);
+        }
+
+        /// <summary>
+        /// Aggregates a value from leaves up to the given node. 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="calculate">function to calculate the value(T) for a node. For example, number of icons.</param>
+        /// <param name="aggregate">function to aggregate value(T). For example, sum, max etc.</param>
+        /// <param name="rollupCallback">function called with the rolled up value(T) for each node.</param>
+        /// <param name="skipDescendents">traversing descendents are skipped if this condition is true</param>
+        /// <returns></returns>
+        public T RollUpAggregate<T>(Func<MapNode, T> calculate, Func<T, T, T> aggregate, Action<MapNode, T> rollupCallback, Func<MapNode, bool> skipDescendents)
+        {
+            T value = default(T);
+
+            if (!skipDescendents(this))
+            {
+                foreach (var cNode in this.ChildNodes)
+                {
+                    value = aggregate(
+                        cNode.RollUpAggregate<T>(calculate, aggregate, rollupCallback, skipDescendents),
+                        value);
+                }
+            }
+
+            value = aggregate(calculate(this), value);
+            rollupCallback(this, value);
+
+            return value;
+        }
+
+        /// <summary>
+        /// Aggregates a value from leaves up to the given node.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="calculate">function to calculate the value(T) for a node. For example, number of icons.</param>
+        /// <param name="aggregate">function to aggregate value(T). For example, sum, max etc.</param>
+        /// <returns></returns>
+        public T RollUpAggregate<T>(Func<MapNode, T> calculate, Func<T, T, T> aggregate)
+        {
+            T value = default(T);
+
+            foreach (var cNode in this.ChildNodes)
+            {
+                value = aggregate(
+                    cNode.RollUpAggregate<T>(calculate, aggregate),
+                    value);
+            }
+
+            value = aggregate(calculate(this), value);
+
+            return value;
+        }
+
+        /// <summary>
+        /// Aggregates a value(T) from given node towards leaves. It can be used to calculate depth from center for each node.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="aggregate"></param>
+        /// <param name="seed"></param>
+        public void RollDownAggregate<T>(Func<MapNode, T, T> aggregate, T seed)
+        {
+            T value = aggregate(this, seed);
+
+            foreach (var cNode in this.ChildNodes)
+            {
+                cNode.RollDownAggregate<T>(aggregate, value);
+            }
+        }
+
+        /// <summary>
+        /// Aggregates a value(T) from given node towards leaves. It can be used to calculate depth from center for each node.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="aggregate"></param>
+        /// <param name="seed"></param>
+        /// <param name="skipDescendents"></param>
+        public void RollDownAggregate<T>(Func<MapNode, T, T> aggregate, T seed, Func<MapNode, T, bool> skipDescendents)
+        {
+            T value = aggregate(this, seed);
+
+            if (skipDescendents(this, value))
+            {
+                foreach (var cNode in this.ChildNodes)
+                {
+                    cNode.RollDownAggregate<T>(aggregate, value, skipDescendents);
+                }
             }
         }
 

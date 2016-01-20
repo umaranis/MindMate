@@ -75,6 +75,14 @@ namespace MindMate.View.Ribbon
             RemoveLastIcon.ExecuteEvent += _removeLastIcon_ExecuteEvent;
             RemoveAllIcons.ExecuteEvent += _removeAllIcons_ExecuteEvent;
 
+            //Edit Tab: Select Group
+            SelectAll.ExecuteEvent += SelectAll_ExecuteEvent;
+            SelectLevel1.ExecuteEvent += SelectLevel1_ExecuteEvent;
+            SelectLevel2.ExecuteEvent += SelectLevel2_ExecuteEvent;
+            SelectLevel3.ExecuteEvent += SelectLevel3_ExecuteEvent;
+            SelectLevel4.ExecuteEvent += SelectLevel4_ExecuteEvent;
+            SelectLevel5.ExecuteEvent += SelectLevel5_ExecuteEvent;
+
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
@@ -373,7 +381,41 @@ namespace MindMate.View.Ribbon
         }
 
         #endregion Home Tab
-        
+
+        #region Edit Tab
+
+        private void SelectAll_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectAllNodes();
+        }
+
+        private void SelectLevel1_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectLevel(1, IncludeSelected.BooleanValue);
+        }
+
+        private void SelectLevel2_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectLevel(2, IncludeSelected.BooleanValue);
+        }
+
+        private void SelectLevel3_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectLevel(3, IncludeSelected.BooleanValue);
+        }
+
+        private void SelectLevel4_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectLevel(4, IncludeSelected.BooleanValue);
+        }
+
+        private void SelectLevel5_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectLevel(5, IncludeSelected.BooleanValue);
+        }
+
+        #endregion
+
         #region Events to Refresh Command State
         
         private void PersistenceManager_CurrentTreeChanged(Serialization.PersistenceManager manager, Serialization.PersistentTree oldTree, Serialization.PersistentTree newTree)

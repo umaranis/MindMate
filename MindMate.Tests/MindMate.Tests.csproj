@@ -63,10 +63,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Controller\MapCtrlTests.cs" />
     <Compile Include="IntegrationTest\MapViewTest.cs" />
     <Compile Include="IntegrationTest\TaskPluginTests.cs" />
     <Compile Include="IntegrationTest\MapCtrlTests.cs" />
     <Compile Include="Model\MapNodeTests.cs" />
+    <Compile Include="Model\MapTreeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\MindMapSerializerTests.cs" />
     <Compile Include="Stubs\MainCtrlStub.cs" />

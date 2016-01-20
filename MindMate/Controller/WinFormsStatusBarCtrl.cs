@@ -39,7 +39,7 @@ namespace MindMate.Controller
                 if (node.Link != null && node.GetLinkType() == NodeLinkType.MindMapNode)
                 {
                     toolStrip.Items[0].Text =
-                        node.Tree.Find( //TODO: Rather than traversing through the tree, a more efficient approach should be used
+                        node.Tree.RootNode.Find( //TODO: Rather than traversing through the tree, a more efficient approach should be used
                             n => node.Link.Substring(1) == n.Id
                         ).Text + " (Internal Link)";
                 }

@@ -51,6 +51,26 @@ namespace MindMate.View.Ribbon
 		private RibbonButton RemoveLastIcon;		
 		private RibbonButton RemoveAllIcons;		
 		private RibbonButton LaunchIconsDialog;		
+		private RibbonTab TabEdit;		
+		private RibbonGroup GrpSelect;		
+		private RibbonButton SelectAll;		
+		private RibbonButton SelectSiblings;		
+		private RibbonButton SelectAncestors;		
+		private RibbonButton SelectChildren;		
+		private RibbonButton SelectDescendents;		
+		private RibbonButton SelectDescendentsUpto1;		
+		private RibbonButton SelectDescendentsUpto2;		
+		private RibbonButton SelectDescendentsUpto3;		
+		private RibbonButton SelectDescendentsUpto4;		
+		private RibbonButton SelectDescendentsUpto5;		
+		private RibbonCheckBox IncludeSelected;		
+		private RibbonDropDownButton SelectLevel;		
+		private RibbonButton SelectLevel1;		
+		private RibbonButton SelectLevel2;		
+		private RibbonButton SelectLevel3;		
+		private RibbonButton SelectLevel4;		
+		private RibbonButton SelectLevel5;		
+		private RibbonButton SelectLevelCurrent;		
 
 		private void InitializeComponents()
 		{
@@ -91,6 +111,26 @@ namespace MindMate.View.Ribbon
 			RemoveLastIcon = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.RemoveLastIcon);
 			RemoveAllIcons = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.RemoveAllIcons);
 			LaunchIconsDialog = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LaunchIconsDialog);
+			TabEdit = new RibbonTab(ribbon, (uint)RibbonMarkupCommands.TabEdit);
+			GrpSelect = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpSelect);
+			SelectAll = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectAll);
+			SelectSiblings = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectSiblings);
+			SelectAncestors = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectAncestors);
+			SelectChildren = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectChildren);
+			SelectDescendents = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectDescendents);
+			SelectDescendentsUpto1 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectDescendentsUpto1);
+			SelectDescendentsUpto2 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectDescendentsUpto2);
+			SelectDescendentsUpto3 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectDescendentsUpto3);
+			SelectDescendentsUpto4 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectDescendentsUpto4);
+			SelectDescendentsUpto5 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectDescendentsUpto5);
+			IncludeSelected = new RibbonCheckBox(ribbon, (uint)RibbonMarkupCommands.IncludeSelected);
+			SelectLevel = new RibbonDropDownButton(ribbon, (uint)RibbonMarkupCommands.SelectLevel);
+			SelectLevel1 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectLevel1);
+			SelectLevel2 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectLevel2);
+			SelectLevel3 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectLevel3);
+			SelectLevel4 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectLevel4);
+			SelectLevel5 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectLevel5);
+			SelectLevelCurrent = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectLevelCurrent);
 
 		}
 	
