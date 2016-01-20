@@ -138,6 +138,22 @@
     <Command Name="RemoveLastIcon" Id="2082" LabelTitle="Remove Last Icon" TooltipDescription="Remove recently added icon from selected node(s)" />
     <Command Name="RemoveAllIcons" Id="2083" LabelTitle="Remove All Icons" TooltipDescription="Remove all icons from the selected node(s)" />
     <Command Name="LaunchIconsDialog" Id="2084" LabelTitle="Launch Icons Dialog ..." TooltipDescription="Launch Icons Dialog to select or customize icons" />
+    
+    <!--Tab: Edit-->
+    <Command Name="TabEdit" Id="3000" LabelTitle="Edit" />
+    
+    <!--Group: Select-->
+    <Command Name="GrpSelect" Id="3010" LabelTitle="Select" />
+    <Command Name="SelectAll" Id="3011" LabelTitle="Select All" TooltipDescription="Select all nodes" />
+    <Command Name="SelectSiblings" Id="3012" LabelTitle="Siblings" 
+             TooltipDescription="Select all siblings of selected node. 
+             
+Note:    
+
+- Select all siblings above (Shift + Page Up) 
+- Select all siblings below (Shift + Page Down)" />
+    <Command Name="SelectAncestors" Id="3013" LabelTitle="Ancestors" TooltipDescription="Select parent and grandparents of the selected node" />
+    <Comamnd Name="SelectChildren" Id="3014" LabelTitle="Children" TooltipDescription="Select all children" />
 
   </Application.Commands>
 
@@ -247,6 +263,63 @@
                 </MenuGroup>
               </InRibbonGallery.MenuGroups>
             </InRibbonGallery>
+          </Group>
+        </Tab>
+        <Tab CommandName="TabEdit">
+          <Group CommandName="GrpSelect">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name="button1" />
+                <ControlNameDefinition Name="button2" />
+                <ControlNameDefinition Name="button3" />
+                <ControlNameDefinition Name="button4" />
+                <ControlNameDefinition Name="button5" />
+                <ControlNameDefinition Name="button6" />
+                <ControlNameDefinition Name="button7" />
+              </ControlNameMap>
+              <GroupSizeDefinition Size="Large" >
+                <Row>
+                  <ControlSizeDefinition ControlName="button1" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName="button2" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName="button3" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName="button4" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName="button5" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName="button6" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName="button7" ImageSize="Large" IsLabelVisible="true" />
+                </Row>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <Button CommandName="SelectAll" />
+            <Button CommandName="SelectSiblings" />
+            <Button CommandName="SelectAncestors" />
+            <Button CommandName="SelectChildren" />
+            <SplitButton CommandName="SelectDescendents" >
+              <Button CommandName="SelectDescendentsUpto1" />
+              <Button CommandName="SelectDescendentsUpto2" />
+              <Button CommandName="SelectDescendentsUpto3" />
+              <Button CommandName="SelectDescendentsUpto4" />
+              <Button CommandName="SelectDescendentsUpto5" />
+            </SplitButton>
+            <CheckBox CommandName="IncludeCurrent" />
+            <DropDownButton CommandName="SelectLevel" >
+              <Button CommandName="SelectLevel1" />
+              <Button CommandName="SelectLevel2" />
+              <Button CommandName="SelectLevel3" />
+              <Button CommandName="SelectLevel4" />
+              <Button CommandName="SelectLevel5" />
+            </DropDownButton>
           </Group>
         </Tab>
       </Ribbon.Tabs>
