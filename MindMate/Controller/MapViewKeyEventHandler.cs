@@ -61,7 +61,7 @@ namespace MindMate.Controller
                     mapCtrl.SelectNodeBelow();
                     break;
                 case Keys.Space:
-                    mapCtrl.ToggleNode();
+                    mapCtrl.ToggleFolded();
                     break;
                 case Keys.Enter:
                     mapCtrl.AppendNodeAndEdit();

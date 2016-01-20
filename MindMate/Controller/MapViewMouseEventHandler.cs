@@ -48,7 +48,7 @@ namespace MindMate.Controller
                 mapCtrl.MapView.SelectedNodes.Add(node, shiftKeyDown || ctrlKeyDown);
                 if (node.Link == null || evt.NodePortion == NodePortion.Body)
                 {
-                    if (node.Parent != null) mapCtrl.ToggleNode(node);
+                    if (node.Parent != null) mapCtrl.ToggleFolded(node);
                 }
                 else
                 {

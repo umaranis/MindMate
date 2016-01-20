@@ -193,7 +193,7 @@ namespace MindMate.Controller
             {
                 if (parent.Folded)
                 {
-                    this.ToggleNode(parent);
+                    this.ToggleFolded(parent);
                 }
 
                 this.MapView.SelectedNodes.Add(newNode, false);
@@ -276,7 +276,7 @@ namespace MindMate.Controller
             if(MapView.SelectedNodes.Count == 1 && MapView.SelectedNodes.First.Pos != NodePosition.Root)
             {
                 MapView.SuspendLayout();
-                if (tree.SelectedNodes.Count > 1) { tree.ChangeManager.StartBatch("Add Parent Node"); }
+                tree.ChangeManager.StartBatch("Add Parent Node"); 
 
                 MapNode childNode = MapView.SelectedNodes.First;
                 MapNode currentParent = childNode.Parent;
@@ -284,7 +284,7 @@ namespace MindMate.Controller
                 childNode.Detach();
                 childNode.AttachTo(newParent);                
 
-                if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
+                tree.ChangeManager.EndBatch();
                 MapView.ResumeLayout(true, childNode.Pos);
 
                 newParent.Selected = true;
@@ -500,7 +500,7 @@ namespace MindMate.Controller
             {
                 if (node.Folded)
                 {
-                    this.ToggleNode(node);
+                    this.ToggleFolded(node);
                     return;
                 }
 
@@ -527,7 +527,7 @@ namespace MindMate.Controller
             {
                 if (node.Folded)
                 {
-                    this.ToggleNode(node);
+                    this.ToggleFolded(node);
                     return;
                 }
 
@@ -542,11 +542,11 @@ namespace MindMate.Controller
         }
 
         
-        public void ToggleNode()
+        public void ToggleFolded()
         {
             if(MapView.SelectedNodes.Count == 1)
             {
-                ToggleNode(MapView.SelectedNodes.First);
+                ToggleFolded(MapView.SelectedNodes.First);
             }
         }
 
@@ -554,7 +554,7 @@ namespace MindMate.Controller
         /// Toggle Folded property
         /// </summary>
         /// <param name="node"></param>
-        public void ToggleNode(MapNode node)
+        public void ToggleFolded(MapNode node)
         {
             if (node.Pos != NodePosition.Root)
             {

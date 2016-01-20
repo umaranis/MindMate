@@ -47,7 +47,7 @@ namespace MindMate.Tests.IntegrationTest
             mapCtrl.AppendChildNode(tree.RootNode.LastChild);
             mapCtrl.AppendChildNode(tree.RootNode.LastChild);
             mapCtrl.SelectNodeRightOrUnfold();
-            mapCtrl.ToggleNode();
+            mapCtrl.ToggleFolded();
 
             // delete test
             mapCtrl.SelectNodeAbove();
@@ -134,7 +134,7 @@ namespace MindMate.Tests.IntegrationTest
 
             // unfolding
             mapCtrl.SelectNodeRightOrUnfold();
-            mapCtrl.ToggleNode();
+            mapCtrl.ToggleFolded();
             mapCtrl.SelectNodeLeftOrUnfold();
 
             // change background color
@@ -176,7 +176,7 @@ namespace MindMate.Tests.IntegrationTest
             //change node shape
             mapCtrl.MakeSelectedNodeShapeBox();
             mapCtrl.MapView.SelectedNodes.Add(tree.SelectedNodes.First(a => a.Text == "Deep Hierarchy"));
-            mapCtrl.ToggleNode();
+            mapCtrl.ToggleFolded();
             mapCtrl.SelectNodeLeftOrUnfold();
             mapCtrl.SelectNodeLeftOrUnfold();
             mapCtrl.SelectNodeBelow(true);
