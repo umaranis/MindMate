@@ -146,7 +146,7 @@ namespace MindMate.View.EditorTabs
         {
             Debug.Assert(TopLevelControl != null, "TopLevelControl != null");
 
-            PersistentTree tree = (SelectedTab as Tab)?.Tree;
+            PersistentTree tree = SelectedTab is Tab ? ((Tab) SelectedTab).Tree : null;
             if(tree != null)
             {
                 TopLevelControl.Text = tree.Tree.RootNode.Text + " - " + Controller.MainCtrl.APPLICATION_NAME + " - " + tree.FileName;
@@ -166,10 +166,9 @@ namespace MindMate.View.EditorTabs
         protected override void OnGotFocus(EventArgs e)
         {
             //Ideally selected tab should never be null, but it happens internally in TabControl during ShowHeader
-            SelectedTab?.Control.Focus();
+            if (SelectedTab != null) SelectedTab.Control.Focus();
             //base.OnGotFocus(e);
         }
-
     }    
 
 }

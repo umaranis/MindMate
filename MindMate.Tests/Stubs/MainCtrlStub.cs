@@ -38,6 +38,6 @@ namespace MindMate.Tests.Stubs
             
         }
 
-        public NodeContextMenu NodeContextMenu { get; }
+        public NodeContextMenu NodeContextMenu { get; set; }
     }
 }

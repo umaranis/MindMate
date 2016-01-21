@@ -69,7 +69,7 @@ namespace MindMate.Serialization
             {
                 if (isDirty == value) return;
                 isDirty = !isDirty;
-                DirtyChanged?.Invoke(this);
+                if (DirtyChanged != null) DirtyChanged(this);
             }
                     
         }

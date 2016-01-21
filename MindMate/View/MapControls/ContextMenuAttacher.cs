@@ -13,8 +13,8 @@ namespace MindMate.View.MapControls
     /// </summary>
     public class ContextMenuAttacher
     {
-        private MapView MapView { get; }
-        private ContextMenuStrip ContextMenu { get; }
+        private MapView MapView { get; set; }
+        private ContextMenuStrip ContextMenu { get; set; }
 
         public ContextMenuAttacher(ContextMenuStrip cm, MapView mapView)
         {

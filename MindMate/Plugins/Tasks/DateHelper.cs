@@ -35,9 +35,9 @@ namespace MindMate.Plugins.Tasks
         public static void GetWeek(DateTime now, System.Globalization.CultureInfo cultureInfo, out DateTime begining, out DateTime end)
         {
             if (now == null)
-                throw new ArgumentNullException(nameof(now));
+                throw new ArgumentNullException("now");
             if (cultureInfo == null)
-                throw new ArgumentNullException(nameof(cultureInfo));
+                throw new ArgumentNullException("cultureInfo");
 
             var firstDayOfWeek = cultureInfo.DateTimeFormat.FirstDayOfWeek;
 

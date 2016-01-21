@@ -54,7 +54,7 @@ namespace MindMate.Controller
 
         private void EditorTabsOnSelectedIndexChanged(object sender, EventArgs eventArgs)
         {
-            mainCtrl.PersistenceManager.CurrentTree = (mainForm.EditorTabs.SelectedTab as Tab)?.Tree;
+            mainCtrl.PersistenceManager.CurrentTree = mainForm.EditorTabs.SelectedTab is Tab ? ((Tab) mainForm.EditorTabs.SelectedTab).Tree : null;
         }
     }
 }

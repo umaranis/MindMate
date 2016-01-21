@@ -15,14 +15,14 @@ namespace MindMate.Tests.Stubs
 
         public void ScheduleTask(TaskSchedular.ITask task)
         {
-            TaskSchedular?.AddTask(task);
+            if (TaskSchedular != null) TaskSchedular.AddTask(task);
         }
 
         public void RescheduleTask(ITask task, DateTime startTime)
         {
-            TaskSchedular?.UpdateTask(task, startTime);
+            if (TaskSchedular != null) TaskSchedular.UpdateTask(task, startTime);
         }
 
-        public SelectedNodes ActiveNodes { get; }
+        public SelectedNodes ActiveNodes { get; set; }
     }
 }

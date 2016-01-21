@@ -110,7 +110,7 @@ namespace MindMate.Plugins
             ContextMenuStrip contextMenu = mainCtrl.NodeContextMenu;
             int index = contextMenu.Items.IndexOf(mainCtrl.NodeContextMenu.mSepPluginEnd);
             ToolStripItem menuItem = contextMenu.Items[--index];
-            while (menuItem is ToolStripSeparator || (menuItem?.Tag != null))
+            while (menuItem is ToolStripSeparator || (menuItem != null && menuItem.Tag != null))
             {
                 if (!(menuItem is ToolStripSeparator))
                 {

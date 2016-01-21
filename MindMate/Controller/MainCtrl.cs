@@ -39,7 +39,7 @@ namespace MindMate.Controller
             get
             {
                 Tab tab = mainForm.EditorTabs.SelectedTab as Tab;
-                return (MapCtrl)tab?.ControllerTag;
+                return tab != null ? (MapCtrl) tab.ControllerTag : null;
             }
         }
 
@@ -153,7 +153,7 @@ namespace MindMate.Controller
         private void SaveSettingsAtClose()
         {
             //TODO: Save changes only when a new file is saved or opened
-            MetaModel.MetaModel.Instance.LastOpenedFile = PersistenceManager.CurrentTree?.FileName;
+            MetaModel.MetaModel.Instance.LastOpenedFile = PersistenceManager.CurrentTree != null ? PersistenceManager.CurrentTree.FileName : null;
             MetaModel.MetaModel.Instance.Save();
         }
 

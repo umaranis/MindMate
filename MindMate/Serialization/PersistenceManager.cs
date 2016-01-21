@@ -77,7 +77,7 @@ namespace MindMate.Serialization
                 if (currentTree == value) return;
                 PersistentTree temp = currentTree;
                 currentTree = value;
-                CurrentTreeChanged?.Invoke(this, temp, currentTree);
+                if (CurrentTreeChanged != null) CurrentTreeChanged(this, temp, currentTree);
             }
         }
 
@@ -85,12 +85,12 @@ namespace MindMate.Serialization
         {
             PersistentTree tree = new PersistentTree(this);
 
-            NewTreeCreating?.Invoke(this, tree);
+            if (NewTreeCreating != null) NewTreeCreating(this, tree);
 
             tree.Initialize();
             fileList.Add(tree);
 
-            NewTreeCreated?.Invoke(this, tree);
+            if (NewTreeCreated != null) NewTreeCreated(this, tree);
             CurrentTree = tree;
 
             return tree;
@@ -105,12 +105,12 @@ namespace MindMate.Serialization
         {
             PersistentTree tree = new PersistentTree(this);
 
-            TreeOpening?.Invoke(this, tree);
+            if (TreeOpening != null) TreeOpening(this, tree);
 
             tree.Initialize(fileName);
             fileList.Add(tree);
 
-            TreeOpened?.Invoke(this, tree);
+            if (TreeOpened != null) TreeOpened(this, tree);
             CurrentTree = tree;
 
             return tree;
@@ -131,17 +131,16 @@ namespace MindMate.Serialization
                 CurrentTree = null;
             }
 
-            TreeClosing?.Invoke(this, tree);
-            
+            if (TreeClosing != null) TreeClosing(this, tree);
+
             fileList.Remove(tree);
 
-            TreeClosed?.Invoke(this, tree);
+            if (TreeClosed != null) TreeClosed(this, tree);
         }
 
         internal void _InvokeTreeSaved(PersistentTree tree)
         {
-            TreeSaved?.Invoke(this, tree);
+            if (TreeSaved != null) TreeSaved(this, tree);
         }
-
     }
 }
