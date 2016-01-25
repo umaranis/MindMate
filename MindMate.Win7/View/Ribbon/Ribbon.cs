@@ -77,6 +77,8 @@ namespace MindMate.View.Ribbon
 
             //Edit Tab: Select Group
             SelectAll.ExecuteEvent += SelectAll_ExecuteEvent;
+            SelectSiblings.ExecuteEvent += SelectSiblings_ExecuteEvent;
+            SelectAncestors.ExecuteEvent += SelectAncestors_ExecuteEvent;
             SelectLevel1.ExecuteEvent += SelectLevel1_ExecuteEvent;
             SelectLevel2.ExecuteEvent += SelectLevel2_ExecuteEvent;
             SelectLevel3.ExecuteEvent += SelectLevel3_ExecuteEvent;
@@ -388,6 +390,16 @@ namespace MindMate.View.Ribbon
         private void SelectAll_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.CurrentMapCtrl.SelectAllNodes();
+        }
+
+        private void SelectSiblings_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectSiblings();
+        }
+
+        private void SelectAncestors_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectAncestors();
         }
 
         private void SelectLevel1_ExecuteEvent(object sender, ExecuteEventArgs e)
