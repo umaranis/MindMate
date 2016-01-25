@@ -1171,5 +1171,20 @@ namespace MindMate.Controller
             //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
             MapView.Canvas.Location = location;
         }
+
+        public void SelectCurrentLevel()
+        {
+            var location = MapView.Canvas.Location;
+
+            MapNode[] nodes = MapView.SelectedNodes.ToArray();
+            foreach (var n in nodes)
+            {
+                int level = n.GetNodeDepth();
+                SelectLevel(level, true);
+            }
+
+            //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
+            MapView.Canvas.Location = location;
+        }
     }
 }
