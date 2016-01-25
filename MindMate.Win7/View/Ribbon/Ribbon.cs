@@ -79,13 +79,19 @@ namespace MindMate.View.Ribbon
             SelectAll.ExecuteEvent += SelectAll_ExecuteEvent;
             SelectSiblings.ExecuteEvent += SelectSiblings_ExecuteEvent;
             SelectAncestors.ExecuteEvent += SelectAncestors_ExecuteEvent;
+            SelectChildren.ExecuteEvent += SelectChildren_ExecuteEvent;
+            SelectDescendents.ExecuteEvent += SelectDescendents_ExecuteEvent;
+            SelectDescendentsUpto1.ExecuteEvent += SelectDescendentsUpto1_ExecuteEvent;
+            SelectDescendentsUpto2.ExecuteEvent += SelectDescendentsUpto2_ExecuteEvent;
+            SelectDescendentsUpto3.ExecuteEvent += SelectDescendentsUpto3_ExecuteEvent;
+            SelectDescendentsUpto4.ExecuteEvent += SelectDescendentsUpto4_ExecuteEvent;
+            SelectDescendentsUpto5.ExecuteEvent += SelectDescendentsUpto5_ExecuteEvent;
             SelectLevel1.ExecuteEvent += SelectLevel1_ExecuteEvent;
             SelectLevel2.ExecuteEvent += SelectLevel2_ExecuteEvent;
             SelectLevel3.ExecuteEvent += SelectLevel3_ExecuteEvent;
             SelectLevel4.ExecuteEvent += SelectLevel4_ExecuteEvent;
             SelectLevel5.ExecuteEvent += SelectLevel5_ExecuteEvent;
             SelectLevelCurrent.ExecuteEvent += SelectLevelCurrent_ExecuteEvent;
-            SelectChildren.ExecuteEvent += SelectChildren_ExecuteEvent;
 
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
@@ -406,6 +412,36 @@ namespace MindMate.View.Ribbon
         private void SelectChildren_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.CurrentMapCtrl.SelectChildren(IncludeSelected.BooleanValue);
+        }
+
+        private void SelectDescendents_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectDescendents();
+        }
+
+        private void SelectDescendentsUpto1_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectDescendents(1);
+        }
+
+        private void SelectDescendentsUpto2_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectDescendents(2);
+        }
+
+        private void SelectDescendentsUpto3_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectDescendents(3);
+        }
+
+        private void SelectDescendentsUpto4_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectDescendents(4);
+        }
+
+        private void SelectDescendentsUpto5_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectDescendents(5);
         }
 
         private void SelectLevel1_ExecuteEvent(object sender, ExecuteEventArgs e)

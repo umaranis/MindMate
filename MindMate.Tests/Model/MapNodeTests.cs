@@ -1078,7 +1078,7 @@ namespace MindMate.Tests.Model
         }
 
         [TestMethod]
-        public void RollDownAggregate()
+        public void RollDownAggregate_SetNodeTextAsDepth()
         {
             var r = new MapNode(new MapTree(), "r");
             var c1 = new MapNode(r, "c1");
@@ -1135,7 +1135,7 @@ namespace MindMate.Tests.Model
                     return v + 1;
                 },
                 0,
-                (n, v) => !n.Folded
+                (n, v) => n.Folded
                 );
 
             Assert.AreEqual(c121, deepNodeYet);

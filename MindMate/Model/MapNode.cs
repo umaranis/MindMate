@@ -1266,7 +1266,8 @@ namespace MindMate.Model
         }
 
         /// <summary>
-        /// Aggregates a value(T) from given node towards leaves. It can be used to calculate depth from center for each node.
+        /// Aggregates a value(T) from given node towards leaves. 
+        /// For instance, it can be used to calculate depth from center for each node (seed should be -1 for that).
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="aggregate"></param>
@@ -1292,7 +1293,7 @@ namespace MindMate.Model
         {
             T value = aggregate(this, seed);
 
-            if (skipDescendents(this, value))
+            if (!skipDescendents(this, value))
             {
                 foreach (var cNode in this.ChildNodes)
                 {

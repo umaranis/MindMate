@@ -1165,7 +1165,7 @@ namespace MindMate.Controller
                     return v + 1;
                 },
                 0,
-                (n, v) => !n.Folded
+                (n, v) => n.Folded
                 );
 
             //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
@@ -1224,6 +1224,41 @@ namespace MindMate.Controller
             {
                 node.ForEach(n => MapView.SelectedNodes.Add(n, true), n => n == node);
                 if (!expandSelection) { node.Selected = false; }
+            }
+
+            //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
+            MapView.Canvas.Location = location;
+        }
+
+        public void SelectDescendents()
+        {
+            var location = MapView.Canvas.Location;
+
+            MapNode[] nodes = MapView.SelectedNodes.ToArray();
+            foreach (var node in nodes)
+            {
+                node.ForEach(n => MapView.SelectedNodes.Add(n, true));
+            }
+
+            //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
+            MapView.Canvas.Location = location;
+        }
+
+        public void SelectDescendents(int depth)
+        {
+            var location = MapView.Canvas.Location;
+
+            MapNode[] nodes = MapView.SelectedNodes.ToArray();
+            foreach (var node in nodes)
+            {
+                node.RollDownAggregate(
+                    (n, v) => {
+                        MapView.SelectedNodes.Add(n, true);
+                        return v + 1;
+                    },
+                    0,
+                    (n, v) => v > depth || n.Folded
+                    );
             }
 
             //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
