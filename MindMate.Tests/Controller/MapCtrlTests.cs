@@ -301,6 +301,52 @@ namespace MindMate.Tests.Controller
             Assert.AreEqual(6, t.SelectedNodes.Count);
         }
 
+        [TestMethod()]
+        public void SelectChildren()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+
+            c1.Selected = true;
+
+            mapCtrl.SelectChildren(false);
+
+            Assert.AreEqual(3, t.SelectedNodes.Count);
+        }
+
+        [TestMethod()]
+        public void SelectChildren_WithExpandSelection()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+
+            c1.Selected = true;
+
+            mapCtrl.SelectChildren(true);
+
+            Assert.AreEqual(4, t.SelectedNodes.Count);
+        }
+
         //[TestMethod()]
         //public void EditHyperlink()
         //{

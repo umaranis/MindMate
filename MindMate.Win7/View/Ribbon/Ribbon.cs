@@ -85,6 +85,7 @@ namespace MindMate.View.Ribbon
             SelectLevel4.ExecuteEvent += SelectLevel4_ExecuteEvent;
             SelectLevel5.ExecuteEvent += SelectLevel5_ExecuteEvent;
             SelectLevelCurrent.ExecuteEvent += SelectLevelCurrent_ExecuteEvent;
+            SelectChildren.ExecuteEvent += SelectChildren_ExecuteEvent;
 
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
@@ -400,6 +401,11 @@ namespace MindMate.View.Ribbon
         private void SelectAncestors_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.CurrentMapCtrl.SelectAncestors();
+        }
+
+        private void SelectChildren_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectChildren(IncludeSelected.BooleanValue);
         }
 
         private void SelectLevel1_ExecuteEvent(object sender, ExecuteEventArgs e)

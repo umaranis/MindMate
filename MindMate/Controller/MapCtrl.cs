@@ -1214,5 +1214,20 @@ namespace MindMate.Controller
             //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
             MapView.Canvas.Location = location;
         }
+
+        public void SelectChildren(bool expandSelection)
+        {
+            var location = MapView.Canvas.Location;
+
+            MapNode[] nodes = MapView.SelectedNodes.ToArray();
+            foreach (var node in nodes)
+            {
+                node.ForEach(n => MapView.SelectedNodes.Add(n, true), n => n == node);
+                if (!expandSelection) { node.Selected = false; }
+            }
+
+            //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
+            MapView.Canvas.Location = location;
+        }
     }
 }
