@@ -47,6 +47,9 @@ namespace MindMate.Model
             }
         }
 
+        /// <summary>
+        /// Select all visible nodes
+        /// </summary>
         public void SelectAllNodes()
         {
             RootNode.ForEach(

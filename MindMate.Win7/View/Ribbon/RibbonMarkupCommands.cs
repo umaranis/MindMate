@@ -64,7 +64,7 @@ namespace MindMate.View.Ribbon
 		SelectDescendentsUpto3 = 3018,		
 		SelectDescendentsUpto4 = 3019,		
 		SelectDescendentsUpto5 = 3020,		
-		IncludeSelected = 3021,		
+		ExpandOnSelect = 3029,		
 		SelectLevel = 3022,		
 		SelectLevel1 = 3023,		
 		SelectLevel2 = 3024,		

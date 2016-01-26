@@ -63,7 +63,7 @@ namespace MindMate.View.Ribbon
 		private RibbonButton SelectDescendentsUpto3;		
 		private RibbonButton SelectDescendentsUpto4;		
 		private RibbonButton SelectDescendentsUpto5;		
-		private RibbonCheckBox IncludeSelected;		
+		private RibbonCheckBox ExpandOnSelect;		
 		private RibbonDropDownButton SelectLevel;		
 		private RibbonButton SelectLevel1;		
 		private RibbonButton SelectLevel2;		
@@ -123,7 +123,7 @@ namespace MindMate.View.Ribbon
 			SelectDescendentsUpto3 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectDescendentsUpto3);
 			SelectDescendentsUpto4 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectDescendentsUpto4);
 			SelectDescendentsUpto5 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectDescendentsUpto5);
-			IncludeSelected = new RibbonCheckBox(ribbon, (uint)RibbonMarkupCommands.IncludeSelected);
+			ExpandOnSelect = new RibbonCheckBox(ribbon, (uint)RibbonMarkupCommands.ExpandOnSelect);
 			SelectLevel = new RibbonDropDownButton(ribbon, (uint)RibbonMarkupCommands.SelectLevel);
 			SelectLevel1 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectLevel1);
 			SelectLevel2 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectLevel2);

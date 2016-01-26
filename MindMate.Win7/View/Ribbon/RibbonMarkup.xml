@@ -170,7 +170,8 @@ Note:
     <Command Name="SelectDescendentsUpto3" Id="3018" LabelTitle="Upto depth 3" TooltipDescription="Select all descendents upto depth 3" />
     <Command Name="SelectDescendentsUpto4" Id="3019" LabelTitle="Upto depth 4" TooltipDescription="Select all descendents upto depth 4" />
     <Command Name="SelectDescendentsUpto5" Id="3020" LabelTitle="Upto depth 5" TooltipDescription="Select all descendents upto depth 5" />
-    <Command Name="IncludeSelected" Id="3021" LabelTitle="Expand Selection" TooltipDescription="Include currently selected nodes" />
+    <!--<Command Name="IncludeSelected" Id="3021" LabelTitle="Expand Selection" TooltipDescription="Include currently selected nodes" />-->
+    <Command Name="ExpandOnSelect" Id="3029" LabelTitle="Expand Nodes" TooltipDescription="Only visible nodes are selected if not checked" />
     <Command Name="SelectLevel" Id="3022" LabelTitle="Select Level" TooltipDescription="Select all nodes at a certain level from center" >
       <Command.LargeImages><Image>Res/node-select-level.png</Image></Command.LargeImages>
     </Command>
@@ -339,7 +340,8 @@ Note:
               <Button CommandName="SelectDescendentsUpto4" />
               <Button CommandName="SelectDescendentsUpto5" />
             </SplitButton>
-            <CheckBox CommandName="IncludeSelected" />
+            <!--<CheckBox CommandName="IncludeSelected" />-->
+            <CheckBox CommandName="ExpandOnSelect" />
             <DropDownButton CommandName="SelectLevel" >
               <Button CommandName="SelectLevel1" />
               <Button CommandName="SelectLevel2" />

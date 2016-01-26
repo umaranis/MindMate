@@ -396,7 +396,7 @@ namespace MindMate.View.Ribbon
 
         private void SelectAll_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.CurrentMapCtrl.SelectAllNodes();
+            mainCtrl.CurrentMapCtrl.SelectAllNodes(ExpandOnSelect.BooleanValue);
         }
 
         private void SelectSiblings_ExecuteEvent(object sender, ExecuteEventArgs e)
@@ -411,67 +411,67 @@ namespace MindMate.View.Ribbon
 
         private void SelectChildren_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.CurrentMapCtrl.SelectChildren(IncludeSelected.BooleanValue);
+            mainCtrl.CurrentMapCtrl.SelectChildren(true);
         }
 
         private void SelectDescendents_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.CurrentMapCtrl.SelectDescendents();
+            mainCtrl.CurrentMapCtrl.SelectDescendents(ExpandOnSelect.BooleanValue);
         }
 
         private void SelectDescendentsUpto1_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.CurrentMapCtrl.SelectDescendents(1);
+            mainCtrl.CurrentMapCtrl.SelectDescendents(1, ExpandOnSelect.BooleanValue);
         }
 
         private void SelectDescendentsUpto2_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.CurrentMapCtrl.SelectDescendents(2);
+            mainCtrl.CurrentMapCtrl.SelectDescendents(2, ExpandOnSelect.BooleanValue);
         }
 
         private void SelectDescendentsUpto3_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.CurrentMapCtrl.SelectDescendents(3);
+            mainCtrl.CurrentMapCtrl.SelectDescendents(3, ExpandOnSelect.BooleanValue);
         }
 
         private void SelectDescendentsUpto4_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.CurrentMapCtrl.SelectDescendents(4);
+            mainCtrl.CurrentMapCtrl.SelectDescendents(4, ExpandOnSelect.BooleanValue);
         }
 
         private void SelectDescendentsUpto5_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.CurrentMapCtrl.SelectDescendents(5);
+            mainCtrl.CurrentMapCtrl.SelectDescendents(5, ExpandOnSelect.BooleanValue);
         }
 
         private void SelectLevel1_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.CurrentMapCtrl.SelectLevel(1, IncludeSelected.BooleanValue);
+            mainCtrl.CurrentMapCtrl.SelectLevel(1, false, ExpandOnSelect.BooleanValue);
         }
 
         private void SelectLevel2_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.CurrentMapCtrl.SelectLevel(2, IncludeSelected.BooleanValue);
+            mainCtrl.CurrentMapCtrl.SelectLevel(2, false, ExpandOnSelect.BooleanValue);
         }
 
         private void SelectLevel3_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.CurrentMapCtrl.SelectLevel(3, IncludeSelected.BooleanValue);
+            mainCtrl.CurrentMapCtrl.SelectLevel(3, false, ExpandOnSelect.BooleanValue);
         }
 
         private void SelectLevel4_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.CurrentMapCtrl.SelectLevel(4, IncludeSelected.BooleanValue);
+            mainCtrl.CurrentMapCtrl.SelectLevel(4, false, ExpandOnSelect.BooleanValue);
         }
 
         private void SelectLevel5_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.CurrentMapCtrl.SelectLevel(5, IncludeSelected.BooleanValue);
+            mainCtrl.CurrentMapCtrl.SelectLevel(5, false, ExpandOnSelect.BooleanValue);
         }
 
         private void SelectLevelCurrent_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.CurrentMapCtrl.SelectCurrentLevel();
+            mainCtrl.CurrentMapCtrl.SelectCurrentLevel(ExpandOnSelect.BooleanValue);
         }
 
         #endregion
