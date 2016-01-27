@@ -60,6 +60,15 @@ namespace MindMate.Model
             set
             {
                 if (folded == value) return;
+
+                //if folding, ensure no selected descendent nodes
+                if (value == true && (Tree.SelectedNodes.Count > 1 || Tree.SelectedNodes.First != this)) 
+                {
+                    //find selected nodes descendent of 'this' and deselect them
+                    var toUnselect = Tree.SelectedNodes.Where(sNode => sNode.IsDescendent(this)).ToList(); 
+                    toUnselect.ForEach(sNode => sNode.Selected = false); 
+                }
+
                 folded = value;
                 Tree.FireEvent(this, NodeProperties.Folded, !folded);
             }
