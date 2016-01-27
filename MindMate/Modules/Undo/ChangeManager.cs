@@ -47,6 +47,14 @@ namespace MindMate.Modules.Undo
 
         public bool CanRedo { get { return redoStack.Count > 0; } }
 
+        public int UndoStackCount {
+            get { return undoStack.Count; }
+        }
+
+        public int RedoStackCount {
+            get { return redoStack.Count; }
+        }
+
         public void RegisterMap(MapTree tree)
         {
             tree.AttributeChanged += Tree_AttributeChanged;
@@ -141,8 +149,11 @@ namespace MindMate.Modules.Undo
         {
             var tempBatch = batch;
             batch = null;
-            RecordChange(tempBatch);
-            
+            if (tempBatch.Changes.Count > 0) //if batch is empty, ignore it
+            {
+                RecordChange(tempBatch);
+            }
+
         }
 
         #endregion Batch Changes
