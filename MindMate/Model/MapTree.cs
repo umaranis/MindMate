@@ -58,11 +58,36 @@ namespace MindMate.Model
                 );
         }
 
+        /// <summary>
+        /// Select all nodes at the given level (depth) from center
+        /// </summary>
+        /// <param name="level"></param>
+        /// <param name="expandSelection"></param>
+        /// <param name="expandNodes">Unfold nodes to select given level if true, otherwise only visible nodes of the given level are selected</param>
+        public void SelectLevel(int level, bool expandSelection, bool expandNodes)
+        {
+            if (!expandSelection) { SelectedNodes.Clear(); }
+
+            RootNode.RollDownAggregate(
+                (n, v) =>
+                {
+                    if (level == v)
+                    {
+                        SelectedNodes.Add(n, true);
+                        n.ForEachAncestor(a => a.Folded = false);
+                    }
+                    return v + 1;
+                },
+                0,
+                (n, v) => n.Folded && !expandNodes
+                );
+        }
+
         #endregion
 
-            /// <summary>
-            /// Indicates that MapTree is currently being deserialized and MapTree data is not completely loaded
-            /// </summary>
+        /// <summary>
+        /// Indicates that MapTree is currently being deserialized and MapTree data is not completely loaded
+        /// </summary>
         public bool Deserializing { get; set; }
 
         #region AttributeSpec

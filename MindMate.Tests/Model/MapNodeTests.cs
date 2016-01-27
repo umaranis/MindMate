@@ -775,6 +775,13 @@ namespace MindMate.Tests.Model
             Assert.AreEqual(n.Parent.Parent.Parent.Parent.Parent.Parent, null);
         }
 
+        [TestMethod]
+        public void ForEachAncestor_WithRoot()
+        {
+            var n = new MapNode(new MapTree(), null);
+            n.ForEachAncestor(node => node.Text = "Try update text");
+        }
+
         [TestMethod()]
         public void GetLinkType_Empty()
         {
@@ -1006,12 +1013,31 @@ namespace MindMate.Tests.Model
         public void FoldedSet_AlreadyFolded_NoChange()
         {
             var t = new MapTree();
-            var r = new MapNode(t, "Root") { Folded = true };
-            DateTime time = r.Modified;
+            var r = new MapNode(t, "Root");
+            var c1 = new MapNode(r, "c1");
+            var c12 = new MapNode(c1, "c12");
+            c1.Folded = true;
+            DateTime time = c1.Modified;
             t.NodePropertyChanged += (node, args) => Assert.Fail();
-            r.Folded = true;
-            Assert.IsTrue(r.Folded);
-            Assert.AreEqual(r.Modified, time);
+
+            c1.Folded = true;
+
+            Assert.IsTrue(c1.Folded);
+            Assert.AreEqual(time, c1.Modified);
+        }
+
+        [TestMethod]
+        public void FoldedSet_WithSelectedChild_DeselectChild()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "Root");
+            var c1 = new MapNode(r, "c1");
+            var c12 = new MapNode(c1, "c12");
+            c12.Selected = true;
+
+            c1.Folded = true;
+
+            Assert.IsFalse(c12.Selected);
         }
 
         [TestMethod]

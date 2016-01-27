@@ -13,12 +13,13 @@ using System.Collections;
 namespace MindMate.Model
 {
     /// <summary>
-    /// Maintain a list of currently selected nodes
+    /// Maintain a list of currently selected nodes.
+    /// A selected node should always be visible (not hidden due to folding).
     /// </summary>
     public class SelectedNodes : IEnumerable<MapNode>
     {
         // list of currently selected nodes
-        private System.Collections.Generic.List<MapNode> selectedNodes;
+        private readonly System.Collections.Generic.List<MapNode> selectedNodes;
 
         public delegate void NodeSelectedDelegate(MapNode node, SelectedNodes selectedNodes);
         public event NodeSelectedDelegate NodeSelected = delegate { };

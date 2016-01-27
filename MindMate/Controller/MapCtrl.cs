@@ -1138,10 +1138,14 @@ namespace MindMate.Controller
         {
             var location = MapView.Canvas.Location;
 
+            tree.ChangeManager.StartBatch("Expand Nodes for Select All");
+
             MapView.Tree.RootNode.ForEach(
                 n => MapView.Tree.SelectedNodes.Add(n, true), //action
                 n => !n.Folded || unfoldNodes          //condition for traversing descendents   
                 );
+
+            tree.ChangeManager.EndBatch();
 
             //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
             MapView.Canvas.Location = location;
@@ -1157,21 +1161,11 @@ namespace MindMate.Controller
         {
             var location = MapView.Canvas.Location;
 
-            if (!expandSelection) { MapView.SelectedNodes.Clear(); }
+            tree.ChangeManager.StartBatch("Expand Nodes for Select Level");
 
-            MapView.Tree.RootNode.RollDownAggregate(
-                (n, v) =>
-                {
-                    if (level == v)
-                    {
-                        MapView.SelectedNodes.Add(n, true);
-                        n.ForEachAncestor(a => a.Folded = false);
-                    }
-                    return v + 1;
-                },
-                0,
-                (n, v) => n.Folded && !expandNodes
-                );
+            tree.SelectLevel(level, expandSelection, expandNodes);
+
+            tree.ChangeManager.EndBatch();
 
             //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
             MapView.Canvas.Location = location;
@@ -1181,12 +1175,16 @@ namespace MindMate.Controller
         {
             var location = MapView.Canvas.Location;
 
+            tree.ChangeManager.StartBatch("Expand Nodes for Select Level");
+
             MapNode[] nodes = MapView.SelectedNodes.ToArray();
             foreach (var n in nodes)
             {
                 int level = n.GetNodeDepth();
-                SelectLevel(level, true, expandNodes);
+                tree.SelectLevel(level, true, expandNodes);
             }
+
+            tree.ChangeManager.EndBatch();
 
             //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
             MapView.Canvas.Location = location;
@@ -1196,11 +1194,15 @@ namespace MindMate.Controller
         {
             var location = MapView.Canvas.Location;
 
+            tree.ChangeManager.StartBatch("Expand Nodes for Select Siblings");
+
             MapNode[] nodes = MapView.SelectedNodes.ToArray();
             foreach (var node in nodes)
             {
                 node.ForEachSibling(n => MapView.SelectedNodes.Add(n, true));
             }
+
+            tree.ChangeManager.EndBatch();
 
             //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
             MapView.Canvas.Location = location;
@@ -1224,12 +1226,16 @@ namespace MindMate.Controller
         {
             var location = MapView.Canvas.Location;
 
+            tree.ChangeManager.StartBatch("Expand Nodes for Select Children");
+
             MapNode[] nodes = MapView.SelectedNodes.ToArray();
             foreach (var node in nodes)
             {
                 node.ForEach(n => MapView.SelectedNodes.Add(n, true), n => n == node);
                 if (!expandSelection) { node.Selected = false; }
             }
+
+            tree.ChangeManager.EndBatch();
 
             //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
             MapView.Canvas.Location = location;
@@ -1239,6 +1245,8 @@ namespace MindMate.Controller
         {
             var location = MapView.Canvas.Location;
 
+            tree.ChangeManager.StartBatch("Expand Nodes for Select Descendents");
+
             MapNode[] nodes = MapView.SelectedNodes.ToArray();
             foreach (var node in nodes)
             {
@@ -1247,6 +1255,8 @@ namespace MindMate.Controller
                     n => !n.Folded || expandNodes);
             }
 
+            tree.ChangeManager.EndBatch();
+
             //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
             MapView.Canvas.Location = location;
         }
@@ -1254,6 +1264,8 @@ namespace MindMate.Controller
         public void SelectDescendents(int depth, bool expandNodes)
         {
             var location = MapView.Canvas.Location;
+
+            tree.ChangeManager.StartBatch("Expand Nodes for Select Descendents");
 
             MapNode[] nodes = MapView.SelectedNodes.ToArray();
             foreach (var node in nodes)
@@ -1267,6 +1279,8 @@ namespace MindMate.Controller
                     (n, v) => v > depth || (n.Folded && !expandNodes)
                     );
             }
+
+            tree.ChangeManager.EndBatch();
 
             //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
             MapView.Canvas.Location = location;

@@ -136,5 +136,135 @@ namespace MindMate.Tests
 
             Assert.AreEqual(7, t.SelectedNodes.Count);
         }
+
+        [TestMethod()]
+        public void SelectLevel_Level3()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+
+            t.SelectLevel(3, false, false);
+
+            Assert.AreEqual(1, t.SelectedNodes.Count);
+            Assert.IsTrue(c311.Selected);
+        }
+
+        [TestMethod()]
+        public void SelectLevel_Level3Folded_NoSelection()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+
+            t.SelectLevel(3, false, false);
+
+            Assert.AreEqual(0, t.SelectedNodes.Count);
+        }
+
+        [TestMethod()]
+        public void SelectLevel_Level3Folded_Unfold()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+
+            t.SelectLevel(3, false, true);
+
+            Assert.AreEqual(1, t.SelectedNodes.Count);
+        }
+
+        [TestMethod()]
+        public void SelectLevel_Level2()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+
+            t.SelectLevel(2, false, false);
+
+            Assert.AreEqual(3, t.SelectedNodes.Count);
+            Assert.IsTrue(c12.Selected);
+        }
+
+        [TestMethod()]
+        public void SelectLevel_Level2_Unfold()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+
+            t.SelectLevel(2, false, true);
+
+            Assert.AreEqual(5, t.SelectedNodes.Count);
+            Assert.IsTrue(c12.Selected);
+        }
+
+        [TestMethod()]
+        public void SelectLevel_Level2_ExpandSelection()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+
+            r.Selected = true;
+            t.SelectLevel(2, true, false);
+
+            Assert.AreEqual(6, t.SelectedNodes.Count);
+            Assert.IsTrue(c12.Selected);
+            Assert.IsTrue(r.Selected);
+        }
     }
 }
