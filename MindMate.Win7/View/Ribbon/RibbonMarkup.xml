@@ -181,6 +181,29 @@ Note:
     <Command Name="SelectLevel4" Id="3026" LabelTitle="Select Level 4" TooltipDescription="Select nodes at level(depth) 4 from center" />
     <Command Name="SelectLevel5" Id="3027" LabelTitle="Select Level 5" TooltipDescription="Select nodes at level(depth) 5 from center" />
     <Command Name="SelectLevelCurrent" Id="3028" LabelTitle="Select Current Level" TooltipDescription="Select nodes at the level of current node" />
+    
+    <!--Group: Expand-->
+    <Command Name="GrpExpand" Id="3101" LabelTitle="Expand / Collapse" />
+    <Command Name="ExpandAll" Id="3102" LabelTitle="Expand All" TooltipDescription="Expand all nodes recursively">
+      <Command.SmallImages><Image>Res/rect4136.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="CollapseAll" Id="3103" LabelTitle="Collapse All" TooltipDescription="Collapse all nodes recursively">
+      <Command.SmallImages><Image>Res/CollapseAll-sua.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="ToggleCurrent" Id="3104" LabelTitle="Current     " TooltipDescription="Expand / Collapse current node (Space)">
+      <Command.SmallImages><Image>Res/ToggleExpandCurrent-sua.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="ToggleBranch" Id="3105" LabelTitle="Branch" TooltipDescription="Expand / Collapse current node and descendents recursively">
+      <Command.SmallImages><Image>Res/ToggleExpandBranch-sua.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="ExpandMapToCurrentLevel" Id="3110" LabelTitle="Expand Map to Current Level" TooltipDescription="Expand / Collapse map to the level of currently selected node" >
+      <Command.SmallImages><Image>Res/ExpandMapLevel-sua.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="ExpandMapToLevel1" Id="3111" LabelTitle="Expand Map to Level 1" TooltipDescription="Expand / Collapse map to level 1" />
+    <Command Name="ExpandMapToLevel2" Id="3112" LabelTitle="Expand Map to Level 2" TooltipDescription="Expand / Collapse map to level 2" />
+    <Command Name="ExpandMapToLevel3" Id="3113" LabelTitle="Expand Map to Level 3" TooltipDescription="Expand / Collapse map to level 3" />
+    <Command Name="ExpandMapToLevel4" Id="3114" LabelTitle="Expand Map to Level 4" TooltipDescription="Expand / Collapse map to level 4" />
+    <Command Name="ExpandMapToLevel5" Id="3115" LabelTitle="Expand Map to Level 5" TooltipDescription="Expand / Collapse map to level 5" />
 
   </Application.Commands>
 
@@ -350,6 +373,42 @@ Note:
               <Button CommandName="SelectLevel5" />
               <Button CommandName="SelectLevelCurrent" /> 
             </DropDownButton>
+          </Group>
+          <Group CommandName="GrpExpand">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name="button1" />
+                <ControlNameDefinition Name="button2" />
+                <ControlNameDefinition Name="button3" />
+                <ControlNameDefinition Name="button4" />
+                <ControlNameDefinition Name="button5" />
+              </ControlNameMap>
+              <GroupSizeDefinition Size="Large" >
+                <Row>
+                  <ControlSizeDefinition ControlName="button1" ImageSize="Small" IsLabelVisible="true" />
+                  <ControlSizeDefinition ControlName="button2" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName="button3" ImageSize="Small" IsLabelVisible="true" />
+                  <ControlSizeDefinition ControlName="button4" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName="button5" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <Button CommandName="ExpandAll" />
+            <Button CommandName="CollapseAll" />
+            <Button CommandName="ToggleCurrent" />
+            <Button CommandName="ToggleBranch" />
+            <SplitButton >
+              <Button CommandName="ExpandMapToCurrentLevel" />
+              <Button CommandName="ExpandMapToLevel1" />
+              <Button CommandName="ExpandMapToLevel2" />
+              <Button CommandName="ExpandMapToLevel3" />
+              <Button CommandName="ExpandMapToLevel4" />
+              <Button CommandName="ExpandMapToLevel5" />
+            </SplitButton>
           </Group>
         </Tab>
       </Ribbon.Tabs>

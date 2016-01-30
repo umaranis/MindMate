@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MindMate.Tests
+namespace MindMate.Tests.Model
 {
     [TestClass()]
     public class MapTreeTests
@@ -265,6 +265,76 @@ namespace MindMate.Tests
             Assert.AreEqual(6, t.SelectedNodes.Count);
             Assert.IsTrue(c12.Selected);
             Assert.IsTrue(r.Selected);
+        }
+
+        [TestMethod()]
+        public void ExpandMapToLevel_Level1()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+
+            t.UnfoldMapToLevel(1);
+
+            Assert.IsTrue(c1.Folded);
+            Assert.IsTrue(c3.Folded);
+            Assert.IsFalse(c31.Folded);
+            Assert.IsFalse(r.Folded);
+        }
+
+        [TestMethod()]
+        public void ExpandMapToLevel_Level2()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+
+            t.UnfoldMapToLevel(2);
+
+            Assert.IsFalse(c1.Folded);
+            Assert.IsFalse(c3.Folded);
+            Assert.IsTrue(c31.Folded);
+            Assert.IsFalse(r.Folded);
+        }
+
+        [TestMethod()]
+        public void ExpandMapToLevel_Level2WithLevel1Folded()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+            t.UnfoldMapToLevel(1);
+
+            t.UnfoldMapToLevel(2);
+
+            Assert.IsFalse(c1.Folded);
+            Assert.IsFalse(c3.Folded);
+            Assert.IsTrue(c31.Folded);
+            Assert.IsFalse(r.Folded);
         }
     }
 }

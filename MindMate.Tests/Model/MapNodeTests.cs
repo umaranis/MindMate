@@ -1311,5 +1311,123 @@ namespace MindMate.Tests.Model
 
             Assert.AreEqual(c61, c31.GetClosestSameLevelNodeBelow());
         }
+
+        [TestMethod()]
+        public void UnfoldDescendents()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            c13.Folded = true;
+            var c131 = new MapNode(c13, "c131");
+            c131.Folded = true;
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            c3.Folded = true;
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            r.UnfoldDescendents();
+
+            Assert.IsFalse(c13.Folded);
+            Assert.IsFalse(c131.Folded);
+            Assert.IsFalse(c2.Folded);
+        }
+
+        [TestMethod()]
+        public void FoldDescendents()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            r.FoldDescendents();
+
+            Assert.IsTrue(c1.Folded);
+            Assert.IsTrue(c12.Folded);
+            Assert.IsTrue(c131.Folded);
+            Assert.IsTrue(c1311.Folded);
+        }
+
+        [TestMethod()]
+        public void FoldDescendents_DonotFoldRoot()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            r.FoldDescendents();
+
+            Assert.IsFalse(r.Folded);
+        }
+
+        [TestMethod()]
+        public void ToggleDescendentsFolding_WithNoFolded_FoldNodes()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            r.ToggleDescendentsFolding();
+
+            Assert.IsTrue(c1.Folded);
+            Assert.IsTrue(c12.Folded);
+            Assert.IsTrue(c131.Folded);
+            Assert.IsTrue(c1311.Folded);
+        }
+
+        [TestMethod()]
+        public void ToggleDescendentsFolding_WithFolded_UnfoldNodes()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            c3.Folded = true;
+
+            r.ToggleDescendentsFolding();
+
+            Assert.IsFalse(c3.Folded);
+            Assert.IsFalse(c1.Folded);
+        }
     }
 }

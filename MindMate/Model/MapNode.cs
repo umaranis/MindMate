@@ -1405,6 +1405,52 @@ namespace MindMate.Model
             node.Shape = this.Shape;
         }
 
+        /// <summary>
+        /// Unfold the node and all its descendents recursively
+        /// <returns>true if any node was unfolded</returns>
+        /// </summary>
+        public bool UnfoldDescendents()
+        {
+            bool change = false;
+            ForEach(n =>
+            {
+                if (n.Folded)
+                {
+                    n.Folded = false;
+                    change = true;
+                }
+
+            });
+
+            return change;
+        }
+
+        /// <summary>
+        /// Fold the node and all its descendents recursively
+        /// <returns>true if any node was folded</returns>
+        /// </summary>
+        public bool FoldDescendents()
+        {
+            bool change = false;
+            ForEach(n =>
+            {
+                if (HasChildren && n.Pos != NodePosition.Root)
+                {
+                    n.Folded = true;
+                    change = true;
+                }
+            });
+            return change;
+        }
+
+        public void ToggleDescendentsFolding()
+        {
+            if (!UnfoldDescendents())
+            {
+                FoldDescendents();
+            }
+        }
+
         public override string ToString()
         {
             return Text;

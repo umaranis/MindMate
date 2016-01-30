@@ -93,6 +93,18 @@ namespace MindMate.View.Ribbon
             SelectLevel5.ExecuteEvent += SelectLevel5_ExecuteEvent;
             SelectLevelCurrent.ExecuteEvent += SelectLevelCurrent_ExecuteEvent;
 
+            //Edit Tab: Expand / Collapse Group
+            ExpandAll.ExecuteEvent += ExpandAll_ExecuteEvent;
+            CollapseAll.ExecuteEvent += CollapseAll_ExecuteEvent;
+            ToggleCurrent.ExecuteEvent += ToggleCurrent_ExecuteEvent;
+            ToggleBranch.ExecuteEvent += ToggleBranch_ExecuteEvent;
+            ExpandMapToCurrentLevel.ExecuteEvent += ExpandMapToCurrentLevel_ExecuteEvent;
+            ExpandMapToLevel1.ExecuteEvent += ExpandMapToLevel1_ExecuteEvent;
+            ExpandMapToLevel2.ExecuteEvent += ExpandMapToLevel2_ExecuteEvent;
+            ExpandMapToLevel3.ExecuteEvent += ExpandMapToLevel3_ExecuteEvent;
+            ExpandMapToLevel4.ExecuteEvent += ExpandMapToLevel4_ExecuteEvent;
+            ExpandMapToLevel5.ExecuteEvent += ExpandMapToLevel5_ExecuteEvent;
+
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
@@ -472,6 +484,56 @@ namespace MindMate.View.Ribbon
         private void SelectLevelCurrent_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.CurrentMapCtrl.SelectCurrentLevel(ExpandOnSelect.BooleanValue);
+        }
+
+        private void ExpandAll_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.UnfoldAll();
+        }
+
+        private void CollapseAll_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.FoldAll();
+        }
+
+        private void ToggleCurrent_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.ToggleFolded();
+        }
+
+        private void ToggleBranch_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.ToggleBranchFolding();
+        }
+
+        private void ExpandMapToCurrentLevel_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.UnfoldMapToCurrentLevel();
+        }
+
+        private void ExpandMapToLevel1_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.UnfoldMapToLevel(1);
+        }
+
+        private void ExpandMapToLevel2_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.UnfoldMapToLevel(2);
+        }
+
+        private void ExpandMapToLevel3_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.UnfoldMapToLevel(3);
+        }
+
+        private void ExpandMapToLevel4_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.UnfoldMapToLevel(4);
+        }
+
+        private void ExpandMapToLevel5_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.UnfoldMapToLevel(5);
         }
 
         #endregion

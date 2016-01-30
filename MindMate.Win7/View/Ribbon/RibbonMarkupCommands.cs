@@ -72,5 +72,16 @@ namespace MindMate.View.Ribbon
 		SelectLevel4 = 3026,		
 		SelectLevel5 = 3027,		
 		SelectLevelCurrent = 3028,		
+		GrpExpand = 3101,		
+		ExpandAll = 3102,		
+		CollapseAll = 3103,		
+		ToggleCurrent = 3104,		
+		ToggleBranch = 3105,		
+		ExpandMapToCurrentLevel = 3110,		
+		ExpandMapToLevel1 = 3111,		
+		ExpandMapToLevel2 = 3112,		
+		ExpandMapToLevel3 = 3113,		
+		ExpandMapToLevel4 = 3114,		
+		ExpandMapToLevel5 = 3115,		
 	}
 }

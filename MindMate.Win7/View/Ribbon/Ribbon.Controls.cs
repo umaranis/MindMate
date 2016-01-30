@@ -71,6 +71,17 @@ namespace MindMate.View.Ribbon
 		private RibbonButton SelectLevel4;		
 		private RibbonButton SelectLevel5;		
 		private RibbonButton SelectLevelCurrent;		
+		private RibbonGroup GrpExpand;		
+		private RibbonButton ExpandAll;		
+		private RibbonButton CollapseAll;		
+		private RibbonButton ToggleCurrent;		
+		private RibbonButton ToggleBranch;		
+		private RibbonButton ExpandMapToCurrentLevel;		
+		private RibbonButton ExpandMapToLevel1;		
+		private RibbonButton ExpandMapToLevel2;		
+		private RibbonButton ExpandMapToLevel3;		
+		private RibbonButton ExpandMapToLevel4;		
+		private RibbonButton ExpandMapToLevel5;		
 
 		private void InitializeComponents()
 		{
@@ -131,6 +142,17 @@ namespace MindMate.View.Ribbon
 			SelectLevel4 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectLevel4);
 			SelectLevel5 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectLevel5);
 			SelectLevelCurrent = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SelectLevelCurrent);
+			GrpExpand = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpExpand);
+			ExpandAll = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ExpandAll);
+			CollapseAll = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.CollapseAll);
+			ToggleCurrent = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ToggleCurrent);
+			ToggleBranch = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ToggleBranch);
+			ExpandMapToCurrentLevel = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ExpandMapToCurrentLevel);
+			ExpandMapToLevel1 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ExpandMapToLevel1);
+			ExpandMapToLevel2 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ExpandMapToLevel2);
+			ExpandMapToLevel3 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ExpandMapToLevel3);
+			ExpandMapToLevel4 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ExpandMapToLevel4);
+			ExpandMapToLevel5 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ExpandMapToLevel5);
 
 		}
 	

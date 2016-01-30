@@ -544,10 +544,14 @@ namespace MindMate.Controller
         
         public void ToggleFolded()
         {
-            if(MapView.SelectedNodes.Count == 1)
+            tree.ChangeManager.StartBatch("Toggle Expand / Collapse");
+
+            foreach(var node in tree.SelectedNodes)
             {
-                ToggleFolded(MapView.SelectedNodes.First);
+                ToggleFolded(node);
             }
+
+            tree.ChangeManager.EndBatch();
         }
 
         /// <summary>
@@ -1285,5 +1289,57 @@ namespace MindMate.Controller
             //mapview will bring last selected node into view, to avoid this in current case, Canvas location is saved and restored
             MapView.Canvas.Location = location;
         }
+
+        public void FoldAll()
+        {
+            tree.ChangeManager.StartBatch("Collapse All Nodes");
+
+            tree.RootNode.FoldDescendents();
+
+            tree.ChangeManager.EndBatch();
+        }
+
+        public void UnfoldAll()
+        {
+            tree.ChangeManager.StartBatch("Expand All Nodes");
+
+            tree.RootNode.UnfoldDescendents();
+
+            tree.ChangeManager.EndBatch();
+        }
+
+        public void ToggleBranchFolding()
+        {
+            tree.ChangeManager.StartBatch("Toggle Branch Expand/Collapse");
+
+            foreach (var node in tree.SelectedNodes)
+            {
+                node.ToggleDescendentsFolding();
+            }
+
+            tree.ChangeManager.EndBatch();
+        }
+
+        public void UnfoldMapToCurrentLevel()
+        {
+            if (tree.SelectedNodes.Count > 0)
+            {
+                tree.ChangeManager.StartBatch("Expand/Collapse to current level");
+
+                tree.UnfoldMapToLevel(tree.SelectedNodes.First.GetNodeDepth());
+
+                tree.ChangeManager.EndBatch();
+            }
+        }
+
+        public void UnfoldMapToLevel(int level)
+        {
+            tree.ChangeManager.StartBatch("Expand/Collapse to level " + level);
+
+            tree.UnfoldMapToLevel(level);
+
+            tree.ChangeManager.EndBatch();
+        }
+
     }
 }

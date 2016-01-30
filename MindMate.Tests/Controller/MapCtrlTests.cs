@@ -13,6 +13,11 @@ using System.Threading.Tasks;
 
 namespace MindMate.Tests.Controller
 {
+    /// <summary>
+    /// Testing Guidelines:
+    /// 1- Test for root node
+    /// 2- Test for scenario with no selected node
+    /// </summary>
     [TestClass()]
     public class MapCtrlTests
     {
@@ -548,6 +553,256 @@ namespace MindMate.Tests.Controller
             mapCtrl.SelectDescendents(2, true);
 
             Assert.AreEqual(4, t.SelectedNodes.Count);
+        }
+
+        [TestMethod()]
+        public void FoldAll()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+
+            mapCtrl.FoldAll();
+
+            Assert.IsTrue(c3.Folded);
+        }
+
+        [TestMethod()]
+        public void UnfoldAll()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+            mapCtrl.FoldAll();
+
+            mapCtrl.UnfoldAll();
+
+            Assert.IsFalse(c3.Folded);
+        }
+
+        [TestMethod()]
+        public void ToggleFolded()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+            c3.Folded = true;
+            c3.Selected = true;
+            t.SelectedNodes.Add(c1, true);
+
+            mapCtrl.ToggleFolded();
+
+            Assert.IsFalse(c3.Folded);
+            Assert.IsTrue(c1.Folded);
+        }
+
+        [TestMethod()]
+        public void ToggleBranchFolding()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+            c3.Folded = true;
+            c31.Folded = true;
+            c3.Selected = true;
+
+            mapCtrl.ToggleBranchFolding();
+
+            Assert.IsFalse(c3.Folded);
+            Assert.IsFalse(c31.Folded);
+        }
+
+        [TestMethod()]
+        public void UnfoldMapToCurrentLevel()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+            c1.Folded = true;
+            c31.Folded = true;
+            c31.Selected = true;
+
+            mapCtrl.UnfoldMapToCurrentLevel();
+
+            Assert.IsTrue(c31.Folded);
+            Assert.IsFalse(c1.Folded);
+            Assert.IsTrue(c13.Folded);
+        }
+
+        [TestMethod()]
+        public void UnfoldMapToCurrentLevel_Root()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+            c1.Folded = true;
+            c31.Folded = true;
+            r.Selected = true;
+
+            mapCtrl.UnfoldMapToCurrentLevel();
+
+            Assert.IsFalse(r.Folded);
+        }
+
+        [TestMethod()]
+        public void UnfoldMapToCurrentLevel_NoNodeSelected()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+            c1.Folded = true;
+            c31.Folded = true;
+
+            mapCtrl.UnfoldMapToCurrentLevel();
+
+            Assert.IsFalse(r.Folded);
+        }
+
+        [TestMethod()]
+        public void UnfoldMapToLevel_Level1()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c32 = new MapNode(c3, "c32");
+            c1.Folded = true;
+            c31.Folded = true;
+            c31.Selected = true;
+
+            mapCtrl.UnfoldMapToLevel(1);
+
+            Assert.IsTrue(c3.Folded);
+            Assert.IsTrue(c1.Folded);
+        }
+
+        [TestMethod()]
+        public void UnfoldMapToLevel_Level3()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            c1.Folded = true;
+            c31.Folded = true;
+            c31.Selected = true;
+
+            mapCtrl.UnfoldMapToLevel(3);
+
+            Assert.IsFalse(c3.Folded);
+            Assert.IsFalse(c1.Folded);
+            Assert.IsTrue(c311.Folded);
+        }
+
+        [TestMethod()]
+        public void UnfoldMapToLevel_Level3_NoSelectedNode()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            c1.Folded = true;
+            c31.Folded = true;
+
+            mapCtrl.UnfoldMapToLevel(3);
+
+            Assert.IsFalse(c3.Folded);
+            Assert.IsFalse(c1.Folded);
+            Assert.IsTrue(c311.Folded);
         }
 
         //[TestMethod()]

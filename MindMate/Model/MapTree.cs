@@ -178,6 +178,26 @@ namespace MindMate.Model
             return node.Parent;
         }
 
+        /// <summary>
+        /// Expand / Collapse node so that all branches are expanded to the given level
+        /// </summary>
+        /// <param name="level"></param>
+        public void UnfoldMapToLevel(int level)
+        {
+            if (level < 1) return;
+
+            RootNode.RollDownAggregate(
+                (n, v) =>
+                {
+                    v++;
+                    n.Folded = v == level;
+                    return v;
+                },
+                -1,
+                (n, v) => v > level
+                );
+        }
+
         #region "Node Change Events"
 
         public event Action<MapNode, NodePropertyChangedEventArgs> NodePropertyChanged = delegate { };
