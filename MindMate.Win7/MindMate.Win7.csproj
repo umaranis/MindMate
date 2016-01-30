@@ -133,6 +133,11 @@
     <None Include="View\Ribbon\Res\node-select-children.png" />
     <None Include="View\Ribbon\Res\node-select-descendents.png" />
     <None Include="View\Ribbon\Res\node-select-level.png" />
+    <None Include="View\Ribbon\Res\CollapseAll-sua.png" />
+    <None Include="View\Ribbon\Res\ExpandAll-sua.png" />
+    <None Include="View\Ribbon\Res\ExpandMapLevel-sua.png" />
+    <None Include="View\Ribbon\Res\ToggleExpandBranch-sua.png" />
+    <None Include="View\Ribbon\Res\ToggleExpandCurrent-sua.png" />
     <Content Include="View\Ribbon\Ribbon.Controls.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Ribbon.Controls.cs</LastGenOutput>

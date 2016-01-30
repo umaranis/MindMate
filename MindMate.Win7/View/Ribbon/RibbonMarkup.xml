@@ -185,7 +185,7 @@ Note:
     <!--Group: Expand-->
     <Command Name="GrpExpand" Id="3101" LabelTitle="Expand / Collapse" />
     <Command Name="ExpandAll" Id="3102" LabelTitle="Expand All" TooltipDescription="Expand all nodes recursively">
-      <Command.SmallImages><Image>Res/rect4136.png</Image></Command.SmallImages>
+      <Command.SmallImages><Image>Res/ExpandAll-sua.png</Image></Command.SmallImages>
     </Command>
     <Command Name="CollapseAll" Id="3103" LabelTitle="Collapse All" TooltipDescription="Collapse all nodes recursively">
       <Command.SmallImages><Image>Res/CollapseAll-sua.png</Image></Command.SmallImages>
