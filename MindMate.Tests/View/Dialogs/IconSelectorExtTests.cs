@@ -50,7 +50,30 @@ namespace MindMate.Tests.View
 
             Assert.IsNotNull(MindMate.View.Dialogs.IconSelectorExt.Instance.SelectedIcon);
         }
-        
+
+        [TestMethod()]
+        public void IconSelectorExt_RemoveAll()
+        {
+            MindMate.View.Dialogs.IconSelectorExt.Instance.Show();
+
+            SetForegroundWindow(MindMate.View.Dialogs.IconSelectorExt.Instance.Handle);
+
+            SendKeys.SendWait("{Del}");
+
+            Assert.AreEqual(IconSelectorExt.REMOVE_ALL_ICON_NAME, IconSelectorExt.Instance.SelectedIcon);
+        }
+
+        [TestMethod()]
+        public void IconSelectorExt_RemoveLast()
+        {
+            MindMate.View.Dialogs.IconSelectorExt.Instance.Show();
+
+            SetForegroundWindow(MindMate.View.Dialogs.IconSelectorExt.Instance.Handle);
+
+            SendKeys.SendWait("{Backspace}");
+
+            Assert.AreEqual(IconSelectorExt.REMOVE_ICON_NAME, IconSelectorExt.Instance.SelectedIcon);
+        }
 
         [DllImport("user32.dll")]
         static extern bool SetForegroundWindow(IntPtr hWnd);

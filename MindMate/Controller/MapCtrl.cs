@@ -590,12 +590,7 @@ namespace MindMate.Controller
             {
                 MapNode node = this.MapView.SelectedNodes[i];
 
-                if (node == null)
-                {
-                    continue;
-                }
-
-                node.Icons.Clear();               
+                node?.Icons.Clear();               
 
             }
 
@@ -613,12 +608,7 @@ namespace MindMate.Controller
             {
                 MapNode node = this.MapView.SelectedNodes[i];
 
-                if (node == null)
-                {
-                    continue;
-                }
-
-                node.Icons.Add(iconSrc);                                
+                node?.Icons.Add(iconSrc);                                
             }
 
             if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
