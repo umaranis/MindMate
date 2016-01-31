@@ -22,11 +22,13 @@ namespace MindMate.View.Dialogs
         public const string REMOVE_ICON_NAME = "remove";
         public const string REMOVE_ALL_ICON_NAME = "removeAll";
 
-        public string SelectedIcon = "";
+        public string SelectedIcon = null;
 
         private IconSelectorExt()
         {
             InitializeComponent();
+
+            MetaModel.MetaModel.Initialize();
 
             Debugging.Utility.StartTimeCounter("Loading icons");
 

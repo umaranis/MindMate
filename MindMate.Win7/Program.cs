@@ -1,6 +1,7 @@
 ﻿using MindMate.Controller;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,9 +18,7 @@ namespace MindMate.Win7
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            var traceLog = new System.Diagnostics.TextWriterTraceListener("MindMate_Trace.log");
-            System.Diagnostics.Trace.Listeners.Add(traceLog);
-            System.Diagnostics.Trace.AutoFlush = true;
+            EnableLogListeners();
             //MyWebMind.Debug.IconListCreator.GenerateIconXML();
             MainCtrl mainCtrl = new MainCtrl();
             MainForm form = new MainForm(mainCtrl);            
@@ -27,7 +26,22 @@ namespace MindMate.Win7
             var ribbonHandler = new View.Ribbon.Ribbon(form.Ribbon, mainCtrl, form.EditorTabs);
             form.RibbonCtrl = ribbonHandler;
             Application.Run(form);
-            traceLog.Close();
+            CloseLogListeners();
+        }
+
+        private static void EnableLogListeners()
+        {
+            Trace.Listeners.Add(new System.Diagnostics.TextWriterTraceListener("MindMate_Trace.log"));
+            Trace.AutoFlush = true;
+            
+            //Debug.Listeners.Add(new TextWriterTraceListener("SystemLog.txt"));
+            //Debug.AutoFlush = true;
+        }
+
+        private static void CloseLogListeners()
+        {
+            System.Diagnostics.Trace.Close();
+            //System.Diagnostics.Debug.Close();
         }
     }
 }

@@ -15,8 +15,7 @@ namespace MindMate.Debugging
     
     public static class Utility
     {
-        private static int callCounter = 0;
-        private static Hashtable performanceCounters = new Hashtable();
+        private static readonly Hashtable performanceCounters = new Hashtable();
 
         static Utility()
         {
@@ -27,16 +26,17 @@ namespace MindMate.Debugging
         [System.Diagnostics.Conditional("DEBUG")]
         public static void WriteToFile(string str)
         {
-            StreamWriter file = new StreamWriter(
-                System.Windows.Forms.Application.StartupPath + "/SystemLog.txt", true);
-            file.WriteLine((++callCounter).ToString() + " - " + str);
-            file.Close();
+            //StreamWriter file = new StreamWriter(
+            //    System.Windows.Forms.Application.StartupPath + "/SystemLog.txt", true);
+            //file.WriteLine(" - " + str);
+            //file.Close();
+
+            System.Diagnostics.Debug.WriteLine(str);
         }
 
         [System.Diagnostics.Conditional("DEBUG")]
         public static void ResetCallCounter()
         {
-            callCounter = 0;
         }
 
         [System.Diagnostics.Conditional("DEBUG")]

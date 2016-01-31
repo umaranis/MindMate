@@ -74,6 +74,7 @@
     <Compile Include="Serialization\MindMapSerializerTests.cs" />
     <Compile Include="Stubs\MainCtrlStub.cs" />
     <Compile Include="Stubs\PluginManagerStub.cs" />
+    <Compile Include="View\Dialogs\IconSelectorExtTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MindMate\MindMate.csproj">
