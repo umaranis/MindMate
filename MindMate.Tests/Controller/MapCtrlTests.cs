@@ -805,6 +805,139 @@ namespace MindMate.Tests.Controller
             Assert.IsTrue(c311.Folded);
         }
 
+        [TestMethod()]
+        public void NavigateToCenter_EndNodeEditing()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            c1.Folded = true;
+            c31.Folded = true;
+            c3111.Selected = true;
+            mapCtrl.BeginCurrentNodeEdit();
+
+            mapCtrl.SelectRootNode();
+
+            Assert.IsFalse(mapCtrl.MapView.NodeTextEditor.IsTextEditing);
+        }
+
+        [TestMethod()]
+        public void NavigateToCenter_SelectRoot()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            c1.Folded = true;
+            c31.Folded = true;
+
+            mapCtrl.SelectRootNode();
+
+            Assert.IsTrue(r.Selected);
+        }
+
+        [TestMethod()]
+        public void SelectTopSibling()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            c1.Folded = true;
+            c31.Folded = true;
+            c3.Selected = true;
+
+            mapCtrl.SelectTopSibling();
+
+            Assert.IsTrue(c1.Selected);
+            Assert.IsFalse(c3.Selected);
+        }
+
+        [TestMethod()]
+        public void SelectBottomSibling()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            c1.Folded = true;
+            c31.Folded = true;
+            c2.Selected = true;
+
+            mapCtrl.SelectBottomSibling();
+
+            Assert.AreEqual(1, t.SelectedNodes.Count);
+            Assert.IsTrue(c3.Selected);
+        }
+
+        [TestMethod()]
+        public void SelectBottomSibling_WithRootSelected_NoChange()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            c1.Folded = true;
+            c31.Folded = true;
+            r.Selected = true;
+
+            mapCtrl.SelectBottomSibling();
+
+            Assert.AreEqual(1, t.SelectedNodes.Count);
+            Assert.IsTrue(r.Selected);
+        }
+
         //[TestMethod()]
         //public void EditHyperlink()
         //{
@@ -915,18 +1048,6 @@ namespace MindMate.Tests.Controller
 
         //[TestMethod()]
         //public void SelectAllSiblingsBelow()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void SelectTopSibling()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void SelectBottomSibling()
         //{
         //    Assert.Fail();
         //}

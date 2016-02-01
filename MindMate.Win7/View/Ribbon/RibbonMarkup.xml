@@ -204,6 +204,18 @@ Note:
     <Command Name="ExpandMapToLevel3" Id="3113" LabelTitle="Expand Map to Level 3" TooltipDescription="Expand / Collapse map to level 3" />
     <Command Name="ExpandMapToLevel4" Id="3114" LabelTitle="Expand Map to Level 4" TooltipDescription="Expand / Collapse map to level 4" />
     <Command Name="ExpandMapToLevel5" Id="3115" LabelTitle="Expand Map to Level 5" TooltipDescription="Expand / Collapse map to level 5" />
+    
+    <!--Group: Navigate-->
+    <Command Name="GrpNavigate" Id="3201" LabelTitle="Navigate" />
+    <Command Name="NavigateToCenter" Id="3202" LabelTitle="Navigate to Center" >
+      <Command.LargeImages><Image>Res/Center Direction-32.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="NavigateToFirstSibling" Id="3203" LabelTitle="Navigate to First Sibling" >
+      <Command.SmallImages><Image>Res/North Direction-32.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="NavigateToLastSibling" Id="3204" LabelTitle="Navigate to Last Sibling" >
+      <Command.SmallImages><Image>Res/South Direction-32.png</Image></Command.SmallImages>
+    </Command>
 
   </Application.Commands>
 
@@ -408,6 +420,13 @@ Note:
               <Button CommandName="ExpandMapToLevel3" />
               <Button CommandName="ExpandMapToLevel4" />
               <Button CommandName="ExpandMapToLevel5" />
+            </SplitButton>
+          </Group>
+          <Group CommandName="GrpNavigate" SizeDefinition="OneButton">
+            <SplitButton>
+              <Button CommandName="NavigateToCenter" />
+              <Button CommandName="NavigateToFirstSibling" />
+              <Button CommandName="NavigateToLastSibling" />
             </SplitButton>
           </Group>
         </Tab>

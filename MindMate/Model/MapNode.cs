@@ -715,12 +715,12 @@ namespace MindMate.Model
 
         public MapNode GetFirstSib()
         {
-            return this.Parent.FirstChild;
+            return this.Parent?.FirstChild;
         }
 
         public MapNode GetLastSib()
         {
-            return this.Parent.LastChild;
+            return this.Parent?.LastChild;
         }
 
 

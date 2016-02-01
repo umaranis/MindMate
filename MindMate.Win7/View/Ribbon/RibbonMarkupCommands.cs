@@ -83,5 +83,9 @@ namespace MindMate.View.Ribbon
 		ExpandMapToLevel3 = 3113,		
 		ExpandMapToLevel4 = 3114,		
 		ExpandMapToLevel5 = 3115,		
+		GrpNavigate = 3201,		
+		NavigateToCenter = 3202,		
+		NavigateToFirstSibling = 3203,		
+		NavigateToLastSibling = 3204,		
 	}
 }

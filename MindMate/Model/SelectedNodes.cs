@@ -74,13 +74,12 @@ namespace MindMate.Model
         }
 
         /// <summary>
-        /// Nothing happens if the given node is the only selected node already.
+        /// Nothing happens if the given node is the selected already.
         /// </summary>
         /// <param name="node">if node is null, nothing happens</param>
         /// <param name="expandSelection">multi-select</param>
         public void Add(MapNode node, bool expandSelection = false)
         {
-            System.Diagnostics.Debug.Assert(node != null, "node parameter is null.");
             if (node == null) return;
 
             if(selectedNodes.Contains(node)) // node already selected

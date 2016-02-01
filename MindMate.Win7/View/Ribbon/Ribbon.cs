@@ -105,6 +105,11 @@ namespace MindMate.View.Ribbon
             ExpandMapToLevel4.ExecuteEvent += ExpandMapToLevel4_ExecuteEvent;
             ExpandMapToLevel5.ExecuteEvent += ExpandMapToLevel5_ExecuteEvent;
 
+            //Edit Tab: Navigate Group
+            NavigateToCenter.ExecuteEvent += NavigateToCenter_ExecuteEvent;
+            NavigateToFirstSibling.ExecuteEvent += NavigateToFirstSibling_ExecuteEvent;
+            NavigateToLastSibling.ExecuteEvent += NavigateToLastSibling_ExecuteEvent;
+
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
@@ -534,6 +539,21 @@ namespace MindMate.View.Ribbon
         private void ExpandMapToLevel5_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.CurrentMapCtrl.UnfoldMapToLevel(5);
+        }
+
+        private void NavigateToCenter_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectRootNode();
+        }
+
+        private void NavigateToFirstSibling_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectTopSibling();
+        }
+
+        private void NavigateToLastSibling_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.SelectBottomSibling();
         }
 
         #endregion

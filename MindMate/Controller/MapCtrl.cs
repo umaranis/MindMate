@@ -91,7 +91,7 @@ namespace MindMate.Controller
         
         #region Node Editing
 
-        public void BeginCurrentNodeEdit(TextCursorPosition org)
+        public void BeginCurrentNodeEdit(TextCursorPosition org = TextCursorPosition.Undefined)
         {
             if (this.MapView.SelectedNodes.Count != 1) return;
 
@@ -375,8 +375,15 @@ namespace MindMate.Controller
             }
         }
 
+        public void SelectRootNode()
+        {
+            EndNodeEdit(); //if node is being edited, end it
+            tree.RootNode.Selected = true;
+        }
+
         public void SelectTopSibling()
         {
+            EndNodeEdit(); //if node is being edited, end it
             if (MapView.SelectedNodes.Count > 0)
             {
                 this.MapView.SelectedNodes.Add(MapView.SelectedNodes.Last.GetFirstSib(), false);
@@ -385,7 +392,8 @@ namespace MindMate.Controller
 
         public void SelectBottomSibling()
         {
-            if(MapView.SelectedNodes.Count > 0)
+            EndNodeEdit(); //if node is being edited, end it
+            if (MapView.SelectedNodes.Count > 0)
             {
                 this.MapView.SelectedNodes.Add(MapView.SelectedNodes.Last.GetLastSib(), false);
             }
@@ -1330,6 +1338,5 @@ namespace MindMate.Controller
 
             tree.ChangeManager.EndBatch();
         }
-
     }
 }

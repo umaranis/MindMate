@@ -82,6 +82,10 @@ namespace MindMate.View.Ribbon
 		private RibbonButton ExpandMapToLevel3;		
 		private RibbonButton ExpandMapToLevel4;		
 		private RibbonButton ExpandMapToLevel5;		
+		private RibbonGroup GrpNavigate;		
+		private RibbonButton NavigateToCenter;		
+		private RibbonButton NavigateToFirstSibling;		
+		private RibbonButton NavigateToLastSibling;		
 
 		private void InitializeComponents()
 		{
@@ -153,6 +157,10 @@ namespace MindMate.View.Ribbon
 			ExpandMapToLevel3 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ExpandMapToLevel3);
 			ExpandMapToLevel4 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ExpandMapToLevel4);
 			ExpandMapToLevel5 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ExpandMapToLevel5);
+			GrpNavigate = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNavigate);
+			NavigateToCenter = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NavigateToCenter);
+			NavigateToFirstSibling = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NavigateToFirstSibling);
+			NavigateToLastSibling = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NavigateToLastSibling);
 
 		}
 	
