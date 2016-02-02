@@ -938,6 +938,75 @@ namespace MindMate.Tests.Controller
             Assert.IsTrue(r.Selected);
         }
 
+        [TestMethod()]
+        public void MoveNodeUp_NoSelection_NoChange()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+
+            mapCtrl.MoveNodeUp();
+        }
+
+        [TestMethod()]
+        public void MoveNodeUp()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            c3.Selected = true;
+
+            mapCtrl.MoveNodeUp();
+
+            Assert.AreEqual(c3, c2.Previous);
+        }
+
+        [TestMethod()]
+        public void MoveNodeDown()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            c2.Selected = true;
+
+            mapCtrl.MoveNodeDown();
+
+            Assert.AreEqual(c2, c3.Next);
+        }
+
         //[TestMethod()]
         //public void EditHyperlink()
         //{

@@ -141,6 +141,8 @@
     <None Include="View\Ribbon\Res\South Direction-32.png" />
     <None Include="View\Ribbon\Res\North Direction-32.png" />
     <None Include="View\Ribbon\Res\Center Direction-32.png" />
+    <None Include="View\Ribbon\Res\Down-32.png" />
+    <None Include="View\Ribbon\Res\Up-32.png" />
     <Content Include="View\Ribbon\Ribbon.Controls.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Ribbon.Controls.cs</LastGenOutput>

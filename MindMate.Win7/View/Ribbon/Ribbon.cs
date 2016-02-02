@@ -110,6 +110,10 @@ namespace MindMate.View.Ribbon
             NavigateToFirstSibling.ExecuteEvent += NavigateToFirstSibling_ExecuteEvent;
             NavigateToLastSibling.ExecuteEvent += NavigateToLastSibling_ExecuteEvent;
 
+            //Edit Tab: Move
+            MoveUp.ExecuteEvent += MoveUp_ExecuteEvent;
+            MoveDown.ExecuteEvent += MoveDown_ExecuteEvent;
+
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
@@ -554,6 +558,16 @@ namespace MindMate.View.Ribbon
         private void NavigateToLastSibling_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.CurrentMapCtrl.SelectBottomSibling();
+        }
+
+        private void MoveUp_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.MoveNodeUp();
+        }
+
+        private void MoveDown_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.MoveNodeDown();
         }
 
         #endregion

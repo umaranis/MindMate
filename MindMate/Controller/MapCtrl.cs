@@ -331,6 +331,7 @@ namespace MindMate.Controller
 
         public void MoveNodeUp()
         {
+            EndNodeEdit(); //if node is being edited, end it
             if (MapView.SelectedNodes.Count == 1)
             {
                 MapNode node = this.MapView.SelectedNodes.First;
@@ -341,6 +342,7 @@ namespace MindMate.Controller
 
         public void MoveNodeDown()
         {
+            EndNodeEdit(); //if node is being edited, end it
             if (MapView.SelectedNodes.Count == 1)
             {
                 MapNode node = this.MapView.SelectedNodes.First;

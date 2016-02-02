@@ -87,5 +87,8 @@ namespace MindMate.View.Ribbon
 		NavigateToCenter = 3202,		
 		NavigateToFirstSibling = 3203,		
 		NavigateToLastSibling = 3204,		
+		GrpMove = 3301,		
+		MoveUp = 3302,		
+		MoveDown = 3303,		
 	}
 }

@@ -216,6 +216,15 @@ Note:
     <Command Name="NavigateToLastSibling" Id="3204" LabelTitle="Navigate to Last Sibling" >
       <Command.SmallImages><Image>Res/South Direction-32.png</Image></Command.SmallImages>
     </Command>
+    
+    <!--Group: Move-->
+    <Command Name="GrpMove" Id="3301" LabelTitle="Move" />
+    <Command Name="MoveUp" Id="3302" LabelTitle="Move Up" TooltipDescription="Move the selected node up (Ctrl + Up)">
+      <Command.SmallImages><Image>Res/Up-32.png</Image></Command.SmallImages>  
+    </Command>
+    <Command Name="MoveDown" Id="3303" LabelTitle="Move Down" TooltipDescription="Move the selected node down (Ctrl + Down)">
+      <Command.SmallImages><Image>Res/Down-32.png</Image></Command.SmallImages>  
+    </Command>
 
   </Application.Commands>
 
@@ -428,6 +437,10 @@ Note:
               <Button CommandName="NavigateToFirstSibling" />
               <Button CommandName="NavigateToLastSibling" />
             </SplitButton>
+          </Group>
+          <Group CommandName="GrpMove">
+            <Button CommandName="MoveUp" />
+            <Button CommandName="MoveDown" />
           </Group>
         </Tab>
       </Ribbon.Tabs>

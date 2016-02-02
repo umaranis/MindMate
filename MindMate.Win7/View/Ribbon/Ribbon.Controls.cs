@@ -86,6 +86,9 @@ namespace MindMate.View.Ribbon
 		private RibbonButton NavigateToCenter;		
 		private RibbonButton NavigateToFirstSibling;		
 		private RibbonButton NavigateToLastSibling;		
+		private RibbonGroup GrpMove;		
+		private RibbonButton MoveUp;		
+		private RibbonButton MoveDown;		
 
 		private void InitializeComponents()
 		{
@@ -161,6 +164,9 @@ namespace MindMate.View.Ribbon
 			NavigateToCenter = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NavigateToCenter);
 			NavigateToFirstSibling = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NavigateToFirstSibling);
 			NavigateToLastSibling = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NavigateToLastSibling);
+			GrpMove = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpMove);
+			MoveUp = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.MoveUp);
+			MoveDown = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.MoveDown);
 
 		}
 	
