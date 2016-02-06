@@ -152,8 +152,6 @@ namespace MindMate.Controller
             MapView.NodeTextEditor.UpdateNodeText(node, newText);
         }
 
-
-
         #endregion Node Editing
 
         #region Adding New Node
@@ -177,13 +175,16 @@ namespace MindMate.Controller
         {
             if (MapView.SelectedNodes.Count == 1)
             {
-                MapNode node = this.MapView.SelectedNodes.First;
+                tree.ChangeManager.StartBatch("Add Child Node");
 
+                MapNode node = this.MapView.SelectedNodes.First;
                 MapNode newNode = this.AppendChildNode(node); 
                 if (newNode != null)
                 {
                     this.BeginNodeEdit(newNode, TextCursorPosition.Undefined);
                 }
+
+                tree.ChangeManager.EndBatch();
             }
         }
 
@@ -209,12 +210,16 @@ namespace MindMate.Controller
         {
             if (MapView.SelectedNodes.Count == 1)
             {
+                tree.ChangeManager.StartBatch("Add Child Node");
+
                 View.Dialogs.MultiLineNodeEdit frm = new View.Dialogs.MultiLineNodeEdit();
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     MapNode newNode = this.AppendChildNode(MapView.SelectedNodes.First);
                     newNode.Text = frm.txt.Text;
                 }
+
+                tree.ChangeManager.EndBatch();
             }
         }
 
@@ -222,13 +227,16 @@ namespace MindMate.Controller
         {        
             if (MapView.SelectedNodes.Count == 1)
             {
-                MapNode node = MapView.SelectedNodes.First;
+                tree.ChangeManager.StartBatch("Add Sibling Node");
 
+                MapNode node = MapView.SelectedNodes.First;
                 MapNode newNode = AppendSiblingNode(node);
                 if (newNode != null)
                 {
                     this.BeginNodeEdit(newNode, TextCursorPosition.Undefined);
                 }
+
+                tree.ChangeManager.EndBatch();
             }
         }
 
@@ -249,13 +257,16 @@ namespace MindMate.Controller
         {
             if(MapView.SelectedNodes.Count == 1)
             {
-                MapNode node = MapView.SelectedNodes.First;
+                tree.ChangeManager.StartBatch("Add Sibling Above");
 
+                MapNode node = MapView.SelectedNodes.First;
                 MapNode newNode = AppendSiblingAbove(node);
                 if(newNode != null)
                 {
                     BeginNodeEdit(newNode, TextCursorPosition.Undefined);
                 }
+
+                tree.ChangeManager.EndBatch();
             }
         }
 

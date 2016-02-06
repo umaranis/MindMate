@@ -97,5 +97,8 @@ namespace MindMate.View.Ribbon
 		SortModifiedDate = 3403,		
 		SortCreateDate = 3404,		
 		SortOrder = 3406,		
+		GrpUndo = 3501,		
+		Undo = 3502,		
+		Redo = 3503,		
 	}
 }

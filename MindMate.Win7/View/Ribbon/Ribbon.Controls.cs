@@ -93,9 +93,12 @@ namespace MindMate.View.Ribbon
 		private RibbonButton SortAlphabetic;		
 		private RibbonButton SortDueDate;		
 		private RibbonButton SortNodeCount;		
-		private RibbonButton SortModifiedDate;		
 		private RibbonButton SortCreateDate;		
+		private RibbonButton SortModifiedDate;		
 		private RibbonToggleButton SortOrder;		
+		private RibbonGroup GrpUndo;		
+		private RibbonButton Undo;		
+		private RibbonButton Redo;		
 
 		private void InitializeComponents()
 		{
@@ -178,9 +181,12 @@ namespace MindMate.View.Ribbon
 			SortAlphabetic = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SortAlphabetic);
 			SortDueDate = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SortDueDate);
 			SortNodeCount = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SortNodeCount);
-			SortModifiedDate = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SortModifiedDate);
 			SortCreateDate = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SortCreateDate);
+			SortModifiedDate = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SortModifiedDate);
 			SortOrder = new RibbonToggleButton(ribbon, (uint)RibbonMarkupCommands.SortOrder);
+			GrpUndo = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpUndo);
+			Undo = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Undo);
+			Redo = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Redo);
 
 		}
 	

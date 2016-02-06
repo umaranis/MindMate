@@ -246,6 +246,15 @@ Note:
     <Command Name="SortOrder" Id="3406" LabelTitle="Ascending Order" TooltipTitle="Sort Order: Ascending" TooltipDescription="Click to toggle sort order: Ascending or Descending">
       <Command.LargeImages><Image>Res/Ascending Sorting-32.png</Image></Command.LargeImages>
     </Command>
+    
+    <!--Group: Undo-->
+    <Command Name="GrpUndo" Id="3501" LabelTitle="Undo / Redo" />
+    <Command Name="Undo" Id="3502" LabelTitle="Undo" TooltipDescription="Undo changes (Ctrl + Z)">
+      <Command.LargeImages><Image>Res/Undo-32.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="Redo" Id="3503" LabelTitle="Redo" TooltipDescription="Redo changes (Ctrl + Y)">
+      <Command.LargeImages><Image>Res/Redo-32.png</Image></Command.LargeImages>
+    </Command>
 
   </Application.Commands>
 
@@ -469,7 +478,7 @@ Note:
             <Button CommandName="MoveUp" />
             <Button CommandName="MoveDown" />
           </Group>
-          <Group CommandName="GrpSort" SizeDefinition="TwoButtons">
+          <Group CommandName="GrpSort">
             <SizeDefinition>
               <ControlNameMap>
                 <ControlNameDefinition Name="button1" />
@@ -497,12 +506,13 @@ Note:
                   <Button CommandName="SortCreateDate"/>
                   <Button CommandName="SortModifiedDate"/>
                 </MenuGroup>
-                <!--<MenuGroup>
-                  
-                </MenuGroup>-->
               </SplitButton.MenuGroups>
             </SplitButton>
             <ToggleButton CommandName="SortOrder"/>
+          </Group>
+          <Group CommandName="GrpUndo" SizeDefinition="TwoButtons">
+            <Button CommandName="Undo" />
+            <Button CommandName="Redo" />
           </Group>
         </Tab>
       </Ribbon.Tabs>

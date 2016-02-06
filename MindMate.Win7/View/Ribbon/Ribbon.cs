@@ -125,6 +125,10 @@ namespace MindMate.View.Ribbon
 
             SortOrder.BooleanValue = true;
 
+            //Edit Tab: Undo / Redo
+            Undo.ExecuteEvent += Undo_ExecuteEvent;
+            Redo.ExecuteEvent += Redo_ExecuteEvent;
+
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
@@ -666,6 +670,16 @@ namespace MindMate.View.Ribbon
             
         }
 
+        private void Undo_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.Undo();
+        }
+
+        private void Redo_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.Redo();
+        }
+
         #endregion
 
         #region Events to Refresh Command State
@@ -676,19 +690,65 @@ namespace MindMate.View.Ribbon
             {
                 oldTree.Tree.SelectedNodes.NodeSelected -= SelectedNodes_NodeSelected;
                 oldTree.Tree.SelectedNodes.NodeDeselected -= SelectedNodes_NodeDeselected;
+                newTree.Tree.NodePropertyChanged -= Tree_NodePropertyChanged;
+                newTree.Tree.IconChanged -= Tree_IconChanged;
+                newTree.Tree.TreeStructureChanged -= Tree_TreeStructureChanged;
+                newTree.Tree.AttributeChanged -= Tree_AttributeChanged;
+                newTree.Tree.AttributeSpecChangeEvent -= Tree_AttributeSpecChangeEvent;
             }
 
             if (newTree != null)
             {
                 newTree.Tree.SelectedNodes.NodeSelected += SelectedNodes_NodeSelected;
                 newTree.Tree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
+                newTree.Tree.NodePropertyChanged += Tree_NodePropertyChanged;
+                newTree.Tree.IconChanged += Tree_IconChanged;
+                newTree.Tree.TreeStructureChanged += Tree_TreeStructureChanged;
+                newTree.Tree.AttributeChanged += Tree_AttributeChanged;
+                newTree.Tree.AttributeSpecChangeEvent += Tree_AttributeSpecChangeEvent;
+
                 UpdateFontControl(newTree.Tree.SelectedNodes);
+                UpdateUndoGroup(newTree.Tree);
             }
             else
             {
                 ClearFontControl();
             }
             
+        }
+
+        private void Tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
+        {
+            if (node.Tree == mainCtrl.PersistenceManager.CurrentTree.Tree)
+            {
+                if (e.ChangedProperty == NodeProperties.Bold || e.ChangedProperty == NodeProperties.Italic
+                    || e.ChangedProperty == NodeProperties.Strikeout || e.ChangedProperty == NodeProperties.FontName
+                    || e.ChangedProperty == NodeProperties.FontSize)
+                {
+                    UpdateFontControl(node.Tree.SelectedNodes);
+                }
+                UpdateUndoGroup(node.Tree);
+            }
+        }
+
+        private void Tree_IconChanged(MapNode node, IconChangedEventArgs arg2)
+        {
+            UpdateUndoGroup(node.Tree);
+        }
+
+        private void Tree_TreeStructureChanged(MapNode node, TreeStructureChangedEventArgs arg2)
+        {
+            UpdateUndoGroup(node.Tree);
+        }
+
+        private void Tree_AttributeChanged(MapNode node, AttributeChangeEventArgs arg2)
+        {
+            UpdateUndoGroup(node.Tree);
+        }
+
+        private void Tree_AttributeSpecChangeEvent(MapTree.AttributeSpec aSpec, MapTree.AttributeSpecEventArgs e)
+        {
+            UpdateUndoGroup(aSpec.Tree);
         }
 
         private void SelectedNodes_NodeSelected(MapNode node, SelectedNodes selectedNodes)
@@ -705,21 +765,17 @@ namespace MindMate.View.Ribbon
         {
             if (nodes.Count == 1)
             {
-                UpdateFontControl(nodes.First);
+                MapNode n = nodes.First;
+                RichFont.Bold = n.Bold ? FontProperties.Set : FontProperties.NotSet;
+                RichFont.Italic = n.Italic ? FontProperties.Set : FontProperties.NotSet;
+                RichFont.Strikethrough = n.Strikeout ? FontProperties.Set : FontProperties.NotSet;
+                RichFont.Family = n.NodeView.Font.Name;
+                RichFont.Size = (decimal)n.NodeView.Font.Size;
             }
             else
             {
                 ClearFontControl();
             }
-        }
-
-        private void UpdateFontControl(MapNode n)
-        {
-            RichFont.Bold = n.Bold ? FontProperties.Set : FontProperties.NotSet;
-            RichFont.Italic = n.Italic ? FontProperties.Set : FontProperties.NotSet;
-            RichFont.Strikethrough = n.Strikeout ? FontProperties.Set : FontProperties.NotSet;
-            RichFont.Family = n.NodeView.Font.Name;
-            RichFont.Size = (decimal)n.NodeView.Font.Size;
         }
 
         private void ClearFontControl()
@@ -729,6 +785,12 @@ namespace MindMate.View.Ribbon
             RichFont.Strikethrough = FontProperties.NotSet;
             RichFont.Family = null;
             RichFont.Size = 0;
+        }
+
+        private void UpdateUndoGroup(MapTree tree)
+        {
+            Undo.Enabled = tree.ChangeManager.CanUndo;
+            Redo.Enabled = tree.ChangeManager.CanRedo;
         }
 
         private void ClipboardManager_StatusChanged()

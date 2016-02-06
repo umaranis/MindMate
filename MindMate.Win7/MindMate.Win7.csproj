@@ -150,6 +150,8 @@
     <None Include="View\Ribbon\Res\Sort By Modified Date-32.png" />
     <None Include="View\Ribbon\Res\sort-by-node-count.png" />
     <None Include="View\Ribbon\Res\sort-by-task.png" />
+    <None Include="View\Ribbon\Res\Redo-32.png" />
+    <None Include="View\Ribbon\Res\Undo-32.png" />
     <Content Include="View\Ribbon\Ribbon.Controls.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Ribbon.Controls.cs</LastGenOutput>
