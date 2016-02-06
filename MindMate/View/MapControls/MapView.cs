@@ -64,7 +64,7 @@ namespace MindMate.View.MapControls
             Canvas.Top = (Canvas.Parent.Height - Canvas.Height) / 2;
         }
 
-        public void RegisterTreeEvents()
+        private void RegisterTreeEvents()
         {
             this.tree.NodePropertyChanged += tree_NodePropertyChanged;
             this.tree.TreeStructureChanged += tree_TreeStructureChanged;
@@ -353,14 +353,14 @@ namespace MindMate.View.MapControls
                     }
 
                     float left = nView.Left + nView.Width + HOR_MARGIN;
-                    float top = nView.Top - (int)((this.getNodeHeight(node, rpos) - nView.Height) / 2) - ((node.Pos == NodePosition.Root) ? (int)(nView.Height / 2) : 0);
+                    float top = nView.Top - (int)((this.GetNodeHeight(node, rpos) - nView.Height) / 2) - ((node.Pos == NodePosition.Root) ? (int)(nView.Height / 2) : 0);
                     int topOffset;
                     foreach (MapNode rnode in childNodes)
                     {
                         NodeView tView = this.GetNodeView(rnode);
 
 
-                        topOffset = (int)((this.getNodeHeight(rnode, rpos) - tView.Height) / 2);
+                        topOffset = (int)((this.GetNodeHeight(rnode, rpos) - tView.Height) / 2);
                         if (i == 0)
                         {
                             left = nView.Left - tView.Width - HOR_MARGIN;
@@ -398,7 +398,7 @@ namespace MindMate.View.MapControls
         /// <param name="node"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public float getNodeHeight(MapNode node, NodePosition pos)
+        public float GetNodeHeight(MapNode node, NodePosition pos)
         {
             NodeView nView = this.GetNodeView(node);
             if (!node.HasChildren || node.Folded)
@@ -418,7 +418,7 @@ namespace MindMate.View.MapControls
             foreach (MapNode cNode in childNodes)
             {
                 sibCnt++;
-                height += this.getNodeHeight(cNode, pos);
+                height += this.GetNodeHeight(cNode, pos);
             }
 
 
@@ -519,7 +519,7 @@ namespace MindMate.View.MapControls
 
         }
 
-        public Point getMouseOffset(Control target, MouseEventArgs evt)
+        public Point GetMouseOffset(Control target, MouseEventArgs evt)
         {
 
             Point docPos = Canvas.Location;
