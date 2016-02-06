@@ -157,6 +157,54 @@ namespace MindMate.Tests.Model
         }
 
         [TestMethod()]
+        public void MapNode_WithRightPosition()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1", NodePosition.Right);
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2", NodePosition.Right);
+            var c3 = new MapNode(r, "c3", NodePosition.Right);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            var c4 = new MapNode(r, "c4", NodePosition.Right);
+            var c5 = new MapNode(r, "c5", NodePosition.Right);
+            var c6 = new MapNode(r, "c6", NodePosition.Right);
+            var c7 = new MapNode(r, "c7", NodePosition.Right);
+
+            Assert.AreEqual(7, r.ChildRightNodes.Count());
+            Assert.AreEqual(0, r.ChildLeftNodes.Count());
+        }
+
+        [TestMethod()]
+        public void MapNode_WithLeftPosition()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1", NodePosition.Left);
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2", NodePosition.Left);
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            var c4 = new MapNode(r, "c4", NodePosition.Left);
+            var c5 = new MapNode(r, "c5", NodePosition.Left);
+            var c6 = new MapNode(r, "c6", NodePosition.Left);
+            var c7 = new MapNode(r, "c7", NodePosition.Left);
+
+            Assert.AreEqual(0, r.ChildRightNodes.Count());
+            Assert.AreEqual(7, r.ChildLeftNodes.Count());
+        }
+
+        [TestMethod()]
         public void AttachTo()
         {
             var r = new MapNode(new MapTree(), "r");
@@ -1428,6 +1476,91 @@ namespace MindMate.Tests.Model
 
             Assert.IsFalse(c3.Folded);
             Assert.IsFalse(c1.Folded);
+        }
+
+        [TestMethod()]
+        public void SortChildren_NoChildren()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "C");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+
+            c1311.SortChildren((node1, node2) => string.CompareOrdinal(node2.Text, node1.Text));
+
+            Assert.AreEqual(c1311, c131.FirstChild);
+            Assert.AreEqual(c1311, c131.LastChild);
+        }
+
+        [TestMethod()]
+        public void SortChildren_OneChild()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "C");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+
+            c131.SortChildren((node1, node2) => string.CompareOrdinal(node2.Text, node1.Text));
+
+            Assert.AreEqual(c1311, c131.FirstChild);
+            Assert.AreEqual(c1311, c131.LastChild);
+        }
+
+        [TestMethod()]
+        public void SortChildren()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "C");
+            var c11 = new MapNode(c1, "6");
+            var c12 = new MapNode(c1, "2");
+            var c13 = new MapNode(c1, "4");
+            var c14 = new MapNode(c1, "7");
+            var c15 = new MapNode(c1, "1");
+            var c16 = new MapNode(c1, "5");
+            var c17 = new MapNode(c1, "3");
+            var c121 = new MapNode(c12, "c121");
+            var c2 = new MapNode(r, "B");
+            var c3 = new MapNode(r, "C", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            c1.SortChildren((node1, node2) => string.CompareOrdinal(node1.Text, node2.Text));
+
+            Assert.AreEqual(c15, c1.FirstChild);
+            Assert.AreEqual(c12, c1.FirstChild.Next);
+            Assert.AreEqual(c11, c1.LastChild.Previous);
+            Assert.AreEqual(c14, c1.LastChild);
+        }
+
+        [TestMethod()]
+        public void GetDescendentsCount()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "C");
+            var c11 = new MapNode(c1, "6");
+            var c12 = new MapNode(c1, "2");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "4");
+            var c14 = new MapNode(c1, "7");
+            var c15 = new MapNode(c1, "1");
+            var c16 = new MapNode(c1, "5");
+            var c17 = new MapNode(c1, "3");
+            var c2 = new MapNode(r, "B");
+            var c3 = new MapNode(r, "C", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            int count = c1.GetDescendentsCount();
+
+            Assert.AreEqual(8, count);
         }
     }
 }

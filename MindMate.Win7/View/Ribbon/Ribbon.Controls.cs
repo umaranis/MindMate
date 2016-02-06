@@ -89,6 +89,13 @@ namespace MindMate.View.Ribbon
 		private RibbonGroup GrpMove;		
 		private RibbonButton MoveUp;		
 		private RibbonButton MoveDown;		
+		private RibbonGroup GrpSort;		
+		private RibbonButton SortAlphabetic;		
+		private RibbonButton SortDueDate;		
+		private RibbonButton SortNodeCount;		
+		private RibbonButton SortModifiedDate;		
+		private RibbonButton SortCreateDate;		
+		private RibbonToggleButton SortOrder;		
 
 		private void InitializeComponents()
 		{
@@ -167,6 +174,13 @@ namespace MindMate.View.Ribbon
 			GrpMove = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpMove);
 			MoveUp = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.MoveUp);
 			MoveDown = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.MoveDown);
+			GrpSort = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpSort);
+			SortAlphabetic = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SortAlphabetic);
+			SortDueDate = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SortDueDate);
+			SortNodeCount = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SortNodeCount);
+			SortModifiedDate = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SortModifiedDate);
+			SortCreateDate = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SortCreateDate);
+			SortOrder = new RibbonToggleButton(ribbon, (uint)RibbonMarkupCommands.SortOrder);
 
 		}
 	

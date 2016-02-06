@@ -143,6 +143,13 @@
     <None Include="View\Ribbon\Res\Center Direction-32.png" />
     <None Include="View\Ribbon\Res\Down-32.png" />
     <None Include="View\Ribbon\Res\Up-32.png" />
+    <None Include="View\Ribbon\Res\Ascending Sorting-32.png" />
+    <None Include="View\Ribbon\Res\Descending Sorting-32.png" />
+    <None Include="View\Ribbon\Res\Alphabetical Sorting-32.png" />
+    <None Include="View\Ribbon\Res\Sort By Creation Date-32.png" />
+    <None Include="View\Ribbon\Res\Sort By Modified Date-32.png" />
+    <None Include="View\Ribbon\Res\sort-by-node-count.png" />
+    <None Include="View\Ribbon\Res\sort-by-task.png" />
     <Content Include="View\Ribbon\Ribbon.Controls.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Ribbon.Controls.cs</LastGenOutput>

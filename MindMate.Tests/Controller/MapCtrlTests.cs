@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MindMate.Plugins.Tasks.Model;
 
 namespace MindMate.Tests.Controller
 {
@@ -1005,6 +1006,282 @@ namespace MindMate.Tests.Controller
             mapCtrl.MoveNodeDown();
 
             Assert.AreEqual(c2, c3.Next);
+        }
+
+        [TestMethod()]
+        public void SortAlphabeticallyAsc()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "C");
+            var c11 = new MapNode(c1, "6");
+            var c12 = new MapNode(c1, "2");
+            var c13 = new MapNode(c1, "4");
+            var c14 = new MapNode(c1, "7");
+            var c15 = new MapNode(c1, "1");
+            var c16 = new MapNode(c1, "5");
+            var c17 = new MapNode(c1, "3");
+            var c121 = new MapNode(c12, "c121");
+            var c2 = new MapNode(r, "B");
+            var c3 = new MapNode(r, "C", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            c1.Selected = true;
+
+            mapCtrl.SortAlphabeticallyAsc();
+
+            Assert.AreEqual(c15, c1.FirstChild);
+            Assert.AreEqual(c12, c1.FirstChild.Next);
+            Assert.AreEqual(c11, c1.LastChild.Previous);
+            Assert.AreEqual(c14, c1.LastChild);
+        }
+
+        [TestMethod()]
+        public void SortAlphabeticallyDesc()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "C");
+            var c11 = new MapNode(c1, "6");
+            var c12 = new MapNode(c1, "2");
+            var c13 = new MapNode(c1, "4");
+            var c14 = new MapNode(c1, "7");
+            var c15 = new MapNode(c1, "1");
+            var c16 = new MapNode(c1, "5");
+            var c17 = new MapNode(c1, "3");
+            var c121 = new MapNode(c12, "c121");
+            var c2 = new MapNode(r, "B");
+            var c3 = new MapNode(r, "C", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            c1.Selected = true;
+
+            mapCtrl.SortAlphabeticallyDesc();
+
+            Assert.AreEqual(c14, c1.FirstChild);
+            Assert.AreEqual(c11, c1.FirstChild.Next);
+            Assert.AreEqual(c12, c1.LastChild.Previous);
+            Assert.AreEqual(c15, c1.LastChild);
+        }
+
+        [TestMethod()]
+        public void SortByTaskAsc()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "C");
+            var c11 = new MapNode(c1, "6"); c11.AddTask(DateTime.Now);
+            var c12 = new MapNode(c1, "2");
+            var c13 = new MapNode(c1, "4");
+            var c14 = new MapNode(c1, "7"); c14.AddTask(DateTime.Now.AddSeconds(5));
+            var c15 = new MapNode(c1, "1");
+            var c16 = new MapNode(c1, "5");
+            var c17 = new MapNode(c1, "3");
+            c1.Selected = true;
+
+            mapCtrl.SortByTaskAsc();
+
+            Assert.AreEqual(c12, c1.FirstChild);
+            Assert.AreEqual(c11, c1.LastChild.Previous);
+            Assert.AreEqual(c14, c1.LastChild);
+        }
+
+        [TestMethod()]
+        public void SortByTaskDesc()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "C");
+            var c11 = new MapNode(c1, "6"); c11.AddTask(DateTime.Now);
+            var c12 = new MapNode(c1, "2");
+            var c13 = new MapNode(c1, "4");
+            var c14 = new MapNode(c1, "7"); c14.AddTask(DateTime.Now.AddSeconds(5));
+            var c15 = new MapNode(c1, "1");
+            var c16 = new MapNode(c1, "5");
+            var c17 = new MapNode(c1, "3");
+            c1.Selected = true;
+
+            mapCtrl.SortByTaskDesc();
+
+            Assert.AreEqual(c17, c1.LastChild);
+            Assert.AreEqual(c11, c1.FirstChild.Next);
+            Assert.AreEqual(c14, c1.FirstChild);
+        }
+
+        [TestMethod()]
+        public void SortByDescendentsCountAsc()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "C");
+            var c11 = new MapNode(c1, "6");
+            var c12 = new MapNode(c1, "2");
+            var c13 = new MapNode(c1, "4");
+            var c14 = new MapNode(c1, "7");
+            var c15 = new MapNode(c1, "1");
+            var c16 = new MapNode(c1, "5");
+            var c17 = new MapNode(c1, "3");
+            var c121 = new MapNode(c12, "c121");
+            var c2 = new MapNode(r, "B");
+            var c3 = new MapNode(r, "C", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            r.Selected = true;
+
+            mapCtrl.SortByDescendentsCountAsc();
+
+            Assert.AreEqual(c2, r.FirstChild);
+            Assert.AreEqual(c1, r.LastChild);
+        }
+
+        [TestMethod()]
+        public void SortByDescendentsCountDesc()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "C");
+            var c11 = new MapNode(c1, "6");
+            var c12 = new MapNode(c1, "2");
+            var c13 = new MapNode(c1, "4");
+            var c14 = new MapNode(c1, "7");
+            var c15 = new MapNode(c1, "1");
+            var c16 = new MapNode(c1, "5");
+            var c17 = new MapNode(c1, "3");
+            var c121 = new MapNode(c12, "c121");
+            var c2 = new MapNode(r, "B");
+            var c3 = new MapNode(r, "C", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            r.Selected = true;
+
+            mapCtrl.SortByDescendentsCountDesc();
+
+            Assert.AreEqual(c2, r.LastChild);
+            Assert.AreEqual(c1, r.FirstChild);
+        }
+
+        [TestMethod()]
+        public void SortByCreateDateCountAsc()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "C");
+            var c11 = new MapNode(c1, "6");
+            var c12 = new MapNode(c1, "2");
+            var c13 = new MapNode(c1, "4");
+            var c14 = new MapNode(c1, "7");
+            var c15 = new MapNode(c1, "1");
+            var c16 = new MapNode(c1, "5");
+            var c17 = new MapNode(c1, "3");
+            var c121 = new MapNode(c12, "c121");
+            var c2 = new MapNode(r, "B");
+            c2.Created = DateTime.Now.AddSeconds(5);
+            var c3 = new MapNode(r, "C", NodePosition.Left);
+            c3.Created = DateTime.Now.AddSeconds(10);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            r.Selected = true;
+
+            mapCtrl.SortByCreateDateAsc();
+
+            Assert.AreEqual(c3, r.LastChild);
+            Assert.AreEqual(c1, r.FirstChild);
+        }
+
+        [TestMethod()]
+        public void SortByCreateDateCountDesc()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "C");
+            c1.Created = DateTime.Now;
+            var c11 = new MapNode(c1, "6");
+            var c12 = new MapNode(c1, "2");
+            var c13 = new MapNode(c1, "4");
+            var c14 = new MapNode(c1, "7");
+            var c15 = new MapNode(c1, "1");
+            var c16 = new MapNode(c1, "5");
+            var c17 = new MapNode(c1, "3");
+            var c121 = new MapNode(c12, "c121");
+            var c2 = new MapNode(r, "B");
+            c2.Created = DateTime.Now.AddSeconds(5);
+            var c3 = new MapNode(r, "C", NodePosition.Left);
+            c3.Created = DateTime.Now.AddSeconds(10);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            r.Selected = true;
+
+            mapCtrl.SortByCreateDateDesc();
+
+            Assert.AreEqual(c1, r.LastChild);
+            Assert.AreEqual(c3, r.FirstChild);
+        }
+
+        [TestMethod()]
+        public void SortByModifiedDateCountAsc()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "6");
+            var c12 = new MapNode(c1, "2");
+            var c13 = new MapNode(c1, "4");
+            var c14 = new MapNode(c1, "7");
+            var c15 = new MapNode(c1, "1");
+            var c16 = new MapNode(c1, "5");
+            var c17 = new MapNode(c1, "3");
+            var c121 = new MapNode(c12, "c121");
+            var c2 = new MapNode(r, "c2");
+            c2.Modified = DateTime.Now.AddSeconds(5);
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            c3.Modified = DateTime.Now.AddSeconds(10);
+            r.Selected = true;
+
+            mapCtrl.SortByModifiedDateAsc();
+
+            Assert.AreEqual(c3, r.LastChild);
+            Assert.AreEqual(c1, r.FirstChild);
+        }
+
+        [TestMethod()]
+        public void SortByModifiedDateCountDesc()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            c1.Modified = DateTime.Now;
+            var c11 = new MapNode(c1, "6");
+            var c12 = new MapNode(c1, "2");
+            var c13 = new MapNode(c1, "4");
+            var c14 = new MapNode(c1, "7");
+            var c15 = new MapNode(c1, "1");
+            var c16 = new MapNode(c1, "5");
+            var c17 = new MapNode(c1, "3");
+            var c121 = new MapNode(c12, "c121");
+            var c2 = new MapNode(r, "c2");
+            c2.Modified = DateTime.Now.AddSeconds(5);
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            c3.Modified = DateTime.Now.AddSeconds(10);
+            r.Selected = true;
+
+            mapCtrl.SortByModifiedDateDesc();
+
+            Assert.AreEqual(c1, r.LastChild);
+            Assert.AreEqual(c3, r.FirstChild); 
         }
 
         //[TestMethod()]

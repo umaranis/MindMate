@@ -18,6 +18,7 @@ using System.Diagnostics;
 using MindMate.View.MapControls;
 using MindMate.View;
 using MindMate.Model;
+using MindMate.Plugins.Tasks.Model;
 using MindMate.View.Dialogs;
 
 
@@ -1340,5 +1341,160 @@ namespace MindMate.Controller
 
             tree.ChangeManager.EndBatch();
         }
+
+        public void SortAlphabeticallyAsc()
+        {
+            tree.ChangeManager.StartBatch("Sort Alphabetically Asc");
+
+            foreach (var node in tree.SelectedNodes)
+            {
+                node.SortChildren((n1, n2) => string.CompareOrdinal(n1.Text, n2.Text));
+
+                if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
+            }
+
+            tree.ChangeManager.EndBatch();
+        }
+
+        /// <summary>
+        /// Sort children of the selected nodes in ascending alphabetical order
+        /// </summary>
+        public void SortAlphabeticallyDesc()
+        {
+            tree.ChangeManager.StartBatch("Sort Alphabetically Desc");
+
+            foreach (var node in tree.SelectedNodes)
+            {
+                node.SortChildren((n1, n2) => string.CompareOrdinal(n2.Text, n1.Text));
+
+                if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
+            }
+
+            tree.ChangeManager.EndBatch();
+        }
+
+        public void SortByTaskAsc()
+        {
+            tree.ChangeManager.StartBatch("Sort by Task Asc");
+
+            foreach (var node in tree.SelectedNodes)
+            {
+                node.SortChildren((n1, n2) => DateTime.Compare(
+                    GetTaskDateForSort(n1),
+                    GetTaskDateForSort(n2)
+                    ));
+
+                if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
+            }
+
+            tree.ChangeManager.EndBatch();
+        }
+
+        public void SortByTaskDesc()
+        {
+            tree.ChangeManager.StartBatch("Sort by Task Desc");
+
+            foreach (var node in tree.SelectedNodes)
+            {
+                node.SortChildren((n1, n2) => DateTime.Compare(
+                    GetTaskDateForSort(n2),
+                    GetTaskDateForSort(n1)
+                    ));
+
+                if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
+            }
+
+            tree.ChangeManager.EndBatch();
+        }
+
+        private DateTime GetTaskDateForSort(MapNode node)
+        {
+            return node.GetEndDate();
+        }
+
+        public void SortByDescendentsCountAsc()
+        {
+            tree.ChangeManager.StartBatch("Sort by Descendents Count Asc");
+
+            foreach (var node in tree.SelectedNodes)
+            {
+                node.SortChildren((n1, n2) => n1.GetDescendentsCount() - n2.GetDescendentsCount());
+
+                if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
+            }
+
+            tree.ChangeManager.EndBatch();
+        }
+
+        public void SortByDescendentsCountDesc()
+        {
+            tree.ChangeManager.StartBatch("Sort by Descendents Count Desc");
+
+            foreach (var node in tree.SelectedNodes)
+            {
+                node.SortChildren((n1, n2) => n2.GetDescendentsCount() - n1.GetDescendentsCount());
+
+                if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
+            }
+
+            tree.ChangeManager.EndBatch();
+        }
+
+        public void SortByCreateDateAsc()
+        {
+            tree.ChangeManager.StartBatch("Sort by Creation Date Asc");
+
+            foreach (var node in tree.SelectedNodes)
+            {
+                node.SortChildren((n1, n2) => DateTime.Compare(n1.Created, n2.Created));
+
+                if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
+            }
+
+            tree.ChangeManager.EndBatch();
+        }
+
+        public void SortByCreateDateDesc()
+        {
+            tree.ChangeManager.StartBatch("Sort by Creation Date Desc");
+
+            foreach (var node in tree.SelectedNodes)
+            {
+                node.SortChildren((n1, n2) => DateTime.Compare(n2.Created, n1.Created));
+
+                if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
+            }
+
+            tree.ChangeManager.EndBatch();
+        }
+
+        public void SortByModifiedDateAsc()
+        {
+            tree.ChangeManager.StartBatch("Sort by Modified Date Asc");
+
+            foreach (var node in tree.SelectedNodes)
+            {
+                node.SortChildren((n1, n2) => DateTime.Compare(n1.Modified, n2.Modified));
+
+                if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
+            }
+
+            tree.ChangeManager.EndBatch();
+        }
+
+        public void SortByModifiedDateDesc()
+        {
+            tree.ChangeManager.StartBatch("Sort by Modified Date Desc");
+
+            foreach (var node in tree.SelectedNodes)
+            {
+                node.SortChildren((n1, n2) => DateTime.Compare(n2.Modified, n1.Modified));
+
+                if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
+            }
+
+            tree.ChangeManager.EndBatch();
+        }
+
     }
 }

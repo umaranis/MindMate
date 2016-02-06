@@ -90,5 +90,12 @@ namespace MindMate.View.Ribbon
 		GrpMove = 3301,		
 		MoveUp = 3302,		
 		MoveDown = 3303,		
+		GrpSort = 3400,		
+		SortAlphabetic = 3401,		
+		SortDueDate = 3402,		
+		SortNodeCount = 3405,		
+		SortModifiedDate = 3403,		
+		SortCreateDate = 3404,		
+		SortOrder = 3406,		
 	}
 }

@@ -207,14 +207,14 @@ Note:
     
     <!--Group: Navigate-->
     <Command Name="GrpNavigate" Id="3201" LabelTitle="Navigate" />
-    <Command Name="NavigateToCenter" Id="3202" LabelTitle="Navigate to Center" >
+    <Command Name="NavigateToCenter" Id="3202" LabelTitle="Navigate to Center" LabelDescription="Select Center Node">
       <Command.LargeImages><Image>Res/Center Direction-32.png</Image></Command.LargeImages>
     </Command>
     <Command Name="NavigateToFirstSibling" Id="3203" LabelTitle="Navigate to First Sibling" >
-      <Command.SmallImages><Image>Res/North Direction-32.png</Image></Command.SmallImages>
+      <Command.LargeImages><Image>Res/North Direction-32.png</Image></Command.LargeImages>
     </Command>
     <Command Name="NavigateToLastSibling" Id="3204" LabelTitle="Navigate to Last Sibling" >
-      <Command.SmallImages><Image>Res/South Direction-32.png</Image></Command.SmallImages>
+      <Command.LargeImages><Image>Res/South Direction-32.png</Image></Command.LargeImages>
     </Command>
     
     <!--Group: Move-->
@@ -224,6 +224,27 @@ Note:
     </Command>
     <Command Name="MoveDown" Id="3303" LabelTitle="Move Down" TooltipDescription="Move the selected node down (Ctrl + Down)">
       <Command.SmallImages><Image>Res/Down-32.png</Image></Command.SmallImages>  
+    </Command>
+    
+    <!--Group: Sort-->
+    <Command Name="GrpSort" Id="3400" LabelTitle="Sort"/>
+    <Command Name="SortAlphabetic" Id="3401" LabelTitle="Sort" LabelDescription="Sort Children alphabetically" TooltipDescription="Sort children in alphabetical order">
+      <Command.LargeImages><Image>Res/Alphabetical Sorting-32.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="SortDueDate" Id="3402" LabelTitle="Sort Tasks" LabelDescription="Sort Children by Due Date" TooltipDescription="Sort children by Due or Completion date of tasks">
+      <Command.LargeImages><Image>Res/sort-by-task.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="SortNodeCount" Id="3405" LabelTitle="Sort by Node Count" LabelDescription="Sort Children by Node Count" TooltipDescription="Sort children by number of descendents">
+      <Command.LargeImages><Image>Res/sort-by-node-count.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="SortModifiedDate" Id="3403" LabelTitle="Sort by Modified" LabelDescription="Sort by Modified Date" TooltipDescription="Sort children by last modified date">
+      <Command.LargeImages><Image>Res/Sort By Modified Date-32.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="SortCreateDate" Id="3404" LabelTitle="Sort by Creation" LabelDescription="Sort by Created Date" TooltipDescription="Sort children by creatin date">
+      <Command.LargeImages><Image>Res/Sort By Creation Date-32.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="SortOrder" Id="3406" LabelTitle="Ascending Order" TooltipTitle="Sort Order: Ascending" TooltipDescription="Click to toggle sort order: Ascending or Descending">
+      <Command.LargeImages><Image>Res/Ascending Sorting-32.png</Image></Command.LargeImages>
     </Command>
 
   </Application.Commands>
@@ -433,14 +454,55 @@ Note:
           </Group>
           <Group CommandName="GrpNavigate" SizeDefinition="OneButton">
             <SplitButton>
-              <Button CommandName="NavigateToCenter" />
-              <Button CommandName="NavigateToFirstSibling" />
-              <Button CommandName="NavigateToLastSibling" />
+              <SplitButton.MenuGroups>
+                <MenuGroup Class="MajorItems">
+                  <Button CommandName="NavigateToCenter" />
+                </MenuGroup>
+                <MenuGroup Class="MajorItems">
+                  <Button CommandName="NavigateToFirstSibling" />
+                  <Button CommandName="NavigateToLastSibling" />
+                </MenuGroup>
+              </SplitButton.MenuGroups>
             </SplitButton>
           </Group>
           <Group CommandName="GrpMove">
             <Button CommandName="MoveUp" />
             <Button CommandName="MoveDown" />
+          </Group>
+          <Group CommandName="GrpSort" SizeDefinition="TwoButtons">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name="button1" />
+                <ControlNameDefinition Name="button2" />
+              </ControlNameMap>
+              <GroupSizeDefinition Size="Large" >
+                <Row>
+                  <ControlSizeDefinition ControlName="button1" ImageSize="Large" IsLabelVisible="true" />
+                  <ControlSizeDefinition ControlName="button2" ImageSize="Small" IsLabelVisible="false" />
+                </Row>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <SplitButton>
+              <SplitButton.MenuGroups>
+                <MenuGroup Class="MajorItems">
+                  <Button CommandName="SortAlphabetic"/>
+                </MenuGroup>
+                <MenuGroup Class="MajorItems">
+                  <Button CommandName="SortDueDate" />
+                </MenuGroup>
+                <MenuGroup Class="MajorItems">
+                  <Button CommandName="SortNodeCount" />
+                </MenuGroup>
+                <MenuGroup>
+                  <Button CommandName="SortCreateDate"/>
+                  <Button CommandName="SortModifiedDate"/>
+                </MenuGroup>
+                <!--<MenuGroup>
+                  
+                </MenuGroup>-->
+              </SplitButton.MenuGroups>
+            </SplitButton>
+            <ToggleButton CommandName="SortOrder"/>
           </Group>
         </Tab>
       </Ribbon.Tabs>

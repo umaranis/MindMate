@@ -13,6 +13,7 @@ using MindMate.MetaModel;
 using MindMate.View.EditorTabs;
 using MindMate.View.MapControls;
 using MindMate.View.MapControls.Drawing;
+using MindMate.Win7.Properties;
 using RibbonLib;
 
 namespace MindMate.View.Ribbon
@@ -113,6 +114,16 @@ namespace MindMate.View.Ribbon
             //Edit Tab: Move
             MoveUp.ExecuteEvent += MoveUp_ExecuteEvent;
             MoveDown.ExecuteEvent += MoveDown_ExecuteEvent;
+
+            //Edit Tab: Sort
+            SortAlphabetic.ExecuteEvent += SortAlphabetic_ExecuteEvent;
+            SortDueDate.ExecuteEvent += SortDueDate_ExecuteEvent;
+            SortNodeCount.ExecuteEvent += SortNodeCount_ExecuteEvent;
+            SortModifiedDate.ExecuteEvent += SortModifiedDate_ExecuteEvent;
+            SortCreateDate.ExecuteEvent += SortCreateDate_ExecuteEvent;
+            SortOrder.ExecuteEvent += SortOrder_ExecuteEvent;
+
+            SortOrder.BooleanValue = true;
 
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
@@ -568,6 +579,91 @@ namespace MindMate.View.Ribbon
         private void MoveDown_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.CurrentMapCtrl.MoveNodeDown();
+        }
+
+        private const string AscendingOrderString = "Ascending Order";
+        private const string DescendingOrderString = "Descending Order";
+
+        private bool IsAscendingSortOrder { get { return SortOrder.Label == AscendingOrderString || SortOrder.Label == null; }}
+
+        private void SortAlphabetic_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            if (IsAscendingSortOrder)
+            {
+                mainCtrl.CurrentMapCtrl.SortAlphabeticallyAsc();
+            }
+            else
+            {
+                mainCtrl.CurrentMapCtrl.SortAlphabeticallyDesc();
+            }
+        }
+
+        private void SortDueDate_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            if (IsAscendingSortOrder)
+            {
+                mainCtrl.CurrentMapCtrl.SortByTaskAsc();
+            }
+            else
+            {
+                mainCtrl.CurrentMapCtrl.SortByTaskDesc();
+            }
+
+        }
+
+        private void SortNodeCount_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            if (IsAscendingSortOrder)
+            {
+                mainCtrl.CurrentMapCtrl.SortByDescendentsCountAsc();
+            }
+            else
+            {
+                mainCtrl.CurrentMapCtrl.SortByDescendentsCountDesc();
+            }
+        }
+
+        private void SortModifiedDate_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            if (IsAscendingSortOrder)
+            {
+                mainCtrl.CurrentMapCtrl.SortByModifiedDateAsc();
+            }
+            else
+            {
+                mainCtrl.CurrentMapCtrl.SortByModifiedDateDesc();
+            }
+        }
+
+        private void SortCreateDate_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            if (IsAscendingSortOrder)
+            {
+                mainCtrl.CurrentMapCtrl.SortByCreateDateAsc();
+            }
+            else
+            {
+                mainCtrl.CurrentMapCtrl.SortByCreateDateDesc();
+            }
+        }
+
+        private void SortOrder_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            if (SortOrder.Label == null || SortOrder.Label.Equals(AscendingOrderString)) //ascending, swtich to descending
+            {
+                SortOrder.BooleanValue = true;
+                SortOrder.Label = DescendingOrderString;
+                SortOrder.TooltipTitle = "Sort Order: Descending";
+                SortOrder.SmallImage = ribbon.ConvertToUIImage(Resources.Descending_Sorting_32);
+            }
+            else //switch to ascending
+            {
+                SortOrder.BooleanValue = true;
+                SortOrder.Label = AscendingOrderString;
+                SortOrder.TooltipTitle = "Sort Order: Ascending";
+                SortOrder.SmallImage = ribbon.ConvertToUIImage(Resources.Ascending_Sorting_32);
+            }
+            
         }
 
         #endregion

@@ -336,5 +336,136 @@ namespace MindMate.Tests.Model
             Assert.IsTrue(c31.Folded);
             Assert.IsFalse(r.Folded);
         }
+
+        [TestMethod()]
+        public void RebalanceTree_AllRightNodes()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1", NodePosition.Right);
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2", NodePosition.Right);
+            var c3 = new MapNode(r, "c3", NodePosition.Right);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            var c4 = new MapNode(r, "c4", NodePosition.Right);
+            var c5 = new MapNode(r, "c5", NodePosition.Right);
+            var c6 = new MapNode(r, "c6", NodePosition.Right);
+            var c7 = new MapNode(r, "c7", NodePosition.Right);
+
+            t.RebalanceTree();
+
+            Assert.IsTrue(Math.Abs(r.ChildRightNodes.Count() - r.ChildLeftNodes.Count()) <= 1, "Difference between left and right nodes count should be <= 1");
+        }
+
+        [TestMethod()]
+        public void RebalanceTree_AllLeftNodes()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1", NodePosition.Left);
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2", NodePosition.Left);
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            var c4 = new MapNode(r, "c4", NodePosition.Left);
+            var c5 = new MapNode(r, "c5", NodePosition.Left);
+            var c6 = new MapNode(r, "c6", NodePosition.Left);
+            var c7 = new MapNode(r, "c7", NodePosition.Left);
+
+            t.RebalanceTree();
+
+            Assert.IsTrue(Math.Abs(r.ChildRightNodes.Count() - r.ChildLeftNodes.Count()) <= 1, "Difference between left and right nodes count should be <= 1");
+        }
+
+        [TestMethod()]
+        public void RebalanceTree_MixedPositions()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1", NodePosition.Left);
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2", NodePosition.Right);
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            var c4 = new MapNode(r, "c4", NodePosition.Right);
+            var c5 = new MapNode(r, "c5", NodePosition.Left);
+            var c6 = new MapNode(r, "c6", NodePosition.Right);
+            var c7 = new MapNode(r, "c7", NodePosition.Left);
+
+            t.RebalanceTree();
+
+            Assert.AreEqual(4, r.ChildLeftNodes.Count());
+            Assert.IsTrue(Math.Abs(r.ChildRightNodes.Count() - r.ChildLeftNodes.Count()) <= 1, "Difference between left and right nodes count should be <= 1");
+        }
+
+        [TestMethod()]
+        public void RebalanceTree_WithRightOverWeight()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1", NodePosition.Left);
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2", NodePosition.Right);
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            var c4 = new MapNode(r, "c4", NodePosition.Right);
+            var c5 = new MapNode(r, "c5", NodePosition.Right);
+            var c6 = new MapNode(r, "c6", NodePosition.Right);
+            var c7 = new MapNode(r, "c7", NodePosition.Right);
+
+            t.RebalanceTree();
+
+            Assert.IsTrue(Math.Abs(r.ChildRightNodes.Count() - r.ChildLeftNodes.Count()) <= 1, "Difference between left and right nodes count should be <= 1");
+        }
+
+        [TestMethod()]
+        public void RebalanceTree_WithLeftOverWeight()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1", NodePosition.Left);
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2", NodePosition.Right);
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            var c4 = new MapNode(r, "c4", NodePosition.Right);
+            var c5 = new MapNode(r, "c5", NodePosition.Left);
+            var c6 = new MapNode(r, "c6", NodePosition.Left);
+            var c7 = new MapNode(r, "c7", NodePosition.Left);
+
+            t.RebalanceTree();
+
+            Assert.IsTrue(Math.Abs(r.ChildRightNodes.Count() - r.ChildLeftNodes.Count()) <= 1, "Difference between left and right nodes count should be <= 1");
+        }
     }
 }

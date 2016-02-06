@@ -24,7 +24,6 @@ namespace MindMate.Plugins.Tasks.Model
 
         /// <summary>
         /// Get the date on which task is to be due. 
-        /// For completed tasks, it is the scheduled end date (while Completion Date is the actual).
         /// Throws exception if there is no Due Date attribute.
         /// </summary>
         /// <param name="node"></param>

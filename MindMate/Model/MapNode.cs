@@ -829,9 +829,9 @@ namespace MindMate.Model
         private void ChangePos(NodePosition pos)
         {
             ForEach(n => n.pos = pos);
-            modified = DateTime.Now;
             Tree.FireEvent(this, pos == NodePosition.Left? TreeStructureChange.MovedLeft : TreeStructureChange.MovedRight);
         }
+
         /// <summary>
         /// 
         /// </summary>
@@ -1379,6 +1379,13 @@ namespace MindMate.Model
             return depth;
         }
 
+        public int GetDescendentsCount()
+        {
+            int count = -1;
+            ForEach(n => count++);
+            return count;
+        }
+
         public bool IsEmpty()
         {
             return string.IsNullOrEmpty(Text) &&
@@ -1448,6 +1455,30 @@ namespace MindMate.Model
             if (!UnfoldDescendents())
             {
                 FoldDescendents();
+            }
+        }
+
+        public void SortChildren(Func<MapNode, MapNode, int> compare)
+        {
+            if (!HasChildren) return;
+
+            var sortedUpto = FirstChild;
+            var current = sortedUpto.Next;
+
+            while (current != null)
+            {
+                if (compare(sortedUpto, current) > 0)
+                {
+                    do
+                    {
+                        current.MoveUp();
+                    } while (current.Previous != null && compare(current, current.Previous) < 0);
+                }
+                else
+                {
+                    sortedUpto = current;
+                }
+                current = sortedUpto.Next;
             }
         }
 

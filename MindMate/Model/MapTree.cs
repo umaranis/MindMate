@@ -198,6 +198,31 @@ namespace MindMate.Model
                 );
         }
 
+        public void RebalanceTree()
+        {
+            int rightCount = RootNode.ChildRightNodes.Count();
+            int leftCount = RootNode.ChildLeftNodes.Count();
+
+            int diff = (int)Math.Truncate((rightCount - leftCount)/2d);
+
+            if (diff > 0)
+            {
+                while (diff > 0)
+                {
+                    RootNode.GetLastChild(NodePosition.Right)?.MoveDown();
+                    diff--;
+                } 
+            }
+            else
+            {
+                while (diff < 0)
+                {
+                    RootNode.GetFirstChild(NodePosition.Left)?.MoveUp();
+                    diff++;
+                }
+            }
+        }
+
         #region "Node Change Events"
 
         public event Action<MapNode, NodePropertyChangedEventArgs> NodePropertyChanged = delegate { };
