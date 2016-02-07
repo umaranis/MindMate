@@ -139,10 +139,10 @@ namespace MindMate.Modules.Undo
             }
         }
 
-        public void StartBatch(string changeDescription)
+        public IDisposable StartBatch(string changeDescription)
         {
-            //if a batch is already open when StartBatch is called, the older batch is simply ignored this helps in handling exception more gracefully
             batch = new BatchChange(changeDescription, this);
+            return batch;
         }
 
         public void EndBatch()

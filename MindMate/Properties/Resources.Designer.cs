@@ -233,9 +233,9 @@ namespace MindMate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap InputBoxQuestion {
+        public static System.Drawing.Bitmap knotes {
             get {
-                object obj = ResourceManager.GetObject("InputBoxQuestion", resourceCulture);
+                object obj = ResourceManager.GetObject("knotes", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -243,9 +243,9 @@ namespace MindMate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap knotes {
+        public static System.Drawing.Bitmap link {
             get {
-                object obj = ResourceManager.GetObject("knotes", resourceCulture);
+                object obj = ResourceManager.GetObject("link", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

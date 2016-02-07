@@ -49,9 +49,7 @@
     <Command Name="RecentItems" Id="1020" LabelTitle="Recent Mind Maps"/>
     
     <!--Tab: Home-->
-    <Command Name="TabHome"
-        Id="2000"
-        LabelTitle="Home">
+    <Command Name="TabHome" Id="2000" LabelTitle="Home">
     </Command>
 
     <!--Group: New Node-->
@@ -255,9 +253,29 @@ Note:
     <Command Name="Redo" Id="3503" LabelTitle="Redo" TooltipDescription="Redo changes (Ctrl + Y)">
       <Command.LargeImages><Image>Res/Redo-32.png</Image></Command.LargeImages>
     </Command>
+    
+    <!--Tab: Insert-->
+    <Command Name="TabInsert" Id="4000" LabelTitle="Insert">
+    </Command>
+    
+    <!--Group: Hyperlink-->
+    <Command Name="GrpHyperlink" Id="4100" LabelTitle="Hyperlink" />
+    <Command Name="Hyperlink" Id="4101" LabelTitle="Hyperlink" TooltipTitle="Add or Edit hyperlink using Text Field (Ctrl + K)" TooltipDescription="Hyperlink to website or local file">
+      <Command.LargeImages><Image>Res/Add Link-32.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="HyperlinkFile" Id="4102" LabelTitle="File" TooltipTitle="Add or Edit hyperlink using File Dialog (Ctrl + Shift + K)" TooltipDescription="Hyperlink to website or local file">
+      <Command.LargeImages><Image>Res/File-32.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="HyperlinkFolder" Id="4103" LabelTitle="Folder" TooltipTitle="Add or Edit hyperlink using Folder Dialog" TooltipDescription="Hyperlink to website or local file">
+      <Command.LargeImages><Image>Res/Folder2-32.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="RemoveHyperlink" Id="4104" LabelTitle="Remove" TooltipTitle="Remove hyperlink" >
+      <Command.LargeImages><Image>Res/Delete Link-32.png</Image></Command.LargeImages>
+    </Command>
+    
 
   </Application.Commands>
-
+                   
   <Application.Views>
     <Ribbon>
 
@@ -513,6 +531,33 @@ Note:
           <Group CommandName="GrpUndo" SizeDefinition="TwoButtons">
             <Button CommandName="Undo" />
             <Button CommandName="Redo" />
+          </Group>
+        </Tab>
+        <Tab CommandName="TabInsert">
+          <Group CommandName="GrpHyperlink" >
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name="button1" />
+                <ControlNameDefinition Name="button2" />
+                <ControlNameDefinition Name="button3" />
+                <ControlNameDefinition Name="button4" />
+              </ControlNameMap>
+              <GroupSizeDefinition Size="Large" >
+                <ControlGroup>
+                  <ControlSizeDefinition ControlName="button1" ImageSize="Large" IsLabelVisible="true" />
+                  <ControlSizeDefinition ControlName="button2" ImageSize="Large" IsLabelVisible="true" />
+                  <ControlSizeDefinition ControlName="button3" ImageSize="Large" IsLabelVisible="true" />
+                </ControlGroup>
+                <ColumnBreak ShowSeparator="true"/>
+                <ControlGroup>
+                  <ControlSizeDefinition ControlName="button4" ImageSize="Large" IsLabelVisible="true" />
+                </ControlGroup>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <Button CommandName="Hyperlink" />
+            <Button CommandName="HyperlinkFile" />
+            <Button CommandName="HyperlinkFolder" />
+            <Button CommandName="RemoveHyperlink" />
           </Group>
         </Tab>
       </Ribbon.Tabs>

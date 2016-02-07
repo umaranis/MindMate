@@ -129,6 +129,12 @@ namespace MindMate.View.Ribbon
             Undo.ExecuteEvent += Undo_ExecuteEvent;
             Redo.ExecuteEvent += Redo_ExecuteEvent;
 
+            //Insert Tab: Hyperlink
+            Hyperlink.ExecuteEvent += Hyperlink_ExecuteEvent;
+            HyperlinkFile.ExecuteEvent += HyperlinkFile_ExecuteEvent;
+            HyperlinkFolder.ExecuteEvent += HyperlinkFolder_ExecuteEvent;
+            RemoveHyperlink.ExecuteEvent += RemoveHyperlink_ExecuteEvent;
+
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
@@ -678,6 +684,30 @@ namespace MindMate.View.Ribbon
         private void Redo_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.Redo();
+        }
+
+        #endregion
+
+        #region Insert Tab
+
+        private void Hyperlink_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.AddHyperlinkUsingTextbox();
+        }
+
+        private void HyperlinkFile_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.AddHyperlinkUsingFileDialog();
+        }
+
+        private void HyperlinkFolder_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.AddHyperlinkUsingFolderDialog();
+        }
+
+        private void RemoveHyperlink_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.RemoveHyperlink();
         }
 
         #endregion

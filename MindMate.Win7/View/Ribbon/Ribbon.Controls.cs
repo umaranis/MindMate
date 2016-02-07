@@ -99,6 +99,12 @@ namespace MindMate.View.Ribbon
 		private RibbonGroup GrpUndo;		
 		private RibbonButton Undo;		
 		private RibbonButton Redo;		
+		private RibbonTab TabInsert;		
+		private RibbonGroup GrpHyperlink;		
+		private RibbonButton Hyperlink;		
+		private RibbonButton HyperlinkFile;		
+		private RibbonButton HyperlinkFolder;		
+		private RibbonButton RemoveHyperlink;		
 
 		private void InitializeComponents()
 		{
@@ -187,6 +193,12 @@ namespace MindMate.View.Ribbon
 			GrpUndo = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpUndo);
 			Undo = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Undo);
 			Redo = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Redo);
+			TabInsert = new RibbonTab(ribbon, (uint)RibbonMarkupCommands.TabInsert);
+			GrpHyperlink = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpHyperlink);
+			Hyperlink = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Hyperlink);
+			HyperlinkFile = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.HyperlinkFile);
+			HyperlinkFolder = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.HyperlinkFolder);
+			RemoveHyperlink = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.RemoveHyperlink);
 
 		}
 	

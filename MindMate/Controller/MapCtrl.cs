@@ -18,6 +18,7 @@ using System.Diagnostics;
 using MindMate.View.MapControls;
 using MindMate.View;
 using MindMate.Model;
+using MindMate.Modules.Undo;
 using MindMate.Plugins.Tasks.Model;
 using MindMate.View.Dialogs;
 
@@ -64,28 +65,79 @@ namespace MindMate.Controller
             new ContextMenuAttacher(mainCtrl.NodeContextMenu, MapView);
         }        
 
-        public void EditHyperlink(bool useFileDialog)
+        public void AddHyperlinkUsingTextbox()
         {
-            if (MapView.SelectedNodes.Count == 1)
+            if (tree.SelectedNodes.Count > 0)
             {
                 MapNode node = MapView.SelectedNodes.First;
-                if (useFileDialog)
+
+                MindMate.View.Dialogs.LinkManualEdit frm = new MindMate.View.Dialogs.LinkManualEdit();
+                frm.LinkText = node.Link;
+                if (frm.ShowDialog() == DialogResult.OK)
                 {
-                    OpenFileDialog file = new OpenFileDialog();
-                    file.FileName = node.Link;
-                    if (file.ShowDialog() == DialogResult.OK)
-                    {
-                        node.Link = file.FileName;
-                    }
+                    AddHyperlink(frm.LinkText == "" ? null : frm.LinkText);
                 }
-                else
+            }
+        }
+
+        public void AddHyperlinkUsingFileDialog()
+        {
+            if (tree.SelectedNodes.Count > 0)
+            {
+                MapNode node = MapView.SelectedNodes.First;
+
+                OpenFileDialog dialog = new OpenFileDialog();
+                dialog.InitialDirectory = Path.GetDirectoryName(node.Link);
+                dialog.FileName = node.Link;
+                if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    MindMate.View.Dialogs.LinkManualEdit frm = new MindMate.View.Dialogs.LinkManualEdit();
-                    frm.LinkText = node.Link;
-                    if (frm.ShowDialog() == DialogResult.OK)
-                    {
-                        node.Link = frm.LinkText == ""? null : frm.LinkText;                        
-                    }
+                    AddHyperlink(dialog.FileName);
+                }
+            }
+        }
+
+        public void AddHyperlinkUsingFolderDialog()
+        {
+            if (tree.SelectedNodes.Count > 0)
+            {
+                MapNode node = MapView.SelectedNodes.First;
+
+                FolderBrowserDialog dialog = new FolderBrowserDialog();
+                dialog.SelectedPath = node.Link;
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    AddHyperlink(dialog.SelectedPath);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Add / Update given hyperlink to the selected nodes.
+        /// It is a ChangeManager Batch operation.
+        /// </summary>
+        /// <param name="link"></param>
+        public void AddHyperlink(string link)
+        {
+            using (tree.ChangeManager.StartBatch("Add hyperlink"))
+            {
+                foreach (var node in tree.SelectedNodes)
+                {
+                    node.Link = link;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Remove hyperlink from selected nodes.
+        /// It is a ChangeManager Batch operation.
+        /// </summary>
+        public void RemoveHyperlink()
+        {
+            using (tree.ChangeManager.StartBatch("Remove hyperlink"))
+            {
+                foreach (var node in tree.SelectedNodes)
+                {
+                    node.Link = null;
                 }
             }
         }

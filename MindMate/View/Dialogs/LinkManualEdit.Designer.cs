@@ -74,8 +74,8 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::MindMate.Properties.Resources.InputBoxQuestion;
-            this.pictureBox1.Location = new System.Drawing.Point(13, 15);
+            this.pictureBox1.Image = global::MindMate.Properties.Resources.link;
+            this.pictureBox1.Location = new System.Drawing.Point(15, 18);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(56, 52);
             this.pictureBox1.TabIndex = 4;

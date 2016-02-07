@@ -716,6 +716,7 @@
     <None Include="Resources\smartart_change_color_gallery-16.png" />
     <None Include="Resources\minus.png" />
     <None Include="Resources\cross-script.png" />
+    <None Include="Resources\link.png" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

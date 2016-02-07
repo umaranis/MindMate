@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MindMate.Modules.Undo
 {
-    class BatchChange : IChange
+    class BatchChange : IChange, IDisposable
     {
         private ChangeManager changeManager;
 
@@ -37,6 +37,11 @@ namespace MindMate.Modules.Undo
             {
                 changes[i].Undo();
             }            
+            changeManager.EndBatch();
+        }
+
+        public void Dispose()
+        {
             changeManager.EndBatch();
         }
     }

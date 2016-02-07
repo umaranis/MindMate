@@ -100,5 +100,11 @@ namespace MindMate.View.Ribbon
 		GrpUndo = 3501,		
 		Undo = 3502,		
 		Redo = 3503,		
+		TabInsert = 4000,		
+		GrpHyperlink = 4100,		
+		Hyperlink = 4101,		
+		HyperlinkFile = 4102,		
+		HyperlinkFolder = 4103,		
+		RemoveHyperlink = 4104,		
 	}
 }

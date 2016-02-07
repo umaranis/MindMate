@@ -103,7 +103,7 @@ namespace MindMate.Controller
                     mapCtrl.MoveNodeDown();
                     break;
                 case Keys.K:
-                    mapCtrl.EditHyperlink(false);
+                    mapCtrl.AddHyperlinkUsingTextbox();
                     break;                
             }
 
@@ -142,7 +142,6 @@ namespace MindMate.Controller
                     mapCtrl.MultiLineNodeEdit();
                     break;
             }
-
         }
 
         private void HandleCtrlShiftPlusKey(object sender, KeyEventArgs args)
@@ -150,7 +149,7 @@ namespace MindMate.Controller
             switch(args.KeyCode)
             {
                 case Keys.K:
-                    mapCtrl.EditHyperlink(true);
+                    mapCtrl.AddHyperlinkUsingFileDialog();
                     break;
             }
         }
