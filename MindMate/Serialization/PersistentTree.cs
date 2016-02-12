@@ -25,9 +25,9 @@ namespace MindMate.Serialization
         public void Initialize()
         {
             Tree.RootNode = new MapNode(Tree, "New Map");
-            Tree.SelectedNodes.Add(Tree.RootNode);
             Tree.TurnOnChangeManager();
             RegisterForMapChangedNotification();
+            Tree.SelectedNodes.Add(Tree.RootNode);
         }
 
         /// <summary>
@@ -39,12 +39,12 @@ namespace MindMate.Serialization
             FileName = fileName;
             string xmlString = System.IO.File.ReadAllText(FileName);
             new MindMapSerializer().Deserialize(xmlString, Tree);
-            Tree.SelectedNodes.Add(Tree.RootNode);
             Tree.TurnOnChangeManager();
             RegisterForMapChangedNotification();
+            Tree.SelectedNodes.Add(Tree.RootNode);
         }
 
-        private PersistenceManager manager;
+        private readonly PersistenceManager manager;
 
         public MapTree Tree { get; private set; }
 
