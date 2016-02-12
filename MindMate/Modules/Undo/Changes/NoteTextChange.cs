@@ -6,12 +6,12 @@ using System.Text;
 
 namespace MindMate.Modules.Undo.Changes
 {
-    class RichContextTextChange : IChange
+    class NoteTextChange : IChange
     {
         MapNode node;
         string oldValue;
 
-        public RichContextTextChange(MapNode node, string oldValue)
+        public NoteTextChange(MapNode node, string oldValue)
         {
             this.node = node;
             this.oldValue = oldValue;

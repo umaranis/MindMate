@@ -41,7 +41,7 @@ namespace MindMate.Modules.Undo
                 case NodeProperties.LineColor:
                     return new LineColorChange(node, (Color)e.OldValue);
                 case NodeProperties.NoteText:
-                    return new RichContextTextChange(node, (string)e.OldValue);
+                    return new NoteTextChange(node, (string)e.OldValue);
                 case NodeProperties.Image:
                     return new ImageChange(node, (Image)e.OldValue);
                 case NodeProperties.ImageAlignment:
