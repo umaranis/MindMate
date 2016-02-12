@@ -58,11 +58,18 @@ namespace MindMate.Controller
         /// <param name="selectedNodes"></param>
         private void SetEditorContent(SelectedNodes selectedNodes)
         {
-            if (selectedNodes.Count == 1 && selectedNodes.First.RichContentType == NodeRichContentType.NOTE)
+            if (selectedNodes.Count == 1)
             {
                 mapNode = selectedNodes.First;
                 editor.Enabled = true;
-                editor.HTML = this.mapNode.RichContentText;
+                if (selectedNodes.First.RichContentType == NodeRichContentType.NOTE)
+                {
+                    editor.HTML = this.mapNode.RichContentText;
+                }
+                else
+                {
+                    editor.Clear();
+                }
                 editor.ClearUndoStack();
 
             }
