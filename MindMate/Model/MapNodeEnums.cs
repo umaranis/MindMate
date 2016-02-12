@@ -10,6 +10,9 @@ using System.Text;
 
 namespace MindMate.Model
 {
+    /// <summary>
+    /// FreeMind has following three types of RichContent
+    /// </summary>
     public enum NodeRichContentType { NONE, NODE, NOTE }
 
     public enum NodeShape { None, Fork, Bubble, Box, Bullet }
@@ -32,7 +35,6 @@ namespace MindMate.Model
         LineWidth,
         LinePattern,
         LineColor,
-        RichContentType,
         RichContentText,
         Image,
         ImageAlignment,

@@ -294,20 +294,9 @@ namespace MindMate.Model
             }
         }
 
-        private NodeRichContentType richContentType;
-        public NodeRichContentType RichContentType
+        public bool HasNote
         {
-            get
-            {
-                return richContentType;
-            }
-            set
-            {
-                object oldValue = richContentType;
-                richContentType = value;
-                modified = DateTime.Now;
-                Tree.FireEvent(this, NodeProperties.RichContentType, oldValue);
-            }
+            get { return richContentText != null; }
         }
 
         private string richContentText;
@@ -415,7 +404,6 @@ namespace MindMate.Model
             this.text = text;
             this.Created = DateTime.Now;
             this.modified = DateTime.Now;
-            this.richContentType = NodeRichContentType.NONE;
             this.Icons = new IconList(this);
 
             // setting NodePosition
@@ -445,7 +433,6 @@ namespace MindMate.Model
             this.text = text;
             this.Created = DateTime.Now;
             this.modified = DateTime.Now;
-            this.richContentType = NodeRichContentType.NONE;
             this.Icons = new IconList(this);
 
             // attaching to tree
@@ -629,7 +616,6 @@ namespace MindMate.Model
         {
             this.Created = DateTime.Now;
             this.modified = DateTime.Now;
-            this.richContentType = NodeRichContentType.NONE;
             this.Icons = new IconList(this);
 
             this.Tree = tree;
@@ -649,7 +635,6 @@ namespace MindMate.Model
             node.link = this.link;
 
             node.richContentText = this.richContentText;
-            node.richContentType = this.richContentType;
 
             node.image = this.image;
             node.imageAlignment = this.imageAlignment;
@@ -1392,7 +1377,7 @@ namespace MindMate.Model
                    string.IsNullOrEmpty(Label) &&
                    Icons.Count == 0 &&
                    AttributeCount == 0 &&
-                   RichContentType == NodeRichContentType.NONE &&
+                   RichContentText == null &&
                    Image == null &&
                    !HasChildren;
         }

@@ -135,11 +135,10 @@ namespace MindMate.Serialization
                 xml.WriteEndElement();
             }
 
-            if (mapNode.RichContentType != NodeRichContentType.NONE)
+            if (mapNode.HasNote)
             {
                 xml.WriteStartElement("richcontent");
-                xml.WriteAttributeString("TYPE",
-                    (mapNode.RichContentType == NodeRichContentType.NODE ? "NODE" : "NOTE"));
+                xml.WriteAttributeString("TYPE", "NOTE");
                 xml.WriteString(mapNode.RichContentText);
                 xml.WriteEndElement();
             }
@@ -389,15 +388,12 @@ namespace MindMate.Serialization
                     {
                         string rcType = tmpXNode.Attributes["TYPE"].Value;
 
-                        if(rcType != "NOTE") Trace.Write("Encountered RichContentType: " + rcType);
-
                         //if (rcType == "NODE")
                         //    node.RichContentType = NodeRichContentType.NODE;
                         //else
                         //    node.RichContentType = NodeRichContentType.NOTE;
                         
                         //all rich content types are loaded as NOTE. If there are more than one on same node (FreeMind allows this), all merged into single note.
-                        node.RichContentType = NodeRichContentType.NOTE;
 
                         if (node.RichContentText == null)
                         {

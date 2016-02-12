@@ -62,7 +62,7 @@ namespace MindMate.Controller
             {
                 mapNode = selectedNodes.First;
                 editor.Enabled = true;
-                if (selectedNodes.First.RichContentType == NodeRichContentType.NOTE)
+                if (selectedNodes.First.HasNote)
                 {
                     editor.HTML = this.mapNode.RichContentText;
                 }
@@ -97,15 +97,10 @@ namespace MindMate.Controller
                 ignoreModelChange = true;
                 if (!editor.Empty)
                 {
-                    if (mapNode.RichContentType != NodeRichContentType.NOTE)
-                    {
-                        mapNode.RichContentType = NodeRichContentType.NOTE;
-                    }
                     mapNode.RichContentText = editor.HTML;
                 }
                 else
                 {
-                    mapNode.RichContentType = NodeRichContentType.NONE;
                     mapNode.RichContentText = null;
                 }
                 editor.Dirty = false;

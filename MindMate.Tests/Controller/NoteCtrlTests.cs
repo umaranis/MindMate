@@ -49,37 +49,6 @@ namespace MindMate.Tests.Controller
         }
 
         [TestMethod()]
-        public void NoteCtrl_AssignNote_SetRichTextFirst()
-        {
-            MetaModel.MetaModel.Initialize();
-            var persistence = new PersistenceManager();
-            var noteEditor = new NoteEditor();
-
-            bool result = true;
-
-            var form = CreateForm();
-            form.Controls.Add(noteEditor);
-            form.Shown += (sender, args) =>
-            {
-                var tree = persistence.NewTree();
-
-                var sut = new NoteCtrl(noteEditor, persistence);
-
-                //order of below to lines is causing the test to fail
-                tree.Tree.RootNode.RichContentText = "ABC";
-                tree.Tree.RootNode.RichContentType = NodeRichContentType.NOTE;
-                
-
-                result = noteEditor.HTML != null && noteEditor.HTML.Contains("ABC");
-
-                form.Close();
-            };
-            form.ShowDialog();
-
-            Assert.IsTrue(result);
-        }
-
-        [TestMethod()]
         public void NoteCtrl_AssignNote_EditorUpdated()
         {
             MetaModel.MetaModel.Initialize();
@@ -96,7 +65,6 @@ namespace MindMate.Tests.Controller
 
                 var sut = new NoteCtrl(noteEditor, persistence);
 
-                tree.Tree.RootNode.RichContentType = NodeRichContentType.NOTE;
                 tree.Tree.RootNode.RichContentText = "ABC";
 
                 result = noteEditor.HTML != null && noteEditor.HTML.Contains("ABC");
@@ -127,7 +95,6 @@ namespace MindMate.Tests.Controller
 
                 var sut = new NoteCtrl(noteEditor, persistence);
 
-                c1.RichContentType = NodeRichContentType.NOTE;
                 c1.RichContentText = "ABC";
 
                 result = noteEditor.HTML == null;
@@ -159,7 +126,6 @@ namespace MindMate.Tests.Controller
 
                 var sut = new NoteCtrl(noteEditor, persistence);
 
-                c1.RichContentType = NodeRichContentType.NOTE;
                 c1.RichContentText = "ABC";
 
                 c1.Parent.Selected = true;
@@ -193,7 +159,6 @@ namespace MindMate.Tests.Controller
 
                 var sut = new NoteCtrl(noteEditor, persistence);
 
-                c1.RichContentType = NodeRichContentType.NOTE;
                 c1.RichContentText = "ABC";
 
                 tree.Tree.SelectedNodes.Add(c1.Parent);
@@ -227,7 +192,6 @@ namespace MindMate.Tests.Controller
 
                 var sut = new NoteCtrl(noteEditor, persistence);
 
-                c1.RichContentType = NodeRichContentType.NOTE;
                 c1.RichContentText = "ABC";
 
                 var pTree2 = persistence.NewTree();
@@ -261,7 +225,6 @@ namespace MindMate.Tests.Controller
 
                 var sut = new NoteCtrl(noteEditor, persistence);
 
-                c1.RichContentType = NodeRichContentType.NOTE;
                 c1.RichContentText = "ABC";
 
                 noteEditor.HTML = "EFG";
@@ -295,10 +258,45 @@ namespace MindMate.Tests.Controller
 
                 var sut = new NoteCtrl(noteEditor, persistence);
 
-                c1.RichContentType = NodeRichContentType.NOTE;
                 c1.RichContentText = "ABC";
 
                 noteEditor.HTML = "EFG";
+                noteEditor.Dirty = true; 
+                sut.UpdateNodeFromEditor();
+
+                result = c1.RichContentText != null && c1.RichContentText.Contains("EFG");
+
+                form.Close();
+            };
+
+            form.ShowDialog();
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod()]
+        public void UpdateNodeFromEditor_WithSettingDirty()
+        {
+            MetaModel.MetaModel.Initialize();
+            var persistence = new PersistenceManager();
+            var noteEditor = new NoteEditor();
+
+            bool result = true;
+
+            var form = CreateForm();
+            form.Controls.Add(noteEditor);
+            form.Shown += (sender, args) =>
+            {
+                var ptree1 = persistence.NewTree();
+                var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
+                c1.Selected = true;
+
+                var sut = new NoteCtrl(noteEditor, persistence);
+
+                c1.RichContentText = "ABC";
+
+                noteEditor.HTML = "EFG";
+                //noteEditor.Dirty = true;
                 sut.UpdateNodeFromEditor();
 
                 result = c1.RichContentText != null && c1.RichContentText.Contains("ABC");
@@ -309,8 +307,6 @@ namespace MindMate.Tests.Controller
             form.ShowDialog();
 
             Assert.IsTrue(result);
-
-
         }
 
         [TestMethod()]

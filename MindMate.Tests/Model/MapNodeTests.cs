@@ -18,6 +18,13 @@ namespace MindMate.Tests.Model
     public class MapNodeTests
     {
         [TestMethod()]
+        public void MapNode_HasNote_False()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            Assert.IsFalse(r.HasNote);
+        }
+
+        [TestMethod()]
         public void MapNode_AddChildOnRight()
         {
             var r = new MapNode(new MapTree(), "r");

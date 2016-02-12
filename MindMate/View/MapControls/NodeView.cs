@@ -323,12 +323,12 @@ namespace MindMate.View.MapControls
 
         public void RefreshNoteIcon()
         {
-            if(node.RichContentType == NodeRichContentType.NOTE && this.noteIcon == null)
+            if(node.HasNote && this.noteIcon == null)
             {
                 this.noteIcon = new NoteIcon();
                 this.RefreshNodeViewSize();
             }
-            else if(node.RichContentType != NodeRichContentType.NOTE && this.noteIcon != null)
+            else if(node.HasNote && this.noteIcon != null)
             {
                 this.noteIcon = null;
                 this.RefreshNodeViewSize();
@@ -344,7 +344,7 @@ namespace MindMate.View.MapControls
                 width += (link.Size.Width + INTER_CONTROL_PADDING);
             }
 
-            if (node.RichContentType == NodeRichContentType.NOTE)
+            if (node.HasNote)
             {
                 this.noteIcon = new NoteIcon();
                 width += (noteIcon.Size.Width + INTER_CONTROL_PADDING);

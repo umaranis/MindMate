@@ -121,7 +121,6 @@ namespace MindMate.View.MapControls
                 case NodeProperties.Label:
                     throw new NotImplementedException();
                 case NodeProperties.RichContentText:
-                case NodeProperties.RichContentType:
                     node.NodeView.RefreshNoteIcon();
                     if (node == Tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
                     RefreshNodePositions(node.Parent ?? node, NodePosition.Undefined);
