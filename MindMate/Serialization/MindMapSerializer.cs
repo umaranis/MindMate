@@ -6,6 +6,7 @@
 using MindMate.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -388,12 +389,24 @@ namespace MindMate.Serialization
                     {
                         string rcType = tmpXNode.Attributes["TYPE"].Value;
 
-                        if (rcType == "NODE")
-                            node.RichContentType = NodeRichContentType.NODE;
-                        else
-                            node.RichContentType = NodeRichContentType.NOTE;
+                        if(rcType != "NOTE") Trace.Write("Encountered RichContentType: " + rcType);
 
-                        node.RichContentText = tmpXNode.InnerText;
+                        //if (rcType == "NODE")
+                        //    node.RichContentType = NodeRichContentType.NODE;
+                        //else
+                        //    node.RichContentType = NodeRichContentType.NOTE;
+                        
+                        //all rich content types are loaded as NOTE. If there are more than one on same node (FreeMind allows this), all merged into single note.
+                        node.RichContentType = NodeRichContentType.NOTE;
+
+                        if (node.RichContentText == null)
+                        {
+                            node.RichContentText = tmpXNode.InnerText;
+                        }
+                        else
+                        {
+                            node.RichContentText = Environment.NewLine + Environment.NewLine + "---" + Environment.NewLine + tmpXNode.InnerText;
+                        }
                     }
                 }
                 else if (tmpXNode.Name == "image")
