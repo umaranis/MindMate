@@ -106,5 +106,7 @@ namespace MindMate.View.Ribbon
 		HyperlinkFile = 4102,		
 		HyperlinkFolder = 4103,		
 		RemoveHyperlink = 4104,		
+		GrpNote = 4200,		
+		InsertNote = 4201,		
 	}
 }

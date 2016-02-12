@@ -233,16 +233,6 @@ namespace MindMate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap knotes {
-            get {
-                object obj = ResourceManager.GetObject("knotes", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap link {
             get {
                 object obj = ResourceManager.GetObject("link", resourceCulture);
@@ -426,6 +416,16 @@ namespace MindMate.Properties {
         public static System.Drawing.Bitmap smartart_change_color_gallery_32 {
             get {
                 object obj = ResourceManager.GetObject("smartart_change_color_gallery_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap sticky_note_pin {
+            get {
+                object obj = ResourceManager.GetObject("sticky_note_pin", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

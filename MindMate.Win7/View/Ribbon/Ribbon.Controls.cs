@@ -105,6 +105,8 @@ namespace MindMate.View.Ribbon
 		private RibbonButton HyperlinkFile;		
 		private RibbonButton HyperlinkFolder;		
 		private RibbonButton RemoveHyperlink;		
+		private RibbonGroup GrpNote;		
+		private RibbonButton InsertNote;		
 
 		private void InitializeComponents()
 		{
@@ -199,6 +201,8 @@ namespace MindMate.View.Ribbon
 			HyperlinkFile = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.HyperlinkFile);
 			HyperlinkFolder = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.HyperlinkFolder);
 			RemoveHyperlink = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.RemoveHyperlink);
+			GrpNote = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNote);
+			InsertNote = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.InsertNote);
 
 		}
 	

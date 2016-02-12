@@ -60,7 +60,7 @@ namespace MindMate.Win7
 
         private void SideBarTabs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (SideBarTabs.SelectedTab.Text == "Note Editor")
+            if (SideBarTabs.SelectedTab == SideBarTabs.NoteTab)
                 SideBarTabs.SelectedTab.Controls[0].Focus();
             else
                 FocusMapView();
@@ -72,7 +72,7 @@ namespace MindMate.Win7
         public View.Ribbon.Ribbon RibbonCtrl { get; set; }
 
         public EditorTabs EditorTabs { get; private set; }
-        public TabControl SideBarTabs { get; private set; }
+        public SideTabControl SideBarTabs { get; private set; }
         public NoteEditor NoteEditor { get; private set; }
 
         public View.StatusBar StatusBar { get { return this.statusStrip1; } }
@@ -84,20 +84,9 @@ namespace MindMate.Win7
 
         private void SetupSideBar()
         {
-            SideBarTabs = new TabControl();
-            SideBarTabs.Dock = DockStyle.Fill;
-            //SideBarTabs.Alignment = TabAlignment.Bottom;
-
-            ImageList imageList = new ImageList();
-            imageList.Images.Add(MindMate.Properties.Resources.knotes);
-            SideBarTabs.ImageList = imageList;
-
-            TabPage tPage = new TabPage("Note Editor") {ImageIndex = 0};
-            NoteEditor = new NoteEditor {Dock = DockStyle.Fill};
-            tPage.Controls.Add(NoteEditor);
-
-
-            SideBarTabs.TabPages.Add(tPage);
+            SideBarTabs = new SideTabControl();
+            NoteEditor = SideBarTabs.NoteEditor;
+            
             this.splitContainer1.Panel2.Controls.Add(SideBarTabs);
         }
 

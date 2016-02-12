@@ -117,7 +117,6 @@ namespace MindMate.View.NoteEditing
 
         /// <summary>
         /// Get / Set / Clear editor contents.
-        /// Should not be called more than once from a single event. This will increment ignoreDirtyNotification multiple times but only one dirty event will be called.
         /// </summary>
         public string HTML
         {

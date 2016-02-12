@@ -135,6 +135,9 @@ namespace MindMate.View.Ribbon
             HyperlinkFolder.ExecuteEvent += HyperlinkFolder_ExecuteEvent;
             RemoveHyperlink.ExecuteEvent += RemoveHyperlink_ExecuteEvent;
 
+            //Insert Tab: Note
+            InsertNote.ExecuteEvent += InsertNote_ExecuteEvent;
+
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
@@ -708,6 +711,11 @@ namespace MindMate.View.Ribbon
         private void RemoveHyperlink_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.CurrentMapCtrl.RemoveHyperlink();
+        }
+
+        private void InsertNote_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.StartNoteEditing();
         }
 
         #endregion

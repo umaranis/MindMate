@@ -152,10 +152,11 @@
     <None Include="View\Ribbon\Res\sort-by-task.png" />
     <None Include="View\Ribbon\Res\Redo-32.png" />
     <None Include="View\Ribbon\Res\Undo-32.png" />
-    <None Include="View\Ribbon\Res\Add Link-32.png" />
     <None Include="View\Ribbon\Res\Delete Link-32.png" />
     <None Include="View\Ribbon\Res\File-32.png" />
     <None Include="View\Ribbon\Res\Folder2-32.png" />
+    <None Include="View\Ribbon\Res\Add Link2-32.png" />
+    <None Include="View\Ribbon\Res\sticky-note.png" />
     <Content Include="View\Ribbon\Ribbon.Controls.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Ribbon.Controls.cs</LastGenOutput>

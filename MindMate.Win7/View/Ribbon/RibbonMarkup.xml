@@ -261,7 +261,7 @@ Note:
     <!--Group: Hyperlink-->
     <Command Name="GrpHyperlink" Id="4100" LabelTitle="Hyperlink" />
     <Command Name="Hyperlink" Id="4101" LabelTitle="Hyperlink" TooltipTitle="Add or Edit hyperlink using Text Field (Ctrl + K)" TooltipDescription="Hyperlink to website or local file">
-      <Command.LargeImages><Image>Res/Add Link-32.png</Image></Command.LargeImages>
+      <Command.LargeImages><Image>Res/Add Link2-32.png</Image></Command.LargeImages>
     </Command>
     <Command Name="HyperlinkFile" Id="4102" LabelTitle="File" TooltipTitle="Add or Edit hyperlink using File Dialog (Ctrl + Shift + K)" TooltipDescription="Hyperlink to website or local file">
       <Command.LargeImages><Image>Res/File-32.png</Image></Command.LargeImages>
@@ -273,6 +273,11 @@ Note:
       <Command.LargeImages><Image>Res/Delete Link-32.png</Image></Command.LargeImages>
     </Command>
     
+    <!--Group: Note-->
+    <Command Name="GrpNote" Id="4200" LabelTitle="Note" />
+    <Command Name="InsertNote" Id="4201" LabelTitle="Insert Note">
+      <Command.LargeImages><Image>Res/sticky-note.png</Image></Command.LargeImages>
+    </Command>
 
   </Application.Commands>
                    
@@ -558,6 +563,9 @@ Note:
             <Button CommandName="HyperlinkFile" />
             <Button CommandName="HyperlinkFolder" />
             <Button CommandName="RemoveHyperlink" />
+          </Group>
+          <Group CommandName="GrpNote" SizeDefinition="OneButton">
+            <Button CommandName="InsertNote" />
           </Group>
         </Tab>
       </Ribbon.Tabs>

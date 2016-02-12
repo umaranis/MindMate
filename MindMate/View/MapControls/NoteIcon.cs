@@ -15,7 +15,7 @@ namespace MindMate.View.MapControls
     {
         public NoteIcon()
         {
-            bitmap = MindMate.Properties.Resources.knotes;
+            bitmap = MindMate.Properties.Resources.sticky_note_pin;
             
         }
 

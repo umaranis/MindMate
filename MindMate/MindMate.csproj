@@ -296,6 +296,9 @@
     <Compile Include="View\MapControls\Link.cs" />
     <Compile Include="View\MapControls\IconView.cs" />
     <Compile Include="Serialization\IconHandler.cs" />
+    <Compile Include="View\SideTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\StatusBar.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -717,6 +720,7 @@
     <None Include="Resources\minus.png" />
     <None Include="Resources\cross-script.png" />
     <None Include="Resources\link.png" />
+    <None Include="Resources\sticky-note-pin.png" />
     <Content Include="Settings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
