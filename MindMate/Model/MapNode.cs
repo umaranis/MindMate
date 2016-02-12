@@ -296,22 +296,22 @@ namespace MindMate.Model
 
         public bool HasNote
         {
-            get { return richContentText != null; }
+            get { return noteText != null; }
         }
 
-        private string richContentText;
-        public string RichContentText
+        private string noteText;
+        public string NoteText
         {
             get
             {
-                return richContentText;
+                return noteText;
             }
             set
             {
-                object oldValue = richContentText;
-                richContentText = value;
+                object oldValue = noteText;
+                noteText = value;
                 modified = DateTime.Now;
-                Tree.FireEvent(this, NodeProperties.RichContentText, oldValue);
+                Tree.FireEvent(this, NodeProperties.NoteText, oldValue);
             }
         }
 
@@ -634,7 +634,7 @@ namespace MindMate.Model
                        
             node.link = this.link;
 
-            node.richContentText = this.richContentText;
+            node.noteText = this.noteText;
 
             node.image = this.image;
             node.imageAlignment = this.imageAlignment;
@@ -1377,7 +1377,7 @@ namespace MindMate.Model
                    string.IsNullOrEmpty(Label) &&
                    Icons.Count == 0 &&
                    AttributeCount == 0 &&
-                   RichContentText == null &&
+                   NoteText == null &&
                    Image == null &&
                    !HasChildren;
         }

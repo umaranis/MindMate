@@ -35,7 +35,7 @@ namespace MindMate.Model
         LineWidth,
         LinePattern,
         LineColor,
-        RichContentText,
+        NoteText,
         Image,
         ImageAlignment,
         Label

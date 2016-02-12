@@ -65,7 +65,7 @@ namespace MindMate.Tests.Controller
 
                 var sut = new NoteCtrl(noteEditor, persistence);
 
-                tree.Tree.RootNode.RichContentText = "ABC";
+                tree.Tree.RootNode.NoteText = "ABC";
 
                 result = noteEditor.HTML != null && noteEditor.HTML.Contains("ABC");
 
@@ -95,7 +95,7 @@ namespace MindMate.Tests.Controller
 
                 var sut = new NoteCtrl(noteEditor, persistence);
 
-                c1.RichContentText = "ABC";
+                c1.NoteText = "ABC";
 
                 result = noteEditor.HTML == null;
 
@@ -126,7 +126,7 @@ namespace MindMate.Tests.Controller
 
                 var sut = new NoteCtrl(noteEditor, persistence);
 
-                c1.RichContentText = "ABC";
+                c1.NoteText = "ABC";
 
                 c1.Parent.Selected = true;
 
@@ -159,7 +159,7 @@ namespace MindMate.Tests.Controller
 
                 var sut = new NoteCtrl(noteEditor, persistence);
 
-                c1.RichContentText = "ABC";
+                c1.NoteText = "ABC";
 
                 tree.Tree.SelectedNodes.Add(c1.Parent);
 
@@ -192,7 +192,7 @@ namespace MindMate.Tests.Controller
 
                 var sut = new NoteCtrl(noteEditor, persistence);
 
-                c1.RichContentText = "ABC";
+                c1.NoteText = "ABC";
 
                 var pTree2 = persistence.NewTree();
 
@@ -225,11 +225,11 @@ namespace MindMate.Tests.Controller
 
                 var sut = new NoteCtrl(noteEditor, persistence);
 
-                c1.RichContentText = "ABC";
+                c1.NoteText = "ABC";
 
                 noteEditor.HTML = "EFG";
                 
-                result = c1.RichContentText != null && c1.RichContentText.Contains("ABC");
+                result = c1.NoteText != null && c1.NoteText.Contains("ABC");
 
                 form.Close();
             };
@@ -258,13 +258,13 @@ namespace MindMate.Tests.Controller
 
                 var sut = new NoteCtrl(noteEditor, persistence);
 
-                c1.RichContentText = "ABC";
+                c1.NoteText = "ABC";
 
                 noteEditor.HTML = "EFG";
                 noteEditor.Dirty = true; 
                 sut.UpdateNodeFromEditor();
 
-                result = c1.RichContentText != null && c1.RichContentText.Contains("EFG");
+                result = c1.NoteText != null && c1.NoteText.Contains("EFG");
 
                 form.Close();
             };
@@ -293,13 +293,13 @@ namespace MindMate.Tests.Controller
 
                 var sut = new NoteCtrl(noteEditor, persistence);
 
-                c1.RichContentText = "ABC";
+                c1.NoteText = "ABC";
 
                 noteEditor.HTML = "EFG";
                 //noteEditor.Dirty = true;
                 sut.UpdateNodeFromEditor();
 
-                result = c1.RichContentText != null && c1.RichContentText.Contains("ABC");
+                result = c1.NoteText != null && c1.NoteText.Contains("ABC");
 
                 form.Close();
             };

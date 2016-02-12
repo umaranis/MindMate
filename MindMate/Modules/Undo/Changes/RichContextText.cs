@@ -27,7 +27,7 @@ namespace MindMate.Modules.Undo.Changes
 
         public void Undo()
         {
-            node.RichContentText = oldValue;
+            node.NoteText = oldValue;
         }
     }
 }

@@ -40,7 +40,7 @@ namespace MindMate.Modules.Undo
                     return new LinePatternChange(node, (System.Drawing.Drawing2D.DashStyle)e.OldValue);
                 case NodeProperties.LineColor:
                     return new LineColorChange(node, (Color)e.OldValue);
-                case NodeProperties.RichContentText:
+                case NodeProperties.NoteText:
                     return new RichContextTextChange(node, (string)e.OldValue);
                 case NodeProperties.Image:
                     return new ImageChange(node, (Image)e.OldValue);

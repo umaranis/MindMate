@@ -26,7 +26,7 @@ namespace MindMate.Controller
         private MapNode mapNode;
 
         /// <summary>
-        /// Ignore <see cref="MapTree.NodePropertyChanged"/> event when <see cref="MapNode.RichContentText"/> property is changed by <see cref="NoteCtrl"/> itself.
+        /// Ignore <see cref="MapTree.NodePropertyChanged"/> event when <see cref="MapNode.NoteText"/> property is changed by <see cref="NoteCtrl"/> itself.
         /// </summary>
         private bool ignoreModelChange;
         
@@ -64,7 +64,7 @@ namespace MindMate.Controller
                 editor.Enabled = true;
                 if (selectedNodes.First.HasNote)
                 {
-                    editor.HTML = this.mapNode.RichContentText;
+                    editor.HTML = this.mapNode.NoteText;
                 }
                 else
                 {
@@ -97,11 +97,11 @@ namespace MindMate.Controller
                 ignoreModelChange = true;
                 if (!editor.Empty)
                 {
-                    mapNode.RichContentText = editor.HTML;
+                    mapNode.NoteText = editor.HTML;
                 }
                 else
                 {
-                    mapNode.RichContentText = null;
+                    mapNode.NoteText = null;
                 }
                 editor.Dirty = false;
                 ignoreModelChange = false;
@@ -189,7 +189,7 @@ namespace MindMate.Controller
         {
             if (ignoreModelChange) return;
 
-            if (node.Selected && e.ChangedProperty == NodeProperties.RichContentText)
+            if (node.Selected && e.ChangedProperty == NodeProperties.NoteText)
             {
                 SetEditorContent(node.Tree.SelectedNodes);
             }
