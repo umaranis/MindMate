@@ -67,5 +67,23 @@ namespace MindMate.Tests
                 Assert.AreEqual(originalText, generatedText, "Serialized xml doesn't match this original.");
             }
         }
+
+        [TestMethod]
+        public void DeserializeSerialize_RichNotesMap()
+        {
+            MindMapSerializer s = new MindMapSerializer();
+            string originalText = File.ReadAllText(@"Resources\RichNotesMap.mm");
+            MapTree tree = new MapTree();
+            s.Deserialize(originalText, tree);
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                s.Serialize(stream, tree);
+                stream.Position = 0;
+                string generatedText = new StreamReader(stream).ReadToEnd();
+
+                Assert.AreEqual(originalText, generatedText, "Serialized xml doesn't match this original.");
+            }
+        }
     }
 }
