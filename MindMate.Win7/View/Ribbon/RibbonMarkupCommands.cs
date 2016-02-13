@@ -16,6 +16,7 @@ namespace MindMate.View.Ribbon
 {
     public enum RibbonMarkupCommands : uint
     {
+		HelpButton = 901,		
 		ApplicationMenu = 1000,		
 		ButtonNew = 1001,		
 		ButtonOpen = 1002,		

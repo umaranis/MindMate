@@ -31,6 +31,8 @@ namespace MindMate.View.Ribbon
 
             InitializeComponents();
 
+            HelpButton.ExecuteEvent += HelpButton_ExecuteEvent;
+
             //Application Menu
             ApplicationMenu.TooltipTitle = "Menu";
             ApplicationMenu.TooltipDescription = "Application main menu";
@@ -146,6 +148,11 @@ namespace MindMate.View.Ribbon
             tabs.ControlRemoved += Tabs_ControlRemoved;
             tabs.SelectedIndexChanged += Tabs_SelectedIndexChanged;
 
+        }
+
+        private void HelpButton_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.ShowAboutBox();
         }
 
         public void SetupPluginCommands(MainMenuItem[] pluginItems)

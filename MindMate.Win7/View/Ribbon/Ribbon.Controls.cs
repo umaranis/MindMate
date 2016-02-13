@@ -15,6 +15,7 @@ namespace MindMate.View.Ribbon
 {
 	public partial class Ribbon
     {
+		private RibbonHelpButton HelpButton;		
 		private RibbonApplicationMenu ApplicationMenu;		
 		private RibbonRecentItems RecentItems;		
 		private RibbonButton ButtonNew;		
@@ -120,6 +121,7 @@ namespace MindMate.View.Ribbon
 		private void InitializeComponents()
 		{
 			// Instantiate Controls
+			HelpButton = new RibbonHelpButton(ribbon, (uint)RibbonMarkupCommands.HelpButton);
 			ApplicationMenu = new RibbonApplicationMenu(ribbon, (uint)RibbonMarkupCommands.ApplicationMenu);
 			RecentItems = new RibbonRecentItems(ribbon, (uint)RibbonMarkupCommands.RecentItems);
 			ButtonNew = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ButtonNew);

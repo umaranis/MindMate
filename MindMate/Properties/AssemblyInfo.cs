@@ -11,11 +11,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Mind Mate")]
-[assembly: AssemblyDescription("Mind Mate is an open source mind mapping software developed by Syed Umar Anis. Design of the software is inspired from FreeMind.\r\n\r\nPlease feel free to contact me at mail@umaranis.com")]
+[assembly: AssemblyDescription("Mind Mate is an open source mind mapping software developed by Syed Umar Anis. It is useful for taking notes, managing tasks, brainstorming and organizing concepts.\r\n\r\nFor any feedback or suggestion, feel free to contact at mail@umaranis.com")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("mail@umaranis.com")]
+[assembly: AssemblyCompany("www.umaranis.com")]
 [assembly: AssemblyProduct("Mind Mate")]
-[assembly: AssemblyCopyright("Copyright © 2014 Syed Umar Anis")]
+[assembly: AssemblyCopyright("Copyright © 2014-15 Syed Umar Anis")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

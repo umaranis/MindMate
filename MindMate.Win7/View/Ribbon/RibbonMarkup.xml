@@ -2,6 +2,8 @@
 <Application xmlns='http://schemas.microsoft.com/windows/2009/Ribbon'>
   
   <Application.Commands>
+    
+    <Command Name="HelpButton" Id="901" />
 
     <!--Application Menu-->
     <Command Name="ApplicationMenu" Id="1000" />
@@ -310,6 +312,10 @@ Note:
                    
   <Application.Views>
     <Ribbon>
+
+      <Ribbon.HelpButton>
+        <HelpButton CommandName="HelpButton" />
+      </Ribbon.HelpButton>
 
       <Ribbon.ApplicationMenu>
         <ApplicationMenu CommandName="ApplicationMenu">
