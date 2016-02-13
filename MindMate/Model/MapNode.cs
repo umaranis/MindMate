@@ -372,22 +372,7 @@ namespace MindMate.Model
         #region Supporting Properties (without attributes)
 
         public bool HasChildren { get { return FirstChild != null; } }
-
-        public bool Selected {
-            get { return Tree.SelectedNodes.Contains(this); }
-            set
-            {
-                if(value)
-                {
-                    Tree.SelectedNodes.Add(this);
-                }
-                else
-                {
-                    Tree.SelectedNodes.Remove(this);
-                }
-            }
-        }
-
+        
         #endregion
 
         #region Constructors
@@ -1466,6 +1451,34 @@ namespace MindMate.Model
                 current = sortedUpto.Next;
             }
         }
+
+        #region Select
+
+        public bool Selected
+        {
+            get { return Tree.SelectedNodes.Contains(this); }
+            set
+            {
+                if (value)
+                {
+                    Tree.SelectedNodes.Add(this);
+                }
+                else
+                {
+                    Tree.SelectedNodes.Remove(this);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds this node to the list of currently selected nodes
+        /// </summary>
+        public void AddToSelection()
+        {
+            Tree.SelectedNodes.Add(this, true);
+        }
+
+        #endregion
 
         public override string ToString()
         {

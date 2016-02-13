@@ -229,6 +229,14 @@ namespace MindMate.Plugins
         }
 
         /// <summary>
+        /// Currently active MapTree
+        /// </summary>
+        public MapTree ActiveTree
+        {
+            get { return mainCtrl.CurrentMapCtrl.MapView.Tree; }
+        }
+
+        /// <summary>
         /// Selected Nodes of the currently active MapTree
         /// </summary>
         public SelectedNodes ActiveNodes

@@ -108,5 +108,14 @@ namespace MindMate.View.Ribbon
 		RemoveHyperlink = 4104,		
 		GrpNote = 4200,		
 		InsertNote = 4201,		
+		GrpTask = 4300,		
+		AddTask = 4301,		
+		AddTaskToday = 4302,		
+		AddTaskTomorrow = 4303,		
+		AddTaskNextWeek = 4304,		
+		AddTaskNextMonth = 4305,		
+		AddTaskNextQuarter = 4306,		
+		CompleteTask = 4307,		
+		RemoveTask = 4308,		
 	}
 }

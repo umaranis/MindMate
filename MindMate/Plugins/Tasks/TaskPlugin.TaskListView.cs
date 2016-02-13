@@ -101,7 +101,7 @@ namespace MindMate.Plugins.Tasks
                     MoveUp(tv);
                     break;
                 case TaskView.TaskViewEvent.Edit:
-                    SetDueDate(tv.MapNode);
+                    SetDueDateUsingPicker(tv.MapNode);
                     break;
                 case TaskView.TaskViewEvent.Today:
                     SetDueDateToday(tv.MapNode);
@@ -121,7 +121,7 @@ namespace MindMate.Plugins.Tasks
 
             }
 
-            pluginManager.FocusMapEditor();
+            PluginManager.FocusMapEditor();
         }
         
         /// <summary>

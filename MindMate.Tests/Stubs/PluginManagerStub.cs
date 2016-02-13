@@ -23,6 +23,8 @@ namespace MindMate.Tests.Stubs
             TaskSchedular?.UpdateTask(task, startTime);
         }
 
+        public MapTree ActiveTree { get; }
+
         public SelectedNodes ActiveNodes { get; }
     }
 }

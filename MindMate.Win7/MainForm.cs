@@ -90,10 +90,9 @@ namespace MindMate.Win7
             this.splitContainer1.Panel2.Controls.Add(SideBarTabs);
         }
 
-        //TODO: Implement this functionality for Ribbon
         public void InsertMenuItems(MainMenuItem[] menuItems)
         {
-            //throw new NotImplementedException();
+            RibbonCtrl.SetupPluginCommands(menuItems);
         }
 
         public void RefreshRecentFilesMenuItems()

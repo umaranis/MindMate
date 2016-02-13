@@ -10,6 +10,7 @@ using System.Text;
 using MindMate.View;
 using System.Windows.Forms;
 using MindMate.Controller;
+using MindMate.Plugins;
 
 namespace MindMate.WinXP
 {
@@ -483,7 +484,7 @@ namespace MindMate.WinXP
         private void RecentFiles_Click(object sender, EventArgs e)
         {
             ToolStripMenuItem menuItem = (ToolStripMenuItem)sender;
-            string filePath = menuItem.ToolTipText != null ? menuItem.ToolTipText : menuItem.Text;
+            string filePath = menuItem.ToolTipText ?? menuItem.Text;
 
             mainCtrl.OpenMap(filePath);
         }
@@ -496,47 +497,85 @@ namespace MindMate.WinXP
         {
             foreach (Plugins.MainMenuItem menu in menuItems)
             {
+                var winFormsMenu = ConstructMenuItem(menu);
                 switch(menu.MainMenuLocation)
                 {
                     case Plugins.MainMenuLocation.Separate:
-                        mainMenu.Items.Insert(mainMenu.Items.Count - 2, menu.UnderlyingMenuItem);
+                        mainMenu.Items.Insert(mainMenu.Items.Count - 2, winFormsMenu);
                         break;
                     case Plugins.MainMenuLocation.Tools:
-                        mainMenu.mTools.DropDownItems.Add(menu.UnderlyingMenuItem);
+                        mainMenu.mTools.DropDownItems.Add(winFormsMenu);
+                        if (menu.AddSeparator)
+                        {
+                            mainMenu.mTools.DropDownItems.Add(new ToolStripSeparator());
+                        }
                         break;
                     case Plugins.MainMenuLocation.Edit:
-                        mainMenu.mEditMenu.DropDownItems.Add(menu.UnderlyingMenuItem);
+                        mainMenu.mEditMenu.DropDownItems.Add(winFormsMenu);
+                        if (menu.AddSeparator)
+                        {
+                            mainMenu.mEditMenu.DropDownItems.Add(new ToolStripSeparator());
+                        }
                         break;
                     case Plugins.MainMenuLocation.File:
-                        mainMenu.mFileMenu.DropDownItems.Add(menu.UnderlyingMenuItem);
+                        mainMenu.mFileMenu.DropDownItems.Add(winFormsMenu);
+                        if (menu.AddSeparator)
+                        {
+                            mainMenu.mFileMenu.DropDownItems.Add(new ToolStripSeparator());
+                        }
                         break;
                     case Plugins.MainMenuLocation.Format:
-                        mainMenu.mFormat.DropDownItems.Add(menu.UnderlyingMenuItem);
+                        mainMenu.mFormat.DropDownItems.Add(winFormsMenu);
+                        if (menu.AddSeparator)
+                        {
+                            mainMenu.mFormat.DropDownItems.Add(new ToolStripSeparator());
+                        }
                         break;
                     case Plugins.MainMenuLocation.Help:
-                        mainMenu.mHelp.DropDownItems.Add(menu.UnderlyingMenuItem);
+                        mainMenu.mHelp.DropDownItems.Add(winFormsMenu);
+                        if (menu.AddSeparator)
+                        {
+                            mainMenu.mHelp.DropDownItems.Add(new ToolStripSeparator());
+                        }
                         break;
                 }
-                menu.UnderlyingMenuItem.Click += PluginMenuItem_Click;
-                SetClickHandlerForSubMenu(menu);
+                //winFormsMenu.Click += PluginMenuItem_Click;
+                //SetClickHandlerForSubMenu(menu);
             }
         }
 
-        private void SetClickHandlerForSubMenu(Plugins.MenuItem menu)
+        private ToolStripMenuItem ConstructMenuItem(MainMenuItem pluginItem)
         {
-            foreach (ToolStripDropDownItem subMenuItem in menu.UnderlyingMenuItem.DropDownItems)
+            var menuItem = new ToolStripMenuItem(pluginItem.Text);
+            menuItem.Click += pluginItem.Click;
+
+            foreach (var dropDownItem in pluginItem.DropDownItems)
             {
-                subMenuItem.Click += PluginMenuItem_Click;
-                SetClickHandlerForSubMenu((Plugins.MenuItem)(subMenuItem.Tag));
+                menuItem.DropDownItems.Add(ConstructMenuItem(dropDownItem));
+                if (dropDownItem.AddSeparator)
+                {
+                    menuItem.DropDownItems.Add(new ToolStripSeparator());
+                }
             }
+
+            return menuItem;
         }
 
-        void PluginMenuItem_Click(object sender, EventArgs e)
-        {
-            Plugins.MenuItem menuItem = ((Plugins.MenuItem)((ToolStripMenuItem)sender).Tag);
-            if (menuItem.Click != null)
-                menuItem.Click(menuItem, this.mapCtrl.MapView.Tree.SelectedNodes);
-        }
+        //private void SetClickHandlerForSubMenu(Plugins.MenuItem menu)
+        //{
+        //    foreach (ToolStripDropDownItem subMenuItem in menu.UnderlyingMenuItem.DropDownItems)
+        //    {
+        //        subMenuItem.Click += PluginMenuItem_Click;
+        //        SetClickHandlerForSubMenu((Plugins.MenuItem)(subMenuItem.Tag));
+        //    }
+        //}
+
+        //void PluginMenuItem_Click(object sender, EventArgs e)
+        //{
+        //    Plugins.MenuItem menuItem = ((Plugins.MenuItem)((ToolStripMenuItem)sender).Tag);
+        //    if (menuItem.Click != null)
+        //        menuItem.Click(menuItem, this.mapCtrl.MapView.Tree.SelectedNodes);
+        //}
 
         #endregion Plugin Menu Items
 

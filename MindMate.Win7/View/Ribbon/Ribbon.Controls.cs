@@ -107,6 +107,15 @@ namespace MindMate.View.Ribbon
 		private RibbonButton RemoveHyperlink;		
 		private RibbonGroup GrpNote;		
 		private RibbonButton InsertNote;		
+		private RibbonGroup GrpTask;		
+		private RibbonButton AddTask;		
+		private RibbonButton AddTaskToday;		
+		private RibbonButton AddTaskTomorrow;		
+		private RibbonButton AddTaskNextWeek;		
+		private RibbonButton AddTaskNextMonth;		
+		private RibbonButton AddTaskNextQuarter;		
+		private RibbonButton CompleteTask;		
+		private RibbonButton RemoveTask;		
 
 		private void InitializeComponents()
 		{
@@ -203,6 +212,15 @@ namespace MindMate.View.Ribbon
 			RemoveHyperlink = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.RemoveHyperlink);
 			GrpNote = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNote);
 			InsertNote = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.InsertNote);
+			GrpTask = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpTask);
+			AddTask = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.AddTask);
+			AddTaskToday = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.AddTaskToday);
+			AddTaskTomorrow = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.AddTaskTomorrow);
+			AddTaskNextWeek = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.AddTaskNextWeek);
+			AddTaskNextMonth = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.AddTaskNextMonth);
+			AddTaskNextQuarter = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.AddTaskNextQuarter);
+			CompleteTask = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.CompleteTask);
+			RemoveTask = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.RemoveTask);
 
 		}
 	

@@ -10,6 +10,7 @@ using RibbonLib.Interop;
 using System.Diagnostics;
 using System.Drawing;
 using MindMate.MetaModel;
+using MindMate.Plugins;
 using MindMate.View.EditorTabs;
 using MindMate.View.MapControls;
 using MindMate.View.MapControls.Drawing;
@@ -145,6 +146,35 @@ namespace MindMate.View.Ribbon
             tabs.ControlRemoved += Tabs_ControlRemoved;
             tabs.SelectedIndexChanged += Tabs_SelectedIndexChanged;
 
+        }
+
+        public void SetupPluginCommands(MainMenuItem[] pluginItems)
+        {
+            MainMenuItem mTask = pluginItems[0];
+
+            var handlerAddTask = mTask.DropDownItems[0].Click;
+            AddTask.ExecuteEvent += (sender, args) => handlerAddTask(sender, args);
+
+            var handlerAddTaskToday = mTask.DropDownItems[1].Click;
+            AddTaskToday.ExecuteEvent += (sender, args) => handlerAddTaskToday(sender, args);
+
+            var handlerAddTaskTomorrow = mTask.DropDownItems[2].Click;
+            AddTaskTomorrow.ExecuteEvent += (sender, args) => handlerAddTaskTomorrow(sender, args);
+
+            var handlerAddTaskNextWeek = mTask.DropDownItems[3].Click;
+            AddTaskNextWeek.ExecuteEvent += (sender, args) => handlerAddTaskNextWeek(sender, args);
+
+            var handlerAddTaskNextMonth = mTask.DropDownItems[4].Click;
+            AddTaskNextMonth.ExecuteEvent += (sender, args) => handlerAddTaskNextMonth(sender, args);
+
+            var handlerAddTaskNextQuarter = mTask.DropDownItems[5].Click;
+            AddTaskNextQuarter.ExecuteEvent += (sender, args) => handlerAddTaskNextQuarter(sender, args);
+
+            var handlerCompleteTask = mTask.DropDownItems[6].Click;
+            CompleteTask.ExecuteEvent += (sender, args) => handlerCompleteTask(sender, args);
+
+            var handlerRemoveTask = mTask.DropDownItems[7].Click;
+            RemoveTask.ExecuteEvent += (sender, args) => handlerRemoveTask(sender, args);
         }
 
         #region Application Menu

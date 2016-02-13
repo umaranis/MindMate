@@ -278,6 +278,33 @@ Note:
     <Command Name="InsertNote" Id="4201" LabelTitle="Insert Note">
       <Command.LargeImages><Image>Res/sticky-note.png</Image></Command.LargeImages>
     </Command>
+    
+    <!--Group: Task-->
+    <Command Name="GrpTask" Id="4300" LabelTitle="Task" />
+    <Command Name="AddTask" Id="4301" LabelTitle="Specify Date" TooltipDescription="Add task to selected node(s) using Date Picker ...">
+      <Command.LargeImages><Image>Res/Calender Add-32.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="AddTaskToday" Id="4302" LabelTitle="Due Today" TooltipDescription="Add task to selected node(s) due today">
+      <Command.LargeImages><Image>Res/Calender Today-32.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="AddTaskTomorrow" Id="4303" LabelTitle="Tomorrow" TooltipDescription="Add task to selected node(s) due tomorrow">
+      <Command.LargeImages><Image>Res/Calender Tomorrow-32.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="AddTaskNextWeek" Id="4304" LabelTitle="Next Week" TooltipDescription="Add task to selected node(s) due next week">
+      <Command.LargeImages><Image>Res/Calender Next Week-32.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="AddTaskNextMonth" Id="4305" LabelTitle="Next Month" TooltipDescription="Add task to selected node(s) due next month">
+      <Command.LargeImages><Image>Res/Calender Next Month-32.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="AddTaskNextQuarter" Id="4306" LabelTitle="Next Quarter" TooltipDescription="Add task to selected node(s) due next quarter">
+      <Command.LargeImages><Image>Res/Calender Next Quarter-32.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="CompleteTask" Id="4307" LabelTitle="Complete Task" TooltipDescription="Mark task as completed for selected node(s)">
+      <Command.LargeImages><Image>Res/Calender Complete-32.png</Image></Command.LargeImages>
+    </Command>
+    <Command Name="RemoveTask" Id="4308" LabelTitle="Remove Task" TooltipDescription="Remove tasks from selected node(s)">
+      <Command.LargeImages><Image>Res/Calender Remove-32.png</Image></Command.LargeImages>
+    </Command>
 
   </Application.Commands>
                    
@@ -566,6 +593,49 @@ Note:
           </Group>
           <Group CommandName="GrpNote" SizeDefinition="OneButton">
             <Button CommandName="InsertNote" />
+          </Group>
+          <Group CommandName="GrpTask">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name="button1" />
+                <ControlNameDefinition Name="button2" />
+                <ControlNameDefinition Name="button3" />
+                <ControlNameDefinition Name="button4" />
+                <ControlNameDefinition Name="button5" />
+                <ControlNameDefinition Name="button6" />
+                <ControlNameDefinition Name="button7" />
+                <ControlNameDefinition Name="button8" />
+              </ControlNameMap>
+              <GroupSizeDefinition Size="Large" >
+                <ControlGroup>
+                  <ControlSizeDefinition ControlName="button1" ImageSize="Large" IsLabelVisible="true" />
+                </ControlGroup>
+                <ColumnBreak ShowSeparator="true"/>
+                <ControlGroup>
+                  <ControlSizeDefinition ControlName="button2" ImageSize="Large" IsLabelVisible="true" />
+                  <ControlSizeDefinition ControlName="button3" ImageSize="Large" IsLabelVisible="true" />
+                  <ControlSizeDefinition ControlName="button4" ImageSize="Large" IsLabelVisible="true" />
+                  <ControlSizeDefinition ControlName="button5" ImageSize="Large" IsLabelVisible="true" />
+                  <ControlSizeDefinition ControlName="button6" ImageSize="Large" IsLabelVisible="true" />
+                </ControlGroup>
+                <ColumnBreak ShowSeparator="true"/>
+                <ControlGroup>
+                  <ControlSizeDefinition ControlName="button7" ImageSize="Large" IsLabelVisible="true" />
+                </ControlGroup>
+                <ColumnBreak ShowSeparator="true"/>
+                <ControlGroup>
+                  <ControlSizeDefinition ControlName="button8" ImageSize="Large" IsLabelVisible="true" />
+                </ControlGroup>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <Button CommandName="AddTask" />
+            <Button CommandName="AddTaskToday" />
+            <Button CommandName="AddTaskTomorrow" />
+            <Button CommandName="AddTaskNextWeek" />
+            <Button CommandName="AddTaskNextMonth" />
+            <Button CommandName="AddTaskNextQuarter" />
+            <Button CommandName="CompleteTask" />
+            <Button CommandName="RemoveTask" />
           </Group>
         </Tab>
       </Ribbon.Tabs>

@@ -1569,5 +1569,29 @@ namespace MindMate.Tests.Model
 
             Assert.AreEqual(8, count);
         }
+
+        [TestMethod()]
+        public void AddToSelection()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "C");
+            var c11 = new MapNode(c1, "6");
+            var c12 = new MapNode(c1, "2");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "4");
+            var c14 = new MapNode(c1, "7");
+            var c15 = new MapNode(c1, "1");
+            var c16 = new MapNode(c1, "5");
+            var c17 = new MapNode(c1, "3");
+            var c2 = new MapNode(r, "B");
+            var c3 = new MapNode(r, "C", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            r.AddToSelection();
+            c1.AddToSelection();
+
+            Assert.AreEqual(2, r.Tree.SelectedNodes.Count);
+        }
     }
 }

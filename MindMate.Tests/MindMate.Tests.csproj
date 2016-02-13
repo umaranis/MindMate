@@ -76,6 +76,7 @@
     <Compile Include="Model\SelectedNodesTests.cs" />
     <Compile Include="Model\MapNodeRootTest.cs" />
     <Compile Include="Modules\Undo\ChangeManagerTests.cs" />
+    <Compile Include="Plugins\Tasks\TaskPluginTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\MindMapSerializerTests.cs" />
     <Compile Include="Stubs\MainCtrlStub.cs" />

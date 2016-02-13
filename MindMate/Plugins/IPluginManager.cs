@@ -15,6 +15,11 @@ namespace MindMate.Plugins
         void RescheduleTask(TaskSchedular.ITask task, DateTime startTime);
 
         /// <summary>
+        /// Currently active MapTree
+        /// </summary>
+        MapTree ActiveTree { get; }
+
+        /// <summary>
         /// Selected Nodes of the currently active MapTree
         /// </summary>
         SelectedNodes ActiveNodes { get; }
