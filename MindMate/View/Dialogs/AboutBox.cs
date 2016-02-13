@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace MindMate.View.Dialogs
 {
-    partial class AboutBox : Form
+    public partial class AboutBox : Form
     {
         public AboutBox()
         {

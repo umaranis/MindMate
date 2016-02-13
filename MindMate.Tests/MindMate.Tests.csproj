@@ -81,6 +81,7 @@
     <Compile Include="Serialization\MindMapSerializerTests.cs" />
     <Compile Include="Stubs\MainCtrlStub.cs" />
     <Compile Include="Stubs\PluginManagerStub.cs" />
+    <Compile Include="View\Dialogs\AboutBoxTests.cs" />
     <Compile Include="View\Dialogs\IconSelectorExtTests.cs" />
     <Compile Include="View\MapControls\MapViewTests.cs" />
     <Compile Include="View\NoteEditing\NoteEditorTests.cs" />
