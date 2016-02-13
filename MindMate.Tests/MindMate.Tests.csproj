@@ -79,6 +79,7 @@
     <Compile Include="Plugins\Tasks\TaskPluginTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\MindMapSerializerTests.cs" />
+    <Compile Include="Serialization\PersistenceManagerTests.cs" />
     <Compile Include="Stubs\MainCtrlStub.cs" />
     <Compile Include="Stubs\PluginManagerStub.cs" />
     <Compile Include="View\Dialogs\AboutBoxTests.cs" />

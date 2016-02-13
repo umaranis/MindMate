@@ -58,6 +58,11 @@ namespace MindMate.Serialization
             }
         }
 
+        /// <summary>
+        /// Return the first occurance which matches the predicate
+        /// </summary>
+        /// <param name="match"></param>
+        /// <returns></returns>
         public PersistentTree Find(System.Predicate<PersistentTree> match)
         {
             return fileList.Find(match);
