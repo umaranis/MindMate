@@ -190,9 +190,6 @@ namespace MindMate.View.MapControls
             {
                 case TreeStructureChange.Detached:
                 case TreeStructureChange.Deleted:
-                    if (node.Parent != null && node.Parent.NodeView != null && node.Parent.LastSelectedChild == node)
-                        node.Parent.LastSelectedChild = null; // clear LastSelectedChild in case it is deleted or detached 
-                    //TODO:Move into MapNode
                     RefreshNodePositions(tree.RootNode, NodePosition.Undefined);
                     break;
                 case TreeStructureChange.Attached:
