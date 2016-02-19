@@ -118,5 +118,12 @@ namespace MindMate.View.Ribbon
 		AddTaskNextQuarter = 4306,		
 		CompleteTask = 4307,		
 		RemoveTask = 4308,		
+		TabFormat = 5000,		
+		GrpNodeFormat = 5100,		
+		NodeShape = 5101,		
+		ClearShapeFormat = 1502,		
+		LineColor = 5103,		
+		LinePattern = 5104,		
+		LineThickness = 5105,		
 	}
 }

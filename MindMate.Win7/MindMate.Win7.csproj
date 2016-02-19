@@ -165,6 +165,10 @@
     <None Include="View\Ribbon\Res\Calender Next Quarter-32.png" />
     <None Include="View\Ribbon\Res\Calender Remove-32.png" />
     <None Include="View\Ribbon\Res\Calender Complete-32.png" />
+    <None Include="View\Ribbon\Res\Node Format Box.png" />
+    <None Include="View\Ribbon\Res\Node Format Bubble.png" />
+    <None Include="View\Ribbon\Res\Node Format Bullet.png" />
+    <None Include="View\Ribbon\Res\Node Format Fork.png" />
     <Content Include="View\Ribbon\Ribbon.Controls.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Ribbon.Controls.cs</LastGenOutput>

@@ -4,24 +4,16 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Collections;
-using System.Drawing;
-using MindMate.Serialization;
-using MindMate.MetaModel;
-using MindMate.Properties;
-using System.IO;
 using System.Diagnostics;
-using MindMate.View.MapControls;
-using MindMate.View;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 using MindMate.Model;
-using MindMate.Modules.Undo;
 using MindMate.Plugins.Tasks.Model;
 using MindMate.View.Dialogs;
-
+using MindMate.View.MapControls;
 
 namespace MindMate.Controller
 {
@@ -34,7 +26,7 @@ namespace MindMate.Controller
     {
         private readonly IMainCtrl mainCtrl;
 
-        public MindMate.View.MapControls.MapView MapView;
+        public MapView MapView;
 
         public ContextMenuCtrl ContextMenuCtrl { get; private set; }
         
@@ -71,7 +63,7 @@ namespace MindMate.Controller
             {
                 MapNode node = MapView.SelectedNodes.First;
 
-                MindMate.View.Dialogs.LinkManualEdit frm = new MindMate.View.Dialogs.LinkManualEdit();
+                LinkManualEdit frm = new LinkManualEdit();
                 frm.LinkText = node.Link;
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
@@ -174,7 +166,7 @@ namespace MindMate.Controller
         public void MultiLineNodeEdit(MapNode node, TextCursorPosition org)
         {
 
-            MindMate.View.Dialogs.MultiLineNodeEdit frm = new MindMate.View.Dialogs.MultiLineNodeEdit();
+            MultiLineNodeEdit frm = new MultiLineNodeEdit();
             frm.txt.Text = node.Text;
              if (org == TextCursorPosition.End || org == TextCursorPosition.Undefined)
             {
@@ -264,7 +256,7 @@ namespace MindMate.Controller
             {
                 tree.ChangeManager.StartBatch("Add Child Node");
 
-                View.Dialogs.MultiLineNodeEdit frm = new View.Dialogs.MultiLineNodeEdit();
+                MultiLineNodeEdit frm = new MultiLineNodeEdit();
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
                     MapNode newNode = this.AppendChildNode(MapView.SelectedNodes.First);
@@ -745,64 +737,54 @@ namespace MindMate.Controller
             }   
         }               
         
-        public void MakeSelectedNodeShapeBubble()
+        public void ChangeNodeShapeBubble()
         {
-            int selectCnt = this.MapView.SelectedNodes.Count;
-
-            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Node Shape Bubble"); }
-
-            for (int i = 0; i < selectCnt; i++)
-            {
-                MapNode node = this.MapView.SelectedNodes[i];
-                node.Shape = NodeShape.Bubble;
-            }
-
-            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
+            ChangeNodeShape(NodeShape.Bubble);
         }
 
-        public void MakeSelectedNodeShapeBox()
+        public void ChangeNodeShapeBox()
         {
-            int selectCnt = this.MapView.SelectedNodes.Count;
-
-            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Node Shape Box"); }
-
-            for (int i = 0; i < selectCnt; i++)
-            {
-                MapNode node = this.MapView.SelectedNodes[i];
-                node.Shape = NodeShape.Box;
-            }
-
-            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
+            ChangeNodeShape(NodeShape.Box);
         }
 
-        public void MakeSelectedNodeShapeFork()
+        public void ChangeNodeShapeFork()
         {
-            int selectCnt = this.MapView.SelectedNodes.Count;
-
-            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Node Shape Fork"); }
-
-            for (int i = 0; i < selectCnt; i++)
-            {
-                MapNode node = this.MapView.SelectedNodes[i];
-                node.Shape = NodeShape.Fork;
-            }
-
-            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
+            ChangeNodeShape(NodeShape.Fork);
         }
 
-        public void MakeSelectedNodeShapeBullet()
+        public void ChangeNodeShapeBullet()
         {
-            int selectCnt = this.MapView.SelectedNodes.Count;
+            ChangeNodeShape(NodeShape.Bullet);
+        }
 
-            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Node Shape Bullet"); }
-
-            for (int i = 0; i < selectCnt; i++)
+        public void ChangeNodeShape(NodeShape shape)
+        {
+            using (tree.ChangeManager.StartBatch("Node Shape " + shape.ToString()))
             {
-                MapNode node = this.MapView.SelectedNodes[i];
-                node.Shape = NodeShape.Bullet;
+                for (int i = 0; i < MapView.SelectedNodes.Count; i++)
+                {
+                    MapNode node = this.MapView.SelectedNodes[i];
+                    node.Shape = shape;
+                }
             }
+        }
 
-            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
+        public void ChangeNodeShape(string shape)
+        {
+            NodeShape nodeShape = (NodeShape)Enum.Parse(typeof (NodeShape), shape);
+            ChangeNodeShape(nodeShape);
+        }
+
+        public void ClearNodeShape()
+        {
+            using (tree.ChangeManager.StartBatch("Clear Node Shape"))
+            {
+                for (int i = 0; i < MapView.SelectedNodes.Count; i++)
+                {
+                    MapNode node = this.MapView.SelectedNodes[i];
+                    node.Shape = NodeShape.None;
+                }
+            }
         }
 
         public void ToggleSelectedNodeItalic()
@@ -898,7 +880,7 @@ namespace MindMate.Controller
             if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
-        public void ChangeLinePattern(System.Drawing.Drawing2D.DashStyle pattern)
+        public void ChangeLinePattern(DashStyle pattern)
         {
             int selectCnt = this.MapView.SelectedNodes.Count;
 
@@ -921,7 +903,7 @@ namespace MindMate.Controller
         /// </summary>
         public void ChangeLineColor()
         {
-            System.Drawing.Color color = new Color();
+            Color color = new Color();
             
             //get current color
             if (this.MapView.SelectedNodes.Count == 1)
@@ -955,7 +937,7 @@ namespace MindMate.Controller
         /// </summary>
         public void ChangeTextColorByPicker()
         {
-            System.Drawing.Color color = new Color();
+            Color color = new Color();
 
             //get current color
             if (this.MapView.SelectedNodes.Count == 1)
@@ -995,7 +977,7 @@ namespace MindMate.Controller
         /// </summary>
         public void ChangeBackColorByPicker()
         {
-            System.Drawing.Color color = new Color();
+            Color color = new Color();
 
             //get current color
             if (this.MapView.SelectedNodes.Count == 1)
@@ -1034,7 +1016,7 @@ namespace MindMate.Controller
         {
             if (MapView.SelectedNodes.IsEmpty) return;
 
-            System.Drawing.Font font = this.MapView.SelectedNodes.First != null ?
+            Font font = this.MapView.SelectedNodes.First != null ?
                 this.MapView.SelectedNodes.First.NodeView.Font : null;
             font = mainCtrl.ShowFontDialog(font);
             if (font == null) return;

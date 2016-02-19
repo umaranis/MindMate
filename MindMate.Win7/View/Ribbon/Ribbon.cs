@@ -141,6 +141,11 @@ namespace MindMate.View.Ribbon
             //Insert Tab: Note
             InsertNote.ExecuteEvent += InsertNote_ExecuteEvent;
 
+            //Format Tab: Node Format
+            NodeShape.ItemsSourceReady += NodeShape_ItemsSourceReady;
+            NodeShape.ExecuteEvent += NodeShape_ExecuteEvent;
+            ClearShapeFormat.ExecuteEvent += ClearShapeFormat_ExecuteEvent;
+
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
@@ -148,6 +153,14 @@ namespace MindMate.View.Ribbon
             tabs.ControlRemoved += Tabs_ControlRemoved;
             tabs.SelectedIndexChanged += Tabs_SelectedIndexChanged;
 
+        }
+
+        /// <summary>
+        /// Setting certain properties (like image) doesn't work if Ribbon is not loaded. Use this method to set such properties.
+        /// </summary>
+        public void OnRibbonLoaded()
+        {
+            NodeShape.LargeImage = ribbon.ConvertToUIImage(Resources.Node_Format_Bubble);
         }
 
         private void HelpButton_ExecuteEvent(object sender, ExecuteEventArgs e)
@@ -757,8 +770,53 @@ namespace MindMate.View.Ribbon
 
         #endregion
 
+        #region Format Tab
+
+        private void NodeShape_ItemsSourceReady(object sender, EventArgs e)
+        {
+            var itemSource = NodeShape.ItemsSource;
+            itemSource.Clear();
+
+            itemSource.Add(new GalleryItemPropertySet()
+            {
+                Label = "Fork",
+                ItemImage = ribbon.ConvertToUIImage(Resources.Node_Format_Fork)
+            });
+            itemSource.Add(new GalleryItemPropertySet()
+            {
+                Label = "Bubble",
+                ItemImage = ribbon.ConvertToUIImage(Resources.Node_Format_Bubble)
+            });
+            itemSource.Add(new GalleryItemPropertySet()
+            {
+                Label = "Box",
+                ItemImage = ribbon.ConvertToUIImage(Resources.Node_Format_Box)
+            });
+            itemSource.Add(new GalleryItemPropertySet()
+            {
+                Label = "Bullet",
+                ItemImage = ribbon.ConvertToUIImage(Resources.Node_Format_Bullet)
+            });
+        }
+
+        private void NodeShape_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            var item = (GalleryItemPropertySet)e.CommandExecutionProperties;
+            if (item != null)
+            {
+                mainCtrl.CurrentMapCtrl.ChangeNodeShape(item.Label);
+            }
+        }
+
+        private void ClearShapeFormat_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.ClearNodeShape();
+        }
+
+        #endregion
+
         #region Events to Refresh Command State
-        
+
         private void PersistenceManager_CurrentTreeChanged(Serialization.PersistenceManager manager, Serialization.PersistentTree oldTree, Serialization.PersistentTree newTree)
         {
             if (oldTree != null)

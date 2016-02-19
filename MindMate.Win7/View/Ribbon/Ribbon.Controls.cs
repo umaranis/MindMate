@@ -117,6 +117,13 @@ namespace MindMate.View.Ribbon
 		private RibbonButton AddTaskNextQuarter;		
 		private RibbonButton CompleteTask;		
 		private RibbonButton RemoveTask;		
+		private RibbonTab TabFormat;		
+		private RibbonGroup GrpNodeFormat;		
+		private RibbonDropDownGallery NodeShape;		
+		private RibbonButton ClearShapeFormat;		
+		private RibbonButton LineColor;		
+		private RibbonButton LinePattern;		
+		private RibbonButton LineThickness;		
 
 		private void InitializeComponents()
 		{
@@ -223,6 +230,13 @@ namespace MindMate.View.Ribbon
 			AddTaskNextQuarter = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.AddTaskNextQuarter);
 			CompleteTask = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.CompleteTask);
 			RemoveTask = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.RemoveTask);
+			TabFormat = new RibbonTab(ribbon, (uint)RibbonMarkupCommands.TabFormat);
+			GrpNodeFormat = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNodeFormat);
+			NodeShape = new RibbonDropDownGallery(ribbon, (uint)RibbonMarkupCommands.NodeShape);
+			ClearShapeFormat = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ClearShapeFormat);
+			LineColor = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LineColor);
+			LinePattern = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LinePattern);
+			LineThickness = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LineThickness);
 
 		}
 	

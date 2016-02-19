@@ -152,14 +152,14 @@ namespace MindMate.Tests.IntegrationTest
             mapCtrl.AppendSiblingAboveAndEdit();
             mapCtrl.MapView.NodeTextEditor.EndNodeEdit(true, true);
             mapCtrl.UpdateNodeText(tree.SelectedNodes.First, "SelectTopSibling");
-            mapCtrl.MakeSelectedNodeShapeBubble();
+            mapCtrl.ChangeNodeShapeBubble();
             mapCtrl.SelectBottomSibling();
 
             //insert parent
             mapCtrl.InsertParentAndEdit();
             mapCtrl.EndNodeEdit();
             mapCtrl.UpdateNodeText(tree.SelectedNodes.First, "Parent Inserted");
-            mapCtrl.MakeSelectedNodeShapeBullet();
+            mapCtrl.ChangeNodeShapeBullet();
 
             //move nodes
             var n = mapCtrl.MapView.SelectedNodes.First;
@@ -174,14 +174,14 @@ namespace MindMate.Tests.IntegrationTest
             mapCtrl.SelectNodeBelow(true);
 
             //change node shape
-            mapCtrl.MakeSelectedNodeShapeBox();
+            mapCtrl.ChangeNodeShapeBox();
             mapCtrl.MapView.SelectedNodes.Add(tree.SelectedNodes.First(a => a.Text == "Deep Hierarchy"));
             mapCtrl.ToggleFolded();
             mapCtrl.SelectNodeLeftOrUnfold();
             mapCtrl.SelectNodeLeftOrUnfold();
             mapCtrl.SelectNodeBelow(true);
             mapCtrl.SelectNodeAbove(true);
-            mapCtrl.MakeSelectedNodeShapeFork();
+            mapCtrl.ChangeNodeShapeFork();
 
             ImageTest(mapCtrl.MapView, "MapCtrl6");
 

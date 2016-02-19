@@ -353,22 +353,22 @@ namespace MindMate.WinXP
 
         void mShapeBox_Click(object sender, EventArgs e)
         {
-            mapCtrl.MakeSelectedNodeShapeBox();            
+            mapCtrl.ChangeNodeShapeBox();            
         }
 
         void mStyleBubble_Click(object sender, EventArgs e)
         {
-            mapCtrl.MakeSelectedNodeShapeBubble();
+            mapCtrl.ChangeNodeShapeBubble();
         }
 
         void mStyleFork_Click(object sender, EventArgs e)
         {
-            mapCtrl.MakeSelectedNodeShapeFork();
+            mapCtrl.ChangeNodeShapeFork();
         }
 
         void mShapeBullet_Click(object sender, EventArgs e)
         {
-            mapCtrl.MakeSelectedNodeShapeBullet();
+            mapCtrl.ChangeNodeShapeBullet();
         }
 
         void mItalic_Click(object sender, EventArgs e)

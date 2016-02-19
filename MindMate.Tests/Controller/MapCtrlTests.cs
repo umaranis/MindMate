@@ -1343,6 +1343,224 @@ namespace MindMate.Tests.Controller
             Assert.IsNull(c31.Link);
         }
 
+        [TestMethod()]
+        public void ChangeNodeShapeFork()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            r.AddToSelection();
+
+            mapCtrl.ChangeNodeShapeFork();
+
+            Assert.AreEqual(NodeShape.Fork, r.Shape);
+        }
+
+        [TestMethod()]
+        public void ChangeNodeShapeBubble()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            r.AddToSelection();
+
+            mapCtrl.ChangeNodeShapeBubble();
+
+            Assert.AreEqual(NodeShape.Bubble, r.Shape);
+        }
+
+        [TestMethod()]
+        public void ChangeNodeShapeBox()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            c32.AddToSelection();
+
+            mapCtrl.ChangeNodeShapeBox();
+
+            Assert.AreEqual(NodeShape.Box, c32.Shape);
+        }
+
+        [TestMethod()]
+        public void ChangeNodeShapeBullet()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            c32.AddToSelection();
+
+            mapCtrl.ChangeNodeShapeBullet();
+
+            Assert.AreEqual(NodeShape.Bullet, c32.Shape);
+        }
+
+        [TestMethod()]
+        public void ChangeNodeShapeBullet_ChangeManagerUndoCount()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            c32.AddToSelection();
+            c311.AddToSelection();
+            var undoCount = t.ChangeManager.UndoStackCount;
+
+            mapCtrl.ChangeNodeShapeBullet();
+
+            Assert.AreEqual(undoCount + 1, t.ChangeManager.UndoStackCount);
+        }
+
+        [TestMethod()]
+        public void ChangeNodeShapeBullet_NoSelection()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            var undoCount = t.ChangeManager.UndoStackCount;
+
+            mapCtrl.ChangeNodeShapeBullet();
+
+            Assert.AreEqual(undoCount, t.ChangeManager.UndoStackCount);
+        }
+
+        [TestMethod()]
+        public void ClearNodeShape()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            c32.AddToSelection();
+            c3111.AddToSelection();
+            mapCtrl.ChangeNodeShapeBullet();
+
+            Assert.AreEqual(NodeShape.None, c32.Shape);
+        }
+
+        [TestMethod()]
+        public void ChangeNodeShape()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            c32.AddToSelection();
+
+            mapCtrl.ChangeNodeShape(NodeShape.Bullet);
+
+            Assert.AreEqual(NodeShape.Bullet, c32.Shape);
+        }
+
+        [TestMethod()]
+        public void ChangeNodeShape_StringParameter()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            c32.AddToSelection();
+
+            mapCtrl.ChangeNodeShape("Bubble");
+
+            Assert.AreEqual(NodeShape.Bubble, c32.Shape);
+        }
+
         //[TestMethod()]
         //public void EditHyperlink()
         //{
@@ -1519,30 +1737,6 @@ namespace MindMate.Tests.Controller
 
         //[TestMethod()]
         //public void FollowLink()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void MakeSelectedNodeShapeBubble()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void MakeSelectedNodeShapeBox()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void MakeSelectedNodeShapeFork()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void MakeSelectedNodeShapeBullet()
         //{
         //    Assert.Fail();
         //}
