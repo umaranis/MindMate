@@ -1508,7 +1508,7 @@ namespace MindMate.Tests.Controller
             var c32 = new MapNode(c3, "c32");
             c32.AddToSelection();
             c3111.AddToSelection();
-            mapCtrl.ChangeNodeShapeBullet();
+            mapCtrl.ClearNodeShape();
 
             Assert.AreEqual(NodeShape.None, c32.Shape);
         }
