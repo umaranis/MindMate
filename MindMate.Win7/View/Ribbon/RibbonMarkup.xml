@@ -315,9 +315,15 @@ Note:
     <Command Name="GrpNodeFormat" Id="5100" LabelTitle="Node Format" />
     <Command Name="NodeShape" Id="5101" LabelTitle="Node Shape" />
     <Command Name="ClearShapeFormat" Id="1502" LabelTitle="Clear Shape Format" TooltipDescription="Clear the shape format and use default" />
-    <Command Name="LineColor" Id="5103" LabelTitle="Line Color" />
-    <Command Name="LinePattern" Id="5104" LabelTitle="Line Pattern" />
-    <Command Name="LineThickness" Id="5105" LabelTitle="Line Thickness" />
+    <Command Name="LineColor" Id="5103" LabelTitle="Line Color">
+      <Command.SmallImages><Image>Res/Border Color-16.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="LinePattern" Id="5104" LabelTitle="Line Pattern">
+      <Command.SmallImages><Image>Res/Horizontal Line-16.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="LineThickness" Id="5105" LabelTitle="Line Thickness" >
+      <Command.SmallImages><Image>Res/Line Width-16.png</Image></Command.SmallImages>
+    </Command>
 
   </Application.Commands>
                    
@@ -660,18 +666,18 @@ Note:
             <SizeDefinition>
               <ControlNameMap>
                 <ControlNameDefinition Name="button1" />
-                <!--<ControlNameDefinition Name="button2" />
-                <ControlNameDefinition Name="button3" />
+                <ControlNameDefinition Name="button2" />
+                <!--<ControlNameDefinition Name="button3" />
                 <ControlNameDefinition Name="button4" />-->
               </ControlNameMap>
               <GroupSizeDefinition Size="Large" >
                 <Row>
                   <ControlSizeDefinition ControlName="button1" ImageSize="Large" IsLabelVisible="true" />
                 </Row>
-                <!--<Row>
+                <Row>
                   <ControlSizeDefinition ControlName="button2" ImageSize="Small" IsLabelVisible="true" />
                 </Row>
-                <Row>
+                <!--<Row>
                   <ControlSizeDefinition ControlName="button3" ImageSize="Small" IsLabelVisible="true" />
                 </Row>
                 <Row>
@@ -686,8 +692,8 @@ Note:
               </DropDownGallery.MenuLayout>
               <Button CommandName="ClearShapeFormat" />
             </DropDownGallery>
-            <!--<Button CommandName="LineColor" />
-            <Button CommandName="LinePattern" />
+            <DropDownColorPicker CommandName="LineColor" IsNoColorButtonVisible="false"/>
+            <!--<Button CommandName="LinePattern" />
             <Button CommandName="LineThickness" />-->
           </Group>
         </Tab>

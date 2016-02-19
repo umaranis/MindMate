@@ -145,6 +145,9 @@ namespace MindMate.View.Ribbon
             NodeShape.ItemsSourceReady += NodeShape_ItemsSourceReady;
             NodeShape.ExecuteEvent += NodeShape_ExecuteEvent;
             ClearShapeFormat.ExecuteEvent += ClearShapeFormat_ExecuteEvent;
+            LineColor.ExecuteEvent += LineColor_ExecuteEvent;
+            LinePattern.ExecuteEvent += LinePattern_ExecuteEvent;
+            LineThickness.ExecuteEvent += LineThickness_ExecuteEvent;
 
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
@@ -811,6 +814,21 @@ namespace MindMate.View.Ribbon
         private void ClearShapeFormat_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.CurrentMapCtrl.ClearNodeShape();
+        }
+
+        private void LineColor_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.ChangeLineColor(LineColor.Color);
+        }
+
+        private void LinePattern_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void LineThickness_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

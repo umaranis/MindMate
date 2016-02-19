@@ -113,7 +113,7 @@ namespace MindMate.Tests.IntegrationTest
             mapCtrl.MapView.NodeTextEditor.EndNodeEdit(true, true);
             mapCtrl.UpdateNodeText(tree.SelectedNodes.First, "Format Test");
 
-            mapCtrl.ChangeLineColor();
+            mapCtrl.ChangeLineColorUsingPicker();
             mapCtrl.ChangeLinePattern(System.Drawing.Drawing2D.DashStyle.Dash);
             mapCtrl.ChangeLineWidth(2);
             mapCtrl.ChangeFont();

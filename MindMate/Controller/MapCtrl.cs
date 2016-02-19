@@ -898,10 +898,25 @@ namespace MindMate.Controller
             if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
+        public void ChangeLineColor(Color color)
+        {
+            using (tree.ChangeManager.StartBatch("Line Color Change"))
+            {
+                for (int i = 0; i < MapView.SelectedNodes.Count; i++)
+                {
+                    MapNode node = this.MapView.SelectedNodes[i];
+                    if (node.LineColor != color)
+                    {
+                        node.LineColor = color;
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// Change Line Color for selected nodes using Color Picker Dialog
         /// </summary>
-        public void ChangeLineColor()
+        public void ChangeLineColorUsingPicker()
         {
             Color color = new Color();
             
@@ -916,20 +931,7 @@ namespace MindMate.Controller
             if (color.IsEmpty) return;
 
             //set new color
-            int selectCnt = this.MapView.SelectedNodes.Count;
-
-            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Line Color Change"); }
-
-            for (int i = 0; i < selectCnt; i++)
-            {
-                MapNode node = this.MapView.SelectedNodes[i];
-                if (node.LineColor != color)
-                {
-                    node.LineColor = color;
-                }
-            }
-
-            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
+            ChangeLineColor(color);
         }
 
         /// <summary>

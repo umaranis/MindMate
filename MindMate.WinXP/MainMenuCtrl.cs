@@ -151,7 +151,7 @@ namespace MindMate.WinXP
 
         void mLineColor_Click(object sender, EventArgs e)
         {
-            mapCtrl.ChangeLineColor();                      
+            mapCtrl.ChangeLineColorUsingPicker();                      
         }
 
         void mLineMixed_Click(object sender, EventArgs e)

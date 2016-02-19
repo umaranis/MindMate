@@ -121,7 +121,7 @@ namespace MindMate.View.Ribbon
 		private RibbonGroup GrpNodeFormat;		
 		private RibbonDropDownGallery NodeShape;		
 		private RibbonButton ClearShapeFormat;		
-		private RibbonButton LineColor;		
+		private RibbonDropDownColorPicker LineColor;		
 		private RibbonButton LinePattern;		
 		private RibbonButton LineThickness;		
 
@@ -234,7 +234,7 @@ namespace MindMate.View.Ribbon
 			GrpNodeFormat = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNodeFormat);
 			NodeShape = new RibbonDropDownGallery(ribbon, (uint)RibbonMarkupCommands.NodeShape);
 			ClearShapeFormat = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ClearShapeFormat);
-			LineColor = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LineColor);
+			LineColor = new RibbonDropDownColorPicker(ribbon, (uint)RibbonMarkupCommands.LineColor);
 			LinePattern = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LinePattern);
 			LineThickness = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LineThickness);
 

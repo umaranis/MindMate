@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FakeItEasy;
 using MindMate.Plugins.Tasks.Model;
 
 namespace MindMate.Tests.Controller
@@ -1561,6 +1562,53 @@ namespace MindMate.Tests.Controller
             Assert.AreEqual(NodeShape.Bubble, c32.Shape);
         }
 
+        [TestMethod()]
+        public void ChangeLineColor()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c311 = new MapNode(c31, "c311");
+            var c3111 = new MapNode(c311, "c3111");
+            var c32 = new MapNode(c3, "c32");
+            c1.AddToSelection();
+            c2.AddToSelection();
+
+            mapCtrl.ChangeLineColor(Color.Brown);
+
+            Assert.AreEqual(Color.Brown, c1.LineColor);
+            Assert.AreEqual(Color.Brown, c2.LineColor);
+            Assert.AreEqual(Color.Empty, c3.LineColor);
+        }
+
+        [TestMethod()]
+        public void ChangeLineColorUsingPicker()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            A.CallTo(() => mainCtrl.ShowColorPicker(Color.Empty)).WithAnyArguments().Returns(Color.Chocolate);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            r.AddToSelection();
+
+            mapCtrl.ChangeLineColorUsingPicker();
+
+            Assert.AreEqual(Color.Chocolate, r.LineColor);
+
+        }
+
         //[TestMethod()]
         //public void EditHyperlink()
         //{
@@ -1783,12 +1831,7 @@ namespace MindMate.Tests.Controller
         //    Assert.Fail();
         //}
 
-        //[TestMethod()]
-        //public void ChangeLineColor()
-        //{
-        //    Assert.Fail();
-        //}
-
+        
         //[TestMethod()]
         //public void ChangeTextColorByPicker()
         //{
