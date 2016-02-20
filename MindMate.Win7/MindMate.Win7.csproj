@@ -169,6 +169,9 @@
     <None Include="View\Ribbon\Res\Node Format Bubble.png" />
     <None Include="View\Ribbon\Res\Node Format Bullet.png" />
     <None Include="View\Ribbon\Res\Node Format Fork.png" />
+    <None Include="View\Ribbon\Res\Border Color-16.png" />
+    <None Include="View\Ribbon\Res\Line Width-16.png" />
+    <None Include="View\Ribbon\Res\Horizontal Line-16.png" />
     <Content Include="View\Ribbon\Ribbon.Controls.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Ribbon.Controls.cs</LastGenOutput>

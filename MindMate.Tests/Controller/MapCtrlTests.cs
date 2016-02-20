@@ -7,6 +7,7 @@ using MindMate.View.MapControls;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -1609,6 +1610,42 @@ namespace MindMate.Tests.Controller
 
         }
 
+        [TestMethod()]
+        public void ChangeLinePattern()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            r.AddToSelection();
+
+            mapCtrl.ChangeLinePattern(DashStyle.Dash);
+
+            Assert.AreEqual(DashStyle.Dash, r.LinePattern);
+        }
+
+        [TestMethod()]
+        public void ChangeLineWidth()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            r.AddToSelection();
+
+            mapCtrl.ChangeLineWidth(4);
+
+            Assert.AreEqual(4, r.LineWidth);
+        }
+
         //[TestMethod()]
         //public void EditHyperlink()
         //{
@@ -1819,19 +1856,6 @@ namespace MindMate.Tests.Controller
         //    Assert.Fail();
         //}
 
-        //[TestMethod()]
-        //public void ChangeLineWidth()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void ChangeLinePattern()
-        //{
-        //    Assert.Fail();
-        //}
-
-        
         //[TestMethod()]
         //public void ChangeTextColorByPicker()
         //{

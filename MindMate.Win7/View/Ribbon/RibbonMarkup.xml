@@ -321,9 +321,16 @@ Note:
     <Command Name="LinePattern" Id="5104" LabelTitle="Line Pattern">
       <Command.SmallImages><Image>Res/Horizontal Line-16.png</Image></Command.SmallImages>
     </Command>
+    <Command Name="LinePatternSolid" Id="5201" LabelTitle="Solid" />
+    <Command Name="LinePatternDashed" Id="5202" LabelTitle="Dashed" />
+    <Command Name="LinePatternDotted" Id="5203" LabelTitle="Dotted" />
+    <Command Name="LinePatternMixed" Id="5204" LabelTitle="Mixed" />
     <Command Name="LineThickness" Id="5105" LabelTitle="Line Thickness" >
       <Command.SmallImages><Image>Res/Line Width-16.png</Image></Command.SmallImages>
     </Command>
+    <Command Name="LineThickness1" Id="5301" LabelTitle="1" />
+    <Command Name="LineThickness2" Id="5302" LabelTitle="2" />
+    <Command Name="LineThickness4" Id="5303" LabelTitle="4" />
 
   </Application.Commands>
                    
@@ -667,8 +674,8 @@ Note:
               <ControlNameMap>
                 <ControlNameDefinition Name="button1" />
                 <ControlNameDefinition Name="button2" />
-                <!--<ControlNameDefinition Name="button3" />
-                <ControlNameDefinition Name="button4" />-->
+                <ControlNameDefinition Name="button3" />
+                <ControlNameDefinition Name="button4" />
               </ControlNameMap>
               <GroupSizeDefinition Size="Large" >
                 <Row>
@@ -677,12 +684,12 @@ Note:
                 <Row>
                   <ControlSizeDefinition ControlName="button2" ImageSize="Small" IsLabelVisible="true" />
                 </Row>
-                <!--<Row>
+                <Row>
                   <ControlSizeDefinition ControlName="button3" ImageSize="Small" IsLabelVisible="true" />
                 </Row>
                 <Row>
                   <ControlSizeDefinition ControlName="button4" ImageSize="Small" IsLabelVisible="true" />
-                </Row>-->
+                </Row>
               </GroupSizeDefinition>
             </SizeDefinition>
             <DropDownGallery CommandName="NodeShape" HasLargeItems="true" >
@@ -693,8 +700,17 @@ Note:
               <Button CommandName="ClearShapeFormat" />
             </DropDownGallery>
             <DropDownColorPicker CommandName="LineColor" IsNoColorButtonVisible="false"/>
-            <!--<Button CommandName="LinePattern" />
-            <Button CommandName="LineThickness" />-->
+            <DropDownButton CommandName="LinePattern" >
+              <Button CommandName="LinePatternSolid" />
+              <Button CommandName="LinePatternDashed" />
+              <Button CommandName="LinePatternDotted" />
+              <Button CommandName="LinePatternMixed" />
+            </DropDownButton>
+            <DropDownButton CommandName="LineThickness" >
+              <Button CommandName="LineThickness1" />
+              <Button CommandName="LineThickness2" />
+              <Button CommandName="LineThickness4" />
+            </DropDownButton>
           </Group>
         </Tab>
       </Ribbon.Tabs>

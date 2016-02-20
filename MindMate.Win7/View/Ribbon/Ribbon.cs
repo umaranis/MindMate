@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using RibbonLib.Interop;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using MindMate.MetaModel;
 using MindMate.Plugins;
 using MindMate.View.EditorTabs;
@@ -146,8 +147,13 @@ namespace MindMate.View.Ribbon
             NodeShape.ExecuteEvent += NodeShape_ExecuteEvent;
             ClearShapeFormat.ExecuteEvent += ClearShapeFormat_ExecuteEvent;
             LineColor.ExecuteEvent += LineColor_ExecuteEvent;
-            LinePattern.ExecuteEvent += LinePattern_ExecuteEvent;
-            LineThickness.ExecuteEvent += LineThickness_ExecuteEvent;
+            LinePatternSolid.ExecuteEvent += LinePatternSolid_ExecuteEvent;
+            LinePatternDashed.ExecuteEvent += LinePatternDashed_ExecuteEvent;
+            LinePatternDotted.ExecuteEvent += LinePatternDotted_ExecuteEvent;
+            LinePatternMixed.ExecuteEvent += LinePatternMixed_ExecuteEvent;
+            LineThickness1.ExecuteEvent += LineThickness1_ExecuteEvent;
+            LineThickness2.ExecuteEvent += LineThickness2_ExecuteEvent;
+            LineThickness4.ExecuteEvent += LineThickness4_ExecuteEvent;
 
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
@@ -821,14 +827,39 @@ namespace MindMate.View.Ribbon
             mainCtrl.CurrentMapCtrl.ChangeLineColor(LineColor.Color);
         }
 
-        private void LinePattern_ExecuteEvent(object sender, ExecuteEventArgs e)
+        private void LinePatternSolid_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            throw new NotImplementedException();
+            mainCtrl.CurrentMapCtrl.ChangeLinePattern(DashStyle.Solid);
         }
 
-        private void LineThickness_ExecuteEvent(object sender, ExecuteEventArgs e)
+        private void LinePatternDashed_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            throw new NotImplementedException();
+            mainCtrl.CurrentMapCtrl.ChangeLinePattern(DashStyle.Dash);
+        }
+
+        private void LinePatternDotted_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.ChangeLinePattern(DashStyle.Dot);
+        }
+
+        private void LinePatternMixed_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.ChangeLinePattern(DashStyle.DashDotDot);
+        }
+
+        private void LineThickness1_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.ChangeLineWidth(1);
+        }
+
+        private void LineThickness2_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.ChangeLineWidth(2);
+        }
+
+        private void LineThickness4_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.ChangeLineWidth(4);
         }
 
         #endregion

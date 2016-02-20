@@ -122,8 +122,15 @@ namespace MindMate.View.Ribbon
 		private RibbonDropDownGallery NodeShape;		
 		private RibbonButton ClearShapeFormat;		
 		private RibbonDropDownColorPicker LineColor;		
-		private RibbonButton LinePattern;		
-		private RibbonButton LineThickness;		
+		private RibbonDropDownButton LinePattern;		
+		private RibbonButton LinePatternSolid;		
+		private RibbonButton LinePatternDashed;		
+		private RibbonButton LinePatternDotted;		
+		private RibbonButton LinePatternMixed;		
+		private RibbonDropDownButton LineThickness;		
+		private RibbonButton LineThickness1;		
+		private RibbonButton LineThickness2;		
+		private RibbonButton LineThickness4;		
 
 		private void InitializeComponents()
 		{
@@ -235,8 +242,15 @@ namespace MindMate.View.Ribbon
 			NodeShape = new RibbonDropDownGallery(ribbon, (uint)RibbonMarkupCommands.NodeShape);
 			ClearShapeFormat = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ClearShapeFormat);
 			LineColor = new RibbonDropDownColorPicker(ribbon, (uint)RibbonMarkupCommands.LineColor);
-			LinePattern = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LinePattern);
-			LineThickness = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LineThickness);
+			LinePattern = new RibbonDropDownButton(ribbon, (uint)RibbonMarkupCommands.LinePattern);
+			LinePatternSolid = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LinePatternSolid);
+			LinePatternDashed = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LinePatternDashed);
+			LinePatternDotted = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LinePatternDotted);
+			LinePatternMixed = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LinePatternMixed);
+			LineThickness = new RibbonDropDownButton(ribbon, (uint)RibbonMarkupCommands.LineThickness);
+			LineThickness1 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LineThickness1);
+			LineThickness2 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LineThickness2);
+			LineThickness4 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LineThickness4);
 
 		}
 	

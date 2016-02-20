@@ -864,38 +864,32 @@ namespace MindMate.Controller
 
         public void ChangeLineWidth(int width)
         {
-            int selectCnt = this.MapView.SelectedNodes.Count;
-
-            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Line Width Change"); }
-
-            for (int i = 0; i < selectCnt; i++)
+            using (tree.ChangeManager.StartBatch("Line Width " + width))
             {
-                MapNode node = this.MapView.SelectedNodes[i];
-                if (node.LineWidth != width)
+                for (int i = 0; i < MapView.SelectedNodes.Count; i++)
                 {
-                    node.LineWidth = width;
-                }                
+                    MapNode node = this.MapView.SelectedNodes[i];
+                    if (node.LineWidth != width)
+                    {
+                        node.LineWidth = width;
+                    }
+                }
             }
-
-            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
         public void ChangeLinePattern(DashStyle pattern)
         {
-            int selectCnt = this.MapView.SelectedNodes.Count;
-
-            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Line Pattern Change"); }
-
-            for (int i = 0; i < selectCnt; i++)
+            using (tree.ChangeManager.StartBatch("Line Pattern " + pattern))
             {
-                MapNode node = this.MapView.SelectedNodes[i];
-                if (node.LinePattern != pattern)
+                for (int i = 0; i < MapView.SelectedNodes.Count; i++)
                 {
-                    node.LinePattern = pattern;
+                    MapNode node = this.MapView.SelectedNodes[i];
+                    if (node.LinePattern != pattern)
+                    {
+                        node.LinePattern = pattern;
+                    }
                 }
             }
-
-            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
         public void ChangeLineColor(Color color)

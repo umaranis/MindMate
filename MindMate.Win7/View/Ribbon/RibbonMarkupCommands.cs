@@ -124,6 +124,13 @@ namespace MindMate.View.Ribbon
 		ClearShapeFormat = 1502,		
 		LineColor = 5103,		
 		LinePattern = 5104,		
+		LinePatternSolid = 5201,		
+		LinePatternDashed = 5202,		
+		LinePatternDotted = 5203,		
+		LinePatternMixed = 5204,		
 		LineThickness = 5105,		
+		LineThickness1 = 5301,		
+		LineThickness2 = 5302,		
+		LineThickness4 = 5303,		
 	}
 }
