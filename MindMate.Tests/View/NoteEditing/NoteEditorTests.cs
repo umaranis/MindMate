@@ -201,7 +201,6 @@ namespace MindMate.Tests.View.NoteEditing
         //    Assert.Fail();
         //}
 
-        [TestMethod()]
         private Form CreateForm()
         {
             Form form = new Form();

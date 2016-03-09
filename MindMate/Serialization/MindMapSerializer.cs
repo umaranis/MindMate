@@ -280,10 +280,9 @@ namespace MindMate.Serialization
                 node.Label = att.Value;
             }
 
-            string folded;
             if ((att = xmlElement.Attributes["FOLDED"]) != null)
             {
-                folded = att.Value;
+                var folded = att.Value;
                 if (folded == "true")
                 {
                     node.Folded = true;

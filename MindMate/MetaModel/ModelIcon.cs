@@ -15,7 +15,7 @@ namespace MindMate.MetaModel
     /// <summary>
     /// ModelIcon is an icon which can be selected by user on MapNode.
     /// </summary>
-    [ProtoBuf.ProtoContract]
+    //[ProtoBuf.ProtoContract]
     public class ModelIcon : IIcon
     {
         public ModelIcon(string name, string title, string shortcut)
@@ -35,7 +35,7 @@ namespace MindMate.MetaModel
 
         private string name;
 
-        [ProtoBuf.ProtoMember(1)]
+        //[ProtoBuf.ProtoMember(1)]
         public string Name
         {
             get { return name; }
@@ -46,7 +46,7 @@ namespace MindMate.MetaModel
         }
         private string title;
 
-        [ProtoBuf.ProtoMember(2)]
+        //[ProtoBuf.ProtoMember(2)]
         public string Title
         {
             get { return title; }
@@ -54,7 +54,7 @@ namespace MindMate.MetaModel
         }
         private string shortcut;
 
-        [ProtoBuf.ProtoMember(3)]
+        //[ProtoBuf.ProtoMember(3)]
         public string Shortcut
         {
             get { return shortcut; }

@@ -12,6 +12,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.Xml;
+using MindMate.Serialization;
 
 namespace MindMate.MetaModel
 {
@@ -19,7 +20,7 @@ namespace MindMate.MetaModel
     /// <summary>
     /// MetaModel is the data about icon names, shortcuts and other meta-data/meta-map information.
     /// </summary>
-    [ProtoBuf.ProtoContract]
+    //[ProtoBuf.ProtoContract]
     public class MetaModel
     {
         
@@ -63,7 +64,7 @@ namespace MindMate.MetaModel
 
         private readonly List<ModelIcon> iconsList = new List<ModelIcon>();
 
-        [ProtoBuf.ProtoMember(1)]
+        //[ProtoBuf.ProtoMember(1)]
         public List<ModelIcon> IconsList
         {
             get { return iconsList;  }
@@ -75,13 +76,13 @@ namespace MindMate.MetaModel
             get { return systemIconList; }
         }
 
-        [ProtoBuf.ProtoMember(2)]
+        //[ProtoBuf.ProtoMember(2)]
         public string LastOpenedFile { get; set; }
 
         public const int RecentFilesCount = 12;
 
         private readonly CustomFontDialog.RecentlyUsedList<string> recentFiles = new CustomFontDialog.RecentlyUsedList<string>(RecentFilesCount);
-        [ProtoBuf.ProtoMember(3)]
+        //[ProtoBuf.ProtoMember(3)]
         public CustomFontDialog.RecentlyUsedList<string> RecentFiles { 
             get
             {
@@ -91,7 +92,7 @@ namespace MindMate.MetaModel
 
         public System.Drawing.Color MapEditorBackColor { get; set; }
 
-        [ProtoBuf.ProtoMember(4, DataFormat = ProtoBuf.DataFormat.FixedSize)]
+        //[ProtoBuf.ProtoMember(4, DataFormat = ProtoBuf.DataFormat.FixedSize)]
         private int MapEditorBackColorSerialized
         {
             get { return MapEditorBackColor.ToArgb(); }
@@ -100,7 +101,7 @@ namespace MindMate.MetaModel
 
         public System.Drawing.Color NoteEditorBackColor { get; set; }
 
-        [ProtoBuf.ProtoMember(5, DataFormat = ProtoBuf.DataFormat.FixedSize)]
+        //[ProtoBuf.ProtoMember(5, DataFormat = ProtoBuf.DataFormat.FixedSize)]
         private int NoteEditorBackColorSerialized
         {
             get { return NoteEditorBackColor.ToArgb(); }
@@ -113,14 +114,22 @@ namespace MindMate.MetaModel
 
             try
             {
+                //xml
                 //XmlSerializer formatter = new XmlSerializer(typeof(MetaModel));
                 //model = (MetaModel)formatter.Deserialize(new StreamReader(MetaModel.GetFilePath()));
 
+                //binary
+                //using (var file = File.OpenRead(MetaModel.GetFilePath()))
+                //{
+                //    model = ProtoBuf.Serializer.Deserialize<MetaModel>(file);                    
+                //}
 
-                using (var file = File.OpenRead(MetaModel.GetFilePath()))
+                //yaml
+                using (var file = new StreamReader(GetFileDirectory() + "\\" + "Settings.Yaml"))
                 {
-                    model = ProtoBuf.Serializer.Deserialize<MetaModel>(file);                    
-                }                
+                    model = new MetaModel();
+                    new MetaModelYamlSerializer().Deserialize(model, file);
+                }
             }
             catch (FileNotFoundException)
             {
@@ -151,9 +160,17 @@ namespace MindMate.MetaModel
             //MetaModel  model = (MetaModel)formatter.Deserialize(new StreamReader(path));
 
             MetaModel model;
-            using (var file = File.OpenRead(path))
+            //binary
+            //using (var file = File.OpenRead(path))
+            //{
+            //    model = ProtoBuf.Serializer.Deserialize<MetaModel>(file);
+            //}
+
+            //yaml
+            using (var file = new StreamReader(path))
             {
-                model = ProtoBuf.Serializer.Deserialize<MetaModel>(file);
+                model = new MetaModel();
+                new MetaModelYamlSerializer().Deserialize(model, file);
             }
 
             System.IO.Directory.CreateDirectory(GetFileDirectory());
@@ -165,15 +182,23 @@ namespace MindMate.MetaModel
         
         public void Save()
         {
+            //xml
             //XmlSerializer formatter = new XmlSerializer(typeof(MetaModel));            
             //formatter.Serialize(new StreamWriter(Application.UserAppDataPath + "/" + 
             //     "Settings.xml"),this);   
 
-            using (var file = File.Create(MetaModel.GetFilePath()))
-            {
-                ProtoBuf.Serializer.Serialize<MetaModel>(file, this);
-            }
+            //binary
+            //using (var file = File.Create(MetaModel.GetFilePath()))
+            //{
+            //    ProtoBuf.Serializer.Serialize<MetaModel>(file, this);
+            //}
 
+            //yaml
+            using (var file = new StreamWriter(GetFileDirectory() + "\\" + "Settings.Yaml"))
+            {
+                var s = new MetaModelYamlSerializer();
+                s.Serialize(this, file);
+            }
         }
 
         private Dictionary<string, ModelIcon> iconsCache = new Dictionary<string, ModelIcon>();
@@ -212,7 +237,7 @@ namespace MindMate.MetaModel
 
         }
 
-        const string FILE_NAME = "Settings.bin";
+        const string FILE_NAME = "Settings.Yaml";
 
         private static string GetFilePath()
         {
