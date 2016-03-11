@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.Serialization;
 using System.IO;
+using MindMate.MetaModel;
 
 namespace MindMate.Tests.Serialization
 {
@@ -30,7 +31,22 @@ namespace MindMate.Tests.Serialization
 
             Assert.IsTrue(result.Contains("icons"));
         }
-        
+
+        [TestMethod()]
+        public void SerializeToString_EmptyMetaModel()
+        {
+            var model = new MetaModel.MetaModel();
+            model.IconsList.Add(new ModelIcon("button_ok", "ok", "k"));
+            var sut = new MetaModelYamlSerializer();
+            var textWriter = new StringWriter();
+            sut.Serialize(model, textWriter);
+            var result = textWriter.ToString();
+
+            Assert.IsTrue(result.Contains("icons"));
+        }
+
+
+
         [TestMethod()]
         public void Deserialize_CheckIconsCount()
         {

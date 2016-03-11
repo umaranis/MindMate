@@ -47,16 +47,22 @@ namespace MindMate.Serialization
                 }
                 emitter.Emit(new SequenceEnd());
             //recent files
-            emitter.Emit(new Scalar(RecentFiles));
+            if (metaModel.RecentFiles.Count > 0)
+            {
+                emitter.Emit(new Scalar(RecentFiles));
                 emitter.Emit(new SequenceStart(null, null, true, SequenceStyle.Block));
                 foreach (var recentFile in metaModel.RecentFiles)
                 {
                     emitter.Emit(new Scalar(recentFile));
                 }
                 emitter.Emit(new SequenceEnd());
+            }
             //last opened file
-            emitter.Emit(new Scalar(LastOpenedFile));
-            emitter.Emit(new Scalar(metaModel.LastOpenedFile));
+            if (metaModel.LastOpenedFile != null)
+            {
+                emitter.Emit(new Scalar(LastOpenedFile));
+                emitter.Emit(new Scalar(metaModel.LastOpenedFile));
+            }
             //map back color
             emitter.Emit(new Scalar(MapBackColor));
             emitter.Emit(new Scalar(Convert.ToColorHexValue(metaModel.MapEditorBackColor)));
