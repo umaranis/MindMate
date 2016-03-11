@@ -93,20 +93,20 @@ namespace MindMate.MetaModel
         public System.Drawing.Color MapEditorBackColor { get; set; }
 
         //[ProtoBuf.ProtoMember(4, DataFormat = ProtoBuf.DataFormat.FixedSize)]
-        private int MapEditorBackColorSerialized
-        {
-            get { return MapEditorBackColor.ToArgb(); }
-            set { MapEditorBackColor = System.Drawing.Color.FromArgb(value); }
-        }
+        //private int MapEditorBackColorSerialized
+        //{
+        //    get { return MapEditorBackColor.ToArgb(); }
+        //    set { MapEditorBackColor = System.Drawing.Color.FromArgb(value); }
+        //}
 
         public System.Drawing.Color NoteEditorBackColor { get; set; }
 
         //[ProtoBuf.ProtoMember(5, DataFormat = ProtoBuf.DataFormat.FixedSize)]
-        private int NoteEditorBackColorSerialized
-        {
-            get { return NoteEditorBackColor.ToArgb(); }
-            set { NoteEditorBackColor = System.Drawing.Color.FromArgb(value); }
-        }
+        //private int NoteEditorBackColorSerialized
+        //{
+        //    get { return NoteEditorBackColor.ToArgb(); }
+        //    set { NoteEditorBackColor = System.Drawing.Color.FromArgb(value); }
+        //}
         
         private static MetaModel Load()
         {
@@ -125,7 +125,7 @@ namespace MindMate.MetaModel
                 //}
 
                 //yaml
-                using (var file = new StreamReader(GetFileDirectory() + "\\" + "Settings.Yaml"))
+                using (var file = new StreamReader(GetFilePath()))
                 {
                     model = new MetaModel();
                     new MetaModelYamlSerializer().Deserialize(model, file);
@@ -194,7 +194,7 @@ namespace MindMate.MetaModel
             //}
 
             //yaml
-            using (var file = new StreamWriter(GetFileDirectory() + "\\" + "Settings.Yaml"))
+            using (var file = new StreamWriter(GetFilePath()))
             {
                 var s = new MetaModelYamlSerializer();
                 s.Serialize(this, file);
