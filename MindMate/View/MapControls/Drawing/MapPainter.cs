@@ -3,10 +3,6 @@
  * This software is licensed under MIT (see LICENSE.txt)    
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using MindMate.Model;
 using System.Drawing;
 
@@ -26,41 +22,40 @@ namespace MindMate.View.MapControls.Drawing
             dropHintPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
         }
 
-        public static void DrawTree(MapView mapView, System.Drawing.Graphics g)
+        public static void DrawTree(IView iView, Graphics g)
         {
             //Draw root node
-            NodeView nView = mapView.GetNodeView(mapView.Tree.RootNode);
+            NodeView nView = iView.GetNodeView(iView.Tree.RootNode);
             DrawRootNode(nView, g);
 
             //Draw rest
-            DrawChildNodes(nView, mapView, g);
+            DrawChildNodes(nView, iView, g);
         }
 
-        private static void DrawChildNodes(NodeView nodeView, MapView mapView, System.Drawing.Graphics g)
+        private static void DrawChildNodes(NodeView nodeView, IView iView, Graphics g)
         {
             if (!nodeView.Node.Folded)
             {
                 foreach (MapNode cNode in nodeView.Node.ChildNodes)
                 {
-                    NodeView child = mapView.GetNodeView(cNode);
-                    DrawNode(child, true, mapView, g);
+                    DrawNode(cNode, true, iView, g);
                 }
             }
         }
 
-        public static void DrawNode(NodeView node, bool bDrawChildren, MapView mapView, System.Drawing.Graphics g)
+        public static void DrawNode(MapNode node, bool bDrawChildren, IView iView, System.Drawing.Graphics g)
         {
-
-            DrawNode(node, g, mapView.HighlightedNode == node.Node);
+            NodeView nodeView = iView.GetNodeView(node);
+            DrawNode(nodeView, g, iView.HighlightedNode == node);
 
             if (bDrawChildren)
             {
-                DrawChildNodes(node, mapView, g);
+                DrawChildNodes(nodeView, iView, g);
             }
 
         }
 
-        private static void DrawNode(NodeView nodeView, System.Drawing.Graphics g, bool highlight = false)
+        private static void DrawNode(NodeView nodeView, Graphics g, bool highlight = false)
         {
             MapNode node = nodeView.Node;
             if (!nodeView.BackColor.IsEmpty)
@@ -81,11 +76,11 @@ namespace MindMate.View.MapControls.Drawing
             {
                 nodeView.RecIcons[i].Draw(g);
             }
-            if (nodeView.NoteIcon != null) nodeView.NoteIcon.Draw(g);
-            if (nodeView.Link != null) nodeView.Link.Draw(g);
+            nodeView.NoteIcon?.Draw(g);
+            nodeView.Link?.Draw(g);
         }
 
-        private static void DrawRootNode(NodeView nodeView, System.Drawing.Graphics g)
+        private static void DrawRootNode(NodeView nodeView, Graphics g)
         {
             MapNode node = nodeView.Node;
 
@@ -126,19 +121,20 @@ namespace MindMate.View.MapControls.Drawing
         /// Draw node linker for the node and all its children
         /// </summary>
         /// <param name="node"></param>
+        /// <param name="iView"></param>
         /// <param name="g"></param>
-        public static void DrawNodeLinker(MapNode node, MapView mapView, Graphics g)
+        public static void DrawNodeLinker(MapNode node, MapView iView, Graphics g)
         {
-            DrawNodeLinker(node, mapView, g, true);
+            DrawNodeLinker(node, iView, g, true);
         }
 
-        public static void DrawNodeLinker(MapNode node, MapView mapView, Graphics g, bool drawChildren)
+        public static void DrawNodeLinker(MapNode node, MapView iView, Graphics g, bool drawChildren)
         {
             if (node.Parent != null)
             {
 
-                NodeView nodeView = mapView.GetNodeView(node);
-                NodeView parentView = mapView.GetNodeView(node.Parent);
+                NodeView nodeView = iView.GetNodeView(node);
+                NodeView parentView = iView.GetNodeView(node.Parent);
                 if (nodeView == null || parentView == null) return;
 
                 float pos1X, pos1Y, // connector start point on parent node
@@ -184,32 +180,8 @@ namespace MindMate.View.MapControls.Drawing
 
 
                 Pen p = Pens.Gray;
-                bool disposePen = false;
-                if (!node.LineColor.IsEmpty)
-                {
-                    p = new Pen(node.LineColor);
-                    disposePen = true;
-                }
-
-                if (node.LineWidth != 0 && node.LineWidth != 1)
-                {
-                    if (disposePen == false)
-                        p = new Pen(Color.Gray, node.LineWidth);
-                    else
-                        p.Width = node.LineWidth;
-                    disposePen = true;
-                }
-
-                if (node.LinePattern != System.Drawing.Drawing2D.DashStyle.Solid &&
-                    node.LinePattern != System.Drawing.Drawing2D.DashStyle.Custom)
-                {
-                    if (disposePen == false) p = new Pen(Color.Gray);
-                    p.DashCap = System.Drawing.Drawing2D.DashCap.Round;
-                    p.DashStyle = node.LinePattern;
-                    disposePen = true;
-                }
-
-
+                bool disposePen = CreateCustomPen(node, ref p);
+                
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
                 g.DrawBezier(p, new PointF(pos1X, pos1Y), new PointF(control1X, control1Y),
@@ -233,9 +205,44 @@ namespace MindMate.View.MapControls.Drawing
             {
                 foreach (MapNode cNode in node.ChildNodes)
                 {
-                    DrawNodeLinker(cNode, mapView, g);
+                    DrawNodeLinker(cNode, iView, g);
                 }
             }
+        }
+
+        /// <summary>
+        /// Creates a custom pen if required, otherwise returns false
+        /// </summary>
+        /// <param name="pen"></param>
+        /// <returns></returns>
+        private static bool CreateCustomPen(MapNode node, ref Pen p)
+        {
+            bool customPen = false;
+            if (!node.LineColor.IsEmpty)
+            {
+                p = new Pen(node.LineColor);
+                customPen = true;
+            }
+
+            if (node.LineWidth != 0 && node.LineWidth != 1)
+            {
+                if (customPen == false)
+                    p = new Pen(Color.Gray, node.LineWidth);
+                else
+                    p.Width = node.LineWidth;
+                customPen = true;
+            }
+
+            if (node.LinePattern != System.Drawing.Drawing2D.DashStyle.Solid &&
+                node.LinePattern != System.Drawing.Drawing2D.DashStyle.Custom)
+            {
+                if (customPen == false) p = new Pen(Color.Gray);
+                p.DashCap = System.Drawing.Drawing2D.DashCap.Round;
+                p.DashStyle = node.LinePattern;
+                customPen = true;
+            }
+
+            return customPen;
         }
 
         private static void DrawNodeShape(NodeView nodeView, Graphics g, Pen p)
@@ -262,6 +269,16 @@ namespace MindMate.View.MapControls.Drawing
                     }
                     break;
             }
+        }
+
+        public static void DrawNodeShape(MapNode node, IView iView, Graphics g)
+        {
+            Pen p = Pens.Gray;
+            bool disposePen = CreateCustomPen(node, ref p);
+
+            DrawNodeShape(iView.GetNodeView(node), g, p);
+
+            if(disposePen) p.Dispose();
         }
 
         const int INDICATOR_MARGIN = 2;

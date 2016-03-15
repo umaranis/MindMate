@@ -273,6 +273,7 @@
     </Compile>
     <Compile Include="View\IMainForm.cs" />
     <Compile Include="View\MapControls\ContextMenuAttacher.cs" />
+    <Compile Include="View\MapControls\Drawing\IView.cs" />
     <Compile Include="View\MapControls\Drawing\MapPainter.cs" />
     <Compile Include="Model\SelectedNodes.cs" />
     <Compile Include="View\MapControls\Drawing\TextRenderer.cs" />

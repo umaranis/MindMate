@@ -19,7 +19,7 @@ namespace MindMate.View.MapControls
     /// Encapsulates NodeLinksPanel
     /// Doesn't update model, instead generates event for the controller
     /// </summary>
-    public class MapView
+    public class MapView : Drawing.IView
     {
 
         public const int HOR_MARGIN = 20;
