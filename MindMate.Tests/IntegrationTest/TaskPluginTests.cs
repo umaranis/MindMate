@@ -19,7 +19,7 @@ namespace MindMate.Tests.IntegrationTest
             taskPlugin.OnApplicationReady();
 
             MapTree tree = new MapTree();
-            tree.RootNode = new MapNode(tree, "Center");
+            new MapNode(tree, "Center");
             tree.TurnOnChangeManager();
             taskPlugin.OnCreatingTree(tree);
 

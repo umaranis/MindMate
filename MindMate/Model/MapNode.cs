@@ -582,7 +582,6 @@ namespace MindMate.Model
         /// Copy this node with descendents and attach it to the location (parameter)
         /// </summary>
         /// <param name="location"></param>
-        /// <param name="includeDescendents"></param>
         private void CloneAsDetached(MapNode location)
         {
             var node = new MapNode(location.Tree);
@@ -597,6 +596,10 @@ namespace MindMate.Model
             }
         }
 
+        /// <summary>
+        /// Create a detached node
+        /// </summary>
+        /// <param name="tree"></param>
         private MapNode(MapTree tree)
         {
             this.Created = DateTime.Now;
@@ -682,6 +685,32 @@ namespace MindMate.Model
         }
 
         #endregion Detached Node
+
+        #region Isolated Node
+
+        /// <summary>
+        /// Create an isolated node
+        /// </summary>
+        private MapNode()
+        {
+            this.Created = DateTime.Now;
+            this.modified = DateTime.Now;
+            this.Icons = new IconList(this);
+
+            this.Tree = MapTree.Default;
+        }
+
+        /// <summary>
+        /// An isolated node is not connected to any tree. 
+        /// The Tree property of such nodes is not null, rather it is MapTree.Default.
+        /// </summary>
+        /// <returns></returns>
+        public static MapNode CreateIsolatedNode()
+        {
+            return new MapNode();
+        }
+
+        #endregion Isolatead Node
 
         public MapNode GetFirstSib()
         {

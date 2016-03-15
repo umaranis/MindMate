@@ -24,7 +24,7 @@ namespace MindMate.Serialization
         /// </summary>
         public void Initialize()
         {
-            Tree.RootNode = new MapNode(Tree, "New Map");
+            new MapNode(Tree, "New Map");
             Tree.TurnOnChangeManager();
             RegisterForMapChangedNotification();
             Tree.SelectedNodes.Add(Tree.RootNode);

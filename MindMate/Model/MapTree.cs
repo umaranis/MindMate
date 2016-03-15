@@ -6,10 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Drawing;
-using System.Globalization;
-using MindMate.Model;
 using MindMate.Modules.Undo;
 
 namespace MindMate.Model
@@ -31,7 +27,6 @@ namespace MindMate.Model
             }
             set
             {
-                if(rootNode != null) ClearTree();
                 rootNode = value;
             }
         }
@@ -93,7 +88,7 @@ namespace MindMate.Model
         #region AttributeSpec
 
         private Dictionary<string, AttributeSpec> attributeSpecs = new Dictionary<string, AttributeSpec>();
-
+        
         public IEnumerable<AttributeSpec> AttributeSpecs
         {
             get { return attributeSpecs.Values; }
@@ -124,15 +119,6 @@ namespace MindMate.Model
         
 
         #endregion AttributeSpec
-
-    
-
-        private void ClearTree()
-        {
-            // may want to add some code here to assist garbage collection
-            //this.RootNode.Icons.Clear();
-            this.RootNode.NodeView = null;            
-        }
 
         public MapNode GetClosestUnselectedNode(MapNode node)
         {
@@ -311,5 +297,10 @@ namespace MindMate.Model
         }
 
         #endregion Change Manager
+
+        /// <summary>
+        /// Used for creating isolated MapNode(s)
+        /// </summary>
+        public static MapTree Default = new MapTree();
     }
 }
