@@ -107,6 +107,13 @@ namespace MindMate.MetaModel
         //    get { return NoteEditorBackColor.ToArgb(); }
         //    set { NoteEditorBackColor = System.Drawing.Color.FromArgb(value); }
         //}
+
+        private readonly List<NodeStyle> nodeStyles = new List<NodeStyle>();
+
+        public List<NodeStyle> NodeStyles
+        {
+            get { return nodeStyles; }
+        }
         
         private static MetaModel Load()
         {

@@ -93,6 +93,8 @@
   <ItemGroup>
     <Compile Include="Controller\TabController.cs" />
     <Compile Include="MetaModel\Icon.cs" />
+    <Compile Include="MetaModel\NodeStyle.cs" />
+    <Compile Include="MetaModel\StyleImageGenerator.cs" />
     <Compile Include="Model\AttributeSpec.cs" />
     <Compile Include="Model\MapNode.Attribute.cs" />
     <Compile Include="Model\ClipboardManager.cs" />

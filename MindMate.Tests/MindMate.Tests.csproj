@@ -76,6 +76,8 @@
     <Compile Include="IntegrationTest\MapViewTest.cs" />
     <Compile Include="IntegrationTest\TaskPluginTests.cs" />
     <Compile Include="IntegrationTest\MapCtrlTests.cs" />
+    <Compile Include="MetaModel\NodeStyleTests.cs" />
+    <Compile Include="Model\StyleImageGeneratorTests.cs" />
     <Compile Include="Model\MapNodeTests.cs" />
     <Compile Include="Model\MapTreeTests.cs" />
     <Compile Include="Model\SelectedNodesTests.cs" />
@@ -145,6 +147,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\MapCtrl6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\NodeStyle-GenerateImage.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Sample Map.png">

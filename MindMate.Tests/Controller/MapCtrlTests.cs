@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FakeItEasy;
+using FakeItEasy.ExtensionSyntax.Full;
 using MindMate.Plugins.Tasks.Model;
 
 namespace MindMate.Tests.Controller
@@ -1644,6 +1645,88 @@ namespace MindMate.Tests.Controller
             mapCtrl.ChangeLineWidth(4);
 
             Assert.AreEqual(4, r.LineWidth);
+        }
+
+        [TestMethod()]
+        public void CreateNodeStyle_NodeStylesCountGoesUp()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            r.AddToSelection();
+            int count = MetaModel.MetaModel.Instance.NodeStyles.Count;
+
+            mapCtrl.CreateNodeStyle();
+
+            Assert.AreEqual(count + 1, MetaModel.MetaModel.Instance.NodeStyles.Count);
+        }
+
+        [TestMethod()]
+        public void CreateNodeStyle_NullIfNothingSelected()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+
+            var style = mapCtrl.CreateNodeStyle();
+
+            Assert.IsNull(style);
+        }
+
+        [TestMethod()]
+        public void CreateNodeStyle_NullIfMultipleSelected()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var c1 = new MapNode(r, "c1");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            r.AddToSelection();
+            c1.AddToSelection();
+
+            var style = mapCtrl.CreateNodeStyle();
+
+            Assert.IsNull(style);
+        }
+
+        [TestMethod()]
+        public void ApplyNodeStyle()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            r.FontSize = 15;
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            r.AddToSelection();
+            var style = mapCtrl.CreateNodeStyle();
+            r.Selected = false;
+            c1.AddToSelection();
+            c2.AddToSelection();
+
+            mapCtrl.ApplyNodeStyle(style);
+
+            Assert.AreEqual(15, c1.FontSize);
+            Assert.AreEqual(15, c2.FontSize);
         }
 
         //[TestMethod()]

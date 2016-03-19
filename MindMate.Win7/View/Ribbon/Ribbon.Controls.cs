@@ -131,6 +131,9 @@ namespace MindMate.View.Ribbon
 		private RibbonButton LineThickness1;		
 		private RibbonButton LineThickness2;		
 		private RibbonButton LineThickness4;		
+		private RibbonGroup GrpNodeStyle;		
+		private RibbonInRibbonGallery NodeStyleGallery;		
+		private RibbonButton CreateNodeStyle;		
 
 		private void InitializeComponents()
 		{
@@ -251,6 +254,9 @@ namespace MindMate.View.Ribbon
 			LineThickness1 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LineThickness1);
 			LineThickness2 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LineThickness2);
 			LineThickness4 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.LineThickness4);
+			GrpNodeStyle = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNodeStyle);
+			NodeStyleGallery = new RibbonInRibbonGallery(ribbon, (uint)RibbonMarkupCommands.NodeStyleGallery);
+			CreateNodeStyle = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.CreateNodeStyle);
 
 		}
 	

@@ -10,6 +10,7 @@ using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using MindMate.MetaModel;
 using MindMate.Model;
 using MindMate.Plugins.Tasks.Model;
 using MindMate.View.Dialogs;
@@ -1537,5 +1538,29 @@ namespace MindMate.Controller
             tree.ChangeManager.EndBatch();
         }
 
+        /// <summary>
+        /// Create NodeStyle from selected node and adds it to the MetaModel
+        /// </summary>
+        /// <returns>returns null if more than one nodes are selected</returns>
+        public NodeStyle CreateNodeStyle()
+        {
+            if (tree.SelectedNodes.Count == 1)
+            {
+                var n = tree.SelectedNodes.First;
+                var s = new NodeStyle(n.Text, n);
+                MetaModel.MetaModel.Instance.NodeStyles.Add(s);
+                return s;
+            }
+
+            return null;
+        }
+
+        public void ApplyNodeStyle(NodeStyle style)
+        {
+            using (tree.ChangeManager.StartBatch("Apply Node Style"))
+            {
+                style.ApplyTo(tree.SelectedNodes);
+            }
+        }
     }
 }

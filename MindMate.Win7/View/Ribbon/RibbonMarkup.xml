@@ -331,6 +331,11 @@ Note:
     <Command Name="LineThickness1" Id="5301" LabelTitle="1" />
     <Command Name="LineThickness2" Id="5302" LabelTitle="2" />
     <Command Name="LineThickness4" Id="5303" LabelTitle="4" />
+    
+    <!--Group: Node Style-->
+    <Command Name="GrpNodeStyle" Id="5400" LabelTitle="Node Style" />
+    <Command Name="NodeStyleGallery" Id="5401" LabelTitle="Node Style" />
+    <Command Name="CreateNodeStyle" Id="5402" LabelTitle="Add selected as Style" />
 
   </Application.Commands>
                    
@@ -711,6 +716,18 @@ Note:
               <Button CommandName="LineThickness2" />
               <Button CommandName="LineThickness4" />
             </DropDownButton>
+          </Group>
+          <Group CommandName="GrpNodeStyle" SizeDefinition="OneInRibbonGallery">
+            <InRibbonGallery CommandName="NodeStyleGallery" Type="Items" MinColumnsLarge="2" MaxColumnsMedium="2" MinColumnsMedium="1" MaxColumns="4" MaxRows="4" TextPosition="Bottom">
+              <InRibbonGallery.MenuLayout>
+                <FlowMenuLayout />
+              </InRibbonGallery.MenuLayout>
+              <InRibbonGallery.MenuGroups>
+                <MenuGroup>
+                  <Button CommandName="CreateNodeStyle" />
+                </MenuGroup>
+              </InRibbonGallery.MenuGroups>
+            </InRibbonGallery>
           </Group>
         </Tab>
       </Ribbon.Tabs>

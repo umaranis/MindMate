@@ -154,6 +154,10 @@ namespace MindMate.View.Ribbon
             LineThickness1.ExecuteEvent += LineThickness1_ExecuteEvent;
             LineThickness2.ExecuteEvent += LineThickness2_ExecuteEvent;
             LineThickness4.ExecuteEvent += LineThickness4_ExecuteEvent;
+            NodeStyleGallery.ExecuteEvent += NodeStyleGallery_ExecuteEvent;
+
+            //Format Tab: Node Style
+            CreateNodeStyle.ExecuteEvent += CreateNodeStyle_ExecuteEvent;
 
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
@@ -170,11 +174,6 @@ namespace MindMate.View.Ribbon
         public void OnRibbonLoaded()
         {
             NodeShape.LargeImage = ribbon.ConvertToUIImage(Resources.Node_Format_Bubble);
-        }
-
-        private void HelpButton_ExecuteEvent(object sender, ExecuteEventArgs e)
-        {
-            mainCtrl.ShowAboutBox();
         }
 
         public void SetupPluginCommands(MainMenuItem[] pluginItems)
@@ -320,6 +319,11 @@ namespace MindMate.View.Ribbon
                 // open file
                 mainCtrl.OpenMap(labelDescription);
             }
+        }
+
+        private void HelpButton_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.ShowAboutBox();
         }
 
         #endregion
@@ -862,6 +866,24 @@ namespace MindMate.View.Ribbon
             mainCtrl.CurrentMapCtrl.ChangeLineWidth(4);
         }
 
+        private void CreateNodeStyle_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            var style = mainCtrl.CurrentMapCtrl.CreateNodeStyle();
+            if (style != null)
+            {
+                NodeStyleGallery.ItemsSource.Add(new GalleryNodeStylePropertySet(style, ribbon));
+            }
+        }
+
+        private void NodeStyleGallery_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            var galleryStyle = (GalleryNodeStylePropertySet)e.CommandExecutionProperties;
+            if (galleryStyle != null)
+            {
+                mainCtrl.CurrentMapCtrl.ApplyNodeStyle(galleryStyle.NodeStyle);
+            }
+        }
+
         #endregion
 
         #region Events to Refresh Command State
@@ -872,11 +894,11 @@ namespace MindMate.View.Ribbon
             {
                 oldTree.Tree.SelectedNodes.NodeSelected -= SelectedNodes_NodeSelected;
                 oldTree.Tree.SelectedNodes.NodeDeselected -= SelectedNodes_NodeDeselected;
-                newTree.Tree.NodePropertyChanged -= Tree_NodePropertyChanged;
-                newTree.Tree.IconChanged -= Tree_IconChanged;
-                newTree.Tree.TreeStructureChanged -= Tree_TreeStructureChanged;
-                newTree.Tree.AttributeChanged -= Tree_AttributeChanged;
-                newTree.Tree.AttributeSpecChangeEvent -= Tree_AttributeSpecChangeEvent;
+                oldTree.Tree.NodePropertyChanged -= Tree_NodePropertyChanged;
+                oldTree.Tree.IconChanged -= Tree_IconChanged;
+                oldTree.Tree.TreeStructureChanged -= Tree_TreeStructureChanged;
+                oldTree.Tree.AttributeChanged -= Tree_AttributeChanged;
+                oldTree.Tree.AttributeSpecChangeEvent -= Tree_AttributeSpecChangeEvent;
             }
 
             if (newTree != null)

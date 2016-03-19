@@ -691,11 +691,13 @@ namespace MindMate.Model
         /// <summary>
         /// Create an isolated node
         /// </summary>
-        private MapNode()
+        private MapNode(NodePosition position)
         {
             this.Created = DateTime.Now;
             this.modified = DateTime.Now;
             this.Icons = new IconList(this);
+
+            this.pos = position;
 
             this.Tree = MapTree.Default;
         }
@@ -705,9 +707,9 @@ namespace MindMate.Model
         /// The Tree property of such nodes is not null, rather it is MapTree.Default.
         /// </summary>
         /// <returns></returns>
-        public static MapNode CreateIsolatedNode()
+        public static MapNode CreateIsolatedNode(NodePosition position)
         {
-            return new MapNode();
+            return new MapNode(position);
         }
 
         #endregion Isolatead Node

@@ -132,5 +132,8 @@ namespace MindMate.View.Ribbon
 		LineThickness1 = 5301,		
 		LineThickness2 = 5302,		
 		LineThickness4 = 5303,		
+		GrpNodeStyle = 5400,		
+		NodeStyleGallery = 5401,		
+		CreateNodeStyle = 5402,		
 	}
 }

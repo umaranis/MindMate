@@ -1597,7 +1597,7 @@ namespace MindMate.Tests.Model
         [TestMethod()]
         public void CreateIsolatedNode()
         {
-            var sut = MapNode.CreateIsolatedNode();
+            var sut = MapNode.CreateIsolatedNode(NodePosition.Left);
             Assert.AreEqual(MapTree.Default, sut.Tree);
         }
     }
