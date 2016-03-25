@@ -298,7 +298,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="View\MapControls\Link.cs" />
     <Compile Include="View\MapControls\IconView.cs" />
-    <Compile Include="Serialization\IconHandler.cs" />
+    <Compile Include="Serialization\IconImageLoader.cs" />
     <Compile Include="View\SideTabControl.cs">
       <SubType>Component</SubType>
     </Compile>

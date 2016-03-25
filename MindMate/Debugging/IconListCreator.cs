@@ -28,7 +28,7 @@ namespace MindMate.Debugging
         public static void GenerateIconXML()
         {
 
-            string path = Application.StartupPath + "\\" + IconHandler.ICON_PATH + "\\";
+            string path = Application.StartupPath + "\\" + IconImageLoader.ICON_PATH + "\\";
 
             string[] files = Directory.GetFiles(path);
             StringBuilder xml = new StringBuilder();
@@ -76,7 +76,7 @@ namespace MindMate.Debugging
         public static void GenerateMetaModelIconFromFolderFiles()
         {
 
-            string path = Application.StartupPath + "\\" + IconHandler.ICON_PATH + "\\";
+            string path = Application.StartupPath + "\\" + IconImageLoader.ICON_PATH + "\\";
 
             string[] files = Directory.GetFiles(path);
             for (int i = 0; i < files.Length; i++)

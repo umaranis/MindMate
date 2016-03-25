@@ -41,7 +41,7 @@ namespace MindMate.MetaModel
             get { return name; }
             set { 
                 name = value;
-                this.bitmap = MindMate.Serialization.IconHandler.GetIcon(name);
+                this.bitmap = MindMate.Serialization.IconImageLoader.GetIcon(name);
             }
         }
         private string title;

@@ -18,10 +18,9 @@ using MindMate.Controller;
 namespace MindMate.Serialization
 {
     /// <summary>
-    /// Maintains the hashtable of all icon bitmaps.
     /// Icons are first search in resource file , then in icons folder.
     /// </summary>
-    public class IconHandler
+    public class IconImageLoader
     {
         //#region Singleton
 
