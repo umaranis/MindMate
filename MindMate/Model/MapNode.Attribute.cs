@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MindMate.Serialization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,10 +22,10 @@ namespace MindMate.Model
 
             public static Attribute Empty = new Attribute(null, null);
             public bool IsEmpty() { return AttributeSpec == null; }
-            public string ValueString { get { return Value != null ? Value.ToString() : null; } }
+            public string ValueString { get { return Value?.ToString(); } }
             public override string ToString()
             {
-                return (AttributeSpec != null ? AttributeSpec.Name : "") + " : " + (ValueString != null ? ValueString : "");
+                return (AttributeSpec != null ? AttributeSpec.Name : "") + " : " + (ValueString ?? "");
             }
         }
 
@@ -33,7 +34,13 @@ namespace MindMate.Model
         /// <summary>
         /// returns null if no attributes
         /// </summary>
+        [Serialized(Order = 24)]
         public IEnumerable<Attribute> Attributes { get { return attributeList; } }
+
+        public bool HasAttributes
+        {
+            get { return attributeList != null && attributeList.Count > 0; }
+        }
 
         public int AttributeCount { get { return attributeList == null ? 0 : attributeList.Count; } }
 

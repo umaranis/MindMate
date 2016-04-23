@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.Model;
 using MindMate.Serialization;
 using MindMate.View.MapControls;
-using MindMate.Tests.Stubs;
 using System.Windows.Forms;
 using MindMate.MetaModel;
 using MindMate.Controller;
@@ -11,6 +10,7 @@ using System.IO;
 using XnaFan.ImageComparison;
 using System.Drawing;
 using System.Linq;
+using MindMate.Tests.TestDouble;
 
 namespace MindMate.Tests.IntegrationTest
 {

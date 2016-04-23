@@ -2,7 +2,7 @@
 using MindMate.Model;
 using TaskSchedular;
 
-namespace MindMate.Tests.Stubs
+namespace MindMate.Tests.TestDouble
 {
     class PluginManagerStub : MindMate.Plugins.IPluginManager
     {

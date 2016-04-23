@@ -224,3 +224,17 @@ recentfiles:
 lastopenedfile: C:\Users\Umar\OneDrive\Mac\MindMaps\My Projects.mm
 mapbackcolor: '#C0C0C0'
 notebackcolor: '#C0C0C0'
+nodestyles:
+- title: Good Style
+  refnode:
+    text: Sample
+    created: 04/18/2016 19:22:05
+    modified: 04/18/2016 19:22:05
+    bold: True
+- title: Style 2
+  refnode:
+    text: Sample-2
+    created: 04/22/2016 19:22:05
+    modified: 04/22/2016 19:22:05
+    bold: False
+    label: This is label

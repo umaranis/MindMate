@@ -112,6 +112,7 @@
     <Compile Include="Model\IconList.cs" />
     <Compile Include="Model\MapNodeEnums.cs" />
     <Compile Include="Model\NodeChangedEventArgs.cs" />
+    <Compile Include="Model\T4MapNodeHelper.cs" />
     <Compile Include="Modules\Undo\BatchChange.cs" />
     <Compile Include="Modules\Undo\ChangeFactory.cs" />
     <Compile Include="Modules\Undo\ChangeManager.cs" />
@@ -246,11 +247,20 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Serialization\Convert.cs" />
+    <Compile Include="Serialization\Dir.cs" />
+    <Compile Include="Serialization\MapYamlSerializer.cs" />
+    <Compile Include="Serialization\MapYamlSerializer.Generated.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MapYamlSerializer.Generated.tt</DependentUpon>
+    </Compile>
     <Compile Include="Serialization\MetaModelYamlSerializer.cs" />
     <Compile Include="Serialization\MindMapSerializer.cs" />
     <Compile Include="Serialization\MapTextSerializer.cs" />
+    <Compile Include="Serialization\NodeStyleImageSerializer.cs" />
     <Compile Include="Serialization\PersistenceManager.cs" />
     <Compile Include="Serialization\PersistentTree.cs" />
+    <Compile Include="Serialization\SerializedAttribute.cs" />
     <Compile Include="View\Dialogs\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -264,6 +274,12 @@
       <DependentUpon>IconSelectorExt.cs</DependentUpon>
     </Compile>
     <Compile Include="MetaModel\ISystemIcon.cs" />
+    <Compile Include="View\Dialogs\InputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Dialogs\InputBox.Designer.cs">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\EditorTabs\EditorTabs.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -310,6 +326,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Plugins\Tasks\Reminder\TaskReminderDialog.resx">
       <DependentUpon>TaskReminderDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Dialogs\InputBox.resx">
+      <DependentUpon>InputBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="View\NoteEditor.resx" />
     <None Include="images\filenew.png" />
@@ -398,7 +418,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <Compile Include="Debugging\Utility.cs" />
     <Compile Include="View\Dialogs\Options.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -442,8 +461,12 @@
     <None Include="images\knotes.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Ask Question Filled-100.png" />
+    <Content Include="Serialization\MapYamlSerializer.Generated.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MapYamlSerializer.Generated.cs</LastGenOutput>
+    </Content>
     <None Include="Binaries\CustomFontDialog.dll" />
-    <None Include="Binaries\protobuf-net.dll" />
     <None Include="Binaries\System.Windows.Forms.Calendar.dll" />
     <None Include="Binaries\TaskSchedular.dll" />
     <Content Include="images\edittrash.png" />
@@ -726,6 +749,9 @@
     <None Include="Resources\cross-script.png" />
     <None Include="Resources\link.png" />
     <None Include="Resources\sticky-note-pin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

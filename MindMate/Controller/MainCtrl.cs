@@ -259,6 +259,28 @@ namespace MindMate.Controller
             this.statusBarCtrl.SetStatusUpdate(msg);
         }
 
+        public void ShowMessageBox(string title, string msg, MessageBoxIcon icon)
+        {
+            MessageBox.Show(msg, title, MessageBoxButtons.OK, icon);
+        }
+
+        /// <summary>
+        /// Uses InputBox dialog to ask question from the user
+        /// </summary>
+        /// <param name="question"></param>
+        /// <param name="caption"></param>
+        /// <returns></returns>
+        public string ShowInputBox(string question, string caption = null)
+        {
+            var inputBox = new InputBox(question, caption);
+            if (inputBox.ShowDialog() == DialogResult.OK)
+            {
+                return inputBox.Answer;
+            }
+
+            return null;
+        }
+
         public void ShowAboutBox()
         {
             new AboutBox().ShowDialog();
@@ -366,8 +388,6 @@ namespace MindMate.Controller
                 return;
             }
 
-            Debugging.Utility.StartTimeCounter("Loading Map", fileName);
-
             MapTree tree;
             try
             {
@@ -376,17 +396,13 @@ namespace MindMate.Controller
             catch (FileNotFoundException)
             {
                 MessageBox.Show("File not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Debugging.Utility.EndTimeCounter("Loading Map");
                 return;
             }
             catch (DirectoryNotFoundException)
             {
                 MessageBox.Show("File not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Debugging.Utility.EndTimeCounter("Loading Map");
                 return;
             }
-
-            Debugging.Utility.EndTimeCounter("Loading Map");
 
             MetaModel.MetaModel.Instance.RecentFiles.Add(fileName);
             mainForm.RefreshRecentFilesMenuItems();

@@ -1,8 +1,9 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using MindMate.Controller;
 using MindMate.View.MapControls;
 
-namespace MindMate.Tests.Stubs
+namespace MindMate.Tests.TestDouble
 {
     class MainCtrlStub : IMainCtrl
     {
@@ -36,6 +37,16 @@ namespace MindMate.Tests.Stubs
         public void ShowStatusNotification(string msg)
         {
             
+        }
+
+        public void ShowMessageBox(string title, string msg, MessageBoxIcon icon)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string ShowInputBox(string question, string caption = null)
+        {
+            throw new NotImplementedException();
         }
 
         public NodeContextMenu NodeContextMenu { get; }

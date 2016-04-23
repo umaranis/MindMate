@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using MindMate.MetaModel;
 using MindMate.Model;
 using MindMate.Plugins.Tasks.Model;
+using MindMate.Serialization;
 using MindMate.View.Dialogs;
 using MindMate.View.MapControls;
 
@@ -1544,12 +1545,22 @@ namespace MindMate.Controller
         /// <returns>returns null if more than one nodes are selected</returns>
         public NodeStyle CreateNodeStyle()
         {
-            if (tree.SelectedNodes.Count == 1)
+            try
             {
-                var n = tree.SelectedNodes.First;
-                var s = new NodeStyle(n.Text, n);
-                MetaModel.MetaModel.Instance.NodeStyles.Add(s);
-                return s;
+                if (tree.SelectedNodes.Count == 1)
+                {
+                    var n = tree.SelectedNodes.First;
+                    var styleName = mainCtrl.ShowInputBox("Enter the style name:");
+                    var s = new NodeStyle(styleName, n, true);
+                    new NodeStyleImageSerializer().SerializeImage(s.Image, s.Title);
+                    MetaModel.MetaModel.Instance.NodeStyles.Add(s);
+                    MetaModel.MetaModel.Instance.Save();
+                    return s;
+                }
+            }
+            catch (Exception e)
+            {
+                mainCtrl.ShowMessageBox("Error", e.Message, MessageBoxIcon.Error);
             }
 
             return null;

@@ -30,8 +30,6 @@ namespace MindMate.View.Dialogs
 
             MetaModel.MetaModel.Initialize();
 
-            Debugging.Utility.StartTimeCounter("Loading icons");
-
             // adding items to ListView
             ImageList imageList = new ImageList();
             for (int i = 0; i < MetaModel.MetaModel.Instance.IconsList.Count; i++)
@@ -59,7 +57,6 @@ namespace MindMate.View.Dialogs
 
             listView.AfterLabelEdit += listView_AfterLabelEdit;
                                     
-            Debugging.Utility.EndTimeCounter("Loading icons");
         }
 
         /// <summary>

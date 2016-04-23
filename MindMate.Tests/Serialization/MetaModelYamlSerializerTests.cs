@@ -2,6 +2,8 @@
 using MindMate.Serialization;
 using System.IO;
 using MindMate.MetaModel;
+using MindMate.Model;
+using MindMate.Tests.TestDouble;
 
 namespace MindMate.Tests.Serialization
 {
@@ -43,6 +45,56 @@ namespace MindMate.Tests.Serialization
             var result = textWriter.ToString();
 
             Assert.IsTrue(result.Contains("icons"));
+        }
+
+        [TestMethod()]
+        public void SerializeToString_NodeStyle()
+        {
+            var model = MetaModelHelper.Create();
+            model.IconsList.Add(new ModelIcon("button_ok", "ok", "k"));
+            var refNode = new MapNode(new MapTree(), "Text");
+            refNode.Bold = true;
+            refNode.FontSize = 15;
+            model.NodeStyles.Add(new NodeStyle("Stylish", refNode, false));
+            var sut = new MetaModelYamlSerializer();
+            var textWriter = new StringWriter();
+            sut.Serialize(model, textWriter);
+            var result = textWriter.ToString();
+
+            Assert.IsTrue(result.Contains(MetaModelYamlSerializer.NodeStyles));
+            Assert.IsTrue(result.Contains("Stylish"));
+        }
+
+        [TestMethod()]
+        public void SerializeToString_NodeStyle_NoLinePattern()
+        {
+            MetaModel.MetaModel.Initialize(); //required by StyleImageGenerator
+            var model = new MetaModel.MetaModel();
+            model.IconsList.Add(new ModelIcon("button_ok", "ok", "k"));
+            var refNode = new MapNode(new MapTree(), "Text");
+            refNode.Bold = true;
+            refNode.FontSize = 15;
+            model.NodeStyles.Add(new NodeStyle("Stylish", refNode, false));
+            var sut = new MetaModelYamlSerializer();
+            var textWriter = new StringWriter();
+            sut.Serialize(model, textWriter);
+            var result = textWriter.ToString();
+
+            Assert.IsFalse(result.Contains(MapYamlSerializer.LinePattern));
+        }
+
+        [TestMethod()]
+        public void SerializeToString_NoNodeStyle()
+        {
+            MetaModel.MetaModel.Initialize(); //required by StyleImageGenerator
+            var model = new MetaModel.MetaModel();
+            model.IconsList.Add(new ModelIcon("button_ok", "ok", "k"));
+            var sut = new MetaModelYamlSerializer();
+            var textWriter = new StringWriter();
+            sut.Serialize(model, textWriter);
+            var result = textWriter.ToString();
+
+            Assert.IsFalse(result.Contains(MetaModelYamlSerializer.NodeStyles));
         }
 
 
@@ -97,6 +149,59 @@ namespace MindMate.Tests.Serialization
             textReader.Close();
 
             Assert.AreEqual(0, model.RecentFiles.Count);
+        }
+
+        [TestMethod()]
+        public void Deserialize_NodeStyles()
+        {
+            MetaModel.MetaModel model = new MetaModel.MetaModel();
+            var sut = new MetaModelYamlSerializer();
+            var textReader = new StreamReader(@"Resources\Settings.Yaml");
+
+            sut.Deserialize(model, textReader);
+            textReader.Close();
+
+            Assert.AreEqual(2, model.NodeStyles.Count);
+        }
+
+        [TestMethod()]
+        public void Deserialize_NodeStyle_Title()
+        {
+            MetaModel.MetaModel model = new MetaModel.MetaModel();
+            var sut = new MetaModelYamlSerializer();
+            var textReader = new StreamReader(@"Resources\Settings.Yaml");
+
+            sut.Deserialize(model, textReader);
+            textReader.Close();
+
+            Assert.AreEqual("Good Style", model.NodeStyles[0].Title);
+        }
+
+        [TestMethod()]
+        public void Deserialize_NodeStyle_RefNodeLabel()
+        {
+            MetaModel.MetaModel model = new MetaModel.MetaModel();
+            var sut = new MetaModelYamlSerializer();
+            var textReader = new StreamReader(@"Resources\Settings.Yaml");
+
+            sut.Deserialize(model, textReader);
+            textReader.Close();
+
+            Assert.AreEqual("This is label", model.NodeStyles[1].RefNode.Label);
+        }
+
+        [TestMethod()]
+        public void Deserialize_NodeStyle_ImageNotNull()
+        {
+            MetaModel.MetaModel model = MetaModelHelper.Create();
+            var sut = new MetaModelYamlSerializer();
+            var textReader = new StreamReader(@"Resources\Settings.Yaml");
+
+            sut.Deserialize(model, textReader);
+            textReader.Close();
+
+            Assert.IsNotNull(model.NodeStyles[0].Image);
+            Assert.IsNotNull(model.NodeStyles[1].Image);
         }
     }
 }

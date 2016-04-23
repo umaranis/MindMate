@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using MindMate.View.MapControls;
 using MindMate.View.MapControls.Drawing;
 using XnaFan.ImageComparison;
@@ -21,7 +20,7 @@ namespace MindMate.Tests.Model
         public void MapNode_HasNote_False()
         {
             var r = new MapNode(new MapTree(), "r");
-            Assert.IsFalse(r.HasNote);
+            Assert.IsFalse(r.HasNoteText);
         }
 
         [TestMethod()]
@@ -1600,5 +1599,24 @@ namespace MindMate.Tests.Model
             var sut = MapNode.CreateIsolatedNode(NodePosition.Left);
             Assert.AreEqual(MapTree.Default, sut.Tree);
         }
+
+#if ! DEBUG
+        /// <summary>
+        /// Serialized attriute is only applicable in debug mode. It is used in code generation, not at runtime.
+        /// </summary>
+        [TestMethod]
+        public void SerializedAttribute_Applicable()
+        {
+            var props = typeof(MapNode).GetProperties();
+            foreach (var p in props)
+            {
+                if (p.CustomAttributes.Any(a => a.AttributeType == typeof(SerializedAttribute)))
+                {
+                    Assert.Fail();
+                }
+            }
+        }
+#endif
+
     }
 }

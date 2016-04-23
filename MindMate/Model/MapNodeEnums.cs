@@ -103,12 +103,12 @@ namespace MindMate.Model
 
     public enum ImageAlignment
     {
-        AboveLeft,
-        AboveCenter,
-        AboveRight,
-        BelowLeft,
         BelowCenter,
-        BelowRight
+        BelowLeft,
+        BelowRight,
+        AboveCenter,
+        AboveLeft,
+        AboveRight
     } 
     
 }

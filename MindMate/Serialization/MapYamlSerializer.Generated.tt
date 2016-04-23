@@ -1,0 +1,75 @@
+﻿<#@ template debug="true" hostSpecific="true" #>
+<#@ output extension=".cs" #>
+<#@ Assembly Name="System.Core.dll" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+<#@ Assembly Name="System.Windows.Forms.dll" #>
+<#@ assembly name="$(ProjectDir)bin\Debug\MindMate.dll" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ import namespace="MindMate.Model" #>
+using MindMate.Model;
+using YamlDotNet.Core;
+using YamlDotNet.Core.Events;
+using System.Globalization;
+using MindMate.Plugins.Tasks; //TODO: Move DateHelper class out of the plugin into core
+
+namespace MindMate.Serialization
+{
+
+	public partial class MapYamlSerializer
+	{
+<#		var T4 = new T4MapNodeHelper();
+		var props = T4.GetSerializedPropertiesInOrder();
+		foreach (var p in props)
+		{ #>
+		public const string <#= p.Name #> = "<#= Char.ToLowerInvariant(p.Name[0]) + p.Name.Substring(1) #>";
+<#		}
+#>
+		
+		private void SerializeScalarProperties(MapNode node, Emitter emitter)
+        {
+<#			props = T4.GetSerializedScalarPropertiesInOrder();
+			foreach (var p in props)
+            { 
+			if (typeof(MapNode).GetProperty("Has" + p.Name) != null) {#>
+			if (node.Has<#= p.Name #>)
+			{
+				emitter.Emit(new Scalar(<#= p.Name #>));
+				emitter.Emit(new Scalar(<#= T4.GetToStringStatement(p, "node") #>));
+			}
+<#          }
+			else
+            {
+#>
+			emitter.Emit(new Scalar(<#= p.Name #>));
+			emitter.Emit(new Scalar(<#= T4.GetToStringStatement(p, "node") #>));
+<#			}
+#>
+<#          }
+#>
+		}
+
+		/*private void DeserializeScalarProperties(MapNode node, EventReader r)
+		{
+			Scalar prop = r.Peek<Scalar>();
+<#			props = T4.GetSerializedScalarPropertiesInOrder();
+			foreach(var p in props)
+			{ #>
+
+			if (prop != null && prop.Value.Equals(<#= p.Name #>))
+            {
+                r.Expect<Scalar>();
+				node.<#= p.Name #> = <#= T4.GetConvertFromStringStatement(p, "r.Expect<Scalar>().Value") #>;
+                prop = r.Peek<Scalar>();
+            }
+<#			} #>
+
+		}*/
+	}
+}

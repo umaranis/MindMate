@@ -154,6 +154,7 @@ namespace MindMate.View.Ribbon
             LineThickness1.ExecuteEvent += LineThickness1_ExecuteEvent;
             LineThickness2.ExecuteEvent += LineThickness2_ExecuteEvent;
             LineThickness4.ExecuteEvent += LineThickness4_ExecuteEvent;
+            NodeStyleGallery.ItemsSourceReady += NodeStyleGallery_ItemsSourceReady;
             NodeStyleGallery.ExecuteEvent += NodeStyleGallery_ExecuteEvent;
 
             //Format Tab: Node Style
@@ -864,6 +865,14 @@ namespace MindMate.View.Ribbon
         private void LineThickness4_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
             mainCtrl.CurrentMapCtrl.ChangeLineWidth(4);
+        }
+
+        private void NodeStyleGallery_ItemsSourceReady(object sender, EventArgs e)
+        {
+            foreach (var nodeStyle in MetaModel.MetaModel.Instance.NodeStyles)
+            {
+                NodeStyleGallery.ItemsSource.Add(new GalleryNodeStylePropertySet(nodeStyle, ribbon));
+            }
         }
 
         private void CreateNodeStyle_ExecuteEvent(object sender, ExecuteEventArgs e)

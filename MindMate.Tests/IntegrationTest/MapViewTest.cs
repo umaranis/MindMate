@@ -7,7 +7,6 @@ using MindMate.Serialization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using XnaFan.ImageComparison;
 using MindMate.Controller;
-using MindMate.Tests.Stubs;
 
 namespace MindMateTest
 {

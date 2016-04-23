@@ -135,7 +135,7 @@ namespace MindMate.Serialization
                 xml.WriteEndElement();
             }
 
-            if (mapNode.HasNote)
+            if (mapNode.HasNoteText)
             {
                 xml.WriteStartElement("richcontent");
                 xml.WriteAttributeString("TYPE", "NOTE");

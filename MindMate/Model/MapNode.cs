@@ -7,10 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using MindMate.View.MapControls;
 using System.Drawing;
-using System.Diagnostics;
+using System.Drawing.Drawing2D;
+using MindMate.Serialization;
 
 namespace MindMate.Model
 {
@@ -23,9 +23,13 @@ namespace MindMate.Model
         /// <summary>
         /// It is used for hyperlinking nodes, it is null generally.
         /// </summary>
+        [Serialized(Order = 3)]
         public string Id { get; private set; }
+        public bool HasId { get { return Id != null; } }
+
 
         private NodePosition pos;
+        [Serialized(Order = 2)]
         public NodePosition Pos
         {
             get
@@ -33,8 +37,13 @@ namespace MindMate.Model
                 return pos;
             }
         }
+        public bool HasPos
+        {
+            get { return Parent != null && Pos != Parent.Pos; }
+        }
 
         private string text;
+        [Serialized(Order = 1)]
         public string Text
         {
             get
@@ -49,8 +58,13 @@ namespace MindMate.Model
                 Tree.FireEvent(this, NodeProperties.Text, oldValue);
             }
         }
+        public bool HasText
+        {
+            get { return text != null; }
+        }
 
         private bool folded;
+        [Serialized(Order = 4)]
         public bool Folded
         {
             get
@@ -73,90 +87,13 @@ namespace MindMate.Model
                 Tree.FireEvent(this, NodeProperties.Folded, !folded);
             }
         }
-
-        private bool bold;
-        public bool Bold
+        public bool HasFolded
         {
-            get
-            {
-                return bold;
-            }
-            set
-            {
-                if (bold == value) return;
-                bold = value;
-                modified = DateTime.Now;
-                Tree.FireEvent(this, NodeProperties.Bold, !bold);
-            }
+            get { return folded; }
         }
-
-        private bool italic;
-        public bool Italic
-        {
-            get
-            {
-                return italic;
-            }
-            set
-            {
-                if (italic == value) return;
-                italic = value;
-                modified = DateTime.Now;
-                Tree.FireEvent(this, NodeProperties.Italic, !italic);
-            }
-        }
-
-        private bool strikeout;
-
-        public bool Strikeout
-        {
-            get { return strikeout; }
-            set
-            {
-                if (strikeout == value) return;
-                strikeout = value;
-                modified = DateTime.Now;
-                Tree.FireEvent(this, NodeProperties.Strikeout, !strikeout);
-            }
-        }
-
-        private string fontName;
-        public string FontName {
-            get
-            {
-                return fontName;
-            }
-            set
-            {
-                object oldValue = fontName;
-                fontName = value;
-                modified = DateTime.Now;
-                Tree.FireEvent(this, NodeProperties.FontName, oldValue);
-            }
-        }
-
-        private float fontSize;
-        /// <summary>
-        /// 0 is the default value, meaning Font Size is not defined (default size should be used)
-        /// </summary>
-        public float FontSize
-        {
-            get
-            {
-                return fontSize;
-            }
-            set
-            {
-                object oldValue = fontSize;
-                fontSize = value;
-                modified = DateTime.Now;
-                Tree.FireEvent(this, NodeProperties.FontSize, oldValue);
-            }
-        }
-
-        public IconList Icons { get; private set; }
 
         private string link;
+        [Serialized(Order = 5)]
         public string Link
         {
             get
@@ -171,11 +108,18 @@ namespace MindMate.Model
                 Tree.FireEvent(this, NodeProperties.Link, oldValue);
             }
         }
+        public bool HasLink
+        {
+            get { return link != null; }
+        }
 
+        [Serialized(Order = 6)]
         public DateTime Created { get; set; }
 
         private DateTime modified;
-        public DateTime Modified {
+        [Serialized(Order = 7)]
+        public DateTime Modified
+        {
             get
             {
                 return modified;
@@ -186,10 +130,115 @@ namespace MindMate.Model
             }
         }
 
+        private bool bold;
+        [Serialized(Order = 8)]
+        public bool Bold
+        {
+            get
+            {
+                return bold;
+            }
+            set
+            {
+                if (bold == value) return;
+                bold = value;
+                modified = DateTime.Now;
+                Tree.FireEvent(this, NodeProperties.Bold, !bold);
+            }
+        }
+        public bool HasBold
+        {
+            get { return bold; }
+        }
+
+        private bool italic;
+        [Serialized(Order = 9)]
+        public bool Italic
+        {
+            get
+            {
+                return italic;
+            }
+            set
+            {
+                if (italic == value) return;
+                italic = value;
+                modified = DateTime.Now;
+                Tree.FireEvent(this, NodeProperties.Italic, !italic);
+            }
+        }
+        public bool HasItalic
+        {
+            get { return italic; }
+        }
+
+        private bool strikeout;
+        [Serialized(Order = 10)]
+        public bool Strikeout
+        {
+            get { return strikeout; }
+            set
+            {
+                if (strikeout == value) return;
+                strikeout = value;
+                modified = DateTime.Now;
+                Tree.FireEvent(this, NodeProperties.Strikeout, !strikeout);
+            }
+        }
+        public bool HasStrikeout
+        {
+            get { return strikeout; }
+        }
+
+        private string fontName;
+        [Serialized(Order = 11)]
+        public string FontName {
+            get
+            {
+                return fontName;
+            }
+            set
+            {
+                object oldValue = fontName;
+                fontName = value;
+                modified = DateTime.Now;
+                Tree.FireEvent(this, NodeProperties.FontName, oldValue);
+            }
+        }
+        public bool HasFontName
+        {
+            get { return fontName != null; }
+        }
+
+        private float fontSize;
+        /// <summary>
+        /// 0 is the default value, meaning Font Size is not defined (default size should be used)
+        /// </summary>
+        [Serialized(Order = 12)]
+        public float FontSize
+        {
+            get
+            {
+                return fontSize;
+            }
+            set
+            {
+                object oldValue = fontSize;
+                fontSize = value;
+                modified = DateTime.Now;
+                Tree.FireEvent(this, NodeProperties.FontSize, oldValue);
+            }
+        }
+        public bool HasFontSize
+        {
+            get { return fontSize != 0; }
+        }
+
         private Color backColor;
         /// <summary>
         /// Default value is Color.Empty
         /// </summary>
+        [Serialized(Order = 13)]
         public Color BackColor
         {
             get
@@ -204,11 +253,16 @@ namespace MindMate.Model
                 Tree.FireEvent(this, NodeProperties.BackColor, oldValue);
             }
         }
+        public bool HasBackColor
+        {
+            get { return !backColor.IsEmpty; } 
+        }
 
         private Color color;
         /// <summary>
         /// Default value is Color.Empty
         /// </summary>
+        [Serialized(Order = 14)]
         public Color Color
         {
             get
@@ -223,8 +277,13 @@ namespace MindMate.Model
                 Tree.FireEvent(this, NodeProperties.Color, oldValue);
             }
         }
+        public bool HasColor
+        {
+            get { return !color.IsEmpty; }
+        }
 
         private NodeShape shape;
+        [Serialized(Order = 15)]
         public NodeShape Shape
         {
             get
@@ -239,11 +298,16 @@ namespace MindMate.Model
                 Tree.FireEvent(this, NodeProperties.Shape, oldValue);
             }
         }
+        public bool HasShape
+        {
+            get { return shape != NodeShape.None; }
+        }
 
         private int lineWidth;
         /// <summary>
         /// 0 stands for default line width (as parent)
         /// </summary>
+        [Serialized(Order = 16)]
         public int LineWidth
         {
             get
@@ -258,11 +322,16 @@ namespace MindMate.Model
                 Tree.FireEvent(this, NodeProperties.LineWidth, oldValue);
             }
         }
+        public bool HasLineWidth
+        {
+            get { return lineWidth != 0; }
+        }
 
         private System.Drawing.Drawing2D.DashStyle linePattern = System.Drawing.Drawing2D.DashStyle.Custom;
         /// <summary>
         /// Custom stands for default (as parent)
         /// </summary>
+        [Serialized(Order = 17)]
         public System.Drawing.Drawing2D.DashStyle LinePattern
         {
             get
@@ -277,8 +346,13 @@ namespace MindMate.Model
                 Tree.FireEvent(this, NodeProperties.LinePattern, oldValue);
             }
         }
+        public bool HasLinePattern
+        {
+            get { return linePattern != DashStyle.Custom; }
+        }
 
         private Color lineColor;
+        [Serialized(Order = 18)]
         public Color LineColor
         {
             get
@@ -293,13 +367,13 @@ namespace MindMate.Model
                 Tree.FireEvent(this, NodeProperties.LineColor, oldValue);
             }
         }
-
-        public bool HasNote
+        public bool HasLineColor
         {
-            get { return noteText != null; }
+            get { return !lineColor.IsEmpty; }
         }
 
         private string noteText;
+        [Serialized(Order = 19)]
         public string NoteText
         {
             get
@@ -314,8 +388,13 @@ namespace MindMate.Model
                 Tree.FireEvent(this, NodeProperties.NoteText, oldValue);
             }
         }
+        public bool HasNoteText
+        {
+            get { return noteText != null; }
+        }
 
         private Image image;
+        [Serialized(Order = 20)]
         public Image Image
         {
             get { return image; }
@@ -327,8 +406,13 @@ namespace MindMate.Model
                 Tree.FireEvent(this, NodeProperties.Image, oldValue); 
             }
         }
+        public bool HasImage
+        {
+            get { return image != null; }
+        }
 
         private ImageAlignment imageAlignment;
+        [Serialized(Order = 21)]
         public ImageAlignment ImageAlignment
         {
             get { return imageAlignment; }
@@ -340,8 +424,13 @@ namespace MindMate.Model
                 Tree.FireEvent(this, NodeProperties.ImageAlignment, oldValue);
             }
         }
+        public bool HasImageAlignment
+        {
+            get { return imageAlignment != ImageAlignment.BelowCenter; }
+        }
 
         private string label;
+        [Serialized(Order = 22)]
         public string Label
         {
             get { return label; }
@@ -352,6 +441,17 @@ namespace MindMate.Model
                 modified = DateTime.Now;
                 Tree.FireEvent(this,NodeProperties.Label, oldValue);
             }
+        }
+        public bool HasLabel
+        {
+            get { return label != null; }
+        }
+
+        [Serialized(Order = 23)]
+        public IconList Icons { get; private set; }
+        public bool HasIcons
+        {
+            get { return Icons != null && Icons.Count > 0; }
         }
 
         #endregion

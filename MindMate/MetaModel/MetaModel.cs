@@ -5,14 +5,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Runtime.Serialization;
 using System.IO;
-using System.Windows.Forms;
-using System.Xml.Serialization;
-using System.Xml;
 using MindMate.Serialization;
+using YamlDotNet.Core;
 
 namespace MindMate.MetaModel
 {
@@ -31,19 +28,6 @@ namespace MindMate.MetaModel
             
         }
 
-        
-        /// <summary>
-        /// Static constructor is not getting called sometimes before the Instance variable is used. To get around the problem, Initialize method is invoked during initial setup of the application.
-        /// </summary>
-        //static MetaModel()
-        //{
-        //    if(instance == null)
-        //        instance = MetaModel.Load();
-        //}
-
-        /// <summary>
-        /// Static constructor is not getting called sometimes before the Instance variable is used. To get around the problem, Initialize method is invoked during initial setup of the application.
-        /// </summary>
         public static void Initialize()
         {
             if (instance == null)
@@ -114,7 +98,7 @@ namespace MindMate.MetaModel
         {
             get { return nodeStyles; }
         }
-        
+
         private static MetaModel Load()
         {
             MetaModel model;
@@ -138,13 +122,20 @@ namespace MindMate.MetaModel
                     new MetaModelYamlSerializer().Deserialize(model, file);
                 }
             }
-            catch (FileNotFoundException)
+            catch (FileNotFoundException e)
             {
-                model = LoadDefaultMetaModel();                
+                Trace.WriteLine(e.Message);
+                model = LoadDefaultMetaModel();
             }
-            catch (DirectoryNotFoundException)
+            catch (DirectoryNotFoundException e)
             {
-                model = LoadDefaultMetaModel();                
+                Trace.WriteLine(e.Message);
+                model = LoadDefaultMetaModel();
+            }
+            catch (YamlException e)
+            {
+                Trace.WriteLine(e.Message);
+                model = LoadDefaultMetaModel();
             }
             model.RecentFiles.Reverse();
 
@@ -208,7 +199,7 @@ namespace MindMate.MetaModel
             }
         }
 
-        private Dictionary<string, ModelIcon> iconsCache = new Dictionary<string, ModelIcon>();
+        private readonly Dictionary<string, ModelIcon> iconsCache = new Dictionary<string, ModelIcon>();
 
         //[@XmlIgnoreAttribute]
         //public Dictionary<string, ModelIcon> IconsHashMap
@@ -248,13 +239,12 @@ namespace MindMate.MetaModel
 
         private static string GetFilePath()
         {
-            return GetFileDirectory() + "\\" + FILE_NAME;            
+            return GetFileDirectory() + FILE_NAME;            
         }
 
         private static string GetFileDirectory()
         {
-            return Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) +
-                "\\" + MindMate.Controller.MainCtrl.APPLICATION_NAME;
+            return Dir.UserSettingsDirectory;
         }
 
     }

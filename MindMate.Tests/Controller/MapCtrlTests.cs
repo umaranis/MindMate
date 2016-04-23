@@ -2,7 +2,6 @@
 using MindMate.Controller;
 using MindMate.Model;
 using MindMate.Serialization;
-using MindMate.Tests.Stubs;
 using MindMate.View.MapControls;
 using System;
 using System.Collections.Generic;
@@ -14,6 +13,7 @@ using System.Threading.Tasks;
 using FakeItEasy;
 using FakeItEasy.ExtensionSyntax.Full;
 using MindMate.Plugins.Tasks.Model;
+using MindMate.Tests.TestDouble;
 
 namespace MindMate.Tests.Controller
 {

@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.Model;
 using MindMate.Plugins.Tasks.Model;
+using MindMate.Tests.TestDouble;
 
 namespace MindMate.Tests.IntegrationTest
 {
@@ -12,7 +13,7 @@ namespace MindMate.Tests.IntegrationTest
         public void AddTask_RetrieveIt()
         {
             // setup
-            var pManager = new Stubs.PluginManagerStub();
+            var pManager = new PluginManagerStub();
 
             MindMate.Plugins.Tasks.TaskPlugin taskPlugin = new MindMate.Plugins.Tasks.TaskPlugin();
             taskPlugin.Initialize(pManager);

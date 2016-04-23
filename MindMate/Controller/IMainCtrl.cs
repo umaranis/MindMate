@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MindMate.View.MapControls;
+using System.Windows.Forms;
 
 namespace MindMate.Controller
 {
@@ -23,6 +24,16 @@ namespace MindMate.Controller
         bool SeekDeleteConfirmation(string msg);
 
         void ShowStatusNotification(string msg);
+
+        void ShowMessageBox(string title, string msg, MessageBoxIcon icon);
+
+        /// <summary>
+        /// Uses InputBox dialog to ask question from the user
+        /// </summary>
+        /// <param name="question"></param>
+        /// <param name="caption"></param>
+        /// <returns></returns>
+        string ShowInputBox(string question, string caption = null);
 
         NodeContextMenu NodeContextMenu { get; }
     }

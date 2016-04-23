@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.CodeDom;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using MindMate.MetaModel;
 using YamlDotNet.Core;
 using YamlDotNet.Core.Events;
@@ -21,6 +20,8 @@ namespace MindMate.Serialization
         public const string LastOpenedFile = "lastopenedfile";
         public const string MapBackColor = "mapbackcolor";
         public const string NoteBackColor = "notebackcolor";
+        public const string NodeStyles = "nodestyles";
+        public const string RefNode = "refnode";
 
 
         public void Serialize(MetaModel.MetaModel metaModel, TextWriter writer)
@@ -69,6 +70,22 @@ namespace MindMate.Serialization
             //note back color
             emitter.Emit(new Scalar(NoteBackColor));
             emitter.Emit(new Scalar(Convert.ToColorHexValue(metaModel.NoteEditorBackColor)));
+            //node styles
+            if (metaModel.NodeStyles.Any())
+            {
+                emitter.Emit(new Scalar(NodeStyles));
+                emitter.Emit(new SequenceStart(null, null, true, SequenceStyle.Block));
+                foreach (var nodeStyle in metaModel.NodeStyles)
+                {
+                    emitter.Emit(new MappingStart());
+                    emitter.Emit(new Scalar(Title));
+                    emitter.Emit(new Scalar(nodeStyle.Title));
+                    emitter.Emit(new Scalar(RefNode));
+                    new MapYamlSerializer().Serialize(nodeStyle.RefNode, emitter);
+                    emitter.Emit(new MappingEnd());
+                }
+                emitter.Emit(new SequenceEnd()); 
+            }
 
             emitter.Emit(new MappingEnd());
             emitter.Emit(new DocumentEnd(true));
@@ -90,42 +107,51 @@ namespace MindMate.Serialization
             r.Expect<DocumentStart>();
             r.Expect<MappingStart>();
 
-            string section = r.Peek<Scalar>().Value;
-            if (section.Equals(Icons))
+            Scalar section = r.Peek<Scalar>();
+            if (section.Value.Equals(Icons))
             {
                 r.Expect<Scalar>();
                 DeserializeIcons(metaModel, r);
-                section = r.Peek<Scalar>().Value;
+                section = r.Peek<Scalar>();
             }
 
-            if (section != null && section.Equals(RecentFiles))
+            if (section != null && section.Value.Equals(RecentFiles))
             {
                 r.Expect<Scalar>();
                 DeserializeRecentFiles(metaModel, r);
-                section = r.Peek<Scalar>().Value;
+                section = r.Peek<Scalar>();
             }
 
-            if (section != null && section.Equals(LastOpenedFile))
+            if (section != null && section.Value.Equals(LastOpenedFile))
             {
                 r.Expect<Scalar>();
                 metaModel.LastOpenedFile = r.Expect<Scalar>().Value;
-                section = r.Peek<Scalar>().Value;
+                section = r.Peek<Scalar>();
             }
 
-            if (section != null && section.Equals(MapBackColor))
+            if (section != null && section.Value.Equals(MapBackColor))
             {
                 r.Expect<Scalar>();
                 metaModel.MapEditorBackColor = (Color)(new ColorConverter().ConvertFromString(r.Expect<Scalar>().Value));
-                section = r.Peek<Scalar>().Value;
+                section = r.Peek<Scalar>();
             }
 
-            if (section != null && section.Equals(NoteBackColor))
+            if (section != null && section.Value.Equals(NoteBackColor))
             {
                 r.Expect<Scalar>();
                 metaModel.NoteEditorBackColor = (Color)(new ColorConverter().ConvertFromString(r.Expect<Scalar>().Value));
-                //section = r.Peek<Scalar>().Value; //uncomment when adding another section
+                section = r.Peek<Scalar>(); 
             }
+
+            if (section != null && section.Value.Equals(NodeStyles))
+            {
+                r.Expect<Scalar>();
+                DeserializeNodeStyles(metaModel, r);
+                //section = r.Peek<Scalar>(); //uncomment when adding another section
+            }
+
             
+
             r.Expect<MappingEnd>();
             r.Expect<DocumentEnd>();
             r.Expect<StreamEnd>();
@@ -152,14 +178,13 @@ namespace MindMate.Serialization
         {
             string name = null, title = null, shortcut = null;
             r.Expect<MappingStart>();
-            if (r.Expect<Scalar>().Value.Equals(Name))
-            {
-                name = r.Expect<Scalar>().Value;
-            }
-            if (r.Expect<Scalar>().Value.Equals(Title))
-            {
-                title = r.Expect<Scalar>().Value;
-            }
+
+            r.Expect<Scalar>(); //name
+            name = r.Expect<Scalar>().Value;
+
+            r.Expect<Scalar>();
+            title = r.Expect<Scalar>().Value;
+
             if (r.Accept<Scalar>())
             {
                 if(r.Expect<Scalar>().Value.Equals(Shortcut))
@@ -182,6 +207,47 @@ namespace MindMate.Serialization
             }
 
             r.Expect<SequenceEnd>();
+        }
+
+        private void DeserializeNodeStyles(MetaModel.MetaModel metaModel, EventReader r)
+        {
+            r.Expect<SequenceStart>();
+
+            while (r.Accept<MappingStart>())
+            {
+                DeserializeNodeStyle(metaModel, r);
+            }
+
+            r.Expect<SequenceEnd>();
+        }
+
+        private void DeserializeNodeStyle(MetaModel.MetaModel metaModel, EventReader r)
+        {
+            var s = new NodeStyle();
+
+            r.Expect<MappingStart>();
+
+            r.Expect<Scalar>(); //Title
+            s.Title = r.Expect<Scalar>().Value;
+
+            r.Expect<Scalar>(); //RefNode
+            s.RefNode = new MapYamlSerializer().Deserialize(r);
+
+            DerializeNodeStyleImage(s);
+
+            r.Expect<MappingEnd>();
+            
+            metaModel.NodeStyles.Add(s);
+        }
+
+        private void DerializeNodeStyleImage(NodeStyle s)
+        {
+            s.Image = new NodeStyleImageSerializer().DeserializeImage(s.Title);
+            if (s.Image == null)
+            {
+                Trace.WriteLine("NodeStyle image not found while deserializing for NodeStyle: " + s.Title + ". Generating from reference node.");
+                s.Image = new StyleImageGenerator(s.RefNode).GenerateImage();
+            }
         }
     }
 }
