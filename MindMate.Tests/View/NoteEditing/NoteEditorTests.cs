@@ -165,6 +165,161 @@ namespace MindMate.Tests.View.NoteEditing
             Assert.IsTrue(result);
         }
 
+        [TestMethod()]
+        public void Paste()
+        {
+            var sut = new NoteEditor();
+            bool result = true;
+            var form = CreateForm();
+            form.Controls.Add(sut);
+            form.Shown += (sender, args) =>
+            {
+                Clipboard.SetText("This is clipboard text");
+                sut.ExecuteCommand(NoteEditorCommand.Paste);
+                result = sut.HTML != null && sut.HTML.Contains("This is clipboard text");
+                form.Close();
+            };
+            form.ShowDialog();
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod()]
+        public void Paste_MakesDirty()
+        {
+            var sut = new NoteEditor();
+            var form = CreateForm();
+            Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+            timer.Tick += delegate { form.Close(); };
+            form.Controls.Add(sut);
+            form.Shown += (sender, args) =>
+            {
+                Clipboard.SetText("This is clipboard text");
+                sut.Paste();
+            };
+            timer.Start();
+            form.ShowDialog();
+            timer.Stop();
+
+
+            Assert.IsTrue(sut.Dirty);
+        }
+
+        [TestMethod()]
+        public void Paste_SetHTMLNullThenPaste_MakesDirty()
+        {
+            var sut = new NoteEditor();
+            var form = CreateForm();
+            Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+            timer.Tick += delegate { form.Close(); };
+            form.Controls.Add(sut);
+            form.Shown += (sender, args) =>
+            {
+                sut.HTML = null; //Clears Dirty flag
+                Clipboard.SetText("This is clipboard text");
+                sut.Paste();
+            };
+            timer.Start();
+            form.ShowDialog();
+            timer.Stop();
+
+
+            Assert.IsTrue(sut.Dirty);
+        }
+
+        /// <summary>
+        /// 1- Set HTML as Null (clears dirty and sets flag to ignore next dirty notification)
+        /// 2- Set HTML as some text (clears dirty and sets flag to ignore next dirty notification)
+        /// 3- Set HTML as some text again in same GUI event (this is to test that setting HTML twice doesn't generate 2 dirty notifications)
+        /// 4- Dirty notification is generated in next GUI event and ignored
+        /// 5- Change content of NoteEditor from frontend (should make NoteEditor dirty) (done in a separate GUI thread event using Timer)
+        /// 6- Dirty notification is generated in next GUI event (assert will check for this)
+        /// 7- Close the form in separate GUI thread event using Timer
+        /// 8- Assert that NoteEditor is Dirty
+        /// </summary>
+        [TestMethod()]
+        public void Paste_SetHTMLThenPaste_MakesDirty()
+        {
+            var sut = new NoteEditor();
+            var form = CreateForm();
+            Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+            timer.Tick += delegate
+            {
+                if (timer.Tag == null)
+                {
+                    timer.Tag = "First Event Fired";
+                    Clipboard.SetText("This is clipboard text");
+                    sut.Paste();
+                }
+                else
+                {
+                    form.Close();
+                }
+            };
+            form.Controls.Add(sut);
+            form.Shown += (sender, args) =>
+            {
+                sut.HTML = null; //Clears Dirty flag
+                sut.HTML = "Some Text"; //Clears Dirty flag
+                sut.HTML = "Some Text"; //Clears Dirty flag
+            };
+            timer.Start();
+            form.ShowDialog();
+            timer.Stop();
+
+
+            Assert.IsTrue(sut.Dirty);
+        }
+
+        /// <summary>
+        /// 1- Set HTML as Null (clears dirty and sets flag to ignore next dirty notification)
+        /// 2- Set HTML as some text (clears dirty and sets flag to ignore next dirty notification)
+        /// 3- Set HTML as some text again in another GUI event (this is to test that setting HTML twice ignore both dirty notifications)
+        /// 4- Dirty notification is generated in next GUI event and ignored
+        /// 5- Change content of NoteEditor from frontend (should make NoteEditor dirty) (done in a separate GUI thread event using Timer)
+        /// 6- Dirty notification is generated in next GUI event (assert will check for this)
+        /// 7- Close the form in separate GUI thread event using Timer
+        /// 8- Assert that NoteEditor is Dirty
+        /// </summary>
+        [TestMethod()]
+        public void Paste_SetHTML2ThenPaste_MakesDirty()
+        {
+            var sut = new NoteEditor();
+            var form = CreateForm();
+            Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+            timer.Tick += delegate
+            {
+                if (timer.Tag == null)
+                {
+                    timer.Tag = "First Event Fired";
+                    sut.HTML = "Some Text"; //Clears Dirty flag
+
+                }
+                else if (timer.Tag.Equals("First Event Fired"))
+                {
+                    timer.Tag = "Second Event Fired";
+                    Clipboard.SetText("This is clipboard text");
+                    sut.Paste();
+                }
+                else
+                {
+                    form.Close();
+                }
+            };
+            form.Controls.Add(sut);
+            form.Shown += (sender, args) =>
+            {
+                sut.HTML = null; //Clears Dirty flag
+                sut.HTML = "Some Text"; //Clears Dirty flag
+            };
+            timer.Start();
+            form.ShowDialog();
+            timer.Stop();
+
+
+            Assert.IsTrue(sut.Dirty);
+        }
+
         //[TestMethod()]
         //public void InsertImage()
         //{
@@ -179,12 +334,6 @@ namespace MindMate.Tests.View.NoteEditing
 
         //[TestMethod()]
         //public void Cut()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void Paste()
         //{
         //    Assert.Fail();
         //}

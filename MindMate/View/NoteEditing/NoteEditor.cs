@@ -60,6 +60,10 @@ namespace MindMate.View.NoteEditing
             cont2.RegisterForDirtyRange(this, out m_cookie);
         }
 
+        /// <summary>
+        /// Notification that contents of NoteEditor have changed. 
+        /// Notification should be ignored if the content are changed due to MapNode selection changes (i.e. when HTML property is set)
+        /// </summary>
         void IHTMLChangeSink.Notify()
         {
             if (ignoreDirtyNotification)
@@ -116,7 +120,8 @@ namespace MindMate.View.NoteEditing
         }
 
         /// <summary>
-        /// Get / Set / Clear editor contents.
+        /// Initializes editor contents.
+        /// Clears Dirty flag and ensures that next dirty notification from Browser is ignored.
         /// </summary>
         public string HTML
         {
@@ -124,6 +129,7 @@ namespace MindMate.View.NoteEditing
             set 
             {
                 Dirty = false;
+                if (this.Document.Body.InnerHtml == null && value == null) return; //should not set ignore dirty flag in this case
                 ignoreDirtyNotification = true;
                 this.Document.Body.InnerHtml = value;
             }

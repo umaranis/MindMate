@@ -62,7 +62,7 @@ namespace MindMate.Controller
             {
                 mapNode = selectedNodes.First;
                 editor.Enabled = true;
-                if (selectedNodes.First.HasNote)
+                if (selectedNodes.First.HasNoteText)
                 {
                     editor.HTML = this.mapNode.NoteText;
                 }

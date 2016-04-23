@@ -296,7 +296,6 @@ namespace MindMate.Tests.Controller
                 c1.NoteText = "ABC";
 
                 noteEditor.HTML = "EFG";
-                //noteEditor.Dirty = true;
                 sut.UpdateNodeFromEditor();
 
                 result = c1.NoteText != null && c1.NoteText.Contains("ABC");
