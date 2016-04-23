@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MindMate.Serialization;
+using MindMate.Tests.TestDouble;
 
 namespace MindMate.Tests.Model
 {
@@ -16,11 +17,9 @@ namespace MindMate.Tests.Model
         [TestMethod()]
         public void Deserialize_NodeStyleImageNotNull()
         {
-            File.Copy(@"Resources\Settings.Yaml", Dir.UserSettingsDirectory + "Settings.Yaml", true);
-            MindMate.MetaModel.MetaModel.Initialize();
-            MetaModel.MetaModel model = MindMate.MetaModel.MetaModel.Instance;
+            MetaModel.MetaModel model = MetaModelHelper.CreateWithTestSettingsFile();
 
-            Assert.IsTrue(model.NodeStyles.TrueForAll(s => s.Image != null));
+            Assert.IsTrue(model.NodeStyles.TrueForAll(s => s.Image != null)); 
         }
 
         [TestMethod()]

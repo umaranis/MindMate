@@ -80,6 +80,7 @@
     <Compile Include="IntegrationTest\MapViewTest.cs" />
     <Compile Include="IntegrationTest\TaskPluginTests.cs" />
     <Compile Include="IntegrationTest\MapCtrlTests.cs" />
+    <Compile Include="MetaModel\MetaModelTests.cs" />
     <Compile Include="MetaModel\NodeStyleTests.cs" />
     <Compile Include="MetaModel\T4MapNodeHelperTests.cs" />
     <Compile Include="Model\StyleImageGeneratorTests.cs" />
