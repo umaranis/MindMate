@@ -156,3 +156,5 @@ $RECYCLE.BIN/
 # My Section
 # =========================
 /MindMate/images
+/packages
+/cov-int
