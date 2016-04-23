@@ -31,7 +31,10 @@ namespace MindMate.MetaModel
         public static void Initialize()
         {
             if (instance == null)
+            {
                 instance = MetaModel.Load();
+                instance.NodeStyles.ForEach(s => instance.DerializeNodeStyleImage(s));
+            }
         }
 
         private static MetaModel instance;
@@ -177,7 +180,17 @@ namespace MindMate.MetaModel
             return model;
         }
 
-        
+        private void DerializeNodeStyleImage(NodeStyle s)
+        {
+            s.Image = new NodeStyleImageSerializer().DeserializeImage(s.Title);
+            if (s.Image == null)
+            {
+                Trace.WriteLine("NodeStyle image not found while deserializing for NodeStyle: " + s.Title + ". Generating from reference node.");
+                s.Image = new StyleImageGenerator(s.RefNode).GenerateImage();
+            }
+        }
+
+
         public void Save()
         {
             //xml

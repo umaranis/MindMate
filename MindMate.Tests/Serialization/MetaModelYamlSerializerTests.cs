@@ -190,8 +190,11 @@ namespace MindMate.Tests.Serialization
             Assert.AreEqual("This is label", model.NodeStyles[1].RefNode.Label);
         }
 
+        /// <summary>
+        /// MetaModelYamlSerializer doesn't deserialize NodeStyle images. It is taken care of by MetaModel class itself.
+        /// </summary>
         [TestMethod()]
-        public void Deserialize_NodeStyle_ImageNotNull()
+        public void Deserialize_NodeStyle_ImageNull()
         {
             MetaModel.MetaModel model = MetaModelHelper.Create();
             var sut = new MetaModelYamlSerializer();
@@ -200,8 +203,8 @@ namespace MindMate.Tests.Serialization
             sut.Deserialize(model, textReader);
             textReader.Close();
 
-            Assert.IsNotNull(model.NodeStyles[0].Image);
-            Assert.IsNotNull(model.NodeStyles[1].Image);
+            Assert.IsNull(model.NodeStyles[0].Image);
+            Assert.IsNull(model.NodeStyles[1].Image);
         }
     }
 }

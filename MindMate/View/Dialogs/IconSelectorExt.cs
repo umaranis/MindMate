@@ -17,7 +17,7 @@ namespace MindMate.View.Dialogs
 {
     public partial class IconSelectorExt : Form
     {
-        public static IconSelectorExt Instance = new IconSelectorExt();
+        public static readonly IconSelectorExt Instance = new IconSelectorExt();
 
         public const string REMOVE_ICON_NAME = "remove";
         public const string REMOVE_ALL_ICON_NAME = "removeAll";
@@ -27,8 +27,6 @@ namespace MindMate.View.Dialogs
         private IconSelectorExt()
         {
             InitializeComponent();
-
-            MetaModel.MetaModel.Initialize();
 
             // adding items to ListView
             ImageList imageList = new ImageList();
