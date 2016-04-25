@@ -66,7 +66,7 @@ namespace MindMate.Model
             }
             if (p.PropertyType.IsEnum)
             {
-                return objIdentifier + "." + p.Name + ".ToString().ToLowerInvariant()";
+                return objIdentifier + "." + p.Name + ".ToString()";
             }
             if (p.PropertyType == typeof (Color))
             {

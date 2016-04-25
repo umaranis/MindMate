@@ -45,7 +45,7 @@ namespace MindMate.Serialization
 			if (node.HasPos)
 			{
 				emitter.Emit(new Scalar(Pos));
-				emitter.Emit(new Scalar(node.Pos.ToString().ToLowerInvariant()));
+				emitter.Emit(new Scalar(node.Pos.ToString()));
 			}
 			if (node.HasId)
 			{
@@ -104,7 +104,7 @@ namespace MindMate.Serialization
 			if (node.HasShape)
 			{
 				emitter.Emit(new Scalar(Shape));
-				emitter.Emit(new Scalar(node.Shape.ToString().ToLowerInvariant()));
+				emitter.Emit(new Scalar(node.Shape.ToString()));
 			}
 			if (node.HasLineWidth)
 			{
@@ -114,7 +114,7 @@ namespace MindMate.Serialization
 			if (node.HasLinePattern)
 			{
 				emitter.Emit(new Scalar(LinePattern));
-				emitter.Emit(new Scalar(node.LinePattern.ToString().ToLowerInvariant()));
+				emitter.Emit(new Scalar(node.LinePattern.ToString()));
 			}
 			if (node.HasLineColor)
 			{
@@ -134,7 +134,7 @@ namespace MindMate.Serialization
 			if (node.HasImageAlignment)
 			{
 				emitter.Emit(new Scalar(ImageAlignment));
-				emitter.Emit(new Scalar(node.ImageAlignment.ToString().ToLowerInvariant()));
+				emitter.Emit(new Scalar(node.ImageAlignment.ToString()));
 			}
 			if (node.HasLabel)
 			{

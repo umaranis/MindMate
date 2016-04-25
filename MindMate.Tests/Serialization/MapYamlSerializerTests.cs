@@ -3,6 +3,7 @@ using MindMate.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -155,6 +156,95 @@ namespace MindMate.Tests.Serialization
             Assert.AreEqual(Color.Azure, result.Color);
             Assert.IsNull(result.Image);
             Assert.IsNull(result.Label);
+        }
+
+        /// <summary>
+        /// first node property (Text) doesn't exists in serialized string used for deserialization
+        /// </summary>
+        [TestMethod()]
+        public void Deserialize_FirstPropertyEmpty()
+        {
+            var sut = new MapYamlSerializer();
+            var node = MapNode.CreateIsolatedNode(NodePosition.Left);
+            node.Link = "link";
+            node.Color = Color.Azure;
+
+            var writer = new StringWriter();
+            var emitter = new Emitter(writer);
+
+            emitter.Emit(new StreamStart());
+            emitter.Emit(new DocumentStart());
+
+            sut.Serialize(node, emitter);
+
+            emitter.Emit(new DocumentEnd(true));
+            emitter.Emit(new StreamEnd());
+
+            string text = writer.ToString();
+
+            var parser = new Parser(new StringReader(text));
+            var eventReader = new EventReader(parser);
+            eventReader.Expect<StreamStart>();
+            eventReader.Expect<DocumentStart>();
+            var result = sut.Deserialize(eventReader);
+            eventReader.Expect<DocumentEnd>();
+            eventReader.Expect<StreamEnd>();
+
+            Assert.AreEqual(Color.Azure, result.Color);
+            Assert.IsNull(result.Image);
+            Assert.IsNull(result.Label);
+            Assert.IsNull(result.Text);
+            Assert.AreEqual("link", result.Link);
+        }
+
+        [TestMethod()]
+        public void Deserialize_AllProperties()
+        {
+            var sut = new MapYamlSerializer();
+            var node = MapNode.CreateIsolatedNode(NodePosition.Left);
+            node.Text = "Text";
+            node.Folded = true;
+            node.BackColor = Color.Aqua;
+            node.Bold = true;
+            node.FontName = "Arial";
+            node.FontSize = 15;
+            node.ImageAlignment = ImageAlignment.AboveRight;
+            node.Italic = true;
+            node.Label = "label";
+            node.LineColor = Color.BlueViolet;
+            node.LinePattern = DashStyle.Dot;
+            node.LineWidth = 4;
+            node.NoteText = "Note";
+            node.Shape = NodeShape.Box;
+            node.Strikeout = true;
+            node.Link = "link";
+            node.Color = Color.Azure;
+
+            var writer = new StringWriter();
+            var emitter = new Emitter(writer);
+
+            emitter.Emit(new StreamStart());
+            emitter.Emit(new DocumentStart());
+
+            sut.Serialize(node, emitter);
+
+            emitter.Emit(new DocumentEnd(true));
+            emitter.Emit(new StreamEnd());
+
+            string text = writer.ToString();
+
+            var parser = new Parser(new StringReader(text));
+            var eventReader = new EventReader(parser);
+            eventReader.Expect<StreamStart>();
+            eventReader.Expect<DocumentStart>();
+            var result = sut.Deserialize(eventReader);
+            eventReader.Expect<DocumentEnd>();
+            eventReader.Expect<StreamEnd>();
+
+            Assert.AreEqual(Color.Azure, result.Color);
+            Assert.IsNotNull(result.Label);
+            Assert.IsNotNull(result.Text);
+            Assert.AreEqual("link", result.Link);
         }
     }
 }
