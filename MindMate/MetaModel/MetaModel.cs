@@ -182,11 +182,13 @@ namespace MindMate.MetaModel
 
         private void DerializeNodeStyleImage(NodeStyle s)
         {
-            s.Image = new NodeStyleImageSerializer().DeserializeImage(s.Title);
+            var imageSerializer = new NodeStyleImageSerializer();
+            s.Image = imageSerializer.DeserializeImage(s.Title);
             if (s.Image == null)
             {
                 Trace.WriteLine("NodeStyle image not found while deserializing for NodeStyle: " + s.Title + ". Generating from reference node.");
                 s.Image = new StyleImageGenerator(s.RefNode).GenerateImage();
+                imageSerializer.SerializeImage(s.Image, s.Title);
             }
         }
 
