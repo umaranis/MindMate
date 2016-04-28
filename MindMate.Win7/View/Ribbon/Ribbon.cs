@@ -880,6 +880,7 @@ namespace MindMate.View.Ribbon
             var style = mainCtrl.CurrentMapCtrl.CreateNodeStyle();
             if (style != null)
             {
+                NodeStyleGallery.SelectedItem = uint.MaxValue;//Remove the selection, otherwise Execute event is generated for the selected style on adding new style
                 NodeStyleGallery.ItemsSource.Add(new GalleryNodeStylePropertySet(style, ribbon));
             }
         }
