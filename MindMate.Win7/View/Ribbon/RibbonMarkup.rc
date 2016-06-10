@@ -1,0 +1,1366 @@
+// ******************************************************************************
+// * This is an automatically generated file containing the ribbon resource for *
+// * your application.                                                          *
+// ******************************************************************************
+
+STRINGTABLE 
+BEGIN
+    60001 L"&New" /* LabelTitle ButtonNew_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60002 L"New Description" /* LabelDescription ButtonNew_LabelDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60003 L"New" /* TooltipTitle ButtonNew_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60004 L"Create new Mind Map (Ctrl + N)" /* TooltipDescription ButtonNew_TooltipDescription_RESID: (null) */
+END
+
+60005    BITMAP    "Res\\New16.bmp" /* SmallImages ButtonNew_SmallImages_RESID: (null) */
+60006    BITMAP    "Res\\New32.bmp" /* LargeImages ButtonNew_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60007 L"Open" /* LabelTitle ButtonOpen_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60008 L"Open Description" /* LabelDescription ButtonOpen_LabelDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60009 L"Open" /* TooltipTitle ButtonOpen_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60010 L"Open existing Mind Map (Ctrl + O)" /* TooltipDescription ButtonOpen_TooltipDescription_RESID: (null) */
+END
+
+60011    BITMAP    "Res\\Open16.bmp" /* SmallImages ButtonOpen_SmallImages_RESID: (null) */
+60012    BITMAP    "Res\\Open32.bmp" /* LargeImages ButtonOpen_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60013 L"Save" /* LabelTitle ButtonSave_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60014 L"Save Description" /* LabelDescription ButtonSave_LabelDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60015 L"Save" /* TooltipTitle ButtonSave_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60016 L"Save current map (Ctrl + S)" /* TooltipDescription ButtonSave_TooltipDescription_RESID: (null) */
+END
+
+60017    BITMAP    "Res\\Save16.bmp" /* SmallImages ButtonSave_SmallImages_RESID: (null) */
+60018    BITMAP    "Res\\Save32.bmp" /* LargeImages ButtonSave_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60019 L"Save As" /* LabelTitle SaveAs_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60020 L"Save As a new file" /* LabelDescription SaveAs_LabelDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60021 L"Save As" /* TooltipTitle SaveAs_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60022 L"Save As a new file" /* TooltipDescription SaveAs_TooltipDescription_RESID: (null) */
+END
+
+60023    IMAGE    "Res\\SaveAsHH.png" /* LargeImages SaveAs_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60024 L"Save All" /* LabelTitle SaveAll_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60025 L"Save all files" /* LabelDescription SaveAll_LabelDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60026 L"Save all files (Ctrl + Shift + S)" /* TooltipTitle SaveAll_TooltipTitle_RESID: (null) */
+END
+
+60027    IMAGE    "Res\\SaveAllHS.png" /* SmallImages SaveAll_SmallImages_RESID: (null) */
+60028    IMAGE    "Res\\SaveAll32.png" /* LargeImages SaveAll_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60029 L"Export" /* LabelTitle Export_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60030 L"As Image (PNG)" /* LabelTitle ExportAsPNG_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60031 L"PNG file format" /* LabelDescription ExportAsPNG_LabelDescription_RESID: (null) */
+END
+
+60032    IMAGE    "Res\\PNG Filled-32.png" /* LargeImages ExportAsPNG_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60033 L"As Image (JPG)" /* LabelTitle ExportAsJPG_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60034 L"Jpeg file format" /* LabelDescription ExportAsJPG_LabelDescription_RESID: (null) */
+END
+
+60035    IMAGE    "Res\\JPG Filled-32.png" /* LargeImages ExportAsJPG_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60036 L"Close" /* LabelTitle Close_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60037 L"Close Mind Map" /* LabelDescription Close_LabelDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60038 L"Close" /* TooltipTitle Close_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60039 L"Close current Mind Map" /* TooltipDescription Close_TooltipDescription_RESID: (null) */
+END
+
+60040    IMAGE    "Res\\Close4.png" /* SmallImages Close_SmallImages_RESID: (null) */
+60041    IMAGE    "Res\\Close3.png" /* LargeImages Close_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60042 L"Exit" /* LabelTitle ButtonExit_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60043 L"Exit Description" /* LabelDescription ButtonExit_LabelDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60044 L"Exit" /* TooltipTitle ButtonExit_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60045 L"Exit application (Alt + F4)" /* TooltipDescription ButtonExit_TooltipDescription_RESID: (null) */
+END
+
+60046    IMAGE    "Res\\Exit.png" /* SmallImages ButtonExit_SmallImages_RESID: (null) */
+60047    IMAGE    "Res\\Exit.png" /* LargeImages ButtonExit_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60048 L"Recent Mind Maps" /* LabelTitle RecentItems_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60049 L"Home" /* LabelTitle TabHome_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60050 L"New Node" /* LabelTitle NewNode_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60051 L"New Child" /* LabelTitle NewChildNode_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60052 L"Create new child node (Tab)" /* TooltipDescription NewChildNode_TooltipDescription_RESID: (null) */
+END
+
+60053    BITMAP    "Res\\node-insert-child.bmp" /* LargeImages NewChildNode_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60054 L"New Long Text" /* LabelTitle NewLongNode_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60055 L"Create a multi-line child node" /* TooltipDescription NewLongNode_TooltipDescription_RESID: (null) */
+END
+
+60056    BITMAP    "Res\\align_compact.bmp" /* SmallImages NewLongNode_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60057 L"Node Above" /* LabelTitle NewNodeAbove_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60058 L"Create sibling node above (Shift + Enter)" /* TooltipDescription NewNodeAbove_TooltipDescription_RESID: (null) */
+END
+
+60059    BITMAP    "Res\\node-insert-previous.bmp" /* LargeImages NewNodeAbove_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60060 L"Node below" /* LabelTitle NewNodeBelow_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60061 L"Create sibling node below (Enter)" /* TooltipDescription NewNodeBelow_TooltipDescription_RESID: (null) */
+END
+
+60062    BITMAP    "Res\\node-insert-next.bmp" /* LargeImages NewNodeBelow_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60063 L"New Parent" /* LabelTitle NewNodeParent_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60064 L"Create a new node between curent node and it's parent" /* TooltipDescription NewNodeParent_TooltipDescription_RESID: (null) */
+END
+
+60065    BITMAP    "Res\\node-insert.bmp" /* LargeImages NewNodeParent_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60066 L"Edit" /* LabelTitle GrpEdit_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60067 L"Edit Text" /* LabelTitle EditText_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60068 L"Edit text of the node (F2)" /* TooltipDescription EditText_TooltipDescription_RESID: (null) */
+END
+
+60069    BITMAP    "Res\\edit.bmp" /* SmallImages EditText_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60070 L"Edit Multi-line" /* LabelTitle EditLong_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60071 L"Edit text of node in multi-line editor (Alt + Enter)" /* TooltipDescription EditLong_TooltipDescription_RESID: (null) */
+END
+
+60072    BITMAP    "Res\\align_compact.bmp" /* SmallImages EditLong_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60073 L"Delete" /* LabelTitle DeleteNode_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60074 L"Edit selected node(s) (Del)" /* TooltipDescription DeleteNode_TooltipDescription_RESID: (null) */
+END
+
+60075    BITMAP    "Res\\cross-script.bmp" /* SmallImages DeleteNode_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60076 L"Clipboard" /* LabelTitle GrpClipboard_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60077 L"Paste" /* LabelTitle Paste_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60078 L"Paste (Ctrl + V)" /* TooltipDescription Paste_TooltipDescription_RESID: (null) */
+END
+
+60079    BITMAP    "Res\\page_white_paste.bmp" /* LargeImages Paste_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60080 L"Paste as Text" /* LabelTitle PasteAsText_LabelTitle_RESID: (null) */
+END
+
+60081    BITMAP    "Res\\paste_plain.bmp" /* SmallImages PasteAsText_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60082 L"Cut" /* LabelTitle Cut_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60083 L"Cut (Ctrl + X)" /* TooltipDescription Cut_TooltipDescription_RESID: (null) */
+END
+
+60084    IMAGE    "Res\\cut.png" /* LargeImages Cut_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60085 L"Copy" /* LabelTitle Copy_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60086 L"Copy (Ctrl + C)" /* TooltipDescription Copy_TooltipDescription_RESID: (null) */
+END
+
+60087    IMAGE    "Res\\page_white_copy.png" /* SmallImages Copy_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60088 L"Format Painter" /* LabelTitle FormatPainter_LabelTitle_RESID: (null) */
+END
+
+60089    BITMAP    "Res\\format_painter.bmp" /* SmallImages FormatPainter_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60090 L"Font" /* LabelTitle GrpFont_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60091 L"RichFont" /* LabelTitle RichFont_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60092 L"Font" /* LabelTitle cmdFontGroup_LabelTitle_RESID: HomeTab-FontGroup */
+END
+
+STRINGTABLE 
+BEGIN
+    60093 L"ZF" /* Keytip cmdFontGroup_Keytip_RESID: HomeTab-FontGroup */
+END
+
+STRINGTABLE 
+BEGIN
+    60094 L"Font family" /* LabelTitle FontFamily_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60095 L"FF" /* Keytip FontFamily_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60096 L"Change the font family." /* TooltipDescription FontFamily_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60097 L"Font size" /* LabelTitle FontSize_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60098 L"FS" /* Keytip FontSize_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60099 L"Change the font size." /* TooltipDescription FontSize_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60100 L"Grow Font" /* LabelTitle IncreaseFont_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60101 L"G" /* Keytip IncreaseFont_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60102 L"Grow Font" /* TooltipTitle IncreaseFont_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60103 L"Increase the font size." /* TooltipDescription IncreaseFont_TooltipDescription_RESID: (null) */
+END
+
+60104    IMAGE    "Res\\Increase Font-16.png" /* SmallImages IncreaseFont_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60105 L"Shrink Font" /* LabelTitle DecreaseFont_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60106 L"K" /* Keytip DecreaseFont_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60107 L"Shrink Font" /* TooltipTitle DecreaseFont_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60108 L"Decrease the font size." /* TooltipDescription DecreaseFont_TooltipDescription_RESID: (null) */
+END
+
+60109    IMAGE    "Res\\Decrease Font-16.png" /* SmallImages DecreaseFont_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60110 L"Clear formatting" /* LabelTitle ClearFormatting_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60111 L"R" /* Keytip ClearFormatting_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60112 L"Change the selection to plain text by clearing all of the formatting." /* TooltipDescription ClearFormatting_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60113 L"Strikethrough" /* LabelTitle Strikethrough_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60114 L"H" /* Keytip Strikethrough_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60115 L"Strikethrough (Ctrl+H)" /* TooltipTitle Strikethrough_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60116 L"Draw a line through the middle of the selected text." /* TooltipDescription Strikethrough_TooltipDescription_RESID: (null) */
+END
+
+60117    IMAGE    "Res\\Strikethrough.SmallImage.png" /* SmallImages Strikethrough_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60118 L"Italic" /* LabelTitle Italic_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60119 L"I" /* Keytip Italic_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60120 L"Italic (Ctrl+I)" /* TooltipTitle Italic_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60121 L"Italicize the selected text." /* TooltipDescription Italic_TooltipDescription_RESID: (null) */
+END
+
+60122    IMAGE    "Res\\Italic.SmallImage.png" /* SmallImages Italic_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60123 L"Bold" /* LabelTitle Bold_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60124 L"B" /* Keytip Bold_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60125 L"Bold (Ctrl+B)" /* TooltipTitle Bold_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60126 L"Make the selected text bold." /* TooltipDescription Bold_TooltipDescription_RESID: (null) */
+END
+
+60127    IMAGE    "Res\\Bold.SmallImage.png" /* SmallImages Bold_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60128 L"Font color" /* LabelTitle FontColorPicker_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60129 L"FC" /* Keytip FontColorPicker_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60130 L"Change the text color." /* TooltipDescription FontColorPicker_TooltipDescription_RESID: (null) */
+END
+
+60131    IMAGE    "Res\\FontColorPicker.SmallImage.png" /* SmallImages FontColorPicker_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60132 L"Text highlight color" /* LabelTitle FontBackgroundColor_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60133 L"FH" /* Keytip FontBackgroundColor_Keytip_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60134 L"Make text look like it was marked with a highlighter pen." /* TooltipDescription FontBackgroundColor_TooltipDescription_RESID: (null) */
+END
+
+60135    IMAGE    "Res\\FontBackgroundColor.SmallImage.png" /* SmallImages FontBackgroundColor_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60136 L"Icons" /* LabelTitle GrpIcons_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60137 L"Icons Gallery" /* LabelTitle IconsGallery_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60138 L"Remove Last Icon" /* LabelTitle RemoveLastIcon_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60139 L"Remove recently added icon from selected node(s)" /* TooltipDescription RemoveLastIcon_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60140 L"Remove All Icons" /* LabelTitle RemoveAllIcons_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60141 L"Remove all icons from the selected node(s)" /* TooltipDescription RemoveAllIcons_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60142 L"Launch Icons Dialog ..." /* LabelTitle LaunchIconsDialog_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60143 L"Launch Icons Dialog to select or customize icons" /* TooltipDescription LaunchIconsDialog_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60144 L"Edit" /* LabelTitle TabEdit_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60145 L"Select" /* LabelTitle GrpSelect_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60146 L"Select All" /* LabelTitle SelectAll_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60147 L"Select all nodes" /* TooltipDescription SelectAll_TooltipDescription_RESID: (null) */
+END
+
+60148    IMAGE    "Res\\node-select-all.png" /* SmallImages SelectAll_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60149 L"Siblings" /* LabelTitle SelectSiblings_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60150 L"Select all siblings of selected node. \n             \nNote:    \n\n- Select all siblings above (Shift + Page Up) \n- Select all siblings below (Shift + Page Down)" /* TooltipDescription SelectSiblings_TooltipDescription_RESID: (null) */
+END
+
+60151    IMAGE    "Res\\node-select-child.png" /* SmallImages SelectSiblings_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60152 L"Ancestors" /* LabelTitle SelectAncestors_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60153 L"Select parent and grandparents of the selected node" /* TooltipDescription SelectAncestors_TooltipDescription_RESID: (null) */
+END
+
+60154    IMAGE    "Res\\node-select.png" /* SmallImages SelectAncestors_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60155 L"Children" /* LabelTitle SelectChildren_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60156 L"Select all children" /* TooltipDescription SelectChildren_TooltipDescription_RESID: (null) */
+END
+
+60157    IMAGE    "Res\\node-select-children.png" /* SmallImages SelectChildren_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60158 L"Descentdents" /* LabelTitle SelectDescendents_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60159 L"Select all descendents i.e. branch" /* TooltipDescription SelectDescendents_TooltipDescription_RESID: (null) */
+END
+
+60160    IMAGE    "Res\\node-select-descendents.png" /* SmallImages SelectDescendents_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60161 L"Upto depth 1" /* LabelTitle SelectDescendentsUpto1_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60162 L"Select all descendents upto depth 1 (i.e. children)" /* TooltipDescription SelectDescendentsUpto1_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60163 L"Upto depth 2" /* LabelTitle SelectDescendentsUpto2_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60164 L"Select all descendents upto depth 2" /* TooltipDescription SelectDescendentsUpto2_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60165 L"Upto depth 3" /* LabelTitle SelectDescendentsUpto3_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60166 L"Select all descendents upto depth 3" /* TooltipDescription SelectDescendentsUpto3_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60167 L"Upto depth 4" /* LabelTitle SelectDescendentsUpto4_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60168 L"Select all descendents upto depth 4" /* TooltipDescription SelectDescendentsUpto4_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60169 L"Upto depth 5" /* LabelTitle SelectDescendentsUpto5_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60170 L"Select all descendents upto depth 5" /* TooltipDescription SelectDescendentsUpto5_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60171 L"Expand Nodes" /* LabelTitle ExpandOnSelect_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60172 L"Only visible nodes are selected if not checked" /* TooltipDescription ExpandOnSelect_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60173 L"Select Level" /* LabelTitle SelectLevel_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60174 L"Select all nodes at a certain level from center" /* TooltipDescription SelectLevel_TooltipDescription_RESID: (null) */
+END
+
+60175    IMAGE    "Res\\node-select-level.png" /* LargeImages SelectLevel_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60176 L"Select Level 1" /* LabelTitle SelectLevel1_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60177 L"Select nodes at level(depth) 1 from center" /* TooltipDescription SelectLevel1_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60178 L"Select Level 2" /* LabelTitle SelectLevel2_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60179 L"Select nodes at level(depth) 2 from center" /* TooltipDescription SelectLevel2_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60180 L"Select Level 3" /* LabelTitle SelectLevel3_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60181 L"Select nodes at level(depth) 3 from center" /* TooltipDescription SelectLevel3_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60182 L"Select Level 4" /* LabelTitle SelectLevel4_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60183 L"Select nodes at level(depth) 4 from center" /* TooltipDescription SelectLevel4_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60184 L"Select Level 5" /* LabelTitle SelectLevel5_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60185 L"Select nodes at level(depth) 5 from center" /* TooltipDescription SelectLevel5_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60186 L"Select Current Level" /* LabelTitle SelectLevelCurrent_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60187 L"Select nodes at the level of current node" /* TooltipDescription SelectLevelCurrent_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60188 L"Expand / Collapse" /* LabelTitle GrpExpand_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60189 L"Expand All" /* LabelTitle ExpandAll_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60190 L"Expand all nodes recursively" /* TooltipDescription ExpandAll_TooltipDescription_RESID: (null) */
+END
+
+60191    IMAGE    "Res\\ExpandAll-sua.png" /* SmallImages ExpandAll_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60192 L"Collapse All" /* LabelTitle CollapseAll_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60193 L"Collapse all nodes recursively" /* TooltipDescription CollapseAll_TooltipDescription_RESID: (null) */
+END
+
+60194    IMAGE    "Res\\CollapseAll-sua.png" /* SmallImages CollapseAll_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60195 L"Current     " /* LabelTitle ToggleCurrent_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60196 L"Expand / Collapse current node (Space)" /* TooltipDescription ToggleCurrent_TooltipDescription_RESID: (null) */
+END
+
+60197    IMAGE    "Res\\ToggleExpandCurrent-sua.png" /* SmallImages ToggleCurrent_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60198 L"Branch" /* LabelTitle ToggleBranch_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60199 L"Expand / Collapse current node and descendents recursively" /* TooltipDescription ToggleBranch_TooltipDescription_RESID: (null) */
+END
+
+60200    IMAGE    "Res\\ToggleExpandBranch-sua.png" /* SmallImages ToggleBranch_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60201 L"Expand Map to Current Level" /* LabelTitle ExpandMapToCurrentLevel_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60202 L"Expand / Collapse map to the level of currently selected node" /* TooltipDescription ExpandMapToCurrentLevel_TooltipDescription_RESID: (null) */
+END
+
+60203    IMAGE    "Res\\ExpandMapLevel-sua.png" /* SmallImages ExpandMapToCurrentLevel_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60204 L"Expand Map to Level 1" /* LabelTitle ExpandMapToLevel1_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60205 L"Expand / Collapse map to level 1" /* TooltipDescription ExpandMapToLevel1_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60206 L"Expand Map to Level 2" /* LabelTitle ExpandMapToLevel2_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60207 L"Expand / Collapse map to level 2" /* TooltipDescription ExpandMapToLevel2_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60208 L"Expand Map to Level 3" /* LabelTitle ExpandMapToLevel3_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60209 L"Expand / Collapse map to level 3" /* TooltipDescription ExpandMapToLevel3_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60210 L"Expand Map to Level 4" /* LabelTitle ExpandMapToLevel4_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60211 L"Expand / Collapse map to level 4" /* TooltipDescription ExpandMapToLevel4_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60212 L"Expand Map to Level 5" /* LabelTitle ExpandMapToLevel5_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60213 L"Expand / Collapse map to level 5" /* TooltipDescription ExpandMapToLevel5_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60214 L"Navigate" /* LabelTitle GrpNavigate_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60215 L"Navigate to Center" /* LabelTitle NavigateToCenter_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60216 L"Select Center Node" /* LabelDescription NavigateToCenter_LabelDescription_RESID: (null) */
+END
+
+60217    IMAGE    "Res\\Center Direction-32.png" /* LargeImages NavigateToCenter_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60218 L"Navigate to First Sibling" /* LabelTitle NavigateToFirstSibling_LabelTitle_RESID: (null) */
+END
+
+60219    IMAGE    "Res\\North Direction-32.png" /* LargeImages NavigateToFirstSibling_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60220 L"Navigate to Last Sibling" /* LabelTitle NavigateToLastSibling_LabelTitle_RESID: (null) */
+END
+
+60221    IMAGE    "Res\\South Direction-32.png" /* LargeImages NavigateToLastSibling_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60222 L"Move" /* LabelTitle GrpMove_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60223 L"Move Up" /* LabelTitle MoveUp_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60224 L"Move the selected node up (Ctrl + Up)" /* TooltipDescription MoveUp_TooltipDescription_RESID: (null) */
+END
+
+60225    IMAGE    "Res\\Up-32.png" /* SmallImages MoveUp_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60226 L"Move Down" /* LabelTitle MoveDown_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60227 L"Move the selected node down (Ctrl + Down)" /* TooltipDescription MoveDown_TooltipDescription_RESID: (null) */
+END
+
+60228    IMAGE    "Res\\Down-32.png" /* SmallImages MoveDown_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60229 L"Sort" /* LabelTitle GrpSort_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60230 L"Sort" /* LabelTitle SortAlphabetic_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60231 L"Sort Children alphabetically" /* LabelDescription SortAlphabetic_LabelDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60232 L"Sort children in alphabetical order" /* TooltipDescription SortAlphabetic_TooltipDescription_RESID: (null) */
+END
+
+60233    IMAGE    "Res\\Alphabetical Sorting-32.png" /* LargeImages SortAlphabetic_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60234 L"Sort Tasks" /* LabelTitle SortDueDate_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60235 L"Sort Children by Due Date" /* LabelDescription SortDueDate_LabelDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60236 L"Sort children by Due or Completion date of tasks" /* TooltipDescription SortDueDate_TooltipDescription_RESID: (null) */
+END
+
+60237    IMAGE    "Res\\sort-by-task.png" /* LargeImages SortDueDate_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60238 L"Sort by Node Count" /* LabelTitle SortNodeCount_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60239 L"Sort Children by Node Count" /* LabelDescription SortNodeCount_LabelDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60240 L"Sort children by number of descendents" /* TooltipDescription SortNodeCount_TooltipDescription_RESID: (null) */
+END
+
+60241    IMAGE    "Res\\sort-by-node-count.png" /* LargeImages SortNodeCount_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60242 L"Sort by Modified" /* LabelTitle SortModifiedDate_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60243 L"Sort by Modified Date" /* LabelDescription SortModifiedDate_LabelDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60244 L"Sort children by last modified date" /* TooltipDescription SortModifiedDate_TooltipDescription_RESID: (null) */
+END
+
+60245    IMAGE    "Res\\Sort By Modified Date-32.png" /* LargeImages SortModifiedDate_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60246 L"Sort by Creation" /* LabelTitle SortCreateDate_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60247 L"Sort by Created Date" /* LabelDescription SortCreateDate_LabelDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60248 L"Sort children by creatin date" /* TooltipDescription SortCreateDate_TooltipDescription_RESID: (null) */
+END
+
+60249    IMAGE    "Res\\Sort By Creation Date-32.png" /* LargeImages SortCreateDate_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60250 L"Ascending Order" /* LabelTitle SortOrder_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60251 L"Sort Order: Ascending" /* TooltipTitle SortOrder_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60252 L"Click to toggle sort order: Ascending or Descending" /* TooltipDescription SortOrder_TooltipDescription_RESID: (null) */
+END
+
+60253    IMAGE    "Res\\Ascending Sorting-32.png" /* LargeImages SortOrder_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60254 L"Undo / Redo" /* LabelTitle GrpUndo_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60255 L"Undo" /* LabelTitle Undo_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60256 L"Undo changes (Ctrl + Z)" /* TooltipDescription Undo_TooltipDescription_RESID: (null) */
+END
+
+60257    IMAGE    "Res\\Undo-32.png" /* LargeImages Undo_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60258 L"Redo" /* LabelTitle Redo_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60259 L"Redo changes (Ctrl + Y)" /* TooltipDescription Redo_TooltipDescription_RESID: (null) */
+END
+
+60260    IMAGE    "Res\\Redo-32.png" /* LargeImages Redo_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60261 L"Insert" /* LabelTitle TabInsert_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60262 L"Hyperlink" /* LabelTitle GrpHyperlink_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60263 L"Hyperlink" /* LabelTitle Hyperlink_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60264 L"Add or Edit hyperlink using Text Field (Ctrl + K)" /* TooltipTitle Hyperlink_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60265 L"Hyperlink to website or local file" /* TooltipDescription Hyperlink_TooltipDescription_RESID: (null) */
+END
+
+60266    IMAGE    "Res\\Add Link2-32.png" /* LargeImages Hyperlink_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60267 L"File" /* LabelTitle HyperlinkFile_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60268 L"Add or Edit hyperlink using File Dialog (Ctrl + Shift + K)" /* TooltipTitle HyperlinkFile_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60269 L"Hyperlink to website or local file" /* TooltipDescription HyperlinkFile_TooltipDescription_RESID: (null) */
+END
+
+60270    IMAGE    "Res\\File-32.png" /* LargeImages HyperlinkFile_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60271 L"Folder" /* LabelTitle HyperlinkFolder_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60272 L"Add or Edit hyperlink using Folder Dialog" /* TooltipTitle HyperlinkFolder_TooltipTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60273 L"Hyperlink to website or local file" /* TooltipDescription HyperlinkFolder_TooltipDescription_RESID: (null) */
+END
+
+60274    IMAGE    "Res\\Folder2-32.png" /* LargeImages HyperlinkFolder_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60275 L"Remove" /* LabelTitle RemoveHyperlink_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60276 L"Remove hyperlink" /* TooltipTitle RemoveHyperlink_TooltipTitle_RESID: (null) */
+END
+
+60277    IMAGE    "Res\\Delete Link-32.png" /* LargeImages RemoveHyperlink_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60278 L"Note" /* LabelTitle GrpNote_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60279 L"Insert Note" /* LabelTitle InsertNote_LabelTitle_RESID: (null) */
+END
+
+60280    IMAGE    "Res\\sticky-note.png" /* LargeImages InsertNote_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60281 L"Task" /* LabelTitle GrpTask_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60282 L"Specify Date" /* LabelTitle AddTask_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60283 L"Add task to selected node(s) using Date Picker ..." /* TooltipDescription AddTask_TooltipDescription_RESID: (null) */
+END
+
+60284    IMAGE    "Res\\Calender Add-32.png" /* LargeImages AddTask_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60285 L"Due Today" /* LabelTitle AddTaskToday_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60286 L"Add task to selected node(s) due today" /* TooltipDescription AddTaskToday_TooltipDescription_RESID: (null) */
+END
+
+60287    IMAGE    "Res\\Calender Today-32.png" /* LargeImages AddTaskToday_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60288 L"Tomorrow" /* LabelTitle AddTaskTomorrow_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60289 L"Add task to selected node(s) due tomorrow" /* TooltipDescription AddTaskTomorrow_TooltipDescription_RESID: (null) */
+END
+
+60290    IMAGE    "Res\\Calender Tomorrow-32.png" /* LargeImages AddTaskTomorrow_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60291 L"Next Week" /* LabelTitle AddTaskNextWeek_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60292 L"Add task to selected node(s) due next week" /* TooltipDescription AddTaskNextWeek_TooltipDescription_RESID: (null) */
+END
+
+60293    IMAGE    "Res\\Calender Next Week-32.png" /* LargeImages AddTaskNextWeek_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60294 L"Next Month" /* LabelTitle AddTaskNextMonth_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60295 L"Add task to selected node(s) due next month" /* TooltipDescription AddTaskNextMonth_TooltipDescription_RESID: (null) */
+END
+
+60296    IMAGE    "Res\\Calender Next Month-32.png" /* LargeImages AddTaskNextMonth_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60297 L"Next Quarter" /* LabelTitle AddTaskNextQuarter_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60298 L"Add task to selected node(s) due next quarter" /* TooltipDescription AddTaskNextQuarter_TooltipDescription_RESID: (null) */
+END
+
+60299    IMAGE    "Res\\Calender Next Quarter-32.png" /* LargeImages AddTaskNextQuarter_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60300 L"Complete Task" /* LabelTitle CompleteTask_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60301 L"Mark task as completed for selected node(s)" /* TooltipDescription CompleteTask_TooltipDescription_RESID: (null) */
+END
+
+60302    IMAGE    "Res\\Calender Complete-32.png" /* LargeImages CompleteTask_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60303 L"Remove Task" /* LabelTitle RemoveTask_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60304 L"Remove tasks from selected node(s)" /* TooltipDescription RemoveTask_TooltipDescription_RESID: (null) */
+END
+
+60305    IMAGE    "Res\\Calender Remove-32.png" /* LargeImages RemoveTask_LargeImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60306 L"Format" /* LabelTitle TabFormat_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60307 L"Node Format" /* LabelTitle GrpNodeFormat_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60308 L"Node Shape" /* LabelTitle NodeShape_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60309 L"Clear Shape Format" /* LabelTitle ClearShapeFormat_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60310 L"Clear the shape format and use default" /* TooltipDescription ClearShapeFormat_TooltipDescription_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60311 L"Line Color" /* LabelTitle LineColor_LabelTitle_RESID: (null) */
+END
+
+60312    IMAGE    "Res\\Border Color-16.png" /* SmallImages LineColor_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60313 L"Line Pattern" /* LabelTitle LinePattern_LabelTitle_RESID: (null) */
+END
+
+60314    IMAGE    "Res\\Horizontal Line-16.png" /* SmallImages LinePattern_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60315 L"Solid" /* LabelTitle LinePatternSolid_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60316 L"Dashed" /* LabelTitle LinePatternDashed_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60317 L"Dotted" /* LabelTitle LinePatternDotted_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60318 L"Mixed" /* LabelTitle LinePatternMixed_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60319 L"Line Thickness" /* LabelTitle LineThickness_LabelTitle_RESID: (null) */
+END
+
+60320    IMAGE    "Res\\Line Width-16.png" /* SmallImages LineThickness_SmallImages_RESID: (null) */
+STRINGTABLE 
+BEGIN
+    60321 L"1" /* LabelTitle LineThickness1_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60322 L"2" /* LabelTitle LineThickness2_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60323 L"4" /* LabelTitle LineThickness4_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60324 L"Node Style" /* LabelTitle GrpNodeStyle_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60325 L"Node Style" /* LabelTitle NodeStyleGallery_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60326 L"Add selected as Style" /* LabelTitle CreateNodeStyle_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60327 L"Label:InternalCmd2" /* LabelTitle InternalCmd2_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60328 L"Label:InternalCmd4" /* LabelTitle InternalCmd4_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60329 L"Label:InternalCmd6" /* LabelTitle InternalCmd6_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60330 L"Label:InternalCmd8" /* LabelTitle InternalCmd8_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60331 L"Label:InternalCmd10" /* LabelTitle InternalCmd10_LabelTitle_RESID: (null) */
+END
+
+STRINGTABLE 
+BEGIN
+    60332 L"Label:InternalCmd12" /* LabelTitle InternalCmd12_LabelTitle_RESID: (null) */
+END
+
+APPLICATION_RIBBON    UIFILE    "C:\\Projects\\DotNET\\MindMap\\MindMate\\MindMate.Win7\\View\\Ribbon\\RibbonMarkup.bml"

@@ -131,6 +131,32 @@
     <!--Group: Font-->
     <Command Name="GrpFont" Id="2070" LabelTitle="Font" />
     <Command Name="RichFont" Id="2071" LabelTitle="RichFont" />
+    <!-- Group: Font -->
+    <Command Name="GrpFont2" Keytip="ZF" LabelTitle="Font" Symbol="cmdFontGroup" Id="2101" Comment="HomeTab-FontGroup"/>
+    <Command Name="FontFamily" Keytip="FF" LabelTitle="Font family" TooltipDescription="Change the font family." Id="2102" />
+    <Command Name="FontSize" Keytip="FS" LabelTitle="Font size" TooltipDescription="Change the font size." Id="2103"/>
+    <Command Name="IncreaseFont" Keytip="G" LabelTitle="Grow Font" TooltipTitle="Grow Font" TooltipDescription="Increase the font size." Id="2105" >
+      <Command.SmallImages><Image>Res/Increase Font-16.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="DecreaseFont" Keytip="K" LabelTitle="Shrink Font" TooltipTitle="Shrink Font" TooltipDescription="Decrease the font size." Id="2106" >
+      <Command.SmallImages><Image>Res/Decrease Font-16.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="ClearFormatting" Keytip="R" LabelTitle="Clear formatting" TooltipDescription="Change the selection to plain text by clearing all of the formatting." Id="2104" />
+    <Command Name="Strikethrough" Keytip="H" LabelTitle="Strikethrough" TooltipTitle="Strikethrough (Ctrl+H)" TooltipDescription="Draw a line through the middle of the selected text." Id="2107" >
+      <Command.SmallImages><Image>Res/Strikethrough.SmallImage.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="Italic" Keytip="I" LabelTitle="Italic" TooltipTitle="Italic (Ctrl+I)" TooltipDescription="Italicize the selected text." Id="2109" >
+      <Command.SmallImages><Image>Res/Italic.SmallImage.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="Bold" Keytip="B" LabelTitle="Bold" TooltipTitle="Bold (Ctrl+B)" TooltipDescription="Make the selected text bold." Id="2110" >
+      <Command.SmallImages><Image>Res/Bold.SmallImage.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="FontColorPicker" Keytip="FC" LabelTitle="Font color" TooltipDescription="Change the text color." Id="2111" >
+      <Command.SmallImages><Image>Res/FontColorPicker.SmallImage.png</Image></Command.SmallImages>
+    </Command>
+    <Command Name="FontBackgroundColor" Keytip="FH" LabelTitle="Text highlight color" TooltipDescription="Make text look like it was marked with a highlighter pen." Id="2112" >
+      <Command.SmallImages><Image>Res/FontBackgroundColor.SmallImage.png</Image></Command.SmallImages>
+    </Command>
     
     <!--Group: IconsGallery-->
     <Command Name="GrpIcons" Id="2080" LabelTitle="Icons" />
@@ -434,7 +460,57 @@ Note:
             <ToggleButton CommandName='FormatPainter' />
           </Group>
           <Group CommandName='GrpFont' SizeDefinition='OneFontControl'>
-            <FontControl CommandName="RichFont" FontType="FontWithColor" IsUnderlineButtonVisible="false" IsHighlightButtonVisible="true" />
+            <FontControl CommandName="RichFont" FontType="FontWithColor" IsUnderlineButtonVisible="false" IsHighlightButtonVisible="false"/>
+          </Group>
+          <Group CommandName="GrpFont2">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name="FontFamilyControl"/>
+                <ControlNameDefinition Name="FontSizeControl"/>
+                <ControlNameDefinition Name="IncreaseFontControl"/>
+                <ControlNameDefinition Name="DecreaseFontControl"/>
+                <ControlNameDefinition Name="ClearFormattingControl"/>
+                <ControlNameDefinition Name="BoldControl"/>
+                <ControlNameDefinition Name="ItalicControl"/>
+                <ControlNameDefinition Name="StrikethroughControl"/>
+                <ControlNameDefinition Name="FontBackgroundColorControl"/>
+                <ControlNameDefinition Name="FontForegroundColorControl"/>
+              </ControlNameMap>
+              <GroupSizeDefinition Size="Large">
+                <Row>
+                  <ControlSizeDefinition ControlName="FontFamilyControl" IsImageVisible="false" IsLabelVisible="false" ImageSize="Small"/>
+                  <ControlSizeDefinition ControlName="FontSizeControl" IsImageVisible="false" IsLabelVisible="false" ImageSize="Small"/>
+                  <ControlGroup>
+                    <ControlSizeDefinition ControlName="IncreaseFontControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                    <ControlSizeDefinition ControlName="DecreaseFontControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                  </ControlGroup>
+                  <ControlGroup>
+                    <ControlSizeDefinition ControlName="ClearFormattingControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                  </ControlGroup>
+                </Row>
+                <Row>
+                  <ControlGroup>
+                    <ControlSizeDefinition ControlName="BoldControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                    <ControlSizeDefinition ControlName="ItalicControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                    <ControlSizeDefinition ControlName="StrikethroughControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                  </ControlGroup>
+                  <ControlGroup>
+                    <ControlSizeDefinition ControlName="FontBackgroundColorControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                    <ControlSizeDefinition ControlName="FontForegroundColorControl" IsImageVisible="true" ImageSize="Small" IsLabelVisible="false"/>
+                  </ControlGroup>
+                </Row>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <ComboBox CommandName="FontFamily" IsAutoCompleteEnabled="true" IsEditable="true" ResizeType="VerticalResize"/>
+            <ComboBox CommandName="FontSize" IsAutoCompleteEnabled="true" IsEditable="true" ResizeType="NoResize"/>
+            <Button CommandName="IncreaseFont" />
+            <Button CommandName="DecreaseFont" />
+            <Button CommandName="ClearFormatting"/>
+            <ToggleButton CommandName="Bold"/>
+            <ToggleButton CommandName="Italic"/>
+            <ToggleButton CommandName="Strikethrough"/>
+            <DropDownColorPicker CommandName="FontBackgroundColor" ChipSize="Large" ColorTemplate="HighlightColors" IsNoColorButtonVisible="true" StandardColorGridRows="6" Columns="5"/>
+            <DropDownColorPicker CommandName="FontColorPicker" ChipSize="Medium" ColorTemplate="StandardColors" IsAutomaticColorButtonVisible="false" IsNoColorButtonVisible="false" StandardColorGridRows="6" Columns="5"/>
           </Group>
           <Group CommandName="GrpIcons" SizeDefinition="OneInRibbonGallery">
             <InRibbonGallery CommandName="IconsGallery" Type="Items" MinColumnsLarge="2" MaxColumnsMedium="2" MinColumnsMedium="1" MaxColumns="4" MaxRows="4">
