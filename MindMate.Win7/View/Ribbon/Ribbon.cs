@@ -853,7 +853,18 @@ namespace MindMate.View.Ribbon
 
         private void LineColor_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.CurrentMapCtrl.ChangeLineColor(LineColor.Color);
+            switch ((uint)e.CurrentValue.PropVariant.Value)
+            {
+                case 0: //No Color
+                    mainCtrl.CurrentMapCtrl.ChangeLineColor(Color.Empty);
+                    break;
+                case 1: //Automatic Color
+                    mainCtrl.CurrentMapCtrl.ChangeLineColor(Color.Empty);
+                    break;
+                case 2: //Color
+                    mainCtrl.CurrentMapCtrl.ChangeLineColor(LineColor.Color);
+                    break;
+            }
         }
 
         private void LinePatternSolid_ExecuteEvent(object sender, ExecuteEventArgs e)
