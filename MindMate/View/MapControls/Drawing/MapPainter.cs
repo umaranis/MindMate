@@ -5,6 +5,8 @@
 
 using MindMate.Model;
 using System.Drawing;
+using System;
+using System.Drawing.Drawing2D;
 
 namespace MindMate.View.MapControls.Drawing
 {
@@ -15,14 +17,35 @@ namespace MindMate.View.MapControls.Drawing
     {
 
         public static Brush HighlightBrush = new SolidBrush(Color.FromArgb(235, 235, 235));
-        private static Pen dropHintPen = new Pen(Color.Red);
+        private static readonly Pen dropHintPen;
+        private static readonly Pen nodeHighlightPen;
 
         static MapPainter()
         {
+            dropHintPen = new Pen(Color.Red);
             dropHintPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+
+            nodeHighlightPen = new Pen(Color.MediumBlue);
+            nodeHighlightPen.DashStyle = DashStyle.Dash;
         }
 
+        /// <summary>
+        /// Draw tree (nodes + connections)
+        /// </summary>
+        /// <param name="iView"></param>
+        /// <param name="g"></param>
         public static void DrawTree(IView iView, Graphics g)
+        {
+            DrawNodeLinker(iView.Tree.RootNode, iView, g);
+            DrawTreeNodes(iView, g);
+        }
+
+        /// <summary>
+        /// Draw Tree Nodes without connections
+        /// </summary>
+        /// <param name="iView"></param>
+        /// <param name="g"></param>
+        public static void DrawTreeNodes(IView iView, Graphics g)
         {
             //Draw root node
             NodeView nView = iView.GetNodeView(iView.Tree.RootNode);
@@ -65,10 +88,6 @@ namespace MindMate.View.MapControls.Drawing
                     g.FillRectangle(brush, new RectangleF(nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height));
                 }
             }
-            if (nodeView.Selected)
-                g.FillRectangle(Brushes.LightGray, nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height);
-            else if (highlight)
-                g.FillRectangle(HighlightBrush, nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height);
             TextRenderer.DrawText(g, node.Text, nodeView.Font,
                 new RectangleF(nodeView.RecText.Left, nodeView.RecText.Top, NodeView.MAXIMUM_TEXT_WIDTH, 5000),
                 nodeView.TextColor);
@@ -78,6 +97,12 @@ namespace MindMate.View.MapControls.Drawing
             }
             nodeView.NoteIcon?.Draw(g);
             nodeView.Link?.Draw(g);
+
+            if (nodeView.Selected)
+                DrawSelection(nodeView, g); 
+            else if (highlight)
+                DrawHighlight(nodeView, g); 
+            
         }
 
         private static void DrawRootNode(NodeView nodeView, Graphics g)
@@ -88,10 +113,7 @@ namespace MindMate.View.MapControls.Drawing
 
             if (!node.BackColor.IsEmpty)
                 g.FillPath(new SolidBrush(node.BackColor), path);
-            if (nodeView.Selected)
-                g.FillPath(Brushes.LightGray, path);
-            //g.DrawString(node.Text, nodeView.Font, nodeView.TextColor,
-            //    new RectangleF(nodeView.RecText.Left, nodeView.RecText.Top, NodeView.MAXIMUM_TEXT_WIDTH, 0));
+                
             TextRenderer.DrawText(g, node.Text, nodeView.Font,
                 new RectangleF(nodeView.RecText.Left, nodeView.RecText.Top, NodeView.MAXIMUM_TEXT_WIDTH, 5000),
                 nodeView.TextColor);
@@ -99,8 +121,8 @@ namespace MindMate.View.MapControls.Drawing
             {
                 nodeView.RecIcons[i].Draw(g);
             }
-            if (nodeView.NoteIcon != null) nodeView.NoteIcon.Draw(g);
-            if (nodeView.Link != null) nodeView.Link.Draw(g);
+            nodeView.NoteIcon?.Draw(g);
+            nodeView.Link?.Draw(g);
 
             System.Drawing.Drawing2D.GraphicsPath pathCap = RoundedRectangle.Create((int)nodeView.Left, (int)nodeView.Top - 2, (int)nodeView.Width, (int)nodeView.Height + 2);
             g.DrawPath(Pens.Gray, pathCap);
@@ -112,10 +134,29 @@ namespace MindMate.View.MapControls.Drawing
 
             g.DrawPath(p, path);
 
-
-
+            if (nodeView.Selected) DrawSelection(nodeView, g);
         }
 
+        private static void DrawSelection(NodeView nView, Graphics g)
+        {
+            g.DrawLine(Pens.MediumBlue, nView.Left, nView.Top, nView.Right, nView.Top);
+            g.DrawLine(Pens.MediumBlue, nView.Left, nView.Bottom - 1, nView.Right, nView.Bottom - 1);
+            g.DrawArc(Pens.MediumBlue, nView.Right - 2, nView.Top, 5, nView.Height - 1, 270, 180);
+            g.DrawArc(Pens.MediumBlue, nView.Left - 3, nView.Top, 5, nView.Height - 1, 90, 180);
+        }
+
+        /// <summary>
+        /// Temporary change as mouse moves over a node
+        /// </summary>
+        /// <param name="nView"></param>
+        /// <param name="g"></param>
+        private static void DrawHighlight(NodeView nView, Graphics g)
+        {
+            g.DrawLine(nodeHighlightPen, nView.Left, nView.Top, nView.Right, nView.Top);
+            g.DrawLine(nodeHighlightPen, nView.Left, nView.Bottom - 1, nView.Right, nView.Bottom - 1);
+            g.DrawArc(nodeHighlightPen, nView.Right - 2, nView.Top, 5, nView.Height - 1, 270, 180);
+            g.DrawArc(nodeHighlightPen, nView.Left - 3, nView.Top, 5, nView.Height - 1, 90, 180);
+        }
 
         /// <summary>
         /// Draw node linker for the node and all its children
@@ -123,12 +164,8 @@ namespace MindMate.View.MapControls.Drawing
         /// <param name="node"></param>
         /// <param name="iView"></param>
         /// <param name="g"></param>
-        public static void DrawNodeLinker(MapNode node, MapView iView, Graphics g)
-        {
-            DrawNodeLinker(node, iView, g, true);
-        }
-
-        public static void DrawNodeLinker(MapNode node, MapView iView, Graphics g, bool drawChildren)
+        /// <param name="drawChildren">if false, linkers are not drawn for children</param>
+        public static void DrawNodeLinker(MapNode node, IView iView, Graphics g, bool drawChildren = true)
         {
             if (node.Parent != null)
             {

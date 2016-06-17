@@ -436,7 +436,6 @@ namespace MindMate.View.MapControls
             {
                 g.Clear(Canvas.BackColor); //set background color
                 Drawing.MapPainter.DrawTree(this, g);
-                Drawing.MapPainter.DrawNodeLinker(Tree.RootNode, this, g, true);
             }
 
             return bmp;
