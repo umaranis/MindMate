@@ -47,6 +47,9 @@ namespace MindMate.View.Ribbon
 		private RibbonToggleButton FormatPainter;		
 		private RibbonGroup GrpFont;		
 		private RibbonFontControl RichFont;		
+		private RibbonGroup GrpFormat;		
+		private RibbonDropDownColorPicker BackColor;		
+		private RibbonButton ClearFormatting;		
 		private RibbonGroup GrpIcons;		
 		private RibbonInRibbonGallery IconsGallery;		
 		private RibbonButton RemoveLastIcon;		
@@ -170,6 +173,9 @@ namespace MindMate.View.Ribbon
 			FormatPainter = new RibbonToggleButton(ribbon, (uint)RibbonMarkupCommands.FormatPainter);
 			GrpFont = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpFont);
 			RichFont = new RibbonFontControl(ribbon, (uint)RibbonMarkupCommands.RichFont);
+			GrpFormat = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpFormat);
+			BackColor = new RibbonDropDownColorPicker(ribbon, (uint)RibbonMarkupCommands.BackColor);
+			ClearFormatting = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ClearFormatting);
 			GrpIcons = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpIcons);
 			IconsGallery = new RibbonInRibbonGallery(ribbon, (uint)RibbonMarkupCommands.IconsGallery);
 			RemoveLastIcon = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.RemoveLastIcon);

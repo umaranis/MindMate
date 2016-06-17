@@ -1600,7 +1600,42 @@ namespace MindMate.Tests.Model
             Assert.AreEqual(MapTree.Default, sut.Tree);
         }
 
-#if ! DEBUG
+        [TestMethod()]
+        public void ClearFormatting()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "C");
+
+            c1.Bold = true;
+            c1.FontSize = 20;
+            c1.BackColor = Color.Aqua;
+            c1.Text = "ok";
+
+            c1.ClearFormatting();
+
+            Assert.IsFalse(c1.Bold);
+            Assert.AreEqual(0, c1.FontSize);
+            Assert.AreEqual(c1.BackColor, Color.Empty);
+        }
+
+        [TestMethod()]
+        public void ClearFormatting_NotClearText()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "C");
+
+            c1.Bold = true;
+            c1.FontSize = 20;
+            c1.BackColor = Color.Aqua;
+            c1.Text = "ok";
+
+            c1.ClearFormatting();
+
+            Assert.AreEqual(c1.Text, "ok");
+        }
+
+
+#if !DEBUG
         /// <summary>
         /// Serialized attriute is only applicable in debug mode. It is used in code generation, not at runtime.
         /// </summary>

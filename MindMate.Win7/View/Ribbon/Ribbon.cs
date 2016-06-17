@@ -72,6 +72,10 @@ namespace MindMate.View.Ribbon
 
             //Home Tab: Font group
             RichFont.ExecuteEvent += _RichFont_ExecuteEvent;
+
+            //Home Tab: Format Group
+            BackColor.ExecuteEvent += BackColor_ExecuteEvent;
+            ClearFormatting.ExecuteEvent += ClearFormatting_ExecuteEvent;
             
             //Home Tab: Icons Group
             IconsGallery.ItemsSourceReady += _iconGallery_ItemsSourceReady;
@@ -458,6 +462,26 @@ namespace MindMate.View.Ribbon
                     mainCtrl.CurrentMapCtrl.ChangeTextColor(Color.Empty);
                 }
             }
+        }
+
+        private void BackColor_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            switch ((uint) e.CurrentValue.PropVariant.Value)
+            {
+                case 0: //No Color
+                    mainCtrl.CurrentMapCtrl.ChangeBackColor(Color.Empty);
+                    break;
+                case 1: //Automatic Color
+                    break;
+                case 2: //Color
+                    mainCtrl.CurrentMapCtrl.ChangeBackColor(BackColor.Color);
+                    break;
+            }
+        }
+
+        private void ClearFormatting_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.CurrentMapCtrl.ClearFormatting();
         }
 
         private void _iconGallery_ItemsSourceReady(object sender, EventArgs e)

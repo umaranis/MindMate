@@ -1573,5 +1573,18 @@ namespace MindMate.Controller
                 style.ApplyTo(tree.SelectedNodes);
             }
         }
+
+        public void ClearFormatting()
+        {
+            tree.ChangeManager.StartBatch("Clear Formatting");
+
+            foreach (var node in tree.SelectedNodes)
+            {
+                node.ClearFormatting();
+            }
+
+            tree.ChangeManager.EndBatch();
+        }
+
     }
 }

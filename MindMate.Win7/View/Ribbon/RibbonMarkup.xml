@@ -131,6 +131,17 @@
     <!--Group: Font-->
     <Command Name="GrpFont" Id="2070" LabelTitle="Font" />
     <Command Name="RichFont" Id="2071" LabelTitle="RichFont" />
+    <Command Name="GrpFormat" Id="2101" LabelTitle="Format" />
+    <Command Name="BackColor"  Id="2112" Keytip="FH" LabelTitle="Back Color" TooltipTitle="Text highlight color" TooltipDescription="Make text look like it was marked with a highlighter pen." >
+      <Command.SmallImages>
+        <Image>Res/FontBackgroundColor.SmallImage.png</Image>
+      </Command.SmallImages>
+    </Command>
+    <Command Name="ClearFormatting" Id="2102" LabelTitle="Clear Format" TooltipTitle="Clear All Formatting" TooltipDescription="Remove all formatting like font and color.">
+      <Command.SmallImages>
+        <Image>Res/clear_formatting.png</Image>
+      </Command.SmallImages>
+    </Command>
     
     <!--Group: IconsGallery-->
     <Command Name="GrpIcons" Id="2080" LabelTitle="Icons" />
@@ -434,7 +445,33 @@ Note:
             <ToggleButton CommandName='FormatPainter' />
           </Group>
           <Group CommandName='GrpFont' SizeDefinition='OneFontControl'>
-            <FontControl CommandName="RichFont" FontType="FontWithColor" IsUnderlineButtonVisible="false" IsHighlightButtonVisible="true" />
+            <FontControl CommandName="RichFont" FontType="FontWithColor" IsUnderlineButtonVisible="false" IsHighlightButtonVisible="false" />
+          </Group>
+          <Group CommandName="GrpFormat">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name='button1' />
+                <ControlNameDefinition Name='button2' />
+              </ControlNameMap>
+              <GroupSizeDefinition Size='Large'>
+                <Row>
+                  <ControlSizeDefinition ControlName='button1' ImageSize='Small' IsLabelVisible='true' />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName='button2' ImageSize='Small' IsLabelVisible='true' />
+                </Row>
+              </GroupSizeDefinition>
+              <GroupSizeDefinition Size='Medium'>
+                <Row>
+                  <ControlSizeDefinition ControlName='button1' ImageSize='Small' IsLabelVisible='false' />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName='button2' ImageSize='Small' IsLabelVisible='false' />
+                </Row>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <DropDownColorPicker CommandName="BackColor" IsNoColorButtonVisible="true" IsAutomaticColorButtonVisible="false"/>
+            <Button CommandName="ClearFormatting" />
           </Group>
           <Group CommandName="GrpIcons" SizeDefinition="OneInRibbonGallery">
             <InRibbonGallery CommandName="IconsGallery" Type="Items" MinColumnsLarge="2" MaxColumnsMedium="2" MinColumnsMedium="1" MaxColumns="4" MaxRows="4">

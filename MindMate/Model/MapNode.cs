@@ -1513,6 +1513,21 @@ namespace MindMate.Model
             node.Shape = this.Shape;
         }
 
+        public void ClearFormatting()
+        {
+            BackColor = Color.Empty;
+            Bold = false;
+            Color = Color.Empty;
+            FontName = null;
+            FontSize = 0;
+            Italic = false;
+            Strikeout = false;
+            LineColor = Color.Empty;
+            LinePattern = DashStyle.Custom;
+            LineWidth = 0;
+            Shape = NodeShape.None;
+        }
+
         /// <summary>
         /// Unfold the node and all its descendents recursively
         /// <returns>true if any node was unfolded</returns>

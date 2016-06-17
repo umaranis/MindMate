@@ -1729,6 +1729,58 @@ namespace MindMate.Tests.Controller
             Assert.AreEqual(15, c2.FontSize);
         }
 
+        [TestMethod()]
+        public void ChangeBackColor()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            r.FontSize = 15;
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            r.AddToSelection();
+
+            mapCtrl.ChangeBackColor(Color.Aqua);
+
+            c2.AddToSelection();
+
+            Assert.AreEqual(c1.BackColor, Color.Empty);
+            Assert.AreEqual(c2.BackColor, Color.Empty);
+            Assert.AreEqual(r.BackColor, Color.Aqua);
+
+        }
+
+        [TestMethod()]
+        public void ClearFormatting()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            r.FontSize = 15;
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            r.AddToSelection();
+            c2.AddToSelection();
+            mapCtrl.ChangeBackColor(Color.Aqua);
+            c2.Selected = false;
+
+            mapCtrl.ClearFormatting();
+            
+            Assert.AreEqual(c1.BackColor, Color.Empty);
+            Assert.AreEqual(c2.BackColor, Color.Aqua);
+            Assert.AreEqual(r.BackColor, Color.Empty);
+        }
+
         //[TestMethod()]
         //public void EditHyperlink()
         //{
@@ -1953,12 +2005,6 @@ namespace MindMate.Tests.Controller
 
         //[TestMethod()]
         //public void ChangeBackColorByPicker()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void ChangeBackColor()
         //{
         //    Assert.Fail();
         //}
