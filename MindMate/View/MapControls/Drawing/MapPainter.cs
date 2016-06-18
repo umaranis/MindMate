@@ -36,8 +36,17 @@ namespace MindMate.View.MapControls.Drawing
         /// <param name="g"></param>
         public static void DrawTree(IView iView, Graphics g)
         {
-            DrawNodeLinker(iView.Tree.RootNode, iView, g);
             DrawTreeNodes(iView, g);
+            DrawNodeLinker(iView.Tree.RootNode, iView, g);
+
+            foreach (var node in iView.Tree.SelectedNodes)
+            {
+                DrawSelection(node.NodeView, g);    
+            }
+            if (iView.HighlightedNode != null)
+            {
+                DrawHighlight(iView.HighlightedNode.NodeView, g);
+            }
         }
 
         /// <summary>
@@ -97,12 +106,6 @@ namespace MindMate.View.MapControls.Drawing
             }
             nodeView.NoteIcon?.Draw(g);
             nodeView.Link?.Draw(g);
-
-            if (nodeView.Selected)
-                DrawSelection(nodeView, g); 
-            else if (highlight)
-                DrawHighlight(nodeView, g); 
-            
         }
 
         private static void DrawRootNode(NodeView nodeView, Graphics g)
@@ -133,8 +136,6 @@ namespace MindMate.View.MapControls.Drawing
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
             g.DrawPath(p, path);
-
-            if (nodeView.Selected) DrawSelection(nodeView, g);
         }
 
         private static void DrawSelection(NodeView nView, Graphics g)
