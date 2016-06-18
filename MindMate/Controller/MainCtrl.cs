@@ -356,6 +356,16 @@ namespace MindMate.Controller
             mainForm.SideBarTabs.NoteEditor.Focus();
         }
 
+        public void ViewNoteTab()
+        {
+            mainForm.SideBarTabs.SelectedTab = mainForm.SideBarTabs.NoteTab;
+        }
+
+        public void ViewTaskListTab()
+        {
+            mainForm.SideBarTabs.SelectedTab = mainForm.SideBarTabs.TaskListTab;
+        }
+
         #endregion Coordinating actions and dialogs
 
         #region New / Open Map

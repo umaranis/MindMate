@@ -36,16 +36,22 @@ namespace MindMate.View.Ribbon
 		where el.Attribute("CommandName") != null
 		select el;		
 
-	foreach(XElement el in commands)  
+	Dictionary<string, string> nameTypes = new Dictionary<string, string>(); //to avoid duplicates
+	foreach(XElement el in commands)
+    {
+		nameTypes[GetFieldName(el)] = el.Name.ToString();
+    }
+
+	foreach(var item in nameTypes)  
     { #>
-		private Ribbon<#= el.Name #> <#= GetFieldName(el)#>;		
+		private Ribbon<#= item.Value #> <#= item.Key #>;		
 <#	} #>
 
 		private void InitializeComponents()
 		{
 			// Instantiate Controls
-<#foreach(XElement el in commands)  { #>
-			<#= GetFieldName(el)#> = new Ribbon<#= el.Name #>(ribbon, (uint)RibbonMarkupCommands.<#= GetFieldName(el)#>);
+<#foreach(var item in nameTypes)  { #>
+			<#= item.Key #> = new Ribbon<#= item.Value #>(ribbon, (uint)RibbonMarkupCommands.<#= item.Key #>);
 <#	} #>
 
 		}

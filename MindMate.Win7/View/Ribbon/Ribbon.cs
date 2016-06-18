@@ -164,6 +164,12 @@ namespace MindMate.View.Ribbon
             //Format Tab: Node Style
             CreateNodeStyle.ExecuteEvent += CreateNodeStyle_ExecuteEvent;
 
+            //View Tab: View Tasks
+            ViewTaskList.ExecuteEvent += ViewTaskList_ExecuteEvent;
+
+            //View Tab: View Note
+            ViewNote.ExecuteEvent += ViewNote_ExecuteEvent;
+
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
@@ -181,6 +187,7 @@ namespace MindMate.View.Ribbon
             NodeShape.LargeImage = ribbon.ConvertToUIImage(Resources.Node_Format_Bubble);
         }
 
+        //TODO: This will not work if there are more plugins with MainMenu (fix it)
         public void SetupPluginCommands(MainMenuItem[] pluginItems)
         {
             MainMenuItem mTask = pluginItems[0];
@@ -208,6 +215,10 @@ namespace MindMate.View.Ribbon
 
             var handlerRemoveTask = mTask.DropDownItems[7].Click;
             RemoveTask.ExecuteEvent += (sender, args) => handlerRemoveTask(sender, args);
+
+            var handlerViewCalendar = mTask.DropDownItems[8].Click;
+            ViewCalendar.ExecuteEvent += (sender, args) => handlerViewCalendar(sender, args);
+
         }
 
         #region Application Menu
@@ -927,6 +938,21 @@ namespace MindMate.View.Ribbon
             {
                 mainCtrl.CurrentMapCtrl.ApplyNodeStyle(galleryStyle.NodeStyle);
             }
+        }
+
+        #endregion
+
+        #region View Tab
+
+        private void ViewNote_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.ViewNoteTab();
+        }
+
+        //TODO: Should be done same way as 'View Calender'
+        private void ViewTaskList_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            mainCtrl.ViewTaskListTab();
         }
 
         #endregion

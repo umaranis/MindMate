@@ -138,6 +138,9 @@
       </Command.SmallImages>
     </Command>
     <Command Name="ClearFormatting" Id="2102" LabelTitle="Clear Format" TooltipTitle="Clear All Formatting" TooltipDescription="Remove all formatting like font and color.">
+      <Command.LargeImages>
+        <Image>Res/clear_formatting-large.png</Image>
+      </Command.LargeImages>
       <Command.SmallImages>
         <Image>Res/clear_formatting.png</Image>
       </Command.SmallImages>
@@ -347,7 +350,32 @@ Note:
     <Command Name="GrpNodeStyle" Id="5400" LabelTitle="Node Style" />
     <Command Name="NodeStyleGallery" Id="5401" LabelTitle="Node Style" />
     <Command Name="CreateNodeStyle" Id="5402" LabelTitle="Add selected as Style" />
-
+    
+    <!--Group: Clear Format-->
+    <Command Name="GrpClearFormat" Id="5500" LabelTitle="Clear" />
+    
+    <!--Tab: View-->
+    <Command Name="TabView" Id="6000" LabelTitle="View" />
+    
+    <!--Group: GrpViewTask-->
+    <Command Name="GrpViewTask" Id="6100" LabelTitle="Tasks" />
+    <Command Name="ViewCalendar" Id="6001" LabelTitle="Calendar" TooltipTitle="Open Calendar" TooltipDescription="Open calendar window to view tasks from open maps." >
+      <Command.LargeImages>
+        <Image>Res/Calendar-32.png</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="ViewTaskList" Id="6002" LabelTitle="Task List" TooltipTitle="Show Task List" TooltipDescription="Bring Task List into view (Only shows tasks upto next month)." >
+      <Command.LargeImages>
+        <Image>Res/Todo List-32.png</Image>
+      </Command.LargeImages>
+    </Command>
+    <Command Name="GrpViewNote" Id="6200" LabelTitle="Note" />
+    <Command Name="ViewNote" Id="6201" LabelTitle="Note" TooltipTitle="Show Note" TooltipDescription="Bring Note into view." >
+      <Command.LargeImages>
+        <Image>Res/sticky-note.png</Image>
+      </Command.LargeImages>
+    </Command>
+    
   </Application.Commands>
                    
   <Application.Views>
@@ -765,6 +793,18 @@ Note:
                 </MenuGroup>
               </InRibbonGallery.MenuGroups>
             </InRibbonGallery>
+          </Group>
+          <Group CommandName="GrpClearFormat" SizeDefinition="OneButton">
+            <Button CommandName="ClearFormatting" />
+          </Group>
+        </Tab>
+        <Tab CommandName="TabView" >
+          <Group CommandName="GrpViewTask" SizeDefinition="TwoButtons">
+            <Button CommandName="ViewCalendar"/>
+            <Button CommandName="ViewTaskList"/>
+          </Group>
+          <Group CommandName="GrpViewNote" SizeDefinition="OneButton">
+            <Button CommandName="ViewNote"/>
           </Group>
         </Tab>
       </Ribbon.Tabs>

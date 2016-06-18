@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MindMate.Tests.TestDouble;
 
 namespace MindMate.Tests.Plugins.Tasks
 {
@@ -213,6 +214,14 @@ namespace MindMate.Tests.Plugins.Tasks
             var t = new TaskPlugin();
             var m = t.CreateMainMenuItems()[0].DropDownItems;
             Assert.AreEqual("View Calendar", m[8].Text); //this order of menu item is required by Ribbon event handler
+        }
+
+        [TestMethod]
+        public void OpenCalendar()
+        {
+            var t = new TaskPlugin();
+            t.Initialize(new PluginManagerStub());
+            t.OpenCalender();
         }
     }
 }

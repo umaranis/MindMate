@@ -112,8 +112,14 @@ namespace MindMate.Plugins.Tasks
 
         private void OnCalendarMenuClick(object senrder, EventArgs e)
         {
+            OpenCalender();
+        }
+
+        public Calender.MindMateCalendar OpenCalender()
+        {
             Calender.MindMateCalendar frmCalendar = new Calender.MindMateCalendar(this);
             frmCalendar.Show();
+            return frmCalendar;
         }
 
         public Control[] CreateSideBarWindows()

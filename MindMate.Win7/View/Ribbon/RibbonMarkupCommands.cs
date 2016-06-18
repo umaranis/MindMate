@@ -138,5 +138,12 @@ namespace MindMate.View.Ribbon
 		GrpNodeStyle = 5400,		
 		NodeStyleGallery = 5401,		
 		CreateNodeStyle = 5402,		
+		GrpClearFormat = 5500,		
+		TabView = 6000,		
+		GrpViewTask = 6100,		
+		ViewCalendar = 6001,		
+		ViewTaskList = 6002,		
+		GrpViewNote = 6200,		
+		ViewNote = 6201,		
 	}
 }

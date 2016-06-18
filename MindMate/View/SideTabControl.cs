@@ -10,6 +10,7 @@ namespace MindMate.View
     public sealed class SideTabControl : TabControl
     {
         private const string NoteTabTitle = "Note Editor";
+        private const string TaskListTabTitle = "Tasks";
 
         public SideTabControl()
         {
@@ -29,7 +30,18 @@ namespace MindMate.View
 
         public NoteEditor NoteEditor { get; set; }
 
-        public TabPage NoteTab { get; set; }
+        public TabPage NoteTab { get; private set; }
+
+        //TODO: Should be handled the way 'View Calendar' ribbon command is done.
+        public TabPage TaskListTab
+        {
+            get
+            {
+                return TabPages.Cast<TabPage>().FirstOrDefault(p => p.Text == TaskListTabTitle);
+            }
+        }
+
+
 
     }
 }
