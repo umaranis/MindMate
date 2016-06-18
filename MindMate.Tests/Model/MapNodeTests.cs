@@ -1,15 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.Model;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
-using System.Text;
 using MindMate.View.MapControls;
 using MindMate.View.MapControls.Drawing;
 using XnaFan.ImageComparison;
+using MindMate.Serialization;
 
 namespace MindMate.Tests.Model
 {

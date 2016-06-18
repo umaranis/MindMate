@@ -2,6 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.Model;
 
+#if DEBUG
+
 namespace MindMate.Tests.Model
 {
     [TestClass()]
@@ -80,3 +82,5 @@ namespace MindMate.Tests.Model
         }
     }
 }
+
+#endif
