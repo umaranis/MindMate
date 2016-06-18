@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Mind Mate")]
-[assembly: AssemblyDescription("Mind Mate is an open source mind mapping software developed by Syed Umar Anis. Design of the software is inspired from FreeMind.\r\n\r\nPlease feel free to contact me at mail@umaranis.com")]
+[assembly: AssemblyDescription("Mind Mate is an open source mind mapping software developed by Syed Umar Anis. It is useful for taking notes, managing tasks, brainstorming and organizing concepts.\r\n\r\nFor any feedback or suggestion, feel free to contact at mail@umaranis.com")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("mail@umaranis.com")]
 [assembly: AssemblyProduct("Mind Mate")]
-[assembly: AssemblyCopyright("Copyright © 2015 Syed Umar Anis")]
+[assembly: AssemblyCopyright("Copyright © 2016 Syed Umar Anis")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.1.*")]
+[assembly: AssemblyVersion("0.2.*")]
 //[assembly: AssemblyFileVersion("1.0.0.0")]
