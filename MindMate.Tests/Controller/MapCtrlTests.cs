@@ -1775,10 +1775,145 @@ namespace MindMate.Tests.Controller
             c2.Selected = false;
 
             mapCtrl.ClearFormatting();
-            
+
             Assert.AreEqual(c1.BackColor, Color.Empty);
             Assert.AreEqual(c2.BackColor, Color.Aqua);
             Assert.AreEqual(r.BackColor, Color.Empty);
+        }
+
+        [TestMethod()]
+        public void ChangeStrikeout_MultiSelect()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            r.FontSize = 15;
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            r.AddToSelection();
+            c2.AddToSelection();
+            c2.Strikeout = true;
+            mapCtrl.ChangeStrikeout(false);
+            
+            Assert.IsFalse(c2.Strikeout);
+            Assert.IsFalse(r.Strikeout);
+        }
+
+        [TestMethod()]
+        public void ToggleStrikeout()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            r.AddToSelection();
+            c2.AddToSelection();
+            c2.Strikeout = true;
+            mapCtrl.ToggleStrikeout();
+
+            Assert.IsFalse(c2.Strikeout);
+            Assert.IsTrue(r.Strikeout);
+        }
+
+
+        [TestMethod()]
+        public void ChangeBold()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            r.FontSize = 15;
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            r.AddToSelection();
+            c2.AddToSelection();
+            c2.Bold = true;
+            mapCtrl.ChangeBold(true);
+
+            Assert.IsTrue(c2.Bold);
+            Assert.IsTrue(r.Bold);
+        }
+
+        [TestMethod()]
+        public void ToggleBold()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            r.AddToSelection();
+            c2.AddToSelection();
+            c2.Bold = true;
+            mapCtrl.ToggleBold();
+
+            Assert.IsFalse(c2.Bold);
+            Assert.IsTrue(r.Bold);
+        }
+
+        [TestMethod()]
+        public void ChangeItalic()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            r.AddToSelection();
+            c2.AddToSelection();
+            c2.Italic = true;
+            mapCtrl.ChangeItalic(true);
+
+            Assert.IsTrue(c2.Italic);
+            Assert.IsTrue(r.Italic);
+        }
+
+        [TestMethod()]
+        public void ToggleItalic()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            r.AddToSelection();
+            c2.AddToSelection();
+            c2.Italic = true;
+            mapCtrl.ToggleItalic();
+
+            Assert.IsFalse(c2.Italic);
+            Assert.IsTrue(r.Italic);
         }
 
         //[TestMethod()]
@@ -1957,24 +2092,6 @@ namespace MindMate.Tests.Controller
 
         //[TestMethod()]
         //public void FollowLink()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void ToggleSelectedNodeItalic()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void ToggleSelectedNodeBold()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void ToggleSelectedNodeStrikeout()
         //{
         //    Assert.Fail();
         //}

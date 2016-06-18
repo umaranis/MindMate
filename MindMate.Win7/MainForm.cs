@@ -134,10 +134,10 @@ namespace MindMate.Win7
                         mainCtrl.Cut();
                         return true;
                     case (Keys.Control | Keys.B):
-                        mainCtrl.CurrentMapCtrl.ToggleSelectedNodeBold();
+                        mainCtrl.CurrentMapCtrl.ToggleBold();
                         return true;
                     case (Keys.Control | Keys.I):
-                        mainCtrl.CurrentMapCtrl.ToggleSelectedNodeItalic();
+                        mainCtrl.CurrentMapCtrl.ToggleItalic();
                         return true;
                     case (Keys.Control | Keys.D):
                         mainCtrl.CurrentMapCtrl.ChangeFont();

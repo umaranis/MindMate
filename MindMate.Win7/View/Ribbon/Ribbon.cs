@@ -427,15 +427,15 @@ namespace MindMate.View.Ribbon
 
                 if (propertyKey == RibbonProperties.FontProperties_Bold)
                 {
-                    mainCtrl.CurrentMapCtrl.ToggleSelectedNodeBold();
+                    mainCtrl.CurrentMapCtrl.ChangeBold(RichFont.Bold == FontProperties.Set);
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_Italic)
                 {
-                    mainCtrl.CurrentMapCtrl.ToggleSelectedNodeItalic();
+                    mainCtrl.CurrentMapCtrl.ChangeItalic(RichFont.Italic == FontProperties.Set);
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_Strikethrough)
                 {
-                    mainCtrl.CurrentMapCtrl.ToggleSelectedNodeStrikeout();
+                    mainCtrl.CurrentMapCtrl.ChangeStrikeout(RichFont.Strikethrough == FontProperties.Set);
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_Family)
                 {
@@ -1012,7 +1012,7 @@ namespace MindMate.View.Ribbon
 
         private void UpdateFontControl(SelectedNodes nodes)
         {
-            if (nodes.Count == 1)
+            if (nodes.Count > 0)
             {
                 MapNode n = nodes.First;
                 RichFont.Bold = n.Bold ? FontProperties.Set : FontProperties.NotSet;
@@ -1021,10 +1021,10 @@ namespace MindMate.View.Ribbon
                 RichFont.Family = n.NodeView.Font.Name;
                 RichFont.Size = (decimal)n.NodeView.Font.Size;
             }
-            else
-            {
-                ClearFontControl();
-            }
+            //else
+            //{
+            //    ClearFontControl();
+            //}
         }
 
         private void ClearFontControl()

@@ -373,12 +373,12 @@ namespace MindMate.WinXP
 
         void mItalic_Click(object sender, EventArgs e)
         {
-            mapCtrl.ToggleSelectedNodeItalic();
+            mapCtrl.ToggleItalic();
         }
 
         void mBold_Click(object sender, EventArgs e)
         {
-            mapCtrl.ToggleSelectedNodeBold();
+            mapCtrl.ToggleBold();
         }
 
         void mSelectIcon_Click(object sender, EventArgs e)

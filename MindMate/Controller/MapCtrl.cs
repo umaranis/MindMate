@@ -789,7 +789,7 @@ namespace MindMate.Controller
             }
         }
 
-        public void ToggleSelectedNodeItalic()
+        public void ToggleItalic()
         {
             int selectCnt = this.MapView.SelectedNodes.Count;
 
@@ -804,7 +804,22 @@ namespace MindMate.Controller
             if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
-        public void ToggleSelectedNodeBold()
+        public void ChangeItalic(bool value)
+        {
+            int selectCnt = this.MapView.SelectedNodes.Count;
+
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Italic"); }
+
+            for (int i = 0; i < selectCnt; i++)
+            {
+                MapNode node = this.MapView.SelectedNodes[i];
+                node.Italic = value;
+            }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
+        }
+
+        public void ToggleBold()
         {
             int selectCnt = this.MapView.SelectedNodes.Count;
 
@@ -813,13 +828,28 @@ namespace MindMate.Controller
             for (int i = 0; i < selectCnt; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
-                node.Bold = !node.Bold;               
+                node.Bold = !node.Bold;
             }
 
             if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
 
-        public void ToggleSelectedNodeStrikeout()
+        public void ChangeBold(bool value)
+        {
+            int selectCnt = this.MapView.SelectedNodes.Count;
+
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Bold"); }
+
+            for (int i = 0; i < selectCnt; i++)
+            {
+                MapNode node = this.MapView.SelectedNodes[i];
+                node.Bold = value;               
+            }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
+        }
+
+        public void ToggleStrikeout()
         {
             int selectCnt = this.MapView.SelectedNodes.Count;
 
@@ -829,6 +859,21 @@ namespace MindMate.Controller
             {
                 MapNode node = this.MapView.SelectedNodes[i];
                 node.Strikeout = !node.Strikeout;
+            }
+
+            if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
+        }
+
+        public void ChangeStrikeout(bool value)
+        {
+            int selectCnt = this.MapView.SelectedNodes.Count;
+
+            if (selectCnt > 1) { tree.ChangeManager.StartBatch("Strikeout"); }
+
+            for (int i = 0; i < selectCnt; i++)
+            {
+                MapNode node = this.MapView.SelectedNodes[i];
+                node.Strikeout = value;
             }
 
             if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
@@ -1576,14 +1621,13 @@ namespace MindMate.Controller
 
         public void ClearFormatting()
         {
-            tree.ChangeManager.StartBatch("Clear Formatting");
-
-            foreach (var node in tree.SelectedNodes)
+            using (tree.ChangeManager.StartBatch("Clear Formatting"))
             {
-                node.ClearFormatting();
+                foreach (var node in tree.SelectedNodes)
+                {
+                    node.ClearFormatting();
+                }
             }
-
-            tree.ChangeManager.EndBatch();
         }
 
     }

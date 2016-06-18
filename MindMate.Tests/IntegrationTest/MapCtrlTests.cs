@@ -80,7 +80,7 @@ namespace MindMate.Tests.IntegrationTest
             mapCtrl.SelectNodeLeftOrUnfold();
             for (int i = 0; i < 3; i++) mapCtrl.SelectNodeBelow();
             mapCtrl.SelectAllSiblingsAbove();
-            mapCtrl.ToggleSelectedNodeBold();
+            mapCtrl.ToggleBold();
 
             // select siblings below
             mapCtrl.SelectNodeRightOrUnfold();
@@ -88,7 +88,7 @@ namespace MindMate.Tests.IntegrationTest
             for (int i = 0; i < 3; i++) mapCtrl.SelectNodeAbove();
             mapCtrl.SelectNodeBelow();
             mapCtrl.SelectAllSiblingsBelow();
-            mapCtrl.ToggleSelectedNodeItalic();
+            mapCtrl.ToggleItalic();
 
             //*****
             if (CONDUCT_INTERMEDIATE_TESTS) ImageTest(mapCtrl.MapView, "MapCtrl2");
