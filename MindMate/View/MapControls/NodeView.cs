@@ -328,7 +328,7 @@ namespace MindMate.View.MapControls
                 this.noteIcon = new NoteIcon();
                 this.RefreshNodeViewSize();
             }
-            else if(node.HasNoteText && this.noteIcon != null)
+            else if(!node.HasNoteText && this.noteIcon != null)
             {
                 this.noteIcon = null;
                 this.RefreshNodeViewSize();
