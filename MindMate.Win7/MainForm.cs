@@ -1,5 +1,5 @@
 ﻿/* Author: Syed Umar Anis (mail@umaranis.com)                    
- * Copyright (c) 2014 Syed Umar Anis                             
+ * Copyright (c) 2016 Syed Umar Anis                             
  * This software is licensed under MIT (see LICENSE.txt)    
  */
 
@@ -34,6 +34,12 @@ namespace MindMate.Win7
 
             EditorTabs = new EditorTabs();
             splitContainer1.Panel1.Controls.Add(EditorTabs);
+
+#if (Win7)
+            //this is required for Windows 7 & 8, otherwise sidebar is not laid out properly
+            Load += (sender, args) => Ribbon.Minimized = true;
+            Shown += (sender, args) => Ribbon.Minimized = false;
+#endif            
         }
 
         #region Manage Focus
