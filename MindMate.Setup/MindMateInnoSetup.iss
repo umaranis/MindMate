@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "MindMate"
-#define MyAppVersion "0.2.0"
+#define MyAppVersion "0.2.1"
 #define MyAppURL "http://www.umaranis.com/"
 #define MyAppExeName "MindMate.Win.exe"
 
@@ -23,6 +23,7 @@ LicenseFile=C:\Projects\DotNET\MindMap\MindMate\MindMate\LICENSE.txt
 OutputBaseFilename=MindMate.Setup
 Compression=lzma
 SolidCompression=yes
+AppPublisher=Syed Umar Anis
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -32,7 +33,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "C:\Projects\DotNET\MindMap\MindMate\MindMate.Win7\bin\Release\MindMate.Win.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Projects\DotNET\MindMap\MindMate\MindMate.Win7\bin\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\MindMate.Win7\bin\Release\images\*"; DestDir: "{app}\images"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 Source: "..\MindMate.Win7\bin\Release\CustomFontDialog.dll"; DestDir: "{app}"
 Source: "..\MindMate.Win7\bin\Release\MindMate.dll"; DestDir: "{app}"; Flags: ignoreversion
