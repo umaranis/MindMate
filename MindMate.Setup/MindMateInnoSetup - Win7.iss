@@ -20,7 +20,7 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DisableProgramGroupPage=yes
 LicenseFile=C:\Projects\DotNET\MindMap\MindMate\MindMate\LICENSE.txt
-OutputBaseFilename=MindMate-Setup-Win-v{#MyAppVersion}
+OutputBaseFilename=MindMate-Setup-Win7-v{#MyAppVersion}
 Compression=lzma
 SolidCompression=yes
 AppPublisher=Syed Umar Anis
@@ -32,16 +32,16 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "..\MindMate.Win7\bin\Release\MindMate.Win.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\MindMate.Win7\bin\Release\images\*"; DestDir: "{app}\images"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\MindMate.Win7\bin\RelWin7\MindMate.Win.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\MindMate.Win7\bin\RelWin7\images\*"; DestDir: "{app}\images"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: "..\MindMate.Win7\bin\Release\CustomFontDialog.dll"; DestDir: "{app}"
-Source: "..\MindMate.Win7\bin\Release\MindMate.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\MindMate.Win7\bin\Release\Ribbon.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\MindMate.Win7\bin\Release\Settings.Yaml"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\MindMate.Win7\bin\Release\System.Windows.Forms.Calendar.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\MindMate.Win7\bin\Release\TaskSchedular.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\MindMate.Win7\bin\Release\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\MindMate.Win7\bin\RelWin7\CustomFontDialog.dll"; DestDir: "{app}"
+Source: "..\MindMate.Win7\bin\RelWin7\MindMate.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\MindMate.Win7\bin\RelWin7\Ribbon.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\MindMate.Win7\bin\RelWin7\Settings.Yaml"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\MindMate.Win7\bin\RelWin7\System.Windows.Forms.Calendar.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\MindMate.Win7\bin\RelWin7\TaskSchedular.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\MindMate.Win7\bin\RelWin7\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{commonprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
