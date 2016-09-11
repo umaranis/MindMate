@@ -25,6 +25,7 @@ namespace MindMate.View.MapControls
         public const int INTER_CONTROL_PADDING = 3;
         public const int TOP_PADDING = 2;
         public const int BOTTOM_PADDING = 1;
+        public const int ICON_SIZE = 16;
 
         public static Font DefaultFont = new Font(FontFamily.GenericSansSerif, 10);
         public static Color DefaultLineColor = Color.Gray;
@@ -373,7 +374,8 @@ namespace MindMate.View.MapControls
 
         private void RefreshNodeViewSize()
         {
-            width = 0; //height = 0;
+            //width
+            width = 0; 
 
             if (this.link != null)  width += (link.Size.Width + INTER_CONTROL_PADDING);
             
@@ -383,7 +385,17 @@ namespace MindMate.View.MapControls
 
             width += (NodeView.LEFT_PADDING + recText.Width + NodeView.RIGHT_PADDING);
 
-            height = TOP_PADDING + recText.Height + BOTTOM_PADDING;
+            //height
+            height = TOP_PADDING;
+            if (recText.Height < ICON_SIZE && (recIcons.Any() || link != null || noteIcon != null))
+            {
+                height += ICON_SIZE;
+            }
+            else
+            {
+                height += recText.Height;
+            }
+            height += BOTTOM_PADDING;
         }
 
         /// <summary>
