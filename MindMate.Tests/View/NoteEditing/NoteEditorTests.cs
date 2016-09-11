@@ -1,22 +1,30 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.View.NoteEditing;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MindMate.Tests.View.NoteEditing
 {
+    /// <summary>
+    /// Test methods in this are executed in a separate thread to avoid following exception:
+    ///     MindMate.Tests.View.NoteEditing.NoteEditorTests.CanExecuteCommand threw exception: 
+    ///     System.Threading.ThreadStateException: ActiveX control '8856f961-340a-11d0-a96b-00c04fd705a2' cannot be instantiated because the current thread is not in a single-threaded apartment.    
+    /// This exception occurs in some machines also (not sure what causes it).
+    /// </summary>
     [TestClass()]
     public class NoteEditorTests
     {
         [TestMethod()]
         public void NoteEditor_Creation()
         {
-            var sut = new NoteEditor();
+            NoteEditor sut = null;
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                sut = new NoteEditor();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
             Assert.IsNotNull(sut);
         }
 
@@ -77,19 +85,24 @@ namespace MindMate.Tests.View.NoteEditing
         [TestMethod()]
         public void Clear()
         {
-            var sut = new NoteEditor();
-            bool result = true;
-            var form = CreateForm();
-            form.Controls.Add(sut);
-            form.Shown += (sender, args) =>
+            bool result = false;
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                sut.HTML = "Sample Test";
-                sut.Clear();
-                result = sut.HTML == null;
-                form.Close();
-            };
-            form.ShowDialog();
-
+                var sut = new NoteEditor();                
+                var form = CreateForm();
+                form.Controls.Add(sut);
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = "Sample Test";
+                    sut.Clear();
+                    result = sut.HTML == null;
+                    form.Close();
+                };
+                form.ShowDialog();                
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
             Assert.IsTrue(result);
         }
 
@@ -97,7 +110,7 @@ namespace MindMate.Tests.View.NoteEditing
         public void CanExecuteCommand()
         {
             var sut = new NoteEditor();
-            bool result = true;
+            bool result = false;
             var form = CreateForm();
             form.Controls.Add(sut);
             form.Shown += (sender, args) =>
