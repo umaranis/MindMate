@@ -25,39 +25,51 @@ namespace MindMate.Tests.View.NoteEditing
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();
             t.Join();
+
             Assert.IsNotNull(sut);
         }
 
         [TestMethod()]
         public void NoteEditor_Creation_HTMLIsNull()
         {
-            var sut = new NoteEditor();
             bool result = true;
-            var form = CreateForm();
-            form.Controls.Add(sut);
-            form.Shown += (sender, args) =>
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                result = sut.HTML == null;
-                form.Close();
-            };
-            form.ShowDialog();
-
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Controls.Add(sut);
+                form.Shown += (sender, args) =>
+                {
+                    result = sut.HTML == null;
+                    form.Close();
+                };
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
             Assert.IsTrue(result);
         }
 
         [TestMethod()]
         public void NoteEditor_Creation_IsDirtyFalse()
         {
-            var sut = new NoteEditor();
             bool result = true;
-            var form = CreateForm();
-            form.Controls.Add(sut);
-            form.Shown += (sender, args) =>
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                result = !sut.Dirty;
-                form.Close();
-            };
-            form.ShowDialog();
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Controls.Add(sut);
+                form.Shown += (sender, args) =>
+                {
+                    result = !sut.Dirty;
+                    form.Close();
+                };
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsTrue(result);
         }
@@ -68,16 +80,22 @@ namespace MindMate.Tests.View.NoteEditing
         [TestMethod()]
         public void NoteEditor_SetHTML_IsDirtyFalse()
         {
-            var sut = new NoteEditor();
             bool result = true;
-            var form = CreateForm();
-            form.Controls.Add(sut);
-            form.Shown += (sender, args) =>
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                result = !sut.Dirty;
-                form.Close();
-            };
-            form.ShowDialog();
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Controls.Add(sut);
+                form.Shown += (sender, args) =>
+                {
+                    result = !sut.Dirty;
+                    form.Close();
+                };
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsTrue(result);
         }
@@ -109,16 +127,23 @@ namespace MindMate.Tests.View.NoteEditing
         [TestMethod()]
         public void CanExecuteCommand()
         {
-            var sut = new NoteEditor();
             bool result = false;
-            var form = CreateForm();
-            form.Controls.Add(sut);
-            form.Shown += (sender, args) =>
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                result = sut.CanExecuteCommand(NoteEditorCommand.Bold);
-                form.Close();
-            };
-            form.ShowDialog();
+                var sut = new NoteEditor();            
+                var form = CreateForm();
+                form.Controls.Add(sut);
+                form.Shown += (sender, args) =>
+                {
+                    result = sut.CanExecuteCommand(NoteEditorCommand.Bold);
+                    form.Close();
+                };
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsTrue(result);
         }
@@ -126,16 +151,23 @@ namespace MindMate.Tests.View.NoteEditing
         [TestMethod()]
         public void QueryCommandState()
         {
-            var sut = new NoteEditor();
             bool result = true;
-            var form = CreateForm();
-            form.Controls.Add(sut);
-            form.Shown += (sender, args) =>
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                result = !sut.QueryCommandState(NoteEditorCommand.Bold);
-                form.Close();
-            };
-            form.ShowDialog();
+                var sut = new NoteEditor();            
+                var form = CreateForm();
+                form.Controls.Add(sut);
+                form.Shown += (sender, args) =>
+                {
+                    result = !sut.QueryCommandState(NoteEditorCommand.Bold);
+                    form.Close();
+                };
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsTrue(result);
         }
@@ -143,17 +175,24 @@ namespace MindMate.Tests.View.NoteEditing
         [TestMethod()]
         public void ExecuteCommand()
         {
-            var sut = new NoteEditor();
             bool result = true;
-            var form = CreateForm();
-            form.Controls.Add(sut);
-            form.Shown += (sender, args) =>
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                sut.ExecuteCommand(NoteEditorCommand.Bold);
-                result = sut.QueryCommandState(NoteEditorCommand.Bold);
-                form.Close();
-            };
-            form.ShowDialog();
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Controls.Add(sut);
+                form.Shown += (sender, args) =>
+                {
+                    sut.ExecuteCommand(NoteEditorCommand.Bold);
+                    result = sut.QueryCommandState(NoteEditorCommand.Bold);
+                    form.Close();
+                };
+                form.ShowDialog();            
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsTrue(result);
         }
@@ -161,19 +200,26 @@ namespace MindMate.Tests.View.NoteEditing
         [TestMethod()]
         public void InsertHyperlink()
         {
-            var sut = new NoteEditor();
             bool result = true;
-            var form = CreateForm();
-            form.Controls.Add(sut);
-            form.Shown += (sender, args) =>
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                sut.HTML = "Website";
-                sut.ExecuteCommand(NoteEditorCommand.SelectAll);
-                sut.InsertHyperlink("umaranis.com");
-                result = sut.HTML != null && sut.HTML.Contains("umar");
-                form.Close();
-            };
-            form.ShowDialog();
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Controls.Add(sut);
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = "Website";
+                    sut.ExecuteCommand(NoteEditorCommand.SelectAll);
+                    sut.InsertHyperlink("umaranis.com");
+                    result = sut.HTML != null && sut.HTML.Contains("umar");
+                    form.Close();
+                };
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsTrue(result);
         }
@@ -181,18 +227,25 @@ namespace MindMate.Tests.View.NoteEditing
         [TestMethod()]
         public void Paste()
         {
-            var sut = new NoteEditor();
             bool result = true;
-            var form = CreateForm();
-            form.Controls.Add(sut);
-            form.Shown += (sender, args) =>
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                Clipboard.SetText("This is clipboard text");
-                sut.ExecuteCommand(NoteEditorCommand.Paste);
-                result = sut.HTML != null && sut.HTML.Contains("This is clipboard text");
-                form.Close();
-            };
-            form.ShowDialog();
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Controls.Add(sut);
+                form.Shown += (sender, args) =>
+                {
+                    Clipboard.SetText("This is clipboard text");
+                    sut.ExecuteCommand(NoteEditorCommand.Paste);
+                    result = sut.HTML != null && sut.HTML.Contains("This is clipboard text");
+                    form.Close();
+                };
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsTrue(result);
         }
@@ -200,44 +253,60 @@ namespace MindMate.Tests.View.NoteEditing
         [TestMethod()]
         public void Paste_MakesDirty()
         {
-            var sut = new NoteEditor();
-            var form = CreateForm();
-            Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
-            timer.Tick += delegate { form.Close(); };
-            form.Controls.Add(sut);
-            form.Shown += (sender, args) =>
+            var result = false;
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                Clipboard.SetText("This is clipboard text");
-                sut.Paste();
-            };
-            timer.Start();
-            form.ShowDialog();
-            timer.Stop();
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate { form.Close(); };
+                form.Controls.Add(sut);
+                form.Shown += (sender, args) =>
+                {
+                    Clipboard.SetText("This is clipboard text");
+                    sut.Paste();
+                };
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.Dirty;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
-
-            Assert.IsTrue(sut.Dirty);
+            Assert.IsTrue(result);
         }
 
         [TestMethod()]
         public void Paste_SetHTMLNullThenPaste_MakesDirty()
         {
-            var sut = new NoteEditor();
-            var form = CreateForm();
-            Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
-            timer.Tick += delegate { form.Close(); };
-            form.Controls.Add(sut);
-            form.Shown += (sender, args) =>
+            var result = false;
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                sut.HTML = null; //Clears Dirty flag
-                Clipboard.SetText("This is clipboard text");
-                sut.Paste();
-            };
-            timer.Start();
-            form.ShowDialog();
-            timer.Stop();
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate { form.Close(); };
+                form.Controls.Add(sut);
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null; //Clears Dirty flag
+                    Clipboard.SetText("This is clipboard text");
+                    sut.Paste();
+                };
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.Dirty;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
-
-            Assert.IsTrue(sut.Dirty);
+            Assert.IsTrue(result);
         }
 
         /// <summary>
@@ -253,35 +322,43 @@ namespace MindMate.Tests.View.NoteEditing
         [TestMethod()]
         public void Paste_SetHTMLThenPaste_MakesDirty()
         {
-            var sut = new NoteEditor();
-            var form = CreateForm();
-            Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
-            timer.Tick += delegate
-            {
-                if (timer.Tag == null)
-                {
-                    timer.Tag = "First Event Fired";
-                    Clipboard.SetText("This is clipboard text");
-                    sut.Paste();
-                }
-                else
-                {
-                    form.Close();
-                }
-            };
-            form.Controls.Add(sut);
-            form.Shown += (sender, args) =>
-            {
-                sut.HTML = null; //Clears Dirty flag
-                sut.HTML = "Some Text"; //Clears Dirty flag
-                sut.HTML = "Some Text"; //Clears Dirty flag
-            };
-            timer.Start();
-            form.ShowDialog();
-            timer.Stop();
+            var result = false;
 
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        Clipboard.SetText("This is clipboard text");
+                        sut.Paste();
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null; //Clears Dirty flag
+                    sut.HTML = "Some Text"; //Clears Dirty flag
+                    sut.HTML = "Some Text"; //Clears Dirty flag
+                };
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.Dirty;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
-            Assert.IsTrue(sut.Dirty);
+            Assert.IsTrue(result);
         }
 
         /// <summary>
@@ -297,40 +374,48 @@ namespace MindMate.Tests.View.NoteEditing
         [TestMethod()]
         public void Paste_SetHTML2ThenPaste_MakesDirty()
         {
-            var sut = new NoteEditor();
-            var form = CreateForm();
-            Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
-            timer.Tick += delegate
+            var result = false;
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                if (timer.Tag == null)
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
                 {
-                    timer.Tag = "First Event Fired";
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        sut.HTML = "Some Text"; //Clears Dirty flag
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        Clipboard.SetText("This is clipboard text");
+                        sut.Paste();
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null; //Clears Dirty flag
                     sut.HTML = "Some Text"; //Clears Dirty flag
+                };
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.Dirty;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
-                }
-                else if (timer.Tag.Equals("First Event Fired"))
-                {
-                    timer.Tag = "Second Event Fired";
-                    Clipboard.SetText("This is clipboard text");
-                    sut.Paste();
-                }
-                else
-                {
-                    form.Close();
-                }
-            };
-            form.Controls.Add(sut);
-            form.Shown += (sender, args) =>
-            {
-                sut.HTML = null; //Clears Dirty flag
-                sut.HTML = "Some Text"; //Clears Dirty flag
-            };
-            timer.Start();
-            form.ShowDialog();
-            timer.Stop();
-
-
-            Assert.IsTrue(sut.Dirty);
+            Assert.IsTrue(result);
         }
 
         //[TestMethod()]

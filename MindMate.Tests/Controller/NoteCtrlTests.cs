@@ -15,16 +15,30 @@ using MindMate.View.NoteEditing;
 
 namespace MindMate.Tests.Controller
 {
+    /// <summary>
+    /// Test methods in this are executed in a separate thread to avoid following exception:
+    ///     MindMate.Tests.View.NoteEditing.NoteEditorTests.CanExecuteCommand threw exception: 
+    ///     System.Threading.ThreadStateException: ActiveX control '8856f961-340a-11d0-a96b-00c04fd705a2' cannot be instantiated because the current thread is not in a single-threaded apartment.    
+    /// This exception occurs in some machines also (not sure what causes it).
+    /// </summary>
     [TestClass()]
     public class NoteCtrlTests
     {
         [TestMethod()]
         public void NoteCtrl()
         {
-            MetaModel.MetaModel.Initialize();
-            var persistence = new PersistenceManager();
-            var nodeEditor = new NoteEditor();
-            var sut = new NoteCtrl(nodeEditor, persistence);
+            NoteCtrl sut = null;
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                MetaModel.MetaModel.Initialize();
+                var persistence = new PersistenceManager();
+                var nodeEditor = new NoteEditor();
+                sut = new NoteCtrl(nodeEditor, persistence);
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsNotNull(sut);
         }
@@ -51,28 +65,34 @@ namespace MindMate.Tests.Controller
         [TestMethod()]
         public void NoteCtrl_AssignNote_EditorUpdated()
         {
-            MetaModel.MetaModel.Initialize();
-            var persistence = new PersistenceManager();
-            var noteEditor = new NoteEditor();
-
             bool result = true;
 
-            var form = CreateForm();
-            form.Controls.Add(noteEditor);
-            form.Shown += (sender, args) =>
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                var tree = persistence.NewTree();
+                MetaModel.MetaModel.Initialize();
+                var persistence = new PersistenceManager();
+                var noteEditor = new NoteEditor();
+                             
+                var form = CreateForm();
+                form.Controls.Add(noteEditor);
+                form.Shown += (sender, args) =>
+                {
+                    var tree = persistence.NewTree();
 
-                var sut = new NoteCtrl(noteEditor, persistence);
+                    var sut = new NoteCtrl(noteEditor, persistence);
 
-                tree.Tree.RootNode.NoteText = "ABC";
+                    tree.Tree.RootNode.NoteText = "ABC";
 
-                result = noteEditor.HTML != null && noteEditor.HTML.Contains("ABC");
+                    result = noteEditor.HTML != null && noteEditor.HTML.Contains("ABC");
 
-                form.Close();
-            };
+                    form.Close();
+                };
 
-            form.ShowDialog();
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsTrue(result);
         }
@@ -80,29 +100,35 @@ namespace MindMate.Tests.Controller
         [TestMethod()]
         public void NoteCtrl_AssignNoteToUnselected()
         {
-            MetaModel.MetaModel.Initialize();
-            var persistence = new PersistenceManager();
-            var noteEditor = new NoteEditor();
-
             bool result = true;
 
-            var form = CreateForm();
-            form.Controls.Add(noteEditor);
-            form.Shown += (sender, args) =>
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                var tree = persistence.NewTree();
-                var c1 = new MapNode(tree.Tree.RootNode, "c1");
+                MetaModel.MetaModel.Initialize();
+                var persistence = new PersistenceManager();
+                var noteEditor = new NoteEditor();
 
-                var sut = new NoteCtrl(noteEditor, persistence);
+                var form = CreateForm();
+                form.Controls.Add(noteEditor);
+                form.Shown += (sender, args) =>
+                {
+                    var tree = persistence.NewTree();
+                    var c1 = new MapNode(tree.Tree.RootNode, "c1");
 
-                c1.NoteText = "ABC";
+                    var sut = new NoteCtrl(noteEditor, persistence);
 
-                result = noteEditor.HTML == null;
+                    c1.NoteText = "ABC";
 
-                form.Close();
-            };
+                    result = noteEditor.HTML == null;
 
-            form.ShowDialog();
+                    form.Close();
+                };
+
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsTrue(result);
         }
@@ -110,32 +136,38 @@ namespace MindMate.Tests.Controller
         [TestMethod()]
         public void NoteCtrl_AssignNoteToUnselected_ClearNoteEditor()
         {
-            MetaModel.MetaModel.Initialize();
-            var persistence = new PersistenceManager();
-            var noteEditor = new NoteEditor();
-
             bool result = true;
 
-            var form = CreateForm();
-            form.Controls.Add(noteEditor);
-            form.Shown += (sender, args) =>
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                var tree = persistence.NewTree();
-                var c1 = new MapNode(tree.Tree.RootNode, "c1");
-                c1.Selected = true;
+                MetaModel.MetaModel.Initialize();
+                var persistence = new PersistenceManager();
+                var noteEditor = new NoteEditor();
 
-                var sut = new NoteCtrl(noteEditor, persistence);
+                var form = CreateForm();
+                form.Controls.Add(noteEditor);
+                form.Shown += (sender, args) =>
+                {
+                    var tree = persistence.NewTree();
+                    var c1 = new MapNode(tree.Tree.RootNode, "c1");
+                    c1.Selected = true;
 
-                c1.NoteText = "ABC";
+                    var sut = new NoteCtrl(noteEditor, persistence);
 
-                c1.Parent.Selected = true;
+                    c1.NoteText = "ABC";
 
-                result = noteEditor.HTML == null;
+                    c1.Parent.Selected = true;
 
-                form.Close();
-            };
+                    result = noteEditor.HTML == null;
 
-            form.ShowDialog();
+                    form.Close();
+                };
+
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsTrue(result);
         }
@@ -143,32 +175,38 @@ namespace MindMate.Tests.Controller
         [TestMethod()]
         public void NoteCtrl_MultiSelection_ClearNoteEditor()
         {
-            MetaModel.MetaModel.Initialize();
-            var persistence = new PersistenceManager();
-            var noteEditor = new NoteEditor();
-
             bool result = true;
 
-            var form = CreateForm();
-            form.Controls.Add(noteEditor);
-            form.Shown += (sender, args) =>
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                var tree = persistence.NewTree();
-                var c1 = new MapNode(tree.Tree.RootNode, "c1");
-                c1.Selected = true;
+                MetaModel.MetaModel.Initialize();
+                var persistence = new PersistenceManager();
+                var noteEditor = new NoteEditor();
 
-                var sut = new NoteCtrl(noteEditor, persistence);
+                var form = CreateForm();
+                form.Controls.Add(noteEditor);
+                form.Shown += (sender, args) =>
+                {
+                    var tree = persistence.NewTree();
+                    var c1 = new MapNode(tree.Tree.RootNode, "c1");
+                    c1.Selected = true;
 
-                c1.NoteText = "ABC";
+                    var sut = new NoteCtrl(noteEditor, persistence);
 
-                tree.Tree.SelectedNodes.Add(c1.Parent);
+                    c1.NoteText = "ABC";
 
-                result = noteEditor.HTML == null;
+                    tree.Tree.SelectedNodes.Add(c1.Parent);
 
-                form.Close();
-            };
+                    result = noteEditor.HTML == null;
 
-            form.ShowDialog();
+                    form.Close();
+                };
+
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsTrue(result);
         }
@@ -176,32 +214,38 @@ namespace MindMate.Tests.Controller
         [TestMethod()]
         public void NoteCtrl_ChangeCurrentMapTree()
         {
-            MetaModel.MetaModel.Initialize();
-            var persistence = new PersistenceManager();
-            var noteEditor = new NoteEditor();
-
             bool result = true;
 
-            var form = CreateForm();
-            form.Controls.Add(noteEditor);
-            form.Shown += (sender, args) =>
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                var ptree1 = persistence.NewTree();
-                var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
-                c1.Selected = true;
+                MetaModel.MetaModel.Initialize();
+                var persistence = new PersistenceManager();
+                var noteEditor = new NoteEditor();
 
-                var sut = new NoteCtrl(noteEditor, persistence);
+                var form = CreateForm();
+                form.Controls.Add(noteEditor);
+                form.Shown += (sender, args) =>
+                {
+                    var ptree1 = persistence.NewTree();
+                    var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
+                    c1.Selected = true;
 
-                c1.NoteText = "ABC";
+                    var sut = new NoteCtrl(noteEditor, persistence);
 
-                var pTree2 = persistence.NewTree();
+                    c1.NoteText = "ABC";
 
-                result = noteEditor.HTML == null;
+                    var pTree2 = persistence.NewTree();
 
-                form.Close();
-            };
+                    result = noteEditor.HTML == null;
 
-            form.ShowDialog();
+                    form.Close();
+                };
+
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsTrue(result);
         }
@@ -209,32 +253,38 @@ namespace MindMate.Tests.Controller
         [TestMethod()]
         public void UpdateNodeFromEditor_WithoutCalling_MapNotUpdated()
         {
-            MetaModel.MetaModel.Initialize();
-            var persistence = new PersistenceManager();
-            var noteEditor = new NoteEditor();
-
             bool result = true;
 
-            var form = CreateForm();
-            form.Controls.Add(noteEditor);
-            form.Shown += (sender, args) =>
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                var ptree1 = persistence.NewTree();
-                var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
-                c1.Selected = true;
+                MetaModel.MetaModel.Initialize();
+                var persistence = new PersistenceManager();
+                var noteEditor = new NoteEditor();
 
-                var sut = new NoteCtrl(noteEditor, persistence);
+                var form = CreateForm();
+                form.Controls.Add(noteEditor);
+                form.Shown += (sender, args) =>
+                {
+                    var ptree1 = persistence.NewTree();
+                    var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
+                    c1.Selected = true;
 
-                c1.NoteText = "ABC";
+                    var sut = new NoteCtrl(noteEditor, persistence);
 
-                noteEditor.HTML = "EFG";
+                    c1.NoteText = "ABC";
+
+                    noteEditor.HTML = "EFG";
                 
-                result = c1.NoteText != null && c1.NoteText.Contains("ABC");
+                    result = c1.NoteText != null && c1.NoteText.Contains("ABC");
 
-                form.Close();
-            };
+                    form.Close();
+                };
 
-            form.ShowDialog();
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsTrue(result);
         }
@@ -242,34 +292,40 @@ namespace MindMate.Tests.Controller
         [TestMethod()]
         public void UpdateNodeFromEditor()
         {
-            MetaModel.MetaModel.Initialize();
-            var persistence = new PersistenceManager();
-            var noteEditor = new NoteEditor();
-
             bool result = true;
 
-            var form = CreateForm();
-            form.Controls.Add(noteEditor);
-            form.Shown += (sender, args) =>
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                var ptree1 = persistence.NewTree();
-                var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
-                c1.Selected = true;
+                MetaModel.MetaModel.Initialize();
+                var persistence = new PersistenceManager();
+                var noteEditor = new NoteEditor();
 
-                var sut = new NoteCtrl(noteEditor, persistence);
+                var form = CreateForm();
+                form.Controls.Add(noteEditor);
+                form.Shown += (sender, args) =>
+                {
+                    var ptree1 = persistence.NewTree();
+                    var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
+                    c1.Selected = true;
 
-                c1.NoteText = "ABC";
+                    var sut = new NoteCtrl(noteEditor, persistence);
 
-                noteEditor.HTML = "EFG";
-                noteEditor.Dirty = true; 
-                sut.UpdateNodeFromEditor();
+                    c1.NoteText = "ABC";
 
-                result = c1.NoteText != null && c1.NoteText.Contains("EFG");
+                    noteEditor.HTML = "EFG";
+                    noteEditor.Dirty = true; 
+                    sut.UpdateNodeFromEditor();
 
-                form.Close();
-            };
+                    result = c1.NoteText != null && c1.NoteText.Contains("EFG");
 
-            form.ShowDialog();
+                    form.Close();
+                };
+
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsTrue(result);
         }
@@ -277,33 +333,39 @@ namespace MindMate.Tests.Controller
         [TestMethod()]
         public void UpdateNodeFromEditor_WithSettingDirty()
         {
-            MetaModel.MetaModel.Initialize();
-            var persistence = new PersistenceManager();
-            var noteEditor = new NoteEditor();
-
             bool result = true;
 
-            var form = CreateForm();
-            form.Controls.Add(noteEditor);
-            form.Shown += (sender, args) =>
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                var ptree1 = persistence.NewTree();
-                var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
-                c1.Selected = true;
+                MetaModel.MetaModel.Initialize();
+                var persistence = new PersistenceManager();
+                var noteEditor = new NoteEditor();
 
-                var sut = new NoteCtrl(noteEditor, persistence);
+                var form = CreateForm();
+                form.Controls.Add(noteEditor);
+                form.Shown += (sender, args) =>
+                {
+                    var ptree1 = persistence.NewTree();
+                    var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
+                    c1.Selected = true;
 
-                c1.NoteText = "ABC";
+                    var sut = new NoteCtrl(noteEditor, persistence);
 
-                noteEditor.HTML = "EFG";
-                sut.UpdateNodeFromEditor();
+                    c1.NoteText = "ABC";
 
-                result = c1.NoteText != null && c1.NoteText.Contains("ABC");
+                    noteEditor.HTML = "EFG";
+                    sut.UpdateNodeFromEditor();
 
-                form.Close();
-            };
+                    result = c1.NoteText != null && c1.NoteText.Contains("ABC");
 
-            form.ShowDialog();
+                    form.Close();
+                };
+
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsTrue(result);
         }
@@ -311,29 +373,35 @@ namespace MindMate.Tests.Controller
         [TestMethod()]
         public void SetNoteEditorBackColor()
         {
-            MetaModel.MetaModel.Initialize();
-            var persistence = new PersistenceManager();
-            var noteEditor = new NoteEditor();
-
             bool result = true;
 
-            var form = CreateForm();
-            form.Controls.Add(noteEditor);
-            form.Shown += (sender, args) =>
+            System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                var ptree1 = persistence.NewTree();
-                var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
-                c1.Selected = true;
+                MetaModel.MetaModel.Initialize();
+                var persistence = new PersistenceManager();
+                var noteEditor = new NoteEditor();
 
-                var sut = new NoteCtrl(noteEditor, persistence);
-                sut.SetNoteEditorBackColor(Color.Azure);
+                var form = CreateForm();
+                form.Controls.Add(noteEditor);
+                form.Shown += (sender, args) =>
+                {
+                    var ptree1 = persistence.NewTree();
+                    var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
+                    c1.Selected = true;
+
+                    var sut = new NoteCtrl(noteEditor, persistence);
+                    sut.SetNoteEditorBackColor(Color.Azure);
                 
-                result = noteEditor.BackColor.Equals(Color.Azure);
+                    result = noteEditor.BackColor.Equals(Color.Azure);
 
-                form.Close();
-            };
+                    form.Close();
+                };
 
-            form.ShowDialog();
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
 
             Assert.IsTrue(result);
         }
