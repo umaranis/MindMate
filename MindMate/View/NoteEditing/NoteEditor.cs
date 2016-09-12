@@ -24,6 +24,8 @@ namespace MindMate.View.NoteEditing
             htmlDoc = this.Document.DomDocument as IHTMLDocument2;
             htmlDoc.designMode = "On";
 
+            ScriptErrorsSuppressed = true;
+
             // events
             this.Navigated += new WebBrowserNavigatedEventHandler(this_Navigated);
             this.GotFocus += new EventHandler(this_GotFocus);             
@@ -318,7 +320,12 @@ namespace MindMate.View.NoteEditing
 
         protected override void OnPreviewKeyDown(PreviewKeyDownEventArgs e)
         {
-            if(e.Control && e.KeyCode == Keys.O)  e.IsInputKey = true;
+            //to block built-in dialogs from opening
+            if (e.Control)
+            {
+                if (e.KeyCode == Keys.O || e.KeyCode == Keys.L)
+                    e.IsInputKey = true;
+            }
 
             base.OnPreviewKeyDown(e);
         }
