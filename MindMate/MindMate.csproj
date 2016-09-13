@@ -315,6 +315,9 @@
     <Compile Include="View\MapControls\Link.cs" />
     <Compile Include="View\MapControls\IconView.cs" />
     <Compile Include="Serialization\IconImageLoader.cs" />
+    <Compile Include="View\NoteEditing\NoteEditorContextMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\SideTabControl.cs">
       <SubType>Component</SubType>
     </Compile>

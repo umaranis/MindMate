@@ -22,13 +22,14 @@ namespace MindMate.View.NoteEditing
             // setting up WebBrowser for editing
             this.DocumentText = "<html><body></body></html>";
             htmlDoc = this.Document.DomDocument as IHTMLDocument2;
-            htmlDoc.designMode = "On";
+            htmlDoc.designMode = "On";            
 
             ScriptErrorsSuppressed = true;
+            IsWebBrowserContextMenuEnabled = false;            
 
             // events
             this.Navigated += new WebBrowserNavigatedEventHandler(this_Navigated);
-            this.GotFocus += new EventHandler(this_GotFocus);             
+            this.GotFocus += new EventHandler(this_GotFocus);            
         }
 
                 

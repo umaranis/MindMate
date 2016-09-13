@@ -33,7 +33,8 @@ namespace MindMate.Controller
         public NoteCtrl(NoteEditor editor, PersistenceManager manager)
         {
             this.editor = editor;
-            this.editor.BackColor = MetaModel.MetaModel.Instance.NoteEditorBackColor; //System.Drawing.Color.LightYellow;     
+            editor.BackColor = MetaModel.MetaModel.Instance.NoteEditorBackColor; //System.Drawing.Color.LightYellow;     
+            new NoteEditorContextMenu(editor);
                    
             manager.CurrentTreeChanged += Manager_CurrentTreeChanged;
             if (manager.CurrentTree != null) { Register(manager.CurrentTree.Tree); }
