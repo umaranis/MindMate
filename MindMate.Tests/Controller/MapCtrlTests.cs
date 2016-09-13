@@ -1655,6 +1655,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
+            A.CallTo(() => mainCtrl.ShowInputBox("Enter the style name:", null)).Returns(DateTime.Now.Ticks.ToString());
             MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
