@@ -458,11 +458,11 @@ namespace MindMate.View.Ribbon
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_BackgroundColor)
                 {
-                    mainCtrl.CurrentMapCtrl.ChangeBackColor(RichFont.BackgroundColor);
+                    mainCtrl.SetBackColor(RichFont.BackgroundColor);
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_BackgroundColorType)
                 {
-                    mainCtrl.CurrentMapCtrl.ChangeBackColor(Color.Empty);
+                    mainCtrl.SetBackColor(Color.Empty);
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_ForegroundColor)
                 {
@@ -480,12 +480,12 @@ namespace MindMate.View.Ribbon
             switch ((uint) e.CurrentValue.PropVariant.Value)
             {
                 case 0: //No Color
-                    mainCtrl.CurrentMapCtrl.ChangeBackColor(Color.Empty);
+                    mainCtrl.SetBackColor(Color.Empty);
                     break;
                 case 1: //Automatic Color
                     break;
                 case 2: //Color
-                    mainCtrl.CurrentMapCtrl.ChangeBackColor(BackColor.Color);
+                    mainCtrl.SetBackColor(BackColor.Color);
                     break;
             }
         }

@@ -435,6 +435,12 @@ namespace MindMate.View.NoteEditing
             string colorHtml = color != Color.Empty? ColorTranslator.ToHtml(color) : "";
             Document.ExecCommand("ForeColor", false, colorHtml);            
         }
+
+        public void SetSelectionBackColor(Color color)
+        {
+            string colorHtml = color != Color.Empty ? ColorTranslator.ToHtml(color) : "";
+            Document.ExecCommand("BackColor", false, colorHtml);
+        }
         
         /// <summary>
         /// Undo the last operation

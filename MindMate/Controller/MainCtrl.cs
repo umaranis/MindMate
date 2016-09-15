@@ -387,6 +387,14 @@ namespace MindMate.Controller
                 CurrentMapCtrl.ChangeTextColor(color);
         }
 
+        public void SetBackColor(System.Drawing.Color color)
+        {
+            if (mainForm.IsNoteEditorActive)
+                mainForm.NoteEditor.SetSelectionBackColor(color);
+            else
+                CurrentMapCtrl.ChangeBackColor(color);
+        }
+
         /// <summary>
         /// Selected Nodes of the currently active MapView
         /// </summary>
