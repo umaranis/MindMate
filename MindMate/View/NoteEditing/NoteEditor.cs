@@ -370,6 +370,9 @@ namespace MindMate.View.NoteEditing
                 //get selected range
                 IHTMLTxtRange range = htmlDoc.selection.createRange() as IHTMLTxtRange;
 
+                //range could be null if selection type is not text
+                if (range == null) return;
+
                 //expand to a word if nothing selected
                 if (string.IsNullOrEmpty(range.htmlText))
                 {
