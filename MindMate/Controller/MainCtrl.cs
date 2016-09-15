@@ -395,6 +395,14 @@ namespace MindMate.Controller
                 CurrentMapCtrl.ChangeBackColor(color);
         }
 
+        public void ClearSelectionFormatting()
+        {
+            if (mainForm.IsNoteEditorActive)
+                mainForm.NoteEditor.ClearSelectionFormatting();
+            else
+                CurrentMapCtrl.ClearFormatting();
+        }
+
         /// <summary>
         /// Selected Nodes of the currently active MapView
         /// </summary>

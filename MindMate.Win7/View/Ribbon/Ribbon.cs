@@ -492,7 +492,7 @@ namespace MindMate.View.Ribbon
 
         private void ClearFormatting_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.CurrentMapCtrl.ClearFormatting();
+            mainCtrl.ClearSelectionFormatting();
         }
 
         private void _iconGallery_ItemsSourceReady(object sender, EventArgs e)

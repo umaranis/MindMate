@@ -441,6 +441,11 @@ namespace MindMate.View.NoteEditing
             string colorHtml = color != Color.Empty ? ColorTranslator.ToHtml(color) : "";
             Document.ExecCommand("BackColor", false, colorHtml);
         }
+
+        public void ClearSelectionFormatting()
+        {
+            Document.ExecCommand("RemoveFormat", false, null);
+        }
         
         /// <summary>
         /// Undo the last operation
