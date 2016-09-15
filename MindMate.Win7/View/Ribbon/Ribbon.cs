@@ -438,23 +438,23 @@ namespace MindMate.View.Ribbon
 
                 if (propertyKey == RibbonProperties.FontProperties_Bold)
                 {
-                    mainCtrl.CurrentMapCtrl.ChangeBold(RichFont.Bold == FontProperties.Set);
+                    mainCtrl.Bold(RichFont.Bold == FontProperties.Set);
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_Italic)
                 {
-                    mainCtrl.CurrentMapCtrl.ChangeItalic(RichFont.Italic == FontProperties.Set);
+                    mainCtrl.Italic(RichFont.Italic == FontProperties.Set);
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_Strikethrough)
                 {
-                    mainCtrl.CurrentMapCtrl.ChangeStrikeout(RichFont.Strikethrough == FontProperties.Set);
+                    mainCtrl.Strikethrough(RichFont.Strikethrough == FontProperties.Set);
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_Family)
                 {
-                    mainCtrl.CurrentMapCtrl.SetFontFamily(RichFont.Family);
+                    mainCtrl.SetFontFamily(RichFont.Family);
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_Size)
                 {
-                    mainCtrl.CurrentMapCtrl.SetFontSize((float)RichFont.Size);
+                    mainCtrl.SetFontSize((float)RichFont.Size);
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_BackgroundColor)
                 {

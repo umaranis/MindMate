@@ -247,23 +247,6 @@ namespace MindMate.View.NoteEditing
         }
 
         /// <summary>
-        /// Current font size. 0 if not available.
-        /// </summary>
-        public float DocumentFontSize
-        {
-            get
-            {
-                if (!DocumentReady)
-                    return 0;
-                return float.Parse(htmlDoc.queryCommandValue("FontSize") as string);                                
-            }
-            set
-            {
-                htmlDoc.execCommand("FontSize", false, value.ToString());
-            }
-        }
-
-        /// <summary>
         /// Search the document from the current selection, and reset the 
         /// the selection to the text found, if successful.
         /// </summary>
@@ -344,6 +327,124 @@ namespace MindMate.View.NoteEditing
         public void Copy()
         {
             Document.ExecCommand("Copy", false, null);
+        }
+
+        /// <summary>
+        /// Toggle bold formatting on the current selection.
+        /// </summary>
+        public void Bold()
+        {
+            Document.ExecCommand("Bold", false, null);
+        }
+
+        /// <summary>
+        /// Toggle italic formatting on the current selection.
+        /// </summary>
+        public void Italic()
+        {
+            Document.ExecCommand("Italic", false, null);
+        }
+
+        /// <summary>
+        /// Toggle underline formatting on the current selection.
+        /// </summary>
+        public void Underline()
+        {
+            Document.ExecCommand("Underline", false, null);
+        }
+
+        public void Strikethrough()
+        {
+            Document.ExecCommand("StrikeThrough", false, null);
+        }
+
+        public void SetFontFamily(string fontName)
+        {
+            Document.ExecCommand("FontName", false, fontName);
+        }
+
+        public void SetFontSize(float size)
+        {
+            try
+            {
+                //get selected range
+                IHTMLTxtRange range = htmlDoc.selection.createRange() as IHTMLTxtRange;
+
+                //expand to a word if nothing selected
+                if (string.IsNullOrEmpty(range.htmlText))
+                {
+                    range.expand("word");
+
+                    if (string.IsNullOrEmpty(range.htmlText)) return; //return if still null
+                }
+
+                //get the parent of selected range
+                IHTMLElement elem = range.parentElement() as IHTMLElement;
+
+                //check if selected range contains parent element
+                bool isElement = !elem.tagName.Equals("BODY") &&
+                    ((range.text == null && elem.outerText == null) || (range.text != null && range.text.Equals(elem.outerText)));
+
+                if (isElement)
+                {
+                    //clear font size for all children
+                    foreach (var c in (elem.children as IHTMLElementCollection))
+                    {
+                        ClearFontSize(c as IHTMLElement);
+                    }
+
+                    //set font size for the element
+                    IHTMLStyle style = elem.style as IHTMLStyle;
+                    style.fontSize = size + "pt";
+                }
+                else
+                {
+                    //clear font size for all elements inside the selection
+                    var body = htmlDoc.body as IHTMLBodyElement;
+                    foreach (IHTMLElement childElem in (elem.children as IHTMLElementCollection))
+                    {
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.moveToElementText(childElem);
+                        if (range.inRange(r)) ClearFontSize(childElem);
+                    }
+
+                    //set font size by surrounding with span                                     
+                    range.pasteHTML("<span style='font-size:" + size + "pt'>" + range.htmlText + "</span>");                    
+                }
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Trace.WriteLine(DateTime.Now.ToString() + ": NoteEdiitor.SetFontSize" + e.Message);
+                System.Diagnostics.Trace.WriteLine(e.StackTrace);
+            }            
+        }
+
+        private void ClearFontSize(IHTMLElement element)
+        {
+            IHTMLStyle style = element.style as IHTMLStyle;
+            style.fontSize = "";
+
+            foreach(IHTMLElement childElem in (element.children as IHTMLElementCollection))
+            {
+                ClearFontSize(childElem);
+            }
+        }
+        
+
+        /// <summary>
+        /// Undo the last operation
+        /// </summary>
+        public void Undo()
+        {
+            Document.ExecCommand("Undo", false, null);
+        }
+
+        /// <summary>
+        /// Redo based on the last Undo
+        /// </summary>
+        public void Redo()
+        {
+            Document.ExecCommand("Redo", false, null);
         }
 
         private IOleUndoManager oleUndoManager;

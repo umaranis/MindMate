@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.View.NoteEditing;
+using mshtml;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -328,6 +329,12 @@ namespace MindMate.Tests.View.NoteEditing
             {
                 var sut = new NoteEditor();
                 var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null; //Clears Dirty flag
+                    sut.HTML = "Some Text"; //Clears Dirty flag
+                    sut.HTML = "Some Text"; //Clears Dirty flag
+                };
                 Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
                 timer.Tick += delegate
                 {
@@ -342,13 +349,7 @@ namespace MindMate.Tests.View.NoteEditing
                         form.Close();
                     }
                 };
-                form.Controls.Add(sut);
-                form.Shown += (sender, args) =>
-                {
-                    sut.HTML = null; //Clears Dirty flag
-                    sut.HTML = "Some Text"; //Clears Dirty flag
-                    sut.HTML = "Some Text"; //Clears Dirty flag
-                };
+                form.Controls.Add(sut);                
                 timer.Start();
                 form.ShowDialog();
                 timer.Stop();
@@ -380,20 +381,74 @@ namespace MindMate.Tests.View.NoteEditing
             {
                 var sut = new NoteEditor();
                 var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null; //(1) Clears Dirty flag
+                    sut.HTML = "Some Text"; //(2) Clears Dirty flag
+                };
                 Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
                 timer.Tick += delegate
                 {
                     if (timer.Tag == null)
                     {
                         timer.Tag = "First Event Fired";
-                        sut.HTML = "Some Text"; //Clears Dirty flag
+                        sut.HTML = "Some Text"; //(3) Clears Dirty flag
 
                     }
                     else if (timer.Tag.Equals("First Event Fired"))
                     {
                         timer.Tag = "Second Event Fired";
                         Clipboard.SetText("This is clipboard text");
-                        sut.Paste();
+                        sut.Paste();//(5)
+                    }
+                    else
+                    {
+                        form.Close();//(7)
+                    }
+                };
+                form.Controls.Add(sut);                
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.Dirty;//(8)
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod()]
+        public void SetFontSize()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null; //Clears Dirty flag
+                    sut.HTML = "Some Text"; //Clears Dirty flag
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";                        
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.findText("Text");
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.SetFontSize(22);                        
                     }
                     else
                     {
@@ -401,21 +456,269 @@ namespace MindMate.Tests.View.NoteEditing
                     }
                 };
                 form.Controls.Add(sut);
-                form.Shown += (sender, args) =>
-                {
-                    sut.HTML = null; //Clears Dirty flag
-                    sut.HTML = "Some Text"; //Clears Dirty flag
-                };
+                
                 timer.Start();
                 form.ShowDialog();
                 timer.Stop();
-                result = sut.Dirty;
+                result = sut.HTML;
             });
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();
             t.Join();
 
-            Assert.IsTrue(result);
+            Assert.IsTrue(result.ToLower().Contains("font-size: 22pt"));
+        }
+
+        [TestMethod()]
+        public void SetFontSize_NoSelection()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null; //Clears Dirty flag
+                    sut.HTML = "Some Text"; //Clears Dirty flag
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        sut.SetFontSize(22);
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";                        
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsFalse(result.ToLower().Contains("font-size: 22pt"));
+        }
+
+        [TestMethod()]
+        public void SetFontSize_NoSelectionWithCursorPosition_SelectionExpands()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null; //Clears Dirty flag
+                    sut.HTML = "Some Text"; //Clears Dirty flag
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.findText("Text");
+                        r.collapse();
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.SetFontSize(22);
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result.ToLower().Contains("font-size: 22pt"));
+        }
+
+        [TestMethod()]
+        public void SetFontSize_SelectionOnNode_ChangesNodeFontSize()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null; //Clears Dirty flag
+                    sut.HTML = "<span style='font-size:30pt'>Some Text</span>"; //Clears Dirty flag
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;                        
+                        r.findText("Some Text");
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.SetFontSize(22);
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result.ToLower().Contains("font-size: 22pt"));
+            Assert.IsFalse(result.Contains("30"));
+        }
+
+        [TestMethod()]
+        public void SetFontSize_SelectionOnNodeWithChildren_ChangesNodeFontSize()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null; 
+                    sut.HTML = "<span style='font-size:30pt'>Some <span style='font-size:30pt'>Text</span></span>"; 
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.findText("Some Text");
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.SetFontSize(22);
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result.ToLower().Contains("font-size: 22pt"));
+            Assert.IsFalse(result.Contains("30"));
+        }
+
+        /// <summary>
+        /// Mixed selection: Text + DOM Node
+        /// </summary>
+        [TestMethod()]
+        public void SetFontSize_MixedSelectionWithChildren_ChangesNodeFontSize()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null;
+                    sut.HTML = "This is <span style='font-size:30pt'>Some <span style='font-size:30pt'>Text</span></span>.";
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.findText("This is Some Text.");
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.SetFontSize(22);
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result.ToLower().Contains("font-size: 22pt"));
+            Assert.IsFalse(result.Contains("30"));
         }
 
         //[TestMethod()]

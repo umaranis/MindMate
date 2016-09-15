@@ -315,7 +315,7 @@ namespace MindMate.Controller
                 mainForm.NoteEditor.Cut();
             else
                 CurrentMapCtrl.Cut();
-        }        
+        }            
 
         public void Paste(bool asText = false)
         {
@@ -337,6 +337,46 @@ namespace MindMate.Controller
         {
             if (!CurrentMapCtrl.MapView.NodeTextEditor.IsTextEditing)
                 ChangeManager.Redo();
+        }
+
+        public void Bold(Boolean bold)
+        {
+            if (mainForm.IsNoteEditorActive)
+                mainForm.NoteEditor.Bold();
+            else
+                CurrentMapCtrl.ChangeBold(bold);
+        }
+
+        public void Italic(Boolean italic)
+        {
+            if (mainForm.IsNoteEditorActive)
+                mainForm.NoteEditor.Italic();
+            else
+                CurrentMapCtrl.ChangeItalic(italic);
+        }
+
+        public void Strikethrough(Boolean strikethrough)
+        {
+            if (mainForm.IsNoteEditorActive)
+                mainForm.NoteEditor.Strikethrough();
+            else
+                CurrentMapCtrl.ChangeStrikeout(strikethrough);
+        }
+
+        public void SetFontFamily(string fontName)
+        {
+            if (mainForm.IsNoteEditorActive)
+                mainForm.NoteEditor.SetFontFamily(fontName);
+            else
+                CurrentMapCtrl.SetFontFamily(fontName);
+        }
+
+        public void SetFontSize(float size)
+        {
+            if (mainForm.IsNoteEditorActive)
+                mainForm.NoteEditor.SetFontSize(size);
+            else
+                CurrentMapCtrl.SetFontSize(size);
         }
 
         /// <summary>
