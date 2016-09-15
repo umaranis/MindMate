@@ -332,7 +332,7 @@ namespace MindMate.View.NoteEditing
         /// <summary>
         /// Toggle bold formatting on the current selection.
         /// </summary>
-        public void Bold()
+        public void ToggleSelectionBold()
         {
             Document.ExecCommand("Bold", false, null);
         }
@@ -340,7 +340,7 @@ namespace MindMate.View.NoteEditing
         /// <summary>
         /// Toggle italic formatting on the current selection.
         /// </summary>
-        public void Italic()
+        public void ToggleSelectionItalic()
         {
             Document.ExecCommand("Italic", false, null);
         }
@@ -348,22 +348,22 @@ namespace MindMate.View.NoteEditing
         /// <summary>
         /// Toggle underline formatting on the current selection.
         /// </summary>
-        public void Underline()
+        public void ToggleSelectionUnderline()
         {
             Document.ExecCommand("Underline", false, null);
         }
 
-        public void Strikethrough()
+        public void ToggleSelectionStrikethrough()
         {
             Document.ExecCommand("StrikeThrough", false, null);
         }
 
-        public void SetFontFamily(string fontName)
+        public void SetSelectionFontFamily(string fontName)
         {
             Document.ExecCommand("FontName", false, fontName);
         }
 
-        public void SetFontSize(float size)
+        public void SetSelectionFontSize(float size)
         {
             try
             {
@@ -429,8 +429,13 @@ namespace MindMate.View.NoteEditing
                 ClearFontSize(childElem);
             }
         }
-        
 
+        public void SetSelectionForeColor(Color color)
+        {
+            string colorHtml = color != Color.Empty? ColorTranslator.ToHtml(color) : "";
+            Document.ExecCommand("ForeColor", false, colorHtml);            
+        }
+        
         /// <summary>
         /// Undo the last operation
         /// </summary>

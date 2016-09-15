@@ -448,7 +448,7 @@ namespace MindMate.Tests.View.NoteEditing
                     else if (timer.Tag.Equals("First Event Fired"))
                     {
                         timer.Tag = "Second Event Fired";
-                        sut.Bold();
+                        sut.ToggleSelectionBold();
                     }
                     else
                     {
@@ -498,7 +498,7 @@ namespace MindMate.Tests.View.NoteEditing
                     else if (timer.Tag.Equals("First Event Fired"))
                     {
                         timer.Tag = "Second Event Fired";
-                        sut.Italic();
+                        sut.ToggleSelectionItalic();
                     }
                     else
                     {
@@ -548,7 +548,7 @@ namespace MindMate.Tests.View.NoteEditing
                     else if (timer.Tag.Equals("First Event Fired"))
                     {
                         timer.Tag = "Second Event Fired";
-                        sut.Underline();
+                        sut.ToggleSelectionUnderline();
                     }
                     else
                     {
@@ -598,7 +598,7 @@ namespace MindMate.Tests.View.NoteEditing
                     else if (timer.Tag.Equals("First Event Fired"))
                     {
                         timer.Tag = "Second Event Fired";
-                        sut.Strikethrough();
+                        sut.ToggleSelectionStrikethrough();
                     }
                     else
                     {
@@ -648,7 +648,7 @@ namespace MindMate.Tests.View.NoteEditing
                     else if (timer.Tag.Equals("First Event Fired"))
                     {
                         timer.Tag = "Second Event Fired";
-                        sut.SetFontFamily("Arial");
+                        sut.SetSelectionFontFamily("Arial");
                     }
                     else
                     {
@@ -698,7 +698,7 @@ namespace MindMate.Tests.View.NoteEditing
                     else if (timer.Tag.Equals("First Event Fired"))
                     {
                         timer.Tag = "Second Event Fired";
-                        sut.SetFontSize(22);                        
+                        sut.SetSelectionFontSize(22);                        
                     }
                     else
                     {
@@ -739,7 +739,7 @@ namespace MindMate.Tests.View.NoteEditing
                     if (timer.Tag == null)
                     {
                         timer.Tag = "First Event Fired";
-                        sut.SetFontSize(22);
+                        sut.SetSelectionFontSize(22);
                     }
                     else if (timer.Tag.Equals("First Event Fired"))
                     {
@@ -794,7 +794,7 @@ namespace MindMate.Tests.View.NoteEditing
                     else if (timer.Tag.Equals("First Event Fired"))
                     {
                         timer.Tag = "Second Event Fired";
-                        sut.SetFontSize(22);
+                        sut.SetSelectionFontSize(22);
                     }
                     else
                     {
@@ -844,7 +844,7 @@ namespace MindMate.Tests.View.NoteEditing
                     else if (timer.Tag.Equals("First Event Fired"))
                     {
                         timer.Tag = "Second Event Fired";
-                        sut.SetFontSize(22);
+                        sut.SetSelectionFontSize(22);
                     }
                     else
                     {
@@ -895,7 +895,7 @@ namespace MindMate.Tests.View.NoteEditing
                     else if (timer.Tag.Equals("First Event Fired"))
                     {
                         timer.Tag = "Second Event Fired";
-                        sut.SetFontSize(22);
+                        sut.SetSelectionFontSize(22);
                     }
                     else
                     {
@@ -949,7 +949,7 @@ namespace MindMate.Tests.View.NoteEditing
                     else if (timer.Tag.Equals("First Event Fired"))
                     {
                         timer.Tag = "Second Event Fired";
-                        sut.SetFontSize(22);
+                        sut.SetSelectionFontSize(22);
                     }
                     else
                     {
@@ -969,6 +969,106 @@ namespace MindMate.Tests.View.NoteEditing
 
             Assert.IsTrue(result.ToLower().Contains("font-size: 22pt"));
             Assert.IsFalse(result.Contains("30"));
+        }
+
+        [TestMethod()]
+        public void SetSelectionForeColor()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null;
+                    sut.HTML = "Some Text";
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.findText("Text");
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.SetSelectionForeColor(Color.Azure);
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result.ToLower().Contains("color"));
+        }
+
+        [TestMethod()]
+        public void SetSelectionForeColor_ClearColor()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null;
+                    sut.HTML = "Some <FONT color=azure>Text</FONT>";
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.findText("Text");
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.SetSelectionForeColor(Color.Empty);
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsFalse(result.ToLower().Contains("color"));
         }
 
         //[TestMethod()]

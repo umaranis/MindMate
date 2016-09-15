@@ -342,7 +342,7 @@ namespace MindMate.Controller
         public void Bold(Boolean bold)
         {
             if (mainForm.IsNoteEditorActive)
-                mainForm.NoteEditor.Bold();
+                mainForm.NoteEditor.ToggleSelectionBold();
             else
                 CurrentMapCtrl.ChangeBold(bold);
         }
@@ -350,7 +350,7 @@ namespace MindMate.Controller
         public void Italic(Boolean italic)
         {
             if (mainForm.IsNoteEditorActive)
-                mainForm.NoteEditor.Italic();
+                mainForm.NoteEditor.ToggleSelectionItalic();
             else
                 CurrentMapCtrl.ChangeItalic(italic);
         }
@@ -358,7 +358,7 @@ namespace MindMate.Controller
         public void Strikethrough(Boolean strikethrough)
         {
             if (mainForm.IsNoteEditorActive)
-                mainForm.NoteEditor.Strikethrough();
+                mainForm.NoteEditor.ToggleSelectionStrikethrough();
             else
                 CurrentMapCtrl.ChangeStrikeout(strikethrough);
         }
@@ -366,7 +366,7 @@ namespace MindMate.Controller
         public void SetFontFamily(string fontName)
         {
             if (mainForm.IsNoteEditorActive)
-                mainForm.NoteEditor.SetFontFamily(fontName);
+                mainForm.NoteEditor.SetSelectionFontFamily(fontName);
             else
                 CurrentMapCtrl.SetFontFamily(fontName);
         }
@@ -374,9 +374,17 @@ namespace MindMate.Controller
         public void SetFontSize(float size)
         {
             if (mainForm.IsNoteEditorActive)
-                mainForm.NoteEditor.SetFontSize(size);
+                mainForm.NoteEditor.SetSelectionFontSize(size);
             else
                 CurrentMapCtrl.SetFontSize(size);
+        }
+
+        public void SetForeColor(System.Drawing.Color color)
+        {
+            if (mainForm.IsNoteEditorActive)
+                mainForm.NoteEditor.SetSelectionForeColor(color);
+            else
+                CurrentMapCtrl.ChangeTextColor(color);
         }
 
         /// <summary>

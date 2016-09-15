@@ -466,11 +466,11 @@ namespace MindMate.View.Ribbon
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_ForegroundColor)
                 {
-                    mainCtrl.CurrentMapCtrl.ChangeTextColor(RichFont.ForegroundColor);
+                    mainCtrl.SetForeColor(RichFont.ForegroundColor);
                 }
                 else if (propertyKey == RibbonProperties.FontProperties_ForegroundColorType)
                 {
-                    mainCtrl.CurrentMapCtrl.ChangeTextColor(Color.Empty);
+                    mainCtrl.SetForeColor(Color.Empty);
                 }
             }
         }
