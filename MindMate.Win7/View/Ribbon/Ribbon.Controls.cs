@@ -144,6 +144,8 @@ namespace MindMate.View.Ribbon
 		private RibbonButton ViewTaskList;		
 		private RibbonGroup GrpViewNote;		
 		private RibbonButton ViewNote;		
+		private RibbonTabGroup TabGroupNote;		
+		private RibbonTab TabNoteEditor;		
 
 		private void InitializeComponents()
 		{
@@ -277,6 +279,8 @@ namespace MindMate.View.Ribbon
 			ViewTaskList = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ViewTaskList);
 			GrpViewNote = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpViewNote);
 			ViewNote = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ViewNote);
+			TabGroupNote = new RibbonTabGroup(ribbon, (uint)RibbonMarkupCommands.TabGroupNote);
+			TabNoteEditor = new RibbonTab(ribbon, (uint)RibbonMarkupCommands.TabNoteEditor);
 
 		}
 	

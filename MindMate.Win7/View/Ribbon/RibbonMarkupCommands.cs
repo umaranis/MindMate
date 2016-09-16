@@ -145,5 +145,7 @@ namespace MindMate.View.Ribbon
 		ViewTaskList = 6002,		
 		GrpViewNote = 6200,		
 		ViewNote = 6201,		
+		TabGroupNote = 7000,		
+		TabNoteEditor = 7001,		
 	}
 }

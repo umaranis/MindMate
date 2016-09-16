@@ -16,7 +16,7 @@ namespace MindMate.Win7
     public partial class MainForm : Form, View.IMainForm
     {
         private readonly MainCtrl mainCtrl;
-                
+        
         public MainForm(MainCtrl mainCtrl)
         {
             this.mainCtrl = mainCtrl;
@@ -26,14 +26,15 @@ namespace MindMate.Win7
             SetupSideBar();
 
             // moving splitter makes it the focused control, below event focuses the last control again
-            splitContainer1.GotFocus += (a, b) => FocusLastControl();
-            splitContainer1.MouseDown += SplitContainer1_MouseDown;
-
+            splitContainer1.GotFocus += SplitContainer1_GotFocus; 
+            
             // changing side bar tab gives focus away to tab control header, below event focuses relevant control again
             SideBarTabs.SelectedIndexChanged += SideBarTabs_SelectedIndexChanged;
 
             EditorTabs = new EditorTabs();
             splitContainer1.Panel1.Controls.Add(EditorTabs);
+                       
+            Shown += MainForm_Shown;          
 
 #if (Win7)
             //this is required for Windows 7 & 8, otherwise sidebar is not laid out properly
@@ -41,17 +42,40 @@ namespace MindMate.Win7
             Shown += (sender, args) => Ribbon.Minimized = false;
 #endif            
         }
-
+        
         #region Manage Focus
 
         private Control focusedControl;
+        public Control FocusedControl
+        {
+            get
+            {
+                return focusedControl;
+            }
+
+            set
+            {
+                if (focusedControl != value)
+                {
+                    var oldvalue = focusedControl;
+                    focusedControl = value;                    
+                    FocusedControlChanged?.Invoke(value, oldvalue);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Occurs when focus is tranferred to a control which can have permanent focus. NoteEditor and EditorTab can have permanent focus.
+        /// Focus can temporarily transfer to controls like Menu, Ribbon etc., but these are ignored by this event.
+        /// </summary>
+        public event FocusedControlChangeDelegate FocusedControlChanged;        
 
         private void FocusLastControl()
         {
-            if (focusedControl != null)
-                focusedControl.Focus();
+            if (FocusedControl != null)
+                FocusedControl.Focus();
             else
-                EditorTabs.SelectedTab.Control.Focus();
+                EditorTabs.Focus();
         }
 
         public void FocusMapView()
@@ -59,9 +83,15 @@ namespace MindMate.Win7
             EditorTabs.Focus();
         }
 
-        private void SplitContainer1_MouseDown(object sender, MouseEventArgs e)
+        private void MainForm_Shown(object sender, EventArgs e)
         {
-            focusedControl = NoteEditor.Focused ? NoteEditor : EditorTabs.SelectedTab.Control;
+            EditorTabs.ControlGotFocus += (a, b) => FocusedControl = EditorTabs;
+            NoteEditor.Document.Focusing += (a, b) => FocusedControl = NoteEditor;
+        }
+
+        private void SplitContainer1_GotFocus(object sender, EventArgs e)
+        {
+            FocusLastControl();
         }
 
         private void SideBarTabs_SelectedIndexChanged(object sender, EventArgs e)
@@ -87,7 +117,7 @@ namespace MindMate.Win7
         {
             get { return ActiveControl == splitContainer1 && splitContainer1.ActiveControl == NoteEditor; }
         }
-
+        
         private void SetupSideBar()
         {
             SideBarTabs = new SideTabControl();
@@ -161,6 +191,6 @@ namespace MindMate.Win7
             }            
 
             return base.ProcessCmdKey(ref msg, keyData);
-        }
+        }        
     }
 }

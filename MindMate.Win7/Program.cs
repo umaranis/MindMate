@@ -23,7 +23,7 @@ namespace MindMate.Win7
             MainCtrl mainCtrl = new MainCtrl();
             MainForm form = new MainForm(mainCtrl);            
             mainCtrl.InitMindMate(form);
-            var ribbonHandler = new View.Ribbon.Ribbon(form.Ribbon, mainCtrl, form.EditorTabs);
+            var ribbonHandler = new View.Ribbon.Ribbon(form.Ribbon, mainCtrl, form);
             form.RibbonCtrl = ribbonHandler;
             form.Shown += (sender, args) => ribbonHandler.OnRibbonLoaded();
             //Application.ThreadException += Application_ThreadException; //TODO: implement this it replace the standard exception dialog

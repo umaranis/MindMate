@@ -80,9 +80,10 @@ namespace MindMate.View.EditorTabs
         {
             TabPages.Add(tab);
             tab.TextChanged += Tab_TextChanged;
+            tab.Control.GotFocus += Control_GotFocus;
             if (TabCount == 1) { UpdateAppTitle(); }
             if (TabCount == 2) { ShowHeader(); }
-        }
+        }        
 
         public void CloseTab(PersistentTree tree)
         {
@@ -96,11 +97,12 @@ namespace MindMate.View.EditorTabs
         public void CloseTab(TabBase tab)
         {
             tab.TextChanged -= Tab_TextChanged;
+            tab.Control.GotFocus -= Control_GotFocus;
             tab.Close();
 
             if(TabCount == 1) { HideHeader(); }
-        }       
-
+        }
+        
         /// <summary>
         /// Focus the control on Selected Tab
         /// </summary>
@@ -108,6 +110,16 @@ namespace MindMate.View.EditorTabs
         {
             SelectedTab.Control.Focus();
         }
+
+        private void Control_GotFocus(object sender, EventArgs e)
+        {
+            ControlGotFocus?.Invoke(sender, e);
+        }
+
+        /// <summary>
+        /// Occurs when any control within EditorTab get focus
+        /// </summary>
+        public event Action<object, EventArgs> ControlGotFocus;
 
         public Tab FindTab(PersistentTree tree)
         {

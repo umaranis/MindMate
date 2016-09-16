@@ -1,20 +1,14 @@
 ﻿using MindMate.Model;
-using RibbonLib.Controls;
 using RibbonLib.Controls.Events;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using RibbonLib.Interop;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using MindMate.MetaModel;
 using MindMate.Plugins;
 using MindMate.View.EditorTabs;
-using MindMate.View.MapControls;
-using MindMate.View.MapControls.Drawing;
 using MindMate.Win7.Properties;
 using RibbonLib;
 
@@ -24,11 +18,13 @@ namespace MindMate.View.Ribbon
     {
         private readonly Controller.MainCtrl mainCtrl;
         private readonly RibbonLib.Ribbon ribbon;
+        private readonly IMainForm mainForm;
 
-        public Ribbon(RibbonLib.Ribbon ribbon, Controller.MainCtrl mainCtrl, EditorTabs.EditorTabs tabs)
+        public Ribbon(RibbonLib.Ribbon ribbon, Controller.MainCtrl mainCtrl, IMainForm mainForm)
         {
             this.ribbon = ribbon;
             this.mainCtrl = mainCtrl;
+            this.mainForm = mainForm;
 
             InitializeComponents();
 
@@ -173,11 +169,10 @@ namespace MindMate.View.Ribbon
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
-            tabs.ControlAdded += Tabs_ControlAdded;
-            tabs.ControlRemoved += Tabs_ControlRemoved;
-            tabs.SelectedIndexChanged += Tabs_SelectedIndexChanged;
-
-        }
+            mainForm.EditorTabs.ControlAdded += Tabs_ControlAdded;
+            mainForm.EditorTabs.ControlRemoved += Tabs_ControlRemoved;
+            mainForm.EditorTabs.SelectedIndexChanged += Tabs_SelectedIndexChanged;
+        }        
 
         /// <summary>
         /// Setting certain properties (like image) doesn't work if Ribbon is not loaded. Use this method to set such properties.
@@ -185,8 +180,9 @@ namespace MindMate.View.Ribbon
         public void OnRibbonLoaded()
         {
             NodeShape.LargeImage = ribbon.ConvertToUIImage(Resources.Node_Format_Bubble);
+            mainForm.FocusedControlChanged += MainForm_FocusedControlChanged;
         }
-
+        
         //TODO: This will not work if there are more plugins with MainMenu (fix it)
         public void SetupPluginCommands(MainMenuItem[] pluginItems)
         {
@@ -1130,7 +1126,19 @@ namespace MindMate.View.Ribbon
             }
         }
 
-        #endregion
+        private void MainForm_FocusedControlChanged(Control gotFocus, Control lostFocus)
+        {
+            if(gotFocus == mainForm.NoteEditor)
+            {
+                TabGroupNote.ContextAvailable = ContextAvailability.Active;
+            }
+            else if(lostFocus == mainForm.NoteEditor)
+            {
+                TabGroupNote.ContextAvailable = ContextAvailability.NotAvailable;
+            }
+        }
+
+        #endregion Events to Refresh Command State
 
     }
 }

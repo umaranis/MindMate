@@ -376,6 +376,10 @@ Note:
       </Command.LargeImages>
     </Command>
     
+    <!--Tab: Note Editor-->
+    <Command Name="TabGroupNote" Id="7000" LabelTitle="Note Editor"/>
+    <Command Name="TabNoteEditor" Id="7001" LabelTitle="Note" />
+    
   </Application.Commands>
                    
   <Application.Views>
@@ -808,6 +812,15 @@ Note:
           </Group>
         </Tab>
       </Ribbon.Tabs>
+      <Ribbon.ContextualTabs>
+        <TabGroup CommandName="TabGroupNote">
+          <Tab CommandName="TabNoteEditor">
+            <Group CommandName="NoteFont">
+              <FontControl CommandName="RichFont" FontType="FontWithColor" IsUnderlineButtonVisible="false" IsHighlightButtonVisible="false" ShowTrueTypeOnly="true"/>
+            </Group>
+          </Tab>
+        </TabGroup>
+      </Ribbon.ContextualTabs>
     </Ribbon>
   </Application.Views>
 
