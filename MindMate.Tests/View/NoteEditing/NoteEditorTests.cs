@@ -972,6 +972,106 @@ namespace MindMate.Tests.View.NoteEditing
         }
 
         [TestMethod()]
+        public void SetSelectionAsSubscript()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null;
+                    sut.HTML = "Some Text";
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.findText("Text");
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.SetSelectionAsSubscript();
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result.ToLower().Contains("<sub>"));
+        }
+
+        [TestMethod()]
+        public void SetSelectionAsSuperscript()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null;
+                    sut.HTML = "Some Text";
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.findText("Text");
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.SetSelectionAsSuperscript();
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result.ToLower().Contains("<sup>"));
+        }
+
+        [TestMethod()]
         public void SetSelectionForeColor()
         {
             var result = "";

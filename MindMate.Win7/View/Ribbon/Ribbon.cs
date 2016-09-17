@@ -448,6 +448,18 @@ namespace MindMate.View.Ribbon
                 {
                     mainCtrl.Strikethrough(RichFont.Strikethrough == FontProperties.Set);
                 }
+                else if(propertyKey == RibbonProperties.FontProperties_VerticalPositioning)
+                {
+                    switch(RichFont.VerticalPositioning)
+                    {
+                        case FontVerticalPosition.SubScript:
+                            mainCtrl.Subscript();
+                            break;
+                        case FontVerticalPosition.SuperScript:
+                            mainCtrl.Superscript();
+                            break;
+                    }
+                }
                 else if (propertyKey == RibbonProperties.FontProperties_Family)
                 {
                     mainCtrl.SetFontFamily(RichFont.Family);

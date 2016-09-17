@@ -368,6 +368,16 @@ namespace MindMate.Controller
                 CurrentMapCtrl.ChangeStrikeout(strikethrough);
         }
 
+        public void Subscript()
+        {
+            mainForm.NoteEditor.SetSelectionAsSubscript();
+        }
+
+        public void Superscript()
+        {
+            mainForm.NoteEditor.SetSelectionAsSuperscript();
+        }
+
         public void SetFontFamily(string fontName)
         {
             if (mainForm.IsNoteEditorActive)

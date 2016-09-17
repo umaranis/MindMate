@@ -433,6 +433,16 @@ namespace MindMate.View.NoteEditing
             }
         }
 
+        public void SetSelectionAsSubscript()
+        {
+            Document.ExecCommand("Subscript", false, null);            
+        }
+
+        public void SetSelectionAsSuperscript()
+        {
+            Document.ExecCommand("Superscript", false, null);
+        }
+
         public void SetSelectionForeColor(Color color)
         {
             string colorHtml = color != Color.Empty? ColorTranslator.ToHtml(color) : "";
