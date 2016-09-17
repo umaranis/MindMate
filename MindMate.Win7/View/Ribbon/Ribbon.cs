@@ -440,6 +440,10 @@ namespace MindMate.View.Ribbon
                 {
                     mainCtrl.Italic(RichFont.Italic == FontProperties.Set);
                 }
+                else if(propertyKey == RibbonProperties.FontProperties_Underline)
+                {
+                    mainCtrl.Underline(RichFont.Underline == FontUnderline.Set);
+                }
                 else if (propertyKey == RibbonProperties.FontProperties_Strikethrough)
                 {
                     mainCtrl.Strikethrough(RichFont.Strikethrough == FontProperties.Set);

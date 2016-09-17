@@ -339,7 +339,7 @@ namespace MindMate.Controller
                 ChangeManager.Redo();
         }
 
-        public void Bold(Boolean bold)
+        public void Bold(bool bold)
         {
             if (mainForm.IsNoteEditorActive)
                 mainForm.NoteEditor.ToggleSelectionBold();
@@ -347,12 +347,17 @@ namespace MindMate.Controller
                 CurrentMapCtrl.ChangeBold(bold);
         }
 
-        public void Italic(Boolean italic)
+        public void Italic(bool italic)
         {
             if (mainForm.IsNoteEditorActive)
                 mainForm.NoteEditor.ToggleSelectionItalic();
             else
                 CurrentMapCtrl.ChangeItalic(italic);
+        }
+
+        public void Underline(bool underline)
+        {
+            mainForm.NoteEditor.ToggleSelectionUnderline();
         }
 
         public void Strikethrough(Boolean strikethrough)
@@ -609,7 +614,7 @@ namespace MindMate.Controller
             }
 
             return ContinueOperation.Continue;
-        }
+        }        
 
         private ContinueOperation PromptForUnsavedChanges()
         {

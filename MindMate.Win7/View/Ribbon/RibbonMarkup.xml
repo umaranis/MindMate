@@ -816,7 +816,7 @@ Note:
         <TabGroup CommandName="TabGroupNote">
           <Tab CommandName="TabNoteEditor">
             <Group CommandName="NoteFont">
-              <FontControl CommandName="RichFont" FontType="FontWithColor" IsUnderlineButtonVisible="false" IsHighlightButtonVisible="false" ShowTrueTypeOnly="true"/>
+              <FontControl CommandName="RichFont" FontType="RichFont" ShowTrueTypeOnly="true"/>
             </Group>
           </Tab>
         </TabGroup>
