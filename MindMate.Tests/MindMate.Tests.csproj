@@ -103,6 +103,7 @@
     <Compile Include="View\Dialogs\AboutBoxTests.cs" />
     <Compile Include="View\Dialogs\IconSelectorExtTests.cs" />
     <Compile Include="View\Dialogs\InputBoxTests.cs" />
+    <Compile Include="View\EditorTabs\EditorTabsTests.cs" />
     <Compile Include="View\MapControls\MapViewTests.cs" />
     <Compile Include="View\MapControls\NodeViewTests.cs" />
     <Compile Include="View\NoteEditing\NoteEditorContextMenuTests.cs" />
