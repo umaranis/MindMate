@@ -147,6 +147,7 @@ namespace MindMate.View.Ribbon
 		private RibbonTabGroup TabGroupNote;		
 		private RibbonTab TabNoteEditor;		
 		private RibbonGroup GrpNoteFont;		
+		private RibbonGroup GrpNoteClearFormat;		
 		private RibbonGroup GrpParagraph;		
 		private RibbonButton Bullets;		
 		private RibbonButton Numbers;		
@@ -292,6 +293,7 @@ namespace MindMate.View.Ribbon
 			TabGroupNote = new RibbonTabGroup(ribbon, (uint)RibbonMarkupCommands.TabGroupNote);
 			TabNoteEditor = new RibbonTab(ribbon, (uint)RibbonMarkupCommands.TabNoteEditor);
 			GrpNoteFont = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNoteFont);
+			GrpNoteClearFormat = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNoteClearFormat);
 			GrpParagraph = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpParagraph);
 			Bullets = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Bullets);
 			Numbers = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Numbers);
