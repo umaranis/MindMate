@@ -160,5 +160,10 @@ namespace MindMate.View.Ribbon
 		Outdent = 7309,		
 		RTLTextBlock = 7310,		
 		LTRTextBlock = 7311,		
+		GrpNoteStyles = 7400,		
+		NoteHeading1 = 7401,		
+		NoteHeading2 = 7402,		
+		NoteHeading3 = 7403,		
+		NoteNormal = 7404,		
 	}
 }

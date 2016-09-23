@@ -493,6 +493,14 @@
     <None Include="Resources\Blockquote.LargeImage.png" />
     <None Include="Resources\Blockquote.SmallHighContrastImage.png" />
     <None Include="Resources\Blockquote.SmallImage.png" />
+    <None Include="Resources\NoteHeading1_32bit.png" />
+    <None Include="Resources\NoteHeading1_16bit.png" />
+    <None Include="Resources\NoteHeading2_16bit.png" />
+    <None Include="Resources\NoteHeading3_16bit.png" />
+    <None Include="Resources\NoteHeading3_32bit.png" />
+    <None Include="Resources\NoteHeading2_32bit.png" />
+    <None Include="Resources\NoteNormal_32bit.png" />
+    <None Include="Resources\NoteNormal_16bit.png" />
     <Content Include="Serialization\MapYamlSerializer.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapYamlSerializer.Generated.cs</LastGenOutput>

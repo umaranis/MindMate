@@ -277,4 +277,28 @@
   <data name="Outdent_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\outdent.smallimage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="NoteHeading1_16bit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NoteHeading1_16bit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoteHeading1_32bit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NoteHeading1_32bit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoteHeading2_16bit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NoteHeading2_16bit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoteHeading2_32bit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NoteHeading2_32bit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoteHeading3_16bit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NoteHeading3_16bit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoteHeading3_32bit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NoteHeading3_32bit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoteNormal_16bit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NoteNormal_16bit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="NoteNormal_32bit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\NoteNormal_32bit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

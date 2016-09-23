@@ -157,6 +157,11 @@ namespace MindMate.View.Ribbon
 		private RibbonButton AlignCenter;		
 		private RibbonButton AlignRight;		
 		private RibbonButton Justify;		
+		private RibbonGroup GrpNoteStyles;		
+		private RibbonButton NoteHeading1;		
+		private RibbonButton NoteHeading2;		
+		private RibbonButton NoteHeading3;		
+		private RibbonButton NoteNormal;		
 
 		private void InitializeComponents()
 		{
@@ -303,6 +308,11 @@ namespace MindMate.View.Ribbon
 			AlignCenter = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.AlignCenter);
 			AlignRight = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.AlignRight);
 			Justify = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Justify);
+			GrpNoteStyles = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNoteStyles);
+			NoteHeading1 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteHeading1);
+			NoteHeading2 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteHeading2);
+			NoteHeading3 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteHeading3);
+			NoteNormal = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteNormal);
 
 		}
 	

@@ -28,11 +28,11 @@ namespace MindMate.View.NoteEditing
             IsWebBrowserContextMenuEnabled = false;            
 
             // events
-            this.Navigated += new WebBrowserNavigatedEventHandler(this_Navigated);
-            this.GotFocus += new EventHandler(this_GotFocus);            
+            this.Navigated += new WebBrowserNavigatedEventHandler(this_Navigated);            
+            this.GotFocus += new EventHandler(this_GotFocus);                        
         }
 
-                
+
         /// <summary>
         /// Event is fired after initlal document loading is cmplete and document is editable. (ReadyState = Complete)
         /// </summary>
@@ -61,7 +61,7 @@ namespace MindMate.View.NoteEditing
             IMarkupContainer2 cont2 = (IMarkupContainer2)htmlDoc;
             uint m_cookie;
             cont2.RegisterForDirtyRange(this, out m_cookie);
-        }
+        }        
 
         /// <summary>
         /// Notification that contents of NoteEditor have changed. 
@@ -308,7 +308,7 @@ namespace MindMate.View.NoteEditing
             if (e.Control)
             {
                 if (e.KeyCode == Keys.O || e.KeyCode == Keys.L)
-                    e.IsInputKey = true;
+                    e.IsInputKey = true;                
             }
 
             base.OnPreviewKeyDown(e);
@@ -498,6 +498,26 @@ namespace MindMate.View.NoteEditing
         public void OutdentSelection()
         {
             Document.ExecCommand("Outdent", false, null);
+        }
+
+        public void ApplyHeading1()
+        {
+            Document.ExecCommand("FormatBlock", false, "Heading 1");
+        }
+
+        public void ApplyHeading2()
+        {
+            Document.ExecCommand("FormatBlock", false, "Heading 2");
+        }
+
+        public void ApplyHeading3()
+        {
+            Document.ExecCommand("FormatBlock", false, "Heading 3");
+        }
+
+        public void ApplyNormalStyle()
+        {
+            Document.ExecCommand("FormatBlock", false, "Normal");
         }
 
         /// <summary>

@@ -394,10 +394,18 @@ Note:
     <Command Name="AlignRight" Keytip="AR" LabelTitle="AlignRight" TooltipTitle="Align text right" TooltipDescription="Align text to the right." Symbol="cmdAlignRight" Id="7305" />
     <Command Name="AlignCenter" Keytip="AC" LabelTitle="AlignCenter" TooltipTitle="Center text" TooltipDescription="Center text." Symbol="cmdAlignCenter" Id="7306" />
     <Command Name="Justify" Keytip="AJ" LabelTitle="Justify" TooltipTitle="Justify" TooltipDescription="Align text to both left and right margins, adding extra space between words as necessary." Symbol="cmdJustify" Id="7307" />
-    <Command Name="Indent" Symbol="Indent" Id="7308" Comment="Button to increase the indent level of the paragraph" Keytip="MI" LabelTitle="Increase indent" TooltipTitle="Increase indent" TooltipDescription="Increase the indent level of the paragraph"/>
-    <Command Name="Outdent" Symbol="Outdent" Id="7309" Comment="Button to decrease the indent level of the paragraph" Keytip="MO" LabelTitle="Decrease indent" TooltipTitle="Decrease indent" TooltipDescription="Decrease the indent level of the paragraph"/>
+    <Command Name="Indent" Symbol="Indent" Id="7308" Comment="Increase the indent level of the paragraph" Keytip="MI" LabelTitle="Increase indent" TooltipTitle="Increase indent" TooltipDescription="Increase the indent level of the paragraph"/>
+    <Command Name="Outdent" Symbol="Outdent" Id="7309" Comment="Decrease the indent level of the paragraph" Keytip="MO" LabelTitle="Decrease indent" TooltipTitle="Decrease indent" TooltipDescription="Decrease the indent level of the paragraph"/>
     <Command Name="RTLTextBlock" Keytip="R1" LabelTitle="Right-to-Left" TooltipDescription="Makes the direction of the selected text right-to-left." Symbol="cmdRTLTextBlock" Id="7310" />
     <Command Name="LTRTextBlock" Keytip="R2" LabelTitle="Left-to-Right" TooltipDescription="Makes the direction of the selected text left-to-right." Symbol="cmdLTRTextBlock" Id="7311" />
+    
+    <!--Group: Note Styles-->
+    <Command Name="GrpNoteStyles" Id="7400" LabelTitle="Styles"/>
+    <Command Name="NoteHeading1" Id="7401" LabelTitle="Heading 1" TooltipTitle="Heading 1" TooltipDescription="Apply Heading 1 text style." />
+    <Command Name="NoteHeading2" Id="7402" LabelTitle="Heading 2" TooltipTitle="Heading 2" TooltipDescription="Apply Heading 2 text style." />
+    <Command Name="NoteHeading3" Id="7403" LabelTitle="Heading 3" TooltipTitle="Heading 3" TooltipDescription="Apply Heading 3 text style." />
+    <Command Name="NoteNormal" Id="7404" LabelTitle="Normal" TooltipTitle="Normal" TooltipDescription="Apply Normal text style." />
+    
     
   </Application.Commands>
                    
@@ -908,6 +916,15 @@ Note:
       <Ribbon.ContextualTabs>
         <TabGroup CommandName="TabGroupNote">
           <Tab CommandName="TabNoteEditor">
+            <Tab.ScalingPolicy>
+              <ScalingPolicy>
+                <ScalingPolicy.IdealSizes>
+                  <Scale Group='GrpNoteStyles' Size='Large' />
+                </ScalingPolicy.IdealSizes>
+                <Scale Group='GrpNoteStyles' Size='Medium' />
+                <Scale Group='GrpNoteStyles' Size='Small' />
+              </ScalingPolicy>
+            </Tab.ScalingPolicy>
             <Group CommandName="GrpNoteFont">
               <FontControl CommandName="RichFont" FontType="RichFont" ShowTrueTypeOnly="true"/>
             </Group>
@@ -924,6 +941,12 @@ Note:
               <Button CommandName="AlignRight"/>
               <Button CommandName="Justify"/>            
             </Group>
+            <Group CommandName="GrpNoteStyles" SizeDefinition="FourButtons">
+              <Button CommandName="NoteHeading1" />
+              <Button CommandName="NoteHeading2" />
+              <Button CommandName="NoteHeading3" />
+              <Button CommandName="NoteNormal" />
+            </Group>
           </Tab>
         </TabGroup>
       </Ribbon.ContextualTabs>
@@ -931,3 +954,4 @@ Note:
   </Application.Views>
 
 </Application>
+

@@ -423,6 +423,86 @@ namespace MindMate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap NoteHeading1_16bit {
+            get {
+                object obj = ResourceManager.GetObject("NoteHeading1_16bit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap NoteHeading1_32bit {
+            get {
+                object obj = ResourceManager.GetObject("NoteHeading1_32bit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap NoteHeading2_16bit {
+            get {
+                object obj = ResourceManager.GetObject("NoteHeading2_16bit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap NoteHeading2_32bit {
+            get {
+                object obj = ResourceManager.GetObject("NoteHeading2_32bit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap NoteHeading3_16bit {
+            get {
+                object obj = ResourceManager.GetObject("NoteHeading3_16bit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap NoteHeading3_32bit {
+            get {
+                object obj = ResourceManager.GetObject("NoteHeading3_32bit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap NoteNormal_16bit {
+            get {
+                object obj = ResourceManager.GetObject("NoteNormal_16bit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap NoteNormal_32bit {
+            get {
+                object obj = ResourceManager.GetObject("NoteNormal_32bit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Numbers_SmallImage {
             get {
                 object obj = ResourceManager.GetObject("Numbers_SmallImage", resourceCulture);

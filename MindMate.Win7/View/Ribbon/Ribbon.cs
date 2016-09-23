@@ -176,6 +176,12 @@ namespace MindMate.View.Ribbon
             AlignCenter.ExecuteEvent += (o, e) => mainForm.NoteEditor.AlignSelectionCenter();
             Justify.ExecuteEvent += (o, e) => mainForm.NoteEditor.AlignSelectionFull();
 
+            //Note Editor: Note Styles
+            NoteHeading1.ExecuteEvent += (o, e) => mainForm.NoteEditor.ApplyHeading1();
+            NoteHeading2.ExecuteEvent += (o, e) => mainForm.NoteEditor.ApplyHeading2();
+            NoteHeading3.ExecuteEvent += (o, e) => mainForm.NoteEditor.ApplyHeading3();
+            NoteNormal.ExecuteEvent += (o, e) => mainForm.NoteEditor.ApplyNormalStyle();
+
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
@@ -197,7 +203,15 @@ namespace MindMate.View.Ribbon
             AlignLeft.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.AlignLeft_SmallImage);
             AlignCenter.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.AlignCenter_SmallImage);
             AlignRight.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.AlignRight_SmallImage);
-            Justify.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Justify_SmallImage);            
+            Justify.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Justify_SmallImage);
+            NoteHeading1.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteHeading1_32bit);
+            NoteHeading1.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteHeading1_16bit);
+            NoteHeading2.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteHeading2_32bit);
+            NoteHeading2.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteHeading2_16bit);
+            NoteHeading3.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteHeading3_32bit);
+            NoteHeading3.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteHeading3_16bit);
+            NoteNormal.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteNormal_32bit);
+            NoteNormal.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteNormal_16bit);
             mainForm.FocusedControlChanged += MainForm_FocusedControlChanged;
         }
         
