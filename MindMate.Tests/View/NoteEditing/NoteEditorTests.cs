@@ -1321,6 +1321,408 @@ namespace MindMate.Tests.View.NoteEditing
             Assert.IsFalse(result.ToLower().Contains("background-color"));
         }
 
+        [TestMethod]
+        public void AddBullets()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null;
+                    sut.HTML = "Some Text";
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.findText("Text");
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.AddBullets();
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result.ToLower().Contains("ul"));
+        }
+
+        [TestMethod]
+        public void AddNumbering()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null;
+                    sut.HTML = "Some Text";
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.findText("Text");
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.AddNumbering();
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result.ToLower().Contains("ol"));
+        }
+
+        [TestMethod]
+        public void AlignSelectionLeft()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null;
+                    sut.HTML = "Some Text";
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.findText("Text");
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.AlignSelectionLeft();
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result.ToLower().Contains("align=left"));
+        }
+
+        [TestMethod]
+        public void AlignSelectionRight()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null;
+                    sut.HTML = "Some Text";
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.findText("Text");
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.AlignSelectionRight();
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result.ToLower().Contains("align=right"));
+        }
+
+        [TestMethod]
+        public void AlignSelectionCenter()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null;
+                    sut.HTML = "Some Text";
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.findText("Text");
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.AlignSelectionCenter();
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result.ToLower().Contains("align=center"));
+        }
+
+        [TestMethod]
+        public void AlignSelectionFull()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null;
+                    sut.HTML = "Some Text";
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.findText("Text");
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.AlignSelectionFull();
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result.ToLower().Contains("align=justify"));
+        }
+
+        [TestMethod]
+        public void IndentSelection()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null;
+                    sut.HTML = "Some Text";
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.findText("Text");
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.IndentSelection();
+                    }
+                    else
+                    {
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result.ToLower().Contains("blockquote"));
+            Assert.IsTrue(result.ToLower().Contains("margin-right"));
+        }
+
+        [TestMethod]
+        public void OutdentSelection()
+        {
+            var result = "";
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new NoteEditor();
+                var form = CreateForm();
+                form.Shown += (sender, args) =>
+                {
+                    sut.HTML = null;
+                    sut.HTML = "Some Text";
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                        var body = sut.Document.Body.DomElement as IHTMLBodyElement;
+                        IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
+                        r.findText("Text");
+                        r.select();
+
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                        sut.IndentSelection();
+                    }
+                    else
+                    {
+                        sut.OutdentSelection();
+                        form.Close();
+                    }
+                };
+                form.Controls.Add(sut);
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+                result = sut.HTML;
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsFalse(result.ToLower().Contains("blockquote"));            
+        }
+
         //[TestMethod()]
         //public void InsertImage()
         //{

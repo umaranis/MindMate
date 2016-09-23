@@ -465,6 +465,34 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Ask Question Filled-100.png" />
+    <None Include="Resources\Bullets.LargeHighContrastImage.png" />
+    <None Include="Resources\Bullets.LargeImage.png" />
+    <None Include="Resources\Bullets.SmallHighContrastImage.png" />
+    <None Include="Resources\Bullets.SmallImage.png" />
+    <None Include="Resources\Numbers.LargeHighContrastImage.png" />
+    <None Include="Resources\Numbers.LargeImage.png" />
+    <None Include="Resources\Numbers.SmallHighContrastImage.png" />
+    <None Include="Resources\Numbers.SmallImage.png" />
+    <None Include="Resources\AlignCenter.LargeImage.png" />
+    <None Include="Resources\AlignCenter.SmallHighContrastImage.png" />
+    <None Include="Resources\AlignCenter.SmallImage.png" />
+    <None Include="Resources\AlignLeft.LargeImage.png" />
+    <None Include="Resources\AlignLeft.SmallHighContrastImage.png" />
+    <None Include="Resources\AlignLeft.SmallImage.png" />
+    <None Include="Resources\AlignRight.LargeImage.png" />
+    <None Include="Resources\AlignRight.SmallHighContrastImage.png" />
+    <None Include="Resources\AlignRight.SmallImage.png" />
+    <None Include="Resources\Justify.LargeImage.png" />
+    <None Include="Resources\Justify.SmallHighContrastImage.png" />
+    <None Include="Resources\Justify.SmallImage.png" />
+    <None Include="Resources\Outdent.SmallHighContrastImage.png" />
+    <None Include="Resources\Outdent.SmallImage.png" />
+    <None Include="Resources\Indent.SmallHighContrastImage.png" />
+    <None Include="Resources\Indent.SmallImage.png" />
+    <None Include="Resources\Blockquote.LargeHighContrastImage.png" />
+    <None Include="Resources\Blockquote.LargeImage.png" />
+    <None Include="Resources\Blockquote.SmallHighContrastImage.png" />
+    <None Include="Resources\Blockquote.SmallImage.png" />
     <Content Include="Serialization\MapYamlSerializer.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapYamlSerializer.Generated.cs</LastGenOutput>

@@ -459,7 +459,47 @@ namespace MindMate.View.NoteEditing
         {
             Document.ExecCommand("RemoveFormat", false, null);
         }
-        
+
+        public void AddBullets()
+        {
+            Document.ExecCommand("InsertUnorderedList", false, null);
+        }
+
+        public void AddNumbering()
+        {
+            Document.ExecCommand("InsertOrderedList", false, null);
+        }
+
+        public void AlignSelectionLeft()
+        {
+            Document.ExecCommand("JustifyLeft", false, null);
+        }
+
+        public void AlignSelectionRight()
+        {
+            Document.ExecCommand("JustifyRight", false, null);
+        }
+
+        public void AlignSelectionCenter()
+        {
+            Document.ExecCommand("JustifyCenter", false, null);
+        }
+
+        public void AlignSelectionFull()
+        {
+            Document.ExecCommand("JustifyFull", false, null);
+        }
+
+        public void IndentSelection()
+        {
+            Document.ExecCommand("Indent", false, null);
+        }
+
+        public void OutdentSelection()
+        {
+            Document.ExecCommand("Outdent", false, null);
+        }
+
         /// <summary>
         /// Undo the last operation
         /// </summary>

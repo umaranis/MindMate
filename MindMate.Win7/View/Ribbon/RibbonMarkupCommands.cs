@@ -147,5 +147,17 @@ namespace MindMate.View.Ribbon
 		ViewNote = 6201,		
 		TabGroupNote = 7000,		
 		TabNoteEditor = 7001,		
+		GrpNoteFont = 7100,		
+		GrpParagraph = 7200,		
+		Bullets = 1026,		
+		Numbers = 1027,		
+		AlignLeft = 1029,		
+		AlignRight = 1030,		
+		AlignCenter = 1031,		
+		Justify = 1032,		
+		Indent = 1046,		
+		Outdent = 1047,		
+		RTLTextBlock = 1048,		
+		LTRTextBlock = 1049,		
 	}
 }

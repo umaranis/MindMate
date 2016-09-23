@@ -63,6 +63,36 @@ namespace MindMate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap AlignCenter_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("AlignCenter_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap AlignLeft_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("AlignLeft_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap AlignRight_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("AlignRight_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap application_view_columns {
             get {
                 object obj = ResourceManager.GetObject("application_view_columns", resourceCulture);
@@ -136,6 +166,16 @@ namespace MindMate.Properties {
         public static System.Drawing.Bitmap Ask_Question_Filled_100 {
             get {
                 object obj = ResourceManager.GetObject("Ask_Question_Filled_100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Bullets_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("Bullets_SmallImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -237,6 +277,26 @@ namespace MindMate.Properties {
             get {
                 object obj = ResourceManager.GetObject("HandDrag", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Indent_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("Indent_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Justify_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("Justify_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -357,6 +417,26 @@ namespace MindMate.Properties {
             get {
                 object obj = ResourceManager.GetObject("move_r", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Numbers_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("Numbers_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Outdent_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("Outdent_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

@@ -253,4 +253,28 @@
   <data name="Ask_Question_Filled_100" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Ask Question Filled-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Bullets_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\bullets.smallimage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Numbers_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\numbers.smallimage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AlignCenter_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\aligncenter.smallimage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AlignLeft_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\alignleft.smallimage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="AlignRight_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\alignright.smallimage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Indent_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\indent.smallimage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Justify_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\justify.smallimage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Outdent_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\outdent.smallimage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

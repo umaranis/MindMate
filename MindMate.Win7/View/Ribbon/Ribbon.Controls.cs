@@ -146,6 +146,16 @@ namespace MindMate.View.Ribbon
 		private RibbonButton ViewNote;		
 		private RibbonTabGroup TabGroupNote;		
 		private RibbonTab TabNoteEditor;		
+		private RibbonGroup GrpNoteFont;		
+		private RibbonGroup GrpParagraph;		
+		private RibbonButton Bullets;		
+		private RibbonButton Numbers;		
+		private RibbonButton Outdent;		
+		private RibbonButton Indent;		
+		private RibbonButton AlignLeft;		
+		private RibbonButton AlignCenter;		
+		private RibbonButton AlignRight;		
+		private RibbonButton Justify;		
 
 		private void InitializeComponents()
 		{
@@ -281,6 +291,16 @@ namespace MindMate.View.Ribbon
 			ViewNote = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ViewNote);
 			TabGroupNote = new RibbonTabGroup(ribbon, (uint)RibbonMarkupCommands.TabGroupNote);
 			TabNoteEditor = new RibbonTab(ribbon, (uint)RibbonMarkupCommands.TabNoteEditor);
+			GrpNoteFont = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNoteFont);
+			GrpParagraph = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpParagraph);
+			Bullets = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Bullets);
+			Numbers = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Numbers);
+			Outdent = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Outdent);
+			Indent = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Indent);
+			AlignLeft = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.AlignLeft);
+			AlignCenter = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.AlignCenter);
+			AlignRight = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.AlignRight);
+			Justify = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Justify);
 
 		}
 	

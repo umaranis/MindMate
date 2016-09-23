@@ -166,12 +166,22 @@ namespace MindMate.View.Ribbon
             //View Tab: View Note
             ViewNote.ExecuteEvent += ViewNote_ExecuteEvent;
 
+            //Note Editor: Paragraph
+            Bullets.ExecuteEvent += (o, e) => mainForm.NoteEditor.AddBullets();
+            Numbers.ExecuteEvent += (o, e) => mainForm.NoteEditor.AddNumbering();
+            Indent.ExecuteEvent += (o, e) => mainForm.NoteEditor.IndentSelection();
+            Outdent.ExecuteEvent += (o, e) => mainForm.NoteEditor.OutdentSelection();
+            AlignLeft.ExecuteEvent += (o, e) => mainForm.NoteEditor.AlignSelectionLeft();
+            AlignRight.ExecuteEvent += (o, e) => mainForm.NoteEditor.AlignSelectionRight();
+            AlignCenter.ExecuteEvent += (o, e) => mainForm.NoteEditor.AlignSelectionCenter();
+            Justify.ExecuteEvent += (o, e) => mainForm.NoteEditor.AlignSelectionFull();
+
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
             mainForm.EditorTabs.ControlAdded += Tabs_ControlAdded;
             mainForm.EditorTabs.ControlRemoved += Tabs_ControlRemoved;
-            mainForm.EditorTabs.SelectedIndexChanged += Tabs_SelectedIndexChanged;
+            mainForm.EditorTabs.SelectedIndexChanged += Tabs_SelectedIndexChanged;            
         }        
 
         /// <summary>
@@ -180,6 +190,14 @@ namespace MindMate.View.Ribbon
         public void OnRibbonLoaded()
         {
             NodeShape.LargeImage = ribbon.ConvertToUIImage(Resources.Node_Format_Bubble);
+            Bullets.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Bullets_SmallImage);
+            Numbers.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Numbers_SmallImage);
+            Outdent.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Outdent_SmallImage);
+            Indent.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Indent_SmallImage);
+            AlignLeft.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.AlignLeft_SmallImage);
+            AlignCenter.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.AlignCenter_SmallImage);
+            AlignRight.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.AlignRight_SmallImage);
+            Justify.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Justify_SmallImage);            
             mainForm.FocusedControlChanged += MainForm_FocusedControlChanged;
         }
         

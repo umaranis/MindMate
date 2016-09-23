@@ -380,6 +380,20 @@ Note:
     <Command Name="TabGroupNote" Id="7000" LabelTitle="Note Editor"/>
     <Command Name="TabNoteEditor" Id="7001" LabelTitle="Note" />
     
+    <!--Group: GrpNoteFont-->
+    <Command Name="GrpNoteFont" Id="7100" LabelTitle="Font" />
+    <Command Name="GrpParagraph" Id="7200" LabelTitle="Paragraph" />
+    <Command Name="Bullets" Keytip="L1" LabelTitle="Bullets" TooltipTitle="Bullets" TooltipDescription="Start a bulleted list." Symbol="cmdBullets" Id="1026" />
+    <Command Name="Numbers" Keytip="L2" LabelTitle="Numbering" TooltipTitle="Numbering" TooltipDescription="Start a numbered list." Symbol="cmdNumbers" Id="1027" />    
+    <Command Name="AlignLeft" Keytip="AL" LabelTitle="AlignLeft" TooltipTitle="Align text left" TooltipDescription="Align text to the left." Symbol="cmdAlignLeft" Id="1029" />
+    <Command Name="AlignRight" Keytip="AR" LabelTitle="AlignRight" TooltipTitle="Align text right" TooltipDescription="Align text to the right." Symbol="cmdAlignRight" Id="1030" />
+    <Command Name="AlignCenter" Keytip="AC" LabelTitle="AlignCenter" TooltipTitle="Center text" TooltipDescription="Center text." Symbol="cmdAlignCenter" Id="1031" />
+    <Command Name="Justify" Keytip="AJ" LabelTitle="Justify" TooltipTitle="Justify" TooltipDescription="Align text to both left and right margins, adding extra space between words as necessary." Symbol="cmdJustify" Id="1032" />
+    <Command Name="Indent" Symbol="Indent" Id="1046" Comment="Button to increase the indent level of the paragraph" Keytip="MI" LabelTitle="Increase indent" TooltipTitle="Increase indent" TooltipDescription="Increase the indent level of the paragraph"/>
+    <Command Name="Outdent" Symbol="Outdent" Id="1047" Comment="Button to decrease the indent level of the paragraph" Keytip="MO" LabelTitle="Decrease indent" TooltipTitle="Decrease indent" TooltipDescription="Decrease the indent level of the paragraph"/>
+    <Command Name="RTLTextBlock" Keytip="R1" LabelTitle="Right-to-Left" TooltipDescription="Makes the direction of the selected text right-to-left." Symbol="cmdRTLTextBlock" Id="1048" />
+    <Command Name="LTRTextBlock" Keytip="R2" LabelTitle="Left-to-Right" TooltipDescription="Makes the direction of the selected text left-to-right." Symbol="cmdLTRTextBlock" Id="1049" />
+    
   </Application.Commands>
                    
   <Application.Views>
@@ -812,11 +826,95 @@ Note:
           </Group>
         </Tab>
       </Ribbon.Tabs>
+      <Ribbon.SizeDefinitions>
+        <SizeDefinition Name="EightSmallButtons">
+          <ControlNameMap>
+            <ControlNameDefinition Name="btn1"/>
+            <ControlNameDefinition Name="btn2"/>
+            <ControlNameDefinition Name="btn3"/>
+            <ControlNameDefinition Name="btn4"/>
+            <ControlNameDefinition Name="btn5"/>
+            <ControlNameDefinition Name="btn6"/>
+            <ControlNameDefinition Name="btn7"/>
+            <ControlNameDefinition Name="btn8"/>            
+          </ControlNameMap>
+          <GroupSizeDefinition Size="Large">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn4" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>              
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn5" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn6" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn7" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn8" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+            </Row>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Medium">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn4" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>              
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn5" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn6" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn7" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn8" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+            </Row>
+          </GroupSizeDefinition>
+          <GroupSizeDefinition Size="Small">
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn1" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn2" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn3" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn4" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>              
+            </Row>
+            <Row>
+              <ControlGroup>
+                <ControlSizeDefinition ControlName="btn5" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn6" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn7" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+                <ControlSizeDefinition ControlName="btn8" ImageSize="Small" IsImageVisible="true" IsLabelVisible="false"/>
+              </ControlGroup>
+            </Row>
+          </GroupSizeDefinition>
+        </SizeDefinition>
+      </Ribbon.SizeDefinitions>
       <Ribbon.ContextualTabs>
         <TabGroup CommandName="TabGroupNote">
           <Tab CommandName="TabNoteEditor">
-            <Group CommandName="NoteFont">
+            <Group CommandName="GrpNoteFont">
               <FontControl CommandName="RichFont" FontType="RichFont" ShowTrueTypeOnly="true"/>
+            </Group>
+            <Group CommandName="GrpParagraph" SizeDefinition="EightSmallButtons" ApplicationModes="2">
+              <Button CommandName="Bullets"/>
+              <Button CommandName="Numbers"/>
+              <Button CommandName="Outdent"/>
+              <Button CommandName="Indent" />              
+              <Button CommandName="AlignLeft"/>
+              <Button CommandName="AlignCenter"/>
+              <Button CommandName="AlignRight"/>
+              <Button CommandName="Justify"/>            
             </Group>
           </Tab>
         </TabGroup>
