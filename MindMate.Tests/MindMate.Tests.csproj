@@ -76,6 +76,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Controller\MainCtrlTests.cs" />
     <Compile Include="Controller\MapCtrlTests.cs" />
     <Compile Include="Controller\NoteCtrlTests.cs" />
     <Compile Include="IntegrationTest\MapViewTest.cs" />
@@ -110,12 +111,15 @@
     <Compile Include="View\NoteEditing\NoteEditorTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MindMate.WinXP\MindMate.WinXP.csproj">
+      <Project>{0A5B3905-EE9E-41D1-B9C3-A42FE17818F3}</Project>
+      <Name>MindMate.WinXP</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MindMate\MindMate.csproj">
       <Project>{5940EE6D-1EF0-4745-9983-BA0F9B9FD5CD}</Project>
       <Name>MindMate</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>

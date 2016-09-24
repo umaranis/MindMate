@@ -193,26 +193,6 @@ namespace MindMate.View.NoteEditing
         }
 
         /// <summary>
-        /// Current font name
-        /// </summary>
-        public FontFamily DocumentFontName
-        {
-            get
-            {
-                if (!DocumentReady)
-                    return null;
-                string name = htmlDoc.queryCommandValue("FontName") as string;
-                if (name == null) return null;
-                return new FontFamily(name);
-            }
-            set
-            {
-                if (value != null)
-                    this.Document.ExecCommand("FontName", false, value.Name);
-            }
-        }
-
-        /// <summary>
         /// Text color for the current selection
         /// </summary>
         public Color DocumentForeColor
