@@ -405,5 +405,145 @@ namespace MindMate.Tests.Controller
 
             Assert.IsTrue(result);
         }
+
+        [TestMethod()]
+        public void NoteCtrl_AssignNoteBBC()
+        {
+            bool result = true;
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                MetaModel.MetaModel.Initialize();
+                var persistence = new PersistenceManager();
+                var noteEditor = new NoteEditor();
+
+                var form = CreateForm();
+                form.Controls.Add(noteEditor);
+                form.Shown += (sender, args) =>
+                {
+                    var tree = persistence.OpenTree(@"Resources\Websites.mm");
+
+                    var sut = new NoteCtrl(noteEditor, persistence);
+
+                    tree.Tree.RootNode.FirstChild.Selected = true;
+                    
+                    result = noteEditor.HTML != null && noteEditor.HTML.Contains("BBC");
+
+                    form.Close();
+                };
+
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod()]
+        public void NoteCtrl_AssignNoteBBC_NavigatingEventFires()
+        {
+            int count = 0;
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                MetaModel.MetaModel.Initialize();
+                var persistence = new PersistenceManager();
+                var noteEditor = new NoteEditor();
+
+                noteEditor.Navigating += (o, e) => count++;
+
+                var form = CreateForm();
+                form.Controls.Add(noteEditor);
+                form.Shown += (sender, args) =>
+                {
+                    var tree = persistence.OpenTree(@"Resources\Websites.mm");
+
+                    var sut = new NoteCtrl(noteEditor, persistence);
+
+                    tree.Tree.RootNode.FirstChild.Selected = true;                    
+
+                    form.Close();
+                };
+
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(count > 7);
+        }
+
+        [TestMethod()]
+        public void NoteCtrl_AssignNoteWikipedia()
+        {
+            bool result = true;
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                MetaModel.MetaModel.Initialize();
+                var persistence = new PersistenceManager();
+                var noteEditor = new NoteEditor();
+
+                var form = CreateForm();
+                form.Controls.Add(noteEditor);
+                form.Shown += (sender, args) =>
+                {
+                    var tree = persistence.OpenTree(@"Resources\Websites.mm");
+
+                    var sut = new NoteCtrl(noteEditor, persistence);
+
+                    tree.Tree.RootNode.FirstChild.Next.Selected = true;
+
+                    result = noteEditor.HTML != null && noteEditor.HTML.Contains("Wikipedia");
+
+                    form.Close();
+                };
+
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod()]
+        public void NoteCtrl_AssignNoteYahoo()
+        {
+            bool result = true;
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                MetaModel.MetaModel.Initialize();
+                var persistence = new PersistenceManager();
+                var noteEditor = new NoteEditor();
+
+                var form = CreateForm();
+                form.Controls.Add(noteEditor);
+                form.Shown += (sender, args) =>
+                {
+                    var tree = persistence.OpenTree(@"Resources\Websites.mm");
+
+                    var sut = new NoteCtrl(noteEditor, persistence);
+
+                    tree.Tree.RootNode.LastChild.Selected = true;
+
+                    result = noteEditor.HTML != null && noteEditor.HTML.Contains("Yahoo");
+
+                    form.Close();
+                };
+
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result);
+        }
     }
 }

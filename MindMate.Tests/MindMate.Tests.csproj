@@ -139,6 +139,9 @@
     <None Include="Resources\Settings.Yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Websites.mm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\CopyFormatTo_CompareOutputWithSavedImage_Src.png">

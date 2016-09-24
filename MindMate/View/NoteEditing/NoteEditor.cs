@@ -28,10 +28,10 @@ namespace MindMate.View.NoteEditing
             IsWebBrowserContextMenuEnabled = false;            
 
             // events
-            this.Navigated += new WebBrowserNavigatedEventHandler(this_Navigated);            
+            this.Navigated += new WebBrowserNavigatedEventHandler(this_Navigated);
+            this.Navigating += NoteEditor_Navigating;
             this.GotFocus += new EventHandler(this_GotFocus);                        
         }
-
 
         /// <summary>
         /// Event is fired after initlal document loading is cmplete and document is editable. (ReadyState = Complete)
@@ -61,7 +61,12 @@ namespace MindMate.View.NoteEditing
             IMarkupContainer2 cont2 = (IMarkupContainer2)htmlDoc;
             uint m_cookie;
             cont2.RegisterForDirtyRange(this, out m_cookie);
-        }        
+        }
+
+        private void NoteEditor_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
+            e.Cancel = true;            
+        }
 
         /// <summary>
         /// Notification that contents of NoteEditor have changed. 
