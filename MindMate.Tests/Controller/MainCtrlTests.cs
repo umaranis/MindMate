@@ -21,7 +21,7 @@ namespace MindMate.Tests.Controller
         }
 
         [TestMethod()]
-        public void ReturnFocusToMapView()
+        public void MapCtrl_MethodsWithNoUserInteraction()
         {
             var focus = false;
 
@@ -82,250 +82,250 @@ namespace MindMate.Tests.Controller
             Assert.IsTrue(focus);
         }
 
-        [TestMethod()]
-        public void ShowApplicationOptions()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void ShowApplicationOptions()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void ExportAsBmp()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void ExportAsBmp()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void ExportAsPng()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void ExportAsPng()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void ExportAsJpg()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void ExportAsJpg()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void ShowColorPicker()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void ShowColorPicker()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void ShowFontDialog()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void ShowFontDialog()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void SeekDeleteConfirmation()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void SeekDeleteConfirmation()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void ShowStatusNotification()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void ShowStatusNotification()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void ShowMessageBox()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void ShowMessageBox()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void ShowInputBox()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void ShowInputBox()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void ShowAboutBox()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void ShowAboutBox()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void SetMapViewBackColor()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void SetMapViewBackColor()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void ScheduleTask()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void ScheduleTask()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void RescheduleTask()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void RescheduleTask()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void Copy()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void Copy()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void Cut()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void Cut()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void Paste()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void Paste()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void Undo()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void Undo()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void Redo()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void Redo()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void Bold()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void Bold()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void Italic()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void Italic()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void Underline()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void Underline()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void Strikethrough()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void Strikethrough()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void Subscript()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void Subscript()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void Superscript()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void Superscript()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void SetFontFamily()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void SetFontFamily()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void SetFontSize()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void SetFontSize()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void SetForeColor()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void SetForeColor()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void SetBackColor()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void SetBackColor()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void ClearSelectionFormatting()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void ClearSelectionFormatting()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void StartNoteEditing()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void StartNoteEditing()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void ViewNoteTab()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void ViewNoteTab()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void ViewTaskListTab()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void ViewTaskListTab()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void NewMap()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void NewMap()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void OpenMap()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void OpenMap()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void SaveCurrentMap()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void SaveCurrentMap()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void SaveMap()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void SaveMap()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void SaveCurrentMapAs()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void SaveCurrentMapAs()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void SaveAll()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void SaveAll()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void SaveAsMap()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void SaveAsMap()
+        //{
+        //    Assert.Fail();
+        //}
 
-        [TestMethod()]
-        public void CloseCurrentMap()
-        {
-            Assert.Fail();
-        }
+        //[TestMethod()]
+        //public void CloseCurrentMap()
+        //{
+        //    Assert.Fail();
+        //}
     }
 }
