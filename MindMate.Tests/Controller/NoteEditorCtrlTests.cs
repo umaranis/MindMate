@@ -16,6 +16,24 @@ namespace MindMate.Tests.Controller
     [TestClass()]
     public class NoteEditorCtrlTests
     {
+        private Form CreateForm()
+        {
+            Form form = new Form();
+            form.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            form.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            form.ClientSize = new System.Drawing.Size(415, 304);
+            form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+            form.KeyPreview = true;
+            form.MaximizeBox = false;
+            form.MinimizeBox = false;
+            form.Name = "TestForm";
+            form.ShowInTaskbar = false;
+            form.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            form.Text = "Test Form";
+            form.Size = new Size(320, 320);
+            return form;
+        }
+
         [TestMethod()]
         public void NoteEditorCtrl()
         {
@@ -36,7 +54,7 @@ namespace MindMate.Tests.Controller
                     c1.Selected = true;
 
                     var sut = new NoteEditorCtrl(noteEditor, persistence);
-                    
+
                     result = sut != null;
 
                     form.Close();
@@ -85,24 +103,7 @@ namespace MindMate.Tests.Controller
             t.Join();
 
             Assert.IsTrue(result);
-        }
-
-        private Form CreateForm()
-        {
-            Form form = new Form();
-            form.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            form.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            form.ClientSize = new System.Drawing.Size(415, 304);
-            form.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-            form.KeyPreview = true;
-            form.MaximizeBox = false;
-            form.MinimizeBox = false;
-            form.Name = "TestForm";
-            form.ShowInTaskbar = false;
-            form.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            form.Text = "Test Form";
-            form.Size = new Size(320, 320);
-            return form;
-        }
+        }     
+        
     }
 }

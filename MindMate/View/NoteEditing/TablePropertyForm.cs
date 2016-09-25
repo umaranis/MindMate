@@ -11,7 +11,7 @@ namespace MindMate.View.NoteEditing
     /// Form used to enter an Html Table structure
     /// Input based on the HtmlTableProperty struct
     /// </summary>
-    internal class TablePropertyForm : System.Windows.Forms.Form
+    public class TablePropertyForm : System.Windows.Forms.Form
     {
         private System.ComponentModel.Container components = null;
         private System.Windows.Forms.Button bCancel;

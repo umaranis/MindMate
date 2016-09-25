@@ -46,6 +46,15 @@ namespace MindMate.View.NoteEditing
 
         #region Table Processing Operations
 
+        /// <summary>
+        /// Returns null if table is not selected.
+        /// </summary>
+        /// <returns>null if table is not selected</returns>
+        public HtmlTable GetSelectedTable()
+        {
+            return GetFirstControl() as HtmlTable;
+        }
+
         // public function to create a table class
         // insert method then works on this table
         public void TableInsert(HtmlTableProperty tableProperties)
@@ -75,46 +84,30 @@ namespace MindMate.View.NoteEditing
 
         } //TableModify
 
-        // present to the user the table properties dialog
-        // using all the default properties for the table based on an insert operation
-        public void TableInsertPrompt()
+        public void TableModify(HtmlTable table, HtmlTableProperty tableProperties)
         {
-            // if user has selected a table create a reference
-            HtmlTable table = GetFirstControl() as HtmlTable;
-            ProcessTablePrompt(table);
+            ProcessTable(table, tableProperties);
+        }
 
-        } //TableInsertPrompt
-
-
-        // present to the user the table properties dialog
-        // ensure a table is currently selected or insertion point is within a table
-        public bool TableModifyPrompt()
+        public void InsertRowBelow()
         {
-            // define the Html Table element
-            HtmlTable table = GetTableElement();
+            InsertRow(true);
+        }
 
-            // if a table has been selected then process
-            if (table != null)
-            {
-                ProcessTablePrompt(table);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        } //TableModifyPrompt
-
-
+        public void InsertRowAbove()
+        {
+            InsertRow(false);
+        }
+                
         // will insert a new row into the table
         // based on the current user row and insertion after
-        public void TableInsertRow()
+        private void InsertRow(bool below = true)
         {
             // see if a table selected or insertion point inside a table
             HtmlTable table = null;
             HtmlTableRow row = null;
-            GetTableElement(out table, out row);
+            HtmlTableCell cell = null;
+            GetTableElement(out table, out row, out cell);
 
             // process according to table being defined
             if (table != null && row != null)
@@ -122,7 +115,7 @@ namespace MindMate.View.NoteEditing
                 try
                 {
                     // find the existing row the user is on and perform the insertion
-                    int index = row.rowIndex + 1;
+                    int index = row.rowIndex + (below? 1 : 0);
                     HtmlTableRow insertedRow = table.insertRow(index) as HtmlTableRow;
                     // add the new columns to the end of each row
                     int numberCols = row.cells.length;
@@ -141,17 +134,64 @@ namespace MindMate.View.NoteEditing
                 throw new HtmlEditorException("Row not currently selected within the table", "TableInsertRow");
             }
 
-        } //TableInsertRow
+        }
 
+        public void InsertColumnRight()
+        {
+            InsertColumn(true);
+        }
 
-        // will delete the currently selected row
-        // based on the current user row location
-        public void TableDeleteRow()
+        public void InsertColumnLeft()
+        {
+            InsertColumn(false);
+        }
+
+        private void InsertColumn(bool right = true)
         {
             // see if a table selected or insertion point inside a table
             HtmlTable table = null;
             HtmlTableRow row = null;
-            GetTableElement(out table, out row);
+            HtmlTableCell cell = null;
+            GetTableElement(out table, out row, out cell);
+
+            // process according to table being defined
+            if (table != null && row != null && cell != null)
+            {
+                try
+                {
+                    // find the existing row the user is on and perform the insertion
+                    int index = cell.cellIndex + (right ? 1 : 0);                    
+                    // add the new columns to the end of each row
+                    int numberRows = table.rows.length;
+                    for (int i = 0; i < numberRows; i++)
+                    {
+                        HtmlTableRow r = table.rows.item(i) as HtmlTableRow;
+                        r.insertCell(index);
+                    }
+
+                    table.cols++;
+                }
+                catch (Exception ex)
+                {
+                    throw new HtmlEditorException("Unable to insert a new Row", "TableinsertRow", ex);
+                }
+            }
+            else
+            {
+                throw new HtmlEditorException("Row not currently selected within the table", "TableInsertRow");
+            }
+
+        }
+
+        // will delete the currently selected row
+        // based on the current user row location
+        public void DeleteRow()
+        {
+            // see if a table selected or insertion point inside a table
+            HtmlTable table = null;
+            HtmlTableRow row = null;
+            HtmlTableCell cell = null;
+            GetTableElement(out table, out row, out cell);
 
             // process according to table being defined
             if (table != null && row != null)
@@ -172,32 +212,186 @@ namespace MindMate.View.NoteEditing
                 throw new HtmlEditorException("Row not currently selected within the table", "TableDeleteRow");
             }
 
-        } //TableDeleteRow
+        }
 
-
-        // present to the user the table properties dialog
-        // using all the default properties for the table based on an insert operation
-        private void ProcessTablePrompt(HtmlTable table)
+        public void DeleteColumn()
         {
-            using (TablePropertyForm dialog = new TablePropertyForm())
-            {
-                // define the base set of table properties
-                HtmlTableProperty tableProperties = GetTableProperties(table);
+            // see if a table selected or insertion point inside a table
+            HtmlTable table = null;
+            HtmlTableRow row = null;
+            HtmlTableCell cell = null;
+            GetTableElement(out table, out row, out cell);
 
-                // set the dialog properties
-                dialog.TableProperties = tableProperties;
-                //DefineDialogProperties(dialog);
-                // based on the user interaction perform the neccessary action
-                if (dialog.ShowDialog() == DialogResult.OK)
+            // process according to table being defined
+            if (table != null && row != null && cell != null)
+            {
+                try
                 {
-                    tableProperties = dialog.TableProperties;
-                    if (table == null) TableInsert(tableProperties);
-                    else ProcessTable(table, tableProperties);
+                    foreach(HtmlTableRow r in table.rows)
+                    {
+                        r.deleteCell(cell.cellIndex);
+                    }
+                    table.cols--;              
+                }
+                catch (Exception ex)
+                {
+                    throw new HtmlEditorException("Unable to delete the selected Row", "TableDeleteRow", ex);
                 }
             }
+            else
+            {
+                throw new HtmlEditorException("Row not currently selected within the table", "TableDeleteRow");
+            }
 
-        } // ProcessTablePrompt
+        }
 
+        public void DeleteTable()
+        {
+            HtmlTable table = null;
+            HtmlTableRow row = null;
+            HtmlTableCell cell = null;
+            GetTableElement(out table, out row, out cell);
+
+            if (table != null)
+            {
+                try
+                {
+                    (table as HtmlDomNode).removeNode(true);
+                }
+                catch (Exception ex)
+                {
+                    throw new HtmlEditorException("Unable to delete the selected Row", "TableDeleteRow", ex);
+                }
+            }
+            else
+            {
+                throw new HtmlEditorException("Row not currently selected within the table", "TableDeleteRow");
+            }
+        }
+
+        public void RowMoveUp()
+        {
+            // see if a table selected or insertion point inside a table
+            HtmlTable table = null;
+            HtmlTableRow row = null;
+            HtmlTableCell cell = null;
+            GetTableElement(out table, out row, out cell);
+
+            if (table != null && row != null && cell != null)
+            {
+                if (row.rowIndex == 0) return;
+                try
+                {
+                    HtmlTableRow rowAbove = table.rows.item(row.rowIndex - 1);
+                    (row as HtmlDomNode).swapNode(rowAbove as HtmlDomNode);
+                }
+                catch (Exception ex)
+                {
+                    throw new HtmlEditorException("Unable to insert a new Row", "TableinsertRow", ex);
+                }
+            }
+            else
+            {
+                throw new HtmlEditorException("Row not currently selected within the table", "TableInsertRow");
+            }
+
+        }
+
+        public void RowMoveDown()
+        {
+            // see if a table selected or insertion point inside a table
+            HtmlTable table = null;
+            HtmlTableRow row = null;
+            HtmlTableCell cell = null;
+            GetTableElement(out table, out row, out cell);
+
+            if (table != null && row != null && cell != null)
+            {
+                if (row.rowIndex >= table.rows.length - 1) return;
+                try
+                {
+                    HtmlTableRow rowBelow = table.rows.item(row.rowIndex + 1);
+                    (row as HtmlDomNode).swapNode(rowBelow as HtmlDomNode);
+                }
+                catch (Exception ex)
+                {
+                    throw new HtmlEditorException("Unable to insert a new Row", "TableinsertRow", ex);
+                }
+            }
+            else
+            {
+                throw new HtmlEditorException("Row not currently selected within the table", "TableInsertRow");
+            }
+
+        }
+
+        public void ColumnMoveLeft()
+        {
+            // see if a table selected or insertion point inside a table
+            HtmlTable table = null;
+            HtmlTableRow row = null;
+            HtmlTableCell cell = null;
+            GetTableElement(out table, out row, out cell);
+
+            if (table != null && row != null && cell != null)
+            {
+                int index = cell.cellIndex;
+                if (index == 0) return;
+                try
+                {
+                    for (int i = 0; i < table.rows.length; i++)
+                    {
+                        HtmlTableRow r = table.rows.item(i);
+                        HtmlDomNode c1 = r.cells.item(index);
+                        HtmlDomNode c2 = r.cells.item(index - 1);
+                        c1.swapNode(c2);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new HtmlEditorException("Unable to insert a new Row", "TableinsertRow", ex);
+                }
+            }
+            else
+            {
+                throw new HtmlEditorException("Row not currently selected within the table", "TableInsertRow");
+            }
+
+        }
+
+        public void ColumnMoveRight()
+        {
+            // see if a table selected or insertion point inside a table
+            HtmlTable table = null;
+            HtmlTableRow row = null;
+            HtmlTableCell cell = null;
+            GetTableElement(out table, out row, out cell);
+
+            if (table != null && row != null && cell != null)
+            {
+                int index = cell.cellIndex;                
+                if (index >= row.cells.length - 1) return;
+                try
+                {
+                    for (int i = 0; i < table.rows.length; i++)
+                    {
+                        HtmlTableRow r = table.rows.item(i);
+                        HtmlDomNode c1 = r.cells.item(index);
+                        HtmlDomNode c2 = r.cells.item(index + 1);
+                        c1.swapNode(c2);                        
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new HtmlEditorException("Unable to insert a new Row", "TableinsertRow", ex);
+                }
+            }
+            else
+            {
+                throw new HtmlEditorException("Row not currently selected within the table", "TableInsertRow");
+            }
+
+        }
 
         // function to insert a basic table
         // will honour the existing table if passed in
@@ -409,10 +603,11 @@ namespace MindMate.View.NoteEditing
 
         // determine if the current selection is a table
         // return the table element
-        private void GetTableElement(out HtmlTable table, out HtmlTableRow row)
+        private void GetTableElement(out HtmlTable table, out HtmlTableRow row, out HtmlTableCell cell)
         {
             table = null;
             row = null;
+            cell = null;
             HtmlTextRange range = GetTextRange();
 
             try
@@ -426,17 +621,19 @@ namespace MindMate.View.NoteEditing
                     // parse up the tree until the table element is found
                     while (element != null && table == null)
                     {
-                        element = (HtmlElement)element.parentElement;
-                        // extract the Table properties
                         if (element is HtmlTable)
                         {
                             table = (HtmlTable)element;
-                        }
-                        // extract the Row  properties
-                        if (element is HtmlTableRow)
+                        }                        
+                        else if (element is HtmlTableRow)
                         {
                             row = (HtmlTableRow)element;
                         }
+                        else if(element is HtmlTableCell)
+                        {
+                            cell = (HtmlTableCell)element;
+                        }
+                        element = (HtmlElement)element.parentElement;
                     }
                 }
             }
@@ -445,6 +642,7 @@ namespace MindMate.View.NoteEditing
                 // have unknown error so set return to null
                 table = null;
                 row = null;
+                cell = null;
             }
 
         } //GetTableElement
@@ -454,7 +652,8 @@ namespace MindMate.View.NoteEditing
             // define the table and row elements and obtain there values
             HtmlTable table = null;
             HtmlTableRow row = null;
-            GetTableElement(out table, out row);
+            HtmlTableCell cell = null;
+            GetTableElement(out table, out row, out cell);
 
             // return the defined table element
             return table;
@@ -463,7 +662,7 @@ namespace MindMate.View.NoteEditing
 
 
         // given an HtmlTable determine the table properties
-        private HtmlTableProperty GetTableProperties(HtmlTable table)
+        public HtmlTableProperty GetTableProperties(HtmlTable table)
         {
             // define a set of base table properties
             HtmlTableProperty tableProperties = new HtmlTableProperty(true);
@@ -533,31 +732,8 @@ namespace MindMate.View.NoteEditing
 
         } //GetTableProperties
 
-
-        // based on the user selection return a table definition
-        // if table selected (or insertion point within table) return these values
-        public void GetTableDefinition(out HtmlTableProperty table, out bool tableFound)
-        {
-            // see if a table selected or insertion point inside a table
-            HtmlTable htmlTable = GetTableElement();
-
-            // process according to table being defined
-            if (htmlTable == null)
-            {
-                table = new HtmlTableProperty(true);
-                tableFound = false;
-            }
-            else
-            {
-                table = GetTableProperties(htmlTable);
-                tableFound = true;
-            }
-
-        } //GetTableDefinition
-
-
         // Determine if the insertion point or selection is a table
-        private bool IsParentTable()
+        private bool InsideTable()
         {
             // see if a table selected or insertion point inside a table
             HtmlTable htmlTable = GetTableElement();

@@ -30,8 +30,30 @@ namespace MindMate.Controller
 
         public void InsertTable()
         {
-            var tableHelper = new HtmlTableHelper(noteGlue.Editor.Document.DomDocument as HTMLDocument);
-            tableHelper.TableInsertPrompt();
+            var helper = new HtmlTableHelper(noteGlue.Editor.Document.DomDocument as HTMLDocument);
+            IHTMLTable table = helper.GetSelectedTable();
+
+            if (table != null) //modify selected table
+            {
+                using (var dialog = new TablePropertyForm())
+                {
+                    dialog.TableProperties = helper.GetTableProperties(table);
+                    if(dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        helper.TableModify(table, dialog.TableProperties);
+                    }
+                }
+            }
+            else //insert new table
+            {
+                using (var dialog = new TablePropertyForm())
+                {                    
+                    if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                    {
+                        helper.TableInsert(dialog.TableProperties);
+                    }
+                }
+            }
         }
     }
 }
