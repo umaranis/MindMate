@@ -162,6 +162,8 @@ namespace MindMate.View.Ribbon
 		private RibbonButton NoteHeading2;		
 		private RibbonButton NoteHeading3;		
 		private RibbonButton NoteNormal;		
+		private RibbonGroup GrpNoteTable;		
+		private RibbonButton NoteInsertTable;		
 
 		private void InitializeComponents()
 		{
@@ -313,6 +315,8 @@ namespace MindMate.View.Ribbon
 			NoteHeading2 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteHeading2);
 			NoteHeading3 = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteHeading3);
 			NoteNormal = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteNormal);
+			GrpNoteTable = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNoteTable);
+			NoteInsertTable = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteInsertTable);
 
 		}
 	

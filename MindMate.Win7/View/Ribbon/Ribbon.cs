@@ -166,7 +166,7 @@ namespace MindMate.View.Ribbon
             //View Tab: View Note
             ViewNote.ExecuteEvent += ViewNote_ExecuteEvent;
 
-            //Note Editor: Paragraph
+            //Note Editor Tab: Paragraph
             Bullets.ExecuteEvent += (o, e) => mainForm.NoteEditor.AddBullets();
             Numbers.ExecuteEvent += (o, e) => mainForm.NoteEditor.AddNumbering();
             Indent.ExecuteEvent += (o, e) => mainForm.NoteEditor.IndentSelection();
@@ -176,11 +176,14 @@ namespace MindMate.View.Ribbon
             AlignCenter.ExecuteEvent += (o, e) => mainForm.NoteEditor.AlignSelectionCenter();
             Justify.ExecuteEvent += (o, e) => mainForm.NoteEditor.AlignSelectionFull();
 
-            //Note Editor: Note Styles
+            //Note Editor Tab: Note Styles
             NoteHeading1.ExecuteEvent += (o, e) => mainForm.NoteEditor.ApplyHeading1();
             NoteHeading2.ExecuteEvent += (o, e) => mainForm.NoteEditor.ApplyHeading2();
             NoteHeading3.ExecuteEvent += (o, e) => mainForm.NoteEditor.ApplyHeading3();
             NoteNormal.ExecuteEvent += (o, e) => mainForm.NoteEditor.ApplyNormalStyle();
+
+            //Note Editor Tab: Table
+            NoteInsertTable.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.InsertTable();
 
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
@@ -212,6 +215,8 @@ namespace MindMate.View.Ribbon
             NoteHeading3.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteHeading3_16bit);
             NoteNormal.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteNormal_32bit);
             NoteNormal.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteNormal_16bit);
+            NoteInsertTable.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.InsertTable_SmallImage);
+            NoteInsertTable.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.InsertTable_LargeImage);
             mainForm.FocusedControlChanged += MainForm_FocusedControlChanged;
         }
         

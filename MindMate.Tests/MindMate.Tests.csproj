@@ -78,7 +78,8 @@
   <ItemGroup>
     <Compile Include="Controller\MainCtrlTests.cs" />
     <Compile Include="Controller\MapCtrlTests.cs" />
-    <Compile Include="Controller\NoteCtrlTests.cs" />
+    <Compile Include="Controller\NoteEditorCtrlTests.cs" />
+    <Compile Include="View\NoteEditing\NoteMapGlueTests.cs" />
     <Compile Include="IntegrationTest\MapViewTest.cs" />
     <Compile Include="IntegrationTest\TaskPluginTests.cs" />
     <Compile Include="IntegrationTest\MapCtrlTests.cs" />

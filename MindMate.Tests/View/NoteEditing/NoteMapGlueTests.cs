@@ -13,7 +13,7 @@ using MindMate.Serialization;
 using MindMate.View.Dialogs;
 using MindMate.View.NoteEditing;
 
-namespace MindMate.Tests.Controller
+namespace MindMate.Tests.View
 {
     /// <summary>
     /// Test methods in this are executed in a separate thread to avoid following exception:
@@ -22,19 +22,19 @@ namespace MindMate.Tests.Controller
     /// This exception occurs in some machines also (not sure what causes it).
     /// </summary>
     [TestClass()]
-    public class NoteCtrlTests
+    public class NoteMapGlueTests
     {
         [TestMethod()]
-        public void NoteCtrl()
+        public void NoteMapGlue()
         {
-            NoteCtrl sut = null;
+            NoteMapGlue sut = null;
 
             System.Threading.Thread t = new System.Threading.Thread(() =>
             {
                 MetaModel.MetaModel.Initialize();
                 var persistence = new PersistenceManager();
                 var nodeEditor = new NoteEditor();
-                sut = new NoteCtrl(nodeEditor, persistence);
+                sut = new NoteMapGlue(nodeEditor, persistence);
             });
             t.SetApartmentState(System.Threading.ApartmentState.STA);
             t.Start();
@@ -63,7 +63,7 @@ namespace MindMate.Tests.Controller
         }
 
         [TestMethod()]
-        public void NoteCtrl_AssignNote_EditorUpdated()
+        public void NoteMapGlue_AssignNote_EditorUpdated()
         {
             bool result = true;
 
@@ -79,7 +79,7 @@ namespace MindMate.Tests.Controller
                 {
                     var tree = persistence.NewTree();
 
-                    var sut = new NoteCtrl(noteEditor, persistence);
+                    var sut = new NoteMapGlue(noteEditor, persistence);
 
                     tree.Tree.RootNode.NoteText = "ABC";
 
@@ -98,7 +98,7 @@ namespace MindMate.Tests.Controller
         }
 
         [TestMethod()]
-        public void NoteCtrl_AssignNoteToUnselected()
+        public void NoteMapGlue_AssignNoteToUnselected()
         {
             bool result = true;
 
@@ -115,7 +115,7 @@ namespace MindMate.Tests.Controller
                     var tree = persistence.NewTree();
                     var c1 = new MapNode(tree.Tree.RootNode, "c1");
 
-                    var sut = new NoteCtrl(noteEditor, persistence);
+                    var sut = new NoteMapGlue(noteEditor, persistence);
 
                     c1.NoteText = "ABC";
 
@@ -134,7 +134,7 @@ namespace MindMate.Tests.Controller
         }
 
         [TestMethod()]
-        public void NoteCtrl_AssignNoteToUnselected_ClearNoteEditor()
+        public void NoteMapGlue_AssignNoteToUnselected_ClearNoteEditor()
         {
             bool result = true;
 
@@ -152,7 +152,7 @@ namespace MindMate.Tests.Controller
                     var c1 = new MapNode(tree.Tree.RootNode, "c1");
                     c1.Selected = true;
 
-                    var sut = new NoteCtrl(noteEditor, persistence);
+                    var sut = new NoteMapGlue(noteEditor, persistence);
 
                     c1.NoteText = "ABC";
 
@@ -173,7 +173,7 @@ namespace MindMate.Tests.Controller
         }
 
         [TestMethod()]
-        public void NoteCtrl_MultiSelection_ClearNoteEditor()
+        public void NoteMapGlue_MultiSelection_ClearNoteEditor()
         {
             bool result = true;
 
@@ -191,7 +191,7 @@ namespace MindMate.Tests.Controller
                     var c1 = new MapNode(tree.Tree.RootNode, "c1");
                     c1.Selected = true;
 
-                    var sut = new NoteCtrl(noteEditor, persistence);
+                    var sut = new NoteMapGlue(noteEditor, persistence);
 
                     c1.NoteText = "ABC";
 
@@ -212,7 +212,7 @@ namespace MindMate.Tests.Controller
         }
 
         [TestMethod()]
-        public void NoteCtrl_ChangeCurrentMapTree()
+        public void NoteMapGlue_ChangeCurrentMapTree()
         {
             bool result = true;
 
@@ -230,7 +230,7 @@ namespace MindMate.Tests.Controller
                     var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
                     c1.Selected = true;
 
-                    var sut = new NoteCtrl(noteEditor, persistence);
+                    var sut = new NoteMapGlue(noteEditor, persistence);
 
                     c1.NoteText = "ABC";
 
@@ -269,7 +269,7 @@ namespace MindMate.Tests.Controller
                     var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
                     c1.Selected = true;
 
-                    var sut = new NoteCtrl(noteEditor, persistence);
+                    var sut = new NoteMapGlue(noteEditor, persistence);
 
                     c1.NoteText = "ABC";
 
@@ -308,7 +308,7 @@ namespace MindMate.Tests.Controller
                     var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
                     c1.Selected = true;
 
-                    var sut = new NoteCtrl(noteEditor, persistence);
+                    var sut = new NoteMapGlue(noteEditor, persistence);
 
                     c1.NoteText = "ABC";
 
@@ -349,7 +349,7 @@ namespace MindMate.Tests.Controller
                     var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
                     c1.Selected = true;
 
-                    var sut = new NoteCtrl(noteEditor, persistence);
+                    var sut = new NoteMapGlue(noteEditor, persistence);
 
                     c1.NoteText = "ABC";
 
@@ -369,45 +369,9 @@ namespace MindMate.Tests.Controller
 
             Assert.IsTrue(result);
         }
-
-        [TestMethod()]
-        public void SetNoteEditorBackColor()
-        {
-            bool result = true;
-
-            System.Threading.Thread t = new System.Threading.Thread(() =>
-            {
-                MetaModel.MetaModel.Initialize();
-                var persistence = new PersistenceManager();
-                var noteEditor = new NoteEditor();
-
-                var form = CreateForm();
-                form.Controls.Add(noteEditor);
-                form.Shown += (sender, args) =>
-                {
-                    var ptree1 = persistence.NewTree();
-                    var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
-                    c1.Selected = true;
-
-                    var sut = new NoteCtrl(noteEditor, persistence);
-                    sut.SetNoteEditorBackColor(Color.Azure);
                 
-                    result = noteEditor.BackColor.Equals(Color.Azure);
-
-                    form.Close();
-                };
-
-                form.ShowDialog();
-            });
-            t.SetApartmentState(System.Threading.ApartmentState.STA);
-            t.Start();
-            t.Join();
-
-            Assert.IsTrue(result);
-        }
-
         [TestMethod()]
-        public void NoteCtrl_AssignNoteBBC()
+        public void NoteMapGlue_AssignNoteBBC()
         {
             bool result = true;
 
@@ -423,7 +387,7 @@ namespace MindMate.Tests.Controller
                 {
                     var tree = persistence.OpenTree(@"Resources\Websites.mm");
 
-                    var sut = new NoteCtrl(noteEditor, persistence);
+                    var sut = new NoteMapGlue(noteEditor, persistence);
 
                     tree.Tree.RootNode.FirstChild.Selected = true;
                     
@@ -442,7 +406,7 @@ namespace MindMate.Tests.Controller
         }
 
         [TestMethod()]
-        public void NoteCtrl_AssignNoteBBC_NavigatingEventFires()
+        public void NoteMapGlue_AssignNoteBBC_NavigatingEventFires()
         {
             int count = 0;
 
@@ -460,7 +424,7 @@ namespace MindMate.Tests.Controller
                 {
                     var tree = persistence.OpenTree(@"Resources\Websites.mm");
 
-                    var sut = new NoteCtrl(noteEditor, persistence);
+                    var sut = new NoteMapGlue(noteEditor, persistence);
 
                     tree.Tree.RootNode.FirstChild.Selected = true;                    
 
@@ -477,7 +441,7 @@ namespace MindMate.Tests.Controller
         }
 
         [TestMethod()]
-        public void NoteCtrl_AssignNoteWikipedia()
+        public void NoteMapGlue_AssignNoteWikipedia()
         {
             bool result = true;
 
@@ -493,7 +457,7 @@ namespace MindMate.Tests.Controller
                 {
                     var tree = persistence.OpenTree(@"Resources\Websites.mm");
 
-                    var sut = new NoteCtrl(noteEditor, persistence);
+                    var sut = new NoteMapGlue(noteEditor, persistence);
 
                     tree.Tree.RootNode.FirstChild.Next.Selected = true;
 
@@ -512,7 +476,7 @@ namespace MindMate.Tests.Controller
         }
 
         [TestMethod()]
-        public void NoteCtrl_AssignNoteYahoo()
+        public void NoteMapGlue_AssignNoteYahoo()
         {
             bool result = true;
 
@@ -528,7 +492,7 @@ namespace MindMate.Tests.Controller
                 {
                     var tree = persistence.OpenTree(@"Resources\Websites.mm");
 
-                    var sut = new NoteCtrl(noteEditor, persistence);
+                    var sut = new NoteMapGlue(noteEditor, persistence);
 
                     tree.Tree.RootNode.LastChild.Selected = true;
 

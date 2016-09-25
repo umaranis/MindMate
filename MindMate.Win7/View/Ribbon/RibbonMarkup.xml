@@ -384,7 +384,7 @@ Note:
     <Command Name="GrpNoteFont" Id="7100" LabelTitle="Font" />
     
     <!--Group: Clear Format-->
-    <Command Name="GrpNoteClearFormat" Id="7200" LabelTitle="Clear" />
+    <Command Name="GrpNoteClearFormat" Id="7200" />
     
     <!--Group: Paragraph-->
     <Command Name="GrpParagraph" Id="7300" LabelTitle="Paragraph" />
@@ -405,6 +405,10 @@ Note:
     <Command Name="NoteHeading2" Id="7402" LabelTitle="Heading 2" TooltipTitle="Heading 2" TooltipDescription="Apply Heading 2 text style." />
     <Command Name="NoteHeading3" Id="7403" LabelTitle="Heading 3" TooltipTitle="Heading 3" TooltipDescription="Apply Heading 3 text style." />
     <Command Name="NoteNormal" Id="7404" LabelTitle="Normal" TooltipTitle="Normal" TooltipDescription="Apply Normal text style." />
+    
+    <!--Group: Note Table-->
+    <Command Name="GrpNoteTable" Id="7500" />
+    <Command Name="NoteInsertTable" Id="7501" Keytip="T" LabelTitle="Table" TooltipDescription="Insert a table in the Note." />
     
     
   </Application.Commands>
@@ -947,6 +951,9 @@ Note:
               <Button CommandName="NoteHeading3" />
               <Button CommandName="NoteNormal" />
             </Group>
+            <Group CommandName="GrpNoteTable" SizeDefinition="OneButton">
+              <Button CommandName="NoteInsertTable" />
+            </Group>            
           </Tab>
         </TabGroup>
       </Ribbon.ContextualTabs>

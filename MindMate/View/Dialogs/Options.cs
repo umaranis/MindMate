@@ -18,9 +18,9 @@ namespace MindMate.View.Dialogs
     public partial class Options : Form
     {
         private MainCtrl mainCtrl;
-        private NoteCtrl noteCtrl;
+        private NoteEditorCtrl noteCtrl;
 
-        public Options(MainCtrl mainCtrl, NoteCtrl noteCtrl)
+        public Options(MainCtrl mainCtrl, NoteEditorCtrl noteCtrl)
         {
             InitializeComponent();
             this.mainCtrl = mainCtrl;

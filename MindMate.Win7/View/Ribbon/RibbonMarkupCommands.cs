@@ -165,5 +165,7 @@ namespace MindMate.View.Ribbon
 		NoteHeading2 = 7402,		
 		NoteHeading3 = 7403,		
 		NoteNormal = 7404,		
+		GrpNoteTable = 7500,		
+		NoteInsertTable = 7501,		
 	}
 }

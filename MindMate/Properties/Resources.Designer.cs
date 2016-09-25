@@ -293,6 +293,26 @@ namespace MindMate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap InsertTable_LargeImage {
+            get {
+                object obj = ResourceManager.GetObject("InsertTable_LargeImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap InsertTable_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("InsertTable_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap Justify_SmallImage {
             get {
                 object obj = ResourceManager.GetObject("Justify_SmallImage", resourceCulture);

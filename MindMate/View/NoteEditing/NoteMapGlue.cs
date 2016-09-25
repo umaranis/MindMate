@@ -14,23 +14,32 @@ using System.Drawing;
 using MindMate.Serialization;
 using MindMate.View.NoteEditing;
 
-namespace MindMate.Controller
+namespace MindMate.View.NoteEditing
 {
     /// <summary>
     /// Note Window Controlller
     /// </summary>
-    public class NoteCtrl
+    public class NoteMapGlue
     {
         
         private readonly NoteEditor editor;
+        public NoteEditor Editor
+        {
+            get
+            {
+                return editor;
+            }
+        }
+
+
         private MapNode mapNode;
 
         /// <summary>
-        /// Ignore <see cref="MapTree.NodePropertyChanged"/> event when <see cref="MapNode.NoteText"/> property is changed by <see cref="NoteCtrl"/> itself.
+        /// Ignore <see cref="MapTree.NodePropertyChanged"/> event when <see cref="MapNode.NoteText"/> property is changed by <see cref="NoteMapGlue"/> itself.
         /// </summary>
-        private bool ignoreModelChange;
-        
-        public NoteCtrl(NoteEditor editor, PersistenceManager manager)
+        private bool ignoreModelChange;        
+
+        public NoteMapGlue(NoteEditor editor, PersistenceManager manager)
         {
             this.editor = editor;
             editor.BackColor = MetaModel.MetaModel.Instance.NoteEditorBackColor; //System.Drawing.Color.LightYellow;     
@@ -201,12 +210,7 @@ namespace MindMate.Controller
             UpdateNodeFromEditor();
         }
 
-        #endregion
-
-        public void SetNoteEditorBackColor(Color color)
-        {
-            editor.BackColor = color;
-        }
+        #endregion Change Events
 
     }
 }

@@ -59,6 +59,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Binaries\CustomFontDialog.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
@@ -91,6 +92,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\NoteEditorCtrl.cs" />
     <Compile Include="Controller\TabController.cs" />
     <Compile Include="MetaModel\Icon.cs" />
     <Compile Include="MetaModel\NodeStyle.cs" />
@@ -105,7 +107,9 @@
     <Compile Include="Controller\WinFormsStatusBarCtrl.cs" />
     <Compile Include="Controller\StatusBarCtrl.cs" />
     <Compile Include="Controller\INoteEditor.cs" />
-    <Compile Include="Controller\NoteCtrl.cs" />
+    <Compile Include="View\NoteEditing\HtmlEditorException.cs" />
+    <Compile Include="View\NoteEditing\HtmlTableHelper.cs" />
+    <Compile Include="View\NoteEditing\NoteMapGlue.cs" />
     <Compile Include="Debugging\IconListCreator.cs" />
     <Compile Include="MetaModel\ModelIcon.cs" />
     <Compile Include="MetaModel\MetaModel.cs" />
@@ -315,6 +319,10 @@
     <Compile Include="View\MapControls\Link.cs" />
     <Compile Include="View\MapControls\IconView.cs" />
     <Compile Include="Serialization\IconImageLoader.cs" />
+    <Compile Include="View\NoteEditing\TablePropertyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\NoteEditing\HtmlTableProperty.cs" />
     <Compile Include="View\NoteEditing\NoteEditorContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -501,6 +509,8 @@
     <None Include="Resources\NoteHeading2_32bit.png" />
     <None Include="Resources\NoteNormal_32bit.png" />
     <None Include="Resources\NoteNormal_16bit.png" />
+    <None Include="Resources\InsertTable.SmallImage.png" />
+    <None Include="Resources\InsertTable.LargeImage.png" />
     <Content Include="Serialization\MapYamlSerializer.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapYamlSerializer.Generated.cs</LastGenOutput>

@@ -46,7 +46,16 @@ namespace MindMate.Controller
         public ChangeManager ChangeManager { get { return CurrentMapCtrl.MapView.Tree.ChangeManager; } }
 
         public WinFormsStatusBarCtrl statusBarCtrl;
-        private NoteCtrl noteCrtl;
+
+        private NoteEditorCtrl noteCrtl;
+        public NoteEditorCtrl NoteCrtl
+        {
+            get
+            {
+                return noteCrtl;
+            }            
+        }
+
 
         public NodeContextMenu NodeContextMenu { get; private set; }
         private ColorDialog colorDialog;
@@ -99,8 +108,8 @@ namespace MindMate.Controller
                     System.Diagnostics.Trace.TraceWarning(DateTime.Now.ToString() + ": Couldn't load last opened file. " + exp.Message);
                 }
             }
-            
-            noteCrtl = new NoteCtrl(mainForm.NoteEditor, PersistenceManager);
+
+            noteCrtl = new NoteEditorCtrl(mainForm.NoteEditor, PersistenceManager);             
 
             pluginManager.InitializeContextMenu(NodeContextMenu);
             
