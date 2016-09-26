@@ -164,6 +164,24 @@ namespace MindMate.View.Ribbon
 		private RibbonButton NoteNormal;		
 		private RibbonGroup GrpNoteTable;		
 		private RibbonButton NoteInsertTable;		
+		private RibbonTabGroup TabGroupNoteTable;		
+		private RibbonTab TabNoteTableLayout;		
+		private RibbonGroup GrpCustomizeTable;		
+		private RibbonButton ModifyTableProperties;		
+		private RibbonGroup GrpTableDelete;		
+		private RibbonButton DeleteRow;		
+		private RibbonButton DeleteColumn;		
+		private RibbonButton DeleteTable;		
+		private RibbonGroup GrpTableInsert;		
+		private RibbonButton InsertRowAbove;		
+		private RibbonButton InsertRowBelow;		
+		private RibbonButton InsertColumnLeft;		
+		private RibbonButton InsertColumnRight;		
+		private RibbonGroup GrpTableMove;		
+		private RibbonButton MoveRowUp;		
+		private RibbonButton MoveRowDown;		
+		private RibbonButton MoveColumnLeft;		
+		private RibbonButton MoveColumnRight;		
 
 		private void InitializeComponents()
 		{
@@ -317,6 +335,24 @@ namespace MindMate.View.Ribbon
 			NoteNormal = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteNormal);
 			GrpNoteTable = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNoteTable);
 			NoteInsertTable = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteInsertTable);
+			TabGroupNoteTable = new RibbonTabGroup(ribbon, (uint)RibbonMarkupCommands.TabGroupNoteTable);
+			TabNoteTableLayout = new RibbonTab(ribbon, (uint)RibbonMarkupCommands.TabNoteTableLayout);
+			GrpCustomizeTable = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpCustomizeTable);
+			ModifyTableProperties = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ModifyTableProperties);
+			GrpTableDelete = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpTableDelete);
+			DeleteRow = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.DeleteRow);
+			DeleteColumn = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.DeleteColumn);
+			DeleteTable = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.DeleteTable);
+			GrpTableInsert = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpTableInsert);
+			InsertRowAbove = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.InsertRowAbove);
+			InsertRowBelow = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.InsertRowBelow);
+			InsertColumnLeft = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.InsertColumnLeft);
+			InsertColumnRight = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.InsertColumnRight);
+			GrpTableMove = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpTableMove);
+			MoveRowUp = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.MoveRowUp);
+			MoveRowDown = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.MoveRowDown);
+			MoveColumnLeft = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.MoveColumnLeft);
+			MoveColumnRight = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.MoveColumnRight);
 
 		}
 	

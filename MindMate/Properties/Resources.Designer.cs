@@ -211,6 +211,66 @@ namespace MindMate.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap DeleteColumn_LargeImage {
+            get {
+                object obj = ResourceManager.GetObject("DeleteColumn_LargeImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap DeleteColumn_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("DeleteColumn_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap DeleteRow_LargeImage {
+            get {
+                object obj = ResourceManager.GetObject("DeleteRow_LargeImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap DeleteRow_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("DeleteRow_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap DeleteTable_LargeImage {
+            get {
+                object obj = ResourceManager.GetObject("DeleteTable_LargeImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap DeleteTable_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("DeleteTable_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         public static byte[] DragMove {
@@ -286,6 +346,86 @@ namespace MindMate.Properties {
         public static System.Drawing.Bitmap Indent_SmallImage {
             get {
                 object obj = ResourceManager.GetObject("Indent_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap InsertColumnLeft_LargeImage {
+            get {
+                object obj = ResourceManager.GetObject("InsertColumnLeft_LargeImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap InsertColumnLeft_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("InsertColumnLeft_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap InsertColumnRight_LargeImage {
+            get {
+                object obj = ResourceManager.GetObject("InsertColumnRight_LargeImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap InsertColumnRight_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("InsertColumnRight_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap InsertRowAbove_LargeImage {
+            get {
+                object obj = ResourceManager.GetObject("InsertRowAbove_LargeImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap InsertRowAbove_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("InsertRowAbove_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap InsertRowBelow_LargeImage {
+            get {
+                object obj = ResourceManager.GetObject("InsertRowBelow_LargeImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap InsertRowBelow_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("InsertRowBelow_SmallImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -437,6 +577,86 @@ namespace MindMate.Properties {
             get {
                 object obj = ResourceManager.GetObject("move_r", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap MoveColumnLeft_LargeImage {
+            get {
+                object obj = ResourceManager.GetObject("MoveColumnLeft_LargeImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap MoveColumnLeft_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("MoveColumnLeft_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap MoveColumnRight_LargeImage {
+            get {
+                object obj = ResourceManager.GetObject("MoveColumnRight_LargeImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap MoveColumnRight_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("MoveColumnRight_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap MoveRowDown_LargeImage {
+            get {
+                object obj = ResourceManager.GetObject("MoveRowDown_LargeImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap MoveRowDown_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("MoveRowDown_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap MoveRowUp_LargeImage {
+            get {
+                object obj = ResourceManager.GetObject("MoveRowUp_LargeImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap MoveRowUp_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("MoveRowUp_SmallImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -616,6 +836,26 @@ namespace MindMate.Properties {
         public static System.Drawing.Bitmap sticky_note_pin {
             get {
                 object obj = ResourceManager.GetObject("sticky_note_pin", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap TableProperties_LargeImage {
+            get {
+                object obj = ResourceManager.GetObject("TableProperties_LargeImage", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap TableProperties_SmallImage {
+            get {
+                object obj = ResourceManager.GetObject("TableProperties_SmallImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

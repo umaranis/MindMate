@@ -511,6 +511,30 @@
     <None Include="Resources\NoteNormal_16bit.png" />
     <None Include="Resources\InsertTable.SmallImage.png" />
     <None Include="Resources\InsertTable.LargeImage.png" />
+    <None Include="Resources\MoveRowUp.SmallImage.png" />
+    <None Include="Resources\InsertColumnLeft.LargeImage.png" />
+    <None Include="Resources\InsertColumnLeft.SmallImage.png" />
+    <None Include="Resources\InsertColumnRight.LargeImage.png" />
+    <None Include="Resources\InsertColumnRight.SmallImage.png" />
+    <None Include="Resources\InsertRowAbove.LargeImage.png" />
+    <None Include="Resources\InsertRowAbove.SmallImage.png" />
+    <None Include="Resources\InsertRowBelow.LargeImage.png" />
+    <None Include="Resources\InsertRowBelow.SmallImage.png" />
+    <None Include="Resources\MoveColumnLeft.LargeImage.png" />
+    <None Include="Resources\MoveColumnLeft.SmallImage.png" />
+    <None Include="Resources\MoveColumnRight.LargeImage.png" />
+    <None Include="Resources\MoveColumnRight.SmallImage.png" />
+    <None Include="Resources\MoveRowDown.LargeImage.png" />
+    <None Include="Resources\MoveRowDown.SmallImage.png" />
+    <None Include="Resources\MoveRowUp.LargeImage.png" />
+    <None Include="Resources\DeleteTable.SmallImage.png" />
+    <None Include="Resources\DeleteColumn.LargeImage.png" />
+    <None Include="Resources\DeleteColumn.SmallImage.png" />
+    <None Include="Resources\DeleteRow.LargeImage.png" />
+    <None Include="Resources\DeleteRow.SmallImage.png" />
+    <None Include="Resources\DeleteTable.LargeImage.png" />
+    <None Include="Resources\TableProperties.LargeImage.png" />
+    <None Include="Resources\TableProperties.SmallImage.png" />
     <Content Include="Serialization\MapYamlSerializer.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapYamlSerializer.Generated.cs</LastGenOutput>

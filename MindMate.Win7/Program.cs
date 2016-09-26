@@ -26,14 +26,16 @@ namespace MindMate.Win7
             var ribbonHandler = new View.Ribbon.Ribbon(form.Ribbon, mainCtrl, form);
             form.RibbonCtrl = ribbonHandler;
             form.Load += (sender, args) => ribbonHandler.OnRibbonLoaded();
-            //Application.ThreadException += Application_ThreadException; //TODO: implement this it replace the standard exception dialog
+            Application.ThreadException += Application_ThreadException;
             Application.Run(form);
             CloseLogListeners();
         }
 
-        //private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
-        //{
-        //}
+        private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        {
+            Trace.WriteLine(DateTime.Now.ToString() + ":" + e.Exception.Message);
+            Trace.WriteLine(e.Exception.StackTrace);
+        }       
 
         private static void EnableLogListeners()
         {

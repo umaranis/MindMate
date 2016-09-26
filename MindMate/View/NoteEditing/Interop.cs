@@ -173,4 +173,85 @@ namespace MindMate.View.NoteEditing
                 out long state
             );
     }
+
+    [ComImport(), Guid("6D5140C1-7436-11CE-8034-00AA006009FA"),
+            InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IOleServiceProvider
+    {
+        [return: MarshalAs(UnmanagedType.I4)]
+        [PreserveSig]
+        int QueryService(
+            [In] ref Guid guidService,
+            [In] ref Guid riid,
+            out IntPtr ppvObject);
+    }
+
+    [Guid("3050f662-98b5-11cf-bb82-00aa00bdce0b"), InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IHTMLEditDesigner
+    {
+        [return: MarshalAs(UnmanagedType.I4)]
+        [PreserveSig]
+        int PreHandleEvent(
+            [In] int dispId,
+            [In, MarshalAs(UnmanagedType.Interface)]
+                mshtml.IHTMLEventObj eventObj
+            );
+
+        [return: MarshalAs(UnmanagedType.I4)]
+        [PreserveSig]
+        int PostHandleEvent(
+            [In] int dispId,
+            [In, MarshalAs(UnmanagedType.Interface)]
+                mshtml.IHTMLEventObj eventObj
+            );
+
+        [return: MarshalAs(UnmanagedType.I4)]
+        [PreserveSig]
+        int TranslateAccelerator(
+            [In] int dispId,
+            [In, MarshalAs(UnmanagedType.Interface)]
+                mshtml.IHTMLEventObj eventObj
+            );
+
+        [return: MarshalAs(UnmanagedType.I4)]
+        [PreserveSig]
+        int PostEditorEventNotify(
+            [In] int dispId,
+            [In, MarshalAs(UnmanagedType.Interface)]
+                mshtml.IHTMLEventObj eventObj
+            );
+
+    }
+
+    [Guid("3050f663-98b5-11cf-bb82-00aa00bdce0b"), InterfaceTypeAttribute(ComInterfaceType.InterfaceIsIUnknown)]
+    public interface IHTMLEditServices
+    {
+
+        [return: MarshalAs(UnmanagedType.I4)]
+        int AddDesigner(
+            [In, MarshalAs(UnmanagedType.Interface)]
+                IHTMLEditDesigner designer);
+
+        [return: MarshalAs(UnmanagedType.Interface)]
+        int GetSelectionServices(
+           [In, MarshalAs(UnmanagedType.Interface)]
+                mshtml.IMarkupContainer markupContainer,
+           [Out, MarshalAs(UnmanagedType.Interface)]
+                out IntPtr ss);
+
+        [return: MarshalAs(UnmanagedType.I4)]
+        int MoveToSelectionAnchor(
+            [In, MarshalAs(UnmanagedType.Interface)]
+                object markupPointer);
+
+        [return: MarshalAs(UnmanagedType.I4)]
+        int MoveToSelectionEnd(
+            [In, MarshalAs(UnmanagedType.Interface)]
+                object markupPointer);
+
+        [return: MarshalAs(UnmanagedType.I4)]
+        int RemoveDesigner(
+            [In, MarshalAs(UnmanagedType.Interface)]
+                IHTMLEditDesigner designer);
+    }
 }

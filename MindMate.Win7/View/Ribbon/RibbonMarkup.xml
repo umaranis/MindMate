@@ -410,7 +410,31 @@ Note:
     <Command Name="GrpNoteTable" Id="7500" />
     <Command Name="NoteInsertTable" Id="7501" Keytip="T" LabelTitle="Table" TooltipDescription="Insert a table in the Note." />
     
+    <!--Tab: Note Table-->    
+    <Command Name="TabGroupNoteTable" Id="8000" LabelTitle="Table Tools" />
+    <Command Name="TabNoteTableLayout" Id="8100" LabelTitle="Layout" />
     
+    <Command Name="GrpCustomizeTable" Id="8200" Keytip="ZP" Symbol="cmdFormatTablePropertiesGroup"  />
+    <Command Name="ModifyTableProperties" Id="8201" LabelTitle="Customize &amp;table" TooltipDescription="Edit table properties." />
+
+    <Command Name="GrpTableDelete" Keytip="ZD" LabelTitle="Delete" Symbol="cmdFormatTableEditingGroup" Id="8300" />
+    <Command Name="DeleteRow" Keytip="DR" LabelTitle="Delete row" TooltipDescription="Remove the selected row." Id="8301" />
+    <Command Name="DeleteColumn" Keytip="DC" LabelTitle="Delete column" TooltipDescription="Remove the selected column." Id="8302" />
+    <Command Name="DeleteTable" Keytip="DT" LabelTitle="Delete table" TooltipDescription="Delete the table." Id="8303" />
+    
+    <Command Name="GrpTableInsert" Keytip="ZI" LabelTitle="Insert" Id="8400" />
+    <Command Name="InsertRowAbove" Keytip="IA" LabelTitle="Insert above" TooltipDescription="Insert a row above the current position." Id="8401" />
+    <Command Name="InsertRowBelow" Keytip="IB" LabelTitle="Insert below" TooltipDescription="Insert a row below the current position." Id="8402" />
+    <Command Name="InsertColumnLeft" Keytip="IL" LabelTitle="Insert left" TooltipDescription="Insert a column to the left of the current position." Id="8403" />
+    <Command Name="InsertColumnRight" Keytip="IR" LabelTitle="Insert right" TooltipDescription="Insert a column to the right of the current position." Id="8404" />    
+    
+    <Command Name="GrpTableMove" Keytip="ZM" LabelTitle="Move" Id="8500" />
+    <Command Name="MoveRowUp" Keytip="MA" LabelTitle="Move above" TooltipDescription="Swap the current row with the one above." Id="8501" />
+    <Command Name="MoveRowDown" Keytip="MB" LabelTitle="Move below" TooltipDescription="Swap the current row with the one below." Id="8502" />
+    <Command Name="MoveColumnLeft" Keytip="ML" LabelTitle="Move left" TooltipDescription="Swap the selected column with the one to the left." Id="8503" />
+    <Command Name="MoveColumnRight" Keytip="MR" LabelTitle="Move right" TooltipDescription="Swap the selected column with the one to the right." Id="8504" />
+
+        
   </Application.Commands>
                    
   <Application.Views>
@@ -954,6 +978,41 @@ Note:
             <Group CommandName="GrpNoteTable" SizeDefinition="OneButton">
               <Button CommandName="NoteInsertTable" />
             </Group>            
+          </Tab>
+        </TabGroup>
+        <TabGroup CommandName="TabGroupNoteTable">
+          <Tab CommandName="TabNoteTableLayout">
+            <Tab.ScalingPolicy>
+              <ScalingPolicy>
+                <ScalingPolicy.IdealSizes>
+                  <Scale Group="GrpCustomizeTable" Size="Large"/>
+                  <Scale Group="GrpTableInsert" Size="Medium"/>
+                  <Scale Group="GrpTableMove" Size="Medium"/>
+                  <Scale Group="GrpTableDelete" Size="Medium"/>
+                </ScalingPolicy.IdealSizes>
+                <Scale Group="GrpTableDelete" Size="Popup"/>
+              </ScalingPolicy>
+            </Tab.ScalingPolicy>
+            <Group CommandName="GrpCustomizeTable" SizeDefinition="OneButton">
+              <Button CommandName="ModifyTableProperties"/>
+            </Group>
+            <Group CommandName="GrpTableDelete" SizeDefinition="ThreeButtons" >
+              <Button CommandName="DeleteRow"/>
+              <Button CommandName="DeleteColumn"/>
+              <Button CommandName="DeleteTable"/>
+            </Group>
+            <Group CommandName="GrpTableInsert" SizeDefinition="FourButtons" >
+              <Button CommandName="InsertRowAbove"/>
+              <Button CommandName="InsertRowBelow"/>
+              <Button CommandName="InsertColumnLeft"/>
+              <Button CommandName="InsertColumnRight"/>
+            </Group>
+            <Group CommandName="GrpTableMove" SizeDefinition="FourButtons" >
+              <Button CommandName="MoveRowUp"/>
+              <Button CommandName="MoveRowDown"/>
+              <Button CommandName="MoveColumnLeft"/>
+              <Button CommandName="MoveColumnRight"/>
+            </Group>
           </Tab>
         </TabGroup>
       </Ribbon.ContextualTabs>

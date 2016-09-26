@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 
 namespace MindMate.View.NoteEditing
 {
-    public partial class NoteEditor : WebBrowser, IHTMLChangeSink
+    public partial class NoteEditor : WebBrowser, IHTMLChangeSink, IHTMLEditDesigner
     {
         private IHTMLDocument2 htmlDoc;
 
@@ -38,6 +38,8 @@ namespace MindMate.View.NoteEditing
         /// </summary>
         public event Action<object> Ready = delegate { };
 
+        public event Action<object> CursorMoved;
+
         public event Action<object> OnDirty = delegate { };
 
         private bool ignoreDirtyNotification = true;               // Ignore when body as HTML property is set. Initialized by true to skip initial setup notification.
@@ -53,7 +55,12 @@ namespace MindMate.View.NoteEditing
         /// <param name="e">navigation args</param>
         private void this_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
+            TableEditor = new HtmlTableHelper(htmlDoc as HTMLDocument);
+
             SetBackgroundColor(BackColor);
+
+            //IHTMLStyleSheet style = htmlDoc.createStyleSheet("", 0);
+            //style.cssText = @"table { border-collapse: collapse; }";
 
             Ready(sender);
 
@@ -61,6 +68,9 @@ namespace MindMate.View.NoteEditing
             IMarkupContainer2 cont2 = (IMarkupContainer2)htmlDoc;
             uint m_cookie;
             cont2.RegisterForDirtyRange(this, out m_cookie);
+
+            // register for key/mouse events
+            SetEditDesigner();
         }
 
         private void NoteEditor_Navigating(object sender, WebBrowserNavigatingEventArgs e)
@@ -170,6 +180,78 @@ namespace MindMate.View.NoteEditing
         public void ExecuteCommand(NoteEditorCommand command)
         {
             htmlDoc.execCommand(command.Value);
+        }
+
+        #region IHTMLEditDesigner
+
+        /// <internalonly/>
+        /// <summary>
+        /// Set the standard designer which is responsible for all base events.
+        /// </summary>
+        /// <remarks>
+        /// Called in readystate "complete" state and before external event handling.
+        /// </remarks>
+        private void SetEditDesigner()
+        {
+            // prepare add designer methods
+            IOleServiceProvider isp = (IOleServiceProvider)htmlDoc;            
+            if (isp != null && htmlDoc.body != null)
+            {
+                IntPtr ppv = IntPtr.Zero;
+                try
+                {
+                    Guid IHtmlEditServicesGuid = new Guid("3050f663-98b5-11cf-bb82-00aa00bdce0b");
+                    Guid SHtmlEditServicesGuid = new Guid("3050f7f9-98b5-11cf-bb82-00aa00bdce0b");
+                    isp.QueryService(ref SHtmlEditServicesGuid, ref IHtmlEditServicesGuid, out ppv);
+                    IHTMLEditServices es = Marshal.GetObjectForIUnknown(ppv) as IHTMLEditServices;
+                    es.AddDesigner(this);
+                }
+                catch
+                {
+                }
+                finally
+                {
+                    Marshal.Release(ppv);
+                }
+            }
+        }
+
+        private const int S_FALSE = 1;
+        private const int S_OK = 0;
+
+        public int PreHandleEvent(int inEvtDispId, IHTMLEventObj pIEventObj)
+        {
+            return S_FALSE;
+        }
+
+        public int PostHandleEvent(int inEvtDispId, IHTMLEventObj pIEventObj)
+        {
+            return S_FALSE;
+        }
+
+        public int TranslateAccelerator(int inEvtDispId, IHTMLEventObj pIEventObj)
+        {
+            return S_FALSE;
+        }
+
+        public int PostEditorEventNotify(int inEvtDispId, IHTMLEventObj pIEventObj)
+        {
+            const int KEYDOWN = (-602);
+            const int MOUSEDOWN = (-605);
+            if (inEvtDispId == KEYDOWN || inEvtDispId == MOUSEDOWN)
+            {
+                CursorMoved?.Invoke(this);
+            }            
+            return S_FALSE;
+
+        }
+
+        #endregion IHTMLEditDesigner
+
+        public HtmlTableHelper TableEditor
+        {
+            get;
+            private set;
         }
 
         public void InsertHyperlink(string url)
@@ -294,10 +376,10 @@ namespace MindMate.View.NoteEditing
             {
                 if (e.KeyCode == Keys.O || e.KeyCode == Keys.L)
                     e.IsInputKey = true;                
-            }
+            }            
 
             base.OnPreviewKeyDown(e);
-        }
+        }        
 
         public void Cut()
         {            
@@ -541,7 +623,7 @@ namespace MindMate.View.NoteEditing
         {
             GetUndoManager().DiscardFrom(null);
         }
-
+        
     }
 
     public sealed class NoteEditorCommand

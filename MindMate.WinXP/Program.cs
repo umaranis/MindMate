@@ -25,14 +25,16 @@ namespace MindMate.WinXP
             mainCtrl.InitMindMate(form);
             MainMenuCtrl mainMenuCtrl = new MainMenuCtrl(form.MainMenu, mainCtrl);
             form.MainMenuCtrl = mainMenuCtrl;
-            //Application.ThreadException += Application_ThreadException; //TODO: implement this it replace the standard exception dialog
+            Application.ThreadException += Application_ThreadException; 
             Application.Run(form);
             CloseLogListeners();
         }
 
-        //private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
-        //{
-        //}
+        private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        {
+            Trace.WriteLine(DateTime.Now.ToString() + ":" + e.Exception.Message);
+            Trace.WriteLine(e.Exception.StackTrace);
+        }
 
         private static void EnableLogListeners()
         {

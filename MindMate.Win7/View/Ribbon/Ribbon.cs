@@ -185,12 +185,27 @@ namespace MindMate.View.Ribbon
             //Note Editor Tab: Table
             NoteInsertTable.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.InsertTable();
 
+            //Note Editor Table Tab
+            ModifyTableProperties.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.ModifyTable();
+            DeleteRow.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.DeleteTableRow();
+            DeleteColumn.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.DeleteTableColumn();
+            DeleteTable.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.DeleteTable();
+            InsertRowAbove.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.InsertTableRowAbove();
+            InsertRowBelow.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.InsertTableRowBelow();
+            InsertColumnLeft.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.InsertTableColumnLeft();
+            InsertColumnRight.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.InsertTableColumnRight();
+            MoveRowUp.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.MoveTableRowUp();
+            MoveRowDown.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.MoveTableRowDown();
+            MoveColumnLeft.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.MoveTableColumnLeft();
+            MoveColumnRight.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.MoveTableColumnRight();
+
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
             mainForm.EditorTabs.ControlAdded += Tabs_ControlAdded;
             mainForm.EditorTabs.ControlRemoved += Tabs_ControlRemoved;
-            mainForm.EditorTabs.SelectedIndexChanged += Tabs_SelectedIndexChanged;            
+            mainForm.EditorTabs.SelectedIndexChanged += Tabs_SelectedIndexChanged;
+            mainForm.NoteEditor.CursorMoved += NoteEditor_CursorMoved;       
         }        
 
         /// <summary>
@@ -217,6 +232,31 @@ namespace MindMate.View.Ribbon
             NoteNormal.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteNormal_16bit);
             NoteInsertTable.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.InsertTable_SmallImage);
             NoteInsertTable.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.InsertTable_LargeImage);
+            ModifyTableProperties.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.TableProperties_SmallImage);
+            ModifyTableProperties.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.TableProperties_LargeImage);
+            DeleteRow.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.DeleteRow_SmallImage);
+            DeleteRow.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.DeleteTable_LargeImage);
+            DeleteColumn.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.DeleteColumn_SmallImage);
+            DeleteColumn.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.DeleteColumn_LargeImage);
+            DeleteTable.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.DeleteTable_SmallImage);
+            DeleteTable.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.DeleteTable_LargeImage);
+            InsertRowAbove.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.InsertRowAbove_SmallImage);
+            InsertRowAbove.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.InsertRowAbove_LargeImage);
+            InsertRowBelow.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.InsertRowBelow_SmallImage);
+            InsertRowBelow.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.InsertRowBelow_LargeImage);
+            InsertColumnLeft.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.InsertColumnLeft_SmallImage);
+            InsertColumnLeft.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.InsertColumnLeft_LargeImage);
+            InsertColumnRight.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.InsertColumnRight_SmallImage);
+            InsertColumnRight.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.InsertColumnRight_LargeImage);
+            MoveRowUp.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveRowUp_SmallImage);
+            MoveRowUp.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveRowUp_LargeImage);
+            MoveRowDown.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveRowDown_SmallImage);
+            MoveRowDown.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveRowDown_LargeImage);
+            MoveColumnLeft.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveColumnLeft_SmallImage);
+            MoveColumnLeft.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveColumnLeft_LargeImage);
+            MoveColumnRight.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveColumnRight_SmallImage);
+            MoveColumnRight.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveColumnRight_LargeImage);
+
             mainForm.FocusedControlChanged += MainForm_FocusedControlChanged;
         }
         
@@ -1188,6 +1228,19 @@ namespace MindMate.View.Ribbon
             else if(lostFocus == mainForm.NoteEditor)
             {
                 TabGroupNote.ContextAvailable = ContextAvailability.NotAvailable;
+                TabGroupNoteTable.ContextAvailable = ContextAvailability.NotAvailable;
+            }
+        }
+
+        private void NoteEditor_CursorMoved(object obj)
+        {
+            if(mainForm.NoteEditor.TableEditor.InsideTable())
+            {
+                TabGroupNoteTable.ContextAvailable = ContextAvailability.Available;
+            }
+            else
+            {
+                TabGroupNoteTable.ContextAvailable = ContextAvailability.NotAvailable;
             }
         }
 

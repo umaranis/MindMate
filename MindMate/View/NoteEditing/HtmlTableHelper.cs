@@ -647,7 +647,11 @@ namespace MindMate.View.NoteEditing
 
         } //GetTableElement
 
-        private HtmlTable GetTableElement()
+        /// <summary>
+        /// Get selected or parent table
+        /// </summary>
+        /// <returns></returns>
+        public HtmlTable GetTableElement()
         {
             // define the table and row elements and obtain there values
             HtmlTable table = null;
@@ -733,22 +737,14 @@ namespace MindMate.View.NoteEditing
         } //GetTableProperties
 
         // Determine if the insertion point or selection is a table
-        private bool InsideTable()
+        public bool InsideTable()
         {
             // see if a table selected or insertion point inside a table
             HtmlTable htmlTable = GetTableElement();
 
             // process according to table being defined
-            if (htmlTable == null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-
-        } //IsParentTable
+            return htmlTable != null;
+        } 
 
 
         #endregion

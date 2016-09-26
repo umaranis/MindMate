@@ -307,4 +307,76 @@
   <data name="InsertTable_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\InsertTable.SmallImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="DeleteColumn_LargeImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeleteColumn.LargeImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteColumn_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeleteColumn.SmallImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteRow_LargeImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeleteRow.LargeImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteRow_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeleteRow.SmallImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteTable_LargeImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeleteTable.LargeImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DeleteTable_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DeleteTable.SmallImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InsertColumnLeft_LargeImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InsertColumnLeft.LargeImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InsertColumnLeft_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InsertColumnLeft.SmallImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InsertColumnRight_LargeImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InsertColumnRight.LargeImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InsertColumnRight_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InsertColumnRight.SmallImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InsertRowAbove_LargeImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InsertRowAbove.LargeImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InsertRowAbove_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InsertRowAbove.SmallImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InsertRowBelow_LargeImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InsertRowBelow.LargeImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="InsertRowBelow_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\InsertRowBelow.SmallImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveColumnLeft_LargeImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoveColumnLeft.LargeImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveColumnLeft_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoveColumnLeft.SmallImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveColumnRight_LargeImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoveColumnRight.LargeImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveColumnRight_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoveColumnRight.SmallImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveRowDown_LargeImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoveRowDown.LargeImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveRowDown_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoveRowDown.SmallImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveRowUp_LargeImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoveRowUp.LargeImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MoveRowUp_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MoveRowUp.SmallImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TableProperties_LargeImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TableProperties.LargeImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="TableProperties_SmallImage" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\TableProperties.SmallImage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
