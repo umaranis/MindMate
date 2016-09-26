@@ -111,6 +111,7 @@
     <Compile Include="View\MapControls\NodeViewTests.cs" />
     <Compile Include="View\NoteEditing\NoteEditorContextMenuTests.cs" />
     <Compile Include="View\NoteEditing\NoteEditorTests.cs" />
+    <Compile Include="View\NoteEditing\TablePropertyFormTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MindMate.WinXP\MindMate.WinXP.csproj">
