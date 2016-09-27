@@ -30,19 +30,19 @@ namespace MindMate.View.NoteEditing
             //define base values
             CaptionText = string.Empty;
             CaptionAlignment = HorizontalAlignOption.Default;
-            CaptionLocation = VerticalAlignOption.Default;
-            TableAlignment = HorizontalAlignOption.Default;
+            CaptionLocation = VerticalAlignOption.Bottom;
+            TableAlignment = HorizontalAlignOption.Center;
 
             // define values based on whether HTML defaults are required
             if (htmlDefaults)
             {
-                BorderSize = 2;
+                BorderSize = 1;
                 TableRows = 3;
                 TableColumns = 3;
-                TableWidth = 50;
+                TableWidth = 90;
                 TableWidthMeasurement = MeasurementOption.Percent;
                 CellPadding = 1;
-                CellSpacing = 2;
+                CellSpacing = 0;
             }
             else
             {

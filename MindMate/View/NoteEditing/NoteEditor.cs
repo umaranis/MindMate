@@ -60,8 +60,8 @@ namespace MindMate.View.NoteEditing
 
             SetBackgroundColor(BackColor);
 
-            //IHTMLStyleSheet style = htmlDoc.createStyleSheet("", 0);
-            //style.cssText = @"table { border-collapse: collapse; }";
+            IHTMLStyleSheet style = htmlDoc.createStyleSheet("", 0);
+            style.cssText = @"table, th, td { border-collapse: collapse; border-color: black } "; //table, th, td { border: 1px solid black; }
 
             Ready(sender);
 
