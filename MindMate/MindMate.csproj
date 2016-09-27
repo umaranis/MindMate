@@ -110,6 +110,7 @@
     <Compile Include="Modules\Logging\Log.cs" />
     <Compile Include="View\NoteEditing\MsHtmlWrap\HtmlEditorException.cs" />
     <Compile Include="View\NoteEditing\MsHtmlWrap\HtmlTableHelper.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\UndoUnit.cs" />
     <Compile Include="View\NoteEditing\NoteMapGlue.cs" />
     <Compile Include="Debugging\IconListCreator.cs" />
     <Compile Include="MetaModel\ModelIcon.cs" />
