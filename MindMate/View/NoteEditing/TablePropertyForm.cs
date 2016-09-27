@@ -153,7 +153,7 @@ namespace MindMate.View.NoteEditing
         {
             get
             {
-                return bInsert.Text.Equals("Insert");
+                return !bInsert.Text.Equals("Insert");
             }
             set
             {
