@@ -118,14 +118,17 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                 {
                     using (new SelectionPreserver(GetMarkupRange()))
                     {
-                        // find the existing row the user is on and perform the insertion
-                        int index = row.rowIndex + (below ? 1 : 0);
-                        HtmlTableRow insertedRow = table.insertRow(index) as HtmlTableRow;
-                        // add the new columns to the end of each row
-                        int numberCols = row.cells.length;
-                        for (int idxCol = 0; idxCol < numberCols; idxCol++)
+                        using (new UndoUnit(document, "Table row insert"))
                         {
-                            insertedRow.insertCell(-1);
+                            // find the existing row the user is on and perform the insertion
+                            int index = row.rowIndex + (below ? 1 : 0);
+                            HtmlTableRow insertedRow = table.insertRow(index) as HtmlTableRow;
+                            // add the new columns to the end of each row
+                            int numberCols = row.cells.length;
+                            for (int idxCol = 0; idxCol < numberCols; idxCol++)
+                            {
+                                insertedRow.insertCell(-1);
+                            }
                         }
                     }
                 }
@@ -164,17 +167,20 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
             {
                 try
                 {
-                    // find the existing row the user is on and perform the insertion
-                    int index = cell.cellIndex + (right ? 1 : 0);                    
-                    // add the new columns to the end of each row
-                    int numberRows = table.rows.length;
-                    for (int i = 0; i < numberRows; i++)
+                    using (new UndoUnit(document, "Table column insert"))
                     {
-                        HtmlTableRow r = table.rows.item(i) as HtmlTableRow;
-                        r.insertCell(index);
-                    }
+                        // find the existing row the user is on and perform the insertion
+                        int index = cell.cellIndex + (right ? 1 : 0);
+                        // add the new columns to the end of each row
+                        int numberRows = table.rows.length;
+                        for (int i = 0; i < numberRows; i++)
+                        {
+                            HtmlTableRow r = table.rows.item(i) as HtmlTableRow;
+                            r.insertCell(index);
+                        }
 
-                    table.cols++;
+                        table.cols++;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -203,9 +209,12 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
             {
                 try
                 {
-                    // find the existing row the user is on and perform the deletion
-                    int index = row.rowIndex;
-                    table.deleteRow(index);
+                    using (new UndoUnit(document, "Table row delete"))
+                    {
+                        // find the existing row the user is on and perform the deletion
+                        int index = row.rowIndex;
+                        table.deleteRow(index); 
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -232,11 +241,14 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
             {
                 try
                 {
-                    foreach(HtmlTableRow r in table.rows)
+                    using (new UndoUnit(document, "Table column delete"))
                     {
-                        r.deleteCell(cell.cellIndex);
-                    }
-                    table.cols--;              
+                        foreach (HtmlTableRow r in table.rows)
+                        {
+                            r.deleteCell(cell.cellIndex);
+                        }
+                        table.cols--;    
+                    }           
                 }
                 catch (Exception ex)
                 {
@@ -261,7 +273,10 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
             {
                 try
                 {
-                    (table as HtmlDomNode).removeNode(true);
+                    using (new UndoUnit(document, "Table delete"))
+                    {
+                        (table as HtmlDomNode).removeNode(true); 
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -289,8 +304,11 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                 {
                     using (new SelectionPreserver(GetMarkupRange()))
                     {
-                        HtmlTableRow rowAbove = table.rows.item(row.rowIndex - 1);
-                        (row as HtmlDomNode).swapNode(rowAbove as HtmlDomNode);
+                        using (new UndoUnit(document, "Table row move up"))
+                        {
+                            HtmlTableRow rowAbove = table.rows.item(row.rowIndex - 1);
+                            (row as HtmlDomNode).swapNode(rowAbove as HtmlDomNode);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -320,8 +338,11 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                 {
                     using (new SelectionPreserver(GetMarkupRange()))
                     {
-                        HtmlTableRow rowBelow = table.rows.item(row.rowIndex + 1);
-                        (row as HtmlDomNode).swapNode(rowBelow as HtmlDomNode);
+                        using (new UndoUnit(document, "Table row move down"))
+                        {
+                            HtmlTableRow rowBelow = table.rows.item(row.rowIndex + 1);
+                            (row as HtmlDomNode).swapNode(rowBelow as HtmlDomNode); 
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -352,12 +373,15 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                 {
                     using (new SelectionPreserver(GetMarkupRange()))
                     {
-                        for (int i = 0; i < table.rows.length; i++)
+                        using (new UndoUnit(document, "Table column move left"))
                         {
-                            HtmlTableRow r = table.rows.item(i);
-                            HtmlDomNode c1 = r.cells.item(index);
-                            HtmlDomNode c2 = r.cells.item(index - 1);
-                            c1.swapNode(c2);
+                            for (int i = 0; i < table.rows.length; i++)
+                            {
+                                HtmlTableRow r = table.rows.item(i);
+                                HtmlDomNode c1 = r.cells.item(index);
+                                HtmlDomNode c2 = r.cells.item(index - 1);
+                                c1.swapNode(c2);
+                            } 
                         }
                     }
                 }
@@ -389,12 +413,15 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                 {
                     using (new SelectionPreserver(GetMarkupRange()))
                     {
-                        for (int i = 0; i < table.rows.length; i++)
+                        using (new UndoUnit(document, "Table column move right"))
                         {
-                            HtmlTableRow r = table.rows.item(i);
-                            HtmlDomNode c1 = r.cells.item(index);
-                            HtmlDomNode c2 = r.cells.item(index + 1);
-                            c1.swapNode(c2);
+                            for (int i = 0; i < table.rows.length; i++)
+                            {
+                                HtmlTableRow r = table.rows.item(i);
+                                HtmlDomNode c1 = r.cells.item(index);
+                                HtmlDomNode c2 = r.cells.item(index + 1);
+                                c1.swapNode(c2);
+                            } 
                         }
                     }
                 }
@@ -416,218 +443,221 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
         {
             try
             {
-                // obtain a reference to the body node and indicate table present
-                HtmlDomNode bodyNode = (HtmlDomNode)document.body;
-                bool tableCreated = false;
-
-                MsHtmlWrap.MarkupRange targetMarkupRange = null;
-
-                // ensure a table node has been defined to work with
-                if (table == null)
+                using (new UndoUnit(document, "Table add/modify"))
                 {
-                    // create the table and indicate it was created
-                    table = (HtmlTable)document.createElement("TABLE");
-                    tableCreated = true;
+                    // obtain a reference to the body node and indicate table present
+                    HtmlDomNode bodyNode = (HtmlDomNode)document.body;
+                    bool tableCreated = false;
 
-                    //markup range for selecting first cell after table creation
-                    targetMarkupRange = GetMarkupRange();                    
-                }
+                    MsHtmlWrap.MarkupRange targetMarkupRange = null;
 
-                // define the table border, width, cell padding and spacing
-                table.border = tableProperties.BorderSize;
-                if (tableProperties.TableWidth > 0) table.width = (tableProperties.TableWidthMeasurement == MeasurementOption.Pixel) ? string.Format("{0}", tableProperties.TableWidth) : string.Format("{0}%", tableProperties.TableWidth);
-                else table.width = string.Empty;
-                if (tableProperties.TableAlignment != HorizontalAlignOption.Default) table.align = tableProperties.TableAlignment.ToString().ToLower();
-                else table.align = string.Empty;
-                table.cellPadding = tableProperties.CellPadding.ToString();
-                table.cellSpacing = tableProperties.CellSpacing.ToString();
-
-                // define the given table caption and alignment
-                string caption = tableProperties.CaptionText;
-                HtmlTableCaption tableCaption = table.caption;
-                if (caption != null && caption != string.Empty)
-                {
-                    // ensure table caption correctly defined
-                    if (tableCaption == null) tableCaption = table.createCaption();
-                    ((HtmlElement)tableCaption).innerText = caption;
-                    if (tableProperties.CaptionAlignment != HorizontalAlignOption.Default) tableCaption.align = tableProperties.CaptionAlignment.ToString().ToLower();
-                    if (tableProperties.CaptionLocation != VerticalAlignOption.Default) tableCaption.vAlign = tableProperties.CaptionLocation.ToString().ToLower();
-                }
-                else
-                {
-                    // if no caption specified remove the existing one
-                    if (tableCaption != null)
+                    // ensure a table node has been defined to work with
+                    if (table == null)
                     {
-                        // prior to deleting the caption the contents must be cleared
-                        ((HtmlElement)tableCaption).innerText = null;
-                        table.deleteCaption();
+                        // create the table and indicate it was created
+                        table = (HtmlTable)document.createElement("TABLE");
+                        tableCreated = true;
+
+                        //markup range for selecting first cell after table creation
+                        targetMarkupRange = GetMarkupRange();
                     }
-                }
 
-                // determine the number of rows one has to insert
-                int numberRows, numberCols;
-                if (tableCreated)
-                {
-                    numberRows = Math.Max((int)tableProperties.TableRows, 1);
-                }
-                else
-                {
-                    numberRows = Math.Max((int)tableProperties.TableRows, 1) - (int)table.rows.length;
-                }
+                    // define the table border, width, cell padding and spacing
+                    table.border = tableProperties.BorderSize;
+                    if (tableProperties.TableWidth > 0) table.width = (tableProperties.TableWidthMeasurement == MeasurementOption.Pixel) ? string.Format("{0}", tableProperties.TableWidth) : string.Format("{0}%", tableProperties.TableWidth);
+                    else table.width = string.Empty;
+                    if (tableProperties.TableAlignment != HorizontalAlignOption.Default) table.align = tableProperties.TableAlignment.ToString().ToLower();
+                    else table.align = string.Empty;
+                    table.cellPadding = tableProperties.CellPadding.ToString();
+                    table.cellSpacing = tableProperties.CellSpacing.ToString();
 
-                // layout the table structure in terms of rows and columns
-                table.cols = (int)tableProperties.TableColumns;
-                if (tableCreated)
-                {
-                    // this section is an optimization based on creating a new table
-                    // the section below works but not as efficiently
-                    numberCols = Math.Max((int)tableProperties.TableColumns, 1);
-                    // insert the appropriate number of rows
-                    HtmlTableRow tableRow;
-                    for (int idxRow = 0; idxRow < numberRows; idxRow++)
+                    // define the given table caption and alignment
+                    string caption = tableProperties.CaptionText;
+                    HtmlTableCaption tableCaption = table.caption;
+                    if (caption != null && caption != string.Empty)
                     {
-                        tableRow = table.insertRow(-1) as HtmlTableRow;
-                        // add the new columns to the end of each row
-                        for (int idxCol = 0; idxCol < numberCols; idxCol++)
-                        {
-                            tableRow.insertCell(-1);
-                        }
-                    }
-                }
-                else
-                {
-                    // if the number of rows is increasing insert the decrepency
-                    if (numberRows > 0)
-                    {
-                        // insert the appropriate number of rows
-                        for (int idxRow = 0; idxRow < numberRows; idxRow++)
-                        {
-                            table.insertRow(-1);
-                        }
+                        // ensure table caption correctly defined
+                        if (tableCaption == null) tableCaption = table.createCaption();
+                        ((HtmlElement)tableCaption).innerText = caption;
+                        if (tableProperties.CaptionAlignment != HorizontalAlignOption.Default) tableCaption.align = tableProperties.CaptionAlignment.ToString().ToLower();
+                        if (tableProperties.CaptionLocation != VerticalAlignOption.Default) tableCaption.vAlign = tableProperties.CaptionLocation.ToString().ToLower();
                     }
                     else
                     {
-                        // remove the extra rows from the table
-                        for (int idxRow = numberRows; idxRow < 0; idxRow++)
+                        // if no caption specified remove the existing one
+                        if (tableCaption != null)
                         {
-                            table.deleteRow(table.rows.length - 1);
+                            // prior to deleting the caption the contents must be cleared
+                            ((HtmlElement)tableCaption).innerText = null;
+                            table.deleteCaption();
                         }
                     }
-                    // have the rows constructed
-                    // now ensure the columns are correctly defined for each row
-                    HtmlElementCollection rows = table.rows;
-                    foreach (HtmlTableRow tableRow in rows)
+
+                    // determine the number of rows one has to insert
+                    int numberRows, numberCols;
+                    if (tableCreated)
                     {
-                        numberCols = Math.Max((int)tableProperties.TableColumns, 1) - (int)tableRow.cells.length;
-                        if (numberCols > 0)
+                        numberRows = Math.Max((int)tableProperties.TableRows, 1);
+                    }
+                    else
+                    {
+                        numberRows = Math.Max((int)tableProperties.TableRows, 1) - (int)table.rows.length;
+                    }
+
+                    // layout the table structure in terms of rows and columns
+                    table.cols = (int)tableProperties.TableColumns;
+                    if (tableCreated)
+                    {
+                        // this section is an optimization based on creating a new table
+                        // the section below works but not as efficiently
+                        numberCols = Math.Max((int)tableProperties.TableColumns, 1);
+                        // insert the appropriate number of rows
+                        HtmlTableRow tableRow;
+                        for (int idxRow = 0; idxRow < numberRows; idxRow++)
                         {
-                            // add the new column to the end of each row
+                            tableRow = table.insertRow(-1) as HtmlTableRow;
+                            // add the new columns to the end of each row
                             for (int idxCol = 0; idxCol < numberCols; idxCol++)
                             {
                                 tableRow.insertCell(-1);
                             }
                         }
+                    }
+                    else
+                    {
+                        // if the number of rows is increasing insert the decrepency
+                        if (numberRows > 0)
+                        {
+                            // insert the appropriate number of rows
+                            for (int idxRow = 0; idxRow < numberRows; idxRow++)
+                            {
+                                table.insertRow(-1);
+                            }
+                        }
                         else
                         {
-                            // reduce the number of cells in the given row
                             // remove the extra rows from the table
-                            for (int idxCol = numberCols; idxCol < 0; idxCol++)
+                            for (int idxRow = numberRows; idxRow < 0; idxRow++)
                             {
-                                tableRow.deleteCell(tableRow.cells.length - 1);
+                                table.deleteRow(table.rows.length - 1);
+                            }
+                        }
+                        // have the rows constructed
+                        // now ensure the columns are correctly defined for each row
+                        HtmlElementCollection rows = table.rows;
+                        foreach (HtmlTableRow tableRow in rows)
+                        {
+                            numberCols = Math.Max((int)tableProperties.TableColumns, 1) - (int)tableRow.cells.length;
+                            if (numberCols > 0)
+                            {
+                                // add the new column to the end of each row
+                                for (int idxCol = 0; idxCol < numberCols; idxCol++)
+                                {
+                                    tableRow.insertCell(-1);
+                                }
+                            }
+                            else
+                            {
+                                // reduce the number of cells in the given row
+                                // remove the extra rows from the table
+                                for (int idxCol = numberCols; idxCol < 0; idxCol++)
+                                {
+                                    tableRow.deleteCell(tableRow.cells.length - 1);
+                                }
                             }
                         }
                     }
-                }
 
-                // if the table was created then it requires insertion into the DOM
-                // otherwise property changes are sufficient
-                if (tableCreated)
-                {
-                    // table processing all complete so insert into the DOM
-                    HtmlDomNode tableNode = (HtmlDomNode)table;
-                    HtmlElement tableElement = (HtmlElement)table;
-                    HtmlSelection selection = document.selection;
-                    HtmlTextRange textRange = GetTextRange();
-                    // final insert dependant on what user has selected
-                    if (textRange != null)
+                    // if the table was created then it requires insertion into the DOM
+                    // otherwise property changes are sufficient
+                    if (tableCreated)
                     {
-                        // text range selected so overwrite with a table
-                        try
+                        // table processing all complete so insert into the DOM
+                        HtmlDomNode tableNode = (HtmlDomNode)table;
+                        HtmlElement tableElement = (HtmlElement)table;
+                        HtmlSelection selection = document.selection;
+                        HtmlTextRange textRange = GetTextRange();
+                        // final insert dependant on what user has selected
+                        if (textRange != null)
                         {
-                            string selectedText = textRange.text;
-                            if (selectedText != null)
+                            // text range selected so overwrite with a table
+                            try
                             {
-                                // place selected text into first cell
-                                HtmlTableRow tableRow = table.rows.item(0, null) as HtmlTableRow;
-                                (tableRow.cells.item(0, null) as HtmlElement).innerText = selectedText;
+                                string selectedText = textRange.text;
+                                if (selectedText != null)
+                                {
+                                    // place selected text into first cell
+                                    HtmlTableRow tableRow = table.rows.item(0, null) as HtmlTableRow;
+                                    (tableRow.cells.item(0, null) as HtmlElement).innerText = selectedText;
+                                }
+                                textRange.pasteHTML(tableElement.outerHTML);
                             }
-                            textRange.pasteHTML(tableElement.outerHTML);
+                            catch (Exception ex)
+                            {
+                                throw new HtmlEditorException("Invalid Text selection for the Insertion of a Table.", "ProcessTable", ex);
+                            }
                         }
-                        catch (Exception ex)
+                        else
                         {
-                            throw new HtmlEditorException("Invalid Text selection for the Insertion of a Table.", "ProcessTable", ex);
+                            HtmlControlRange controlRange = GetAllControls();
+                            if (controlRange != null)
+                            {
+                                // overwrite any controls the user has selected
+                                try
+                                {
+                                    // clear the selection and insert the table
+                                    // only valid if multiple selection is enabled
+                                    for (int idx = 1; idx < controlRange.length; idx++)
+                                    {
+                                        controlRange.remove(idx);
+                                    }
+                                    controlRange.item(0).outerHTML = tableElement.outerHTML;
+                                    // this should work with initial count set to zero
+                                    // controlRange.add((HtmlControlElement)table);
+                                }
+                                catch (Exception ex)
+                                {
+                                    throw new HtmlEditorException("Cannot Delete all previously Controls selected.", "ProcessTable", ex);
+                                }
+                            }
+                            else
+                            {
+                                // insert the table at the end of the HTML
+                                bodyNode.appendChild(tableNode);
+                            }
                         }
                     }
                     else
                     {
+                        // table has been correctly defined as being the first selected item
+                        // need to remove other selected items
                         HtmlControlRange controlRange = GetAllControls();
                         if (controlRange != null)
                         {
-                            // overwrite any controls the user has selected
-                            try
+                            // clear the controls selected other than than the first table
+                            // only valid if multiple selection is enabled
+                            for (int idx = 1; idx < controlRange.length; idx++)
                             {
-                                // clear the selection and insert the table
-                                // only valid if multiple selection is enabled
-                                for (int idx = 1; idx < controlRange.length; idx++)
-                                {
-                                    controlRange.remove(idx);
-                                }
-                                controlRange.item(0).outerHTML = tableElement.outerHTML;
-                                // this should work with initial count set to zero
-                                // controlRange.add((HtmlControlElement)table);
-                            }
-                            catch (Exception ex)
-                            {
-                                throw new HtmlEditorException("Cannot Delete all previously Controls selected.", "ProcessTable", ex);
+                                controlRange.remove(idx);
                             }
                         }
-                        else
-                        {
-                            // insert the table at the end of the HTML
-                            bodyNode.appendChild(tableNode);
-                        }
                     }
-                }
-                else
-                {
-                    // table has been correctly defined as being the first selected item
-                    // need to remove other selected items
-                    HtmlControlRange controlRange = GetAllControls();
-                    if (controlRange != null)
-                    {
-                        // clear the controls selected other than than the first table
-                        // only valid if multiple selection is enabled
-                        for (int idx = 1; idx < controlRange.length; idx++)
-                        {
-                            controlRange.remove(idx);
-                        }
-                    }
-                }
 
-                //if table created, then focus the first cell
-                if(tableCreated)
-                {
-                    try
+                    //if table created, then focus the first cell
+                    if (tableCreated)
                     {
-                        HtmlElement cell = targetMarkupRange.GetFirstElement(e => e is HtmlTableCell, true);
-                        if (cell != null)
+                        try
                         {
-                            SelectCell(cell as HtmlTableCell);
+                            HtmlElement cell = targetMarkupRange.GetFirstElement(e => e is HtmlTableCell, true);
+                            if (cell != null)
+                            {
+                                SelectCell(cell as HtmlTableCell);
+                            }
                         }
-                    }
-                    catch(Exception e)
-                    {
-                        Log.Write(e);
+                        catch (Exception e)
+                        {
+                            Log.Write(e);
+                        }
                     }
                 }
             }
