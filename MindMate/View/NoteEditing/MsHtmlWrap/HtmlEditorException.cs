@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace MindMate.View.NoteEditing
+namespace MindMate.View.NoteEditing.MsHtmlWrap
 {
     //Exception class for HtmlEditor
     public class HtmlEditorException : ApplicationException

@@ -8,10 +8,11 @@ using System.Text;
 using System.Windows.Forms;
 using mshtml;
 using System.Runtime.InteropServices;
+using MindMate.View.NoteEditing.MsHtmlWrap;
 
 namespace MindMate.View.NoteEditing
 {
-    public partial class NoteEditor : WebBrowser, IHTMLChangeSink, IHTMLEditDesigner
+    public partial class NoteEditor : WebBrowser, IHTMLChangeSink, MsHtmlWrap.IHTMLEditDesigner
     {
         private IHTMLDocument2 htmlDoc;
 
@@ -203,7 +204,7 @@ namespace MindMate.View.NoteEditing
                     Guid IHtmlEditServicesGuid = new Guid("3050f663-98b5-11cf-bb82-00aa00bdce0b");
                     Guid SHtmlEditServicesGuid = new Guid("3050f7f9-98b5-11cf-bb82-00aa00bdce0b");
                     isp.QueryService(ref SHtmlEditServicesGuid, ref IHtmlEditServicesGuid, out ppv);
-                    IHTMLEditServices es = Marshal.GetObjectForIUnknown(ppv) as IHTMLEditServices;
+                    MsHtmlWrap.IHTMLEditServices es = Marshal.GetObjectForIUnknown(ppv) as MsHtmlWrap.IHTMLEditServices;
                     es.AddDesigner(this);
                 }
                 catch

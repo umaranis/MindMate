@@ -31,8 +31,10 @@ using HtmlTableCell = mshtml.IHTMLTableCell;
 using HtmlTableRowMetrics = mshtml.IHTMLTableRowMetrics;
 using HtmlTableColumn = mshtml.IHTMLTableCol;
 using System.Windows.Forms;
+using MindMate.Modules.Logging;
+using MindMate.View.NoteEditing.MsHtmlWrap;
 
-namespace MindMate.View.NoteEditing
+namespace MindMate.View.NoteEditing.MsHtmlWrap
 {
     public class HtmlTableHelper
     {
@@ -282,8 +284,11 @@ namespace MindMate.View.NoteEditing
                 if (row.rowIndex == 0) return;
                 try
                 {
-                    HtmlTableRow rowAbove = table.rows.item(row.rowIndex - 1);
-                    (row as HtmlDomNode).swapNode(rowAbove as HtmlDomNode);
+                    using (new MsHtmlWrap.SelectionPreserver(GetMarkupRange()))
+                    {
+                        HtmlTableRow rowAbove = table.rows.item(row.rowIndex - 1);
+                        (row as HtmlDomNode).swapNode(rowAbove as HtmlDomNode);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -403,12 +408,17 @@ namespace MindMate.View.NoteEditing
                 HtmlDomNode bodyNode = (HtmlDomNode)document.body;
                 bool tableCreated = false;
 
+                MsHtmlWrap.MarkupRange targetMarkupRange = null;
+
                 // ensure a table node has been defined to work with
                 if (table == null)
                 {
                     // create the table and indicate it was created
                     table = (HtmlTable)document.createElement("TABLE");
                     tableCreated = true;
+
+                    //markup range for selecting first cell after table creation
+                    targetMarkupRange = GetMarkupRange();                    
                 }
 
                 // define the table border, width, cell padding and spacing
@@ -591,6 +601,23 @@ namespace MindMate.View.NoteEditing
                         }
                     }
                 }
+
+                //if table created, then focus the first cell
+                if(tableCreated)
+                {
+                    try
+                    {
+                        HtmlElement cell = targetMarkupRange.GetFirstElement(e => e is HtmlTableCell, true);
+                        if (cell != null)
+                        {
+                            SelectCell(cell as HtmlTableCell);
+                        }
+                    }
+                    catch(Exception e)
+                    {
+                        Log.Write(e);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -599,6 +626,19 @@ namespace MindMate.View.NoteEditing
             }
 
         } //ProcessTable
+
+        private MarkupRange GetMarkupRange()
+        {
+            MshtmlMarkupServices markupServices = new MshtmlMarkupServices((IMarkupServicesRaw)document);
+            MarkupRange range = markupServices.CreateMarkupRange(document.selection.createRange());
+
+            range.Start.Gravity = mshtml._POINTER_GRAVITY.POINTER_GRAVITY_Left;
+            range.End.Gravity = mshtml._POINTER_GRAVITY.POINTER_GRAVITY_Right;
+            range.Start.Cling = false;
+            range.End.Cling = false;
+
+            return range;
+        }
 
 
         // determine if the current selection is a table
@@ -650,7 +690,7 @@ namespace MindMate.View.NoteEditing
         /// <summary>
         /// Get selected or parent table
         /// </summary>
-        /// <returns></returns>
+        /// <returns>null if not found</returns>
         public HtmlTable GetTableElement()
         {
             // define the table and row elements and obtain there values
@@ -773,7 +813,31 @@ namespace MindMate.View.NoteEditing
 
             return range;
 
-        } // GetTextRange
+        }
+
+        private void SelectCell(HtmlTableCell cell)
+        {
+            HtmlElement cellElement = cell as HtmlElement;
+
+            MsHtmlWrap.MshtmlMarkupServices markupServices = new MsHtmlWrap.MshtmlMarkupServices((MsHtmlWrap.IMarkupServicesRaw)document);
+            
+            if(cellElement.document == document)
+                System.Diagnostics.Debug.WriteLine("same");
+            // move the selection to the beginning of the cell
+            MsHtmlWrap.MarkupRange markupRange = markupServices.CreateMarkupRange(cellElement);
+
+            //  if the cell is empty then collapse the selection
+            if (cellElement.innerHTML == null)
+                markupRange.End.MoveToPointer(markupRange.Start);
+
+            HtmlTextRange textRange = markupRange.ToTextRange();
+            textRange.select();
+        }
+
+        private static HtmlTableCell GetCell(HtmlTable table, int row, int col)
+        {
+            return table.rows.item(row).cells.item(col) as HtmlTableCell;
+        }
 
         // get the selected range object
         private HtmlElement GetFirstControl()

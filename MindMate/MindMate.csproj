@@ -107,8 +107,9 @@
     <Compile Include="Controller\WinFormsStatusBarCtrl.cs" />
     <Compile Include="Controller\StatusBarCtrl.cs" />
     <Compile Include="Controller\INoteEditor.cs" />
-    <Compile Include="View\NoteEditing\HtmlEditorException.cs" />
-    <Compile Include="View\NoteEditing\HtmlTableHelper.cs" />
+    <Compile Include="Modules\Logging\Log.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\HtmlEditorException.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\HtmlTableHelper.cs" />
     <Compile Include="View\NoteEditing\NoteMapGlue.cs" />
     <Compile Include="Debugging\IconListCreator.cs" />
     <Compile Include="MetaModel\ModelIcon.cs" />
@@ -319,6 +320,19 @@
     <Compile Include="View\MapControls\Link.cs" />
     <Compile Include="View\MapControls\IconView.cs" />
     <Compile Include="Serialization\IconImageLoader.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\HTMLElementHelper.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\IDisplayPointerRaw.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\IHTMLCaretRaw.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\IHTMLEditDesigner.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\IMarkupContainerRaw.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\IMarkupPointer2Raw.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\IMarkupPointerRaw.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\IMarkupServicesRaw.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\MarkupContainer.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\MarkupPointer.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\MarkupRange.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\MshtmlMarkupServices.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\SelectionPreserver.cs" />
     <Compile Include="View\NoteEditing\TablePropertyForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -368,7 +382,7 @@
     <Compile Include="View\MapControls\NodeView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\MapControls\TextCursorPosition.cs" />
-    <Compile Include="View\NoteEditing\Interop.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\IOleUndoManager.cs" />
     <Compile Include="View\NoteEditing\NoteEditor.cs">
       <SubType>Component</SubType>
     </Compile>

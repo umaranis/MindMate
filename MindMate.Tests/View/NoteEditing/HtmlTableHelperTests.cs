@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.View.NoteEditing;
+using MindMate.View.NoteEditing.MsHtmlWrap;
 using mshtml;
 using System;
 using System.Collections.Generic;
