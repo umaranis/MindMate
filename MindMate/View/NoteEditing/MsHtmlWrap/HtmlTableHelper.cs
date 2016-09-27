@@ -116,14 +116,17 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
             {
                 try
                 {
-                    // find the existing row the user is on and perform the insertion
-                    int index = row.rowIndex + (below? 1 : 0);
-                    HtmlTableRow insertedRow = table.insertRow(index) as HtmlTableRow;
-                    // add the new columns to the end of each row
-                    int numberCols = row.cells.length;
-                    for (int idxCol = 0; idxCol < numberCols; idxCol++)
+                    using (new SelectionPreserver(GetMarkupRange()))
                     {
-                        insertedRow.insertCell(-1);
+                        // find the existing row the user is on and perform the insertion
+                        int index = row.rowIndex + (below ? 1 : 0);
+                        HtmlTableRow insertedRow = table.insertRow(index) as HtmlTableRow;
+                        // add the new columns to the end of each row
+                        int numberCols = row.cells.length;
+                        for (int idxCol = 0; idxCol < numberCols; idxCol++)
+                        {
+                            insertedRow.insertCell(-1);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -284,7 +287,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                 if (row.rowIndex == 0) return;
                 try
                 {
-                    using (new MsHtmlWrap.SelectionPreserver(GetMarkupRange()))
+                    using (new SelectionPreserver(GetMarkupRange()))
                     {
                         HtmlTableRow rowAbove = table.rows.item(row.rowIndex - 1);
                         (row as HtmlDomNode).swapNode(rowAbove as HtmlDomNode);
@@ -315,8 +318,11 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                 if (row.rowIndex >= table.rows.length - 1) return;
                 try
                 {
-                    HtmlTableRow rowBelow = table.rows.item(row.rowIndex + 1);
-                    (row as HtmlDomNode).swapNode(rowBelow as HtmlDomNode);
+                    using (new SelectionPreserver(GetMarkupRange()))
+                    {
+                        HtmlTableRow rowBelow = table.rows.item(row.rowIndex + 1);
+                        (row as HtmlDomNode).swapNode(rowBelow as HtmlDomNode);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -344,12 +350,15 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                 if (index == 0) return;
                 try
                 {
-                    for (int i = 0; i < table.rows.length; i++)
+                    using (new SelectionPreserver(GetMarkupRange()))
                     {
-                        HtmlTableRow r = table.rows.item(i);
-                        HtmlDomNode c1 = r.cells.item(index);
-                        HtmlDomNode c2 = r.cells.item(index - 1);
-                        c1.swapNode(c2);
+                        for (int i = 0; i < table.rows.length; i++)
+                        {
+                            HtmlTableRow r = table.rows.item(i);
+                            HtmlDomNode c1 = r.cells.item(index);
+                            HtmlDomNode c2 = r.cells.item(index - 1);
+                            c1.swapNode(c2);
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -378,12 +387,15 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                 if (index >= row.cells.length - 1) return;
                 try
                 {
-                    for (int i = 0; i < table.rows.length; i++)
+                    using (new SelectionPreserver(GetMarkupRange()))
                     {
-                        HtmlTableRow r = table.rows.item(i);
-                        HtmlDomNode c1 = r.cells.item(index);
-                        HtmlDomNode c2 = r.cells.item(index + 1);
-                        c1.swapNode(c2);                        
+                        for (int i = 0; i < table.rows.length; i++)
+                        {
+                            HtmlTableRow r = table.rows.item(i);
+                            HtmlDomNode c1 = r.cells.item(index);
+                            HtmlDomNode c2 = r.cells.item(index + 1);
+                            c1.swapNode(c2);
+                        }
                     }
                 }
                 catch (Exception ex)
