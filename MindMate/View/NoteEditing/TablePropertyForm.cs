@@ -149,6 +149,18 @@ namespace MindMate.View.NoteEditing
 
         } //MeasurementOptionChanged
 
+        public bool UpdateTable
+        {
+            get
+            {
+                return bInsert.Text.Equals("Insert");
+            }
+            set
+            {
+                bInsert.Text = value ? "Update" : "Insert";
+            }
+        }
+
 
         // Clean up any resources being used.
         protected override void Dispose(bool disposing)

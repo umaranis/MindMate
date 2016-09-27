@@ -37,6 +37,7 @@ namespace MindMate.Controller
             {
                 using (var dialog = new TablePropertyForm())
                 {
+                    dialog.UpdateTable = true;
                     dialog.TableProperties = helper.GetTableProperties(table);
                     if(dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
@@ -65,6 +66,7 @@ namespace MindMate.Controller
             {
                 using (var dialog = new TablePropertyForm())
                 {
+                    dialog.UpdateTable = true;
                     dialog.TableProperties = helper.GetTableProperties(table);
                     if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
