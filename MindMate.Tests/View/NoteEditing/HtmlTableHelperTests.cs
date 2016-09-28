@@ -27,7 +27,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     editor.HTML = null;
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));                    
                     form.Close();
                 };
@@ -54,7 +54,7 @@ namespace MindMate.Tests.View
             {
                 var editor = new NoteEditor();
                 var form = CreateForm();
-                var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                var sut = new HtmlTableHelper(editor);
                 form.Shown += (sender, args) =>
                 {
                     editor.HTML = "Some Text";
@@ -91,7 +91,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     editor.HTML = null;
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     form.Close();
                 };
@@ -123,7 +123,7 @@ namespace MindMate.Tests.View
                 {
                     //insert table
                     editor.HTML = null;
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //find table
                     IHTMLTable table = editor.Document.GetElementsByTagName("table")[0].DomElement as IHTMLTable;
@@ -168,7 +168,7 @@ namespace MindMate.Tests.View
                     IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
                     r.findText("Text");
                     r.select();
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //move inside table
                     IHTMLTxtRange r2 = body.createTextRange() as IHTMLTxtRange;
@@ -214,7 +214,7 @@ namespace MindMate.Tests.View
                     IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
                     r.findText("Text");
                     r.select();
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //move inside table
                     IHTMLTxtRange r2 = body.createTextRange() as IHTMLTxtRange;
@@ -252,7 +252,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);
@@ -295,7 +295,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);
@@ -342,7 +342,7 @@ namespace MindMate.Tests.View
                     IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
                     r.findText("Text");
                     r.select();
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //move inside table
                     IHTMLTxtRange r2 = body.createTextRange() as IHTMLTxtRange;
@@ -380,7 +380,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);
@@ -423,7 +423,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);
@@ -472,7 +472,7 @@ namespace MindMate.Tests.View
                     IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
                     r.findText("Text");
                     r.select();
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //move inside table
                     IHTMLTxtRange r2 = body.createTextRange() as IHTMLTxtRange;
@@ -514,7 +514,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);
@@ -557,7 +557,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);
@@ -600,7 +600,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);
@@ -643,7 +643,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);
@@ -692,7 +692,7 @@ namespace MindMate.Tests.View
                     IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
                     r.findText("Text");
                     r.select();
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //move inside table
                     IHTMLTxtRange r2 = body.createTextRange() as IHTMLTxtRange;
@@ -738,7 +738,7 @@ namespace MindMate.Tests.View
                     IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
                     r.findText("Text");
                     r.select();
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //move inside table
                     IHTMLTxtRange r2 = body.createTextRange() as IHTMLTxtRange;
@@ -784,7 +784,7 @@ namespace MindMate.Tests.View
                     IHTMLTxtRange r = body.createTextRange() as IHTMLTxtRange;
                     r.findText("Text");
                     r.select();
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //move inside table
                     IHTMLTxtRange r2 = body.createTextRange() as IHTMLTxtRange;
@@ -822,7 +822,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);
@@ -865,7 +865,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);
@@ -908,7 +908,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);
@@ -951,7 +951,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);
@@ -994,7 +994,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);
@@ -1037,7 +1037,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);
@@ -1080,7 +1080,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);
@@ -1123,7 +1123,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);
@@ -1192,7 +1192,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     //insert table
-                    var sut = new HtmlTableHelper(editor.Document.DomDocument as HTMLDocument);
+                    var sut = new HtmlTableHelper(editor);
                     sut.TableInsert(new HtmlTableProperty(true));
                     //fill table
                     FillTable((editor.Document.GetElementsByTagName("table")[0].DomElement) as IHTMLTable);

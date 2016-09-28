@@ -39,7 +39,7 @@ namespace MindMate.View.NoteEditing
         /// </summary>
         public event Action<object> Ready = delegate { };
 
-        public event Action<object> CursorMoved;
+        public event Action<object> CursorMoved;        
 
         public event Action<object> OnDirty = delegate { };
 
@@ -56,7 +56,7 @@ namespace MindMate.View.NoteEditing
         /// <param name="e">navigation args</param>
         private void this_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
-            TableEditor = new HtmlTableHelper(htmlDoc as HTMLDocument);
+            TableEditor = new HtmlTableHelper(this);
 
             SetBackgroundColor(BackColor);
 
@@ -94,6 +94,10 @@ namespace MindMate.View.NoteEditing
             }            
         }
 
+        internal void _FireCursorMovedEvent()
+        {
+            CursorMoved?.Invoke(this);
+        }
 
         /// <summary>
         /// Get/Set the background color of the editor.
@@ -151,6 +155,7 @@ namespace MindMate.View.NoteEditing
                 if (this.Document.Body.InnerHtml == null && value == null) return; //should not set ignore dirty flag in this case
                 ignoreDirtyNotification = true;
                 this.Document.Body.InnerHtml = value;
+                CursorMoved?.Invoke(this);
             }
         }
 
@@ -237,12 +242,29 @@ namespace MindMate.View.NoteEditing
 
         public int PostEditorEventNotify(int inEvtDispId, IHTMLEventObj pIEventObj)
         {
+            //get more DISPID constants from Netrix Component\netrix-27637\Netrix2.0\Core\ComInterop\DispId.cs 
             const int KEYDOWN = (-602);
-            const int MOUSEDOWN = (-605);
-            if (inEvtDispId == KEYDOWN || inEvtDispId == MOUSEDOWN)
+            const int MOUSEUP = (-607);
+            //const int MOUSEDOWN = (-605);
+            if (inEvtDispId == MOUSEUP)
             {
                 CursorMoved?.Invoke(this);
             }            
+            else if(inEvtDispId == KEYDOWN)
+            {
+                switch (pIEventObj.keyCode)
+                {
+                    case (int)Keys.Up:
+                    case (int)Keys.Down:
+                    case (int)Keys.Left:
+                    case (int)Keys.Right:
+                    case (int)Keys.PageDown:
+                    case (int)Keys.PageUp:
+                    case (int)Keys.Enter:
+                        CursorMoved?.Invoke(this);
+                        break;
+                }
+            }
             return S_FALSE;
 
         }
@@ -377,7 +399,7 @@ namespace MindMate.View.NoteEditing
             {
                 if (e.KeyCode == Keys.O || e.KeyCode == Keys.L)
                     e.IsInputKey = true;                
-            }            
+            }  
 
             base.OnPreviewKeyDown(e);
         }        

@@ -38,12 +38,14 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
 {
     public class HtmlTableHelper
     {
+        NoteEditor editor;
 
-        HtmlDocument document;
+        private HtmlDocument Document
+        { get { return (HtmlDocument)editor.Document.DomDocument; } }
 
-        public HtmlTableHelper(HtmlDocument doc)
+        public HtmlTableHelper(NoteEditor editor)
         {
-            document = doc;
+            this.editor = editor;
         }
 
         #region Table Processing Operations
@@ -63,6 +65,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
         {
             // call the private insert table method with a null table entry
             ProcessTable(null, tableProperties);
+            editor._FireCursorMovedEvent();
 
         } //TableInsert
 
@@ -118,7 +121,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                 {
                     using (new SelectionPreserver(GetMarkupRange()))
                     {
-                        using (new UndoUnit(document, "Table row insert"))
+                        using (new UndoUnit(Document, "Table row insert"))
                         {
                             // find the existing row the user is on and perform the insertion
                             int index = row.rowIndex + (below ? 1 : 0);
@@ -167,7 +170,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
             {
                 try
                 {
-                    using (new UndoUnit(document, "Table column insert"))
+                    using (new UndoUnit(Document, "Table column insert"))
                     {
                         // find the existing row the user is on and perform the insertion
                         int index = cell.cellIndex + (right ? 1 : 0);
@@ -209,12 +212,14 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
             {
                 try
                 {
-                    using (new UndoUnit(document, "Table row delete"))
+                    using (new UndoUnit(Document, "Table row delete"))
                     {
                         // find the existing row the user is on and perform the deletion
                         int index = row.rowIndex;
                         table.deleteRow(index); 
                     }
+
+                    editor._FireCursorMovedEvent();
                 }
                 catch (Exception ex)
                 {
@@ -241,14 +246,15 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
             {
                 try
                 {
-                    using (new UndoUnit(document, "Table column delete"))
+                    using (new UndoUnit(Document, "Table column delete"))
                     {
                         foreach (HtmlTableRow r in table.rows)
                         {
                             r.deleteCell(cell.cellIndex);
                         }
                         table.cols--;    
-                    }           
+                    }
+                    editor._FireCursorMovedEvent();    
                 }
                 catch (Exception ex)
                 {
@@ -273,10 +279,12 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
             {
                 try
                 {
-                    using (new UndoUnit(document, "Table delete"))
+                    using (new UndoUnit(Document, "Table delete"))
                     {
                         (table as HtmlDomNode).removeNode(true); 
                     }
+
+                    editor._FireCursorMovedEvent();
                 }
                 catch (Exception ex)
                 {
@@ -304,7 +312,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                 {
                     using (new SelectionPreserver(GetMarkupRange()))
                     {
-                        using (new UndoUnit(document, "Table row move up"))
+                        using (new UndoUnit(Document, "Table row move up"))
                         {
                             HtmlTableRow rowAbove = table.rows.item(row.rowIndex - 1);
                             (row as HtmlDomNode).swapNode(rowAbove as HtmlDomNode);
@@ -338,7 +346,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                 {
                     using (new SelectionPreserver(GetMarkupRange()))
                     {
-                        using (new UndoUnit(document, "Table row move down"))
+                        using (new UndoUnit(Document, "Table row move down"))
                         {
                             HtmlTableRow rowBelow = table.rows.item(row.rowIndex + 1);
                             (row as HtmlDomNode).swapNode(rowBelow as HtmlDomNode); 
@@ -373,7 +381,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                 {
                     using (new SelectionPreserver(GetMarkupRange()))
                     {
-                        using (new UndoUnit(document, "Table column move left"))
+                        using (new UndoUnit(Document, "Table column move left"))
                         {
                             for (int i = 0; i < table.rows.length; i++)
                             {
@@ -413,7 +421,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                 {
                     using (new SelectionPreserver(GetMarkupRange()))
                     {
-                        using (new UndoUnit(document, "Table column move right"))
+                        using (new UndoUnit(Document, "Table column move right"))
                         {
                             for (int i = 0; i < table.rows.length; i++)
                             {
@@ -443,10 +451,10 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
         {
             try
             {
-                using (new UndoUnit(document, "Table add/modify"))
+                using (new UndoUnit(Document, "Table add/modify"))
                 {
                     // obtain a reference to the body node and indicate table present
-                    HtmlDomNode bodyNode = (HtmlDomNode)document.body;
+                    HtmlDomNode bodyNode = (HtmlDomNode)Document.body;
                     bool tableCreated = false;
 
                     MsHtmlWrap.MarkupRange targetMarkupRange = null;
@@ -455,7 +463,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                     if (table == null)
                     {
                         // create the table and indicate it was created
-                        table = (HtmlTable)document.createElement("TABLE");
+                        table = (HtmlTable)Document.createElement("TABLE");
                         tableCreated = true;
 
                         //markup range for selecting first cell after table creation
@@ -575,7 +583,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                         // table processing all complete so insert into the DOM
                         HtmlDomNode tableNode = (HtmlDomNode)table;
                         HtmlElement tableElement = (HtmlElement)table;
-                        HtmlSelection selection = document.selection;
+                        HtmlSelection selection = Document.selection;
                         HtmlTextRange textRange = GetTextRange();
                         // final insert dependant on what user has selected
                         if (textRange != null)
@@ -671,8 +679,8 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
 
         private MarkupRange GetMarkupRange()
         {
-            MshtmlMarkupServices markupServices = new MshtmlMarkupServices((IMarkupServicesRaw)document);
-            MarkupRange range = markupServices.CreateMarkupRange(document.selection.createRange());
+            MshtmlMarkupServices markupServices = new MshtmlMarkupServices((IMarkupServicesRaw)Document);
+            MarkupRange range = markupServices.CreateMarkupRange(Document.selection.createRange());
 
             range.Start.Gravity = mshtml._POINTER_GRAVITY.POINTER_GRAVITY_Left;
             range.End.Gravity = mshtml._POINTER_GRAVITY.POINTER_GRAVITY_Right;
@@ -737,13 +745,28 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
         {
             // define the table and row elements and obtain there values
             HtmlTable table = null;
-            HtmlTableRow row = null;
-            HtmlTableCell cell = null;
-            GetTableElement(out table, out row, out cell);
+            HtmlTextRange range = GetTextRange();
 
-            // return the defined table element
+            
+            // first see if the table element is selected
+            table = GetFirstControl() as HtmlTable;
+            // if table not selected then parse up the selection tree
+            if (table == null && range != null)
+            {
+                HtmlElement element = (HtmlElement)range.parentElement();
+                // parse up the tree until the table element is found
+                while (element != null && table == null)
+                {
+                    if (element is HtmlTable)
+                    {
+                        table = (HtmlTable)element;
+                    }
+                    element = (HtmlElement)element.parentElement;
+                }
+            }
+
+            // return the defined table element                
             return table;
-
         }
 
 
@@ -841,7 +864,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
             try
             {
                 // calculate the text range based on user selection
-                selection = document.selection;
+                selection = Document.selection;
                 if (selection.type.Equals("text", StringComparison.OrdinalIgnoreCase) || selection.type.Equals("none", StringComparison.OrdinalIgnoreCase))
                 {
                     range = selection.createRange() as HtmlTextRange;
@@ -861,9 +884,9 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
         {
             HtmlElement cellElement = cell as HtmlElement;
 
-            MsHtmlWrap.MshtmlMarkupServices markupServices = new MsHtmlWrap.MshtmlMarkupServices((MsHtmlWrap.IMarkupServicesRaw)document);
+            MsHtmlWrap.MshtmlMarkupServices markupServices = new MsHtmlWrap.MshtmlMarkupServices((MsHtmlWrap.IMarkupServicesRaw)Document);
             
-            if(cellElement.document == document)
+            if(cellElement.document == Document)
                 System.Diagnostics.Debug.WriteLine("same");
             // move the selection to the beginning of the cell
             MsHtmlWrap.MarkupRange markupRange = markupServices.CreateMarkupRange(cellElement);
@@ -892,7 +915,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
             try
             {
                 // calculate the first control based on the user selection
-                selection = document.selection;
+                selection = Document.selection;
                 if (selection.type.Equals("control", StringComparison.OrdinalIgnoreCase))
                 {
                     range = selection.createRange() as HtmlControlRange; 
@@ -919,7 +942,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
             try
             {
                 // calculate the first control based on the user selection
-                selection = document.selection;
+                selection = Document.selection;
                 if (selection.type.Equals("control", StringComparison.OrdinalIgnoreCase))
                 {
                     range = selection.createRange() as HtmlControlRange;
