@@ -164,6 +164,8 @@ namespace MindMate.View.Ribbon
 		private RibbonButton NoteNormal;		
 		private RibbonGroup GrpNoteTable;		
 		private RibbonButton NoteInsertTable;		
+		private RibbonGroup GrpNoteEditHtml;		
+		private RibbonButton NoteEditHtml;		
 		private RibbonTabGroup TabGroupNoteTable;		
 		private RibbonTab TabNoteTableLayout;		
 		private RibbonGroup GrpCustomizeTable;		
@@ -335,6 +337,8 @@ namespace MindMate.View.Ribbon
 			NoteNormal = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteNormal);
 			GrpNoteTable = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNoteTable);
 			NoteInsertTable = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteInsertTable);
+			GrpNoteEditHtml = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNoteEditHtml);
+			NoteEditHtml = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteEditHtml);
 			TabGroupNoteTable = new RibbonTabGroup(ribbon, (uint)RibbonMarkupCommands.TabGroupNoteTable);
 			TabNoteTableLayout = new RibbonTab(ribbon, (uint)RibbonMarkupCommands.TabNoteTableLayout);
 			GrpCustomizeTable = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpCustomizeTable);

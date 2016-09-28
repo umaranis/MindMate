@@ -410,6 +410,10 @@ Note:
     <Command Name="GrpNoteTable" Id="7500" />
     <Command Name="NoteInsertTable" Id="7501" Keytip="T" LabelTitle="Table" TooltipDescription="Insert a table in the Note." />
     
+    <!--Group: -->
+    <Command Name="GrpNoteEditHtml" Id="7600" />
+    <Command Name="NoteEditHtml" Id="7601" LabelTitle="Edit Html Source" TooltipDescription="Edit Html source code for the note." />
+    
     <!--Tab: Note Table-->    
     <Command Name="TabGroupNoteTable" Id="8000" LabelTitle="Table Tools" />
     <Command Name="TabNoteTableLayout" Id="8100" LabelTitle="Layout" />
@@ -977,7 +981,10 @@ Note:
             </Group>
             <Group CommandName="GrpNoteTable" SizeDefinition="OneButton">
               <Button CommandName="NoteInsertTable" />
-            </Group>            
+            </Group>
+            <Group CommandName="GrpNoteEditHtml" SizeDefinition="OneButton">
+              <Button CommandName="NoteEditHtml" />
+            </Group>
           </Tab>
         </TabGroup>
         <TabGroup CommandName="TabGroupNoteTable">

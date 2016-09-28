@@ -141,5 +141,17 @@ namespace MindMate.Controller
             var helper = noteGlue.Editor.TableEditor;
             helper.ColumnMoveRight();
         }
+
+        public void ShowHtmlSourceDialog()
+        {
+            var form = new HtmlSourceDialog();            
+
+            form.HtmlSource = noteGlue.Editor.HTML;
+            if(form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                //noteGlue.Editor.HTML = form.HtmlSource; //this line updates the content as if new document is loaded. So, dirty flag is not set.
+                noteGlue.Editor.Document.Body.InnerHtml = form.HtmlSource; //this makes the editor dirty as opposed to setting 'noteGlue.Editor.HTML'
+            }
+        }
     }
 }

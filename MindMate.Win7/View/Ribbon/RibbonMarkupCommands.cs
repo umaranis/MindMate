@@ -167,6 +167,8 @@ namespace MindMate.View.Ribbon
 		NoteNormal = 7404,		
 		GrpNoteTable = 7500,		
 		NoteInsertTable = 7501,		
+		GrpNoteEditHtml = 7600,		
+		NoteEditHtml = 7601,		
 		TabGroupNoteTable = 8000,		
 		TabNoteTableLayout = 8100,		
 		GrpCustomizeTable = 8200,		

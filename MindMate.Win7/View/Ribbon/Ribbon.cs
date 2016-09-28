@@ -185,6 +185,9 @@ namespace MindMate.View.Ribbon
             //Note Editor Tab: Table
             NoteInsertTable.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.InsertTable();
 
+            //Note Editor Tab: Note Edit Html
+            NoteEditHtml.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.ShowHtmlSourceDialog();
+
             //Note Editor Table Tab
             ModifyTableProperties.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.ModifyTable();
             DeleteRow.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.DeleteTableRow();
@@ -232,6 +235,8 @@ namespace MindMate.View.Ribbon
             NoteNormal.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteNormal_16bit);
             NoteInsertTable.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.InsertTable_SmallImage);
             NoteInsertTable.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.InsertTable_LargeImage);
+            NoteEditHtml.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteEditHtml_16bit);
+            NoteEditHtml.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteEditHtml_32bit);
             ModifyTableProperties.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.TableProperties_SmallImage);
             ModifyTableProperties.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.TableProperties_LargeImage);
             DeleteRow.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.DeleteRow_SmallImage);

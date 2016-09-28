@@ -10,8 +10,13 @@ namespace MindMate.Modules.Logging
     {
         public static void Write(Exception e)
         {
-            Debug.WriteLine(DateTime.Now + ":" + e.Message);
-            Debug.WriteLine(e.StackTrace);
+            Trace.WriteLine(DateTime.Now + ": " + e.Message);
+            Trace.WriteLine(e.StackTrace);
+        }
+
+        public static void Write(string message)
+        {
+            Trace.WriteLine(DateTime.Now + ": " + message);
         }
     }
 }

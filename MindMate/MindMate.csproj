@@ -94,6 +94,7 @@
   <ItemGroup>
     <Compile Include="Controller\NoteEditorCtrl.cs" />
     <Compile Include="Controller\TabController.cs" />
+    <Compile Include="Debugging\FormDebugHooks.cs" />
     <Compile Include="MetaModel\Icon.cs" />
     <Compile Include="MetaModel\NodeStyle.cs" />
     <Compile Include="MetaModel\StyleImageGenerator.cs" />
@@ -108,6 +109,12 @@
     <Compile Include="Controller\StatusBarCtrl.cs" />
     <Compile Include="Controller\INoteEditor.cs" />
     <Compile Include="Modules\Logging\Log.cs" />
+    <Compile Include="View\NoteEditing\HtmlSourceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\NoteEditing\HtmlSourceDialog.Designer.cs">
+      <DependentUpon>HtmlSourceDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\NoteEditing\MsHtmlWrap\HtmlEditorException.cs" />
     <Compile Include="View\NoteEditing\MsHtmlWrap\HtmlTableHelper.cs" />
     <Compile Include="View\NoteEditing\MsHtmlWrap\UndoUnit.cs" />
@@ -357,6 +364,9 @@
       <DependentUpon>InputBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\NoteEditing\HtmlSourceDialog.resx">
+      <DependentUpon>HtmlSourceDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\NoteEditor.resx" />
     <None Include="images\filenew.png" />
     <None Include="Settings.Yaml">
@@ -512,10 +522,6 @@
     <None Include="Resources\Outdent.SmallImage.png" />
     <None Include="Resources\Indent.SmallHighContrastImage.png" />
     <None Include="Resources\Indent.SmallImage.png" />
-    <None Include="Resources\Blockquote.LargeHighContrastImage.png" />
-    <None Include="Resources\Blockquote.LargeImage.png" />
-    <None Include="Resources\Blockquote.SmallHighContrastImage.png" />
-    <None Include="Resources\Blockquote.SmallImage.png" />
     <None Include="Resources\NoteHeading1_32bit.png" />
     <None Include="Resources\NoteHeading1_16bit.png" />
     <None Include="Resources\NoteHeading2_16bit.png" />
@@ -550,6 +556,8 @@
     <None Include="Resources\DeleteTable.LargeImage.png" />
     <None Include="Resources\TableProperties.LargeImage.png" />
     <None Include="Resources\TableProperties.SmallImage.png" />
+    <None Include="Resources\NoteEditHtml-32bit.png" />
+    <None Include="Resources\NoteEditHtml-16bit.png" />
     <Content Include="Serialization\MapYamlSerializer.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapYamlSerializer.Generated.cs</LastGenOutput>

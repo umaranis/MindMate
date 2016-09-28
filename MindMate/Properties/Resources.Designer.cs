@@ -663,6 +663,26 @@ namespace MindMate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap NoteEditHtml_16bit {
+            get {
+                object obj = ResourceManager.GetObject("NoteEditHtml_16bit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap NoteEditHtml_32bit {
+            get {
+                object obj = ResourceManager.GetObject("NoteEditHtml_32bit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap NoteHeading1_16bit {
             get {
                 object obj = ResourceManager.GetObject("NoteHeading1_16bit", resourceCulture);

@@ -104,6 +104,57 @@ namespace MindMate.Tests.Controller
 
             Assert.IsTrue(result);
         }     
+
+        [TestMethod]
+        public void ShowHtmlSourceDialog()
+        {
+            string result = null;
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                MetaModel.MetaModel.Initialize();
+                var persistence = new PersistenceManager();
+                var noteEditor = new NoteEditor();
+
+                var form = CreateForm();
+                form.Controls.Add(noteEditor);
+                form.Shown += (sender, args) =>
+                {
+                    var ptree1 = persistence.NewTree();
+                    var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
+                    c1.NoteText = "This is a note.";
+                    c1.Selected = true;
+
+                    var sut = new NoteEditorCtrl(noteEditor, persistence);
+                    Debugging.FormDebugHooks.Instance.ProvideShownEventHook((o, e) => {
+                        var f = (HtmlSourceDialog)o;
+                        foreach(Control c in f.Controls)
+                        {
+                            if(c.Name == "txtSource")
+                            {
+                                c.Text = "updated";
+                                break;
+                            }
+                        }
+                        f.DialogResult = DialogResult.OK;
+                    });
+
+                    sut.ShowHtmlSourceDialog();                    
+
+                    result = noteEditor.HTML;
+
+                    form.Close();
+                    Debugging.FormDebugHooks.Instance.ClearHook();
+                };
+
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.AreEqual("updated", result);
+        } 
         
     }
 }
