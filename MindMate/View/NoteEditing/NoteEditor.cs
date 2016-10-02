@@ -398,7 +398,14 @@ namespace MindMate.View.NoteEditing
             if (e.Control)
             {
                 if (e.KeyCode == Keys.O || e.KeyCode == Keys.L)
-                    e.IsInputKey = true;                
+                {
+                    e.IsInputKey = true;
+                }
+                else if (e.KeyCode == Keys.V)
+                {
+                    e.IsInputKey = true;
+                    Paste();
+                }
             }  
 
             base.OnPreviewKeyDown(e);
@@ -411,6 +418,10 @@ namespace MindMate.View.NoteEditing
 
         public void Paste()
         {
+            if (Clipboard.ContainsText(TextDataFormat.Html))
+            {
+                //new ImageTagProcessor().ProcessClipboardHtml();
+            }
             Document.ExecCommand("Paste", false, null);
         }
 

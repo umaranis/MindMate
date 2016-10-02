@@ -59,6 +59,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Binaries\CustomFontDialog.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net40-client\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -109,6 +113,7 @@
     <Compile Include="Controller\StatusBarCtrl.cs" />
     <Compile Include="Controller\INoteEditor.cs" />
     <Compile Include="Modules\Logging\Log.cs" />
+    <Compile Include="View\NoteEditing\HtmlPreProcessor.cs" />
     <Compile Include="View\NoteEditing\HtmlSourceDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -418,6 +423,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\Dialogs\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Dialogs\IconSelectorExt.resx">
       <DependentUpon>IconSelectorExt.cs</DependentUpon>
