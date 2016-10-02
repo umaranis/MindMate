@@ -17,14 +17,9 @@ namespace MindMate.View.NoteEditing
         public const string NoteImageProtocol = "mm:";
         public const string NoteImageExtension = ".png";
 
-        public HtmlPreProcessor(WebBrowser browser, string html)
+        public HtmlPreProcessor(string html)
         {
-            var tempContainer = browser.Document.CreateElement("DIV");
-            tempContainer.InnerHtml = html;
-            ReplaceImageTags(tempContainer);
-            RemoveScripts(tempContainer);
-
-            ProcessedHtml = tempContainer.InnerHtml;
+            ReplaceImageTags(html);
         }
 
         public string ProcessedHtml
@@ -41,50 +36,25 @@ namespace MindMate.View.NoteEditing
                 return imageSourceChanges;
             }            
         }
-        
-        private void ReplaceImageTags(HtmlElement tempContainer)
-        {
-            var elemCol = tempContainer.GetElementsByTagName("img");
 
-            for(int i=0; i < elemCol.Count; i++)
+        private void ReplaceImageTags(string html)
+        {
+            var parser = new HtmlAgilityPack.HtmlDocument();
+            parser.LoadHtml(html);
+            foreach(var node in parser.DocumentNode.SelectNodes("//img"))
             {
-                var elem = elemCol[i];
-                var src = elem.GetAttribute("src");
-                if (src.Length > 4 && src.Substring(0, 4).Equals("http", StringComparison.OrdinalIgnoreCase))
+                var src = node.Attributes["src"];
+                if(src.Value.StartsWith("http"))
                 {
                     ImageSourceChange imgSrcChg = new ImageSourceChange();
-                    imgSrcChg.OriginalSrc = src;
+                    imgSrcChg.OriginalSrc = src.Value;
                     imgSrcChg.NewInternalSrc = NoteImageProtocol + Guid.NewGuid().ToString() + NoteImageExtension;
-                    elem.SetAttribute("srcOrig", imgSrcChg.OriginalSrc);
-                    elem.SetAttribute("src", imgSrcChg.NewInternalSrc);
+                    node.Attributes.Add("srcOrig", imgSrcChg.OriginalSrc);
+                    src.Value = imgSrcChg.NewInternalSrc;
                     imageSourceChanges.Add(imgSrcChg);
                 }
-            }            
-        }
-
-        private void RemoveScripts(HtmlElement tempContainer)
-        {
-            Dictionary<string, int> hashtable = new Dictionary<string, int>();
-            var elemCol = tempContainer.All;//.GetElementsByTagName("script");
-
-            for (int i = 0; i < elemCol.Count; i++)
-            {
-                var elem = elemCol[i];
-                //elem.OuterHtml = "";   
-                try
-                {
-                    int t = hashtable[elem.TagName];
-                    hashtable[elem.TagName] = ++t;
-                }
-                catch(Exception)
-                {
-                    hashtable[elem.TagName] = 0;
-                }
-                if(elem.TagName.Equals("script", StringComparison.OrdinalIgnoreCase))
-                {
-                    elem.OuterHtml = null;
-                }             
             }
+            ProcessedHtml = parser.DocumentNode.InnerHtml;
         }
 
         public struct ImageSourceChange
