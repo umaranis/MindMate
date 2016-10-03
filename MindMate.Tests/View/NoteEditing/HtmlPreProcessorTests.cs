@@ -19,8 +19,18 @@ namespace MindMate.Tests.View
             var p = new PersistenceManager();
             var tree = p.OpenTree(@"Resources\Websites.mm").Tree;
 
-            var sut = new HtmlPreProcessor(tree.RootNode.FirstChild.NoteText);
-            Assert.IsTrue(sut.ProcessedHtml.Contains("srcorig"));
+            HtmlPreProcessor sut = null;
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var editor = new NoteEditor();
+                sut = new HtmlPreProcessor(editor, tree.RootNode.FirstChild.NoteText);
+
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(sut.ProcessedHtml.Contains("srcOrig"));
             Assert.AreEqual(79, sut.ImageSourceChanges.Count());
 
             int imgCount = Regex.Matches(sut.ProcessedHtml, "<img", RegexOptions.IgnoreCase).Count;
@@ -33,15 +43,21 @@ namespace MindMate.Tests.View
             var p = new PersistenceManager();
             var tree = p.OpenTree(@"Resources\Websites.mm").Tree;
 
-            var sut = new HtmlPreProcessor(tree.RootNode.FirstChild.Next.NoteText);
-            Assert.IsTrue(sut.ProcessedHtml.Contains("srcorig"));
+            HtmlPreProcessor sut = null;
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var editor = new NoteEditor();
+                sut = new HtmlPreProcessor(editor, tree.RootNode.FirstChild.Next.NoteText);
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(sut.ProcessedHtml.Contains("srcOrig"));
             Assert.AreEqual(12, sut.ImageSourceChanges.Count());
 
             int imgCount = Regex.Matches(sut.ProcessedHtml, "<img", RegexOptions.IgnoreCase).Count;
             Assert.IsTrue(imgCount == sut.ImageSourceChanges.Count());
-
-            var a = new HtmlAgilityPack.HtmlWeb();
-            
         }
 
         [TestMethod()]
@@ -50,8 +66,17 @@ namespace MindMate.Tests.View
             var p = new PersistenceManager();
             var tree = p.OpenTree(@"Resources\Websites.mm").Tree;
 
-            var sut = new HtmlPreProcessor(tree.RootNode.LastChild.NoteText);
-            Assert.IsTrue(sut.ProcessedHtml.Contains("srcorig"));
+            HtmlPreProcessor sut = null;
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var editor = new NoteEditor();
+                sut = new HtmlPreProcessor(editor, tree.RootNode.LastChild.NoteText);
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(sut.ProcessedHtml.Contains("srcOrig"));
             Assert.AreEqual(35, sut.ImageSourceChanges.Count());
 
             int imgCount = Regex.Matches(sut.ProcessedHtml, "<img", RegexOptions.IgnoreCase).Count;
@@ -61,71 +86,175 @@ namespace MindMate.Tests.View
         [TestMethod()]
         public void ImageTagProcessor_SingleQuotes()
         {
-            var sut = new HtmlPreProcessor("<img alt='abc' src='http://test.com/image1.jpg'>");
+            HtmlPreProcessor sut = null;
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var editor = new NoteEditor();
+                sut = new HtmlPreProcessor(editor, "<img alt='abc' src='http://test.com/image1.jpg'>");
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
             Assert.AreEqual(1, sut.ImageSourceChanges.Count());
         }
 
         [TestMethod()]
         public void ImageTagProcessor_DoubleQuotes()
         {
-            var sut = new HtmlPreProcessor("<img alt='abc' src=\"http://test.com/image1.jpg\">");
+            HtmlPreProcessor sut = null;
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var editor = new NoteEditor();
+                sut = new HtmlPreProcessor(editor, "<img alt='abc' src=\"http://test.com/image1.jpg\">");
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
             Assert.AreEqual(1, sut.ImageSourceChanges.Count());
         }
 
         [TestMethod()]
         public void ImageTagProcessor_Newline()
         {
-            var sut = new HtmlPreProcessor("<img alt='abc' \n src='http://test.com/image1.jpg'>");
+            HtmlPreProcessor sut = null;
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var editor = new NoteEditor();
+                sut = new HtmlPreProcessor(editor, "<img alt='abc' \n src='http://test.com/image1.jpg'>");
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
             Assert.AreEqual(1, sut.ImageSourceChanges.Count());
         }
 
         [TestMethod()]
         public void ImageTagProcessor_NewlineInSrc()
         {
-            var sut = new HtmlPreProcessor("<img alt='abc' src='http://test.com/image1.jpg\n'>");
+            HtmlPreProcessor sut = null;
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var editor = new NoteEditor();
+                sut = new HtmlPreProcessor(editor, "<img alt='abc' src='http://test.com/image1.jpg\n'>");
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
             Assert.AreEqual(1, sut.ImageSourceChanges.Count());
         }
 
         [TestMethod()]
         public void ImageTagProcessor_SpacesInAttribute()
         {
-            var sut = new HtmlPreProcessor("<img alt='abc' \n src = 'http://test.com/image1.jpg'>");
+            HtmlPreProcessor sut = null;
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var editor = new NoteEditor();
+                sut = new HtmlPreProcessor(editor, "<img alt='abc' \n src = 'http://test.com/image1.jpg'>");
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
             Assert.AreEqual(1, sut.ImageSourceChanges.Count());
         }
 
         [TestMethod()]
         public void ImageTagProcessor_NewlineInAttribute()
         {
-            var sut = new HtmlPreProcessor("<img alt='abc' \n src =\n 'http://test.com/image1.jpg'>");
+            HtmlPreProcessor sut = null;
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var editor = new NoteEditor();
+                sut = new HtmlPreProcessor(editor, "<img alt='abc' \n src =\n 'http://test.com/image1.jpg'>");
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
             Assert.AreEqual(1, sut.ImageSourceChanges.Count());
         }
 
         [TestMethod()]
         public void ImageTagProcessor_SrcFirstAttribute()
         {
-            var sut = new HtmlPreProcessor("<img src='http://test.com/image1.jpg' alt='abc'>");
+            HtmlPreProcessor sut = null;
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var editor = new NoteEditor();
+                sut = new HtmlPreProcessor(editor, "<img src='http://test.com/image1.jpg' alt='abc'>");
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
             Assert.AreEqual(1, sut.ImageSourceChanges.Count());
         }
 
         [TestMethod()]
         public void ImageTagProcessor_SrcInCaps()
         {
-            var sut = new HtmlPreProcessor("<IMG SRC='http://test.com/image1.jpg' alt='abc'>");
+            HtmlPreProcessor sut = null;
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var editor = new NoteEditor();
+                sut = new HtmlPreProcessor(editor, "<IMG SRC='http://test.com/image1.jpg' alt='abc'>");
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
             Assert.AreEqual(1, sut.ImageSourceChanges.Count());
         }
 
         [TestMethod()]
         public void ImageTagProcessor_ClosingBracketOnNewline()
         {
-            var sut = new HtmlPreProcessor("<img src='http://test.com/image1.jpg' alt='abc' \n>");
+            HtmlPreProcessor sut = null;
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var editor = new NoteEditor();
+                sut = new HtmlPreProcessor(editor, "<img src='http://test.com/image1.jpg' alt='abc' \n>");
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
             Assert.AreEqual(1, sut.ImageSourceChanges.Count());
         }
 
         [TestMethod()]
         public void ImageTagProcessor_TwoNewLines()
         {
-            var sut = new HtmlPreProcessor("<img alt='abc' \n src =\n 'http://test.com/image1.jpg'>");
+            HtmlPreProcessor sut = null;
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var editor = new NoteEditor();
+                sut = new HtmlPreProcessor(editor, "<img alt='abc' \n src =\n 'http://test.com/image1.jpg'>");
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
             Assert.AreEqual(1, sut.ImageSourceChanges.Count());
+        }
+
+        [TestMethod]
+        public void ScriptPreProcessor_BBC()
+        {
+            var p = new PersistenceManager();
+            var tree = p.OpenTree(@"Resources\Websites.mm").Tree;
+
+            HtmlPreProcessor sut = null;
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var editor = new NoteEditor();
+                sut = new HtmlPreProcessor(editor, tree.RootNode.FirstChild.NoteText);
+
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(sut.ProcessedHtml.Contains("script"));
+
+            int scriptCount = Regex.Matches(sut.ProcessedHtml, "<script", RegexOptions.IgnoreCase).Count;
+            Assert.AreEqual(0, scriptCount);
         }
     }
 }
