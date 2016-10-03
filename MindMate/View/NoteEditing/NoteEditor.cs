@@ -10,6 +10,7 @@ using mshtml;
 using System.Runtime.InteropServices;
 using MindMate.View.NoteEditing.MsHtmlWrap;
 using System.Text.RegularExpressions;
+using MindMate.Modules.Logging;
 
 namespace MindMate.View.NoteEditing
 {
@@ -400,14 +401,14 @@ namespace MindMate.View.NoteEditing
             {
                 if (e.KeyCode == Keys.O || e.KeyCode == Keys.L)
                 {
-                    e.IsInputKey = true;
+                    e.IsInputKey = true;                    
                 }
                 else if (e.KeyCode == Keys.V)
                 {
-                    e.IsInputKey = true; //TODO: May it has to be false
+                    e.IsInputKey = true;
                     Paste();
-                }
-            }  
+                }                
+            }
 
             base.OnPreviewKeyDown(e);
         }        
@@ -421,23 +422,27 @@ namespace MindMate.View.NoteEditing
         {
             if (Clipboard.ContainsText(TextDataFormat.Html))
             {
+                PreProcessHtmlPaste();
+            }
+            Document.ExecCommand("Paste", false, null);
+        }
+
+        private void PreProcessHtmlPaste()
+        {
+            try
+            {
                 string html = Clipboard.GetText(TextDataFormat.Html);
-                //Regex r = new Regex("Version:\\d+\\.?\\d+\\nStartHTML:\\d+\\nEndHTML:\\d+\\.?\\d+\\nStartFragment:\\d+\\.?\\d+\\nEndFragment:\\d+\\.?\\d+\\nStartSelection:\\d+\\.?\\d+\\nEndSelection:\\d+\\.?\\d+\\nSourceURL:.+", RegexOptions.IgnoreCase);
-                Regex r = new Regex(@"Version:\d+\.?\d+\r\nStartHTML:\d+\r\nEndHTML:\d+\.?\d+\r\nStartFragment:\d+\.?\d+\r\nEndFragment:\d+\.?\d+\r\nStartSelection:\d+\.?\d+\r\nEndSelection:\d+\.?\d+\r\nSourceURL:.+", RegexOptions.IgnoreCase);
-                Match m =r.Match(html);
-                if (m.Success)
+                //Regex r = new Regex(@"Version:\d+\.?\d+\r\nStartHTML:\d+\r\nEndHTML:\d+\.?\d+\r\nStartFragment:\d+\.?\d+\r\nEndFragment:\d+\.?\d+\r\nStartSelection:\d+\.?\d+\r\nEndSelection:\d+\.?\d+\r\nSourceURL:.+", RegexOptions.IgnoreCase);
+                var p = new HtmlPreProcessor(html);
+                if (p.Changed)
                 {
-                    html = html.Substring(m.Length); //TODO: Use Regex here (IMPORTANT)
-                    var p = new HtmlPreProcessor(this, html);
-                    Clipboard.SetText(m.Value + Environment.NewLine + p.ProcessedHtml, TextDataFormat.Html);
-                }
-                else
-                {
-                    var p = new HtmlPreProcessor(this, html);
                     Clipboard.SetText(p.ProcessedHtml, TextDataFormat.Html);
                 }
             }
-            Document.ExecCommand("Paste", false, null);
+            catch(Exception e)
+            {
+                Log.Write(e);
+            }
         }
 
         public void Copy()

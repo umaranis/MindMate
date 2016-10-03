@@ -19,6 +19,7 @@ namespace MindMate.View.NoteEditing
 
         public HtmlPreProcessor(string html)
         {
+            Changed = false;
             ReplaceImageTags(html);
         }
 
@@ -26,7 +27,13 @@ namespace MindMate.View.NoteEditing
         {
             get;
             private set;
-        }        
+        }  
+        
+        public bool Changed
+        {
+            get;
+            private set;
+        }      
 
         private List<ImageSourceChange> imageSourceChanges = new List<ImageSourceChange>();
         public IEnumerable<ImageSourceChange> ImageSourceChanges
@@ -41,20 +48,27 @@ namespace MindMate.View.NoteEditing
         {
             var parser = new HtmlAgilityPack.HtmlDocument();
             parser.LoadHtml(html);
-            foreach(var node in parser.DocumentNode.SelectNodes("//img"))
+            HtmlAgilityPack.HtmlNodeCollection nodeCol = parser.DocumentNode.SelectNodes("//img");
+            if (nodeCol != null)
             {
-                var src = node.Attributes["src"];
-                if(src.Value.StartsWith("http"))
+                foreach (var node in nodeCol)
                 {
-                    ImageSourceChange imgSrcChg = new ImageSourceChange();
-                    imgSrcChg.OriginalSrc = src.Value;
-                    imgSrcChg.NewInternalSrc = NoteImageProtocol + Guid.NewGuid().ToString() + NoteImageExtension;
-                    node.Attributes.Add("srcOrig", imgSrcChg.OriginalSrc);
-                    src.Value = imgSrcChg.NewInternalSrc;
-                    imageSourceChanges.Add(imgSrcChg);
+                    var src = node.Attributes["src"];
+                    if (src.Value.StartsWith("http"))
+                    {
+                        ImageSourceChange imgSrcChg = new ImageSourceChange();
+                        imgSrcChg.OriginalSrc = src.Value;
+                        imgSrcChg.NewInternalSrc = NoteImageProtocol + Guid.NewGuid().ToString() + NoteImageExtension;
+                        node.Attributes.Add("srcOrig", imgSrcChg.OriginalSrc);
+                        src.Value = imgSrcChg.NewInternalSrc;
+                        imageSourceChanges.Add(imgSrcChg);
+                    }
                 }
+
+                Changed = true;
+                ProcessedHtml = parser.DocumentNode.InnerHtml;
             }
-            ProcessedHtml = parser.DocumentNode.InnerHtml;
+            
         }
 
         public struct ImageSourceChange

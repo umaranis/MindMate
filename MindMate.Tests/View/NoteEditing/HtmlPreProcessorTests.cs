@@ -38,9 +38,7 @@ namespace MindMate.Tests.View
             Assert.AreEqual(12, sut.ImageSourceChanges.Count());
 
             int imgCount = Regex.Matches(sut.ProcessedHtml, "<img", RegexOptions.IgnoreCase).Count;
-            Assert.IsTrue(imgCount == sut.ImageSourceChanges.Count());
-
-            var a = new HtmlAgilityPack.HtmlWeb();
+            Assert.IsTrue(imgCount == sut.ImageSourceChanges.Count());           
             
         }
 
