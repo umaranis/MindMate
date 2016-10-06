@@ -117,7 +117,7 @@
     <Compile Include="View\NoteEditing\PluggableProtocol\EmbeddedProtocol.cs" />
     <Compile Include="View\NoteEditing\ImageLocalProvider.cs" />
     <Compile Include="View\NoteEditing\PluggableProtocol\ProtocolBase.cs" />
-    <Compile Include="View\NoteEditing\HtmlProcessor.cs" />
+    <Compile Include="View\NoteEditing\HtmlImageProcessor.cs" />
     <Compile Include="View\NoteEditing\HtmlSourceDialog.cs">
       <SubType>Form</SubType>
     </Compile>

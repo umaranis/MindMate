@@ -24,7 +24,7 @@ namespace MindMate.View.NoteEditing
         {
             using (var web = new WebClient())
             {
-                new HtmlProcessor(editor, e =>
+                new HtmlImageProcessor(editor, e =>
                 {
                     persistence.CurrentTree.SetByteArray(Path.GetFileName(e.NewInternalSrc), web.DownloadData(e.OriginalSrc));                     
                     //TODO: web resource not found

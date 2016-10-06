@@ -23,7 +23,7 @@ namespace MindMate.Tests.View
             string html = null;
             int imgUpdated = 0;
 
-            HtmlProcessor sut = null;
+            HtmlImageProcessor sut = null;
             System.Threading.Thread t = new System.Threading.Thread(() =>
             {
                 var editor = new NoteEditor();                               
@@ -32,7 +32,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     editor.HTML = tree.RootNode.FirstChild.NoteText;
-                    sut = new HtmlProcessor(editor, e => { imgUpdated++; });
+                    sut = new HtmlImageProcessor(editor, e => { imgUpdated++; });
                     html = editor.HTML;
                     form.Close();
                 };

@@ -12,12 +12,12 @@ namespace MindMate.View.NoteEditing
     /// - Changes img src to point to new image protocol
     /// - Removes script blocks //TODO: not done yet
     /// </summary>
-    public class HtmlProcessor
+    public class HtmlImageProcessor
     {
         public const string NoteImageProtocol = "mm://";
         public const string NoteImageExtension = ".png";
 
-        public HtmlProcessor(NoteEditor editor, Action<ImageSourceChange> imageSourceChanging)
+        public HtmlImageProcessor(NoteEditor editor, Action<ImageSourceChange> imageSourceChanging)
         {
             ReplaceImageTags(editor.Document, imageSourceChanging);
             //RemoveScripts(editor.Document);
