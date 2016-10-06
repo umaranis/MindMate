@@ -113,13 +113,18 @@
     <Compile Include="Controller\StatusBarCtrl.cs" />
     <Compile Include="Controller\INoteEditor.cs" />
     <Compile Include="Modules\Logging\Log.cs" />
-    <Compile Include="View\NoteEditing\HtmlPreProcessor.cs" />
+    <Compile Include="View\NoteEditing\PluggableProtocol\ComSupport.cs" />
+    <Compile Include="View\NoteEditing\PluggableProtocol\EmbeddedProtocol.cs" />
+    <Compile Include="View\NoteEditing\ImageLocalProvider.cs" />
+    <Compile Include="View\NoteEditing\PluggableProtocol\ProtocolBase.cs" />
+    <Compile Include="View\NoteEditing\HtmlProcessor.cs" />
     <Compile Include="View\NoteEditing\HtmlSourceDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\NoteEditing\HtmlSourceDialog.Designer.cs">
       <DependentUpon>HtmlSourceDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\NoteEditing\ImageLocalSaver.cs" />
     <Compile Include="View\NoteEditing\MsHtmlWrap\HtmlEditorException.cs" />
     <Compile Include="View\NoteEditing\MsHtmlWrap\HtmlTableHelper.cs" />
     <Compile Include="View\NoteEditing\MsHtmlWrap\UndoUnit.cs" />
@@ -855,6 +860,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

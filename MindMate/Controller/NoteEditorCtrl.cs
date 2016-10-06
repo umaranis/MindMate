@@ -16,6 +16,8 @@ namespace MindMate.Controller
         public NoteEditorCtrl(NoteEditor editor, PersistenceManager pManager)
         {
             this.noteGlue = new NoteMapGlue(editor, pManager);
+            new ImageLocalSaver(editor, pManager);
+            new ImageLocalProvider(pManager);
         }
 
         public void SetNoteEditorBackColor(Color color)
@@ -149,8 +151,7 @@ namespace MindMate.Controller
             form.HtmlSource = noteGlue.Editor.HTML;
             if(form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                //noteGlue.Editor.HTML = form.HtmlSource; //this line updates the content as if new document is loaded. So, dirty flag is not set.
-                noteGlue.Editor.Document.Body.InnerHtml = form.HtmlSource; //this makes the editor dirty as opposed to setting 'noteGlue.Editor.HTML'
+                noteGlue.Editor.UpdateHtmlSource(form.HtmlSource); //this makes the editor dirty as opposed to setting 'noteGlue.Editor.HTML'
             }
         }
     }

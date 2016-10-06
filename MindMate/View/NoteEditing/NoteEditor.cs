@@ -33,7 +33,7 @@ namespace MindMate.View.NoteEditing
             // events
             this.Navigated += new WebBrowserNavigatedEventHandler(this_Navigated);
             this.Navigating += NoteEditor_Navigating;
-            this.GotFocus += new EventHandler(this_GotFocus);                        
+            this.GotFocus += new EventHandler(this_GotFocus);            
         }
 
         /// <summary>
@@ -41,7 +41,12 @@ namespace MindMate.View.NoteEditing
         /// </summary>
         public event Action<object> Ready = delegate { };
 
-        public event Action<object> CursorMoved;        
+        public event Action<object> CursorMoved;
+
+        /// <summary>
+        /// Event is fired when something is pasted in the Note Editor or HTML source is edited.
+        /// </summary>
+        public event Action<object> ExternalContentAdded;
 
         public event Action<object> OnDirty = delegate { };
 
@@ -159,6 +164,12 @@ namespace MindMate.View.NoteEditing
                 this.Document.Body.InnerHtml = value;
                 CursorMoved?.Invoke(this);
             }
+        }
+
+        public void UpdateHtmlSource(string html)
+        {
+            Document.Body.InnerHtml = html;
+            ExternalContentAdded?.Invoke(this);
         }
 
         public new bool Enabled
@@ -420,30 +431,9 @@ namespace MindMate.View.NoteEditing
 
         public void Paste()
         {
-            if (Clipboard.ContainsText(TextDataFormat.Html))
-            {
-                PreProcessHtmlPaste();
-            }
             Document.ExecCommand("Paste", false, null);
-        }
-
-        private void PreProcessHtmlPaste()
-        {
-            try
-            {
-                string html = Clipboard.GetText(TextDataFormat.Html);
-                //Regex r = new Regex(@"Version:\d+\.?\d+\r\nStartHTML:\d+\r\nEndHTML:\d+\.?\d+\r\nStartFragment:\d+\.?\d+\r\nEndFragment:\d+\.?\d+\r\nStartSelection:\d+\.?\d+\r\nEndSelection:\d+\.?\d+\r\nSourceURL:.+", RegexOptions.IgnoreCase);
-                var p = new HtmlPreProcessor(html);
-                if (p.Changed)
-                {
-                    Clipboard.SetText(p.ProcessedHtml, TextDataFormat.Html);
-                }
-            }
-            catch(Exception e)
-            {
-                Log.Write(e);
-            }
-        }
+            ExternalContentAdded?.Invoke(this);
+        }        
 
         public void Copy()
         {

@@ -1,5 +1,6 @@
 ﻿using MindMate.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -13,7 +14,7 @@ namespace MindMate.Serialization
         /// <summary>
         /// Call <see cref="PersistentTree.Initialize"/> before using the object
         /// </summary>
-        public PersistentTree(PersistenceManager persistenceManager)
+        internal PersistentTree(PersistenceManager persistenceManager)
         {
             manager = persistenceManager;
             Tree = new MapTree();
@@ -22,7 +23,7 @@ namespace MindMate.Serialization
         /// <summary>
         /// Initialize a new Tree
         /// </summary>
-        public void Initialize()
+        internal void Initialize()
         {
             new MapNode(Tree, "New Map");
             Tree.TurnOnChangeManager();
@@ -34,7 +35,7 @@ namespace MindMate.Serialization
         /// Deserialze an existing Tree. Throws exception if file not found.
         /// </summary>
         /// <param name="fileName"></param>
-        public void Initialize(string fileName)
+        internal void Initialize(string fileName)
         {
             FileName = fileName;
             string xmlString = System.IO.File.ReadAllText(FileName);
@@ -149,5 +150,27 @@ namespace MindMate.Serialization
         public event DirtyChangedDelegate DirtyChanged;
 
         #endregion IsDirty
+
+        #region Lazy loaded Large Object Cache
+
+        private Hashtable lobCache = new Hashtable();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>null if not found</returns>
+        public byte[] GetByteArray(string key)
+        {
+            return lobCache[key] as byte[];
+        }
+
+        public void SetByteArray(string key, byte[] data)
+        {
+            lobCache[key] = data;
+        }
+
+        #endregion Lazy loaded Large Object Cache
+
     }
 }

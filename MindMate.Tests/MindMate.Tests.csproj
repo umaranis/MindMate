@@ -84,7 +84,7 @@
     <Compile Include="Controller\MapCtrlTests.cs" />
     <Compile Include="Controller\NoteEditorCtrlTests.cs" />
     <Compile Include="View\NoteEditing\HtmlTableHelperTests.cs" />
-    <Compile Include="View\NoteEditing\HtmlPreProcessorTests.cs" />
+    <Compile Include="View\NoteEditing\HtmlProcessorTests.cs" />
     <Compile Include="View\NoteEditing\NoteMapGlueTests.cs" />
     <Compile Include="IntegrationTest\MapViewTest.cs" />
     <Compile Include="IntegrationTest\TaskPluginTests.cs" />
