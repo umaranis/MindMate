@@ -294,7 +294,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>C:\Program Files (x86)\Windows Kits\8.1\bin\x86\UICC.exe" "$(ProjectDir)View\Ribbon\RibbonMarkup.xml" "$(ProjectDir)View\Ribbon\RibbonMarkup.bml" /res:"$(ProjectDir)View\Ribbon\RibbonMarkup.rc" 
+    <PreBuildEvent>"C:\Program Files (x86)\Windows Kits\8.1\bin\x86\UICC.exe" "$(ProjectDir)View\Ribbon\RibbonMarkup.xml" "$(ProjectDir)View\Ribbon\RibbonMarkup.bml" /res:"$(ProjectDir)View\Ribbon\RibbonMarkup.rc" 
 
 "C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe" /v "$(ProjectDir)View\Ribbon\RibbonMarkup.rc" 
 
