@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MindMate.Tests</RootNamespace>
     <AssemblyName>MindMate.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -83,6 +83,7 @@
     <Compile Include="Controller\MainCtrlTests.cs" />
     <Compile Include="Controller\MapCtrlTests.cs" />
     <Compile Include="Controller\NoteEditorCtrlTests.cs" />
+    <Compile Include="Serialization\MapZipSerializerTests.cs" />
     <Compile Include="View\NoteEditing\HtmlTableHelperTests.cs" />
     <Compile Include="View\NoteEditing\HtmlImageProcessorTests.cs" />
     <Compile Include="View\NoteEditing\NoteMapGlueTests.cs" />
@@ -140,6 +141,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Feature Display.mm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\New Format with Images.mm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\New Format.mm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\RichNotesMap.mm">

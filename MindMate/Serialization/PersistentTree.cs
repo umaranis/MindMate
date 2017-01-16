@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -38,8 +39,15 @@ namespace MindMate.Serialization
         internal void Initialize(string fileName)
         {
             FileName = fileName;
-            string xmlString = System.IO.File.ReadAllText(FileName);
-            new MindMapSerializer().Deserialize(xmlString, Tree);
+            try
+            {
+                new MapZipSerializer().DeserializeMap(Tree, FileName);
+            }
+            catch(InvalidDataException)
+            {
+                string xmlString = System.IO.File.ReadAllText(FileName);
+                new MindMapSerializer().Deserialize(xmlString, Tree);
+            }
             Tree.TurnOnChangeManager();
             RegisterForMapChangedNotification();
             Tree.SelectedNodes.Add(Tree.RootNode);
@@ -82,22 +90,20 @@ namespace MindMate.Serialization
         public void Save(string fileName)
         {
             FileName = fileName;
-            Save();
+            Save(true);
         }
 
         /// <summary>
         /// Save Changes
         /// </summary>
-        public void Save()
+        public void Save(bool overwrite = false)
         {
             Debug.Assert(FileName != null, "Persistent Tree: File name is null.");
 
-            var serializer = new MindMapSerializer();
-            using (var fileStream = new FileStream(FileName, FileMode.Create, FileAccess.Write))
-            {
-                serializer.Serialize(fileStream, Tree);
-            }
+            var serializer = new MapZipSerializer();
+            serializer.SerializeMap(Tree, lobCache.Where(k => newLobs.Contains(k.Key)), FileName, overwrite);
 
+            newLobs.Clear();
             IsDirty = false;
 
             manager._InvokeTreeSaved(this);
@@ -153,8 +159,9 @@ namespace MindMate.Serialization
 
         #region Lazy loaded Large Object Cache
 
-        private Hashtable lobCache = new Hashtable();
-
+        private Dictionary<string, byte[]> lobCache = new Dictionary<string, byte[]>();
+        private List<string> newLobs = new List<string>(); //not saved yet
+                
         /// <summary>
         /// 
         /// </summary>
@@ -162,12 +169,22 @@ namespace MindMate.Serialization
         /// <returns>null if not found</returns>
         public byte[] GetByteArray(string key)
         {
-            return lobCache[key] as byte[];
+            try
+            {
+                return lobCache[key] as byte[];
+            }
+            catch(KeyNotFoundException)
+            {
+                byte[] obj = new MapZipSerializer().DeserializeLargeObject(FileName, key);
+                lobCache[key] = obj;
+                return obj;
+            }
         }
 
         public void SetByteArray(string key, byte[] data)
         {
             lobCache[key] = data;
+            newLobs.Add(key);
         }
 
         #endregion Lazy loaded Large Object Cache

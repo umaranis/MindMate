@@ -177,9 +177,9 @@ namespace MindMate.Serialization
         }
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="XMLString"></param>
+        /// <param name="tree"></param>
         /// <returns>Return the Root Node after constructing the hierarchy</returns>
         public void Deserialize(string XMLString, MapTree tree)
         {
