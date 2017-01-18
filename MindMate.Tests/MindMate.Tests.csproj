@@ -84,6 +84,7 @@
     <Compile Include="Controller\MapCtrlTests.cs" />
     <Compile Include="Controller\NoteEditorCtrlTests.cs" />
     <Compile Include="Serialization\MapZipSerializerTests.cs" />
+    <Compile Include="Serialization\PersistentTreeTests.cs" />
     <Compile Include="View\NoteEditing\HtmlTableHelperTests.cs" />
     <Compile Include="View\NoteEditing\HtmlImageProcessorTests.cs" />
     <Compile Include="View\NoteEditing\NoteMapGlueTests.cs" />
