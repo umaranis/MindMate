@@ -8,5 +8,5 @@ Mind Mate is an open source mind mapping software developed in C# .Net
 ![Screen Shot of MindMate](https://raw.githubusercontent.com/umaranis/MindMate/master/Miscellaneous/Docs/MindMate%20-%20Screen%20Shot.png)
 
 ### Download (v0.3 beta)
-- Windows 10 & 8 ([Installer](https://github.com/umaranis/MindMate/releases/download/v0.3/Windows-8-10-Installer-MindMate-v0.3.exe), [Portable Zip](https://github.com/umaranis/MindMate/releases/download/v0.3/Windows-8-10-Portable-MindMate-v0.3.zip))
-- Windows 7 ([Installer](https://github.com/umaranis/MindMate/releases/download/v0.3/Windows-7-Installer-MindMate-v0.3.exe), [Portable Zip](https://github.com/umaranis/MindMate/releases/download/v0.3/Windows-7-Portable-MindMate-v0.3.zip))
+- Windows 10 & 8 ([Installer](https://github.com/umaranis/MindMate/releases/download/v0.4/Windows-8-10-Installer-MindMate-v0.4.exe), [Portable Zip](https://github.com/umaranis/MindMate/releases/download/v0.4/Windows-8-10-Portable-MindMate-v0.4.zip))
+- Windows 7 ([Installer](https://github.com/umaranis/MindMate/releases/download/v0.4/Windows-7-Installer-MindMate-v0.4.exe), [Portable Zip](https://github.com/umaranis/MindMate/releases/download/v0.4/Windows-7-Portable-MindMate-v0.4.zip))
