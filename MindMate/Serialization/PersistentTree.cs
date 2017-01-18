@@ -100,8 +100,11 @@ namespace MindMate.Serialization
         {
             Debug.Assert(FileName != null, "Persistent Tree: File name is null.");
 
+            //if overwrite then save all largeObjects, otherwise only new ones
+            IEnumerable<KeyValuePair<string, byte[]>> largeObjectsToSave = overwrite ? lobCache : lobCache.Where(k => newLobs.Contains(k.Key));
+
             var serializer = new MapZipSerializer();
-            serializer.SerializeMap(Tree, lobCache.Where(k => newLobs.Contains(k.Key)), FileName, overwrite);
+            serializer.SerializeMap(Tree, largeObjectsToSave, FileName, overwrite);
 
             newLobs.Clear();
             IsDirty = false;
