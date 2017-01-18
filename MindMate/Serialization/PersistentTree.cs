@@ -172,11 +172,11 @@ namespace MindMate.Serialization
         /// <returns>null if not found</returns>
         public byte[] GetByteArray(string key)
         {
-            try
+            if (lobCache.ContainsKey(key))
             {
                 return lobCache[key] as byte[];
             }
-            catch(KeyNotFoundException)
+            else
             {
                 byte[] obj = new MapZipSerializer().DeserializeLargeObject(FileName, key);
                 lobCache[key] = obj;
