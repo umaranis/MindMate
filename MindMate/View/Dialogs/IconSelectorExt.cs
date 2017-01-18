@@ -30,6 +30,7 @@ namespace MindMate.View.Dialogs
 
             // adding items to ListView
             ImageList imageList = new ImageList();
+            MetaModel.MetaModel.Initialize();
             for (int i = 0; i < MetaModel.MetaModel.Instance.IconsList.Count; i++)
             {
                 ModelIcon icon = MetaModel.MetaModel.Instance.IconsList[i];
