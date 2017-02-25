@@ -172,16 +172,18 @@ namespace MindMate.Serialization
         /// <returns>null if not found</returns>
         public byte[] GetByteArray(string key)
         {
-            if (lobCache.ContainsKey(key))
+            byte[] obj;
+            if (lobCache.TryGetValue(key, out obj))
             {
                 return lobCache[key] as byte[];
             }
             else
             {
-                byte[] obj = new MapZipSerializer().DeserializeLargeObject(FileName, key);
-                lobCache[key] = obj;
-                return obj;
+                obj = new MapZipSerializer().DeserializeLargeObject(FileName, key);
+                lobCache[key] = obj;                
             }
+
+            return obj;
         }
 
         public void SetByteArray(string key, byte[] data)

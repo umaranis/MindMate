@@ -32,7 +32,6 @@ using HtmlTableRowMetrics = mshtml.IHTMLTableRowMetrics;
 using HtmlTableColumn = mshtml.IHTMLTableCol;
 using System.Windows.Forms;
 using MindMate.Modules.Logging;
-using MindMate.View.NoteEditing.MsHtmlWrap;
 
 namespace MindMate.View.NoteEditing.MsHtmlWrap
 {
@@ -56,7 +55,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
         /// <returns>null if table is not selected</returns>
         public HtmlTable GetSelectedTable()
         {
-            return GetFirstControl() as HtmlTable;
+            return SelectionHelper.GetFirstControl(Document) as HtmlTable;
         }
 
         // public function to create a table class
@@ -584,7 +583,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                         HtmlDomNode tableNode = (HtmlDomNode)table;
                         HtmlElement tableElement = (HtmlElement)table;
                         HtmlSelection selection = Document.selection;
-                        HtmlTextRange textRange = GetTextRange();
+                        HtmlTextRange textRange = SelectionHelper.GetTextRange(Document);
                         // final insert dependant on what user has selected
                         if (textRange != null)
                         {
@@ -607,7 +606,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                         }
                         else
                         {
-                            HtmlControlRange controlRange = GetAllControls();
+                            HtmlControlRange controlRange = SelectionHelper.GetAllControls(Document);
                             if (controlRange != null)
                             {
                                 // overwrite any controls the user has selected
@@ -639,7 +638,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                     {
                         // table has been correctly defined as being the first selected item
                         // need to remove other selected items
-                        HtmlControlRange controlRange = GetAllControls();
+                        HtmlControlRange controlRange = SelectionHelper.GetAllControls(Document);
                         if (controlRange != null)
                         {
                             // clear the controls selected other than than the first table
@@ -698,12 +697,12 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
             table = null;
             row = null;
             cell = null;
-            HtmlTextRange range = GetTextRange();
+            HtmlTextRange range = SelectionHelper.GetTextRange(Document);
 
             try
             {
                 // first see if the table element is selected
-                table = GetFirstControl() as HtmlTable;
+                table = SelectionHelper.GetFirstControl(Document) as HtmlTable;
                 // if table not selected then parse up the selection tree
                 if (table == null && range != null)
                 {
@@ -745,11 +744,11 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
         {
             // define the table and row elements and obtain there values
             HtmlTable table = null;
-            HtmlTextRange range = GetTextRange();
+            HtmlTextRange range = SelectionHelper.GetTextRange(Document);
 
             
             // first see if the table element is selected
-            table = GetFirstControl() as HtmlTable;
+            table = SelectionHelper.GetFirstControl(Document) as HtmlTable;
             // if table not selected then parse up the selection tree
             if (table == null && range != null)
             {
@@ -854,32 +853,6 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
 
         #endregion
 
-        // get the selected range object
-        private HtmlTextRange GetTextRange()
-        {
-            // define the selected range object
-            HtmlSelection selection;
-            HtmlTextRange range = null;
-
-            try
-            {
-                // calculate the text range based on user selection
-                selection = Document.selection;
-                if (selection.type.Equals("text", StringComparison.OrdinalIgnoreCase) || selection.type.Equals("none", StringComparison.OrdinalIgnoreCase))
-                {
-                    range = selection.createRange() as HtmlTextRange;
-                }
-            }
-            catch (Exception)
-            {
-                // have unknown error so set return to null
-                range = null;
-            }
-
-            return range;
-
-        }
-
         private void SelectCell(HtmlTableCell cell)
         {
             HtmlElement cellElement = cell as HtmlElement;
@@ -902,61 +875,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
         private static HtmlTableCell GetCell(HtmlTable table, int row, int col)
         {
             return table.rows.item(row).cells.item(col) as HtmlTableCell;
-        }
-
-        // get the selected range object
-        private HtmlElement GetFirstControl()
-        {
-            // define the selected range object
-            HtmlSelection selection;
-            HtmlControlRange range;
-            HtmlElement control = null;
-
-            try
-            {
-                // calculate the first control based on the user selection
-                selection = Document.selection;
-                if (selection.type.Equals("control", StringComparison.OrdinalIgnoreCase))
-                {
-                    range = selection.createRange() as HtmlControlRange; 
-                    if (range.length > 0) control = range.item(0);
-                }
-            }
-            catch (Exception)
-            {
-                // have unknown error so set return to null
-                control = null;
-            }
-
-            return control;
-
-        } // GetFirstControl
-
-        // obtains a control range to be worked with
-        private HtmlControlRange GetAllControls()
-        {
-            // define the selected range object
-            HtmlSelection selection;
-            HtmlControlRange range = null;
-
-            try
-            {
-                // calculate the first control based on the user selection
-                selection = Document.selection;
-                if (selection.type.Equals("control", StringComparison.OrdinalIgnoreCase))
-                {
-                    range = selection.createRange() as HtmlControlRange;
-                }
-            }
-            catch (Exception)
-            {
-                // have unknow error so set return to null
-                range = null;
-            }
-
-            return range;
-
-        } //GetAllControls
+        }       
 
         #region Utility Methods
 

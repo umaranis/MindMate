@@ -85,8 +85,11 @@
     <Compile Include="Controller\NoteEditorCtrlTests.cs" />
     <Compile Include="Serialization\MapZipSerializerTests.cs" />
     <Compile Include="Serialization\PersistentTreeTests.cs" />
+    <Compile Include="View\NoteEditing\ClipboardImagePasterTests.cs" />
     <Compile Include="View\NoteEditing\HtmlTableHelperTests.cs" />
-    <Compile Include="View\NoteEditing\HtmlImageProcessorTests.cs" />
+    <Compile Include="View\NoteEditing\ImageLocalProviderTests.cs" />
+    <Compile Include="View\NoteEditing\ImageLocalSaverTests.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\HtmlImageCreatorTests.cs" />
     <Compile Include="View\NoteEditing\NoteMapGlueTests.cs" />
     <Compile Include="IntegrationTest\MapViewTest.cs" />
     <Compile Include="IntegrationTest\TaskPluginTests.cs" />

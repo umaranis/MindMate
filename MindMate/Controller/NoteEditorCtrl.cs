@@ -18,6 +18,7 @@ namespace MindMate.Controller
             this.noteGlue = new NoteMapGlue(editor, pManager);
             new ImageLocalSaver(editor, pManager);
             new ImageLocalProvider(pManager);
+            new ClipboardImagePaster(editor, pManager);
         }
 
         public void SetNoteEditorBackColor(Color color)

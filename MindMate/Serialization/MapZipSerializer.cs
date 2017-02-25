@@ -69,9 +69,16 @@ namespace MindMate.Serialization
                 using (var zip = new ZipArchive(fileStream, ZipArchiveMode.Read))
                 {
                     var entry = zip.GetEntry(objectKey);
-                    using (var reader = new BinaryReader(entry.Open()))
+                    if (entry != null)
                     {
-                        return reader.ReadBytes((int)entry.Length);                        
+                        using (var reader = new BinaryReader(entry.Open()))
+                        {
+                            return reader.ReadBytes((int)entry.Length);
+                        }
+                    }
+                    else
+                    {
+                        return null;
                     }
                 }
             }

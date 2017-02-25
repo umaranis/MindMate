@@ -121,11 +121,15 @@
     <Compile Include="Controller\INoteEditor.cs" />
     <Compile Include="Modules\Logging\Log.cs" />
     <Compile Include="Serialization\MapZipSerializer.cs" />
+    <Compile Include="View\NoteEditing\ClipboardImagePaster.cs" />
+    <Compile Include="View\NoteEditing\ImageLocalPath.cs" />
+    <Compile Include="View\NoteEditing\MimeTypes.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\HtmlImageCreator.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\SelectionHelper.cs" />
     <Compile Include="View\NoteEditing\PluggableProtocol\ComSupport.cs" />
     <Compile Include="View\NoteEditing\PluggableProtocol\EmbeddedProtocol.cs" />
     <Compile Include="View\NoteEditing\ImageLocalProvider.cs" />
     <Compile Include="View\NoteEditing\PluggableProtocol\ProtocolBase.cs" />
-    <Compile Include="View\NoteEditing\HtmlImageProcessor.cs" />
     <Compile Include="View\NoteEditing\HtmlSourceDialog.cs">
       <SubType>Form</SubType>
     </Compile>

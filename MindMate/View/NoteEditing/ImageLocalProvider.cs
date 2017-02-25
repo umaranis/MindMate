@@ -15,56 +15,31 @@ namespace MindMate.View.NoteEditing
     [Guid("4C74EFBD-2028-4084-A99C-98CB29A6A69F")]
     public class ImageLocalProvider : EmbeddedProtocol
     {
-        public const string MindMateProtocolPrefix = "mm";
         private PersistenceManager persistence;
 
-        public ImageLocalProvider(PersistenceManager persistence) : base(MindMateProtocolPrefix, "/")
+        public ImageLocalProvider(PersistenceManager persistence) : base(ImageLocalPath.ProtocolPrefix, "/")
         {
             this.persistence = persistence;
-            EmbeddedProtocolFactory.Register(MindMateProtocolPrefix, () => this);
+            EmbeddedProtocolFactory.Register(ImageLocalPath.ProtocolPrefix, () => this);
         }
 
         public override byte[] GetUrlData(string url, out string contentType)
         {
-            return GetTestData(url, out contentType);
-        }
+            ImageLocalPath path = ImageLocalPath.ConvertTo(url);         
 
-        private byte[] GetTestData(string url, out string contentType)
-        {
-            int lastSlash = url.LastIndexOf("/");
-            if (lastSlash == url.Length - 1)
+            var data = persistence.CurrentTree.GetByteArray(path.FileName);
+
+            if (data != null)
             {
-                url = url.Substring(0, url.Length - 1);
-                lastSlash = url.LastIndexOf("/");
+                contentType = MimeTypes.GetMimeType(path.Extension);
             }
-            var fileName = url.Substring(lastSlash + 1);
-            var fileExt = url.Substring(url.LastIndexOf(".") + 1);
-
-            var data = persistence.CurrentTree.GetByteArray(fileName);
-
-            if (data == null)
+            else
             {
                 contentType = "text/html";
-                return Encoding.UTF8.GetBytes(@"<b>Page not found!</b>");
+                data = Encoding.UTF8.GetBytes(@"<b>Page not found!</b>");
             }
-                                                    
-            switch (fileExt)
-            {//TODO: Support other types like svg (check GraphQL logo)
-                case "htm":
-                    contentType = "text/html";
-                    break;
-                case "jpg":
-                    contentType = "image/jpeg";
-                    break;
-                case "png":
-                    contentType = "image/png";
-                    break;
-                default:
-                    contentType = "application/octet-stream";
-                    break;
-            }
+
             return data;
-            
-        }
+        }        
     }
 }

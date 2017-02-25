@@ -13,26 +13,25 @@ using System.Windows.Forms;
 namespace MindMate.Tests.View
 {
     [TestClass()]
-    public class HtmlProcessorTests
+    public class ImageLocalSaverTests
     {
         [TestMethod()]
-        public void ImageTagProcessor_BBC()
+        public void ImageLocalSaver_ctor_ImagesAreProcessed()
         {
             var p = new PersistenceManager();
             var tree = p.OpenTree(@"Resources\Websites.mm").Tree;
             string html = null;
-            int imgUpdated = 0;
 
-            HtmlImageProcessor sut = null;
             System.Threading.Thread t = new System.Threading.Thread(() =>
             {
-                var editor = new NoteEditor();                               
+                var editor = new NoteEditor();
                 var form = CreateForm();
                 form.Controls.Add(editor);
+                new ImageLocalSaver(editor, p);
                 form.Shown += (sender, args) =>
                 {
-                    editor.HTML = tree.RootNode.FirstChild.NoteText;
-                    sut = new HtmlImageProcessor(editor, e => { imgUpdated++; });
+                    editor.UpdateHtmlSource(tree.RootNode.FirstChild.NoteText);
+
                     html = editor.HTML;
                     form.Close();
                 };
@@ -44,11 +43,48 @@ namespace MindMate.Tests.View
             t.Join();
 
             Assert.IsTrue(html.Contains("srcOrig"));
+            int imgUpdated = Regex.Matches(html, "srcOrig", RegexOptions.IgnoreCase).Count;
             Assert.AreEqual(79, imgUpdated);
 
             int imgCount = Regex.Matches(html, "<img", RegexOptions.IgnoreCase).Count;
             Assert.IsTrue(imgCount > imgUpdated);
         }
+
+        [TestMethod()]
+        public void ProcessImages_BBC_CheckImgTags()
+        {
+            var p = new PersistenceManager();
+            var tree = p.OpenTree(@"Resources\Websites.mm").Tree;
+            string html = null;            
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var editor = new NoteEditor();                               
+                var form = CreateForm();
+                form.Controls.Add(editor);
+                form.Shown += (sender, args) =>
+                {
+                    editor.HTML = tree.RootNode.FirstChild.NoteText;
+                    ImageLocalSaver.ProcessImages(editor.Document, p.CurrentTree);
+                    
+                    html = editor.HTML;
+                    form.Close();
+                };
+                form.ShowDialog();
+
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(html.Contains("srcOrig"));
+            int imgUpdated = Regex.Matches(html, "srcOrig", RegexOptions.IgnoreCase).Count;
+            Assert.AreEqual(79, imgUpdated);
+
+            int imgCount = Regex.Matches(html, "<img", RegexOptions.IgnoreCase).Count;
+            Assert.IsTrue(imgCount > imgUpdated);
+        }
+
 
         //TODO: Fix the following tests
         //[TestMethod()]
