@@ -1,0 +1,23 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(ProjectDir)bin\Debug\MindMate.dll" #>
+<#@ assembly name="$(ProjectDir)bin\Debug\CodeGenHelper.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="MindMate.Model" #>
+<#@ import namespace="MindMate.MetaModel" #>
+<#@ import namespace="CodeGenHelper" #>
+<#@ output extension=".txt" #>
+
+<#
+var props = new T4MapNodeHelper().GetSerializedPropertiesInOrder();
+foreach(var p in props)
+{ #>
+public bool Has<#= p.Name #> 
+{
+	get { return <#= p.Name.ToLower() #> != null; }	
+}	
+
+<# }
+#>
