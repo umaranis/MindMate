@@ -1,6 +1,8 @@
 ﻿using MindMate.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -13,7 +15,7 @@ namespace MindMate.Serialization
         /// <summary>
         /// Call <see cref="PersistentTree.Initialize"/> before using the object
         /// </summary>
-        public PersistentTree(PersistenceManager persistenceManager)
+        internal PersistentTree(PersistenceManager persistenceManager)
         {
             manager = persistenceManager;
             Tree = new MapTree();
@@ -22,7 +24,7 @@ namespace MindMate.Serialization
         /// <summary>
         /// Initialize a new Tree
         /// </summary>
-        public void Initialize()
+        internal void Initialize()
         {
             new MapNode(Tree, "New Map");
             Tree.TurnOnChangeManager();
@@ -34,11 +36,18 @@ namespace MindMate.Serialization
         /// Deserialze an existing Tree. Throws exception if file not found.
         /// </summary>
         /// <param name="fileName"></param>
-        public void Initialize(string fileName)
+        internal void Initialize(string fileName)
         {
             FileName = fileName;
-            string xmlString = System.IO.File.ReadAllText(FileName);
-            new MindMapSerializer().Deserialize(xmlString, Tree);
+            try
+            {
+                new MapZipSerializer().DeserializeMap(Tree, FileName);
+            }
+            catch(InvalidDataException)
+            {
+                string xmlString = System.IO.File.ReadAllText(FileName);
+                new MindMapSerializer().Deserialize(xmlString, Tree);
+            }
             Tree.TurnOnChangeManager();
             RegisterForMapChangedNotification();
             Tree.SelectedNodes.Add(Tree.RootNode);
@@ -81,22 +90,23 @@ namespace MindMate.Serialization
         public void Save(string fileName)
         {
             FileName = fileName;
-            Save();
+            Save(true);
         }
 
         /// <summary>
         /// Save Changes
         /// </summary>
-        public void Save()
+        public void Save(bool overwrite = false)
         {
             Debug.Assert(FileName != null, "Persistent Tree: File name is null.");
 
-            var serializer = new MindMapSerializer();
-            using (var fileStream = new FileStream(FileName, FileMode.Create, FileAccess.Write))
-            {
-                serializer.Serialize(fileStream, Tree);
-            }
+            //if overwrite then save all largeObjects, otherwise only new ones
+            IEnumerable<KeyValuePair<string, byte[]>> largeObjectsToSave = overwrite ? lobCache : lobCache.Where(k => newLobs.Contains(k.Key));
 
+            var serializer = new MapZipSerializer();
+            serializer.SerializeMap(Tree, largeObjectsToSave, FileName, overwrite);
+
+            newLobs.Clear();
             IsDirty = false;
 
             manager._InvokeTreeSaved(this);
@@ -149,5 +159,40 @@ namespace MindMate.Serialization
         public event DirtyChangedDelegate DirtyChanged;
 
         #endregion IsDirty
+
+        #region Lazy loaded Large Object Cache
+
+        private Dictionary<string, byte[]> lobCache = new Dictionary<string, byte[]>();
+        private List<string> newLobs = new List<string>(); //not saved yet
+                
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>null if not found</returns>
+        public byte[] GetByteArray(string key)
+        {
+            byte[] obj;
+            if (lobCache.TryGetValue(key, out obj))
+            {
+                return lobCache[key] as byte[];
+            }
+            else
+            {
+                obj = new MapZipSerializer().DeserializeLargeObject(FileName, key);
+                lobCache[key] = obj;                
+            }
+
+            return obj;
+        }
+
+        public void SetByteArray(string key, byte[] data)
+        {
+            lobCache[key] = data;
+            newLobs.Add(key);
+        }
+
+        #endregion Lazy loaded Large Object Cache
+
     }
 }

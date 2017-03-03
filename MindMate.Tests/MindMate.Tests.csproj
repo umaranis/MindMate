@@ -8,7 +8,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MindMate.Tests</RootNamespace>
     <AssemblyName>MindMate.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -39,6 +39,10 @@
     <Reference Include="CustomFontDialog, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="FakeItEasy, Version=1.25.3.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
       <HintPath>..\packages\FakeItEasy.1.25.3\lib\net40\FakeItEasy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -79,7 +83,13 @@
     <Compile Include="Controller\MainCtrlTests.cs" />
     <Compile Include="Controller\MapCtrlTests.cs" />
     <Compile Include="Controller\NoteEditorCtrlTests.cs" />
+    <Compile Include="Serialization\MapZipSerializerTests.cs" />
+    <Compile Include="Serialization\PersistentTreeTests.cs" />
+    <Compile Include="View\NoteEditing\ClipboardImagePasterTests.cs" />
     <Compile Include="View\NoteEditing\HtmlTableHelperTests.cs" />
+    <Compile Include="View\NoteEditing\ImageLocalProviderTests.cs" />
+    <Compile Include="View\NoteEditing\ImageLocalSaverTests.cs" />
+    <Compile Include="View\NoteEditing\MsHtmlWrap\HtmlImageCreatorTests.cs" />
     <Compile Include="View\NoteEditing\NoteMapGlueTests.cs" />
     <Compile Include="IntegrationTest\MapViewTest.cs" />
     <Compile Include="IntegrationTest\TaskPluginTests.cs" />
@@ -135,6 +145,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Feature Display.mm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\New Format with Images.mm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\New Format.mm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\RichNotesMap.mm">

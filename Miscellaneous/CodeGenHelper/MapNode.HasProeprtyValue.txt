@@ -1,0 +1,121 @@
+﻿
+public bool HasText 
+{
+	get { return text != null; }	
+}	
+
+public bool HasPos 
+{
+	get { return pos != null; }	
+}	
+
+public bool HasId 
+{
+	get { return id != null; }	
+}	
+
+public bool HasFolded 
+{
+	get { return folded != null; }	
+}	
+
+public bool HasLink 
+{
+	get { return link != null; }	
+}	
+
+public bool HasCreated 
+{
+	get { return created != null; }	
+}	
+
+public bool HasModified 
+{
+	get { return modified != null; }	
+}	
+
+public bool HasBold 
+{
+	get { return bold != null; }	
+}	
+
+public bool HasItalic 
+{
+	get { return italic != null; }	
+}	
+
+public bool HasStrikeout 
+{
+	get { return strikeout != null; }	
+}	
+
+public bool HasFontName 
+{
+	get { return fontname != null; }	
+}	
+
+public bool HasFontSize 
+{
+	get { return fontsize != null; }	
+}	
+
+public bool HasBackColor 
+{
+	get { return backcolor != null; }	
+}	
+
+public bool HasColor 
+{
+	get { return color != null; }	
+}	
+
+public bool HasShape 
+{
+	get { return shape != null; }	
+}	
+
+public bool HasLineWidth 
+{
+	get { return linewidth != null; }	
+}	
+
+public bool HasLinePattern 
+{
+	get { return linepattern != null; }	
+}	
+
+public bool HasLineColor 
+{
+	get { return linecolor != null; }	
+}	
+
+public bool HasNoteText 
+{
+	get { return notetext != null; }	
+}	
+
+public bool HasImage 
+{
+	get { return image != null; }	
+}	
+
+public bool HasImageAlignment 
+{
+	get { return imagealignment != null; }	
+}	
+
+public bool HasLabel 
+{
+	get { return label != null; }	
+}	
+
+public bool HasIcons 
+{
+	get { return icons != null; }	
+}	
+
+public bool HasAttributes 
+{
+	get { return attributes != null; }	
+}	
+

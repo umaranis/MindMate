@@ -9,9 +9,15 @@ using System.Windows.Forms;
 using mshtml;
 using System.Runtime.InteropServices;
 using MindMate.View.NoteEditing.MsHtmlWrap;
+using System.Text.RegularExpressions;
+using MindMate.Modules.Logging;
 
 namespace MindMate.View.NoteEditing
 {
+    /// <summary>
+    /// Note Editor is an Html Editor. 
+    /// It should not have any dependency on Mind Mate functionality.
+    /// </summary>
     public partial class NoteEditor : WebBrowser, IHTMLChangeSink, MsHtmlWrap.IHTMLEditDesigner
     {
         private IHTMLDocument2 htmlDoc;
@@ -31,7 +37,7 @@ namespace MindMate.View.NoteEditing
             // events
             this.Navigated += new WebBrowserNavigatedEventHandler(this_Navigated);
             this.Navigating += NoteEditor_Navigating;
-            this.GotFocus += new EventHandler(this_GotFocus);                        
+            this.GotFocus += new EventHandler(this_GotFocus);            
         }
 
         /// <summary>
@@ -39,7 +45,18 @@ namespace MindMate.View.NoteEditing
         /// </summary>
         public event Action<object> Ready = delegate { };
 
-        public event Action<object> CursorMoved;        
+        public event Action<object> CursorMoved;
+
+        /// <summary>
+        /// Event is fired before Paste command is executed.
+        /// If PastingEventArgs.Handled is set to true, default Paste behaviour is not invoked.
+        /// </summary>
+        public event Action<object, PastingEventArgs> Pasting;
+
+        /// <summary>
+        /// Event is fired when something is pasted in the Note Editor or HTML source is edited.
+        /// </summary>
+        public event Action<object> ExternalContentAdded;        
 
         public event Action<object> OnDirty = delegate { };
 
@@ -154,9 +171,19 @@ namespace MindMate.View.NoteEditing
                 Dirty = false;
                 if (this.Document.Body.InnerHtml == null && value == null) return; //should not set ignore dirty flag in this case
                 ignoreDirtyNotification = true;
-                this.Document.Body.InnerHtml = value;
+                this.Document.Body.InnerHtml = value;                
                 CursorMoved?.Invoke(this);
             }
+        }
+
+        /// <summary>
+        /// This makes the editor dirty as opposed to setting HTML property
+        /// </summary>
+        /// <param name="html"></param>
+        public void UpdateHtmlSource(string html)
+        {
+            Document.Body.InnerHtml = html;
+            ExternalContentAdded?.Invoke(this);
         }
 
         public new bool Enabled
@@ -282,10 +309,10 @@ namespace MindMate.View.NoteEditing
             htmlDoc.execCommand("CreateLink", false, url);
         }
 
-        public void InsertImage()
-        {
-            htmlDoc.execCommand("InsertImage", true, null);
-        }
+        //public void InsertImage()
+        //{
+        //    htmlDoc.execCommand("InsertImage", true, null);
+        //}
 
         public bool DocumentReady
         {
@@ -398,8 +425,15 @@ namespace MindMate.View.NoteEditing
             if (e.Control)
             {
                 if (e.KeyCode == Keys.O || e.KeyCode == Keys.L)
-                    e.IsInputKey = true;                
-            }  
+                {
+                    e.IsInputKey = true;                    
+                }
+                else if (e.KeyCode == Keys.V)
+                {
+                    e.IsInputKey = true;
+                    Paste();
+                }                
+            }
 
             base.OnPreviewKeyDown(e);
         }        
@@ -411,8 +445,14 @@ namespace MindMate.View.NoteEditing
 
         public void Paste()
         {
-            Document.ExecCommand("Paste", false, null);
-        }
+            var e = new PastingEventArgs();
+            Pasting?.Invoke(this, e);
+            if (!e.Handled)
+            {
+                Document.ExecCommand("Paste", false, null);
+                ExternalContentAdded?.Invoke(this);
+            }
+        }        
 
         public void Copy()
         {
@@ -684,5 +724,13 @@ namespace MindMate.View.NoteEditing
         }
 
         public string Value { get; private set; }
+    }
+
+    public class PastingEventArgs : EventArgs
+    {
+        /// <summary>
+        /// If handled is set to true, default pasting behaviour is not executed
+        /// </summary>
+        public bool Handled { get; set; }
     }
 }
