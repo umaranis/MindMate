@@ -153,8 +153,14 @@
     <None Include="Resources\New Format.mm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\OldFormat_OverWritten_MainCtrl.mm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\RichNotesMap.mm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\OldFormat_OverWritten_PersistentTree.mm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Sample Map.mm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

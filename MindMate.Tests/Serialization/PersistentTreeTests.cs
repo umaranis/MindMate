@@ -97,6 +97,21 @@ namespace MindMate.Tests.Serialization
             Assert.AreEqual(3, tree.GetByteArray("t")[2]);
         }
 
-        
+        /// <summary>
+        /// Open file in old Xml format and then save it in new Zip format
+        /// </summary>
+        [TestMethod()]
+        public void OpenXmlAndSaveNewZipFormat()
+        {
+            var manager = new PersistenceManager();
+            var tree = manager.OpenTree(@"Resources\OldFormat_OverWritten_PersistentTree.mm");
+            tree.Tree.RootNode.Text = "Testing";
+            tree.Save();
+
+            var tree2 = manager.OpenTree(@"Resources\OldFormat_OverWritten_PersistentTree.mm");
+            Assert.AreEqual("Testing", tree2.Tree.RootNode.Text);
+        }
+
+
     }
 }

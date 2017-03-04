@@ -141,6 +141,8 @@ namespace MindMate.Serialization
             fileList.Remove(tree);
 
             TreeClosed?.Invoke(this, tree);
+
+            tree.Dispose();
         }
 
         internal void _InvokeTreeSaved(PersistentTree tree)

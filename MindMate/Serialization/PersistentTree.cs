@@ -10,7 +10,7 @@ using System.Text;
 
 namespace MindMate.Serialization
 {
-    public class PersistentTree
+    public class PersistentTree : IDisposable
     {
         /// <summary>
         /// Call <see cref="PersistentTree.Initialize"/> before using the object
@@ -46,7 +46,7 @@ namespace MindMate.Serialization
             catch(InvalidDataException)
             {
                 string xmlString = System.IO.File.ReadAllText(FileName);
-                new MindMapSerializer().Deserialize(xmlString, Tree);
+                new MindMapSerializer().Deserialize(xmlString, Tree);                                
             }
             Tree.TurnOnChangeManager();
             RegisterForMapChangedNotification();
@@ -104,7 +104,14 @@ namespace MindMate.Serialization
             IEnumerable<KeyValuePair<string, byte[]>> largeObjectsToSave = overwrite ? lobCache : lobCache.Where(k => newLobs.Contains(k.Key));
 
             var serializer = new MapZipSerializer();
-            serializer.SerializeMap(Tree, largeObjectsToSave, FileName, overwrite);
+            try
+            {
+                serializer.SerializeMap(Tree, largeObjectsToSave, FileName, overwrite);
+            }
+            catch(InvalidDataException) //in case of converting from old xml version, save without overwrite=true will not work
+            {
+                serializer.SerializeMap(Tree, largeObjectsToSave, FileName, true);
+            }
 
             newLobs.Clear();
             IsDirty = false;
@@ -193,6 +200,14 @@ namespace MindMate.Serialization
         }
 
         #endregion Lazy loaded Large Object Cache
+
+        #region IDisposable Support
+
+        public void Dispose()
+        {
+            UnregisterForMapChangedNotification();        
+        }
+        #endregion
 
     }
 }

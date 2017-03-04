@@ -82,6 +82,53 @@ namespace MindMate.Tests.Controller
             Assert.IsTrue(focus);
         }
 
+        [TestMethod()]
+        public void MapCtrl_OpenXmlFormatSaveZip()
+        {
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new MainCtrl();
+                var form = new MainForm();
+                sut.InitMindMate(form);
+                MainMenuCtrl mainMenuCtrl = new MainMenuCtrl(form.MainMenu, sut);
+                form.MainMenuCtrl = mainMenuCtrl;
+                form.Shown += (sender, args) =>
+                {
+                    sut.OpenMap(@"Resources\OldFormat_OverWritten_MainCtrl.mm");
+                    sut.Italic(true);
+                    sut.SaveCurrentMap();
+                    
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                    }
+                    else
+                    {
+                        foreach (var f in sut.PersistenceManager)
+                        {
+                            f.IsDirty = false; //to avoid save warning dialog
+                        }
+                        form.Close();
+                    }
+                };
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();            
+        }
+
         //[TestMethod()]
         //public void ShowApplicationOptions()
         //{
