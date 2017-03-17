@@ -19,7 +19,7 @@ namespace MindMate.Tests.View
         public void ImageLocalSaver_ctor_ImagesAreProcessed()
         {
             var p = new PersistenceManager();
-            var tree = p.OpenTree(@"Resources\Websites.mm").Tree;
+            var tree = p.OpenTree(@"Resources\Websites.mm");
             string html = null;
 
             System.Threading.Thread t = new System.Threading.Thread(() =>
@@ -54,7 +54,7 @@ namespace MindMate.Tests.View
         public void ProcessImages_BBC_CheckImgTags()
         {
             var p = new PersistenceManager();
-            var tree = p.OpenTree(@"Resources\Websites.mm").Tree;
+            var tree = p.OpenTree(@"Resources\Websites.mm");
             string html = null;            
 
             System.Threading.Thread t = new System.Threading.Thread(() =>

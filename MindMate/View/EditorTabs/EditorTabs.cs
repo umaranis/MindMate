@@ -51,7 +51,7 @@ namespace MindMate.View.EditorTabs
         /// <returns></returns>
         public Tab OpenTab(PersistentTree tree)
         {
-            MapView mapView = new MapView(tree.Tree);
+            MapView mapView = new MapView(tree);
             Tab tab = new Tab(mapView, tree);
             tab.UpdateTitle();
             OpenTabInternal(tab);
@@ -135,7 +135,7 @@ namespace MindMate.View.EditorTabs
             foreach(TabPage page in TabPages)
             {
                 tab = page as Tab;
-                if (tab.MapView.Tree == tree.Tree)
+                if (tab.MapView.Tree == tree)
                 {
                     return tab;
                 }
@@ -161,7 +161,7 @@ namespace MindMate.View.EditorTabs
             PersistentTree tree = (SelectedTab as Tab)?.Tree;
             if(tree != null)
             {
-                TopLevelControl.Text = tree.Tree.RootNode.Text + " - " + Controller.MainCtrl.APPLICATION_NAME + " - " + tree.FileName;
+                TopLevelControl.Text = tree.RootNode.Text + " - " + Controller.MainCtrl.APPLICATION_NAME + " - " + tree.FileName;
                 if (tree.IsDirty)
                 {
                     TopLevelControl.Text += "*";

@@ -10,7 +10,7 @@ using System.Text;
 
 namespace MindMate.Serialization
 {
-    public class PersistentTree : IDisposable
+    public class PersistentTree : MapTree, IDisposable
     {
         /// <summary>
         /// Call <see cref="PersistentTree.Initialize"/> before using the object
@@ -18,7 +18,6 @@ namespace MindMate.Serialization
         internal PersistentTree(PersistenceManager persistenceManager)
         {
             manager = persistenceManager;
-            Tree = new MapTree();
         }
 
         /// <summary>
@@ -26,10 +25,10 @@ namespace MindMate.Serialization
         /// </summary>
         internal void Initialize()
         {
-            new MapNode(Tree, "New Map");
-            Tree.TurnOnChangeManager();
+            new MapNode(this, "New Map");
+            this.TurnOnChangeManager();
             RegisterForMapChangedNotification();
-            Tree.SelectedNodes.Add(Tree.RootNode);
+            this.SelectedNodes.Add(this.RootNode);
         }
 
         /// <summary>
@@ -41,21 +40,19 @@ namespace MindMate.Serialization
             FileName = fileName;
             try
             {
-                new MapZipSerializer().DeserializeMap(Tree, FileName);
+                new MapZipSerializer().DeserializeMap(this, FileName);
             }
             catch(InvalidDataException)
             {
                 string xmlString = System.IO.File.ReadAllText(FileName);
-                new MindMapSerializer().Deserialize(xmlString, Tree);                                
+                new MindMapSerializer().Deserialize(xmlString, this);                                
             }
-            Tree.TurnOnChangeManager();
+            this.TurnOnChangeManager();
             RegisterForMapChangedNotification();
-            Tree.SelectedNodes.Add(Tree.RootNode);
+            this.SelectedNodes.Add(this.RootNode);
         }
 
         private readonly PersistenceManager manager;
-
-        public MapTree Tree { get; private set; }
 
         public string FileName { get; private set; }
 
@@ -106,11 +103,11 @@ namespace MindMate.Serialization
             var serializer = new MapZipSerializer();
             try
             {
-                serializer.SerializeMap(Tree, largeObjectsToSave, FileName, overwrite);
+                serializer.SerializeMap(this, largeObjectsToSave, FileName, overwrite);
             }
             catch(InvalidDataException) //in case of converting from old xml version, save without overwrite=true will not work
             {
-                serializer.SerializeMap(Tree, largeObjectsToSave, FileName, true);
+                serializer.SerializeMap(this, largeObjectsToSave, FileName, true);
             }
 
             newLobs.Clear();
@@ -123,10 +120,10 @@ namespace MindMate.Serialization
 
         private void RegisterForMapChangedNotification()
         {
-            Tree.NodePropertyChanged += Tree_NodePropertyChanged;
-            Tree.TreeStructureChanged += Tree_TreeStructureChanged;
-            Tree.IconChanged += Tree_IconChanged;
-            Tree.AttributeChanged += Tree_AttributeChanged;
+            this.NodePropertyChanged += Tree_NodePropertyChanged;
+            this.TreeStructureChanged += Tree_TreeStructureChanged;
+            this.IconChanged += Tree_IconChanged;
+            this.AttributeChanged += Tree_AttributeChanged;
         }
 
         private void Tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
@@ -156,10 +153,10 @@ namespace MindMate.Serialization
 
         private void UnregisterForMapChangedNotification()
         {
-            Tree.NodePropertyChanged -= Tree_NodePropertyChanged;
-            Tree.TreeStructureChanged -= Tree_TreeStructureChanged;
-            Tree.IconChanged -= Tree_IconChanged;
-            Tree.AttributeChanged -= Tree_AttributeChanged;
+            this.NodePropertyChanged -= Tree_NodePropertyChanged;
+            this.TreeStructureChanged -= Tree_TreeStructureChanged;
+            this.IconChanged -= Tree_IconChanged;
+            this.AttributeChanged -= Tree_AttributeChanged;
         }
 
         public delegate void DirtyChangedDelegate(PersistentTree tree);

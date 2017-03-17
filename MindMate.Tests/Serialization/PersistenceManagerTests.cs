@@ -83,7 +83,7 @@ namespace MindMate.Tests.Serialization
         {
             var sut = new PersistenceManager();
             var pTree = sut.NewTree();
-            pTree.Tree.RootNode.Text = "changed";
+            pTree.RootNode.Text = "changed";
             Assert.IsNotNull(sut.Find(t => t.IsDirty));
         }
 
@@ -202,7 +202,7 @@ namespace MindMate.Tests.Serialization
         {
             var sut = new PersistenceManager();
             var pTree = sut.NewTree();
-            pTree.Tree.RootNode.Text = "changed";
+            pTree.RootNode.Text = "changed";
             Assert.IsTrue(sut.IsDirty);
         }
 
@@ -222,7 +222,7 @@ namespace MindMate.Tests.Serialization
             var pTree1 = sut.NewTree();
             var result = false;
             pTree1.DirtyChanged += tree => result = true;
-            pTree1.Tree.RootNode.Text = "changed";
+            pTree1.RootNode.Text = "changed";
             Assert.IsTrue(result);
             Assert.IsTrue(sut.IsDirty);
         }
@@ -306,7 +306,7 @@ namespace MindMate.Tests.Serialization
             var pTree = sut.NewTree();
             var result = false;
             sut.TreeSaved += (manager, tree) => result = true; 
-            pTree.Tree.RootNode.Text = "changed";
+            pTree.RootNode.Text = "changed";
             pTree.Save("temp.mm");
             Assert.IsTrue(result);
         }

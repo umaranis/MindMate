@@ -195,18 +195,18 @@ namespace MindMate.Plugins
 
         private void PersistentManager_NewTreeCreating(Serialization.PersistenceManager manager, Serialization.PersistentTree tree)
         {
-            OnTreeCreating(tree.Tree);         
+            OnTreeCreating(tree);         
         }
 
 
         private void PersistentManager_TreeOpening(Serialization.PersistenceManager manager, Serialization.PersistentTree tree)
         {
-            OnTreeCreating(tree.Tree);
+            OnTreeCreating(tree);
         }
 
         private void PersistentManager_TreeClosing(Serialization.PersistenceManager manager, Serialization.PersistentTree tree)
         {
-            OnTreeDeleting(tree.Tree);
+            OnTreeDeleting(tree);
         }
 
         #endregion New/Open/Close Tree

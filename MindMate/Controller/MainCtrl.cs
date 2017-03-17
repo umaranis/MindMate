@@ -93,17 +93,17 @@ namespace MindMate.Controller
 
             if (MetaModel.MetaModel.Instance.LastOpenedFile == null)
             {
-                tree = PersistenceManager.NewTree().Tree;          
+                tree = PersistenceManager.NewTree();          
             }
             else
             {
                 try
                 {
-                    tree = PersistenceManager.OpenTree(MetaModel.MetaModel.Instance.LastOpenedFile).Tree;
+                    tree = PersistenceManager.OpenTree(MetaModel.MetaModel.Instance.LastOpenedFile);
                 }
                 catch(Exception exp)
                 {
-                    tree = PersistenceManager.NewTree().Tree;
+                    tree = PersistenceManager.NewTree();
                     MetaModel.MetaModel.Instance.LastOpenedFile = null;
                     System.Diagnostics.Trace.TraceWarning(DateTime.Now.ToString() + ": Couldn't load last opened file. " + exp.Message);
                 }
@@ -489,7 +489,7 @@ namespace MindMate.Controller
             MapTree tree;
             try
             {
-                tree = PersistenceManager.OpenTree(fileName).Tree;
+                tree = PersistenceManager.OpenTree(fileName);
             }
             catch (FileNotFoundException)
             {

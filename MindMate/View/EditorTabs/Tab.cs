@@ -40,7 +40,7 @@ namespace MindMate.View.EditorTabs
 
         public void UpdateTitle()
         {
-            Text = Tree.Tree.RootNode.Text;
+            Text = Tree.RootNode.Text;
 
             if (Tree.IsDirty)
             {

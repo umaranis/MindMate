@@ -81,7 +81,7 @@ namespace MindMate.Tests.View
 
                     var sut = new NoteMapGlue(noteEditor, persistence);
 
-                    tree.Tree.RootNode.NoteText = "ABC";
+                    tree.RootNode.NoteText = "ABC";
 
                     result = noteEditor.HTML != null && noteEditor.HTML.Contains("ABC");
 
@@ -113,7 +113,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     var tree = persistence.NewTree();
-                    var c1 = new MapNode(tree.Tree.RootNode, "c1");
+                    var c1 = new MapNode(tree.RootNode, "c1");
 
                     var sut = new NoteMapGlue(noteEditor, persistence);
 
@@ -149,7 +149,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     var tree = persistence.NewTree();
-                    var c1 = new MapNode(tree.Tree.RootNode, "c1");
+                    var c1 = new MapNode(tree.RootNode, "c1");
                     c1.Selected = true;
 
                     var sut = new NoteMapGlue(noteEditor, persistence);
@@ -188,14 +188,14 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     var tree = persistence.NewTree();
-                    var c1 = new MapNode(tree.Tree.RootNode, "c1");
+                    var c1 = new MapNode(tree.RootNode, "c1");
                     c1.Selected = true;
 
                     var sut = new NoteMapGlue(noteEditor, persistence);
 
                     c1.NoteText = "ABC";
 
-                    tree.Tree.SelectedNodes.Add(c1.Parent);
+                    tree.SelectedNodes.Add(c1.Parent);
 
                     result = noteEditor.HTML == null;
 
@@ -227,7 +227,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     var ptree1 = persistence.NewTree();
-                    var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
+                    var c1 = new MapNode(ptree1.RootNode, "c1");
                     c1.Selected = true;
 
                     var sut = new NoteMapGlue(noteEditor, persistence);
@@ -266,7 +266,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     var ptree1 = persistence.NewTree();
-                    var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
+                    var c1 = new MapNode(ptree1.RootNode, "c1");
                     c1.Selected = true;
 
                     var sut = new NoteMapGlue(noteEditor, persistence);
@@ -305,7 +305,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     var ptree1 = persistence.NewTree();
-                    var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
+                    var c1 = new MapNode(ptree1.RootNode, "c1");
                     c1.Selected = true;
 
                     var sut = new NoteMapGlue(noteEditor, persistence);
@@ -346,7 +346,7 @@ namespace MindMate.Tests.View
                 form.Shown += (sender, args) =>
                 {
                     var ptree1 = persistence.NewTree();
-                    var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
+                    var c1 = new MapNode(ptree1.RootNode, "c1");
                     c1.Selected = true;
 
                     var sut = new NoteMapGlue(noteEditor, persistence);
@@ -389,7 +389,7 @@ namespace MindMate.Tests.View
 
                     var sut = new NoteMapGlue(noteEditor, persistence);
 
-                    tree.Tree.RootNode.FirstChild.Selected = true;
+                    tree.RootNode.FirstChild.Selected = true;
                     
                     result = noteEditor.HTML != null && noteEditor.HTML.Contains("BBC");
 
@@ -426,7 +426,7 @@ namespace MindMate.Tests.View
 
                     var sut = new NoteMapGlue(noteEditor, persistence);
 
-                    tree.Tree.RootNode.FirstChild.Selected = true;                    
+                    tree.RootNode.FirstChild.Selected = true;                    
 
                     form.Close();
                 };
@@ -459,7 +459,7 @@ namespace MindMate.Tests.View
 
                     var sut = new NoteMapGlue(noteEditor, persistence);
 
-                    tree.Tree.RootNode.FirstChild.Next.Selected = true;
+                    tree.RootNode.FirstChild.Next.Selected = true;
 
                     result = noteEditor.HTML != null && noteEditor.HTML.Contains("Wikipedia");
 
@@ -494,7 +494,7 @@ namespace MindMate.Tests.View
 
                     var sut = new NoteMapGlue(noteEditor, persistence);
 
-                    tree.Tree.RootNode.LastChild.Selected = true;
+                    tree.RootNode.LastChild.Selected = true;
 
                     result = noteEditor.HTML != null && noteEditor.HTML.Contains("Yahoo");
 

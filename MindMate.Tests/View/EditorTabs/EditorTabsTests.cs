@@ -107,7 +107,7 @@ namespace MindMate.Tests.View
             f.Show();
             PersistenceManager pManager = new PersistenceManager();
             PersistentTree tree = pManager.NewTree();
-            tree.Tree.RootNode.Text = "UpdateTitle";
+            tree.RootNode.Text = "UpdateTitle";
             Tab tab = sut.OpenTab(tree);
 
             Assert.IsTrue(f.Text.Contains("UpdateTitle"));

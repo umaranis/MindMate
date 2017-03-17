@@ -50,7 +50,7 @@ namespace MindMate.Tests.Controller
                 form.Shown += (sender, args) =>
                 {
                     var ptree1 = persistence.NewTree();
-                    var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
+                    var c1 = new MapNode(ptree1.RootNode, "c1");
                     c1.Selected = true;
 
                     var sut = new NoteEditorCtrl(noteEditor, persistence);
@@ -85,7 +85,7 @@ namespace MindMate.Tests.Controller
                 form.Shown += (sender, args) =>
                 {
                     var ptree1 = persistence.NewTree();
-                    var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
+                    var c1 = new MapNode(ptree1.RootNode, "c1");
                     c1.Selected = true;
 
                     var sut = new NoteEditorCtrl(noteEditor, persistence);
@@ -121,7 +121,7 @@ namespace MindMate.Tests.Controller
                 form.Shown += (sender, args) =>
                 {
                     var ptree1 = persistence.NewTree();
-                    var c1 = new MapNode(ptree1.Tree.RootNode, "c1");
+                    var c1 = new MapNode(ptree1.RootNode, "c1");
                     c1.NoteText = "This is a note.";
                     c1.Selected = true;
 

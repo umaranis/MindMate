@@ -19,7 +19,7 @@ namespace MindMate.Tests.View.NoteEditing
         public void ImageLocalProvider()
         {
             var p = new PersistenceManager();
-            var tree = p.OpenTree(@"Resources\New Format with Images.mm").Tree;            
+            var tree = p.OpenTree(@"Resources\New Format with Images.mm");            
 
             System.Threading.Thread t = new System.Threading.Thread(() =>
             {
@@ -47,7 +47,7 @@ namespace MindMate.Tests.View.NoteEditing
         public void ImageLocalProvider_GetUrlDataCalled()
         {
             var p = new PersistenceManager();
-            var tree = p.OpenTree(@"Resources\New Format with Images.mm").Tree;
+            var tree = p.OpenTree(@"Resources\New Format with Images.mm");
 
             ImageLocalProvider sut = null;
             System.Threading.Thread t = new System.Threading.Thread(() =>
@@ -77,7 +77,7 @@ namespace MindMate.Tests.View.NoteEditing
         public void ImageLocalProvider_NonexistantImageOnNewTree()
         {
             var p = new PersistenceManager();
-            var tree = p.NewTree().Tree;
+            var tree = p.NewTree();
 
             ImageLocalProvider sut = null;
             sut = new ImageLocalProvider(p);
@@ -89,7 +89,7 @@ namespace MindMate.Tests.View.NoteEditing
         public void ImageLocalProvider_NonexistantImageOnSavedTree()
         {
             var p = new PersistenceManager();
-            var tree = p.OpenTree(@"Resources\New Format with Images.mm").Tree;
+            var tree = p.OpenTree(@"Resources\New Format with Images.mm");
 
             ImageLocalProvider sut = null;
             sut = new ImageLocalProvider(p);

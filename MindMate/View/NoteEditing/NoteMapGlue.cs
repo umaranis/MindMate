@@ -46,7 +46,7 @@ namespace MindMate.View.NoteEditing
             new NoteEditorContextMenu(editor);
                    
             manager.CurrentTreeChanged += Manager_CurrentTreeChanged;
-            if (manager.CurrentTree != null) { Register(manager.CurrentTree.Tree); }
+            if (manager.CurrentTree != null) { Register(manager.CurrentTree); }
 
             if (editor.DocumentReady)
             {
@@ -127,11 +127,11 @@ namespace MindMate.View.NoteEditing
         {
             if (oldTree != null)
             {
-                Unregister(oldTree.Tree);
+                Unregister(oldTree);
             }
             if (newTree != null)
             {
-                Register(newTree.Tree);
+                Register(newTree);
             }
         }
 

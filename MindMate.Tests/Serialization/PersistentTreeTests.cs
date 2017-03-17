@@ -16,11 +16,11 @@ namespace MindMate.Tests.Serialization
         {
             var manager = new PersistenceManager();
             var tree = manager.NewTree();
-            tree.Tree.RootNode.Text = "Testing";
+            tree.RootNode.Text = "Testing";
             tree.Save("PersistentTreeTests1.mm");
 
             var tree2 = manager.OpenTree("PersistentTreeTests1.mm");
-            Assert.AreEqual("Testing", tree2.Tree.RootNode.Text);
+            Assert.AreEqual("Testing", tree2.RootNode.Text);
         }
 
         [TestMethod()]
@@ -28,7 +28,7 @@ namespace MindMate.Tests.Serialization
         {
             var manager = new PersistenceManager();
             var tree = manager.NewTree();
-            tree.Tree.RootNode.Text = "Testing";
+            tree.RootNode.Text = "Testing";
             tree.SetByteArray("t", new byte[] { 1, 2, 3, 4 });
             tree.Save("PersistentTreeTests2.mm");
 
@@ -41,7 +41,7 @@ namespace MindMate.Tests.Serialization
         {
             var manager = new PersistenceManager();
             var tree = manager.NewTree();
-            tree.Tree.RootNode.Text = "Testing";
+            tree.RootNode.Text = "Testing";
             tree.SetByteArray("t", new byte[] { 1, 2, 3, 4 });
             tree.Save("PersistentTreeTests3.mm");
 
@@ -59,7 +59,7 @@ namespace MindMate.Tests.Serialization
         {
             var manager = new PersistenceManager();
             var tree = manager.NewTree();
-            tree.Tree.RootNode.Text = "Testing";
+            tree.RootNode.Text = "Testing";
             tree.SetByteArray("t", new byte[] { 1, 2, 3, 4 });
             tree.Save("PersistentTreeTests4.mm");
 
@@ -77,7 +77,7 @@ namespace MindMate.Tests.Serialization
         {
             var manager = new PersistenceManager();
             var tree = manager.NewTree();
-            tree.Tree.RootNode.Text = "Testing";
+            tree.RootNode.Text = "Testing";
             tree.SetByteArray("t", new byte[] { 1, 2, 3, 4 });
             tree.Save("PersistentTreeTests5.mm");
 
@@ -91,7 +91,7 @@ namespace MindMate.Tests.Serialization
         {
             var manager = new PersistenceManager();
             var tree = manager.NewTree();
-            tree.Tree.RootNode.Text = "Testing";
+            tree.RootNode.Text = "Testing";
             tree.SetByteArray("t", new byte[] { 1, 2, 3, 4 });                
 
             Assert.AreEqual(3, tree.GetByteArray("t")[2]);
@@ -105,11 +105,11 @@ namespace MindMate.Tests.Serialization
         {
             var manager = new PersistenceManager();
             var tree = manager.OpenTree(@"Resources\OldFormat_OverWritten_PersistentTree.mm");
-            tree.Tree.RootNode.Text = "Testing";
+            tree.RootNode.Text = "Testing";
             tree.Save();
 
             var tree2 = manager.OpenTree(@"Resources\OldFormat_OverWritten_PersistentTree.mm");
-            Assert.AreEqual("Testing", tree2.Tree.RootNode.Text);
+            Assert.AreEqual("Testing", tree2.RootNode.Text);
         }
 
 

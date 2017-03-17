@@ -1057,27 +1057,27 @@ namespace MindMate.View.Ribbon
         {
             if (oldTree != null)
             {
-                oldTree.Tree.SelectedNodes.NodeSelected -= SelectedNodes_NodeSelected;
-                oldTree.Tree.SelectedNodes.NodeDeselected -= SelectedNodes_NodeDeselected;
-                oldTree.Tree.NodePropertyChanged -= Tree_NodePropertyChanged;
-                oldTree.Tree.IconChanged -= Tree_IconChanged;
-                oldTree.Tree.TreeStructureChanged -= Tree_TreeStructureChanged;
-                oldTree.Tree.AttributeChanged -= Tree_AttributeChanged;
-                oldTree.Tree.AttributeSpecChangeEvent -= Tree_AttributeSpecChangeEvent;
+                oldTree.SelectedNodes.NodeSelected -= SelectedNodes_NodeSelected;
+                oldTree.SelectedNodes.NodeDeselected -= SelectedNodes_NodeDeselected;
+                oldTree.NodePropertyChanged -= Tree_NodePropertyChanged;
+                oldTree.IconChanged -= Tree_IconChanged;
+                oldTree.TreeStructureChanged -= Tree_TreeStructureChanged;
+                oldTree.AttributeChanged -= Tree_AttributeChanged;
+                oldTree.AttributeSpecChangeEvent -= Tree_AttributeSpecChangeEvent;
             }
 
             if (newTree != null)
             {
-                newTree.Tree.SelectedNodes.NodeSelected += SelectedNodes_NodeSelected;
-                newTree.Tree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
-                newTree.Tree.NodePropertyChanged += Tree_NodePropertyChanged;
-                newTree.Tree.IconChanged += Tree_IconChanged;
-                newTree.Tree.TreeStructureChanged += Tree_TreeStructureChanged;
-                newTree.Tree.AttributeChanged += Tree_AttributeChanged;
-                newTree.Tree.AttributeSpecChangeEvent += Tree_AttributeSpecChangeEvent;
+                newTree.SelectedNodes.NodeSelected += SelectedNodes_NodeSelected;
+                newTree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
+                newTree.NodePropertyChanged += Tree_NodePropertyChanged;
+                newTree.IconChanged += Tree_IconChanged;
+                newTree.TreeStructureChanged += Tree_TreeStructureChanged;
+                newTree.AttributeChanged += Tree_AttributeChanged;
+                newTree.AttributeSpecChangeEvent += Tree_AttributeSpecChangeEvent;
 
-                UpdateFontControl(newTree.Tree.SelectedNodes);
-                UpdateUndoGroup(newTree.Tree);
+                UpdateFontControl(newTree.SelectedNodes);
+                UpdateUndoGroup(newTree);
             }
             else
             {
@@ -1088,7 +1088,7 @@ namespace MindMate.View.Ribbon
 
         private void Tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
         {
-            if (node.Tree == mainCtrl.PersistenceManager.CurrentTree.Tree)
+            if (node.Tree == mainCtrl.PersistenceManager.CurrentTree)
             {
                 if (e.ChangedProperty == NodeProperties.Bold || e.ChangedProperty == NodeProperties.Italic
                     || e.ChangedProperty == NodeProperties.Strikeout || e.ChangedProperty == NodeProperties.FontName

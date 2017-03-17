@@ -31,11 +31,11 @@ namespace MindMate.Controller
         {
             if (oldTree != null)
             {
-                Unregister(oldTree.Tree);
+                Unregister(oldTree);
             }
             if (newTree != null)
             {
-                Register(newTree.Tree);
+                Register(newTree);
             }
         }
 
