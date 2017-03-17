@@ -129,12 +129,12 @@ namespace MindMate.Serialization
 			if (node.HasImage)
 			{
 				emitter.Emit(new Scalar(Image));
-				emitter.Emit(new Scalar(node.Image.ToString()));
+				emitter.Emit(new Scalar(node.Image));
 			}
-			if (node.HasImageAlignment)
+			if (node.HasTextAlignment)
 			{
 				emitter.Emit(new Scalar(ImageAlignment));
-				emitter.Emit(new Scalar(node.ImageAlignment.ToString()));
+				emitter.Emit(new Scalar(node.TextAlignment.ToString()));
 			}
 			if (node.HasLabel)
 			{

@@ -78,5 +78,62 @@ namespace MindMate.Tests.Modules.Undo
             manager.EndBatch();
             Assert.IsFalse(manager.CanUndo);
         }
+
+        [TestMethod]
+        public void ImageChange()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            t.TurnOnChangeManager();
+            var sut = t.ChangeManager;
+
+            r.Image = "image";
+
+            Assert.AreEqual(1, sut.UndoStackCount);
+        }
+
+        [TestMethod]
+        public void ImageChange_Undo()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            t.TurnOnChangeManager();
+            var sut = t.ChangeManager;
+
+            r.Image = "image";
+            sut.Undo();
+
+            Assert.AreEqual(0, sut.UndoStackCount);
+            Assert.IsNull(r.Image);
+        }
+
+        [TestMethod]
+        public void TextAlignmentChange()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            t.TurnOnChangeManager();
+            var sut = t.ChangeManager;
+
+            r.TextAlignment = TextAlignment.AfterBottom;
+
+            Assert.AreEqual(1, sut.UndoStackCount);
+            Assert.AreEqual(TextAlignment.AfterBottom, r.TextAlignment);
+        }
+
+        [TestMethod]
+        public void TextAlignmentChange_Undo()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            t.TurnOnChangeManager();
+            var sut = t.ChangeManager;
+
+            r.TextAlignment = TextAlignment.AfterBottom;
+            sut.Undo();
+
+            Assert.AreEqual(0, sut.UndoStackCount);
+            Assert.AreNotEqual(TextAlignment.AfterBottom, r.TextAlignment);
+        }
     }
 }

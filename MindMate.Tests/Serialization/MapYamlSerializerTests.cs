@@ -208,7 +208,7 @@ namespace MindMate.Tests.Serialization
             node.Bold = true;
             node.FontName = "Arial";
             node.FontSize = 15;
-            node.ImageAlignment = ImageAlignment.AboveRight;
+            node.TextAlignment = TextAlignment.AboveStart;
             node.Italic = true;
             node.Label = "label";
             node.LineColor = Color.BlueViolet;

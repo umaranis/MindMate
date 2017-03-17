@@ -101,14 +101,21 @@ namespace MindMate.Model
         Empty
     }
 
-    public enum ImageAlignment
+    public enum TextAlignment
     {
-        BelowCenter,
-        BelowLeft,
-        BelowRight,
+        Default,
+        BelowCenter,    //text is displayed below image aligned center
+        BelowStart,     //text is displayed below image aligned at the starting
+        BelowEnd,
         AboveCenter,
-        AboveLeft,
-        AboveRight
+        AboveStart,
+        AboveEnd,
+        BeforeCenter,
+        BeforeTop,
+        BeforeBottom,
+        AfterCenter,
+        AfterTop,
+        AfterBottom     //text is displayed after image aligned to the bottom
     } 
     
 }

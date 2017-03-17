@@ -43,9 +43,9 @@ namespace MindMate.Modules.Undo
                 case NodeProperties.NoteText:
                     return new NoteTextChange(node, (string)e.OldValue);
                 case NodeProperties.Image:
-                    return new ImageChange(node, (Image)e.OldValue);
+                    return new ImageChange(node, (string)e.OldValue);
                 case NodeProperties.ImageAlignment:
-                    return new ImageAlignmentChange(node, (ImageAlignment)e.OldValue);    
+                    return new ImageAlignmentChange(node, (TextAlignment)e.OldValue);    
                 case NodeProperties.Label:
                     return new LabelChange(node, (string)e.OldValue);
                 case NodeProperties.Strikeout:

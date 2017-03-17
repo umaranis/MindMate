@@ -393,40 +393,44 @@ namespace MindMate.Model
             get { return noteText != null; }
         }
 
-        private Image image;
         [Serialized(Order = 20)]
-        public Image Image
+        public string Image
         {
-            get { return image; }
+            get { return props?.Image; }
             set
             {
-                Image oldValue = image;
-                image = value;
+                InitializeProps();
+                string oldValue = props.Image;
+                props.Image = value;
                 modified = DateTime.Now;
                 Tree.FireEvent(this, NodeProperties.Image, oldValue); 
             }
         }
         public bool HasImage
         {
-            get { return image != null; }
+            get { return props?.Image != null; }
         }
-
-        private ImageAlignment imageAlignment;
+                
+        /// <summary>
+        /// Alignment of text in relation to image.
+        /// This property is only applicable if node has an image.
+        /// </summary>
         [Serialized(Order = 21)]
-        public ImageAlignment ImageAlignment
+        public TextAlignment TextAlignment
         {
-            get { return imageAlignment; }
+            get { return props == null? TextAlignment.Default : props.TextAlignment; }
             set
             {
-                ImageAlignment oldValue = imageAlignment;
-                imageAlignment = value;
+                InitializeProps();
+                TextAlignment oldValue = props.TextAlignment;
+                props.TextAlignment = value;
                 modified = DateTime.Now;
-                Tree.FireEvent(this, NodeProperties.ImageAlignment, oldValue);
+                Tree.FireEvent(this, NodeProperties.ImageAlignment, oldValue);                
             }
         }
-        public bool HasImageAlignment
+        public bool HasTextAlignment
         {
-            get { return imageAlignment != ImageAlignment.BelowCenter; }
+            get { return props != null && props.TextAlignment != TextAlignment.Default; }
         }
 
         private string label;
@@ -452,6 +456,15 @@ namespace MindMate.Model
         public bool HasIcons
         {
             get { return Icons != null && Icons.Count > 0; }
+        }
+
+        private AdvancedProperties props;
+        private void InitializeProps()
+        {
+            if (props == null)
+            {
+                props = new AdvancedProperties();
+            }
         }
 
         #endregion
@@ -724,8 +737,10 @@ namespace MindMate.Model
 
             node.noteText = this.noteText;
 
-            node.image = this.image;
-            node.imageAlignment = this.imageAlignment;
+            if (this.props != null)
+                node.props = this.props.Clone();
+            else
+                node.props = null;
 
             this.CopyAttributesTo(node);
             this.CopyIconsTo(node);

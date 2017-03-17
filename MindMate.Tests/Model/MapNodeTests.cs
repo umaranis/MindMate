@@ -318,6 +318,41 @@ namespace MindMate.Tests.Model
         }
 
         [TestMethod()]
+        public void CloneAsDetached_CheckAttributes()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left) {
+                Image = "image",
+                TextAlignment = MindMate.Model.TextAlignment.BeforeCenter,
+                Text = "text",
+                NoteText = "notetext",
+                Folded = true,
+                FontName = "fontname",
+                FontSize = 20,
+                Link = "link"
+            };
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            var n = c3.CloneAsDetached();
+
+            Assert.AreEqual(n.ChildNodes.Count(), 2);
+            Assert.AreEqual("image", n.Image);
+            Assert.AreEqual(MindMate.Model.TextAlignment.BeforeCenter, n.TextAlignment);
+            Assert.AreEqual("text", n.Text);
+            Assert.AreEqual("notetext", n.NoteText);
+            Assert.AreEqual(true, n.Folded);
+            Assert.AreEqual("fontname", n.FontName);
+            Assert.AreEqual(20, n.FontSize);
+            Assert.AreEqual("link", n.Link);
+        }
+
+        [TestMethod()]
         public void GetFirstSib()
         {
             var r = new MapNode(new MapTree(), "r");
@@ -1632,6 +1667,49 @@ namespace MindMate.Tests.Model
             Assert.AreEqual(c1.Text, "ok");
         }
 
+        [TestMethod()]
+        public void Image()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "C");
+
+            c1.Image = "test";
+
+            Assert.AreEqual("test", c1.Image);
+            Assert.IsTrue(c1.HasImage);
+        }
+
+        [TestMethod()]
+        public void Image_NullByDefault()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "C");
+
+            Assert.IsNull(c1.Image);
+            Assert.IsFalse(c1.HasImage);
+        }
+
+        [TestMethod()]
+        public void TextAlignment()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "C");
+
+            c1.TextAlignment = MindMate.Model.TextAlignment.BeforeTop;
+
+            Assert.AreEqual(MindMate.Model.TextAlignment.BeforeTop, c1.TextAlignment);
+            Assert.IsTrue(c1.HasTextAlignment);
+        }
+
+        [TestMethod()]
+        public void TextAlignment_DefaultValue()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "C");
+
+            Assert.AreEqual(MindMate.Model.TextAlignment.Default, c1.TextAlignment);
+            Assert.IsFalse(c1.HasTextAlignment);
+        }
 
 #if !DEBUG
         /// <summary>

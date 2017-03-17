@@ -10,9 +10,9 @@ namespace MindMate.Modules.Undo.Changes
     class ImageChange : IChange
     {
         readonly MapNode node;
-        readonly Image oldValue;
+        readonly string oldValue;
 
-        public ImageChange(MapNode node, Image oldValue)
+        public ImageChange(MapNode node, string oldValue)
         {
             this.node = node;
             this.oldValue = oldValue;

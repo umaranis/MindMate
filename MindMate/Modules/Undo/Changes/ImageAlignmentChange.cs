@@ -10,9 +10,9 @@ namespace MindMate.Modules.Undo.Changes
     class ImageAlignmentChange : IChange
     {
         readonly MapNode node;
-        readonly ImageAlignment oldValue;
+        readonly TextAlignment oldValue;
 
-        public ImageAlignmentChange(MapNode node, ImageAlignment oldValue)
+        public ImageAlignmentChange(MapNode node, TextAlignment oldValue)
         {
             this.node = node;
             this.oldValue = oldValue;
@@ -28,7 +28,7 @@ namespace MindMate.Modules.Undo.Changes
 
         public void Undo()
         {
-            node.ImageAlignment = oldValue;
+            node.TextAlignment = oldValue;
         }
     }
 }

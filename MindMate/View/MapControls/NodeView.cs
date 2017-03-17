@@ -93,15 +93,7 @@ namespace MindMate.View.MapControls
         {
 
         }
-
-        public bool Selected
-        {
-            get 
-            {
-                return node.Tree.SelectedNodes.Contains(node);
-            }
-        }
-
+                
         private float left;
 
         public float Left

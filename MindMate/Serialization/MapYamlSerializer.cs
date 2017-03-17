@@ -196,7 +196,7 @@ namespace MindMate.Serialization
             if (prop != null && prop.Value.Equals(ImageAlignment))
             {
                 r.Expect<Scalar>();
-                node.ImageAlignment = (ImageAlignment)Enum.Parse(typeof(ImageAlignment), r.Expect<Scalar>().Value);
+                node.TextAlignment = (TextAlignment)Enum.Parse(typeof(TextAlignment), r.Expect<Scalar>().Value);
                 prop = r.Peek<Scalar>();
             }
 

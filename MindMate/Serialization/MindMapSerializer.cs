@@ -105,6 +105,12 @@ namespace MindMate.Serialization
             if (mapNode.Shape != NodeShape.None)
                 xml.WriteAttributeString("STYLE", Convert.ToString(mapNode.Shape));
 
+            if (mapNode.HasImage)
+                xml.WriteAttributeString("IMAGE", mapNode.Image);
+
+            if (mapNode.HasTextAlignment)
+                xml.WriteAttributeString("TEXTALIGNMENT", mapNode.TextAlignment.ToString());
+
 
             if (mapNode.Bold || mapNode.Italic || mapNode.Strikeout || mapNode.FontName != null || mapNode.FontSize != 0)
             {
@@ -140,20 +146,6 @@ namespace MindMate.Serialization
                 xml.WriteStartElement("richcontent");
                 xml.WriteAttributeString("TYPE", "NOTE");
                 xml.WriteString(mapNode.NoteText);
-                xml.WriteEndElement();
-            }
-
-            if (mapNode.Image != null)
-            {
-                xml.WriteStartElement("image");
-                xml.WriteAttributeString("ALIGNMENT", mapNode.ImageAlignment.ToString());
-                using (MemoryStream m = new MemoryStream())
-                {
-                    //TODO: Make sure all images are disposed on unloading MapTree
-                    mapNode.Image.Save(m, ImageFormat.Png);
-                    byte[] bytes = m.ToArray();
-                    xml.WriteBase64(bytes, 0, bytes.Length);
-                }
                 xml.WriteEndElement();
             }
 
@@ -311,6 +303,16 @@ namespace MindMate.Serialization
                 node.Shape = Convert.ToNodeStyle(att.Value);
             }
 
+            if((att = xmlElement.Attributes["IMAGE"]) != null)
+            { 
+                node.Image = att.Value;
+            }
+
+            if((att = xmlElement.Attributes["TEXTALIGNMENT"]) != null)
+            {
+                node.TextAlignment = (TextAlignment)Enum.Parse(typeof(TextAlignment), att.Value, true);
+            }
+
             for (var i = 0; i < xmlElement.ChildNodes.Count; i++)
             {
                 XmlNode tmpXNode = xmlElement.ChildNodes[i];
@@ -403,20 +405,7 @@ namespace MindMate.Serialization
                             node.NoteText = Environment.NewLine + Environment.NewLine + "---" + Environment.NewLine + tmpXNode.InnerText;
                         }
                     }
-                }
-                else if (tmpXNode.Name == "image")
-                {
-                    if (tmpXNode.Attributes["ALIGNMENT"] != null)
-                    {
-                        node.ImageAlignment = (ImageAlignment) Enum.Parse(typeof (ImageAlignment), tmpXNode.Attributes["ALIGNMENT"].Value);
-                    }
-                    string strImage = tmpXNode.InnerText;
-                    byte[] bytes = System.Convert.FromBase64String(strImage);
-                    using (MemoryStream m = new MemoryStream(bytes))
-                    {
-                        node.Image = Image.FromStream(m);
-                    }
-                }
+                }                
                 else if(tmpXNode.Name == "attribute")
                 {
                     string attibuteName = tmpXNode.Attributes["NAME"].Value;
