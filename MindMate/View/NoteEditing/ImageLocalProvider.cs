@@ -1,4 +1,5 @@
-﻿using MindMate.Serialization;
+﻿using MindMate.Model;
+using MindMate.Serialization;
 using MindMate.View.NoteEditing.PluggableProtocol;
 using System;
 using System.Collections.Generic;
@@ -25,12 +26,13 @@ namespace MindMate.View.NoteEditing
 
         public override byte[] GetUrlData(string url, out string contentType)
         {
-            ImageLocalPath path = ImageLocalPath.ConvertTo(url);         
+            ImageLocalPath path = ImageLocalPath.ConvertTo(url);
 
-            var data = persistence.CurrentTree.GetByteArray(path.FileName);
+            byte[] data;
 
-            if (data != null)
+            if (persistence.CurrentTree.TryGetLargeObject(path.FileName, out BytesLob lob))
             {
+                data = lob.Bytes;
                 contentType = MimeTypes.GetMimeType(path.Extension);
             }
             else

@@ -2,6 +2,7 @@
 using MindMate.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -466,6 +467,100 @@ namespace MindMate.Tests.Model
             t.RebalanceTree();
 
             Assert.IsTrue(Math.Abs(r.ChildRightNodes.Count() - r.ChildLeftNodes.Count()) <= 1, "Difference between left and right nodes count should be <= 1");
+        }
+
+        [TestMethod()]
+        public void SetLargeObject()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var lob = new BytesLob();
+            lob.Bytes = new byte[3] { 3, 1, 2 };
+            t.SetLargeObject("key1", lob);
+
+            Assert.AreEqual(3, t.GetLargeObject<BytesLob>("key1").Bytes[0]);
+        }
+
+        [TestMethod()]
+        public void SetLargeObject_Overwrite()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var lob = new BytesLob();
+            lob.Bytes = new byte[3] { 3, 1, 2 };
+            t.SetLargeObject("key1", lob);
+            lob.Bytes = new byte[3] { 0, 1, 2 };
+            t.SetLargeObject("key1", lob);
+
+            Assert.AreEqual(0, t.GetLargeObject<BytesLob>("key1").Bytes[0]);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(KeyNotFoundException))]
+        public void GetLargeObject_NonExistent()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");            
+
+            var a = t.GetLargeObject<BytesLob>("key1");
+        }
+
+        [TestMethod]
+        public void TryGetLargeObject_NonExistent()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+
+            Assert.IsFalse(t.TryGetLargeObject<BytesLob>("key1", out BytesLob obj));
+        }
+
+        [TestMethod]
+        public void TryGetLargeObject()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var lob = new BytesLob();
+            lob.Bytes = new byte[3] { 3, 1, 2 };
+            t.SetLargeObject("key1", lob);
+
+            Assert.IsTrue(t.TryGetLargeObject<BytesLob>("key1", out BytesLob obj));
+            Assert.AreEqual(2, obj.Bytes[2]);
+        }
+
+        [TestMethod()]
+        public void RemoveLargeObject()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var lob = new BytesLob();
+            lob.Bytes = new byte[3] { 3, 1, 2 };
+            t.SetLargeObject("key1", lob);
+
+            Assert.IsTrue(t.RemoveLargeObject("key1"));
+        }
+
+        [TestMethod()]
+        public void RemoveLargeObject_Image()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var lob = new ImageLob();
+            lob.Image = Image.FromFile(@"Resources\Feature Display.png");
+            t.SetLargeObject("key1", lob);
+
+            Assert.IsTrue(t.RemoveLargeObject("key1"));
+        }
+
+        [TestMethod()]
+        public void RemoveLargeObject_NonExistent()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var lob = new BytesLob();
+            lob.Bytes = new byte[3] { 3, 1, 2 };
+            t.SetLargeObject("key1", lob);
+
+            Assert.IsFalse(t.RemoveLargeObject("key2"));
         }
     }
 }

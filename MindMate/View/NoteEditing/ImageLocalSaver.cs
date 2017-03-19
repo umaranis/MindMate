@@ -1,4 +1,5 @@
-﻿using MindMate.Serialization;
+﻿using MindMate.Model;
+using MindMate.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -54,7 +55,7 @@ namespace MindMate.View.NoteEditing
                         }
 
                         var newInternalSrc = ImageLocalPath.CreateNewLocalPath(extension);                            
-                        tree.SetByteArray(newInternalSrc.FileName, data);
+                        tree.SetLargeObject(newInternalSrc.FileName, new BytesLob(data));
                         
                         elem.SetAttribute("srcOrig", originalSrc);
                         elem.SetAttribute("src", newInternalSrc.Url);

@@ -1,4 +1,5 @@
-﻿using MindMate.Serialization;
+﻿using MindMate.Model;
+using MindMate.Serialization;
 using MindMate.View.NoteEditing.MsHtmlWrap;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace MindMate.View.NoteEditing
 
                 MemoryStream ms = new MemoryStream();
                 image.Save(ms, System.Drawing.Imaging.ImageFormat.Png);           
-                tree.SetByteArray(imagePath.FileName, ms.ToArray());
+                tree.SetLargeObject(imagePath.FileName, new BytesLob(ms.ToArray()));
 
                 var htmlImage = new HtmlImageCreator(editor);
                 htmlImage.InsertImage(imagePath.Url, "");
@@ -55,7 +56,7 @@ namespace MindMate.View.NoteEditing
                     imageList.ForEach(i =>
                     {
                         var localPath = ImageLocalPath.CreateNewLocalPath(Path.GetExtension(i).Substring(1));
-                        tree.SetByteArray(localPath.FileName, File.ReadAllBytes(i));
+                        tree.SetLargeObject(localPath.FileName, new BytesLob(File.ReadAllBytes(i)));
 
                         var htmlImage = new HtmlImageCreator(editor);
                         htmlImage.InsertImage(localPath.Url, "");

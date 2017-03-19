@@ -39,21 +39,21 @@ namespace MindMate.Tests.Serialization
         public void DeserializeMap_LargeObject()
         {
             var sut = new MapZipSerializer();
-            byte[] data = sut.DeserializeLargeObject(@"Resources\New Format with Images.mm", "33046437-1659-4d39-91dd-5a420e7c4852.png");
-            Assert.IsTrue(data.Length > 1000);
+            var data = sut.DeserializeLargeObject<BytesLob>(@"Resources\New Format with Images.mm", "33046437-1659-4d39-91dd-5a420e7c4852.png");
+            Assert.IsTrue(data.Bytes.Length > 1000);
         }
 
         [TestMethod()]
         public void SerializeMap()
         {
             var sut = new MapZipSerializer();
-            var tree = new MapTree();
+            var tree = new PersistenceManager().NewTree();
             var root = new MapNode(tree, "Center");
             new MapNode(root, "c1");
             new MapNode(root, "c2");
             new MapNode(root, "c3");
 
-            sut.SerializeMap(tree, null, "MapZapTest1.mm", false);
+            sut.SerializeMap(tree, "MapZapTest1.mm", false);
 
             var tree2 = new MapTree();
             sut.DeserializeMap(tree2, "MapZapTest1.mm");
@@ -65,18 +65,18 @@ namespace MindMate.Tests.Serialization
         public void SerializeMap_UpdateAfterSaving()
         {
             var sut = new MapZipSerializer();
-            var tree = new MapTree();
+            var tree = new PersistenceManager().NewTree();
             var root = new MapNode(tree, "Center");
             new MapNode(root, "c1");
             new MapNode(root, "c2");
             new MapNode(root, "c3");
 
-            sut.SerializeMap(tree, null, "MapZapTest2.mm", false);
+            sut.SerializeMap(tree, "MapZapTest2.mm", false);
 
             new MapNode(root, "c4");
             new MapNode(root, "c5");
 
-            sut.SerializeMap(tree, null, "MapZapTest2.mm", false);
+            sut.SerializeMap(tree, "MapZapTest2.mm", false);
 
             var tree2 = new MapTree();
             sut.DeserializeMap(tree2, "MapZapTest2.mm");
@@ -87,28 +87,28 @@ namespace MindMate.Tests.Serialization
         [TestMethod()]
         public void SerializeMap_UpdateAfterSaving_WithLargeObject()
         {
-            var lobs = new List<KeyValuePair<string, byte[]>>();
+            var lobs = new List<KeyValuePair<string, ILargeObject>>();
             
             var sut = new MapZipSerializer();
-            var tree = new MapTree();
+            var tree = new PersistenceManager().NewTree();
             var root = new MapNode(tree, "Center");
             new MapNode(root, "c1");
             new MapNode(root, "c2");
             new MapNode(root, "c3");
-            lobs.Add(new KeyValuePair<string, byte[]>("1", new byte[100]));
-            sut.SerializeMap(tree, lobs, "MapZapTest2.mm", false);
+            tree.SetLargeObject("1", new BytesLob(new byte[100]));            
+            sut.SerializeMap(tree, "MapZapTest2.mm", false);
 
             new MapNode(root, "c4");
             new MapNode(root, "c5");
-            lobs.Add(new KeyValuePair<string, byte[]>("2", new byte[200]));
-            sut.SerializeMap(tree, lobs, "MapZapTest2.mm", false);
+            tree.SetLargeObject("2", new BytesLob(new byte[200]));
+            sut.SerializeMap(tree, "MapZapTest2.mm", false);
 
             var tree2 = new MapTree();
             sut.DeserializeMap(tree2, "MapZapTest2.mm");
 
             Assert.AreEqual(5, tree2.RootNode.ChildNodes.Count());
-            Assert.AreEqual(100, sut.DeserializeLargeObject("MapZapTest2.mm", "1").Length);
-            Assert.AreEqual(200, sut.DeserializeLargeObject("MapZapTest2.mm", "2").Length);
+            Assert.AreEqual(100, sut.DeserializeLargeObject<BytesLob>("MapZapTest2.mm", "1").Bytes.Length);
+            Assert.AreEqual(200, sut.DeserializeLargeObject<BytesLob>("MapZapTest2.mm", "2").Bytes.Length);
         }
     }
 }

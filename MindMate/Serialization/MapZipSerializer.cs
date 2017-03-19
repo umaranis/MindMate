@@ -15,25 +15,65 @@ namespace MindMate.Serialization
     {
         private readonly string MAPXMLFILE = "MindMate.xml";
 
-        public void SerializeMap(MapTree tree, IEnumerable<KeyValuePair<string, byte[]>> largeObjects, string fileName, bool overwrite)
+        public void SerializeMap(PersistentTree tree, string fileName, bool overwrite)
         {
-            var fileMode = overwrite ? FileMode.Create : FileMode.OpenOrCreate;
+            if (overwrite)
+                SerializeMapOverwrite(tree, fileName);
+            else
+                SerializeMapCreateOrUpdate(tree, fileName);
+        }
+
+        /// <summary>
+        /// Serialize a new map or overwrite if file already exists
+        /// </summary>
+        /// <param name="tree"></param>
+        /// <param name="fileName"></param>
+        private void SerializeMapOverwrite(PersistentTree tree, string fileName)
+        {
+            var fileMode = FileMode.Create;
+            using (var fileStream = new FileStream(fileName, fileMode))
+            {
+                using (var zip = new ZipArchive(fileStream, ZipArchiveMode.Update))
+                {
+                    foreach (var o in tree.LargeObjectsDictionary)
+                    {
+                        var objectEntry = zip.CreateEntry(o.Key, CompressionLevel.NoCompression);
+                        using (Stream stream = objectEntry.Open()) o.Value.SaveToStream(stream);
+                    }
+
+                    var xmlEntry = zip.CreateEntry(MAPXMLFILE, CompressionLevel.NoCompression);
+                    using (Stream stream = xmlEntry.Open())
+                    {
+                        new MindMapSerializer().Serialize(stream, tree);
+                    }
+
+                }
+            }
+        }
+
+        /// <summary>
+        /// Serialize a new map or update if already exists
+        /// </summary>
+        /// <param name="tree"></param>
+        /// <param name="fileName"></param>
+        private void SerializeMapCreateOrUpdate(PersistentTree tree, string fileName)
+        {
+            var fileMode = FileMode.OpenOrCreate;
             using (var fileStream = new FileStream(fileName, fileMode))
             {
                 using (var zip = new ZipArchive(fileStream, ZipArchiveMode.Update))
                 {
                     zip.GetEntry(MAPXMLFILE)?.Delete();
 
-                    if (largeObjects != null)
+                    foreach (var a in tree.DeletedLargeObjects)
                     {
-                        foreach (var o in largeObjects)
-                        {
-                            var objectEntry = zip.CreateEntry(o.Key, CompressionLevel.NoCompression);
-                            using (var stream = new BinaryWriter(objectEntry.Open()))
-                            {
-                                stream.Write(o.Value);
-                            }
-                        }
+                        zip.GetEntry(a)?.Delete();
+                    }
+
+                    foreach (var o in tree.NewLargeObjects)
+                    {
+                        var objectEntry = zip.CreateEntry(o.Key, CompressionLevel.NoCompression);
+                        using (Stream stream = objectEntry.Open()) o.Value.SaveToStream(stream);
                     }
 
                     var xmlEntry = zip.CreateEntry(MAPXMLFILE, CompressionLevel.NoCompression);
@@ -62,25 +102,29 @@ namespace MindMate.Serialization
             }
         }
 
-        public byte[] DeserializeLargeObject(string fileName, string objectKey)
+        public T DeserializeLargeObject<T>(string fileName, string objectKey) where T : class, ILargeObject, new()
         {
-            using (var fileStream = new FileStream(fileName, FileMode.Open))
+            try
             {
-                using (var zip = new ZipArchive(fileStream, ZipArchiveMode.Read))
+                using (var fileStream = new FileStream(fileName, FileMode.Open))
                 {
-                    var entry = zip.GetEntry(objectKey);
-                    if (entry != null)
+                    using (var zip = new ZipArchive(fileStream, ZipArchiveMode.Read))
                     {
-                        using (var reader = new BinaryReader(entry.Open()))
+                        var entry = zip.GetEntry(objectKey);
+
+                        using (var stream = entry.Open())
                         {
-                            return reader.ReadBytes((int)entry.Length);
+                            T obj = new T();
+                            obj.LoadFromStream(stream, (int)entry.Length);
+                            return obj;
                         }
-                    }
-                    else
-                    {
-                        return null;
+
                     }
                 }
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
     }

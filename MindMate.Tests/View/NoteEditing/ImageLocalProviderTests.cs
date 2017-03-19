@@ -72,8 +72,7 @@ namespace MindMate.Tests.View.NoteEditing
             A.CallTo(() => sut.GetUrlData("mm://33046437-1659-4d39-91dd-5a420e7c4852.png/", out contentType)).MustHaveHappened();
         }
 
-        [TestMethod()]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [TestMethod]        
         public void ImageLocalProvider_NonexistantImageOnNewTree()
         {
             var p = new PersistenceManager();
@@ -83,6 +82,7 @@ namespace MindMate.Tests.View.NoteEditing
             sut = new ImageLocalProvider(p);
             string contentType;
             sut.GetUrlData("mm://does-not-exists.png", out contentType);
+            Assert.AreEqual("text/html", contentType);
         }
 
         [TestMethod()]        

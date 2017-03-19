@@ -97,20 +97,18 @@ namespace MindMate.Serialization
         {
             Debug.Assert(FileName != null, "Persistent Tree: File name is null.");
 
-            //if overwrite then save all largeObjects, otherwise only new ones
-            IEnumerable<KeyValuePair<string, byte[]>> largeObjectsToSave = overwrite ? lobCache : lobCache.Where(k => newLobs.Contains(k.Key));
-
             var serializer = new MapZipSerializer();
             try
             {
-                serializer.SerializeMap(this, largeObjectsToSave, FileName, overwrite);
+                serializer.SerializeMap(this, FileName, overwrite);
             }
             catch(InvalidDataException) //in case of converting from old xml version, save without overwrite=true will not work
             {
-                serializer.SerializeMap(this, largeObjectsToSave, FileName, true);
+                serializer.SerializeMap(this, FileName, true);
             }
 
             newLobs.Clear();
+            deletedLobs.Clear();
             IsDirty = false;
 
             manager._InvokeTreeSaved(this);
@@ -166,34 +164,61 @@ namespace MindMate.Serialization
 
         #region Lazy loaded Large Object Cache
 
-        private Dictionary<string, byte[]> lobCache = new Dictionary<string, byte[]>();
-        private List<string> newLobs = new List<string>(); //not saved yet
+        private List<string> newLobs = new List<string>();      //not saved yet
+        private List<string> deletedLobs = new List<string>();  //to be deleted
+
+        public IEnumerable<KeyValuePair<string, ILargeObject>> NewLargeObjects 
+            => lobStore.Where(a => newLobs.Contains(a.Key));
+        public IEnumerable<string> DeletedLargeObjects
+            => deletedLobs;
+
                 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>null if not found</returns>
-        public byte[] GetByteArray(string key)
+        public override T GetLargeObject<T>(string key)
         {
-            byte[] obj;
-            if (lobCache.TryGetValue(key, out obj))
+            if (base.TryGetLargeObject<T>(key, out T obj))
             {
-                return lobCache[key] as byte[];
+                return obj;
             }
             else
             {
-                obj = new MapZipSerializer().DeserializeLargeObject(FileName, key);
-                lobCache[key] = obj;                
+                obj = new MapZipSerializer().DeserializeLargeObject<T>(FileName, key);
+                base.SetLargeObject(key, obj);                
+                return obj;
             }
-
-            return obj;
         }
 
-        public void SetByteArray(string key, byte[] data)
+        public override bool TryGetLargeObject<T>(string key, out T largeObject)
         {
-            lobCache[key] = data;
+            if (base.TryGetLargeObject<T>(key, out largeObject))
+            {
+                return true;
+            }
+            else
+            {
+                largeObject = new MapZipSerializer().DeserializeLargeObject<T>(FileName, key);
+                if (largeObject != null)
+                {
+                    base.SetLargeObject(key, largeObject);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public override void SetLargeObject<T>(string key, T largeObject)
+        {
+            base.SetLargeObject(key, largeObject);
             newLobs.Add(key);
+        }
+
+        public override bool RemoveLargeObject(string key)
+        {
+            bool result = base.RemoveLargeObject(key);
+            if (result) deletedLobs.Add(key);
+            return result;
         }
 
         #endregion Lazy loaded Large Object Cache

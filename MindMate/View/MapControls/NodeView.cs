@@ -301,6 +301,12 @@ namespace MindMate.View.MapControls
             RefreshText(s);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="textSize">Rather than calculating the Text size, given text size is used. 
+        /// This is useful when text is being edited in the view.
+        /// </param>
         public void RefreshText(SizeF textSize)
         {
             if (textSize.Height == 0) //if empty text than set minimum size
@@ -311,8 +317,6 @@ namespace MindMate.View.MapControls
 
             this.RefreshNodeViewSize();
         }
-
-
 
         public void RefreshNoteIcon()
         {

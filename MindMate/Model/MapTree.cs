@@ -298,6 +298,43 @@ namespace MindMate.Model
 
         #endregion Change Manager
 
+        #region Large Objects
+
+        protected Dictionary<string, ILargeObject> lobStore = new Dictionary<string, ILargeObject>();
+
+        public IEnumerable<KeyValuePair<string, ILargeObject>> LargeObjectsDictionary => lobStore;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        /// <exception cref="KeyNotFoundException">if key not found</exception>
+        public virtual T GetLargeObject<T>(string key) where T : class, ILargeObject, new()
+        {
+            return (T)lobStore[key];
+        }
+
+        public virtual bool TryGetLargeObject<T>(string key, out T largeObject) where T : class, ILargeObject, new()
+        {
+            bool result = lobStore.TryGetValue(key, out ILargeObject value);
+            largeObject = (T)value;
+            return result;
+        }
+
+        public virtual void SetLargeObject<T>(string key, T largeObject) where T : class, ILargeObject, new()
+        {
+            lobStore[key] = largeObject;
+        }
+
+        public virtual bool RemoveLargeObject(string key)
+        {
+            return lobStore.Remove(key);
+        }
+
+        #endregion LargeObjects
+
         /// <summary>
         /// Used for creating isolated MapNode(s)
         /// </summary>
