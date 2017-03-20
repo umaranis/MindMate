@@ -294,11 +294,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>"C:\Program Files (x86)\Windows Kits\8.1\bin\x86\UICC.exe" "$(ProjectDir)View\Ribbon\RibbonMarkup.xml" "$(ProjectDir)View\Ribbon\RibbonMarkup.bml" /res:"$(ProjectDir)View\Ribbon\RibbonMarkup.rc" 
+    <PreBuildEvent>"C:\Program Files (x86)\Windows Kits\10\bin\x86\UICC.exe" "$(ProjectDir)View\Ribbon\RibbonMarkup.xml" "$(ProjectDir)View\Ribbon\RibbonMarkup.bml" /res:"$(ProjectDir)View\Ribbon\RibbonMarkup.rc" 
 
-"C:\Program Files (x86)\Windows Kits\8.1\bin\x86\rc.exe" /v "$(ProjectDir)View\Ribbon\RibbonMarkup.rc" 
+"C:\Program Files (x86)\Windows Kits\10\bin\x86\rc.exe" /v "$(ProjectDir)View\Ribbon\RibbonMarkup.rc" 
 
-cmd /c "("$(VS140COMNTOOLS)..\..\VC\bin\vcvars32.bat") &amp;&amp; ("$(VS140COMNTOOLS)..\..\VC\bin\link.exe" /VERBOSE /NOENTRY /DLL /OUT:"$(ProjectDir)View\Ribbon\RibbonMarkup.ribbon" "$(ProjectDir)View\Ribbon\RibbonMarkup.res")"</PreBuildEvent>
+cmd /c "("C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat") &amp;&amp; ("link.exe" /VERBOSE /NOENTRY /DLL /OUT:"$(ProjectDir)View\Ribbon\RibbonMarkup.ribbon" "$(ProjectDir)View\Ribbon\RibbonMarkup.res")"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
