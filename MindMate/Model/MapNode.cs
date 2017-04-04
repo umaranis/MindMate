@@ -1613,6 +1613,32 @@ namespace MindMate.Model
             }
         }
 
+        public void InsertImage(Image image)
+        {
+            var imageLOB = new ImageLob(image);
+            var imageKey = Guid.NewGuid().ToString() + "." + image.RawFormat.ToString();
+            Tree.SetLargeObject(imageKey, imageLOB);
+            Image = imageKey;
+        }
+
+        public Image GetImage()
+        {
+            if(HasImage)
+            {
+                return Tree.GetLargeObject<ImageLob>(Image).Image;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public void RemoveImage()
+        {
+            //TODO: Remove image LOB from Tree (this should take care of undo and clipboard functionality)
+            Image = null;
+        }
+
         #region Select
 
         public bool Selected

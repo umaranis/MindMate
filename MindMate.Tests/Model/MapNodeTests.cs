@@ -1711,6 +1711,39 @@ namespace MindMate.Tests.Model
             Assert.IsFalse(c1.HasTextAlignment);
         }
 
+        [TestMethod]
+        public void InsertImage()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\MapCtrl1.png"));
+            Assert.IsTrue(r.HasImage);
+        }
+
+        [TestMethod]
+        public void GetImage_Null()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            Assert.IsNull(r.GetImage());
+        }
+
+        [TestMethod]
+        public void GetImage()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\MapCtrl1.png"));
+            Assert.IsNotNull(r.GetImage());
+        }
+
+        [TestMethod]
+        public void RemoveImage()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\MapCtrl1.png"));
+            Assert.IsTrue(r.HasImage);
+            r.RemoveImage();
+            Assert.IsFalse(r.HasImage);
+        }
+
 #if !DEBUG
         /// <summary>
         /// Serialized attriute is only applicable in debug mode. It is used in code generation, not at runtime.

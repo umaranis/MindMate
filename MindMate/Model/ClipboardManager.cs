@@ -34,7 +34,8 @@ namespace MindMate.Model
             {
                 return Clipboard.ContainsData(MindMateTextFormat) || 
                        Clipboard.ContainsText() ||
-                       Clipboard.ContainsFileDropList();
+                       Clipboard.ContainsFileDropList() ||
+                       Clipboard.ContainsImage();
             }
         }
 
@@ -144,6 +145,10 @@ namespace MindMate.Model
             {
                 PasteFileDropList(pasteLocation, asText);
             }
+            else if(Clipboard.ContainsImage())
+            {
+                PasteImage(pasteLocation);
+            }
 
             hasCutNode = false;
             if (StatusChanged != null) { StatusChanged(); }
@@ -159,6 +164,11 @@ namespace MindMate.Model
                 MapNode n = new MapNode(pasteLocation, file);
                 if (!asText) { n.Link = file; }
             }
+        }
+
+        private static void PasteImage(MapNode pasteLocation)
+        {
+            new MapNode(pasteLocation, "").InsertImage(Clipboard.GetImage());            
         }
 
         private static string GetBrowserSourceLink()

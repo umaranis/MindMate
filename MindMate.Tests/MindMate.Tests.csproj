@@ -83,6 +83,7 @@
     <Compile Include="Controller\MainCtrlTests.cs" />
     <Compile Include="Controller\MapCtrlTests.cs" />
     <Compile Include="Controller\NoteEditorCtrlTests.cs" />
+    <Compile Include="Model\ClipboardManagerTests.cs" />
     <Compile Include="Serialization\MapZipSerializerTests.cs" />
     <Compile Include="Serialization\PersistentTreeTests.cs" />
     <Compile Include="View\NoteEditing\ClipboardImagePasterTests.cs" />

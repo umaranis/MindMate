@@ -370,7 +370,7 @@ namespace MindMate.View.MapControls
 
         private void RefreshNodeViewSize()
         {
-            //width
+            //width------------------
             width = 0; 
 
             if (this.link != null)  width += (link.Size.Width + INTER_CONTROL_PADDING);
@@ -380,8 +380,10 @@ namespace MindMate.View.MapControls
             for (int i = 0; i < this.recIcons.Count; i++)   width += (this.recIcons[i].Size.Width + INTER_CONTROL_PADDING);
 
             width += (NodeView.LEFT_PADDING + recText.Width + NodeView.RIGHT_PADDING);
+            //width------------------
 
-            //height
+
+            //height-----------------
             height = TOP_PADDING;
             if (recText.Height < ICON_SIZE && (recIcons.Any() || link != null || noteIcon != null))
             {
@@ -392,6 +394,7 @@ namespace MindMate.View.MapControls
                 height += recText.Height;
             }
             height += BOTTOM_PADDING;
+            //height-----------------
         }
 
         /// <summary>
