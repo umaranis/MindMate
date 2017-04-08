@@ -464,6 +464,63 @@ namespace MindMate.Tests.View.MapControls
             Assert.IsNull(result);
         }
 
+        [TestMethod()]
+        public void AddNote()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "6");
+            var c12 = new MapNode(c1, "2");
+            var c13 = new MapNode(c1, "4");
+            var c14 = new MapNode(c1, "7");
+            var c15 = new MapNode(c1, "1");
+            var c16 = new MapNode(c1, "5");
+            var c17 = new MapNode(c1, "3");
+            var c121 = new MapNode(c12, "c121");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            t.SelectedNodes.Add(c32, true);
+
+            MetaModel.MetaModel.Initialize();
+            var v = new MapView(t);
+
+            c32.NoteText = "Sample Note";
+
+            Assert.IsNotNull(c32.NodeView.NoteIcon);
+        }
+
+        [TestMethod()]
+        public void RemoveNote()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "6");
+            var c12 = new MapNode(c1, "2");
+            var c13 = new MapNode(c1, "4");
+            var c14 = new MapNode(c1, "7");
+            var c15 = new MapNode(c1, "1");
+            var c16 = new MapNode(c1, "5");
+            var c17 = new MapNode(c1, "3");
+            var c121 = new MapNode(c12, "c121");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            t.SelectedNodes.Add(c32, true);
+
+            MetaModel.MetaModel.Initialize();
+            var v = new MapView(t);
+
+            c32.NoteText = "Sample Note";
+            c32.NoteText = null;
+
+            Assert.IsNull(c32.NodeView.NoteIcon);
+        }
+
         //[TestMethod()]
         //public void GetMouseOffset()
         //{

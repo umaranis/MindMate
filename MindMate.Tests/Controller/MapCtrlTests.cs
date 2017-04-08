@@ -1317,6 +1317,36 @@ namespace MindMate.Tests.Controller
         }
 
         [TestMethod()]
+        public void ChangeHyperlink()
+        {
+            MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
+            var t = mapCtrl.MapView.Tree;
+            var r = t.RootNode;
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "6");
+            var c12 = new MapNode(c1, "2");
+            var c13 = new MapNode(c1, "4");
+            var c14 = new MapNode(c1, "7");
+            var c15 = new MapNode(c1, "1");
+            var c16 = new MapNode(c1, "5");
+            var c17 = new MapNode(c1, "3");
+            var c121 = new MapNode(c12, "c121");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+            r.Selected = true;
+            t.SelectedNodes.Add(c32, true);
+
+            mapCtrl.AddHyperlink("abc");
+            mapCtrl.AddHyperlink("xyz");
+
+            Assert.AreEqual("xyz", r.Link);
+            Assert.AreEqual("xyz", c32.Link);
+            Assert.IsNull(c31.Link);
+        }
+
+        [TestMethod()]
         public void RemoveHyperlink()
         {
             MapCtrl mapCtrl = SetupMapCtrlWithEmptyTree();
@@ -1345,7 +1375,7 @@ namespace MindMate.Tests.Controller
             Assert.IsNull(c32.Link);
             Assert.IsNull(c31.Link);
         }
-
+        
         [TestMethod()]
         public void ChangeNodeShapeFork()
         {

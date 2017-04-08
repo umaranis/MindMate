@@ -38,6 +38,33 @@ namespace MindMateTest
             refImage.Dispose();
         }
 
+        /// <summary>
+        /// With highlighted node
+        /// </summary>
+        [TestMethod]
+        public void MapView_SampleMap_ImageTest2()
+        {
+            string xmlString = System.IO.File.ReadAllText(@"Resources\Sample Map.mm");
+            MapTree tree = new MapTree();
+            new MindMapSerializer().Deserialize(xmlString, tree);
+
+            MindMate.MetaModel.MetaModel.Initialize();
+            MapView view = new MapView(tree);
+            view.HighlightNode(tree.RootNode.FirstChild);
+
+            var image = view.DrawToBitmap();
+            if (SAVE_ACTUAL_IMAGE) image.Save(@"Resources\Sample Map1 - Actual.png");
+            var refImage = (Bitmap)Bitmap.FromFile(@"Resources\Sample Map1.png");
+
+            //form.Close();
+            view.Canvas.Dispose();
+
+            Assert.AreEqual<float>(0.00f, image.PercentageDifference(refImage, 0));
+
+            image.Dispose();
+            refImage.Dispose();
+        }
+
         [TestMethod]
         public void MapView_FeatureDisplay_ImageTest()
         {
