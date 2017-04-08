@@ -122,6 +122,7 @@
     <Compile Include="Controller\StatusBarCtrl.cs" />
     <Compile Include="Controller\INoteEditor.cs" />
     <Compile Include="Modules\Logging\Log.cs" />
+    <Compile Include="Modules\Undo\Changes\ImageSizeChange.cs" />
     <Compile Include="Serialization\MapZipSerializer.cs" />
     <Compile Include="View\NoteEditing\ClipboardImagePaster.cs" />
     <Compile Include="View\NoteEditing\ImageLocalPath.cs" />

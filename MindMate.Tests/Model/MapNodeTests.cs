@@ -328,7 +328,8 @@ namespace MindMate.Tests.Model
             var c2 = new MapNode(r, "c2");
             var c3 = new MapNode(r, "c3", NodePosition.Left) {
                 Image = "image",
-                TextAlignment = MindMate.Model.TextAlignment.BeforeCenter,
+                ImageAlignment = MindMate.Model.ImageAlignment.BeforeCenter,
+                ImageSize = new Size(12, 20),
                 Text = "text",
                 NoteText = "notetext",
                 Folded = true,
@@ -343,7 +344,8 @@ namespace MindMate.Tests.Model
 
             Assert.AreEqual(n.ChildNodes.Count(), 2);
             Assert.AreEqual("image", n.Image);
-            Assert.AreEqual(MindMate.Model.TextAlignment.BeforeCenter, n.TextAlignment);
+            Assert.AreEqual(MindMate.Model.ImageAlignment.BeforeCenter, n.ImageAlignment);
+            Assert.AreEqual(new Size(12, 20), n.ImageSize);
             Assert.AreEqual("text", n.Text);
             Assert.AreEqual("notetext", n.NoteText);
             Assert.AreEqual(true, n.Folded);
@@ -1690,25 +1692,47 @@ namespace MindMate.Tests.Model
         }
 
         [TestMethod()]
-        public void TextAlignment()
+        public void ImageAlignment()
         {
             var r = new MapNode(new MapTree(), "r");
             var c1 = new MapNode(r, "C");
 
-            c1.TextAlignment = MindMate.Model.TextAlignment.BeforeTop;
+            c1.ImageAlignment = MindMate.Model.ImageAlignment.BeforeTop;
 
-            Assert.AreEqual(MindMate.Model.TextAlignment.BeforeTop, c1.TextAlignment);
-            Assert.IsTrue(c1.HasTextAlignment);
+            Assert.AreEqual(MindMate.Model.ImageAlignment.BeforeTop, c1.ImageAlignment);
+            Assert.IsTrue(c1.HasImageAlignment);
+        }        
+
+        [TestMethod()]
+        public void ImageAlignment_DefaultValue()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "C");
+
+            Assert.AreEqual(MindMate.Model.ImageAlignment.Default, c1.ImageAlignment);
+            Assert.IsFalse(c1.HasImageAlignment);
         }
 
         [TestMethod()]
-        public void TextAlignment_DefaultValue()
+        public void ImageSize()
         {
             var r = new MapNode(new MapTree(), "r");
             var c1 = new MapNode(r, "C");
 
-            Assert.AreEqual(MindMate.Model.TextAlignment.Default, c1.TextAlignment);
-            Assert.IsFalse(c1.HasTextAlignment);
+            c1.ImageSize = new Size(10, 20);
+
+            Assert.AreEqual(20, c1.ImageSize.Height);
+            Assert.IsTrue(c1.HasImageSize);
+        }
+
+        [TestMethod()]
+        public void ImageSize_DefaultValue()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "C");
+
+            Assert.AreEqual(Size.Empty, c1.ImageSize);
+            Assert.IsFalse(c1.HasImageSize);
         }
 
         [TestMethod]

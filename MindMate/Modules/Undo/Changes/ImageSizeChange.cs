@@ -7,12 +7,12 @@ using System.Text;
 
 namespace MindMate.Modules.Undo.Changes
 {
-    class ImageAlignmentChange : IChange
+    class ImageSizeChange : IChange
     {
         readonly MapNode node;
-        readonly ImageAlignment oldValue;
+        readonly Size oldValue;
 
-        public ImageAlignmentChange(MapNode node, ImageAlignment oldValue)
+        public ImageSizeChange(MapNode node, Size oldValue)
         {
             this.node = node;
             this.oldValue = oldValue;
@@ -22,13 +22,13 @@ namespace MindMate.Modules.Undo.Changes
         {
             get
             {
-                return "Image Alignment Changed";
+                return "Image Size Changed";
             }
         }
 
         public void Undo()
         {
-            node.ImageAlignment = oldValue;
+            node.ImageSize = oldValue;
         }
     }
 }

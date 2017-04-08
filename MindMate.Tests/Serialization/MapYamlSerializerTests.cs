@@ -208,7 +208,8 @@ namespace MindMate.Tests.Serialization
             node.Bold = true;
             node.FontName = "Arial";
             node.FontSize = 15;
-            node.TextAlignment = TextAlignment.AboveStart;
+            node.ImageAlignment = ImageAlignment.AboveStart;
+            node.ImageSize = new Size(22, 21);
             node.Italic = true;
             node.Label = "label";
             node.LineColor = Color.BlueViolet;
@@ -245,6 +246,7 @@ namespace MindMate.Tests.Serialization
             Assert.IsNotNull(result.Label);
             Assert.IsNotNull(result.Text);
             Assert.AreEqual("link", result.Link);
+            Assert.AreEqual(22, result.ImageSize.Width);
         }
     }
 }

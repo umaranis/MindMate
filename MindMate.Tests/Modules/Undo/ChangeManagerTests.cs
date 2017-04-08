@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MindMate.Model;
+using System.Drawing;
 
 namespace MindMate.Tests.Modules.Undo
 {
@@ -108,32 +109,62 @@ namespace MindMate.Tests.Modules.Undo
         }
 
         [TestMethod]
-        public void TextAlignmentChange()
+        public void ImageAlignmentChange()
         {
             var t = new MapTree();
             var r = new MapNode(t, "r");
             t.TurnOnChangeManager();
             var sut = t.ChangeManager;
 
-            r.TextAlignment = TextAlignment.AfterBottom;
+            r.ImageAlignment = ImageAlignment.AfterBottom;
 
             Assert.AreEqual(1, sut.UndoStackCount);
-            Assert.AreEqual(TextAlignment.AfterBottom, r.TextAlignment);
+            Assert.AreEqual(ImageAlignment.AfterBottom, r.ImageAlignment);
         }
 
         [TestMethod]
-        public void TextAlignmentChange_Undo()
+        public void ImageAlignmentChange_Undo()
         {
             var t = new MapTree();
             var r = new MapNode(t, "r");
             t.TurnOnChangeManager();
             var sut = t.ChangeManager;
 
-            r.TextAlignment = TextAlignment.AfterBottom;
+            r.ImageAlignment = ImageAlignment.AfterBottom;
             sut.Undo();
 
             Assert.AreEqual(0, sut.UndoStackCount);
-            Assert.AreNotEqual(TextAlignment.AfterBottom, r.TextAlignment);
+            Assert.AreNotEqual(ImageAlignment.AfterBottom, r.ImageAlignment);
         }
+
+        [TestMethod]
+        public void ImageSizeChange()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            t.TurnOnChangeManager();
+            var sut = t.ChangeManager;
+
+            r.ImageSize = new Size(15, 10);
+
+            Assert.AreEqual(1, sut.UndoStackCount);
+            Assert.AreEqual(10, r.ImageSize.Height);
+        }
+
+        [TestMethod]
+        public void ImageSizeChange_Undo()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            t.TurnOnChangeManager();
+            var sut = t.ChangeManager;
+
+            r.ImageSize = new Size(15, 10);
+            sut.Undo();
+
+            Assert.AreEqual(0, sut.UndoStackCount);
+            Assert.AreNotEqual(15, r.ImageSize.Width);
+        }
+        
     }
 }

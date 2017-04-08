@@ -108,8 +108,14 @@ namespace MindMate.Serialization
             if (mapNode.HasImage)
                 xml.WriteAttributeString("IMAGE", mapNode.Image);
 
-            if (mapNode.HasTextAlignment)
-                xml.WriteAttributeString("TEXTALIGNMENT", mapNode.TextAlignment.ToString());
+            if (mapNode.HasImageAlignment)
+                xml.WriteAttributeString("IMAGEALIGNMENT", mapNode.ImageAlignment.ToString());
+
+            if(mapNode.HasImageSize)
+            {
+                xml.WriteAttributeString("IMAGEHEIGHT", mapNode.ImageSize.Height.ToString());
+                xml.WriteAttributeString("IMAGEWIDTH", mapNode.ImageSize.Width.ToString());
+            }
 
 
             if (mapNode.Bold || mapNode.Italic || mapNode.Strikeout || mapNode.FontName != null || mapNode.FontSize != 0)
@@ -308,9 +314,19 @@ namespace MindMate.Serialization
                 node.Image = att.Value;
             }
 
-            if((att = xmlElement.Attributes["TEXTALIGNMENT"]) != null)
+            if((att = xmlElement.Attributes["IMAGEALIGNMENT"]) != null)
             {
-                node.TextAlignment = (TextAlignment)Enum.Parse(typeof(TextAlignment), att.Value, true);
+                node.ImageAlignment = (ImageAlignment)Enum.Parse(typeof(ImageAlignment), att.Value, true);
+            }
+
+            if ((att = xmlElement.Attributes["IMAGEHEIGHT"]) != null)
+            {
+                node.ImageSize = new Size(node.ImageSize.Width, int.Parse(att.Value));
+            }
+
+            if ((att = xmlElement.Attributes["IMAGEWIDTH"]) != null)
+            {
+                node.ImageSize = new Size(int.Parse(att.Value), node.ImageSize.Height);
             }
 
             for (var i = 0; i < xmlElement.ChildNodes.Count; i++)

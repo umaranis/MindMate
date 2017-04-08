@@ -31,6 +31,8 @@ namespace MindMate.Serialization
 		public const string NoteText = "noteText";
 		public const string Image = "image";
 		public const string ImageAlignment = "imageAlignment";
+        public const string ImageHeight = "imageHeight";
+        public const string ImageWidth = "imageWidth";
 		public const string Label = "label";
 		public const string Icons = "icons";
 		public const string Attributes = "attributes";
@@ -131,11 +133,18 @@ namespace MindMate.Serialization
 				emitter.Emit(new Scalar(Image));
 				emitter.Emit(new Scalar(node.Image));
 			}
-			if (node.HasTextAlignment)
+			if (node.HasImageAlignment)
 			{
 				emitter.Emit(new Scalar(ImageAlignment));
-				emitter.Emit(new Scalar(node.TextAlignment.ToString()));
+				emitter.Emit(new Scalar(node.ImageAlignment.ToString()));
 			}
+            if(node.HasImageSize)
+            {
+                emitter.Emit(new Scalar(ImageHeight));
+                emitter.Emit(new Scalar(node.ImageSize.Height.ToString()));
+                emitter.Emit(new Scalar(ImageWidth));
+                emitter.Emit(new Scalar(node.ImageSize.Width.ToString()));
+            }
 			if (node.HasLabel)
 			{
 				emitter.Emit(new Scalar(Label));

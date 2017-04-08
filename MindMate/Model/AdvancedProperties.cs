@@ -20,7 +20,9 @@ namespace MindMate.Model
         /// <summary>
         /// Alignment of text in relation to Image
         /// </summary>
-        internal TextAlignment TextAlignment { get; set; }
+        internal ImageAlignment ImageAlignment { get; set; }
+
+        internal Size ImageSize { get; set; }
 
         internal AdvancedProperties Clone()
         {

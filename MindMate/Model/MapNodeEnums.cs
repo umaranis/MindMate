@@ -38,6 +38,7 @@ namespace MindMate.Model
         NoteText,
         Image,
         ImageAlignment,
+        ImageSize,
         Label
     }
 
@@ -101,7 +102,7 @@ namespace MindMate.Model
         Empty
     }
 
-    public enum TextAlignment
+    public enum ImageAlignment
     {
         Default,
         BelowCenter,    //text is displayed below image aligned center

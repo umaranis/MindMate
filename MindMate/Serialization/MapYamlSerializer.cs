@@ -196,7 +196,21 @@ namespace MindMate.Serialization
             if (prop != null && prop.Value.Equals(ImageAlignment))
             {
                 r.Expect<Scalar>();
-                node.TextAlignment = (TextAlignment)Enum.Parse(typeof(TextAlignment), r.Expect<Scalar>().Value);
+                node.ImageAlignment = (ImageAlignment)Enum.Parse(typeof(ImageAlignment), r.Expect<Scalar>().Value);
+                prop = r.Peek<Scalar>();
+            }
+
+            if (prop != null && prop.Value.Equals(ImageHeight))
+            {
+                r.Expect<Scalar>();
+                node.ImageSize = new Size(node.ImageSize.Width, int.Parse(r.Expect<Scalar>().Value));
+                prop = r.Peek<Scalar>();
+            }
+
+            if (prop != null && prop.Value.Equals(ImageWidth))
+            {
+                r.Expect<Scalar>();
+                node.ImageSize = new Size(int.Parse(r.Expect<Scalar>().Value), node.ImageSize.Height);
                 prop = r.Peek<Scalar>();
             }
 

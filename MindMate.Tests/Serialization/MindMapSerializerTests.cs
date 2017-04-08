@@ -92,7 +92,7 @@ namespace MindMate.Tests
             MapTree tree = new MapTree();
             var r = new MapNode(tree, "r");
             r.Image = "MyImage.png";
-            r.TextAlignment = TextAlignment.AfterCenter;
+            r.ImageAlignment = ImageAlignment.AfterCenter;
 
             MindMapSerializer s = new MindMapSerializer();
             using (MemoryStream stream = new MemoryStream())
@@ -104,7 +104,29 @@ namespace MindMate.Tests
                 var tree2 = new MapTree();
                 s.Deserialize(serializedText, tree2);
                 Assert.AreEqual("MyImage.png", tree2.RootNode.Image);
-                Assert.AreEqual(TextAlignment.AfterCenter, tree2.RootNode.TextAlignment);
+                Assert.AreEqual(ImageAlignment.AfterCenter, tree2.RootNode.ImageAlignment);
+            }
+        }
+
+        [TestMethod]
+        public void Serialize_WithImageSize()
+        {
+            MapTree tree = new MapTree();
+            var r = new MapNode(tree, "r");
+            r.Image = "MyImage.png";
+            r.ImageSize = new System.Drawing.Size(10, 20);
+
+            MindMapSerializer s = new MindMapSerializer();
+            using (MemoryStream stream = new MemoryStream())
+            {
+                s.Serialize(stream, tree);
+                stream.Position = 0;
+                string serializedText = new StreamReader(stream).ReadToEnd();
+
+                var tree2 = new MapTree();
+                s.Deserialize(serializedText, tree2);
+                Assert.AreEqual("MyImage.png", tree2.RootNode.Image);
+                Assert.AreEqual(10, tree2.RootNode.ImageSize.Width);
             }
         }
     }

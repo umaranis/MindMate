@@ -416,21 +416,38 @@ namespace MindMate.Model
         /// This property is only applicable if node has an image.
         /// </summary>
         [Serialized(Order = 21)]
-        public TextAlignment TextAlignment
+        public ImageAlignment ImageAlignment
         {
-            get { return props == null? TextAlignment.Default : props.TextAlignment; }
+            get { return props == null? ImageAlignment.Default : props.ImageAlignment; }
             set
             {
                 InitializeProps();
-                TextAlignment oldValue = props.TextAlignment;
-                props.TextAlignment = value;
+                ImageAlignment oldValue = props.ImageAlignment;
+                props.ImageAlignment = value;
                 modified = DateTime.Now;
                 Tree.FireEvent(this, NodeProperties.ImageAlignment, oldValue);                
             }
         }
-        public bool HasTextAlignment
+        public bool HasImageAlignment
         {
-            get { return props != null && props.TextAlignment != TextAlignment.Default; }
+            get { return props != null && props.ImageAlignment != ImageAlignment.Default; }
+        }
+                
+        public Size ImageSize
+        {
+            get { return props == null ? Size.Empty : props.ImageSize; }
+            set
+            {
+                InitializeProps();
+                Size oldValue = props.ImageSize;
+                props.ImageSize = value;
+                modified = DateTime.Now;
+                Tree.FireEvent(this, NodeProperties.ImageSize, oldValue);
+            }
+        }
+        public bool HasImageSize
+        {
+            get { return props != null && !props.ImageSize.IsEmpty; }
         }
 
         private string label;
