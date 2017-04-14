@@ -55,7 +55,7 @@ namespace MindMate.Model
 
         public void SaveToStream(Stream stream)
         {
-            Image.Save(stream, Image.RawFormat);
+            Image.Save(stream, Image.RawFormat.Equals(ImageFormat.MemoryBmp)? ImageFormat.Png : Image.RawFormat);
         }
     }
 

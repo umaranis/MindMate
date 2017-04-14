@@ -115,22 +115,22 @@ namespace MindMate.View.MapControls
             {
                 case NodeProperties.Text:
                     node.NodeView.RefreshText();
-                    if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                    RefreshNodePositions(tree.RootNode, node.Pos);
+					if (node == tree.RootNode) RefreshNodePositions();
+                    else RefreshNodePositions(tree.RootNode, node.Pos);
                     break;
                 case NodeProperties.Label:
                     throw new NotImplementedException();
                 case NodeProperties.NoteText:
                     node.NodeView.RefreshNoteIcon();
-                    if (node == Tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                    RefreshNodePositions(node.Parent ?? node, NodePosition.Undefined);
+					if (node == Tree.RootNode) RefreshNodePositions();
+                    else RefreshNodePositions(node.Parent, NodePosition.Undefined);
                     break;
                 case NodeProperties.Bold:
                 case NodeProperties.Italic:
                 case NodeProperties.Strikeout:
                     node.NodeView.RefreshFont();
-                    if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                    RefreshNodePositions(tree.RootNode, node.Pos);
+					if (node == tree.RootNode) RefreshNodePositions();
+                    else RefreshNodePositions(tree.RootNode, node.Pos);
                     break;                
                 case NodeProperties.Folded:
                     RefreshNodePositions(tree.RootNode, node.Pos);
@@ -138,24 +138,21 @@ namespace MindMate.View.MapControls
                 case NodeProperties.FontName:
                 case NodeProperties.FontSize:
                     node.NodeView.RefreshFont();
-                    if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                    RefreshNodePositions(tree.RootNode, node.Pos);
+					if (node == tree.RootNode) RefreshNodePositions();
+                    else RefreshNodePositions(tree.RootNode, node.Pos);
                     break;
                 case NodeProperties.Link:
                     node.NodeView.RefreshLink();
-                    if (node == tree.RootNode)
-                    {
-                        node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-                        RefreshNodePositions(node, NodePosition.Undefined);
-                    }
-                    else
-                    {
-                        RefreshNodePositions(node.Parent, NodePosition.Undefined);
-                    }
+					if (node == tree.RootNode) RefreshNodePositions();
+                    else RefreshNodePositions(node.Parent, NodePosition.Undefined);
                     break;
                 case NodeProperties.Image:
                 case NodeProperties.ImageAlignment:
-                    throw new NotImplementedException();
+                case NodeProperties.ImageSize:
+                    node.NodeView.RefreshImageView();
+					if (node == tree.RootNode) RefreshNodePositions();
+                    else RefreshNodePositions(tree.RootNode, node.Pos);
+                    break;
             }
 
             Canvas.Invalidate();
@@ -178,8 +175,8 @@ namespace MindMate.View.MapControls
                     break;
             }
 
-            if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-            RefreshNodePositions(node.Parent ?? node, NodePosition.Undefined);
+            if (node == tree.RootNode) RefreshNodePositions();
+            else RefreshNodePositions(node.Parent, NodePosition.Undefined);
 
             Canvas.Invalidate();
         }
@@ -265,8 +262,8 @@ namespace MindMate.View.MapControls
                     break;
             }
 
-            if (node == tree.RootNode) node.NodeView.RefreshPosition(node.NodeView.Left, node.NodeView.Top);
-            RefreshNodePositions(node.Parent ?? node, NodePosition.Undefined);
+			if (node == tree.RootNode) RefreshNodePositions();
+            else RefreshNodePositions(node.Parent, NodePosition.Undefined);
 
             Canvas.Invalidate();
         }

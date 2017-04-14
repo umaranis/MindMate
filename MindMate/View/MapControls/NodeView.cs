@@ -16,6 +16,15 @@ namespace MindMate.View.MapControls
 {
     public enum NodePortion { Body, Head };
 
+    /// <summary>
+    /// Three functionalities of NodeView:
+    /// 1- Creating NodeView controls, setting their sizes and size of NodeView 
+    ///         (Basically done through CreateNodeViewContent. RefreshNodeViewSize is used for calculating NodeView size.)
+    /// 2- Refreshing controls and their sizes and size of NodeView
+    ///         (Refresh functions are provided for various controls and RefreshNodeViewSize for overall size of NodeView.)
+    /// 3- Setting the positions of NodeView and its Controls
+    ///         (Done through RefreshPosition.)
+    /// </summary>
     public class NodeView
     {       
 
@@ -24,7 +33,7 @@ namespace MindMate.View.MapControls
         public const int RIGHT_PADDING = 3;
         public const int INTER_CONTROL_PADDING = 3;
         public const int TOP_PADDING = 2;
-        public const int BOTTOM_PADDING = 1;
+        public const int BOTTOM_PADDING = 1; //TODO: Make top and bottom padding same to simply layout logic
         public const int ICON_SIZE = 16;
 
         public static Font DefaultFont = new Font(FontFamily.GenericSansSerif, 10);
@@ -77,6 +86,8 @@ namespace MindMate.View.MapControls
                 return node.BackColor;
             }
         }
+
+        public ImageView ImageView { get; private set; }
         
 
         public NodeView(MapNode node, PointF location)
@@ -181,48 +192,8 @@ namespace MindMate.View.MapControls
 
         public void RefreshFont()
         {
-            if(font != null && font != DefaultFont) font.Dispose();
+            CreateFont();
 
-            //step 1: refresh font from MapNode
-            FontStyle style = FontStyle.Regular;
-            if (node.Bold)  style |= FontStyle.Bold;
-            if (node.Italic)    style |= FontStyle.Italic;
-            if (node.Strikeout)  style |= FontStyle.Strikeout;
-            
-            if (style == FontStyle.Regular && node.FontName == null && node.FontSize == 0) //set the default font
-            {
-                font = DefaultFont;
-            }
-            else 
-            {
-                
-                FontFamily ff;
-                try
-                {
-                    ff = node.FontName != null ? new FontFamily(node.FontName) : DefaultFont.FontFamily;
-                }
-                catch (ArgumentException)
-                {
-                    ff = DefaultFont.FontFamily;
-                    System.Diagnostics.Trace.TraceError("Specified Font Name (" + node.FontName + ") not found. Using default font instead.");
-                }
-                
-                font = new Font(
-                    ff, node.FontSize != 0 ? node.FontSize : DefaultFont.Size,
-                    style);               
-                
-            }
-            
-            //step 2: recalculate text rec size        
-            SizeF s = Drawing.TextRenderer.MeasureText(node.Text, font);
-
-            if (s.Height == 0) //if empty text than set minimum size
-                s = new SizeF(10, font.Height);
-
-            recText.Width = s.Width; 
-            recText.Height = s.Height;
-
-            //step 3: recalculate NodeView size
             this.RefreshNodeViewSize();
         }
 
@@ -309,8 +280,8 @@ namespace MindMate.View.MapControls
         /// </param>
         public void RefreshText(SizeF textSize)
         {
-            if (textSize.Height == 0) //if empty text than set minimum size
-                textSize = new SizeF(10, font.Height);
+           // if (textSize.Height == 0) //if empty text than set minimum size
+           //     textSize = new SizeF(10, font.Height);
 
             recText.Width = textSize.Width;
             recText.Height = textSize.Height;
@@ -332,6 +303,67 @@ namespace MindMate.View.MapControls
             }
         }
 
+        public void RefreshImageView()
+        {
+            if (!node.HasImage)
+                ImageView = null;
+            else if (ImageView == null)
+                CreateImageView();
+
+            RefreshNodeViewSize();
+        }
+
+        private void CreateImageView()
+        {
+            if (node.HasImage)
+            {
+                ImageView = new ImageView(node);
+            }
+        }
+
+        private void CreateFont()
+        {
+            if (font != null && font != DefaultFont) font.Dispose();
+
+            //step 1: refresh font from MapNode
+            FontStyle style = FontStyle.Regular;
+            if (node.Bold) style |= FontStyle.Bold;
+            if (node.Italic) style |= FontStyle.Italic;
+            if (node.Strikeout) style |= FontStyle.Strikeout;
+
+            if (style == FontStyle.Regular && node.FontName == null && node.FontSize == 0) //set the default font
+            {
+                font = DefaultFont;
+            }
+            else
+            {
+
+                FontFamily ff;
+                try
+                {
+                    ff = node.FontName != null ? new FontFamily(node.FontName) : DefaultFont.FontFamily;
+                }
+                catch (ArgumentException)
+                {
+                    ff = DefaultFont.FontFamily;
+                    System.Diagnostics.Trace.TraceError("Specified Font Name (" + node.FontName + ") not found. Using default font instead.");
+                }
+
+                font = new Font(
+                    ff, node.FontSize != 0 ? node.FontSize : DefaultFont.Size,
+                    style);
+
+            }
+
+            //step 2: recalculate text rec size        
+            SizeF s = Drawing.TextRenderer.MeasureText(node.Text, font);
+
+            //if (s.Height == 0) //if empty text than set minimum size
+            //    s = new SizeF(10, font.Height);
+
+            recText.Width = s.Width;
+            recText.Height = s.Height;
+        }
 
         private void CreateNodeViewContent()
         {
@@ -363,8 +395,11 @@ namespace MindMate.View.MapControls
                 width += (icon.Size.Width + INTER_CONTROL_PADDING);
             }
 
-            RefreshFont();
+            CreateImageView();
 
+            CreateFont();
+
+            RefreshNodeViewSize();
 
         }
 
@@ -379,19 +414,75 @@ namespace MindMate.View.MapControls
 
             for (int i = 0; i < this.recIcons.Count; i++)   width += (this.recIcons[i].Size.Width + INTER_CONTROL_PADDING);
 
-            width += (NodeView.LEFT_PADDING + recText.Width + NodeView.RIGHT_PADDING);
+            if (!Node.HasImage)
+            {
+                width += (NodeView.LEFT_PADDING + recText.Width + NodeView.RIGHT_PADDING);
+            }
+            else
+            {
+                switch (Node.ImageAlignment)
+                {
+                    case ImageAlignment.Default:
+                    case ImageAlignment.AboveStart:
+                    case ImageAlignment.BelowStart:
+                    case ImageAlignment.AboveCenter:
+                    case ImageAlignment.BelowCenter:
+                    case ImageAlignment.AboveEnd:
+                    case ImageAlignment.BelowEnd:                        
+                        if (recText.Width > ImageView.Size.Width)
+                            width += (NodeView.LEFT_PADDING + recText.Width + NodeView.RIGHT_PADDING);
+                        else
+                            width += (NodeView.LEFT_PADDING + ImageView.Size.Width + NodeView.RIGHT_PADDING);
+                        break;
+                    case ImageAlignment.AfterTop:
+                    case ImageAlignment.AfterCenter:
+                    case ImageAlignment.AfterBottom:
+                    case ImageAlignment.BeforeTop:
+                    case ImageAlignment.BeforeCenter:
+                    case ImageAlignment.BeforeBottom:
+                        width += (NodeView.LEFT_PADDING + recText.Width + NodeView.INTER_CONTROL_PADDING +
+                            ImageView.Size.Width + NodeView.RIGHT_PADDING);
+                        break;
+                }
+            }
             //width------------------
 
 
             //height-----------------
             height = TOP_PADDING;
-            if (recText.Height < ICON_SIZE && (recIcons.Any() || link != null || noteIcon != null))
+            if (node.HasImage)
             {
-                height += ICON_SIZE;
+                switch(node.ImageAlignment)
+                {
+                    case ImageAlignment.Default:
+                    case ImageAlignment.AboveStart:
+                    case ImageAlignment.BelowStart:
+                    case ImageAlignment.AboveCenter:
+                    case ImageAlignment.BelowCenter:
+                    case ImageAlignment.AboveEnd:
+                    case ImageAlignment.BelowEnd:
+                        if(ImageView.Size.Height + RecText.Size.Height < ICON_SIZE && (recIcons.Any() || link != null || noteIcon != null))
+                        {
+                            height += ICON_SIZE;
+                        }
+                        else
+                        {
+                            height += ImageView.Size.Height + INTER_CONTROL_PADDING + RecText.Height;
+                        }
+                        break;
+                    case ImageAlignment.AfterTop:
+                    case ImageAlignment.AfterCenter:
+                    case ImageAlignment.AfterBottom:
+                    case ImageAlignment.BeforeTop:
+                    case ImageAlignment.BeforeCenter:
+                    case ImageAlignment.BeforeBottom:
+                        height += Math.Max(ImageView.Size.Height, Math.Max(RecText.Height, ICON_SIZE));
+                        break;
+                }
             }
             else
             {
-                height += recText.Height;
+                height += Math.Max(recText.Height, ICON_SIZE);                
             }
             height += BOTTOM_PADDING;
             //height-----------------
@@ -407,51 +498,116 @@ namespace MindMate.View.MapControls
             top = y;
 
             float drawCursorLeft = left + NodeView.LEFT_PADDING;
+            float drawIconCursorTop = top + ((height - TOP_PADDING - BOTTOM_PADDING) / 2) - (ICON_SIZE / 2) + TOP_PADDING;
             if (node.Pos != NodePosition.Left) //right or root node
             {
                 if (link != null)
                 {
-                    link.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+                    link.Location = new PointF(drawCursorLeft, drawIconCursorTop);
                     drawCursorLeft += link.Size.Width;
                     drawCursorLeft += INTER_CONTROL_PADDING;
                 }
                 if (noteIcon != null)
                 {
-                    noteIcon.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+                    noteIcon.Location = new PointF(drawCursorLeft, drawIconCursorTop);
                     drawCursorLeft += noteIcon.Size.Width;
                     drawCursorLeft += INTER_CONTROL_PADDING;
                 }
                 for (int i = 0; i < recIcons.Count; i++)
                 {
-                    recIcons[i].Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+                    recIcons[i].Location = new PointF(drawCursorLeft, drawIconCursorTop);
                     drawCursorLeft += recIcons[i].Size.Width;
                     drawCursorLeft += INTER_CONTROL_PADDING;
                 }
-                recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+                if (node.HasImage)
+                {
+                    switch (node.ImageAlignment)
+                    {
+                        case ImageAlignment.Default:
+                        case ImageAlignment.AboveStart:
+                            ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+                            recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING + ImageView.Size.Height + INTER_CONTROL_PADDING);
+                            break;
+                        case ImageAlignment.BelowStart:
+                        case ImageAlignment.AboveCenter:
+                        case ImageAlignment.BelowCenter:
+                        case ImageAlignment.AboveEnd:
+                        case ImageAlignment.BelowEnd:
+                            throw new NotImplementedException();
+                        case ImageAlignment.AfterTop:
+                        case ImageAlignment.AfterCenter:
+                        case ImageAlignment.AfterBottom:
+                        case ImageAlignment.BeforeTop:
+                        case ImageAlignment.BeforeCenter:
+                        case ImageAlignment.BeforeBottom:
+                            throw new NotImplementedException();
+                    }
+                }
+                else
+                {
+                    recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+                }
 
                 
             }
             else // left node
             {
-
-                recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
-                drawCursorLeft += recText.Width;
+                if (node.HasImage)
+                {
+                    switch (node.ImageAlignment)
+                    {
+                        case ImageAlignment.Default:
+                        case ImageAlignment.AboveStart:
+                            if (ImageView.Size.Width > RecText.Width)
+                            {
+                                ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+                                recText.Location = new PointF(drawCursorLeft + (ImageView.Size.Width - RecText.Size.Width), top + TOP_PADDING + ImageView.Size.Height + INTER_CONTROL_PADDING);
+                                drawCursorLeft += ImageView.Size.Width;
+                            }
+                            else
+                            {
+                                ImageView.Location = new PointF(drawCursorLeft + (RecText.Size.Width - ImageView.Size.Width), top + INTER_CONTROL_PADDING);
+                                recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING + ImageView.Size.Height + INTER_CONTROL_PADDING);
+								drawCursorLeft += RecText.Width;
+                            }                            
+                            break;
+                        case ImageAlignment.BelowStart:
+                        case ImageAlignment.AboveCenter:
+                        case ImageAlignment.BelowCenter:
+                        case ImageAlignment.AboveEnd:
+                        case ImageAlignment.BelowEnd:
+                            throw new NotImplementedException();
+                        case ImageAlignment.AfterTop:
+                        case ImageAlignment.AfterCenter:
+                        case ImageAlignment.AfterBottom:
+                        case ImageAlignment.BeforeTop:
+                        case ImageAlignment.BeforeCenter:
+                        case ImageAlignment.BeforeBottom:
+                            throw new NotImplementedException();
+                    }
+                }
+                else
+                {
+                    recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+                    drawCursorLeft += recText.Width;
+                }
+                
                 for (int i = recIcons.Count - 1; i >= 0; i--)
                 {
                     drawCursorLeft += INTER_CONTROL_PADDING;
-                    recIcons[i].Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+                    recIcons[i].Location = new PointF(drawCursorLeft, drawIconCursorTop);
                     drawCursorLeft += recIcons[i].Size.Width;
                 }
                 if (noteIcon != null)
                 {
                     drawCursorLeft += INTER_CONTROL_PADDING;
-                    noteIcon.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+                    noteIcon.Location = new PointF(drawCursorLeft, drawIconCursorTop);
                     drawCursorLeft += noteIcon.Size.Width;
                 }
                 if (link != null)
                 {
                     drawCursorLeft += INTER_CONTROL_PADDING;
-                    link.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+                    link.Location = new PointF(drawCursorLeft, drawIconCursorTop);
                     drawCursorLeft += link.Size.Width;
                 }
             }

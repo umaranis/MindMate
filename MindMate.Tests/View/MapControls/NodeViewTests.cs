@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MindMate.Model;
+using System.Drawing;
 
 namespace MindMate.Tests.View.MapControls
 {
@@ -64,6 +65,24 @@ namespace MindMate.Tests.View.MapControls
             Assert.IsTrue(sut.Height >= sut.NoteIcon.Size.Height);
             Assert.IsTrue(sut.Height >= sut.Link.Size.Height);
             Assert.IsTrue(sut.Height >= sut.RecIcons[0].Size.Height);
+        }
+
+        [TestMethod]
+        public void Height_GreaterThanAnyComponent_WithImage()
+        {
+            MetaModel.MetaModel.Initialize();
+            MapNode r = new MapNode(new MapTree(), "root");
+            r.NoteText = "note";
+            r.Link = "link";
+            r.Icons.Add("button_ok");
+            r.InsertImage(Image.FromFile(@"Resources\NodeStyle-GenerateImage.bmp"));
+            NodeView sut = new NodeView(r);
+
+            Assert.IsTrue(sut.Height >= sut.RecText.Height);
+            Assert.IsTrue(sut.Height >= sut.NoteIcon.Size.Height);
+            Assert.IsTrue(sut.Height >= sut.Link.Size.Height);
+            Assert.IsTrue(sut.Height >= sut.RecIcons[0].Size.Height);
+            Assert.IsTrue(sut.Height >= sut.ImageView.Size.Height);
         }
     }
 }

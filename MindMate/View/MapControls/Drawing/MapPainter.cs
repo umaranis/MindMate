@@ -106,6 +106,7 @@ namespace MindMate.View.MapControls.Drawing
             }
             nodeView.NoteIcon?.Draw(g);
             nodeView.Link?.Draw(g);
+            nodeView.ImageView?.Draw(g);
         }
 
         private static void DrawRootNode(NodeView nodeView, Graphics g)
@@ -126,6 +127,7 @@ namespace MindMate.View.MapControls.Drawing
             }
             nodeView.NoteIcon?.Draw(g);
             nodeView.Link?.Draw(g);
+            nodeView.ImageView?.Draw(g);
 
             System.Drawing.Drawing2D.GraphicsPath pathCap = RoundedRectangle.Create((int)nodeView.Left, (int)nodeView.Top - 2, (int)nodeView.Width, (int)nodeView.Height + 2);
             g.DrawPath(Pens.Gray, pathCap);

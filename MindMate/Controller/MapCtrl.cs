@@ -1606,6 +1606,7 @@ namespace MindMate.Controller
             catch (Exception e)
             {
                 mainCtrl.ShowMessageBox("Error", e.Message, MessageBoxIcon.Error);
+                Debug.Write(e.Message);
             }
 
             return null;
