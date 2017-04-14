@@ -33,7 +33,7 @@ namespace MindMate.View.MapControls
         public const int RIGHT_PADDING = 3;
         public const int INTER_CONTROL_PADDING = 3;
         public const int TOP_PADDING = 2;
-        public const int BOTTOM_PADDING = 1; //TODO: Make top and bottom padding same to simply layout logic
+        public const int BOTTOM_PADDING = 2;
         public const int ICON_SIZE = 16;
 
         public static Font DefaultFont = new Font(FontFamily.GenericSansSerif, 10);
@@ -529,19 +529,138 @@ namespace MindMate.View.MapControls
                             recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING + ImageView.Size.Height + INTER_CONTROL_PADDING);
                             break;
                         case ImageAlignment.BelowStart:
-                        case ImageAlignment.AboveCenter:
-                        case ImageAlignment.BelowCenter:
-                        case ImageAlignment.AboveEnd:
-                        case ImageAlignment.BelowEnd:
-                            throw new NotImplementedException();
-                        case ImageAlignment.AfterTop:
-                        case ImageAlignment.AfterCenter:
-                        case ImageAlignment.AfterBottom:
-                        case ImageAlignment.BeforeTop:
-                        case ImageAlignment.BeforeCenter:
-                        case ImageAlignment.BeforeBottom:
-                            throw new NotImplementedException();
-                    }
+							recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+							ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING + RecText.Height + INTER_CONTROL_PADDING);
+							break;
+						case ImageAlignment.AboveCenter:
+							if (ImageView.Size.Width > RecText.Width)
+							{
+								ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								recText.Location = new PointF(drawCursorLeft + ImageView.Size.Width / 2 - RecText.Width / 2, 
+									top + TOP_PADDING + ImageView.Size.Height + INTER_CONTROL_PADDING);
+							}
+							else
+							{
+								ImageView.Location = new PointF(drawCursorLeft + RecText.Width / 2 - ImageView.Size.Width / 2, top + TOP_PADDING);
+								recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING + ImageView.Size.Height + INTER_CONTROL_PADDING);
+							}
+							break;
+						case ImageAlignment.BelowCenter:
+							if (ImageView.Size.Width > RecText.Width)
+							{
+								recText.Location = new PointF(drawCursorLeft + ImageView.Size.Width / 2 - RecText.Width / 2, top + TOP_PADDING);
+								ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING + RecText.Height + INTER_CONTROL_PADDING);								
+							}
+							else
+							{
+								recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								ImageView.Location = new PointF(drawCursorLeft + RecText.Width / 2 - ImageView.Size.Width / 2,
+									top + TOP_PADDING + RecText.Height + INTER_CONTROL_PADDING);
+							}
+							break;
+						case ImageAlignment.AboveEnd:
+							if (ImageView.Size.Width > RecText.Width)
+							{
+								ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								recText.Location = new PointF(drawCursorLeft + ImageView.Size.Width - RecText.Width,
+									top + TOP_PADDING + ImageView.Size.Height + INTER_CONTROL_PADDING);
+							}
+							else
+							{
+								ImageView.Location = new PointF(drawCursorLeft + RecText.Width - ImageView.Size.Width, top + TOP_PADDING);
+								recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING + ImageView.Size.Height + INTER_CONTROL_PADDING);
+							}
+							break;
+						case ImageAlignment.BelowEnd:
+							if (ImageView.Size.Width > RecText.Width)
+							{
+								recText.Location = new PointF(drawCursorLeft + ImageView.Size.Width - RecText.Width, top + TOP_PADDING);
+								ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING + RecText.Height + INTER_CONTROL_PADDING);
+							}
+							else
+							{
+								recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								ImageView.Location = new PointF(drawCursorLeft + RecText.Width - ImageView.Size.Width,
+									top + TOP_PADDING + RecText.Height + INTER_CONTROL_PADDING);
+							}
+							break;
+						case ImageAlignment.AfterTop:
+							recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+							drawCursorLeft += RecText.Width + INTER_CONTROL_PADDING;
+							ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+							break;
+						case ImageAlignment.AfterCenter:
+							if (ImageView.Size.Height > RecText.Height)
+							{
+								recText.Location = new PointF(drawCursorLeft, 
+									top + TOP_PADDING + ImageView.Size.Height / 2 - RecText.Height / 2);
+								drawCursorLeft += RecText.Width + INTER_CONTROL_PADDING;
+								ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+							}
+							else
+							{
+								recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								drawCursorLeft += RecText.Width + INTER_CONTROL_PADDING;
+								ImageView.Location = new PointF(drawCursorLeft, 
+									top + TOP_PADDING + RecText.Height / 2 - ImageView.Size.Height / 2);
+
+							}
+							break;
+						case ImageAlignment.AfterBottom:
+							if (ImageView.Size.Height > RecText.Height)
+							{
+								recText.Location = new PointF(drawCursorLeft,
+									top + TOP_PADDING + ImageView.Size.Height - RecText.Height);
+								drawCursorLeft += RecText.Width + INTER_CONTROL_PADDING;
+								ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+							}
+							else
+							{
+								recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								drawCursorLeft += RecText.Width + INTER_CONTROL_PADDING;
+								ImageView.Location = new PointF(drawCursorLeft,
+									top + TOP_PADDING + RecText.Height - ImageView.Size.Height);
+
+							}
+							break;
+						case ImageAlignment.BeforeTop:
+							ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+							drawCursorLeft += ImageView.Size.Width + INTER_CONTROL_PADDING;
+							recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING); 
+							break;
+						case ImageAlignment.BeforeCenter:
+							if (ImageView.Size.Height > RecText.Height)
+							{
+								ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								drawCursorLeft += ImageView.Size.Width + INTER_CONTROL_PADDING;
+								recText.Location = new PointF(drawCursorLeft,
+									top + TOP_PADDING + ImageView.Size.Height / 2 - RecText.Height / 2);							
+							}
+							else
+							{
+								ImageView.Location = new PointF(drawCursorLeft,
+									top + TOP_PADDING + RecText.Height / 2 - ImageView.Size.Height / 2);
+								drawCursorLeft += ImageView.Size.Width + INTER_CONTROL_PADDING;
+								recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);					
+							}
+							break;
+						case ImageAlignment.BeforeBottom:
+							if (ImageView.Size.Height > RecText.Height)
+							{
+								ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								drawCursorLeft += ImageView.Size.Width + INTER_CONTROL_PADDING;
+								recText.Location = new PointF(drawCursorLeft,
+									top + TOP_PADDING + ImageView.Size.Height - RecText.Height);
+							}
+							else
+							{
+								ImageView.Location = new PointF(drawCursorLeft,
+									top + TOP_PADDING + RecText.Height - ImageView.Size.Height);
+								drawCursorLeft += ImageView.Size.Width + INTER_CONTROL_PADDING;
+								recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+							}
+							break;
+					}
                 }
                 else
                 {
@@ -571,20 +690,147 @@ namespace MindMate.View.MapControls
 								drawCursorLeft += RecText.Width;
                             }                            
                             break;
-                        case ImageAlignment.BelowStart:
-                        case ImageAlignment.AboveCenter:
-                        case ImageAlignment.BelowCenter:
-                        case ImageAlignment.AboveEnd:
-                        case ImageAlignment.BelowEnd:
-                            throw new NotImplementedException();
-                        case ImageAlignment.AfterTop:
-                        case ImageAlignment.AfterCenter:
-                        case ImageAlignment.AfterBottom:
-                        case ImageAlignment.BeforeTop:
-                        case ImageAlignment.BeforeCenter:
-                        case ImageAlignment.BeforeBottom:
-                            throw new NotImplementedException();
-                    }
+						case ImageAlignment.BelowStart:
+							if (ImageView.Size.Width > RecText.Width)
+							{
+								recText.Location = new PointF(drawCursorLeft + (ImageView.Size.Width - RecText.Size.Width), top + TOP_PADDING);
+								ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING + RecText.Height + INTER_CONTROL_PADDING);
+								drawCursorLeft += ImageView.Size.Width;
+							}
+							else
+							{
+								recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								ImageView.Location = new PointF(drawCursorLeft + (RecText.Size.Width - ImageView.Size.Width), top + TOP_PADDING + RecText.Height + INTER_CONTROL_PADDING);
+								drawCursorLeft += RecText.Size.Width;
+							}
+							break;
+						case ImageAlignment.AboveCenter:
+							if (ImageView.Size.Width > RecText.Width)
+							{
+								ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								recText.Location = new PointF(drawCursorLeft + ImageView.Size.Width / 2 - RecText.Width / 2,
+									top + TOP_PADDING + ImageView.Size.Height + INTER_CONTROL_PADDING);
+								drawCursorLeft += ImageView.Size.Width;
+							}
+							else
+							{
+								ImageView.Location = new PointF(drawCursorLeft + RecText.Width / 2 - ImageView.Size.Width / 2, top + TOP_PADDING);
+								recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING + ImageView.Size.Height + INTER_CONTROL_PADDING);
+								drawCursorLeft += RecText.Width;						
+							}
+							break;
+						case ImageAlignment.BelowCenter:
+							if (ImageView.Size.Width > RecText.Width)
+							{
+								recText.Location = new PointF(drawCursorLeft + ImageView.Size.Width / 2 - RecText.Width / 2, top + TOP_PADDING);
+								ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING + RecText.Height + INTER_CONTROL_PADDING);
+								drawCursorLeft += ImageView.Size.Width;
+							}
+							else
+							{
+								recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								ImageView.Location = new PointF(drawCursorLeft + RecText.Width / 2 - ImageView.Size.Width / 2,
+									top + TOP_PADDING + RecText.Height + INTER_CONTROL_PADDING);
+								drawCursorLeft += RecText.Width;
+							}
+							break;
+						case ImageAlignment.AboveEnd:
+							ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+							recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING + ImageView.Size.Height + INTER_CONTROL_PADDING);
+							drawCursorLeft += (ImageView.Size.Width > RecText.Width)? ImageView.Size.Width : RecText.Width;
+							break;
+						case ImageAlignment.BelowEnd:
+							recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+							ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING + RecText.Height + INTER_CONTROL_PADDING);
+							drawCursorLeft += (ImageView.Size.Width > RecText.Width) ? ImageView.Size.Width : RecText.Width;
+							break;
+						case ImageAlignment.AfterTop:
+							ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+							drawCursorLeft += ImageView.Size.Width + INTER_CONTROL_PADDING;
+							recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+							drawCursorLeft += RecText.Width;
+							break;
+						case ImageAlignment.AfterCenter:
+							if (ImageView.Size.Height > RecText.Height)
+							{
+								ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								drawCursorLeft += ImageView.Size.Width + INTER_CONTROL_PADDING;
+								recText.Location = new PointF(drawCursorLeft,
+									top + TOP_PADDING + ImageView.Size.Height / 2 - RecText.Height / 2);
+								drawCursorLeft += RecText.Width;
+							}
+							else
+							{
+								ImageView.Location = new PointF(drawCursorLeft,
+									top + TOP_PADDING + RecText.Height / 2 - ImageView.Size.Height / 2);
+								drawCursorLeft += ImageView.Size.Width + INTER_CONTROL_PADDING;
+								recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								drawCursorLeft += RecText.Width;
+							}
+							break;
+						case ImageAlignment.AfterBottom:
+							if (ImageView.Size.Height > RecText.Height)
+							{
+								ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								drawCursorLeft += ImageView.Size.Width + INTER_CONTROL_PADDING;
+								recText.Location = new PointF(drawCursorLeft,
+									top + TOP_PADDING + ImageView.Size.Height - RecText.Height);
+								drawCursorLeft += recText.Width;
+							}
+							else
+							{
+								ImageView.Location = new PointF(drawCursorLeft,
+									top + TOP_PADDING + RecText.Height - ImageView.Size.Height);
+								drawCursorLeft += ImageView.Size.Width + INTER_CONTROL_PADDING;
+								recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								drawCursorLeft += recText.Width;
+							}
+							break;
+						case ImageAlignment.BeforeTop:
+							recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+							drawCursorLeft += RecText.Width + INTER_CONTROL_PADDING;
+							ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+							drawCursorLeft += ImageView.Size.Width;
+							break;
+						case ImageAlignment.BeforeCenter:
+							if (ImageView.Size.Height > RecText.Height)
+							{
+								recText.Location = new PointF(drawCursorLeft,
+									top + TOP_PADDING + ImageView.Size.Height / 2 - RecText.Height / 2);
+								drawCursorLeft += RecText.Width + INTER_CONTROL_PADDING;
+								ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								drawCursorLeft += ImageView.Size.Width;
+							}
+							else
+							{
+								recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								drawCursorLeft += RecText.Width + INTER_CONTROL_PADDING;
+								ImageView.Location = new PointF(drawCursorLeft,
+									top + TOP_PADDING + RecText.Height / 2 - ImageView.Size.Height / 2);
+								drawCursorLeft += ImageView.Size.Width;
+
+							}
+							break;
+						case ImageAlignment.BeforeBottom:
+							if (ImageView.Size.Height > RecText.Height)
+							{
+								recText.Location = new PointF(drawCursorLeft,
+									top + TOP_PADDING + ImageView.Size.Height - RecText.Height);
+								drawCursorLeft += RecText.Width + INTER_CONTROL_PADDING;
+								ImageView.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								drawCursorLeft += ImageView.Size.Width;
+							}
+							else
+							{
+								recText.Location = new PointF(drawCursorLeft, top + TOP_PADDING);
+								drawCursorLeft += RecText.Width + INTER_CONTROL_PADDING;
+								ImageView.Location = new PointF(drawCursorLeft,
+									top + TOP_PADDING + RecText.Height - ImageView.Size.Height);
+								drawCursorLeft += ImageView.Size.Width;
+
+							}
+							break;
+					}
                 }
                 else
                 {

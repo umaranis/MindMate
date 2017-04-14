@@ -1048,7 +1048,7 @@ namespace MindMate.Tests.Model
 
             bmp2.Save(@"Resources\CopyFormatTo_CompareOutputWithSavedImage_Des.png", ImageFormat.Png);
 
-            Assert.IsTrue(bmp1.PercentageDifference(bmp2, 0) == 0);
+            Assert.AreEqual<float>(0.00f, bmp1.PercentageDifference(bmp2, 0));
 
             bmp1.Dispose();
             bmp2.Dispose();
