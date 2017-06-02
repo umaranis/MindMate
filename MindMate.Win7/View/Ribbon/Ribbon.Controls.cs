@@ -111,6 +111,8 @@ namespace MindMate.View.Ribbon
 		private RibbonButton RemoveHyperlink;		
 		private RibbonGroup GrpNote;		
 		private RibbonButton InsertNote;		
+		private RibbonGroup GrpImage;		
+		private RibbonButton InsertImage;		
 		private RibbonGroup GrpTask;		
 		private RibbonButton AddTask;		
 		private RibbonButton AddTaskToday;		
@@ -164,6 +166,8 @@ namespace MindMate.View.Ribbon
 		private RibbonButton NoteNormal;		
 		private RibbonGroup GrpNoteTable;		
 		private RibbonButton NoteInsertTable;		
+		private RibbonGroup GrpNoteInsertImage;		
+		private RibbonButton NoteInsertImage;		
 		private RibbonGroup GrpNoteEditHtml;		
 		private RibbonButton NoteEditHtml;		
 		private RibbonTabGroup TabGroupNoteTable;		
@@ -284,6 +288,8 @@ namespace MindMate.View.Ribbon
 			RemoveHyperlink = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.RemoveHyperlink);
 			GrpNote = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNote);
 			InsertNote = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.InsertNote);
+			GrpImage = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpImage);
+			InsertImage = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.InsertImage);
 			GrpTask = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpTask);
 			AddTask = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.AddTask);
 			AddTaskToday = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.AddTaskToday);
@@ -337,6 +343,8 @@ namespace MindMate.View.Ribbon
 			NoteNormal = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteNormal);
 			GrpNoteTable = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNoteTable);
 			NoteInsertTable = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteInsertTable);
+			GrpNoteInsertImage = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNoteInsertImage);
+			NoteInsertImage = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteInsertImage);
 			GrpNoteEditHtml = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNoteEditHtml);
 			NoteEditHtml = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.NoteEditHtml);
 			TabGroupNoteTable = new RibbonTabGroup(ribbon, (uint)RibbonMarkupCommands.TabGroupNoteTable);

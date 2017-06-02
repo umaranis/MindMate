@@ -1,4 +1,5 @@
 ﻿using MindMate.Controller;
+using MindMate.View.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,7 +23,7 @@ namespace MindMate.WinXP
             //MyWebMind.Debug.IconListCreator.GenerateIconXML();
             MainCtrl mainCtrl = new MainCtrl();
 			MainForm form = new MainForm();
-            mainCtrl.InitMindMate(form);
+            mainCtrl.InitMindMate(form, new DialogManager());
             MainMenuCtrl mainMenuCtrl = new MainMenuCtrl(form.MainMenu, mainCtrl);
             form.MainMenuCtrl = mainMenuCtrl;
             Application.ThreadException += Application_ThreadException; 

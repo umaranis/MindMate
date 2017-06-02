@@ -294,6 +294,10 @@ Note:
     <Command Name="InsertNote" Id="4201" LabelTitle="Insert Note">
       <Command.LargeImages><Image>Res/sticky-note.bmp</Image></Command.LargeImages>
     </Command>
+
+    <!--Group: Note-->
+    <Command Name="GrpImage" Id="4400" LabelTitle="Image" />
+    <Command Name="InsertImage" Id="4401" LabelTitle="Insert Image" />
     
     <!--Group: Task-->
     <Command Name="GrpTask" Id="4300" LabelTitle="Task" />
@@ -410,7 +414,11 @@ Note:
     <Command Name="GrpNoteTable" Id="7500" />
     <Command Name="NoteInsertTable" Id="7501" Keytip="T" LabelTitle="Table" TooltipDescription="Insert a table in the Note." />
     
-    <!--Group: -->
+    <!--Group: Note Image-->
+    <Command Name="GrpNoteInsertImage" Id="7700" />
+    <Command Name="NoteInsertImage" Id="7701" LabelTitle="Insert Image" TooltipDescription="Select an Image file to be inserted in note." />
+    
+    <!--Group: Edit Html-->
     <Command Name="GrpNoteEditHtml" Id="7600" />
     <Command Name="NoteEditHtml" Id="7601" LabelTitle="Edit Html Source" TooltipDescription="Edit Html source code for the note." />
     
@@ -757,6 +765,9 @@ Note:
           <Group CommandName="GrpNote" SizeDefinition="OneButton">
             <Button CommandName="InsertNote" />
           </Group>
+          <Group CommandName="GrpImage" SizeDefinition="OneButton">
+            <Button CommandName="InsertImage" />
+          </Group>
           <Group CommandName="GrpTask">
             <SizeDefinition>
               <ControlNameMap>
@@ -955,6 +966,8 @@ Note:
                 </ScalingPolicy.IdealSizes>
                 <Scale Group='GrpNoteStyles' Size='Medium' />
                 <Scale Group='GrpNoteStyles' Size='Small' />
+                <Scale Group='GrpParagraph' Size='Popup' />
+                <Scale Group='GrpNoteFont' Size='Popup' />
               </ScalingPolicy>
             </Tab.ScalingPolicy>
             <Group CommandName="GrpNoteFont">
@@ -981,6 +994,9 @@ Note:
             </Group>
             <Group CommandName="GrpNoteTable" SizeDefinition="OneButton">
               <Button CommandName="NoteInsertTable" />
+            </Group>
+            <Group CommandName="GrpNoteInsertImage" SizeDefinition="OneButton">
+              <Button CommandName="NoteInsertImage" />
             </Group>
             <Group CommandName="GrpNoteEditHtml" SizeDefinition="OneButton">
               <Button CommandName="NoteEditHtml" />

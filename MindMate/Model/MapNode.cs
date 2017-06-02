@@ -433,6 +433,7 @@ namespace MindMate.Model
             get { return props != null && props.ImageAlignment != ImageAlignment.Default; }
         }
                 
+		[Serialized(Order =22)]
         public Size ImageSize
         {
             get { return props == null ? Size.Empty : props.ImageSize; }
@@ -451,7 +452,7 @@ namespace MindMate.Model
         }
 
         private string label;
-        [Serialized(Order = 22)]
+        [Serialized(Order = 23)]
         public string Label
         {
             get { return label; }
@@ -468,7 +469,7 @@ namespace MindMate.Model
             get { return label != null; }
         }
 
-        [Serialized(Order = 23)]
+        [Serialized(Order = 24)]
         public IconList Icons { get; private set; }
         public bool HasIcons
         {

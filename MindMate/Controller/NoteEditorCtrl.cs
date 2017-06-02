@@ -1,4 +1,5 @@
 ﻿using MindMate.Serialization;
+using MindMate.View.Dialogs;
 using MindMate.View.NoteEditing;
 using mshtml;
 using System;
@@ -6,19 +7,22 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace MindMate.Controller
 {
     public class NoteEditorCtrl
     {
-        private readonly NoteMapGlue noteGlue;        
+        private readonly NoteMapGlue noteGlue;
+        private readonly DialogManager dialogs;
 
-        public NoteEditorCtrl(NoteEditor editor, PersistenceManager pManager)
+        public NoteEditorCtrl(NoteEditor editor, PersistenceManager pManager, DialogManager dialogs)
         {
             this.noteGlue = new NoteMapGlue(editor, pManager);
             new ImageLocalSaver(editor, pManager);
             new ImageLocalProvider(pManager);
-            new ClipboardImagePaster(editor, pManager);
+            new ImagePaster(editor, pManager);
+            this.dialogs = dialogs;
         }
 
         public void SetNoteEditorBackColor(Color color)
@@ -144,6 +148,15 @@ namespace MindMate.Controller
             var helper = noteGlue.Editor.TableEditor;
             helper.ColumnMoveRight();
         }
+
+		public void InsertImage()
+		{
+            var fileName = dialogs.GetImageFile();
+			if (fileName != null)
+			{
+				ImagePaster.InsertFormFile(noteGlue.Editor, fileName, noteGlue.CurrentMapNpde.Tree);
+			}
+		}
 
         public void ShowHtmlSourceDialog()
         {

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" style="enable-background:new 0 0 16 16;" viewBox="0 0 16 16" x="0px" y="0px" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g>
+	<rect style="fill:#FFFFFF;" x="0.5" y="0.5" width="14" height="12" />
+	<g>
+		<path style="fill:#788B9C;" d="M 14 1 v 11 H 1 V 1 H 14 M 15 0 H 0 v 13 h 15 V 0 L 15 0 Z" />
+	</g>
+</g>
+<rect style="fill:#B5DEFF;" x="2.001" y="2" width="10.999" height="7.714" />
+<rect style="fill:#99C9F0;" x="2.001" y="7.063" width="11" height="3.938" />
+<g>
+	<g>
+		<path style="fill:#D9F6FF;" d="M 12.451 4.813 c -0.187 0 -0.343 0.101 -0.443 0.246 c -0.185 -0.145 -0.406 -0.246 -0.657 -0.246 s -0.472 0.101 -0.657 0.246 c -0.099 -0.145 -0.256 -0.246 -0.443 -0.246 c -0.151 0 -0.287 0.063 -0.387 0.163 c -0.14 -0.261 -0.402 -0.444 -0.713 -0.444 c -0.111 0 -0.215 0.024 -0.312 0.064 C 8.639 4.384 8.361 4.25 8.051 4.25 c -0.488 0 -0.889 0.331 -1.032 0.782 C 6.84 4.904 6.635 4.813 6.401 4.813 S 5.961 4.904 5.783 5.032 C 5.639 4.581 5.239 4.25 4.751 4.25 c -0.311 0 -0.588 0.134 -0.788 0.346 c -0.096 -0.04 -0.201 -0.064 -0.312 -0.064 c -0.312 0 -0.573 0.184 -0.713 0.444 C 2.838 4.875 2.701 4.813 2.551 4.813 c -0.304 0 -0.55 0.252 -0.55 0.563 V 8.75 h 11 V 5.375 C 13.001 5.064 12.754 4.813 12.451 4.813 Z" />
+	</g>
+</g>
+<polygon style="fill:#6E9EE0;" points="2.133,9 13.001,9 13.001,8.25 9.604,6" />
+<polygon style="fill:#77A9ED;" points="9.838,9 2.001,9 2.001,7.749 5.705,6" />
+<g>
+	<circle style="fill:#C74343;" cx="11.5" cy="11.5" r="4.5" />
+</g>
+<line style="fill:none;stroke:#FFFFFF;stroke-miterlimit:10;" x1="9.5" y1="13.5" x2="13.5" y2="9.5" />
+<line style="fill:none;stroke:#FFFFFF;stroke-miterlimit:10;" x1="9.5" y1="9.5" x2="13.5" y2="13.5" />
+</svg>

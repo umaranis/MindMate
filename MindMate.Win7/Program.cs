@@ -1,4 +1,5 @@
 ﻿using MindMate.Controller;
+using MindMate.View.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,7 +23,7 @@ namespace MindMate.Win7
             //MyWebMind.Debug.IconListCreator.GenerateIconXML();
             MainCtrl mainCtrl = new MainCtrl();
             MainForm form = new MainForm(mainCtrl);            
-            mainCtrl.InitMindMate(form);
+            mainCtrl.InitMindMate(form, new DialogManager());
             var ribbonHandler = new View.Ribbon.Ribbon(form.Ribbon, mainCtrl, form);
             form.RibbonCtrl = ribbonHandler;
             form.Load += (sender, args) => ribbonHandler.OnRibbonLoaded();

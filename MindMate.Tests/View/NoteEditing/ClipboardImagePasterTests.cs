@@ -27,7 +27,7 @@ namespace MindMate.Tests.View.NoteEditing
                 var editor = new NoteEditor();
                 var form = CreateForm();
                 form.Controls.Add(editor);
-                var sut = new ClipboardImagePaster(editor, pManager);
+                var sut = new ImagePaster(editor, pManager);
                 form.Shown += (sender, args) =>
                 {
                     Clipboard.SetImage(Bitmap.FromFile(@"Resources\MapCtrl1.png"));
@@ -55,11 +55,11 @@ namespace MindMate.Tests.View.NoteEditing
                 var editor = new NoteEditor();
                 var form = CreateForm();
                 form.Controls.Add(editor);
-                var sut = new ClipboardImagePaster(editor, pManager);
+                var sut = new ImagePaster(editor, pManager);
                 form.Shown += (sender, args) =>
                 {
                     Clipboard.SetImage(Bitmap.FromFile(@"Resources\MapCtrl1.png"));                    
-                    ClipboardImagePaster.PasteFromClipboard(editor, tree);
+                    ImagePaster.PasteFromClipboard(editor, tree);
                     result = editor.HTML;
                     form.Close();
                 };
@@ -82,11 +82,11 @@ namespace MindMate.Tests.View.NoteEditing
                 var editor = new NoteEditor();
                 var form = CreateForm();
                 form.Controls.Add(editor);
-                var sut = new ClipboardImagePaster(editor, pManager);
+                var sut = new ImagePaster(editor, pManager);
                 form.Shown += (sender, args) =>
                 {
                     Clipboard.Clear();
-                    ClipboardImagePaster.PasteFromClipboard(editor, tree);
+                    ImagePaster.PasteFromClipboard(editor, tree);
                     result = editor.HTML;
                     form.Close();
                 };
@@ -109,7 +109,7 @@ namespace MindMate.Tests.View.NoteEditing
                 var editor = new NoteEditor();
                 var form = CreateForm();
                 form.Controls.Add(editor);
-                var sut = new ClipboardImagePaster(editor, pManager);
+                var sut = new ImagePaster(editor, pManager);
                 form.Shown += (sender, args) =>
                 {
                     var fileList = new StringCollection();
@@ -139,7 +139,7 @@ namespace MindMate.Tests.View.NoteEditing
                 var editor = new NoteEditor();
                 var form = CreateForm();
                 form.Controls.Add(editor);
-                var sut = new ClipboardImagePaster(editor, pManager);
+                var sut = new ImagePaster(editor, pManager);
                 form.Shown += (sender, args) =>
                 {
                     var fileList = new StringCollection();
@@ -171,7 +171,7 @@ namespace MindMate.Tests.View.NoteEditing
                 var editor = new NoteEditor();
                 var form = CreateForm();
                 form.Controls.Add(editor);
-                var sut = new ClipboardImagePaster(editor, pManager);
+                var sut = new ImagePaster(editor, pManager);
                 form.Shown += (sender, args) =>
                 {
                     var fileList = new StringCollection();
@@ -200,7 +200,7 @@ namespace MindMate.Tests.View.NoteEditing
                 var editor = new NoteEditor();
                 var form = CreateForm();
                 form.Controls.Add(editor);
-                var sut = new ClipboardImagePaster(editor, pManager);
+                var sut = new ImagePaster(editor, pManager);
                 form.Shown += (sender, args) =>
                 {
                     var fileList = new StringCollection();

@@ -34,7 +34,7 @@ namespace MindMate.Model
         /// <summary>
         /// returns null if no attributes
         /// </summary>
-        [Serialized(Order = 24)]
+        [Serialized(Order = 25)]
         public IEnumerable<Attribute> Attributes { get { return attributeList; } }
 
         public bool HasAttributes

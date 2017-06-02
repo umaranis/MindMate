@@ -32,7 +32,7 @@ namespace MindMate.View.NoteEditing
         }
 
 
-        private MapNode mapNode;
+        public MapNode CurrentMapNpde { get; private set; }
 
         /// <summary>
         /// Ignore <see cref="MapTree.NodePropertyChanged"/> event when <see cref="MapNode.NoteText"/> property is changed by <see cref="NoteMapGlue"/> itself.
@@ -70,11 +70,11 @@ namespace MindMate.View.NoteEditing
         {
             if (selectedNodes.Count == 1)
             {
-                mapNode = selectedNodes.First;
+                CurrentMapNpde = selectedNodes.First;
                 editor.Enabled = true;
                 if (selectedNodes.First.HasNoteText)
                 {
-                    editor.HTML = this.mapNode.NoteText;
+                    editor.HTML = this.CurrentMapNpde.NoteText;
                 }
                 else
                 {
@@ -85,14 +85,14 @@ namespace MindMate.View.NoteEditing
             }
             else if (selectedNodes.Count > 1)
             {
-                mapNode = null;
+                CurrentMapNpde = null;
                 editor.Enabled = false;
                 editor.Clear();
                 editor.ClearUndoStack();
             }
             else if (!editor.Empty)
             {
-                mapNode = null;
+                CurrentMapNpde = null;
                 editor.Enabled = true;
                 editor.Clear();
                 editor.ClearUndoStack();
@@ -101,21 +101,21 @@ namespace MindMate.View.NoteEditing
 
         public void UpdateNodeFromEditor()
         {
-            if (editor.Dirty && mapNode != null)
+            if (editor.Dirty && CurrentMapNpde != null)
             {
-                mapNode.Tree.ChangeManager.StartBatch("Change Note");
+                CurrentMapNpde.Tree.ChangeManager.StartBatch("Change Note");
                 ignoreModelChange = true;
                 if (!editor.Empty)
                 {
-                    mapNode.NoteText = editor.HTML;
+                    CurrentMapNpde.NoteText = editor.HTML;
                 }
                 else
                 {
-                    mapNode.NoteText = null;
+                    CurrentMapNpde.NoteText = null;
                 }
                 editor.Dirty = false;
                 ignoreModelChange = false;
-                mapNode.Tree.ChangeManager.EndBatch();
+                CurrentMapNpde.Tree.ChangeManager.EndBatch();
             }
         }
 

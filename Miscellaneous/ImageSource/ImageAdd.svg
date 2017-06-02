@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" style="enable-background:new 0 0 30 30;" viewBox="0 0 30 30" x="0px" y="0px" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g>
+	<rect style="fill:#FFFFFF;" x="2.5" y="4.5" width="25" height="21" />
+	<g>
+		<path style="fill:#788B9C;" d="M 27 5 v 20 H 3 V 5 H 27 M 28 4 H 2 v 22 h 26 V 4 L 28 4 Z" />
+	</g>
+</g>
+<g style="display:none;">
+	<rect style="display:inline;fill:#FFFFFF;" x="2.5" y="4.5" width="25" height="21" />
+	<g style="display:inline;">
+		<path style="fill:#788B9C;" d="M 27 5 v 20 H 3 V 5 H 27 M 28 4 H 2 v 22 h 26 V 4 L 28 4 Z" />
+	</g>
+</g>
+<rect style="fill:#B5DEFF;" x="5" y="7" width="20" height="13.714" />
+<rect style="fill:#99C9F0;" x="5" y="16" width="20" height="7" />
+<g>
+	<g>
+		<path style="fill:#D9F6FF;" d="M 24 12 c -0.33 0 -0.609 0.17 -0.791 0.417 C 22.873 12.159 22.457 12 22 12 s -0.873 0.159 -1.209 0.417 C 20.609 12.17 20.33 12 20 12 c -0.269 0 -0.511 0.109 -0.691 0.282 C 19.054 11.818 18.567 11.5 18 11.5 c -0.2 0 -0.39 0.041 -0.564 0.112 C 17.072 11.236 16.564 11 16 11 c -0.873 0 -1.608 0.563 -1.88 1.343 C 13.8 12.126 13.415 12 13 12 s -0.8 0.126 -1.12 0.343 C 11.608 11.563 10.873 11 10 11 c -0.564 0 -1.072 0.236 -1.436 0.612 C 8.39 11.541 8.2 11.5 8 11.5 c -0.567 0 -1.054 0.318 -1.309 0.782 C 6.511 12.109 6.269 12 6 12 c -0.552 0 -1 0.448 -1 1 v 6 h 20 v -6 C 25 12.448 24.552 12 24 12 Z" />
+	</g>
+</g>
+<polygon style="fill:#6E9EE0;" points="5.24,19 25,19 25,17.9 18.825,14.6" />
+<polygon style="fill:#77A9ED;" points="19.25,19 5,19 5,17 11.734,14.203" />
+<g>
+	<path style="fill:#BAE0BD;" d="M 23 29.5 c -3.584 0 -6.5 -2.916 -6.5 -6.5 s 2.916 -6.5 6.5 -6.5 s 6.5 2.916 6.5 6.5 S 26.584 29.5 23 29.5 Z" />
+	<path style="fill:#5E9C76;" d="M 23 17 c 3.308 0 6 2.692 6 6 s -2.692 6 -6 6 s -6 -2.692 -6 -6 S 19.692 17 23 17 M 23 16 c -3.866 0 -7 3.134 -7 7 s 3.134 7 7 7 s 7 -3.134 7 -7 S 26.866 16 23 16 L 23 16 Z" />
+</g>
+<line style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-miterlimit:10;" x1="23" y1="27" x2="23" y2="19" />
+<line style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-miterlimit:10;" x1="19" y1="23" x2="27" y2="23" />
+</svg>

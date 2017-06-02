@@ -63,6 +63,26 @@ namespace MindMate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap Add_Image_16 {
+            get {
+                object obj = ResourceManager.GetObject("Add_Image_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Add_Image_32 {
+            get {
+                object obj = ResourceManager.GetObject("Add_Image_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap AlignCenter_SmallImage {
             get {
                 object obj = ResourceManager.GetObject("AlignCenter_SmallImage", resourceCulture);

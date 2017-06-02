@@ -142,6 +142,9 @@ namespace MindMate.View.Ribbon
             //Insert Tab: Note
             InsertNote.ExecuteEvent += InsertNote_ExecuteEvent;
 
+            //Insert Tab: Image
+            InsertImage.ExecuteEvent += (o,e) => mainCtrl.InsertImage();
+
             //Format Tab: Node Format
             NodeShape.ItemsSourceReady += NodeShape_ItemsSourceReady;
             NodeShape.ExecuteEvent += NodeShape_ExecuteEvent;
@@ -185,6 +188,9 @@ namespace MindMate.View.Ribbon
             //Note Editor Tab: Table
             NoteInsertTable.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.InsertTable();
 
+			//Note Editor Tab: Image
+			NoteInsertImage.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.InsertImage();
+
             //Note Editor Tab: Note Edit Html
             NoteEditHtml.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.ShowHtmlSourceDialog();
 
@@ -216,7 +222,10 @@ namespace MindMate.View.Ribbon
         /// </summary>
         public void OnRibbonLoaded()
         {
-            NodeShape.LargeImage = ribbon.ConvertToUIImage(Resources.Node_Format_Bubble);
+			InsertImage.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Add_Image_32);
+			InsertImage.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Add_Image_16);
+
+			NodeShape.LargeImage = ribbon.ConvertToUIImage(Resources.Node_Format_Bubble);
             Bullets.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Bullets_SmallImage);
             Numbers.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Numbers_SmallImage);
             Outdent.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Outdent_SmallImage);
@@ -235,7 +244,9 @@ namespace MindMate.View.Ribbon
             NoteNormal.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteNormal_16bit);
             NoteInsertTable.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.InsertTable_SmallImage);
             NoteInsertTable.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.InsertTable_LargeImage);
-            NoteEditHtml.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteEditHtml_16bit);
+			NoteInsertImage.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Add_Image_16);
+			NoteInsertImage.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Add_Image_32);
+			NoteEditHtml.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteEditHtml_16bit);
             NoteEditHtml.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.NoteEditHtml_32bit);
             ModifyTableProperties.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.TableProperties_SmallImage);
             ModifyTableProperties.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.TableProperties_LargeImage);
@@ -261,8 +272,9 @@ namespace MindMate.View.Ribbon
             MoveColumnLeft.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveColumnLeft_LargeImage);
             MoveColumnRight.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveColumnRight_SmallImage);
             MoveColumnRight.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveColumnRight_LargeImage);
+				
 
-            mainForm.FocusedControlChanged += MainForm_FocusedControlChanged;
+			mainForm.FocusedControlChanged += MainForm_FocusedControlChanged;
         }
         
         //TODO: This will not work if there are more plugins with MainMenu (fix it)

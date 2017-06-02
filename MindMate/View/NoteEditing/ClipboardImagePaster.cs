@@ -15,11 +15,13 @@ namespace MindMate.View.NoteEditing
     /// <summary>
     /// Pastes image from Clipboard to NoteEditor
     /// </summary>
-    public class ClipboardImagePaster
+    public class ImagePaster
     {
-        private readonly PersistenceManager pManager;
 
-        public ClipboardImagePaster(NoteEditor editor, PersistenceManager pManager)
+#region Insert from Clipboard
+		private readonly PersistenceManager pManager;
+
+        public ImagePaster(NoteEditor editor, PersistenceManager pManager)
         {
             editor.Pasting += Editor_Pasting;
             this.pManager = pManager;
@@ -55,11 +57,7 @@ namespace MindMate.View.NoteEditing
                 {
                     imageList.ForEach(i =>
                     {
-                        var localPath = ImageLocalPath.CreateNewLocalPath(Path.GetExtension(i).Substring(1));
-                        tree.SetLargeObject(localPath.FileName, new BytesLob(File.ReadAllBytes(i)));
-
-                        var htmlImage = new HtmlImageCreator(editor);
-                        htmlImage.InsertImage(localPath.Url, "");
+						InsertFormFile(editor, i, tree);
                     });
                     return true;
                 }
@@ -71,6 +69,7 @@ namespace MindMate.View.NoteEditing
             else
             {
                 return false;
+
             }
         }
 
@@ -87,5 +86,20 @@ namespace MindMate.View.NoteEditing
             }
             return imageList;
         }
-    }
+
+		#endregion
+
+#region Insert from File
+
+		public static void InsertFormFile(NoteEditor editor, string fileName, MapTree tree)
+		{
+			var localPath = ImageLocalPath.CreateNewLocalPath(Path.GetExtension(fileName).Substring(1));
+			tree.SetLargeObject(localPath.FileName, new BytesLob(File.ReadAllBytes(fileName)));
+
+			var htmlImage = new HtmlImageCreator(editor);
+			htmlImage.InsertImage(localPath.Url, "");
+		}
+
+#endregion
+	}
 }

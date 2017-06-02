@@ -30,9 +30,8 @@ namespace MindMate.Controller
     public class MainCtrl : IMainCtrl
     {
         private View.IMainForm mainForm;
-        
-
         private Plugins.PluginManager pluginManager;
+        private DialogManager dialogs;
 
         public MapCtrl CurrentMapCtrl
         {
@@ -72,7 +71,7 @@ namespace MindMate.Controller
 
 		#region Launch MindMate application
         
-        public void InitMindMate(IMainForm mainForm)
+        public void InitMindMate(IMainForm mainForm, DialogManager dialogs)
         {
             this.mainForm = mainForm;
             MetaModel.MetaModel.Initialize();
@@ -85,6 +84,7 @@ namespace MindMate.Controller
             NodeContextMenu = new NodeContextMenu();
             mainForm.Load += mainForm_Load;
             mainForm.Shown += mainForm_AfterReady;
+            this.dialogs = dialogs;
         }
 
         void mainForm_Load(object sender, EventArgs e)
@@ -109,7 +109,7 @@ namespace MindMate.Controller
                 }
             }
 
-            noteCrtl = new NoteEditorCtrl(mainForm.NoteEditor, PersistenceManager);             
+            noteCrtl = new NoteEditorCtrl(mainForm.NoteEditor, PersistenceManager, dialogs);             
 
             pluginManager.InitializeContextMenu(NodeContextMenu);
             
@@ -443,6 +443,17 @@ namespace MindMate.Controller
             mainForm.SideBarTabs.SelectedTab = mainForm.SideBarTabs.NoteTab;
             mainForm.SideBarTabs.NoteEditor.Focus();
         }
+
+		public void InsertImage()
+		{
+            if (mainForm.IsNoteEditorActive)
+                NoteCrtl.InsertImage();
+            //else
+            //{
+                //var dialog = dialogs.ShowOpenImageFile();
+                //dialog.ShowDialog();
+            //}
+		}
 
         public void ViewNoteTab()
         {

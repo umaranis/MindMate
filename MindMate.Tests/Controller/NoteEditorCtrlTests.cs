@@ -53,7 +53,7 @@ namespace MindMate.Tests.Controller
                     var c1 = new MapNode(ptree1.RootNode, "c1");
                     c1.Selected = true;
 
-                    var sut = new NoteEditorCtrl(noteEditor, persistence);
+                    var sut = new NoteEditorCtrl(noteEditor, persistence, null);
 
                     result = sut != null;
 
@@ -88,7 +88,7 @@ namespace MindMate.Tests.Controller
                     var c1 = new MapNode(ptree1.RootNode, "c1");
                     c1.Selected = true;
 
-                    var sut = new NoteEditorCtrl(noteEditor, persistence);
+                    var sut = new NoteEditorCtrl(noteEditor, persistence, null);
                     sut.SetNoteEditorBackColor(Color.Azure);
 
                     result = noteEditor.BackColor.Equals(Color.Azure);
@@ -125,7 +125,7 @@ namespace MindMate.Tests.Controller
                     c1.NoteText = "This is a note.";
                     c1.Selected = true;
 
-                    var sut = new NoteEditorCtrl(noteEditor, persistence);
+                    var sut = new NoteEditorCtrl(noteEditor, persistence, null);
                     Debugging.FormDebugHooks.Instance.ProvideShownEventHook((o, e) => {
                         var f = (HtmlSourceDialog)o;
                         foreach(Control c in f.Controls)
