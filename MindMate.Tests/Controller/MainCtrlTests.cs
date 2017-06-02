@@ -200,7 +200,7 @@ namespace MindMate.Tests.Controller
                 {
                     form.NoteEditor.Focus();
                     sut.InsertImage();
-                    imageAdded = form.NoteEditor.HTML.Contains("IMG") || form.NoteEditor.HTML.Contains("img");
+                    imageAdded = form.NoteEditor.HTML != null && (form.NoteEditor.HTML.Contains("IMG") || form.NoteEditor.HTML.Contains("img"));
                 };
                 Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
                 timer.Tick += delegate
