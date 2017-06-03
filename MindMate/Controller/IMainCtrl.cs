@@ -9,9 +9,11 @@ using System.Linq;
 using System.Text;
 using MindMate.View.MapControls;
 using System.Windows.Forms;
+using MindMate.View.Dialogs;
 
 namespace MindMate.Controller
 {
+    //TODO: DialogManager should replace this class
     /// <summary>
     /// Isolates MainCtrl from MapCtrl
     /// </summary>

@@ -11,6 +11,8 @@ using XnaFan.ImageComparison;
 using System.Drawing;
 using System.Linq;
 using MindMate.Tests.TestDouble;
+using FakeItEasy;
+using MindMate.View.Dialogs;
 
 namespace MindMate.Tests.IntegrationTest
 {
@@ -34,7 +36,7 @@ namespace MindMate.Tests.IntegrationTest
             MetaModel.MetaModel.Initialize();
             MetaModel.MetaModel.Instance.MapEditorBackColor = Color.White;
             MetaModel.MetaModel.Instance.NoteEditorBackColor = Color.White;
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), new MainCtrlStub(form));
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), new MainCtrlStub(form), A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
 
             tree.TurnOnChangeManager();
@@ -217,7 +219,7 @@ namespace MindMate.Tests.IntegrationTest
                 MapTree newTree = new MapTree();
                 s.Deserialize(generatedText, newTree);
                 newTree.SelectedNodes.Add(newTree.RootNode, false);
-                MapCtrl mapCtrl2 = new MapCtrl(new MapView(newTree), new MainCtrlStub(new Form()));
+                MapCtrl mapCtrl2 = new MapCtrl(new MapView(newTree), new MainCtrlStub(new Form()), A.Fake<DialogManager>());
 
                 //4. save new MapView image and compare
                 using (var image = mapCtrl2.MapView.DrawToBitmap())

@@ -131,7 +131,7 @@ namespace MindMate.Tests.Controller
         }
 
         [TestMethod()]
-        public void MainCtrl_InsertImage()
+        public void InsertImage_InNote()
         {
             var imageAdded = false;
 
@@ -183,7 +183,7 @@ namespace MindMate.Tests.Controller
         }
 
         [TestMethod()]
-        public void MainCtrl_InsertImage_Null()
+        public void MainCtrl_InsertImage_InNote_Null()
         {
             var imageAdded = false;
 
@@ -201,6 +201,110 @@ namespace MindMate.Tests.Controller
                     form.NoteEditor.Focus();
                     sut.InsertImage();
                     imageAdded = form.NoteEditor.HTML != null && (form.NoteEditor.HTML.Contains("IMG") || form.NoteEditor.HTML.Contains("img"));
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                    }
+                    else
+                    {
+                        foreach (var f in sut.PersistenceManager)
+                        {
+                            f.IsDirty = false; //to avoid save warning dialog
+                        }
+                        form.Close();
+                    }
+                };
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsFalse(imageAdded);
+        }
+
+        [TestMethod()]
+        public void InsertImage_InMap()
+        {
+            var imageAdded = false;
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new MainCtrl();
+                var form = new MainForm();
+                DialogManager dialogs = A.Fake<DialogManager>();
+                A.CallTo(() => dialogs.GetImageFile()).Returns(@"Resources\TestImage.png");
+                sut.InitMindMate(form, dialogs);
+                MainMenuCtrl mainMenuCtrl = new MainMenuCtrl(form.MainMenu, sut);
+                form.MainMenuCtrl = mainMenuCtrl;
+                form.Shown += (sender, args) =>
+                {
+                    sut.ReturnFocusToMapView();
+                    sut.InsertImage();
+                    imageAdded = sut.CurrentMapCtrl.MapView.Tree.SelectedNodes.All(n => n.HasImage);
+                };
+                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                timer.Tick += delegate
+                {
+                    if (timer.Tag == null)
+                    {
+                        timer.Tag = "First Event Fired";
+                    }
+                    else if (timer.Tag.Equals("First Event Fired"))
+                    {
+                        timer.Tag = "Second Event Fired";
+                    }
+                    else
+                    {
+                        foreach (var f in sut.PersistenceManager)
+                        {
+                            f.IsDirty = false; //to avoid save warning dialog
+                        }
+                        form.Close();
+                    }
+                };
+
+                timer.Start();
+                form.ShowDialog();
+                timer.Stop();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(imageAdded);
+        }
+
+        [TestMethod()]
+        public void MainCtrl_InsertImage_InMap_Null()
+        {
+            var imageAdded = false;
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                var sut = new MainCtrl();
+                var form = new MainForm();
+                DialogManager dialogs = A.Fake<DialogManager>();
+                A.CallTo(() => dialogs.GetImageFile()).Returns(null);
+                sut.InitMindMate(form, dialogs);
+                MainMenuCtrl mainMenuCtrl = new MainMenuCtrl(form.MainMenu, sut);
+                form.MainMenuCtrl = mainMenuCtrl;
+                form.Shown += (sender, args) =>
+                {
+                    sut.ReturnFocusToMapView();
+                    sut.InsertImage();
+                    imageAdded = sut.CurrentMapCtrl.MapView.Tree.SelectedNodes.All(n => n.HasImage);
                 };
                 Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
                 timer.Tick += delegate

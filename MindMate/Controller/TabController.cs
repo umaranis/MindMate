@@ -29,13 +29,13 @@ namespace MindMate.Controller
         private void PersistenceManager_NewTreeCreated(Serialization.PersistenceManager manager, Serialization.PersistentTree e)
         {
             Tab tab = mainForm.EditorTabs.OpenTab(e);
-            tab.ControllerTag = new MapCtrl(tab.MapView, mainCtrl);
+            tab.ControllerTag = new MapCtrl(tab.MapView, mainCtrl, mainCtrl.Dialogs);
         }
 
         private void PersistenceManager_TreeOpened(Serialization.PersistenceManager manager, Serialization.PersistentTree e)
         {
             Tab tab = mainForm.EditorTabs.OpenTab(e);
-            tab.ControllerTag = new MapCtrl(tab.MapView, mainCtrl);
+            tab.ControllerTag = new MapCtrl(tab.MapView, mainCtrl, mainCtrl.Dialogs);
         }
 
         private void PersistenceManager_TreeClosed(Serialization.PersistenceManager manager, Serialization.PersistentTree e)

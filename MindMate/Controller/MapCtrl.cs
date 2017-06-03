@@ -27,6 +27,7 @@ namespace MindMate.Controller
     public class MapCtrl
     {
         private readonly IMainCtrl mainCtrl;
+        private readonly DialogManager dialogs;
 
         public MapView MapView;
 
@@ -34,9 +35,10 @@ namespace MindMate.Controller
         
         private MapTree tree { get { return MapView.Tree; } }
 
-        public MapCtrl(MapView mapView, IMainCtrl mainCtrl)
+        public MapCtrl(MapView mapView, IMainCtrl mainCtrl, DialogManager dialogs)
         {
             this.mainCtrl = mainCtrl;
+            this.dialogs = dialogs;
 
             MapViewMouseEventHandler map = new MapViewMouseEventHandler(this);
 
@@ -1627,6 +1629,21 @@ namespace MindMate.Controller
                 foreach (var node in tree.SelectedNodes)
                 {
                     node.ClearFormatting();
+                }
+            }
+        }
+
+        public void InsertImage()
+        {
+            string fileName = dialogs.GetImageFile();
+            if (fileName != null)
+            {
+                using (tree.ChangeManager.StartBatch("Insert Image"))
+                {
+                    foreach (var node in tree.SelectedNodes)
+                    {
+                        node.InsertImage(Image.FromFile(fileName));
+                    }
                 }
             }
         }

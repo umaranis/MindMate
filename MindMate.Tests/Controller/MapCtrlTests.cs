@@ -14,6 +14,7 @@ using FakeItEasy;
 using FakeItEasy.ExtensionSyntax.Full;
 using MindMate.Plugins.Tasks.Model;
 using MindMate.Tests.TestDouble;
+using MindMate.View.Dialogs;
 
 namespace MindMate.Tests.Controller
 {
@@ -38,7 +39,7 @@ namespace MindMate.Tests.Controller
             MetaModel.MetaModel.Initialize();
             MetaModel.MetaModel.Instance.MapEditorBackColor = Color.White;
             MetaModel.MetaModel.Instance.NoteEditorBackColor = Color.White;
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), new MainCtrlStub(form));
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), new MainCtrlStub(form), A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
 
             tree.TurnOnChangeManager();
@@ -54,7 +55,7 @@ namespace MindMate.Tests.Controller
             MetaModel.MetaModel.Initialize();
             MetaModel.MetaModel.Instance.MapEditorBackColor = Color.White;
             MetaModel.MetaModel.Instance.NoteEditorBackColor = Color.White;
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), new MainCtrlStub(form));
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), new MainCtrlStub(form), A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
 
             tree.TurnOnChangeManager();
@@ -1630,7 +1631,7 @@ namespace MindMate.Tests.Controller
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
             A.CallTo(() => mainCtrl.ShowColorPicker(Color.Empty)).WithAnyArguments().Returns(Color.Chocolate);
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1649,7 +1650,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1667,7 +1668,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1686,7 +1687,7 @@ namespace MindMate.Tests.Controller
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
             A.CallTo(() => mainCtrl.ShowInputBox("Enter the style name:", null)).Returns(DateTime.Now.Ticks.ToString());
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1705,7 +1706,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
 
@@ -1723,7 +1724,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1745,7 +1746,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1771,7 +1772,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1797,7 +1798,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1823,7 +1824,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1845,7 +1846,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1869,7 +1870,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1891,7 +1892,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1913,7 +1914,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1935,7 +1936,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1946,275 +1947,6 @@ namespace MindMate.Tests.Controller
             Assert.IsFalse(c2.Italic);
             Assert.IsTrue(r.Italic);
         }
-
-        //[TestMethod()]
-        //public void EditHyperlink()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void BeginCurrentNodeEdit()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void BeginNodeEdit()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void MultiLineNodeEdit()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void MultiLineNodeEdit1()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void EndNodeEdit()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void UpdateNodeText()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void AppendNodeAndEdit()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void AppendChildNodeAndEdit()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void AppendChildNode()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void AppendMultiLineNodeAndEdit()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void AppendSiblingNodeAndEdit()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void AppendSiblingAboveAndEdit()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void InsertParentAndEdit()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void DeleteSelectedNodes()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void MoveNodeUp()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void MoveNodeDown()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void SelectAllSiblingsAbove()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void SelectAllSiblingsBelow()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void SelectNodeAbove()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void SelectNodeBelow()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void SelectNodeRightOrUnfold()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void SelectNodeLeftOrUnfold()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void ToggleFolded()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void ToggleFolded1()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void RemoveLastIcon()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void RemoveAllIcon()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void AppendIcon()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void AppendIconFromIconSelectorExt()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void FollowLink()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void SetFontFamily()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void SetFontSize()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void ChangeTextColorByPicker()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void ChangeTextColor()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void ChangeBackColorByPicker()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void ChangeFont()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void Copy()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void Paste()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void Cut()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void MoveNodes()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void SetMapViewBackColor()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void CopyFormat()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void EnableFormatMultiApply()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void PasteFormat()
-        //{
-        //    Assert.Fail();
-        //}
-
-        //[TestMethod()]
-        //public void ClearFormatPainter()
-        //{
-        //    Assert.Fail();
-        //}
+        
     }
 }
