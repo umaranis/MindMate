@@ -115,7 +115,6 @@
     <Compile Include="Model\MapNode.Attribute.cs" />
     <Compile Include="Model\ClipboardManager.cs" />
     <Compile Include="Controller\ContextMenuCtrl.cs" />
-    <Compile Include="Controller\IMainCtrl.cs" />
     <Compile Include="Controller\MainCtrl.cs" />
     <Compile Include="Controller\MapViewKeyEventHandler.cs" />
     <Compile Include="Controller\WinFormsStatusBarCtrl.cs" />

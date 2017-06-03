@@ -26,7 +26,6 @@ namespace MindMate.Controller
     /// </summary>
     public class MapCtrl
     {
-        private readonly IMainCtrl mainCtrl;
         private readonly DialogManager dialogs;
 
         public MapView MapView;
@@ -35,9 +34,8 @@ namespace MindMate.Controller
         
         private MapTree tree { get { return MapView.Tree; } }
 
-        public MapCtrl(MapView mapView, IMainCtrl mainCtrl, DialogManager dialogs, NodeContextMenu nodeContextMenu)
+        public MapCtrl(MapView mapView, DialogManager dialogs, NodeContextMenu nodeContextMenu)
         {
-            this.mainCtrl = mainCtrl;
             this.dialogs = dialogs;
 
             MapViewMouseEventHandler map = new MapViewMouseEventHandler(this);
@@ -737,7 +735,7 @@ namespace MindMate.Controller
             }
             catch (Exception e)
             {
-                mainCtrl.ShowStatusNotification(e.Message);
+                dialogs.ShowStatusNotification(e.Message);
             }   
         }               
         

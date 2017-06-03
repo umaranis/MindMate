@@ -111,7 +111,6 @@
     <Compile Include="Serialization\MindMapSerializerTests.cs" />
     <Compile Include="Serialization\NodeStyleImageSerializerTests.cs" />
     <Compile Include="Serialization\PersistenceManagerTests.cs" />
-    <Compile Include="TestDouble\MainCtrlStub.cs" />
     <Compile Include="TestDouble\MetaModelHelper.cs" />
     <Compile Include="TestDouble\PluginManagerStub.cs" />
     <Compile Include="View\Dialogs\AboutBoxTests.cs" />

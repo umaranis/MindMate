@@ -49,7 +49,9 @@ namespace MindMate.Tests.Controller
                     sut.Strikethrough(true);
                     sut.Subscript();
                     sut.Superscript();
-                    sut.Underline(true);                    
+                    sut.Underline(true);
+                    sut.PersistenceManager.NewTree();
+                    sut.PersistenceManager.CloseCurerntTree();
                 };
                 Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
                 timer.Tick += delegate

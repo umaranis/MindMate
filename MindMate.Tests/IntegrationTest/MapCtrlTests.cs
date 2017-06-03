@@ -40,7 +40,7 @@ namespace MindMate.Tests.IntegrationTest
             A.CallTo(dialogs).Where(call => call.Method.Name == "SeekDeleteConfirmation").WithReturnType<bool>().Returns(true);
             A.CallTo(dialogs).Where(call => call.Method.Name == "ShowColorPicker").WithReturnType<Color>().Returns(Color.Red);
             A.CallTo(dialogs).Where(call => call.Method.Name == "ShowFontDialog").WithReturnType<Font>().Returns(new System.Drawing.Font(System.Drawing.FontFamily.GenericSerif, 16));
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), new MainCtrlStub(form), dialogs, null);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), dialogs, null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
 
             tree.TurnOnChangeManager();
@@ -225,7 +225,7 @@ namespace MindMate.Tests.IntegrationTest
                 newTree.SelectedNodes.Add(newTree.RootNode, false);
                 DialogManager dialogs = A.Fake<DialogManager>();
                 A.CallTo(dialogs).Where(call => call.Method.Name == "SeekDeleteConfirmation").WithReturnType<bool>().Returns(true);
-                MapCtrl mapCtrl2 = new MapCtrl(new MapView(newTree), new MainCtrlStub(new Form()), dialogs, null);
+                MapCtrl mapCtrl2 = new MapCtrl(new MapView(newTree), dialogs, null);
 
                 //4. save new MapView image and compare
                 using (var image = mapCtrl2.MapView.DrawToBitmap())

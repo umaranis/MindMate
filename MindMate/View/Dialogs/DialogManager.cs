@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MindMate.Controller;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -93,6 +94,15 @@ namespace MindMate.View.Dialogs
             {
                 return null;
             }
+        }
+
+        public WinFormsStatusBarCtrl StatusBarCtrl { get; set; }
+#if DEBUG
+        virtual
+#endif
+        public void ShowStatusNotification(string msg)
+        {
+            StatusBarCtrl.SetStatusUpdate(msg);
         }
 
     }

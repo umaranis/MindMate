@@ -25,9 +25,9 @@ namespace MindMate.Controller
     /// Controlller for:
     /// - Launching and Closing of MindMate application
     /// - Creating (New), Opening, Saving and Closing maps 
-    /// - Launching Dialog boxes and coordinating other actions
+    /// - Passing on actions to other controllers
     /// </summary>
-    public class MainCtrl : IMainCtrl
+    public class MainCtrl
     {
         private View.IMainForm mainForm;
         private Plugins.PluginManager pluginManager;
@@ -78,11 +78,11 @@ namespace MindMate.Controller
             pluginManager = new Plugins.PluginManager(this);
             new TabController(this, mainForm);
             pluginManager.Initialize();
-            statusBarCtrl = new WinFormsStatusBarCtrl(mainForm.StatusBar, PersistenceManager);
+            Dialogs = dialogs;
+            Dialogs.StatusBarCtrl = new WinFormsStatusBarCtrl(mainForm.StatusBar, PersistenceManager);
             NodeContextMenu = new NodeContextMenu();
             mainForm.Load += mainForm_Load;
-            mainForm.Shown += mainForm_AfterReady;
-            this.Dialogs = dialogs;
+            mainForm.Shown += mainForm_AfterReady;            
         }
 
         void mainForm_Load(object sender, EventArgs e)
@@ -222,11 +222,6 @@ namespace MindMate.Controller
                     bmp.Save(file.FileName, ImageFormat.Jpeg);
                 }
             }
-        }
-        
-        public void ShowStatusNotification(string msg)
-        {
-            this.statusBarCtrl.SetStatusUpdate(msg);
         }
         
         public void ShowAboutBox()
