@@ -39,7 +39,7 @@ namespace MindMate.Tests.Controller
             MetaModel.MetaModel.Initialize();
             MetaModel.MetaModel.Instance.MapEditorBackColor = Color.White;
             MetaModel.MetaModel.Instance.NoteEditorBackColor = Color.White;
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), new MainCtrlStub(form), A.Fake<DialogManager>());
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), new MainCtrlStub(form), A.Fake<DialogManager>(), null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
 
             tree.TurnOnChangeManager();
@@ -55,7 +55,7 @@ namespace MindMate.Tests.Controller
             MetaModel.MetaModel.Initialize();
             MetaModel.MetaModel.Instance.MapEditorBackColor = Color.White;
             MetaModel.MetaModel.Instance.NoteEditorBackColor = Color.White;
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), new MainCtrlStub(form), A.Fake<DialogManager>());
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), new MainCtrlStub(form), A.Fake<DialogManager>(), null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
 
             tree.TurnOnChangeManager();
@@ -1632,7 +1632,7 @@ namespace MindMate.Tests.Controller
             var mainCtrl = A.Fake<IMainCtrl>();
             var dialogs = A.Fake<DialogManager>();
             A.CallTo(() => dialogs.ShowColorPicker(Color.Empty)).WithAnyArguments().Returns(Color.Chocolate);
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, dialogs);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, dialogs, null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1651,7 +1651,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>(), null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1669,7 +1669,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>(), null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1689,7 +1689,7 @@ namespace MindMate.Tests.Controller
             var mainCtrl = A.Fake<IMainCtrl>();
             var dialogs = A.Fake<DialogManager>();
             A.CallTo(() => dialogs.ShowInputBox("Enter the style name:", null)).Returns(DateTime.Now.Ticks.ToString());
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, dialogs);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, dialogs, null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1708,7 +1708,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>(), null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
 
@@ -1726,7 +1726,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>(), null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1748,7 +1748,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>(), null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1774,7 +1774,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>(), null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1800,7 +1800,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>(), null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1826,7 +1826,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>(), null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1848,7 +1848,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>(), null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1872,7 +1872,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>(), null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1894,7 +1894,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>(), null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1916,7 +1916,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>(), null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1938,7 +1938,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>(), null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1962,7 +1962,7 @@ namespace MindMate.Tests.Controller
             var mainCtrl = A.Fake<IMainCtrl>();
             DialogManager dialogs = A.Fake<DialogManager>();
             A.CallTo(dialogs).Where(call => call.Method.Name == "SeekDeleteConfirmation").WithReturnType<bool>().Returns(true);
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, dialogs);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, dialogs, null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             c2.Selected = true;
@@ -1984,7 +1984,7 @@ namespace MindMate.Tests.Controller
             var mainCtrl = A.Fake<IMainCtrl>();
             DialogManager dialogs = A.Fake<DialogManager>();
             A.CallTo(dialogs).Where(call => call.Method.Name == "SeekDeleteConfirmation").WithReturnType<bool>().Returns(true);
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, dialogs);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, dialogs, null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             c2.Selected = true;

@@ -35,7 +35,7 @@ namespace MindMate.Controller
         
         private MapTree tree { get { return MapView.Tree; } }
 
-        public MapCtrl(MapView mapView, IMainCtrl mainCtrl, DialogManager dialogs)
+        public MapCtrl(MapView mapView, IMainCtrl mainCtrl, DialogManager dialogs, NodeContextMenu nodeContextMenu)
         {
             this.mainCtrl = mainCtrl;
             this.dialogs = dialogs;
@@ -58,7 +58,7 @@ namespace MindMate.Controller
 
             MapView.Canvas.BackColor = MetaModel.MetaModel.Instance.MapEditorBackColor;
 
-            new ContextMenuAttacher(mainCtrl.NodeContextMenu, MapView);
+            new ContextMenuAttacher(nodeContextMenu, MapView);
         }        
 
         public void AddHyperlinkUsingTextbox()

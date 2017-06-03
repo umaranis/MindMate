@@ -19,8 +19,6 @@ namespace MindMate.Controller
     /// </summary>
     public interface IMainCtrl
     {              
-        void ShowStatusNotification(string msg);        
-        
-        NodeContextMenu NodeContextMenu { get; }
+        void ShowStatusNotification(string msg);
     }
 }
