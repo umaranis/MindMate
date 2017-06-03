@@ -52,13 +52,13 @@ namespace MindMate.View.Dialogs
 
         private void lblMapEditorBackColor_Click(object sender, EventArgs e)
         {
-            lblMapEditorBackColor.BackColor = mainCtrl.ShowColorPicker(lblMapEditorBackColor.BackColor);
+            lblMapEditorBackColor.BackColor = mainCtrl.Dialogs.ShowColorPicker(lblMapEditorBackColor.BackColor);
             lblMapEditorBackColor.Tag = "d";  // mark dirty
         }
 
         private void lblNoteEditorBackColor_Click(object sender, EventArgs e)
         {
-            lblNoteEditorBackColor.BackColor = mainCtrl.ShowColorPicker(lblNoteEditorBackColor.BackColor);
+            lblNoteEditorBackColor.BackColor = mainCtrl.Dialogs.ShowColorPicker(lblNoteEditorBackColor.BackColor);
             lblNoteEditorBackColor.Tag = "d"; // make dirty
         }
     }

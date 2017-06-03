@@ -18,14 +18,8 @@ namespace MindMate.Controller
     /// Isolates MainCtrl from MapCtrl
     /// </summary>
     public interface IMainCtrl
-    {
-        System.Drawing.Color ShowColorPicker(System.Drawing.Color currentColor);
-
-        System.Drawing.Font ShowFontDialog(System.Drawing.Font currentFont);        
-
-        void ShowStatusNotification(string msg);
-
-        void ShowMessageBox(string title, string msg, MessageBoxIcon icon);
+    {              
+        void ShowStatusNotification(string msg);        
         
         NodeContextMenu NodeContextMenu { get; }
     }

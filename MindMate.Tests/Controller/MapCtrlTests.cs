@@ -1630,8 +1630,9 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            A.CallTo(() => mainCtrl.ShowColorPicker(Color.Empty)).WithAnyArguments().Returns(Color.Chocolate);
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
+            var dialogs = A.Fake<DialogManager>();
+            A.CallTo(() => dialogs.ShowColorPicker(Color.Empty)).WithAnyArguments().Returns(Color.Chocolate);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, dialogs);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();

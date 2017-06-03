@@ -38,6 +38,8 @@ namespace MindMate.Tests.IntegrationTest
             MetaModel.MetaModel.Instance.NoteEditorBackColor = Color.White;
             DialogManager dialogs = A.Fake<DialogManager>();
             A.CallTo(dialogs).Where(call => call.Method.Name == "SeekDeleteConfirmation").WithReturnType<bool>().Returns(true);
+            A.CallTo(dialogs).Where(call => call.Method.Name == "ShowColorPicker").WithReturnType<Color>().Returns(Color.Red);
+            A.CallTo(dialogs).Where(call => call.Method.Name == "ShowFontDialog").WithReturnType<Font>().Returns(new System.Drawing.Font(System.Drawing.FontFamily.GenericSerif, 16));
             MapCtrl mapCtrl = new MapCtrl(new MapView(tree), new MainCtrlStub(form), dialogs);
             form.Controls.Add(mapCtrl.MapView.Canvas);
 

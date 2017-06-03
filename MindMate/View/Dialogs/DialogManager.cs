@@ -36,6 +36,9 @@ namespace MindMate.View.Dialogs
         /// <param name="question"></param>
         /// <param name="caption"></param>
         /// <returns></returns>
+#if DEBUG
+        virtual
+#endif
         public string ShowInputBox(string question, string caption = null)
         {
             var inputBox = new InputBox(question, caption);
@@ -46,5 +49,51 @@ namespace MindMate.View.Dialogs
 
             return null;
         }
+
+#if DEBUG
+        virtual
+#endif
+        public void ShowMessageBox(string title, string msg, MessageBoxIcon icon)
+        {
+            MessageBox.Show(msg, title, MessageBoxButtons.OK, icon);
+        }
+
+        private ColorDialog colorDialog;
+#if DEBUG
+        virtual
+#endif
+        public System.Drawing.Color ShowColorPicker(System.Drawing.Color currentColor)
+        {
+            if (colorDialog == null) colorDialog = new ColorDialog();
+            if (!currentColor.IsEmpty) colorDialog.Color = currentColor;
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                return colorDialog.Color;
+            }
+            else
+            {
+                return new System.Drawing.Color();
+            }
+        }
+        
+        private CustomFontDialog.FontDialog fontDialog;
+#if DEBUG
+        virtual
+#endif
+        public System.Drawing.Font ShowFontDialog(System.Drawing.Font currentFont)
+        {
+            if (fontDialog == null) fontDialog = new CustomFontDialog.FontDialog();
+            if (currentFont != null) fontDialog.Font = currentFont;
+            //fd.ShowEffects = false;
+            if (fontDialog.ShowDialog() == DialogResult.OK)
+            {
+                return fontDialog.Font;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }

@@ -970,7 +970,7 @@ namespace MindMate.Controller
             if (color.IsEmpty) color = NodeView.DefaultLineColor;
             
             //get new color specified by user
-            color = mainCtrl.ShowColorPicker(color);
+            color = dialogs.ShowColorPicker(color);
             if (color.IsEmpty) return;
 
             //set new color
@@ -991,7 +991,7 @@ namespace MindMate.Controller
             if (color.IsEmpty) color = NodeView.DefaultTextColor;
 
             //get new color specified by user
-            color = mainCtrl.ShowColorPicker(color);
+            color = dialogs.ShowColorPicker(color);
             if (color.IsEmpty) return;
 
             //set new color
@@ -1029,7 +1029,7 @@ namespace MindMate.Controller
                 color = this.MapView.SelectedNodes.First.BackColor;
 
             //get new color specified by user
-            color = mainCtrl.ShowColorPicker(color);
+            color = dialogs.ShowColorPicker(color);
             if (color.IsEmpty) return;
 
             //set new color
@@ -1063,7 +1063,7 @@ namespace MindMate.Controller
 
             Font font = this.MapView.SelectedNodes.First != null ?
                 this.MapView.SelectedNodes.First.NodeView.Font : null;
-            font = mainCtrl.ShowFontDialog(font);
+            font = dialogs.ShowFontDialog(font);
             if (font == null) return;
 
             NodePosition sideToRefresh = MapView.SelectedNodes.First.Pos;
@@ -1607,7 +1607,7 @@ namespace MindMate.Controller
             }
             catch (Exception e)
             {
-                mainCtrl.ShowMessageBox("Error", e.Message, MessageBoxIcon.Error);
+                dialogs.ShowMessageBox("Error", e.Message, MessageBoxIcon.Error);
                 Debug.Write(e.Message);
             }
 
