@@ -1686,8 +1686,9 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var mainCtrl = A.Fake<IMainCtrl>();
-            A.CallTo(() => mainCtrl.ShowInputBox("Enter the style name:", null)).Returns(DateTime.Now.Ticks.ToString());
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, A.Fake<DialogManager>());
+            var dialogs = A.Fake<DialogManager>();
+            A.CallTo(() => dialogs.ShowInputBox("Enter the style name:", null)).Returns(DateTime.Now.Ticks.ToString());
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, dialogs);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
             r.AddToSelection();
@@ -1967,7 +1968,7 @@ namespace MindMate.Tests.Controller
             c1.AddToSelection();
             mapCtrl.DeleteSelectedNodes();
 
-            Assert.AreEqual(1, r.ChildNodes.Count());
+            Assert.AreEqual(0, r.ChildNodes.Count());
         }
 
         [TestMethod()]

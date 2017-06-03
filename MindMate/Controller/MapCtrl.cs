@@ -1597,7 +1597,7 @@ namespace MindMate.Controller
                 if (tree.SelectedNodes.Count == 1)
                 {
                     var n = tree.SelectedNodes.First;
-                    var styleName = mainCtrl.ShowInputBox("Enter the style name:");
+                    var styleName = dialogs.ShowInputBox("Enter the style name:");
                     var s = new NodeStyle(styleName, n, true);
                     new NodeStyleImageSerializer().SerializeImage(s.Image, s.Title);
                     MetaModel.MetaModel.Instance.NodeStyles.Add(s);

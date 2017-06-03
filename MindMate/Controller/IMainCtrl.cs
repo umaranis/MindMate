@@ -26,15 +26,7 @@ namespace MindMate.Controller
         void ShowStatusNotification(string msg);
 
         void ShowMessageBox(string title, string msg, MessageBoxIcon icon);
-
-        /// <summary>
-        /// Uses InputBox dialog to ask question from the user
-        /// </summary>
-        /// <param name="question"></param>
-        /// <param name="caption"></param>
-        /// <returns></returns>
-        string ShowInputBox(string question, string caption = null);
-
+        
         NodeContextMenu NodeContextMenu { get; }
     }
 }

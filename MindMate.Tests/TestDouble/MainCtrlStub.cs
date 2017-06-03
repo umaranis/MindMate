@@ -27,12 +27,7 @@ namespace MindMate.Tests.TestDouble
         public System.Drawing.Font ShowFontDialog(System.Drawing.Font currentFont)
         {
             return new System.Drawing.Font(System.Drawing.FontFamily.GenericSerif, 16);
-        }
-
-        public bool SeekDeleteConfirmation(string msg)
-        {
-            return true;
-        }
+        }        
 
         public void ShowStatusNotification(string msg)
         {
@@ -42,12 +37,7 @@ namespace MindMate.Tests.TestDouble
         public void ShowMessageBox(string title, string msg, MessageBoxIcon icon)
         {
             throw new NotImplementedException();
-        }
-
-        public string ShowInputBox(string question, string caption = null)
-        {
-            throw new NotImplementedException();
-        }
+        }        
 
         public NodeContextMenu NodeContextMenu { get; }
     }

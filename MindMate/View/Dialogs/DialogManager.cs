@@ -29,5 +29,22 @@ namespace MindMate.View.Dialogs
 
             return result == DialogResult.Yes;
         }
+
+        /// <summary>
+        /// Uses InputBox dialog to ask question from the user
+        /// </summary>
+        /// <param name="question"></param>
+        /// <param name="caption"></param>
+        /// <returns></returns>
+        public string ShowInputBox(string question, string caption = null)
+        {
+            var inputBox = new InputBox(question, caption);
+            if (inputBox.ShowDialog() == DialogResult.OK)
+            {
+                return inputBox.Answer;
+            }
+
+            return null;
+        }
     }
 }
