@@ -21,9 +21,7 @@ namespace MindMate.Controller
     {
         System.Drawing.Color ShowColorPicker(System.Drawing.Color currentColor);
 
-        System.Drawing.Font ShowFontDialog(System.Drawing.Font currentFont);
-
-        bool SeekDeleteConfirmation(string msg);
+        System.Drawing.Font ShowFontDialog(System.Drawing.Font currentFont);        
 
         void ShowStatusNotification(string msg);
 

@@ -253,15 +253,7 @@ namespace MindMate.Controller
             {
                 return null;
             }
-        }
-
-        public bool SeekDeleteConfirmation(string msg)
-        {
-            var result = MessageBox.Show(msg, "Delete Confirmation", MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
-
-            return result == DialogResult.Yes;
-        }
+        }        
 
         public void ShowStatusNotification(string msg)
         {

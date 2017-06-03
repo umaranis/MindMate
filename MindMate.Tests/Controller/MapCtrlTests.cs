@@ -1947,6 +1947,49 @@ namespace MindMate.Tests.Controller
             Assert.IsFalse(c2.Italic);
             Assert.IsTrue(r.Italic);
         }
-        
+
+        [TestMethod()]
+        public void DeleteSelectedNodes()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            DialogManager dialogs = A.Fake<DialogManager>();
+            A.CallTo(dialogs).Where(call => call.Method.Name == "SeekDeleteConfirmation").WithReturnType<bool>().Returns(true);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, dialogs);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            c2.Selected = true;
+            c1.AddToSelection();
+            mapCtrl.DeleteSelectedNodes();
+
+            Assert.AreEqual(1, r.ChildNodes.Count());
+        }
+
+        [TestMethod()]
+        public void DeleteSelectedNodes_UserInputCancel()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            var mainCtrl = A.Fake<IMainCtrl>();
+            DialogManager dialogs = A.Fake<DialogManager>();
+            A.CallTo(dialogs).Where(call => call.Method.Name == "SeekDeleteConfirmation").WithReturnType<bool>().Returns(true);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), mainCtrl, dialogs);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            c2.Selected = true;
+            mapCtrl.DeleteSelectedNodes();
+
+            Assert.AreEqual(1, r.ChildNodes.Count());
+        }
+
     }
 }

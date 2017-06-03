@@ -36,7 +36,9 @@ namespace MindMate.Tests.IntegrationTest
             MetaModel.MetaModel.Initialize();
             MetaModel.MetaModel.Instance.MapEditorBackColor = Color.White;
             MetaModel.MetaModel.Instance.NoteEditorBackColor = Color.White;
-            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), new MainCtrlStub(form), A.Fake<DialogManager>());
+            DialogManager dialogs = A.Fake<DialogManager>();
+            A.CallTo(dialogs).Where(call => call.Method.Name == "SeekDeleteConfirmation").WithReturnType<bool>().Returns(true);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), new MainCtrlStub(form), dialogs);
             form.Controls.Add(mapCtrl.MapView.Canvas);
 
             tree.TurnOnChangeManager();
@@ -219,7 +221,9 @@ namespace MindMate.Tests.IntegrationTest
                 MapTree newTree = new MapTree();
                 s.Deserialize(generatedText, newTree);
                 newTree.SelectedNodes.Add(newTree.RootNode, false);
-                MapCtrl mapCtrl2 = new MapCtrl(new MapView(newTree), new MainCtrlStub(new Form()), A.Fake<DialogManager>());
+                DialogManager dialogs = A.Fake<DialogManager>();
+                A.CallTo(dialogs).Where(call => call.Method.Name == "SeekDeleteConfirmation").WithReturnType<bool>().Returns(true);
+                MapCtrl mapCtrl2 = new MapCtrl(new MapView(newTree), new MainCtrlStub(new Form()), dialogs);
 
                 //4. save new MapView image and compare
                 using (var image = mapCtrl2.MapView.DrawToBitmap())

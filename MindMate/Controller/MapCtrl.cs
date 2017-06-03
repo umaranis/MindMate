@@ -360,7 +360,7 @@ namespace MindMate.Controller
 
             if (this.MapView.SelectedNodes.Last == null || this.MapView.SelectedNodes.Contains(tree.RootNode)) return;
 
-            if (!mainCtrl.SeekDeleteConfirmation("Do you really want to delete selected node(s)?")) return;
+            if (!dialogs.SeekDeleteConfirmation("Do you really want to delete selected node(s)?")) return;
 
             MapView.SuspendLayout();
             var selNode = tree.GetClosestUnselectedNode(MapView.SelectedNodes.Last);
