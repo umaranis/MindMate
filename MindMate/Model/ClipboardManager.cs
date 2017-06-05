@@ -141,15 +141,15 @@ namespace MindMate.Model
                     });
 
             }
+            else if (Clipboard.ContainsImage())
+            {
+                PasteImage(pasteLocation);
+            }
             else if(Clipboard.ContainsFileDropList())
             {
                 PasteFileDropList(pasteLocation, asText);
             }
-            else if(Clipboard.ContainsImage())
-            {
-                PasteImage(pasteLocation);
-            }
-
+            
             hasCutNode = false;
             if (StatusChanged != null) { StatusChanged(); }
 
