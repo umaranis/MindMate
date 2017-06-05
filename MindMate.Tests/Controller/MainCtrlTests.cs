@@ -28,6 +28,7 @@ namespace MindMate.Tests.Controller
 
             System.Threading.Thread t = new System.Threading.Thread(() =>
             {
+                MetaModel.MetaModel.Initialize();
                 var sut = new MainCtrl();
                 var form = new MainForm();
                 sut.InitMindMate(form, A.Fake<DialogManager>());
@@ -90,6 +91,7 @@ namespace MindMate.Tests.Controller
         {
             System.Threading.Thread t = new System.Threading.Thread(() =>
             {
+                MetaModel.MetaModel.Initialize();
                 var sut = new MainCtrl();
                 var form = new MainForm();
                 sut.InitMindMate(form, A.Fake<DialogManager>());
@@ -139,6 +141,7 @@ namespace MindMate.Tests.Controller
 
             System.Threading.Thread t = new System.Threading.Thread(() =>
             {
+                MetaModel.MetaModel.Initialize();
                 var sut = new MainCtrl();
                 var form = new MainForm();
                 DialogManager dialogs = A.Fake<DialogManager>();
@@ -191,6 +194,7 @@ namespace MindMate.Tests.Controller
 
             System.Threading.Thread t = new System.Threading.Thread(() =>
             {
+                MetaModel.MetaModel.Initialize();
                 var sut = new MainCtrl();
                 var form = new MainForm();
                 DialogManager dialogs = A.Fake<DialogManager>();
@@ -243,6 +247,7 @@ namespace MindMate.Tests.Controller
 
             System.Threading.Thread t = new System.Threading.Thread(() =>
             {
+                MetaModel.MetaModel.Initialize();
                 var sut = new MainCtrl();
                 var form = new MainForm();
                 DialogManager dialogs = A.Fake<DialogManager>();
@@ -295,6 +300,7 @@ namespace MindMate.Tests.Controller
 
             System.Threading.Thread t = new System.Threading.Thread(() =>
             {
+                MetaModel.MetaModel.Initialize();
                 var sut = new MainCtrl();
                 var form = new MainForm();
                 DialogManager dialogs = A.Fake<DialogManager>();

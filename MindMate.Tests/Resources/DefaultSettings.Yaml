@@ -212,5 +212,55 @@ icons:
 - name: male2
   title: male2
   shortcut: ''
-mapbackcolor: '#C0C0C0'
-notebackcolor: '#C0C0C0'
+mapbackcolor: '#FFFFFF'
+notebackcolor: '#FFFFFF'
+nodestyles:
+- title: Good
+  refnode:
+    text: Sample
+    created: 06/18/2016 05:54:28
+    modified: 06/18/2016 06:02:55
+    fontName: Calibri
+    fontSize: 11
+    backColor: '#C6EFCE'
+    color: '#006100'
+- title: Bad
+  refnode:
+    text: Sample
+    created: 06/18/2016 05:54:44
+    modified: 06/18/2016 06:02:55
+    fontName: Calibri
+    fontSize: 11
+    backColor: '#FFC7CE'
+    color: '#9C0006'
+- title: Neutral
+  refnode:
+    text: Sample
+    created: 06/18/2016 05:54:54
+    modified: 06/18/2016 06:02:55
+    fontName: Calibri
+    fontSize: 11
+    backColor: '#FFEB9C'
+    color: '#9C6500'
+- title: Explanatory Note
+  refnode:
+    text: Sample
+    created: 06/18/2016 05:55:07
+    modified: 06/18/2016 06:02:55
+    italic: True
+    fontSize: 9
+    color: '#666666'
+- title: Warning Text
+  refnode:
+    text: Sample
+    created: 06/18/2016 05:55:15
+    modified: 06/18/2016 06:02:55
+    color: '#FF0000'
+- title: Emphasize
+  refnode:
+    text: Sample
+    created: 06/18/2016 05:55:34
+    modified: 06/18/2016 06:02:55
+    shape: Bubble
+    lineWidth: 2
+    lineColor: '#00B050'

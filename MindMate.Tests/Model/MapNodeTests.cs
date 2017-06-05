@@ -1744,6 +1744,38 @@ namespace MindMate.Tests.Model
         }
 
         [TestMethod]
+        public void InsertImage_Jpg()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\OrangeTestImage.jpg"));
+            Assert.IsTrue(r.HasImage);
+        }
+
+        [TestMethod]
+        public void InsertImage_Bmp()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\OrangeTestImage.bmp"));
+            Assert.IsTrue(r.HasImage);
+        }
+
+        [TestMethod]
+        public void InsertImage_Gif()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\OrangeTestImage.gif"));
+            Assert.IsTrue(r.HasImage);
+        }
+
+        [TestMethod]
+        public void InsertImage_Tif()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\OrangeTestImage.tif"));
+            Assert.IsTrue(r.HasImage);
+        }
+
+        [TestMethod]
         public void GetImage_Null()
         {
             var r = new MapNode(new MapTree(), "r");

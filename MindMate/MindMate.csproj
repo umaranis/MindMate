@@ -130,7 +130,7 @@
     <Compile Include="Serialization\MapZipSerializer.cs" />
     <Compile Include="View\Dialogs\DialogManager.cs" />
     <Compile Include="View\MapControls\ImageView.cs" />
-    <Compile Include="View\NoteEditing\ClipboardImagePaster.cs" />
+    <Compile Include="View\NoteEditing\ImagePaster.cs" />
     <Compile Include="View\NoteEditing\ImageLocalPath.cs" />
     <Compile Include="View\NoteEditing\MimeTypes.cs" />
     <Compile Include="View\NoteEditing\MsHtmlWrap\HtmlImageCreator.cs" />

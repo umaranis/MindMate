@@ -63,6 +63,7 @@ namespace MindMate.Tests.Serialization
 
             Assert.IsTrue(result.Contains(MetaModelYamlSerializer.NodeStyles));
             Assert.IsTrue(result.Contains("Stylish"));
+            MetaModelHelper.CreateWithDefaultSettingsFile();
         }
 
         [TestMethod()]
@@ -205,6 +206,7 @@ namespace MindMate.Tests.Serialization
 
             Assert.IsNull(model.NodeStyles[0].Image);
             Assert.IsNull(model.NodeStyles[1].Image);
+            MetaModelHelper.CreateWithDefaultSettingsFile();
         }
     }
 }

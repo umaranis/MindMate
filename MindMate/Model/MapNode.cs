@@ -11,6 +11,7 @@ using MindMate.View.MapControls;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using MindMate.Serialization;
+using System.Drawing.Imaging;
 
 namespace MindMate.Model
 {
@@ -1633,8 +1634,24 @@ namespace MindMate.Model
 
         public void InsertImage(Image image)
         {
+            //figure out image extension            
+            string ext;
+            if (image.RawFormat.Equals(ImageFormat.Bmp))
+                ext = "bmp";
+            else if (image.RawFormat.Equals(ImageFormat.Gif))
+                ext = "gif";
+            else if (image.RawFormat.Equals(ImageFormat.Icon))
+                ext = "ico";
+            else if (image.RawFormat.Equals(ImageFormat.Jpeg))
+                ext = "jpg";
+            else if (image.RawFormat.Equals(ImageFormat.Tiff))
+                ext = "tiff";
+            else
+                ext = "png";
+
+            //add image to node
             var imageLOB = new ImageLob(image);
-            var imageKey = Guid.NewGuid().ToString() + "." + image.RawFormat.ToString();
+            var imageKey = Guid.NewGuid().ToString() + "." + ext;
             Tree.SetLargeObject(imageKey, imageLOB);
             Image = imageKey;
         }

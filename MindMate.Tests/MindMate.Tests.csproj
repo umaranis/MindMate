@@ -86,7 +86,7 @@
     <Compile Include="Model\ClipboardManagerTests.cs" />
     <Compile Include="Serialization\MapZipSerializerTests.cs" />
     <Compile Include="Serialization\PersistentTreeTests.cs" />
-    <Compile Include="View\NoteEditing\ClipboardImagePasterTests.cs" />
+    <Compile Include="View\NoteEditing\ImagePasterTests.cs" />
     <Compile Include="View\NoteEditing\HtmlTableHelperTests.cs" />
     <Compile Include="View\NoteEditing\ImageLocalProviderTests.cs" />
     <Compile Include="View\NoteEditing\ImageLocalSaverTests.cs" />
@@ -212,6 +212,18 @@
     <Content Include="Resources\NodeStyle-GenerateImage.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\OrangeTestImage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\OrangeTestImage.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\OrangeTestImage.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\OrangeTestImage.tif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Resources\Sample Map.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

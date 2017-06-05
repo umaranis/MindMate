@@ -31,8 +31,7 @@ namespace MindMate.Tests.Model
         [TestMethod()]
         public void Save()
         {
-            File.Copy(@"Resources\Settings.Yaml", Dir.UserSettingsDirectory + "Settings.Yaml", true);
-            MindMate.MetaModel.MetaModel.Initialize();
+            MetaModelHelper.CreateWithTestSettingsFile();
             MetaModel.MetaModel model = MindMate.MetaModel.MetaModel.Instance;
             model.Save();
         }

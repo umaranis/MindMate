@@ -14,7 +14,7 @@ using System.Windows.Forms;
 namespace MindMate.Tests.View.NoteEditing
 {
     [TestClass()]
-    public class ClipboardImagePasterTests
+    public class ImagePasterTests
     {
         [TestMethod()]
         public void ClipboardImagePaster_HookupEvents()
