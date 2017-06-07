@@ -54,7 +54,7 @@ namespace MindMate.Tests.Controller
                     sut.PersistenceManager.NewTree();
                     sut.PersistenceManager.CloseCurerntTree();
                 };
-                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                Timer timer = new Timer { Interval = 5 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
                 timer.Tick += delegate
                 {
                     if (timer.Tag == null)
@@ -104,7 +104,7 @@ namespace MindMate.Tests.Controller
                     sut.SaveCurrentMap();
                     
                 };
-                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                Timer timer = new Timer { Interval = 5 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
                 timer.Tick += delegate
                 {
                     if (timer.Tag == null)
@@ -155,7 +155,7 @@ namespace MindMate.Tests.Controller
                     sut.InsertImage();
                     imageAdded = form.NoteEditor.HTML.Contains("IMG") || form.NoteEditor.HTML.Contains("img");
                 };
-                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                Timer timer = new Timer { Interval = 5 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
                 timer.Tick += delegate
                 {
                     if (timer.Tag == null)
@@ -208,7 +208,7 @@ namespace MindMate.Tests.Controller
                     sut.InsertImage();
                     imageAdded = form.NoteEditor.HTML != null && (form.NoteEditor.HTML.Contains("IMG") || form.NoteEditor.HTML.Contains("img"));
                 };
-                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                Timer timer = new Timer { Interval = 5 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
                 timer.Tick += delegate
                 {
                     if (timer.Tag == null)
@@ -261,7 +261,7 @@ namespace MindMate.Tests.Controller
                     sut.InsertImage();
                     imageAdded = sut.CurrentMapCtrl.MapView.Tree.SelectedNodes.All(n => n.HasImage);
                 };
-                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                Timer timer = new Timer { Interval = 5 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
                 timer.Tick += delegate
                 {
                     if (timer.Tag == null)
@@ -314,7 +314,7 @@ namespace MindMate.Tests.Controller
                     sut.InsertImage();
                     imageAdded = sut.CurrentMapCtrl.MapView.Tree.SelectedNodes.All(n => n.HasImage);
                 };
-                Timer timer = new Timer { Interval = 50 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
+                Timer timer = new Timer { Interval = 5 }; //timer is used because the Dirty property is updated in the next event of GUI thread.
                 timer.Tick += delegate
                 {
                     if (timer.Tag == null)
