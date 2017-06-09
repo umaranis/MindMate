@@ -86,6 +86,7 @@
     <Compile Include="Model\ClipboardManagerTests.cs" />
     <Compile Include="Serialization\MapZipSerializerTests.cs" />
     <Compile Include="Serialization\PersistentTreeTests.cs" />
+    <Compile Include="View\MapControls\MapViewFormatPainterTests.cs" />
     <Compile Include="View\MapControls\MapViewPanelTests.cs" />
     <Compile Include="View\NoteEditing\ImagePasterTests.cs" />
     <Compile Include="View\NoteEditing\HtmlTableHelperTests.cs" />
