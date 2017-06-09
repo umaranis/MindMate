@@ -31,8 +31,8 @@ namespace MindMate.View.MapControls
 
         public event Action<MouseEventArgs> CanvasClick = delegate { };
 
-        public delegate void NodeMouseOverDelegate(MapNode node, NodeMouseEventArgs args);
-        public event NodeMouseOverDelegate NodeMouseOver = delegate { };
+        public delegate void NodeMouseHoverDelegate(MapNode node, NodeMouseEventArgs args);
+        public event NodeMouseHoverDelegate NodeMouseHover = delegate { };
 
         public event Action<MapNode, MouseEventArgs> NodeMouseEnter = delegate { };
         public event Action<MapNode, MouseEventArgs> NodeMouseExit = delegate { };        
@@ -218,7 +218,7 @@ namespace MindMate.View.MapControls
                 NodeMouseEventArgs args = new NodeMouseEventArgs(
                     new MouseEventArgs(System.Windows.Forms.MouseButtons.None, 0, clickPosition.X, clickPosition.Y, 0));
                 args.NodePortion = MapView.GetNodeView(mouseOverNode).GetNodeClickPortion(clickPosition);
-                NodeMouseOver(mouseOverNode, args);
+                NodeMouseHover(mouseOverNode, args);
             }
 
             base.OnMouseHover(e);                      

@@ -107,7 +107,7 @@ namespace MindMate.Controller
         }
 
         
-        public void MapNodeMouseOver(MapNode node, NodeMouseEventArgs evt)
+        public void MapNodeMouseHover(MapNode node, NodeMouseEventArgs evt)
         {
             if (mapCtrl.MapView.NodeTextEditor.IsTextEditing) return;
 

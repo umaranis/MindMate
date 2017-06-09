@@ -45,7 +45,7 @@ namespace MindMate.Controller
             MapView.Canvas.NodeClick += map.MapNodeClick;
             MapView.Canvas.NodeRightClick += map.NodeRightClick;
             MapView.Canvas.CanvasClick += map.CanvasClick;
-            MapView.Canvas.NodeMouseOver += map.MapNodeMouseOver;
+            MapView.Canvas.NodeMouseHover += map.MapNodeMouseHover;
             MapView.Canvas.NodeMouseEnter += map.NodeMouseEnter;
             MapView.Canvas.NodeMouseExit += map.NodeMouseExit;
             MapView.Canvas.KeyDown += new MapViewKeyEventHandler(this).canvasKeyDown;
