@@ -18,7 +18,7 @@ namespace MindMate.Tests.View.MapControls
     public class MapViewPanelTests
     {
         private MapView view = null;
-        private MapNode nodeEntered, nodeExit, nodeClicked, nodeRightClicked = null;
+        private MapNode nodeEntered = null, nodeExit = null, nodeClicked = null, nodeRightClicked = null;
         private bool canvasClicked = false;
 
         [TestMethod()]
@@ -107,6 +107,34 @@ namespace MindMate.Tests.View.MapControls
             //drop c1 on c2
             FireMouseUp((int)c2.NodeView.Right - 1, (int)c2.NodeView.Bottom - 1, MouseButtons.Right);
             ValidateAndReset(); //no click because it's drop
+
+            //drag c1
+            FireMouseMove((int)c1.NodeView.Right - 10, (int)c1.NodeView.Bottom - 5, MouseButtons.Right);
+            ValidateAndReset();
+
+            //dragging
+            FireMouseMove(500, 400, MouseButtons.Right);
+            ValidateAndReset();
+
+            //dragging
+            FireMouseMove(200, 200, MouseButtons.Right);
+            ValidateAndReset();
+
+            // drop c1 on r
+            FireMouseUp((int)r.NodeView.Right - 1, (int)r.NodeView.Bottom - 1, MouseButtons.Right);
+            ValidateAndReset(); //no click because it's drop
+
+            //drag canvas
+            FireMouseMove(50, 50, MouseButtons.Right);
+            ValidateAndReset();
+
+            //dragging
+            FireMouseMove(40, 40, MouseButtons.Right);
+            ValidateAndReset();
+
+            //drop
+            FireMouseUp(30, 30);
+            ValidateAndReset();
 
             FirePreviewKeyDown();
 
