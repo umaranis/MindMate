@@ -43,7 +43,6 @@ namespace MindMate.Tests.View
             Assert.IsNotNull(sut);
         }
 
-        [TestMethod()]
         private Form CreateForm()
         {
             Form form = new Form();

@@ -112,7 +112,6 @@ namespace MindMate.View.MapControls
 
             if (e.Button != System.Windows.Forms.MouseButtons.None && !MapView.NodeTextEditor.IsTextEditing)
             {
-                //Debug.WriteLine("Mouse Move: Dragging. MouseButtons: " + e.Button);
                 DragDropHandler.OnMouseDrag(e);
             }
             else
@@ -153,7 +152,6 @@ namespace MindMate.View.MapControls
         {
             MapNode clickedNode = MapView.GetMapNodeFromPoint(e.Location);
 
-            //Debug.WriteLine("Mouse Up: " + DragDropHandler.IsDragging);
             if (DragDropHandler.IsDragging)
             {
                 DragDropHandler.OnMouseDrop(e);               

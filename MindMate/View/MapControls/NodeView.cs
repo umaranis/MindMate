@@ -861,6 +861,14 @@ namespace MindMate.View.MapControls
             
         }
 
+        public bool IsPointInsideNode(Point p)
+        {
+            //Debug.WriteLine("IsPointInsideNode for " + node.Pos.ToString() + node.Text);
+            return
+                p.X > Left && p.X < Right &&
+                p.Y > Top && p.Y < Bottom;
+        }
+
         public NodePortion GetNodeClickPortion(Point point)
         {
             if (node.Pos == NodePosition.Left)
