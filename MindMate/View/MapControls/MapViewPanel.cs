@@ -34,6 +34,7 @@ namespace MindMate.View.MapControls
         public delegate void NodeMouseHoverDelegate(MapNode node, NodeMouseEventArgs args);
         public event NodeMouseHoverDelegate NodeMouseHover = delegate { };
 
+        public event Action<MapNode, NodeMouseEventArgs> NodeMouseMove;
         public event Action<MapNode, MouseEventArgs> NodeMouseEnter = delegate { };
         public event Action<MapNode, MouseEventArgs> NodeMouseExit = delegate { };        
 
@@ -120,6 +121,7 @@ namespace MindMate.View.MapControls
                                 
                 if (node != null)
                 {
+                    NodeMouseMove?.Invoke(node, new NodeMouseEventArgs(node.NodeView, e));
                     if (node != mouseOverNode)
                     {
                         if(mouseOverNode != null)
@@ -168,8 +170,7 @@ namespace MindMate.View.MapControls
                 }
                 else                
                 {
-                    var args = new NodeMouseEventArgs(e);
-                    args.NodePortion = MapView.GetNodeView(clickedNode).GetNodeClickPortion(e.Location);
+                    var args = new NodeMouseEventArgs(clickedNode.NodeView, e);
                     if (e.Button == System.Windows.Forms.MouseButtons.Right)
                     {
                         NodeRightClick(clickedNode, args);
@@ -213,9 +214,8 @@ namespace MindMate.View.MapControls
             mouseOverNode = MapView.GetMapNodeFromPoint(clickPosition);
             if(mouseOverNode != null)
             {
-                NodeMouseEventArgs args = new NodeMouseEventArgs(
+                NodeMouseEventArgs args = new NodeMouseEventArgs(mouseOverNode.NodeView, 
                     new MouseEventArgs(System.Windows.Forms.MouseButtons.None, 0, clickPosition.X, clickPosition.Y, 0));
-                args.NodePortion = MapView.GetNodeView(mouseOverNode).GetNodeClickPortion(clickPosition);
                 NodeMouseHover(mouseOverNode, args);
             }
 

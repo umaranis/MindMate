@@ -14,12 +14,17 @@ namespace MindMate.View.MapControls
 {
     public class NodeMouseEventArgs : MouseEventArgs
     {
-        public NodeMouseEventArgs(MouseEventArgs e)  : 
+        public NodeMouseEventArgs(NodeView nView, MouseEventArgs e)  : 
             base(e.Button, e.Clicks, e.X, e.Y, e.Delta)
         {
-            
+            NodePortion = nView.GetNodeClickPortion(e.Location);
+            var s = nView.GetSubControl(e.Location);
+            SubControl = s.Value;
+            SubControlType = s.Key;
         }
 
-        public NodePortion NodePortion { get; set; }
+        public NodePortion NodePortion { get; }
+        public SubControlType SubControlType { get; }
+        public object SubControl { get; }
     }
 }

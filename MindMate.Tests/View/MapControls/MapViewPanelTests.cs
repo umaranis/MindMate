@@ -18,7 +18,7 @@ namespace MindMate.Tests.View.MapControls
     public class MapViewPanelTests
     {
         private MapView view = null;
-        private MapNode nodeEntered = null, nodeExit = null, nodeClicked = null, nodeRightClicked = null;
+        private MapNode nodeMouseMoved = null, nodeEntered = null, nodeExit = null, nodeClicked = null, nodeRightClicked = null;
         private bool canvasClicked = false;
 
         [TestMethod()]
@@ -35,6 +35,7 @@ namespace MindMate.Tests.View.MapControls
             var form = new Form();
             form.Controls.Add(view.Canvas);
 
+            view.Canvas.NodeMouseMove += (o, e) => nodeMouseMoved = o;
             view.Canvas.NodeMouseEnter += (o, e) => nodeEntered = o;
             view.Canvas.NodeMouseExit += (o, e) => nodeExit = o;
             view.Canvas.NodeClick += (o, e) => nodeClicked = o;
@@ -47,7 +48,7 @@ namespace MindMate.Tests.View.MapControls
 
             //mouse move on root
             FireMouseMove((int)r.NodeView.Left + 1, (int)r.NodeView.Top + 1);
-            ValidateAndReset(entered: r);    
+            ValidateAndReset(moved: r, entered: r);    
 
             //mouse move over canvas
             FireMouseMove(0, 0);
@@ -55,15 +56,15 @@ namespace MindMate.Tests.View.MapControls
 
             //mouse move on root
             FireMouseMove((int)r.NodeView.Left + 1, (int)r.NodeView.Top + 1);
-            ValidateAndReset(entered: r);
+            ValidateAndReset(moved: r, entered: r);
 
             //mouse move on c1
             FireMouseMove((int)c1.NodeView.Left + 1, (int)c1.NodeView.Top + 1);
-            ValidateAndReset(entered: c1, exit: r);
+            ValidateAndReset(moved: c1, entered: c1, exit: r);
 
             //mouse move on c1
             FireMouseMove((int)c1.NodeView.Right - 1, (int)c1.NodeView.Bottom - 1);
-            ValidateAndReset();
+            ValidateAndReset(moved: c1);
 
             //mouse down on c1
             FireMouseDown((int)c1.NodeView.Right - 10, (int)c1.NodeView.Bottom - 5);
@@ -89,7 +90,7 @@ namespace MindMate.Tests.View.MapControls
 
             //mouse move on c1
             FireMouseMove((int)c1.NodeView.Right - 1, (int)c1.NodeView.Bottom - 1);
-            ValidateAndReset(entered: c1);
+            ValidateAndReset(moved: c1, entered: c1);
 
             //click with FormatPainter active
             view.FormatPainter.Copy(r);
@@ -141,14 +142,16 @@ namespace MindMate.Tests.View.MapControls
             view.Canvas.Dispose();
         }      
         
-        private void ValidateAndReset(MapNode entered = null, MapNode exit = null, MapNode clicked = null, MapNode nodeRightClicked = null, bool canvasClicked = false)
+        private void ValidateAndReset(MapNode moved = null, MapNode entered = null, MapNode exit = null, MapNode clicked = null, MapNode nodeRightClicked = null, bool canvasClicked = false)
         {
+            Assert.AreEqual(moved, nodeMouseMoved);
             Assert.AreEqual(entered, nodeEntered);
             Assert.AreEqual(exit, nodeExit);
             Assert.AreEqual(clicked, nodeClicked);
             Assert.AreEqual(nodeRightClicked, this.nodeRightClicked);
-            Assert.AreEqual(canvasClicked, this.canvasClicked);            
+            Assert.AreEqual(canvasClicked, this.canvasClicked);
 
+            this.nodeMouseMoved = null;
             this.nodeEntered = null;
             this.nodeExit = null;
             this.nodeClicked = null;

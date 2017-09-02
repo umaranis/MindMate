@@ -79,8 +79,8 @@ namespace MindMate.Controller
                 }
             }
 
-        }        
-
+        }
+        
         internal void NodeRightClick(MapNode node, NodeMouseEventArgs e)
         {
             if (mapCtrl.MapView.NodeTextEditor.IsTextEditing)
@@ -106,8 +106,7 @@ namespace MindMate.Controller
             }            
         }
 
-        
-        public void MapNodeMouseHover(MapNode node, NodeMouseEventArgs evt)
+        internal void MapNodeMouseMove(MapNode node, NodeMouseEventArgs evt)
         {
             if (mapCtrl.MapView.NodeTextEditor.IsTextEditing) return;
 
@@ -115,9 +114,6 @@ namespace MindMate.Controller
             {
                 return;
             }
-
-            
-            mapCtrl.MapView.SelectedNodes.Add(node, false);
 
             if (node.Link != null)
             {
@@ -138,6 +134,21 @@ namespace MindMate.Controller
                 mapCtrl.MapView.Canvas.Cursor = Cursors.Default;
             }
 
+            return;
+        }
+
+        public void MapNodeMouseHover(MapNode node, NodeMouseEventArgs evt)
+        {
+            if (mapCtrl.MapView.NodeTextEditor.IsTextEditing) return;
+
+            if (Control.ModifierKeys != Keys.None || mapCtrl.MapView.SelectedNodes.Count > 1)
+            {
+                return;
+            }
+
+            
+            mapCtrl.MapView.SelectedNodes.Add(node, false);
+            
             return;
             
             

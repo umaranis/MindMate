@@ -104,7 +104,7 @@ namespace MindMate.View.MapControls
             else
             {
                 this.dragObject = node;
-                NodeDragStart?.Invoke(node, new NodeMouseEventArgs(e));
+                NodeDragStart?.Invoke(node, new NodeMouseEventArgs(node.NodeView, e));
                 MapView.Canvas.Cursor = nodeDragCursor;
                 MapView.Canvas.KeyDown += Canvas_KeyDown;
             }

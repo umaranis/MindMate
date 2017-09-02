@@ -78,6 +78,11 @@ namespace MindMate.View.MapControls
             }            
         }
 
+        public bool Contains(Point p)
+        {
+            return p.X >= Location.X && p.Y >= Location.Y && p.X <= Location.X + Size.Width && p.Y <= Location.Y + Size.Height;
+        }
+
         Bitmap bitmap;
 
         public Bitmap Bitmap

@@ -82,6 +82,7 @@
   <ItemGroup>
     <Compile Include="Controller\MainCtrlTests.cs" />
     <Compile Include="Controller\MapCtrlTests.cs" />
+    <Compile Include="Controller\MapViewMouseEventHandlerTests.cs" />
     <Compile Include="Controller\NoteEditorCtrlTests.cs" />
     <Compile Include="Model\ClipboardManagerTests.cs" />
     <Compile Include="Serialization\MapZipSerializerTests.cs" />

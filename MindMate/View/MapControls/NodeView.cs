@@ -15,6 +15,7 @@ using MindMate.MetaModel;
 namespace MindMate.View.MapControls
 {
     public enum NodePortion { Body, Head };
+    public enum SubControlType { None, Text, Link, Note, Icon, Image };
 
     /// <summary>
     /// Three functionalities of NodeView:
@@ -885,6 +886,31 @@ namespace MindMate.View.MapControls
                 else
                     return NodePortion.Head;
             }
+        }
+
+        public KeyValuePair<SubControlType, object> GetSubControl(Point point)
+        {
+            if(RecText.Contains(point))
+            {
+                return new KeyValuePair<SubControlType, object>(SubControlType.Text, node.Text);
+            }
+            if (node.HasImage && ImageView.Contains(point))
+            {
+                return new KeyValuePair<SubControlType, object>(SubControlType.Image, node.Image);
+            }
+            if(node.HasLink && Link.Contains(point))
+            {
+                return new KeyValuePair<SubControlType, object>(SubControlType.Link, node.Link);
+            }
+            if(node.HasNoteText && NoteIcon.Contains(point))
+            {
+                return new KeyValuePair<SubControlType, object>(SubControlType.Note, node.NoteText);
+            }
+            foreach(var i in RecIcons)
+            {
+                if (i.Contains(point)) return new KeyValuePair<SubControlType, object>(SubControlType.Icon, i.Name);
+            }
+            return new KeyValuePair<SubControlType, object>(SubControlType.None, null);
         }
 
         public void FollowLink()
