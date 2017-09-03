@@ -65,16 +65,16 @@ namespace MindMate.Controller
                 mapCtrl.MapView.SelectedNodes.Add(node, shiftKeyDown || ctrlKeyDown);
 
                 //edit node or follow link (no children + only selected node + no key modifier)
-                if (mapCtrl.MapView.SelectedNodes.Count == 1 && !node.HasChildren &&
-                !shiftKeyDown && !ctrlKeyDown)
+                if (mapCtrl.MapView.SelectedNodes.Count == 1 && !node.HasChildren && 
+                    !shiftKeyDown && !ctrlKeyDown)
                 {
-                    if (node.Link == null)
-                    {
-                        mapCtrl.BeginNodeEdit(node, TextCursorPosition.End);
-                    }
-                    else
+                    if (node.Link != null)
                     {
                         mapCtrl.FollowLink(node);
+                    }
+                    else if(evt.SubControlType == SubControlType.Text || node.IsEmpty())
+                    {
+                        mapCtrl.BeginNodeEdit(node, TextCursorPosition.End);
                     }
                 }
             }

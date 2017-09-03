@@ -161,14 +161,14 @@ namespace MindMate.Tests.Controller
         public void MouseMove_SubControl_Icon()
         {
             bool result = false;
-            view.Canvas.NodeMouseMove += (node, e) => result = e.SubControlType == SubControlType.Icon;
+            view.Canvas.NodeMouseMove += (node, e) => result = e.SubControlType == SubControlType.Icon && "button_ok".Equals(e.SubControl);
             var r = view.Tree.RootNode;
             var c1 = new MapNode(r, "c1");
             c1.Icons.Add("button_ok");
 
             FireMouseMove((int)c1.NodeView.Left + 10, (int)c1.NodeView.Top + 10);
 
-            view.Canvas.NodeMouseMove -= (node, e) => result = e.SubControlType == SubControlType.Icon;
+            view.Canvas.NodeMouseMove -= (node, e) => result = e.SubControlType == SubControlType.Icon && "button_ok".Equals(e.SubControl);
 
             Assert.IsTrue(result);
         }
@@ -206,13 +206,43 @@ namespace MindMate.Tests.Controller
         }
 
         [TestMethod()]
-        public void MapNodeClick()
+        public void MapNodeClick_Fold()
         {
             var r = view.Tree.RootNode;
             var c1 = new MapNode(r, "c1");
             var c2 = new MapNode(c1, "c11");
             FireMouseUp((int)c1.NodeView.Left + 1, (int)c1.NodeView.Top + 1);
             Assert.IsTrue(c1.Folded);
+        }
+
+        [TestMethod()]
+        public void MapNodeClick_EditText()
+        {
+            var r = view.Tree.RootNode;
+            var c1 = new MapNode(r, "c1");            
+            FireMouseUp((int)c1.NodeView.Left + 10, (int)c1.NodeView.Top + 10);
+            Assert.IsTrue(view.NodeTextEditor.IsTextEditing);
+            view.NodeTextEditor.EndNodeEdit(true, true);
+        }
+
+        [TestMethod()]
+        public void MapNodeClick_EditText_EmptyNode()
+        {
+            var r = view.Tree.RootNode;
+            var c1 = new MapNode(r, "");
+            FireMouseUp((int)c1.NodeView.Left + 1, (int)c1.NodeView.Top + 1);
+            Assert.IsTrue(view.NodeTextEditor.IsTextEditing);
+            view.NodeTextEditor.EndNodeEdit(true, true);
+        }
+
+        [TestMethod()]
+        public void MapNodeClick_FollowLink()
+        {
+            var r = view.Tree.RootNode;
+            var c1 = new MapNode(r, "");
+            c1.Link = "Dummy Link";
+            FireMouseUp((int)c1.NodeView.Left + 1, (int)c1.NodeView.Top + 1);
+            Assert.IsFalse(view.NodeTextEditor.IsTextEditing);
         }
 
         [TestMethod()]
