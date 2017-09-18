@@ -111,6 +111,7 @@
     <Compile Include="MetaModel\StyleImageGenerator.cs" />
     <Compile Include="Model\AttributeSpec.cs" />
     <Compile Include="Model\AdvancedProperties.cs" />
+    <Compile Include="Model\ImageHelper.cs" />
     <Compile Include="Model\LargeObject.cs" />
     <Compile Include="Model\MapNode.Attribute.cs" />
     <Compile Include="Model\ClipboardManager.cs" />

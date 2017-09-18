@@ -75,7 +75,7 @@ namespace MindMate.Tests.View.MapControls
             r.NoteText = "note";
             r.Link = "link";
             r.Icons.Add("button_ok");
-            r.InsertImage(Image.FromFile(@"Resources\NodeStyle-GenerateImage.bmp"));
+            r.InsertImage(Image.FromFile(@"Resources\NodeStyle-GenerateImage.bmp"), false);
             NodeView sut = new NodeView(r);
 
             Assert.IsTrue(sut.Height >= sut.RecText.Height);

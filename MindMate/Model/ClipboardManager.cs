@@ -168,7 +168,7 @@ namespace MindMate.Model
 
         private static void PasteImage(MapNode pasteLocation)
         {
-            new MapNode(pasteLocation, "").InsertImage(Clipboard.GetImage());            
+            new MapNode(pasteLocation, "").InsertImage(Clipboard.GetImage(), true);            
         }
 
         private static string GetBrowserSourceLink()

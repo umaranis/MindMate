@@ -1641,7 +1641,7 @@ namespace MindMate.Controller
                 {
                     foreach (var node in tree.SelectedNodes)
                     {
-                        node.InsertImage(Image.FromFile(fileName));
+                        node.InsertImage(Image.FromFile(fileName), true);
                     }
                 }
             }

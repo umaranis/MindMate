@@ -85,6 +85,7 @@
     <Compile Include="Controller\MapViewMouseEventHandlerTests.cs" />
     <Compile Include="Controller\NoteEditorCtrlTests.cs" />
     <Compile Include="Model\ClipboardManagerTests.cs" />
+    <Compile Include="Model\ImageHelperTests.cs" />
     <Compile Include="Serialization\MapZipSerializerTests.cs" />
     <Compile Include="Serialization\PersistentTreeTests.cs" />
     <Compile Include="View\MapControls\MapViewFormatPainterTests.cs" />
@@ -214,6 +215,9 @@
     <Content Include="Resources\MapCtrl6.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\MindMap-2m.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Resources\NodeStyle-GenerateImage.bmp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

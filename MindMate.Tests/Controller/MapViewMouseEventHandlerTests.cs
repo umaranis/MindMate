@@ -180,7 +180,7 @@ namespace MindMate.Tests.Controller
             view.Canvas.NodeMouseMove += (node, e) => result = e.SubControlType == SubControlType.Image;
             var r = view.Tree.RootNode;
             var c1 = new MapNode(r, "c1");
-            c1.InsertImage(Image.FromFile(@"Resources\OrangeTestImage.jpg"));
+            c1.InsertImage(Image.FromFile(@"Resources\OrangeTestImage.jpg"), true);
 
             FireMouseMove((int)c1.NodeView.Left + 10, (int)c1.NodeView.Top + 10);
 
@@ -196,7 +196,7 @@ namespace MindMate.Tests.Controller
             view.Canvas.NodeMouseMove += (node, e) => result = e.SubControlType == SubControlType.Text;
             var r = view.Tree.RootNode;
             var c1 = new MapNode(r, "c1");
-            c1.InsertImage(Image.FromFile(@"Resources\OrangeTestImage.jpg"));
+            c1.InsertImage(Image.FromFile(@"Resources\OrangeTestImage.jpg"), true);
 
             FireMouseMove((int)c1.NodeView.Left + 10, (int)c1.NodeView.Top + 22);
 

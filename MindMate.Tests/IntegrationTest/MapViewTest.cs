@@ -102,39 +102,39 @@ namespace MindMateTest
 			Image testImage = Image.FromFile(@"Resources\TestImage.png");
 			var longText = "This is a very very long text. This is a very very long text. This is a very very long text. This is a very very long text. This is a very very long text. This is a very very long text. This is a very very long text. This is a very very long text. This is a very very long text. This is a very very long text. ";
 
-			tree.RootNode.InsertImage(testImage);
+			tree.RootNode.InsertImage(testImage, true);
 
 			//right
 			var rNode = new MapNode(tree.RootNode, null, NodePosition.Right);
-			rNode.InsertImage(testImage);
+			rNode.InsertImage(testImage, true);
 
 			var rWithText = new MapNode(tree.RootNode, "Text", NodePosition.Right);
-			rWithText.InsertImage(testImage);
+			rWithText.InsertImage(testImage, true);
 
 			var rSmallerImageWithText = new MapNode(tree.RootNode, "Text", NodePosition.Right);
-			rSmallerImageWithText.InsertImage(testImage);
+			rSmallerImageWithText.InsertImage(testImage, true);
 			rSmallerImageWithText.ImageSize = new Size(10, 10);
 
 			var rWithLongText = new MapNode(tree.RootNode, longText, NodePosition.Right);
-			rWithLongText.InsertImage(testImage);
+			rWithLongText.InsertImage(testImage, true);
 
 			var rTextnIcon = new MapNode(tree.RootNode, "Text", NodePosition.Right);
-			rTextnIcon.InsertImage(testImage);
+			rTextnIcon.InsertImage(testImage, true);
 			rTextnIcon.Icons.Add("button_ok");
 
 			var rSmallTextnIcon = new MapNode(tree.RootNode, "Text", NodePosition.Right);
 			rSmallTextnIcon.FontSize = 4;
-			rSmallTextnIcon.InsertImage(testImage);
+			rSmallTextnIcon.InsertImage(testImage, true);
 			rSmallTextnIcon.Icons.Add("button_ok");
 
 			var rSmallTextnIconOnly = new MapNode(tree.RootNode, "Text", NodePosition.Right);
 			rSmallTextnIconOnly.FontSize = 4;
 			rSmallTextnIconOnly.Icons.Add("button_ok");
-			rSmallTextnIconOnly.InsertImage(testImage);
+			rSmallTextnIconOnly.InsertImage(testImage, true);
 			rSmallTextnIconOnly.RemoveImage();
 
 			var rWithLongTextnIcon = new MapNode(tree.RootNode, longText, NodePosition.Right);
-			rWithLongTextnIcon.InsertImage(testImage);
+			rWithLongTextnIcon.InsertImage(testImage, true);
 			rWithLongTextnIcon.Icons.Add("button_ok");
 
 			var rIConOnly = new MapNode(tree.RootNode, null, NodePosition.Right);
@@ -145,35 +145,35 @@ namespace MindMateTest
 
 			//left
 			var lNode = new MapNode(tree.RootNode, null, NodePosition.Left);
-			lNode.InsertImage(testImage);
+			lNode.InsertImage(testImage, true);
 
 			var lWithText = new MapNode(tree.RootNode, "Text", NodePosition.Left);
-			lWithText.InsertImage(testImage);
+			lWithText.InsertImage(testImage, true);
 
 			var lSmallerImageWithText = new MapNode(tree.RootNode, "Text", NodePosition.Left);
-			lSmallerImageWithText.InsertImage(testImage);
+			lSmallerImageWithText.InsertImage(testImage, true);
 			lSmallerImageWithText.ImageSize = new Size(10, 10);
 
 			var lWithLongText = new MapNode(tree.RootNode, longText, NodePosition.Left);
-			lWithLongText.InsertImage(testImage);
+			lWithLongText.InsertImage(testImage, true);
 
 			var lTextnIcon = new MapNode(tree.RootNode, "Text", NodePosition.Left);
-			lTextnIcon.InsertImage(testImage);
+			lTextnIcon.InsertImage(testImage, true);
 			lTextnIcon.Icons.Add("button_ok");
 
 			var lSmallTextnIcon = new MapNode(tree.RootNode, "Text", NodePosition.Left);
 			lSmallTextnIcon.Icons.Add("button_ok");
 			lSmallTextnIcon.FontSize = 4;
-			lSmallTextnIcon.InsertImage(testImage);
+			lSmallTextnIcon.InsertImage(testImage, true);
 
 			var lSmallTextnIconOnly = new MapNode(tree.RootNode, "Text", NodePosition.Left);
 			lSmallTextnIconOnly.Icons.Add("button_ok");
 			lSmallTextnIconOnly.FontSize = 4;
-			lSmallTextnIconOnly.InsertImage(testImage);
+			lSmallTextnIconOnly.InsertImage(testImage, true);
 			lSmallTextnIconOnly.RemoveImage();
 
 			var lWithLongTextnIcon = new MapNode(tree.RootNode, longText, NodePosition.Left);
-			lWithLongTextnIcon.InsertImage(testImage);
+			lWithLongTextnIcon.InsertImage(testImage, true);
 			lWithLongTextnIcon.Icons.Add("button_ok");
 
 			var lIConOnly = new MapNode(tree.RootNode, null, NodePosition.Left);
@@ -233,7 +233,7 @@ namespace MindMateTest
 			MapNode CreateNode(string text, ImageAlignment align, NodePosition pos)
 			{
 				var n1 = new MapNode(tree.RootNode, text, pos);
-				n1.InsertImage(testImage);
+				n1.InsertImage(testImage, false);
 				n1.ImageAlignment = align;
 				new MapNode(n1, align.ToString());
 				return n1;
@@ -322,7 +322,8 @@ namespace MindMateTest
 			MapNode CreateNode(string text, ImageAlignment align, NodePosition pos)
 			{
 				var n1 = new MapNode(tree.RootNode, text, pos);
-				n1.InsertImage(testImage);
+				n1.InsertImage(testImage, false);
+
 				n1.ImageAlignment = align;
 				n1.Icons.Add("button_ok");
 				new MapNode(n1, align.ToString());

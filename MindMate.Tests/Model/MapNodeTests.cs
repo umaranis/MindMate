@@ -1739,7 +1739,7 @@ namespace MindMate.Tests.Model
         public void InsertImage()
         {
             var r = new MapNode(new MapTree(), "r");
-            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\MapCtrl1.png"));
+            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\MapCtrl1.png"), true);
             Assert.IsTrue(r.HasImage);
         }
 
@@ -1747,7 +1747,7 @@ namespace MindMate.Tests.Model
         public void InsertImage_Jpg()
         {
             var r = new MapNode(new MapTree(), "r");
-            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\OrangeTestImage.jpg"));
+            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\OrangeTestImage.jpg"), true);
             Assert.IsTrue(r.HasImage);
         }
 
@@ -1755,7 +1755,7 @@ namespace MindMate.Tests.Model
         public void InsertImage_Bmp()
         {
             var r = new MapNode(new MapTree(), "r");
-            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\OrangeTestImage.bmp"));
+            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\OrangeTestImage.bmp"), true);
             Assert.IsTrue(r.HasImage);
         }
 
@@ -1763,7 +1763,7 @@ namespace MindMate.Tests.Model
         public void InsertImage_Gif()
         {
             var r = new MapNode(new MapTree(), "r");
-            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\OrangeTestImage.gif"));
+            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\OrangeTestImage.gif"), true);
             Assert.IsTrue(r.HasImage);
         }
 
@@ -1771,7 +1771,7 @@ namespace MindMate.Tests.Model
         public void InsertImage_Tif()
         {
             var r = new MapNode(new MapTree(), "r");
-            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\OrangeTestImage.tif"));
+            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\OrangeTestImage.tif"), true);
             Assert.IsTrue(r.HasImage);
         }
 
@@ -1786,7 +1786,7 @@ namespace MindMate.Tests.Model
         public void GetImage()
         {
             var r = new MapNode(new MapTree(), "r");
-            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\MapCtrl1.png"));
+            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\MapCtrl1.png"), true);
             Assert.IsNotNull(r.GetImage());
         }
 
@@ -1794,7 +1794,7 @@ namespace MindMate.Tests.Model
         public void RemoveImage()
         {
             var r = new MapNode(new MapTree(), "r");
-            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\MapCtrl1.png"));
+            r.InsertImage(System.Drawing.Image.FromFile(@"Resources\MapCtrl1.png"), true);
             Assert.IsTrue(r.HasImage);
             r.RemoveImage();
             Assert.IsFalse(r.HasImage);

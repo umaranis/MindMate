@@ -1630,30 +1630,29 @@ namespace MindMate.Model
                 }
                 current = sortedUpto.Next;
             }
-        }
+        }        
 
-        public void InsertImage(Image image)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="image"></param>
+        /// <param name="reduceSize">reduces the image size to default maximum</param>
+        public void InsertImage(Image image, bool reduceSize)
         {
             //figure out image extension            
-            string ext;
-            if (image.RawFormat.Equals(ImageFormat.Bmp))
-                ext = "bmp";
-            else if (image.RawFormat.Equals(ImageFormat.Gif))
-                ext = "gif";
-            else if (image.RawFormat.Equals(ImageFormat.Icon))
-                ext = "ico";
-            else if (image.RawFormat.Equals(ImageFormat.Jpeg))
-                ext = "jpg";
-            else if (image.RawFormat.Equals(ImageFormat.Tiff))
-                ext = "tiff";
-            else
-                ext = "png";
+            string ext = ImageHelper.GetExtension(image);
+            
 
             //add image to node
             var imageLOB = new ImageLob(image);
             var imageKey = Guid.NewGuid().ToString() + "." + ext;
             Tree.SetLargeObject(imageKey, imageLOB);
-            Image = imageKey;
+            Image = imageKey;    
+            
+            if(reduceSize)
+            {
+                ImageSize = ImageHelper.CalculateDefaultSize(image.Size);
+            }
         }
 
         public Image GetImage()
