@@ -295,9 +295,9 @@ Note:
       <Command.LargeImages><Image>Res/sticky-note.bmp</Image></Command.LargeImages>
     </Command>
 
-    <!--Group: Note-->
+    <!--Group: Image-->
     <Command Name="GrpImage" Id="4400" LabelTitle="Image" />
-    <Command Name="InsertImage" Id="4401" LabelTitle="Insert Image" />
+    <Command Name="InsertImage" Id="4401" LabelTitle="Insert" />
     
     <!--Group: Task-->
     <Command Name="GrpTask" Id="4300" LabelTitle="Task" />
@@ -379,6 +379,18 @@ Note:
         <Image>Res/sticky-note.bmp</Image>
       </Command.LargeImages>
     </Command>
+
+    <!--Tab: Image-->    
+    <Command Name="TabImage" LabelTitle="Image" Id="9002" />
+
+    <!--Group: Image-->
+    <!--GrpImage and InsertImage commands are already defined above for Insert tab-->
+    <Command Name="RemoveImage" LabelTitle="Remove" Id="9101" />
+
+    <!--Group: Image Size-->
+    <Command Name="GrpImageSize" LabelTitle="Size" Id="9200" />
+    <Command Name="IncreaseImageSize" LabelTitle="Increase" TooltipDescription="Increase image size" Id="9201" />
+    <Command Name="DecreaseImageSize" LabelTitle="Decrease" TooltipDescription="Decrease image size" Id="9202" />
     
     <!--Tab: Note Editor-->
     <Command Name="TabGroupNote" Id="7000" LabelTitle="Note Editor"/>
@@ -444,9 +456,8 @@ Note:
     <Command Name="MoveRowUp" Keytip="MA" LabelTitle="Move above" TooltipDescription="Swap the current row with the one above." Id="8501" />
     <Command Name="MoveRowDown" Keytip="MB" LabelTitle="Move below" TooltipDescription="Swap the current row with the one below." Id="8502" />
     <Command Name="MoveColumnLeft" Keytip="ML" LabelTitle="Move left" TooltipDescription="Swap the selected column with the one to the left." Id="8503" />
-    <Command Name="MoveColumnRight" Keytip="MR" LabelTitle="Move right" TooltipDescription="Swap the selected column with the one to the right." Id="8504" />
+    <Command Name="MoveColumnRight" Keytip="MR" LabelTitle="Move right" TooltipDescription="Swap the selected column with the one to the right." Id="8504" />    
 
-        
   </Application.Commands>
                    
   <Application.Views>
@@ -881,6 +892,16 @@ Note:
             <Button CommandName="ViewNote"/>
           </Group>
         </Tab>
+        <Tab CommandName="TabImage">
+          <Group CommandName="GrpImage" SizeDefinition="TwoButtons">
+            <Button CommandName="InsertImage" />
+            <Button CommandName="RemoveImage" />
+          </Group>
+          <!--<Group CommandName="GrpImageSize" SizeDefinition="TwoButtons">
+            <Button CommandName="IncreaseImageSize" />
+            <Button CommandName="DecreaseImageSize" />
+          </Group>-->
+        </Tab>
       </Ribbon.Tabs>
       <Ribbon.SizeDefinitions>
         <SizeDefinition Name="EightSmallButtons">
@@ -1037,7 +1058,7 @@ Note:
               <Button CommandName="MoveColumnRight"/>
             </Group>
           </Tab>
-        </TabGroup>
+        </TabGroup>        
       </Ribbon.ContextualTabs>
     </Ribbon>
   </Application.Views>

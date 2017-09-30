@@ -1671,6 +1671,7 @@ namespace MindMate.Model
         {
             //TODO: Remove image LOB from Tree (this should take care of undo and clipboard functionality)
             Image = null;
+            ImageSize = Size.Empty;
         }
 
         #region Select

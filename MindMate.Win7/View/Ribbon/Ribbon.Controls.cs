@@ -146,6 +146,11 @@ namespace MindMate.View.Ribbon
 		private RibbonButton ViewTaskList;		
 		private RibbonGroup GrpViewNote;		
 		private RibbonButton ViewNote;		
+		private RibbonTab TabImage;		
+		private RibbonButton RemoveImage;		
+		private RibbonGroup GrpImageSize;		
+		private RibbonButton IncreaseImageSize;		
+		private RibbonButton DecreaseImageSize;		
 		private RibbonTabGroup TabGroupNote;		
 		private RibbonTab TabNoteEditor;		
 		private RibbonGroup GrpNoteFont;		
@@ -323,6 +328,11 @@ namespace MindMate.View.Ribbon
 			ViewTaskList = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ViewTaskList);
 			GrpViewNote = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpViewNote);
 			ViewNote = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ViewNote);
+			TabImage = new RibbonTab(ribbon, (uint)RibbonMarkupCommands.TabImage);
+			RemoveImage = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.RemoveImage);
+			GrpImageSize = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpImageSize);
+			IncreaseImageSize = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.IncreaseImageSize);
+			DecreaseImageSize = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.DecreaseImageSize);
 			TabGroupNote = new RibbonTabGroup(ribbon, (uint)RibbonMarkupCommands.TabGroupNote);
 			TabNoteEditor = new RibbonTab(ribbon, (uint)RibbonMarkupCommands.TabNoteEditor);
 			GrpNoteFont = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpNoteFont);

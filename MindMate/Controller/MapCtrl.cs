@@ -1647,5 +1647,16 @@ namespace MindMate.Controller
             }
         }
 
+        public void RemoveImage()
+        {
+            using (tree.ChangeManager.StartBatch("Remove Image"))
+            {
+                foreach (var node in tree.SelectedNodes)
+                {
+                    node.RemoveImage();
+                }
+            }
+        }
+
     }
 }

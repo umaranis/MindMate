@@ -1976,5 +1976,29 @@ namespace MindMate.Tests.Controller
             Assert.AreEqual(1, r.ChildNodes.Count());
         }
 
+        [TestMethod()]
+        public void InsertAndRemoveImage()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            DialogManager dialogs = A.Fake<DialogManager>();
+            A.CallTo(() => dialogs.GetImageFile()).Returns(@"Resources\TestImage.png");
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), dialogs, null);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            c2.Selected = true;
+            c1.AddToSelection();
+
+            mapCtrl.InsertImage();
+            Assert.AreEqual(2, tree.RootNode.RollUpAggregate<int>(n => n.HasImage ? 1 : 0, (a, b) => a + b));
+
+            mapCtrl.RemoveImage();
+            Assert.AreEqual(0, tree.RootNode.RollUpAggregate<int>(n => n.HasImage ? 1 : 0, (a, b) => a + b));
+        }
+
     }
 }

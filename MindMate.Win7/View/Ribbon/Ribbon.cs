@@ -169,6 +169,9 @@ namespace MindMate.View.Ribbon
             //View Tab: View Note
             ViewNote.ExecuteEvent += ViewNote_ExecuteEvent;
 
+            //Image Tab
+            RemoveImage.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.RemoveImage();
+
             //Note Editor Tab: Paragraph
             Bullets.ExecuteEvent += (o, e) => mainForm.NoteEditor.AddBullets();
             Numbers.ExecuteEvent += (o, e) => mainForm.NoteEditor.AddNumbering();
@@ -224,6 +227,8 @@ namespace MindMate.View.Ribbon
         {
 			InsertImage.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Add_Image_32);
 			InsertImage.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Add_Image_16);
+            RemoveImage.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Remove_Image_32);
+            RemoveImage.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Remove_Image_16);
 
 			NodeShape.LargeImage = ribbon.ConvertToUIImage(Resources.Node_Format_Bubble);
             Bullets.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Bullets_SmallImage);
@@ -1134,7 +1139,7 @@ namespace MindMate.View.Ribbon
 
         private void SelectedNodes_NodeSelected(MapNode node, SelectedNodes selectedNodes)
         {
-            UpdateFontControl(selectedNodes);
+            UpdateFontControl(selectedNodes);            
         }
 
         private void SelectedNodes_NodeDeselected(MapNode node, SelectedNodes selectedNodes)
@@ -1245,7 +1250,7 @@ namespace MindMate.View.Ribbon
             else if(lostFocus == mainForm.NoteEditor)
             {
                 TabGroupNote.ContextAvailable = ContextAvailability.NotAvailable;
-                TabGroupNoteTable.ContextAvailable = ContextAvailability.NotAvailable;
+                TabGroupNoteTable.ContextAvailable = ContextAvailability.NotAvailable;                
             }
         }
 

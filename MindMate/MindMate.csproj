@@ -588,6 +588,8 @@
     <None Include="Resources\NoteEditHtml-16bit.png" />
     <None Include="Resources\Add_Image_16.png" />
     <None Include="Resources\Add_Image_32.png" />
+    <None Include="Resources\Remove_Image_16.png" />
+    <None Include="Resources\Remove_Image_32.png" />
     <Content Include="Serialization\MapYamlSerializer.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapYamlSerializer.Generated.cs</LastGenOutput>
