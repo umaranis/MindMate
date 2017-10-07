@@ -1658,5 +1658,27 @@ namespace MindMate.Controller
             }
         }
 
+        public void IncreaseImageSize()
+        {
+            using (tree.ChangeManager.StartBatch("Increase Image Size"))
+            {
+                foreach (var node in tree.SelectedNodes.Where(n => n.HasImage))
+                {
+                    node.ImageSize = new Size((int)(node.ImageSize.Width * 1.1), (int)(node.ImageSize.Height * 1.1));
+                }
+            }
+        }
+
+        public void DecreaseImageSize()
+        {
+            using (tree.ChangeManager.StartBatch("Decrease Image Size"))
+            {
+                foreach (var node in tree.SelectedNodes.Where(n => n.HasImage))
+                {
+                    node.ImageSize = new Size((int)(node.ImageSize.Width * 0.9), (int)(node.ImageSize.Height * 0.9));
+                }
+            }
+        }
+
     }
 }

@@ -590,6 +590,10 @@
     <None Include="Resources\Add_Image_32.png" />
     <None Include="Resources\Remove_Image_16.png" />
     <None Include="Resources\Remove_Image_32.png" />
+    <None Include="Resources\resize-8-16.png" />
+    <None Include="Resources\resize-9-32.png" />
+    <None Include="Resources\resize-9-16.png" />
+    <None Include="Resources\resize-8-32.png" />
     <Content Include="Serialization\MapYamlSerializer.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapYamlSerializer.Generated.cs</LastGenOutput>

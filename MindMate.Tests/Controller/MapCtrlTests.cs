@@ -2000,5 +2000,65 @@ namespace MindMate.Tests.Controller
             Assert.AreEqual(0, tree.RootNode.RollUpAggregate<int>(n => n.HasImage ? 1 : 0, (a, b) => a + b));
         }
 
+        [TestMethod()]
+        public void IncreaseImageSize()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            DialogManager dialogs = A.Fake<DialogManager>();
+            A.CallTo(() => dialogs.GetImageFile()).Returns(@"Resources\TestImage.png");
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), dialogs, null);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            c2.Selected = true;
+            c1.AddToSelection();
+
+            mapCtrl.InsertImage();
+            Size sc1 = c1.ImageSize;
+            Size sc2 = c2.ImageSize;
+            mapCtrl.IncreaseImageSize();
+
+            Assert.IsTrue(sc1.Height < c1.ImageSize.Height);
+            Assert.IsTrue(sc1.Width < c1.ImageSize.Width);
+            Assert.IsTrue(sc2.Height < c2.ImageSize.Height);
+            Assert.IsTrue(sc2.Width < c2.ImageSize.Width);
+            Assert.IsTrue(r.ImageSize.IsEmpty);
+
+        }
+
+        [TestMethod()]
+        public void DecreaseImageSize()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            DialogManager dialogs = A.Fake<DialogManager>();
+            A.CallTo(() => dialogs.GetImageFile()).Returns(@"Resources\TestImage.png");
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), dialogs, null);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            c2.Selected = true;
+            c1.AddToSelection();
+
+            mapCtrl.InsertImage();
+            Size sc1 = c1.ImageSize;
+            Size sc2 = c2.ImageSize;
+            mapCtrl.DecreaseImageSize();
+
+            Assert.IsTrue(sc1.Height > c1.ImageSize.Height);
+            Assert.IsTrue(sc1.Width > c1.ImageSize.Width);
+            Assert.IsTrue(sc2.Height > c2.ImageSize.Height);
+            Assert.IsTrue(sc2.Width > c2.ImageSize.Width);
+            Assert.IsTrue(r.ImageSize.IsEmpty);
+
+        }
+
     }
 }

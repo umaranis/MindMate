@@ -873,6 +873,46 @@ namespace MindMate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap resize_8_16 {
+            get {
+                object obj = ResourceManager.GetObject("resize_8_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap resize_8_32 {
+            get {
+                object obj = ResourceManager.GetObject("resize_8_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap resize_9_16 {
+            get {
+                object obj = ResourceManager.GetObject("resize_9_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap resize_9_32 {
+            get {
+                object obj = ResourceManager.GetObject("resize_9_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap smartart_change_color_gallery_16 {
             get {
                 object obj = ResourceManager.GetObject("smartart_change_color_gallery_16", resourceCulture);

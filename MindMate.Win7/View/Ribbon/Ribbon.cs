@@ -171,6 +171,8 @@ namespace MindMate.View.Ribbon
 
             //Image Tab
             RemoveImage.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.RemoveImage();
+            IncreaseImageSize.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.IncreaseImageSize();
+            DecreaseImageSize.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.DecreaseImageSize();
 
             //Note Editor Tab: Paragraph
             Bullets.ExecuteEvent += (o, e) => mainForm.NoteEditor.AddBullets();
@@ -229,8 +231,12 @@ namespace MindMate.View.Ribbon
 			InsertImage.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Add_Image_16);
             RemoveImage.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Remove_Image_32);
             RemoveImage.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Remove_Image_16);
+            IncreaseImageSize.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.resize_8_32);
+            IncreaseImageSize.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.resize_8_16);
+            DecreaseImageSize.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.resize_9_32);
+            DecreaseImageSize.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.resize_9_32);
 
-			NodeShape.LargeImage = ribbon.ConvertToUIImage(Resources.Node_Format_Bubble);
+            NodeShape.LargeImage = ribbon.ConvertToUIImage(Resources.Node_Format_Bubble);
             Bullets.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Bullets_SmallImage);
             Numbers.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Numbers_SmallImage);
             Outdent.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Outdent_SmallImage);

@@ -897,10 +897,10 @@ Note:
             <Button CommandName="InsertImage" />
             <Button CommandName="RemoveImage" />
           </Group>
-          <!--<Group CommandName="GrpImageSize" SizeDefinition="TwoButtons">
+          <Group CommandName="GrpImageSize" SizeDefinition="TwoButtons">
             <Button CommandName="IncreaseImageSize" />
             <Button CommandName="DecreaseImageSize" />
-          </Group>-->
+          </Group>
         </Tab>
       </Ribbon.Tabs>
       <Ribbon.SizeDefinitions>
