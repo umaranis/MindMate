@@ -100,64 +100,63 @@ namespace MindMate.Serialization
         /// <param name="textReader"></param>
         public void Deserialize(MetaModel.MetaModel metaModel, TextReader textReader)
         {
-            Parser p = new Parser(textReader);
-            EventReader r = new EventReader(p);
+            Parser p = new Parser(textReader);            
 
-            r.Expect<StreamStart>();
-            r.Expect<DocumentStart>();
-            r.Expect<MappingStart>();
+            p.Expect<StreamStart>();
+            p.Expect<DocumentStart>();
+            p.Expect<MappingStart>();
 
-            Scalar section = r.Peek<Scalar>();
+            Scalar section = p.Peek<Scalar>();
             if (section.Value.Equals(Icons))
             {
-                r.Expect<Scalar>();
-                DeserializeIcons(metaModel, r);
-                section = r.Peek<Scalar>();
+                p.Expect<Scalar>();
+                DeserializeIcons(metaModel, p);
+                section = p.Peek<Scalar>();
             }
 
             if (section != null && section.Value.Equals(RecentFiles))
             {
-                r.Expect<Scalar>();
-                DeserializeRecentFiles(metaModel, r);
-                section = r.Peek<Scalar>();
+                p.Expect<Scalar>();
+                DeserializeRecentFiles(metaModel, p);
+                section = p.Peek<Scalar>();
             }
 
             if (section != null && section.Value.Equals(LastOpenedFile))
             {
-                r.Expect<Scalar>();
-                metaModel.LastOpenedFile = r.Expect<Scalar>().Value;
-                section = r.Peek<Scalar>();
+                p.Expect<Scalar>();
+                metaModel.LastOpenedFile = p.Expect<Scalar>().Value;
+                section = p.Peek<Scalar>();
             }
 
             if (section != null && section.Value.Equals(MapBackColor))
             {
-                r.Expect<Scalar>();
-                metaModel.MapEditorBackColor = (Color)(new ColorConverter().ConvertFromString(r.Expect<Scalar>().Value));
-                section = r.Peek<Scalar>();
+                p.Expect<Scalar>();
+                metaModel.MapEditorBackColor = (Color)(new ColorConverter().ConvertFromString(p.Expect<Scalar>().Value));
+                section = p.Peek<Scalar>();
             }
 
             if (section != null && section.Value.Equals(NoteBackColor))
             {
-                r.Expect<Scalar>();
-                metaModel.NoteEditorBackColor = (Color)(new ColorConverter().ConvertFromString(r.Expect<Scalar>().Value));
-                section = r.Peek<Scalar>(); 
+                p.Expect<Scalar>();
+                metaModel.NoteEditorBackColor = (Color)(new ColorConverter().ConvertFromString(p.Expect<Scalar>().Value));
+                section = p.Peek<Scalar>(); 
             }
 
             if (section != null && section.Value.Equals(NodeStyles))
             {
-                r.Expect<Scalar>();
-                DeserializeNodeStyles(metaModel, r);
+                p.Expect<Scalar>();
+                DeserializeNodeStyles(metaModel, p);
                 //section = r.Peek<Scalar>(); //uncomment when adding another section
             }
 
             
 
-            r.Expect<MappingEnd>();
-            r.Expect<DocumentEnd>();
-            r.Expect<StreamEnd>();
+            p.Expect<MappingEnd>();
+            p.Expect<DocumentEnd>();
+            p.Expect<StreamEnd>();
         }
 
-        private void DeserializeIcons(MetaModel.MetaModel metaModel, EventReader r)
+        private void DeserializeIcons(MetaModel.MetaModel metaModel, Parser r)
         {
             r.Expect<SequenceStart>();
 
@@ -174,7 +173,7 @@ namespace MindMate.Serialization
         /// </summary>
         /// <param name="metaModel"></param>
         /// <param name="r"></param>
-        private void DeserializeIcon(MetaModel.MetaModel metaModel, EventReader r)
+        private void DeserializeIcon(MetaModel.MetaModel metaModel, Parser r)
         {
             string name = null, title = null, shortcut = null;
             r.Expect<MappingStart>();
@@ -197,7 +196,7 @@ namespace MindMate.Serialization
             metaModel.IconsList.Add(new ModelIcon(name, title, shortcut));
         }
 
-        private void DeserializeRecentFiles(MetaModel.MetaModel metaModel, EventReader r)
+        private void DeserializeRecentFiles(MetaModel.MetaModel metaModel, Parser r)
         {
             r.Expect<SequenceStart>();
 
@@ -209,7 +208,7 @@ namespace MindMate.Serialization
             r.Expect<SequenceEnd>();
         }
 
-        private void DeserializeNodeStyles(MetaModel.MetaModel metaModel, EventReader r)
+        private void DeserializeNodeStyles(MetaModel.MetaModel metaModel, Parser r)
         {
             r.Expect<SequenceStart>();
 
@@ -221,7 +220,7 @@ namespace MindMate.Serialization
             r.Expect<SequenceEnd>();
         }
 
-        private void DeserializeNodeStyle(MetaModel.MetaModel metaModel, EventReader r)
+        private void DeserializeNodeStyle(MetaModel.MetaModel metaModel, Parser r)
         {
             var s = new NodeStyle();
 

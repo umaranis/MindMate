@@ -109,12 +109,11 @@ namespace MindMate.Tests.Serialization
             string text = writer.ToString();
 
             var parser = new Parser(new StringReader(text));
-            var eventReader = new EventReader(parser);
-            eventReader.Expect<StreamStart>();
-            eventReader.Expect<DocumentStart>();
-            var result = sut.Deserialize(eventReader);
-            eventReader.Expect<DocumentEnd>();
-            eventReader.Expect<StreamEnd>();
+            parser.Expect<StreamStart>();
+            parser.Expect<DocumentStart>();
+            var result = sut.Deserialize(parser);
+            parser.Expect<DocumentEnd>();
+            parser.Expect<StreamEnd>();
 
             Assert.AreEqual(Color.Azure, result.Color);
             Assert.IsNull(result.Image);
@@ -146,12 +145,11 @@ namespace MindMate.Tests.Serialization
             string text = writer.ToString();
 
             var parser = new Parser(new StringReader(text));
-            var eventReader = new EventReader(parser);
-            eventReader.Expect<StreamStart>();
-            eventReader.Expect<DocumentStart>();
-            var result = sut.Deserialize(eventReader);
-            eventReader.Expect<DocumentEnd>();
-            eventReader.Expect<StreamEnd>();
+            parser.Expect<StreamStart>();
+            parser.Expect<DocumentStart>();
+            var result = sut.Deserialize(parser);
+            parser.Expect<DocumentEnd>();
+            parser.Expect<StreamEnd>();
 
             Assert.AreEqual(Color.Azure, result.Color);
             Assert.IsNull(result.Image);
@@ -182,13 +180,12 @@ namespace MindMate.Tests.Serialization
 
             string text = writer.ToString();
 
-            var parser = new Parser(new StringReader(text));
-            var eventReader = new EventReader(parser);
-            eventReader.Expect<StreamStart>();
-            eventReader.Expect<DocumentStart>();
-            var result = sut.Deserialize(eventReader);
-            eventReader.Expect<DocumentEnd>();
-            eventReader.Expect<StreamEnd>();
+            var parser = new Parser(new StringReader(text));            
+            parser.Expect<StreamStart>();
+            parser.Expect<DocumentStart>();
+            var result = sut.Deserialize(parser);
+            parser.Expect<DocumentEnd>();
+            parser.Expect<StreamEnd>();
 
             Assert.AreEqual(Color.Azure, result.Color);
             Assert.IsNull(result.Image);
@@ -234,13 +231,12 @@ namespace MindMate.Tests.Serialization
 
             string text = writer.ToString();
 
-            var parser = new Parser(new StringReader(text));
-            var eventReader = new EventReader(parser);
-            eventReader.Expect<StreamStart>();
-            eventReader.Expect<DocumentStart>();
-            var result = sut.Deserialize(eventReader);
-            eventReader.Expect<DocumentEnd>();
-            eventReader.Expect<StreamEnd>();
+            var parser = new Parser(new StringReader(text));            
+            parser.Expect<StreamStart>();
+            parser.Expect<DocumentStart>();
+            var result = sut.Deserialize(parser);
+            parser.Expect<DocumentEnd>();
+            parser.Expect<StreamEnd>();
 
             Assert.AreEqual(Color.Azure, result.Color);
             Assert.IsNotNull(result.Label);

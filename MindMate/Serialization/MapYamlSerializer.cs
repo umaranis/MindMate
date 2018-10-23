@@ -25,7 +25,7 @@ namespace MindMate.Serialization
         /// </summary>
         /// <param name="r"></param>
         /// <returns></returns>
-        public MapNode Deserialize(EventReader r)
+        public MapNode Deserialize(Parser r)
         {
             r.Expect<MappingStart>();
 
@@ -37,7 +37,7 @@ namespace MindMate.Serialization
             return n;
         }
 
-        private MapNode DeserializeIsolatedNode(EventReader r)
+        private MapNode DeserializeIsolatedNode(Parser r)
         {
             string text = null; NodePosition pos = NodePosition.Undefined; string id = null;
 
@@ -70,7 +70,7 @@ namespace MindMate.Serialization
             return node;
         }
 
-        private void DeserializeScalarProperties(MapNode node, EventReader r)
+        private void DeserializeScalarProperties(MapNode node, Parser r)
         {
             Scalar prop = r.Peek<Scalar>();
 
