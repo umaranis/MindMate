@@ -2,7 +2,7 @@ version: 1.0.{build}
 
 image: Visual Studio 2017
 
-install:
+before_build:
     - nuget restore
 
 build:
