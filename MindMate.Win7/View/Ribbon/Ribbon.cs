@@ -173,6 +173,13 @@ namespace MindMate.View.Ribbon
             RemoveImage.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.RemoveImage();
             IncreaseImageSize.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.IncreaseImageSize();
             DecreaseImageSize.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.DecreaseImageSize();
+            ImageAlignStart.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.ImageAlignStart();
+            ImageAlignCenter.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.ImageAlignCenter();
+            ImageAlignEnd.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.ImageAlignEnd();
+            ImagePosAbove.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.ImagePosAbove();
+            ImagePosBelow.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.ImagePosBelow();
+            ImagePosBefore.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.ImagePosBefore();
+            ImagePosAfter.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.ImagePosAfter();
 
             //Note Editor Tab: Paragraph
             Bullets.ExecuteEvent += (o, e) => mainForm.NoteEditor.AddBullets();
@@ -235,6 +242,13 @@ namespace MindMate.View.Ribbon
             IncreaseImageSize.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.resize_8_16);
             DecreaseImageSize.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.resize_9_32);
             DecreaseImageSize.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.resize_9_32);
+            ImageAlignStart.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.image_align_start);
+            ImageAlignCenter.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.image_align_center);
+            ImageAlignEnd.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.image_align_end);
+            ImagePosAbove.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.image_align_center);
+            ImagePosBelow.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.image_align_bottom);
+            ImagePosBefore.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.image_align_before);
+            ImagePosAfter.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.image_align_after);
 
             NodeShape.LargeImage = ribbon.ConvertToUIImage(Resources.Node_Format_Bubble);
             Bullets.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Bullets_SmallImage);

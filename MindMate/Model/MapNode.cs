@@ -1674,6 +1674,18 @@ namespace MindMate.Model
             ImageSize = Size.Empty;
         }
 
+        public void SetImagePosition(ImagePosition position)
+        {
+            if (ImageAlignment == ImageAlignment.Default) ImageAlignment = ImageAlignment.AboveStart;
+            ImageAlignment = (ImageAlignment)((int)ImageAlignment & 0b00011 | (int)position);
+        }
+
+        public void SetImageAlignment(ImageAlign align)
+        {
+            if (ImageAlignment == ImageAlignment.Default) ImageAlignment = ImageAlignment.AboveStart;
+            ImageAlignment = (ImageAlignment)((int)ImageAlignment & 0b11100 | (int)align);
+        }
+
         #region Select
 
         public bool Selected

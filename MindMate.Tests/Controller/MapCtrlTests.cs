@@ -2060,5 +2060,34 @@ namespace MindMate.Tests.Controller
 
         }
 
+        [TestMethod()]
+        public void SetImageAlignment()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            DialogManager dialogs = A.Fake<DialogManager>();
+            A.CallTo(dialogs).Where(call => call.Method.Name == "SeekDeleteConfirmation").WithReturnType<bool>().Returns(true);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), dialogs, null);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            c2.Selected = true;
+            mapCtrl.ImageAlignStart();
+            mapCtrl.ImagePosAbove();
+            Assert.AreEqual(ImageAlignment.AboveStart, c2.ImageAlignment);
+            mapCtrl.ImagePosBelow();
+            Assert.AreEqual(ImageAlignment.BelowStart, c2.ImageAlignment);
+            mapCtrl.ImagePosBefore();
+            mapCtrl.ImagePosAfter();
+            Assert.AreEqual(ImageAlignment.AfterTop, c2.ImageAlignment);
+            mapCtrl.ImageAlignEnd();
+            mapCtrl.ImageAlignStart();
+            mapCtrl.ImageAlignCenter();
+            Assert.AreEqual(ImageAlignment.AfterCenter, c2.ImageAlignment);
+        }
+
     }
 }

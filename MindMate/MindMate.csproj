@@ -594,6 +594,12 @@
     <None Include="Resources\resize-9-32.png" />
     <None Include="Resources\resize-9-16.png" />
     <None Include="Resources\resize-8-32.png" />
+    <None Include="Resources\image_align_center.png" />
+    <None Include="Resources\image_align_start.png" />
+    <None Include="Resources\image_align_end.png" />
+    <None Include="Resources\image_align_after.png" />
+    <None Include="Resources\image_align_before.png" />
+    <None Include="Resources\image_align_bottom.png" />
     <Content Include="Serialization\MapYamlSerializer.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapYamlSerializer.Generated.cs</LastGenOutput>

@@ -392,6 +392,19 @@ Note:
     <Command Name="IncreaseImageSize" LabelTitle="Increase" TooltipDescription="Increase image size" Id="9201" />
     <Command Name="DecreaseImageSize" LabelTitle="Decrease" TooltipDescription="Decrease image size" Id="9202" />
     
+    <!--Group: Image Align-->
+    <Command Name="GrpImageAlign" LabelTitle="Align" TooltipDescription="Align image to the node text" Id="9300" />
+    <Command Name="ImageAlignStart" LabelTitle="Start" TooltipDescription="Align image to the start of text" Id="9301" />
+    <Command Name="ImageAlignCenter" LabelTitle="Center" TooltipDescription="Align image to the center of text" Id="9302" />
+    <Command Name="ImageAlignEnd" LabelTitle="End" TooltipDescription="Align image to the end of text" Id="9303" />
+    
+    <!-- Group: Image Position-->
+    <Command Name="GrpImagePosition" LabelTitle="Position" TooltipDescription="Position of image relative to the text" Id="9400" />
+    <Command Name="ImagePosAbove" LabelTitle="Above" TooltipDescription="Position image above the text" Id="9401" />
+    <Command Name="ImagePosBefore" LabelTitle="Before" TooltipDescription="Position image before the text" Id="9402" />
+    <Command Name="ImagePosBelow" LabelTitle="Below" TooltipDescription="Position image below the text" Id="9403" />
+    <Command Name="ImagePosAfter" LabelTitle="After" TooltipDescription="Position image after the text" Id="9404" />
+    
     <!--Tab: Note Editor-->
     <Command Name="TabGroupNote" Id="7000" LabelTitle="Note Editor"/>
     <Command Name="TabNoteEditor" Id="7001" LabelTitle="Note" />
@@ -900,6 +913,35 @@ Note:
           <Group CommandName="GrpImageSize" SizeDefinition="TwoButtons">
             <Button CommandName="IncreaseImageSize" />
             <Button CommandName="DecreaseImageSize" />
+          </Group>
+          <Group CommandName="GrpImageAlign">
+            <Button CommandName="ImageAlignStart" />
+            <Button CommandName="ImageAlignCenter" />
+            <Button CommandName="ImageAlignEnd" />
+          </Group>
+          <Group CommandName="GrpImagePosition">
+            <SizeDefinition>
+              <ControlNameMap>
+                <ControlNameDefinition Name="button1" />
+                <ControlNameDefinition Name="button2" />
+                <ControlNameDefinition Name="button3" />
+                <ControlNameDefinition Name="button4" />
+              </ControlNameMap>
+              <GroupSizeDefinition Size="Large" >
+                <Row>
+                  <ControlSizeDefinition ControlName="button1" ImageSize="Small" IsLabelVisible="true" />
+                  <ControlSizeDefinition ControlName="button2" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+                <Row>
+                  <ControlSizeDefinition ControlName="button3" ImageSize="Small" IsLabelVisible="true" />
+                  <ControlSizeDefinition ControlName="button4" ImageSize="Small" IsLabelVisible="true" />
+                </Row>
+              </GroupSizeDefinition>
+            </SizeDefinition>
+            <Button CommandName="ImagePosAbove" />
+            <Button CommandName="ImagePosBefore" />
+            <Button CommandName="ImagePosBelow" />            
+            <Button CommandName="ImagePosAfter" />
           </Group>
         </Tab>
       </Ribbon.Tabs>

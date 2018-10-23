@@ -102,21 +102,42 @@ namespace MindMate.Model
         Empty
     }
 
+    /// <summary>
+    /// Combination of ImageAlign and ImagePosition.
+    /// Alignment could be: Start, Center, End
+    /// Position could be: Above, Below, Before, After
+    /// First 2 digits designate alignment, while the following 3 position
+    /// </summary>
     public enum ImageAlignment
     {
-        Default,
-        BelowCenter,    //text is displayed below image aligned center
-        BelowStart,     //text is displayed below image aligned at the starting
-        BelowEnd,
-        AboveCenter,
-        AboveStart,
-        AboveEnd,
-        BeforeCenter,
-        BeforeTop,
-        BeforeBottom,
-        AfterCenter,
-        AfterTop,
-        AfterBottom     //text is displayed after image aligned to the bottom
-    } 
-    
+        Default = 0,
+        AboveStart = 5,     // binary = 001 01 (Position Alignment)
+        AboveCenter	= 6,    // 001 10
+        AboveEnd = 7,       // 001 11
+        BelowStart = 9,     // 010 01                               text is displayed below image aligned at the starting
+        BelowCenter = 10,   // 010 10                               text is displayed below image aligned center
+        BelowEnd = 11,      // 010 11
+        BeforeTop = 13,     // 011 01
+        BeforeCenter = 14,  // 011 10
+        BeforeBottom = 15,  // 011 11
+        AfterTop = 17,      // 100 01
+        AfterCenter = 18,   // 100 10
+        AfterBottom = 19    // 100 11                               text is displayed after image aligned to the bottom
+    }
+
+    public enum ImageAlign
+    {
+        Start =  0b000_01,
+        Center = 0b000_10,
+        End =    0b000_11
+    };
+
+    public enum ImagePosition
+    {
+        Above = 0b001_00,
+        Below = 0b010_00,
+        Before =  0b011_00,
+        After = 0b100_00
+    };
+
 }

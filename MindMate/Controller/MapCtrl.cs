@@ -1660,22 +1660,88 @@ namespace MindMate.Controller
 
         public void IncreaseImageSize()
         {
-            using (tree.ChangeManager.StartBatch("Increase Image Size"))
-            {
-                foreach (var node in tree.SelectedNodes.Where(n => n.HasImage))
-                {
-                    node.ImageSize = new Size((int)(node.ImageSize.Width * 1.1), (int)(node.ImageSize.Height * 1.1));
-                }
-            }
+            RunCommand("Increase Image Size",
+                node => node.ImageSize = new Size((int)(node.ImageSize.Width * 1.1), (int)(node.ImageSize.Height * 1.1)),
+                node => node.HasImage
+                );            
         }
 
         public void DecreaseImageSize()
         {
-            using (tree.ChangeManager.StartBatch("Decrease Image Size"))
+            RunCommand("Decrease Image Size",
+                node => node.ImageSize = new Size((int)(node.ImageSize.Width * 0.9), (int)(node.ImageSize.Height * 0.9)),
+                node => node.HasImage
+                );            
+        }
+
+        public void ImageAlignStart()
+        {
+            RunCommand("Image Align Start", n => n.SetImageAlignment(ImageAlign.Start));            
+        }
+
+        public void ImageAlignCenter()
+        {
+            RunCommand("Image Align Center", n => n.SetImageAlignment(ImageAlign.Center));            
+        }
+
+        public void ImageAlignEnd()
+        {
+            RunCommand("Image Align End", n => n.SetImageAlignment(ImageAlign.End));            
+        }
+
+        public void ImagePosAbove()
+        {
+            RunCommand("Image Position Above", n => n.SetImagePosition(ImagePosition.Above));
+        }
+
+        public void ImagePosBelow()
+        {
+            RunCommand("Image Position Below", n => n.SetImagePosition(ImagePosition.Below));
+        }
+
+        public void ImagePosBefore()
+        {
+            RunCommand("Image Position Before", n => n.SetImagePosition(ImagePosition.Before));
+        }
+
+        public void ImagePosAfter()
+        {
+            RunCommand("Image Position After", n => n.SetImagePosition(ImagePosition.After));
+        }
+
+        /// <summary>
+        /// Runs the given command on all selected nodes
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="action"></param>
+        private void RunCommand(string command, Action<MapNode> action)
+        {
+            //TODO: exception handling
+            //TODO: utilize this method in MapCtrl wherever possible
+            using (tree.ChangeManager.StartBatch(command))
             {
-                foreach (var node in tree.SelectedNodes.Where(n => n.HasImage))
+                foreach (var node in tree.SelectedNodes)
                 {
-                    node.ImageSize = new Size((int)(node.ImageSize.Width * 0.9), (int)(node.ImageSize.Height * 0.9));
+                    action(node);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Runs the given command on selected nodes that pass the condition
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="action"></param>
+        /// <param name="condition"></param>
+        private void RunCommand(string command, Action<MapNode> action, Func<MapNode, bool> condition)
+        {
+            //TODO: exception handling
+            //TODO: utilize this method in MapCtrl wherever possible
+            using (tree.ChangeManager.StartBatch(command))
+            {
+                foreach (var node in tree.SelectedNodes.Where(condition))
+                {
+                    action(node);
                 }
             }
         }
