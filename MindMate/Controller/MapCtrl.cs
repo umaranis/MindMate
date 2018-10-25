@@ -12,6 +12,7 @@ using System.Linq;
 using System.Windows.Forms;
 using MindMate.MetaModel;
 using MindMate.Model;
+using MindMate.Modules.Logging;
 using MindMate.Plugins.Tasks.Model;
 using MindMate.Serialization;
 using MindMate.View.Dialogs;
@@ -1103,26 +1104,34 @@ namespace MindMate.Controller
 
         public void Paste(bool asText = false)
         {
-            if(MapView.NodeTextEditor.IsTextEditing)
+            try
             {
-                MapView.NodeTextEditor.PasteFromClipboard();
-            }
-            else if (tree.SelectedNodes.Count == 1)
-            {
-                if (ClipboardManager.CanPaste)
+                if (MapView.NodeTextEditor.IsTextEditing)
                 {
-                    MapView.SuspendLayout();
-                    tree.ChangeManager.StartBatch("Paste");
-                    MapNode pasteLocation = tree.SelectedNodes[0];
-                    ClipboardManager.Paste(pasteLocation, asText);                    
-                    tree.ChangeManager.EndBatch();
-                    MapView.ResumeLayout(true, pasteLocation.Pos);
+                    MapView.NodeTextEditor.PasteFromClipboard();
+                }
+                else if (tree.SelectedNodes.Count == 1)
+                {
+                    if (ClipboardManager.CanPaste)
+                    {
+                        MapView.SuspendLayout();
+                        tree.ChangeManager.StartBatch("Paste");
+                        MapNode pasteLocation = tree.SelectedNodes[0];
+                        ClipboardManager.Paste(pasteLocation, asText);
+                        tree.ChangeManager.EndBatch();
+                        MapView.ResumeLayout(true, pasteLocation.Pos);
+                    }
+                }
+                else // if multiple nodes are selected
+                {
+                    MessageBox.Show("Paste operation cannot be performed if more than one nodes are selected.", "Can't Paste");
                 }
             }
-            else // if multiple nodes are selected
+            catch (Exception e)
             {
-                MessageBox.Show("Paste operation cannot be performed if more than one nodes are selected.", "Can't Paste");
+                Log.Write("Error in Paste operation", e);
             }
+            
             
         }
 

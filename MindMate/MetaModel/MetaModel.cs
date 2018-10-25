@@ -257,7 +257,7 @@ namespace MindMate.MetaModel
             return GetFileDirectory() + FILE_NAME;            
         }
 
-        private static string GetFileDirectory()
+        public static string GetFileDirectory()
         {
             return Dir.UserSettingsDirectory;
         }

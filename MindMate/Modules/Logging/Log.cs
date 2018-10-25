@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace MindMate.Modules.Logging
 {
@@ -10,13 +11,28 @@ namespace MindMate.Modules.Logging
     {
         public static void Write(Exception e)
         {
-            Trace.WriteLine(DateTime.Now + ": " + e.Message);
-            Trace.WriteLine(e.StackTrace);
+            Trace.WriteLine(DateTime.Now + ": " + e.ToString());
+        }
+
+        public static void Write(string message, Exception e)
+        {
+            Trace.WriteLine(PrintTime() +  message);
+            Trace.WriteLine(e.ToString());
+        }
+
+        public static void Write(ThreadExceptionEventArgs e)
+        {
+            Trace.WriteLine(PrintTime() + e.ToString());
         }
 
         public static void Write(string message)
         {
-            Trace.WriteLine(DateTime.Now + ": " + message);
+            Trace.WriteLine(PrintTime() + message);
+        }
+
+        private static string PrintTime()
+        {
+            return "[" + DateTime.Now + "] ";
         }
     }
 }

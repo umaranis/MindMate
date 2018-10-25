@@ -132,7 +132,7 @@ namespace MindMate.Model
                         }
                         else
                         {
-                            string tempLink = link;
+                            string tempLink = link; // add link to source website in case text itself is not a URL (if text is URL, link to it)
                             if (text.StartsWith("http://", StringComparison.OrdinalIgnoreCase)
                                 || text.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
                                 tempLink = text;
@@ -180,9 +180,13 @@ namespace MindMate.Model
                 if(i > 0)
                 {
                     i += 10;
-                    int j = text.IndexOf((char)Keys.Enter, i);
-                    text = text.Substring(i, j - i);
-                    return text;                    
+                    int j = text.IndexOf('\r', i);
+                    if (j == -1) j = text.IndexOf('\n', i);
+                    if (j > 0)
+                    {
+                        text = text.Substring(i, j - i);
+                        return text;
+                    }
                 }
             }
 

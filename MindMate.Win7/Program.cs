@@ -1,4 +1,5 @@
 ﻿using MindMate.Controller;
+using MindMate.Modules.Logging;
 using MindMate.View.Dialogs;
 using System;
 using System.Collections.Generic;
@@ -34,13 +35,12 @@ namespace MindMate.Win7
 
         private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
         {
-            Trace.WriteLine(DateTime.Now.ToString() + ":" + e.Exception.Message);
-            Trace.WriteLine(e.Exception.StackTrace);
+            Log.Write(e);
         }       
 
         private static void EnableLogListeners()
         {
-            Trace.Listeners.Add(new System.Diagnostics.TextWriterTraceListener("MindMate_Trace.log"));
+            Trace.Listeners.Add(new System.Diagnostics.TextWriterTraceListener(MetaModel.MetaModel.GetFileDirectory() + "MindMate_Trace.log"));
             Trace.AutoFlush = true;
             
             //Debug.Listeners.Add(new TextWriterTraceListener("SystemLog.txt"));
