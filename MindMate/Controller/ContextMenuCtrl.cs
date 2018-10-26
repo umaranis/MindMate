@@ -30,7 +30,7 @@ namespace MindMate.Controller
             this.mainCtrl = c;
             NodeContextMenu = nodeContextMenu;
 
-            NodeContextMenu.mEditNode.Click += new EventHandler(mEditNode_Click);
+            NodeContextMenu.mEditNode.Click += mEditNode_Click;
             NodeContextMenu.mInsertChild.Click += mInsertChild_Click;
             NodeContextMenu.mDeleteNode.Click += mDeleteNode_Click;
             NodeContextMenu.mSelectIcon.Click += mSelectIcon_Click;

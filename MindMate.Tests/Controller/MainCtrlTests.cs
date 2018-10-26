@@ -42,6 +42,7 @@ namespace MindMate.Tests.Controller
                     sut.ClearSelectionFormatting();
                     sut.Copy();
                     sut.Cut();
+                    sut.Paste();
                     sut.SetBackColor(Color.White);
                     sut.SetFontFamily("Arial");
                     sut.SetFontSize(15);
