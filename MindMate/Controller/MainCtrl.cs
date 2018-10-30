@@ -58,7 +58,7 @@ namespace MindMate.Controller
 
         public NodeContextMenu NodeContextMenu { get; private set; }        
 
-        private TaskSchedular.TaskSchedular schedular;
+        private TaskScheduler.TaskScheduler schedular;
 
         public PersistenceManager PersistenceManager
         {
@@ -73,7 +73,7 @@ namespace MindMate.Controller
         {
             this.mainForm = mainForm;
             MetaModel.MetaModel.Initialize();
-            schedular = new TaskSchedular.TaskSchedular();
+            schedular = new TaskScheduler.TaskScheduler();
             PersistenceManager = new PersistenceManager();            
             pluginManager = new Plugins.PluginManager(this);
             new TabController(this, mainForm);
@@ -234,12 +234,12 @@ namespace MindMate.Controller
             CurrentMapCtrl.SetMapViewBackColor(color);
         }
 
-        public void ScheduleTask(TaskSchedular.ITask task)
+        public void ScheduleTask(TaskScheduler.ITask task)
         {
             schedular.AddTask(task);
         }
 
-        public void RescheduleTask(TaskSchedular.ITask task, DateTime startTime)
+        public void RescheduleTask(TaskScheduler.ITask task, DateTime startTime)
         {
             schedular.UpdateTask(task, startTime);
         }

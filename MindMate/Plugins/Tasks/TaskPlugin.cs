@@ -45,7 +45,7 @@ namespace MindMate.Plugins.Tasks
             taskListView = new TaskListView();
             taskListView.TaskViewEvent += OnTaskViewEvent;
 
-            pluginMgr.ScheduleTask(new TaskSchedular.RecurringTask(
+            pluginMgr.ScheduleTask(new TaskScheduler.RecurringTask(
                 () =>
                 {
                     taskListView.Invoke((Action)RefreshTaskListView);

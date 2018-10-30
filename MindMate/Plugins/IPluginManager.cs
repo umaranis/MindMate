@@ -10,9 +10,9 @@ namespace MindMate.Plugins
     {
         void FocusMapEditor();
 
-        void ScheduleTask(TaskSchedular.ITask task);
+        void ScheduleTask(TaskScheduler.ITask task);
 
-        void RescheduleTask(TaskSchedular.ITask task, DateTime startTime);
+        void RescheduleTask(TaskScheduler.ITask task, DateTime startTime);
 
         /// <summary>
         /// Currently active MapTree

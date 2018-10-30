@@ -218,12 +218,12 @@ namespace MindMate.Plugins
             mainCtrl.ReturnFocusToMapView();
         }
 
-        public void ScheduleTask(TaskSchedular.ITask task)
+        public void ScheduleTask(TaskScheduler.ITask task)
         {
             mainCtrl.ScheduleTask(task);
         }        
 
-        public void RescheduleTask(TaskSchedular.ITask task, DateTime startTime)
+        public void RescheduleTask(TaskScheduler.ITask task, DateTime startTime)
         {
             mainCtrl.RescheduleTask(task, startTime);
         }

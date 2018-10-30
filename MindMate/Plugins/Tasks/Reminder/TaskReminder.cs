@@ -10,7 +10,7 @@ namespace MindMate.Plugins.Tasks.Reminder
     /// <summary>
     /// Fires Task Due event whenever a task is due or about to be due
     /// </summary>
-    public class TaskReminder : TaskSchedular.ITask
+    public class TaskReminder : TaskScheduler.ITask
     {
         public const int ADVANCED_REMINDER_MINUTES = 15;
         
