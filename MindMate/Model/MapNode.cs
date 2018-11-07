@@ -517,6 +517,8 @@ namespace MindMate.Model
         /// <param name="id"></param>
         public MapNode(MapTree tree, string text, string id = null)
         {
+            System.Diagnostics.Debug.Assert(text != null, "text parameter should not be null.");
+
             this.Id = id;
             this.text = text;
             this.Created = DateTime.Now;
@@ -545,6 +547,7 @@ namespace MindMate.Model
             string id = null, MapNode adjacentToSib = null, bool insertAfterSib = true)
         {
             System.Diagnostics.Debug.Assert(parent != null, "parent parameter should not be null. Use other constructor for root node.");
+            System.Diagnostics.Debug.Assert(text != null, "text parameter should not be null.");
 
             this.Id = id;
             this.text = text;

@@ -2,6 +2,7 @@
 using MindMate.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,48 @@ namespace MindMate.Tests.Model
             Assert.IsFalse(n.HasImage);
             ClipboardManager.Paste(n);
             Assert.IsFalse(n.HasImage);
+            Assert.IsTrue(n.FirstChild.HasImage);
+
+        }
+
+        [TestMethod]
+        public void Paste_ImageFileList()
+        {
+            var fileList = new StringCollection();
+            fileList.Add(@"Resources\MapCtrl1.png");
+            Clipboard.SetFileDropList(fileList);
+            var n = new MapNode(new MapTree(), "node");
+            Assert.IsFalse(n.HasImage);
+            ClipboardManager.Paste(n);
+            Assert.IsFalse(n.HasImage);
+            Assert.IsFalse(n.FirstChild.HasImage);
+
+        }
+
+        [TestMethod]
+        public void Paste_ImageFileListAsImage()
+        {
+            var fileList = new StringCollection();
+            fileList.Add(@"Resources\MapCtrl1.png");
+            Clipboard.SetFileDropList(fileList);
+            var n = new MapNode(new MapTree(), "node");
+            Assert.IsFalse(n.HasImage);
+            ClipboardManager.Paste(n, false, true);
+            Assert.IsTrue(n.HasImage);            
+
+        }
+
+        [TestMethod]
+        public void Paste_ImageFileListAsImageTwice()
+        {
+            var fileList = new StringCollection();
+            fileList.Add(@"Resources\MapCtrl1.png");
+            Clipboard.SetFileDropList(fileList);
+            var n = new MapNode(new MapTree(), "node");
+            Assert.IsFalse(n.HasImage);
+            ClipboardManager.Paste(n, false, true);
+            Assert.IsTrue(n.HasImage);
+            ClipboardManager.Paste(n, false, true);
             Assert.IsTrue(n.FirstChild.HasImage);
 
         }

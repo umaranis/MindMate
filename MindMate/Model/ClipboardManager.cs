@@ -1,7 +1,9 @@
 ﻿using MindMate.Model;
+using MindMate.Modules.Logging;
 using MindMate.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -102,7 +104,7 @@ namespace MindMate.Model
             }
         }
 
-        public static void Paste(MapNode pasteLocation, bool asText = false)
+        public static void Paste(MapNode pasteLocation, bool asText = false, bool pasteFileAsImage = false)
         {
             if(Clipboard.ContainsData(MindMateTextFormat))
             {
@@ -147,13 +149,42 @@ namespace MindMate.Model
             }
             else if(Clipboard.ContainsFileDropList())
             {
-                PasteFileDropList(pasteLocation, asText);
+                if (pasteFileAsImage)
+                    PasteFileListAsImage(pasteLocation);
+                else
+                    PasteFileDropList(pasteLocation, asText);
             }
             
             hasCutNode = false;
             if (StatusChanged != null) { StatusChanged(); }
 
             if (pasteLocation.Folded) { pasteLocation.Folded = false; }
+        }
+
+        private static void PasteFileListAsImage(MapNode pasteLocation)
+        {
+            var fileList = Clipboard.GetFileDropList();
+            Image image;
+            if (fileList.Count == 1 && !pasteLocation.HasImage && ImageHelper.GetImageFromFile(fileList[0], out image))
+            {
+                pasteLocation.InsertImage(image, true);                
+            }
+            else
+            {
+                foreach (string file in fileList)
+                {
+                    if (ImageHelper.GetImageFromFile(file, out image))
+                    {
+                        MapNode n = new MapNode(pasteLocation, String.Empty);
+                        n.InsertImage(image, true);
+                    }
+                    else
+                    {
+                        MapNode n = new MapNode(pasteLocation, file);
+                        n.Link = file;
+                    }
+                }
+            }
         }
 
         private static void PasteFileDropList(MapNode pasteLocation, bool asText = false)

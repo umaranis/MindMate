@@ -1102,7 +1102,7 @@ namespace MindMate.Controller
                 ClipboardManager.Copy(tree.SelectedNodes);
         }
 
-        public void Paste(bool asText = false)
+        public void Paste(bool asText = false, bool fileAsImage = false)
         {
             try
             {
@@ -1117,7 +1117,7 @@ namespace MindMate.Controller
                         MapView.SuspendLayout();
                         tree.ChangeManager.StartBatch("Paste");
                         MapNode pasteLocation = tree.SelectedNodes[0];
-                        ClipboardManager.Paste(pasteLocation, asText);
+                        ClipboardManager.Paste(pasteLocation, asText, fileAsImage);
                         tree.ChangeManager.EndBatch();
                         MapView.ResumeLayout(true, pasteLocation.Pos);
                     }
@@ -1650,7 +1650,10 @@ namespace MindMate.Controller
                 {
                     foreach (var node in tree.SelectedNodes)
                     {
-                        node.InsertImage(Image.FromFile(fileName), true);
+                        if (ImageHelper.GetImageFromFile(fileName, out Image image))
+                        {
+                            node.InsertImage(image, true);
+                        }
                     }
                 }
             }

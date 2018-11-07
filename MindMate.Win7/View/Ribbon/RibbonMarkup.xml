@@ -112,6 +112,7 @@
         <Image>Res/paste_plain.bmp</Image>
       </Command.SmallImages>
     </Command>
+    <Command Name="PasteAsImage" Id="2056" LabelTitle="Paste As Image" TooltipDescription="Paste copied files as images rather than links" />
     <Command Name="Cut" Id="2053" LabelTitle="Cut" TooltipDescription="Cut (Ctrl + X)">
       <Command.LargeImages>
         <Image>Res/cut.bmp</Image>
@@ -562,6 +563,7 @@ Note:
             <SplitButton>
               <Button CommandName='Paste'/>
               <Button CommandName='PasteAsText' />
+              <Button CommandName='PasteAsImage' />
             </SplitButton>
             <Button CommandName='Cut' />
             <Button CommandName='Copy' />

@@ -62,6 +62,7 @@ namespace MindMate.View.Ribbon
             //Home Tab: Cipboard group
             Paste.ExecuteEvent += _btnPaste_ExecuteEvent;
             PasteAsText.ExecuteEvent += _btnPasteAsText_ExecuteEvent;
+            PasteAsImage.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.Paste(false, true);
             Cut.ExecuteEvent += _btnCut_ExecuteEvent;
             Copy.ExecuteEvent += _btnCopy_ExecuteEvent;
             FormatPainter.ExecuteEvent += _btnFormatPainter_ExecuteEvent;

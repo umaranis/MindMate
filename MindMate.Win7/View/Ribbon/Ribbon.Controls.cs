@@ -42,6 +42,7 @@ namespace MindMate.View.Ribbon
 		private RibbonGroup GrpClipboard;		
 		private RibbonButton Paste;		
 		private RibbonButton PasteAsText;		
+		private RibbonButton PasteAsImage;		
 		private RibbonButton Cut;		
 		private RibbonButton Copy;		
 		private RibbonToggleButton FormatPainter;		
@@ -233,6 +234,7 @@ namespace MindMate.View.Ribbon
 			GrpClipboard = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpClipboard);
 			Paste = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Paste);
 			PasteAsText = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.PasteAsText);
+			PasteAsImage = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.PasteAsImage);
 			Cut = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Cut);
 			Copy = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Copy);
 			FormatPainter = new RibbonToggleButton(ribbon, (uint)RibbonMarkupCommands.FormatPainter);

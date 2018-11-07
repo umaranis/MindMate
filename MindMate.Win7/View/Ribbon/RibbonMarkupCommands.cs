@@ -43,6 +43,7 @@ namespace MindMate.View.Ribbon
 		GrpClipboard = 2050,		
 		Paste = 2051,		
 		PasteAsText = 2052,		
+		PasteAsImage = 2056,		
 		Cut = 2053,		
 		Copy = 2054,		
 		FormatPainter = 2055,		
