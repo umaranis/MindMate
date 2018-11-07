@@ -43,5 +43,11 @@ namespace MindMate.Tests.Model
         {
             Assert.AreEqual(new Size(370, 270), ImageHelper.CalculateDefaultSize(new Size(370, 270)));
         }
+
+        [TestMethod]
+        public void GetImageFromFile()
+        {
+            Assert.IsFalse(ImageHelper.GetImageFromFile(@"abcdefghij.png", out Image image));
+        }
     }
 }
