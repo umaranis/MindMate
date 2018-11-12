@@ -56,7 +56,6 @@ namespace MindMate.View.EditorTabs
             tab.UpdateTitle();
             OpenTabInternal(tab);
             mapView.CenterOnForm();
-            tab.AutoScroll = true;
 
             return tab;
         }
@@ -71,9 +70,9 @@ namespace MindMate.View.EditorTabs
         {
             TabBase tab = new TabBase(control);
             tab.Text = text;
-            
+
             OpenTabInternal(tab);
-            
+
             return tab;
         }
 
@@ -103,7 +102,7 @@ namespace MindMate.View.EditorTabs
 
             if(TabCount == 1) { HideHeader(); }
         }
-        
+
         /// <summary>
         /// Focus the control on Selected Tab
         /// </summary>

@@ -39,7 +39,6 @@ namespace MindMate.View.MapControls
             
             Canvas.BackColor = System.Drawing.Color.White;
             Canvas.Location = new System.Drawing.Point(0, 0);
-            Canvas.Size = new System.Drawing.Size(200, 300);
             Canvas.TabIndex = 0;
             Canvas.Width = 4096;
             Canvas.Height = 4096;
@@ -61,8 +60,11 @@ namespace MindMate.View.MapControls
 
         public void CenterOnForm()
         {
-            Canvas.Left = (Canvas.Parent.Width - Canvas.Width) / 2;
-            Canvas.Top = (Canvas.Parent.Height - Canvas.Height) / 2;
+            //Canvas.Left = (Canvas.Parent.Width - Canvas.Width) / 2;
+            //Canvas.Top = (Canvas.Parent.Height - Canvas.Height) / 2;
+
+            //Console.WriteLine($"Canvas: {Canvas.Size} | Parent: {Canvas.Parent.Size}");
+            ((EditorTabs.Tab)Canvas.Parent).ScrollToPoint((Canvas.Width - Canvas.Parent.Width) / 2, (Canvas.Height - Canvas.Parent.Height) / 2);
         }
 
         private void RegisterTreeEvents()
@@ -225,7 +227,7 @@ namespace MindMate.View.MapControls
 
             if (visibleRect.Left > nView.Left)
             {
-                
+
                 Canvas.Left += (int)(visibleRect.Left - nView.Left + 10);
             }
             if (visibleRect.Top > nView.Top)
