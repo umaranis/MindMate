@@ -129,6 +129,7 @@
     </Compile>
     <Compile Include="Serialization\MapZipSerializer.cs" />
     <Compile Include="View\Dialogs\DialogManager.cs" />
+    <Compile Include="View\MapControls\ICanvasContainer.cs" />
     <Compile Include="View\MapControls\ImageView.cs" />
     <Compile Include="View\NoteEditing\ImagePaster.cs" />
     <Compile Include="View\NoteEditing\ImageLocalPath.cs" />

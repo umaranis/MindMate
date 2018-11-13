@@ -115,7 +115,7 @@ namespace MindMate.View.MapControls
             //Console.WriteLine($"CanvasMove event: {e.Location} {dragStartPoint}");
             MapView.Canvas.SuspendLayout();
 
-            ((EditorTabs.Tab)MapView.Canvas.Parent).ScrollToPoint(dragStartPoint.X - e.X, dragStartPoint.Y - e.Y);            
+            (MapView.Canvas.Parent as ICanvasContainer)?.ScrollToPoint(dragStartPoint.X - e.X, dragStartPoint.Y - e.Y);            
 
             //MapView.Canvas.Top = MapView.Canvas.Top + (e.Y - this.dragStartPoint.Y);
             //MapView.Canvas.Left = MapView.Canvas.Left + (e.X - this.dragStartPoint.X);

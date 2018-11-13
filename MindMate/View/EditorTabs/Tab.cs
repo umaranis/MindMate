@@ -14,7 +14,7 @@ namespace MindMate.View.EditorTabs
     /// <summary>
     /// Derived class of TabPage for containing MapView
     /// </summary>
-    public class Tab : TabBase
+    public class Tab : TabBase, ICanvasContainer
     {
         /// <summary>
         /// 
