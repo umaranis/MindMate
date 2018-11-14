@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "MindMate"
-#define MyAppVersion "0.4"
+#define MyAppVersion "0.5"
 #define MyAppURL "http://www.umaranis.com/"
 #define MyAppExeName "MindMate.Win.exe"
 
@@ -19,7 +19,7 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DisableProgramGroupPage=yes
-LicenseFile=C:\Projects\DotNET\MindMap\MindMate\MindMate\LICENSE.txt
+LicenseFile=..\MindMate\LICENSE.txt
 OutputBaseFilename=MindMate-Setup-Win7-v{#MyAppVersion}
 Compression=lzma
 SolidCompression=yes
@@ -40,7 +40,7 @@ Source: "..\MindMate.Win7\bin\RelWin7\MindMate.dll"; DestDir: "{app}"; Flags: ig
 Source: "..\MindMate.Win7\bin\RelWin7\Ribbon.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\MindMate.Win7\bin\RelWin7\Settings.Yaml"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\MindMate.Win7\bin\RelWin7\System.Windows.Forms.Calendar.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\MindMate.Win7\bin\RelWin7\TaskSchedular.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\MindMate.Win7\bin\RelWin7\TaskScheduler.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\MindMate.Win7\bin\RelWin7\YamlDotNet.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
