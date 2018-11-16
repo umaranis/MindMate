@@ -219,7 +219,27 @@ namespace MindMateTest
 			refImage.Dispose();
 		}
 
-		[TestMethod]
+        [TestMethod]
+        public void MapView_Flags_ImageTest()
+        {
+            PersistentTree tree = new PersistenceManager().OpenTree(@"Resources\Flags.mm");
+
+            MindMate.MetaModel.MetaModel.Initialize();
+            MapView view = new MapView(tree);
+
+            var image = view.DrawToBitmap();
+            if (SAVE_ACTUAL_IMAGE) image.Save(@"Resources\Flags - Actual.png");
+            var refImage = (Bitmap)Bitmap.FromFile(@"Resources\Flags.png");
+
+            view.Canvas.Dispose();
+
+            Assert.AreEqual(0.0f, image.PercentageDifference(refImage, 0), "Images don't match for 'Feature Display.mm'");
+
+            image.Dispose();
+            refImage.Dispose();
+        }
+
+        [TestMethod]
 		public void MapView_FeatureDisplay3_Alignment()
 		{
 			PersistentTree tree = new PersistenceManager().NewTree();
