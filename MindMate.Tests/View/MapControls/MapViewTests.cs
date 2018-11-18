@@ -14,7 +14,7 @@ namespace MindMate.Tests.View.MapControls
     public class MapViewTests
     {
         [TestMethod()]
-        public void MapView()
+        public void MapView_Create()
         {
             var t = new MapTree();
             var r = new MapNode(t, "r");
@@ -524,6 +524,46 @@ namespace MindMate.Tests.View.MapControls
             c32.NoteText = null;
 
             Assert.IsNull(c32.NodeView.NoteIcon);
+        }
+
+        [TestMethod]
+        public void ExpandCanvas_Right()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+
+            MetaModel.MetaModel.Initialize();
+            var v = new MapView(t);
+
+            Assert.AreEqual(v.Canvas.Width, MapView.CANVAS_DEFAULT_WIDTH);
+            Assert.AreEqual(v.Canvas.Height, MapView.CANVAS_DEFAULT_HEIGHT);
+
+            var parent = r;
+            for (int i = 0; i < 40; i++)    parent = new MapNode(parent, $"n{i + 1}", NodePosition.Right);
+
+            Assert.AreEqual(MapView.CANVAS_DEFAULT_WIDTH + MapView.CANVAS_SIZE_INCREMENT, v.Canvas.Width);
+            Assert.AreEqual(MapView.CANVAS_DEFAULT_HEIGHT + MapView.CANVAS_SIZE_INCREMENT, v.Canvas.Height);
+
+        }
+
+        [TestMethod]
+        public void ExpandCanvas_Left()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+
+            MetaModel.MetaModel.Initialize();
+            var v = new MapView(t);
+
+            Assert.AreEqual(v.Canvas.Width, MapView.CANVAS_DEFAULT_WIDTH);
+            Assert.AreEqual(v.Canvas.Height, MapView.CANVAS_DEFAULT_HEIGHT);
+
+            var parent = r;
+            for (int i = 0; i < 40; i++) parent = new MapNode(parent, $"n{i + 1}", NodePosition.Left);
+
+            Assert.AreEqual(MapView.CANVAS_DEFAULT_WIDTH + MapView.CANVAS_SIZE_INCREMENT, v.Canvas.Width);
+            Assert.AreEqual(MapView.CANVAS_DEFAULT_HEIGHT + MapView.CANVAS_SIZE_INCREMENT, v.Canvas.Height);
+
         }
 
         //[TestMethod()]

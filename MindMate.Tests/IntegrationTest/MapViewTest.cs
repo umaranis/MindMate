@@ -227,8 +227,8 @@ namespace MindMateTest
             MindMate.MetaModel.MetaModel.Initialize();
             MapView view = new MapView(tree);
 
-            Assert.AreEqual(view.Canvas.Width, 4096);
-            Assert.AreEqual(view.Canvas.Height, 4096);
+            Assert.AreEqual(view.Canvas.Width, MapView.CANVAS_DEFAULT_WIDTH);
+            Assert.AreEqual(view.Canvas.Height, MapView.CANVAS_DEFAULT_HEIGHT);
 
             for(int i = 0; i < 55; i++)
             {
@@ -247,8 +247,8 @@ namespace MindMateTest
 
             view.Canvas.Dispose();
 
-            Assert.AreEqual(view.Canvas.Width, 5096);
-            Assert.AreEqual(view.Canvas.Height, 5096);
+            Assert.AreEqual(view.Canvas.Width, MapView.CANVAS_DEFAULT_WIDTH + MapView.CANVAS_SIZE_INCREMENT);
+            Assert.AreEqual(view.Canvas.Height, MapView.CANVAS_DEFAULT_HEIGHT + MapView.CANVAS_SIZE_INCREMENT);
             Assert.AreEqual(0.0f, image.PercentageDifference(refImage, 0), "Images don't match for ExtendCanvas test.");            
 
             image.Dispose();

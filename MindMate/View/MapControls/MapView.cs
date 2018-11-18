@@ -32,6 +32,10 @@ namespace MindMate.View.MapControls
         public const int HOR_MARGIN = 20;
         public const int VER_MARGIN = 3;
 
+        public const int CANVAS_DEFAULT_HEIGHT = 4096;
+        public const int CANVAS_DEFAULT_WIDTH = 4096;
+        public const int CANVAS_SIZE_INCREMENT = 1000;
+
         /// <summary>
         /// 
         /// </summary>
@@ -46,8 +50,8 @@ namespace MindMate.View.MapControls
             Canvas.BackColor = System.Drawing.Color.White;
             Canvas.Location = new System.Drawing.Point(0, 0);
             Canvas.TabIndex = 0;
-            Canvas.Width = 4096;
-            Canvas.Height = 4096;
+            Canvas.Width = CANVAS_DEFAULT_WIDTH;
+            Canvas.Height = CANVAS_DEFAULT_HEIGHT;
 
             RegisterTreeEvents();
             RefreshNodePositions();
