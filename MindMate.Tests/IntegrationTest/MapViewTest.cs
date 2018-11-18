@@ -219,7 +219,43 @@ namespace MindMateTest
 			refImage.Dispose();
 		}
 
-		[TestMethod]
+        [TestMethod]
+        public void MapView_ExtendCanvas_ImageTest()
+        {
+            PersistentTree tree = new PersistenceManager().NewTree();
+
+            MindMate.MetaModel.MetaModel.Initialize();
+            MapView view = new MapView(tree);
+
+            Assert.AreEqual(view.Canvas.Width, 4096);
+            Assert.AreEqual(view.Canvas.Height, 4096);
+
+            for(int i = 0; i < 55; i++)
+            {
+                var n = new MapNode(tree.RootNode, "This is a sample text");
+                new MapNode(n, "This is a sample text");
+                new MapNode(n, "This is a sample text");
+                new MapNode(n, "This is a sample text");
+                new MapNode(n, "This is a sample text");
+                new MapNode(n, "This is a sample text");
+                new MapNode(n, "This is a sample text");
+            }
+
+            var image = view.DrawToBitmap();
+            if (SAVE_ACTUAL_IMAGE) image.Save(@"Resources\ExtendCanvas - Actual.png");
+            var refImage = (Bitmap)Bitmap.FromFile(@"Resources\ExtendCanvas.png");
+
+            view.Canvas.Dispose();
+
+            Assert.AreEqual(view.Canvas.Width, 5096);
+            Assert.AreEqual(view.Canvas.Height, 5096);
+            Assert.AreEqual(0.0f, image.PercentageDifference(refImage, 0), "Images don't match for ExtendCanvas test.");            
+
+            image.Dispose();
+            refImage.Dispose();
+        }
+
+        [TestMethod]
 		public void MapView_FeatureDisplay3_Alignment()
 		{
 			PersistentTree tree = new PersistenceManager().NewTree();
