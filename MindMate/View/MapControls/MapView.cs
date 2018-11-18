@@ -19,12 +19,22 @@ namespace MindMate.View.MapControls
     /// Represent view state of the tree
     /// Encapsulates NodeLinksPanel
     /// Doesn't update model, instead generates event for the controller
+    /// 
+    /// Preparing MapView for drawing is a 3 step process:
+    /// 1- Creating subcontrol like text, icon, image etc.
+    /// 2- Setting the size of subcontrols and node
+    /// 3- Setting the position of node and subcontrols (this step uses the sizes set for nodes in the previous step)
+    ///    Setting the position of a node will require the height all child nodes, thats why, node size has to be determined first.
     /// </summary>
     public class MapView : Drawing.IView
     {
 
         public const int HOR_MARGIN = 20;
         public const int VER_MARGIN = 3;
+
+        public const int CANVAS_DEFAULT_HEIGHT = 4096;
+        public const int CANVAS_DEFAULT_WIDTH = 4096;
+        public const int CANVAS_SIZE_INCREMENT = 1000;
 
         /// <summary>
         /// 
@@ -39,10 +49,9 @@ namespace MindMate.View.MapControls
             
             Canvas.BackColor = System.Drawing.Color.White;
             Canvas.Location = new System.Drawing.Point(0, 0);
-            Canvas.Size = new System.Drawing.Size(200, 300);
             Canvas.TabIndex = 0;
-            Canvas.Width = 4096;
-            Canvas.Height = 4096;
+            Canvas.Width = CANVAS_DEFAULT_WIDTH;
+            Canvas.Height = CANVAS_DEFAULT_HEIGHT;
 
             RegisterTreeEvents();
             RefreshNodePositions();
@@ -61,8 +70,11 @@ namespace MindMate.View.MapControls
 
         public void CenterOnForm()
         {
-            Canvas.Left = (Canvas.Parent.Width - Canvas.Width) / 2;
-            Canvas.Top = (Canvas.Parent.Height - Canvas.Height) / 2;
+            //Canvas.Left = (Canvas.Parent.Width - Canvas.Width) / 2;
+            //Canvas.Top = (Canvas.Parent.Height - Canvas.Height) / 2;
+
+            //Console.WriteLine($"Canvas: {Canvas.Size} | Parent: {Canvas.Parent.Size}");
+            ((EditorTabs.Tab)Canvas.Parent).ScrollToPoint((Canvas.Width - Canvas.Parent.Width) / 2, (Canvas.Height - Canvas.Parent.Height) / 2);
         }
 
         private void RegisterTreeEvents()
@@ -117,42 +129,42 @@ namespace MindMate.View.MapControls
                 case NodeProperties.Text:
                     node.NodeView.RefreshText();
 					if (node == tree.RootNode) RefreshNodePositions();
-                    else RefreshNodePositions(tree.RootNode, node.Pos);
+                    else RefreshChildNodePositions(tree.RootNode, node.Pos);
                     break;
                 case NodeProperties.Label:
                     throw new NotImplementedException();
                 case NodeProperties.NoteText:
                     node.NodeView.RefreshNoteIcon();
 					if (node == Tree.RootNode) RefreshNodePositions();
-                    else RefreshNodePositions(node.Parent, NodePosition.Undefined);
+                    else RefreshChildNodePositions(node.Parent, NodePosition.Undefined);
                     break;
                 case NodeProperties.Bold:
                 case NodeProperties.Italic:
                 case NodeProperties.Strikeout:
                     node.NodeView.RefreshFont();
 					if (node == tree.RootNode) RefreshNodePositions();
-                    else RefreshNodePositions(tree.RootNode, node.Pos);
+                    else RefreshChildNodePositions(tree.RootNode, node.Pos);
                     break;                
                 case NodeProperties.Folded:
-                    RefreshNodePositions(tree.RootNode, node.Pos);
+                    RefreshChildNodePositions(tree.RootNode, node.Pos);
                     break;
                 case NodeProperties.FontName:
                 case NodeProperties.FontSize:
                     node.NodeView.RefreshFont();
 					if (node == tree.RootNode) RefreshNodePositions();
-                    else RefreshNodePositions(tree.RootNode, node.Pos);
+                    else RefreshChildNodePositions(tree.RootNode, node.Pos);
                     break;
                 case NodeProperties.Link:
                     node.NodeView.RefreshLink();
 					if (node == tree.RootNode) RefreshNodePositions();
-                    else RefreshNodePositions(node.Parent, NodePosition.Undefined);
+                    else RefreshChildNodePositions(node.Parent, NodePosition.Undefined);
                     break;
                 case NodeProperties.Image:
                 case NodeProperties.ImageAlignment:
                 case NodeProperties.ImageSize:
                     node.NodeView.RefreshImageView();
 					if (node == tree.RootNode) RefreshNodePositions();
-                    else RefreshNodePositions(tree.RootNode, node.Pos);
+                    else RefreshChildNodePositions(tree.RootNode, node.Pos);
                     break;
             }
 
@@ -177,7 +189,7 @@ namespace MindMate.View.MapControls
             }
 
             if (node == tree.RootNode) RefreshNodePositions();
-            else RefreshNodePositions(node.Parent, NodePosition.Undefined);
+            else RefreshChildNodePositions(node.Parent, NodePosition.Undefined);
 
             Canvas.Invalidate();
         }
@@ -188,17 +200,17 @@ namespace MindMate.View.MapControls
             {
                 case TreeStructureChange.Detached:
                 case TreeStructureChange.Deleted:
-                    RefreshNodePositions(tree.RootNode, NodePosition.Undefined);
+                    RefreshChildNodePositions(tree.RootNode, NodePosition.Undefined);
                     break;
                 case TreeStructureChange.Attached:
                 case TreeStructureChange.New:
-                    RefreshNodePositions(tree.RootNode, node.Pos);
+                    RefreshChildNodePositions(tree.RootNode, node.Pos);
                     break;
                 case TreeStructureChange.MovedLeft:
                 case TreeStructureChange.MovedRight:
                 case TreeStructureChange.MovedUp:
                 case TreeStructureChange.MovedDown:
-                    RefreshNodePositions(node.Parent ?? node, NodePosition.Undefined);
+                    RefreshChildNodePositions(node.Parent ?? node, NodePosition.Undefined);
                     AdjustLocationToShowNodeView(node.NodeView);
                     break;
             }
@@ -222,28 +234,30 @@ namespace MindMate.View.MapControls
         internal void AdjustLocationToShowNodeView(NodeView nView)
         {
             Rectangle visibleRect = Canvas.GetVisibleRectangle();
+            int x = 0, y = 0;
 
             if (visibleRect.Left > nView.Left)
             {
-                
-                Canvas.Left += (int)(visibleRect.Left - nView.Left + 10);
+                x = (int)(nView.Left - visibleRect.Left - 10);
             }
             if (visibleRect.Top > nView.Top)
             {
-                Canvas.Top += (int)(visibleRect.Top - nView.Top + 10);
+                y = (int)(nView.Top - visibleRect.Top - 10);
             }
             int visibleRectRight = visibleRect.Right;
             int nViewRight = (int)(nView.Left + nView.Width);
             if (visibleRectRight < nViewRight)
             {
-                Canvas.Left += (int)(visibleRectRight - nViewRight - 10);
+                x = (int)(nViewRight - visibleRectRight + 10);
             }
             int visibleRectBottom = visibleRect.Bottom;
             int nViewBottom = (int)(nView.Top + nView.Height);
             if (visibleRectBottom < nViewBottom)
             {
-                Canvas.Top += (int)(visibleRectBottom - nViewBottom - 10);
+                y = (int)(nViewBottom - visibleRectBottom + 10);
             }
+
+            (Canvas.Parent as ICanvasContainer)?.ScrollToPoint(x, y);
 
             Canvas.IgnoreNextMouseMove = true;
         }
@@ -264,7 +278,7 @@ namespace MindMate.View.MapControls
             }
 
 			if (node == tree.RootNode) RefreshNodePositions();
-            else RefreshNodePositions(node.Parent, NodePosition.Undefined);
+            else RefreshChildNodePositions(node.Parent, NodePosition.Undefined);
 
             Canvas.Invalidate();
         }
@@ -308,7 +322,7 @@ namespace MindMate.View.MapControls
 
             nodeView.RefreshPosition(left - (nodeView.Width / 2), top);
 
-            RefreshNodePositions(Tree.RootNode, NodePosition.Undefined);
+            RefreshChildNodePositions(Tree.RootNode, NodePosition.Undefined);
 
         }
 
@@ -316,17 +330,39 @@ namespace MindMate.View.MapControls
         /// Refreshes or initializes node positions relative to the parent node position. 
         /// Parent node position must already be set.
         /// </summary>
-        /// <param name="node">Parent Node</param>
+        /// <param name="parent">Parent Node</param>
         /// <param name="sideToRefresh">Which side to refresh (left or right). For Undefined or Root, both sides will be refreshed.</param>
-        internal void RefreshNodePositions(MapNode node, NodePosition sideToRefresh)
+        internal void RefreshChildNodePositions(MapNode parent, NodePosition sideToRefresh)
         {
             if (LayoutSuspended) return;
 
-            NodeView nView = this.GetNodeView(node);
+            bool success = RefreshChildNodePositionsRecursive(parent, sideToRefresh);
 
-            if (!node.HasChildren || node.Folded)
+            if(!success) //means that canvas was not big enough, therefore refresh operation was aborted
             {
-                return;
+                Canvas.Size = new Size(Canvas.Width + 1000, Canvas.Height + 1000);
+                RefreshNodePositions();                
+                (Canvas.Parent as ICanvasContainer)?.ScrollToPoint(500, 500);                
+            }
+        }
+
+        /// <summary>
+        /// Returns true if successfully refreshes all node positions. If canvas is not big enough, the operation is aborted and 'false' is returned.
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="sideToRefresh"></param>
+        /// <returns></returns>
+        private bool RefreshChildNodePositionsRecursive(MapNode parent, NodePosition sideToRefresh)
+        {
+            NodeView nView = this.GetNodeView(parent);
+
+            if (!parent.HasChildren || parent.Folded)
+            {
+                if (!NodeWithinCanvas(parent, 50))
+                {
+                    return false;
+                }
+                return true;
             }
             else
             {
@@ -338,16 +374,16 @@ namespace MindMate.View.MapControls
                     if (i == 0)
                     {
                         rpos = NodePosition.Left;
-                        childNodes = node.ChildLeftNodes;
+                        childNodes = parent.ChildLeftNodes;
                     }
                     else
                     {
                         rpos = NodePosition.Right;
-                        childNodes = node.ChildRightNodes;
+                        childNodes = parent.ChildRightNodes;
                     }
 
                     float left = nView.Left + nView.Width + HOR_MARGIN;
-                    float top = nView.Top - (int)((this.GetNodeHeight(node, rpos) - nView.Height) / 2) - ((node.Pos == NodePosition.Root) ? (int)(nView.Height / 2) : 0);
+                    float top = nView.Top - (int)((this.GetNodeHeight(parent, rpos) - nView.Height) / 2) - ((parent.Pos == NodePosition.Root) ? (int)(nView.Height / 2) : 0);
                     int topOffset;
                     foreach (MapNode rnode in childNodes)
                     {
@@ -367,12 +403,45 @@ namespace MindMate.View.MapControls
                         if (!rnode.Folded)
                         {
                             // recursive call
-                            RefreshNodePositions(rnode, NodePosition.Undefined);
+                            bool continueProcess = RefreshChildNodePositionsRecursive(rnode, NodePosition.Undefined);
+                            if (!continueProcess) return false;
                         }
                     }
                 }
 
             }
+            return true;
+        }
+
+        /// <summary>
+        /// If the point is on the margin, it is still considered outside
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="margin">If the point is on the margin, it is still considered outside</param>
+        /// <returns></returns>
+        private bool NodeWithinCanvas(MapNode node, int margin = 0)
+        {
+            if (node.Pos == NodePosition.Right || node.Pos == NodePosition.Root)
+            {
+                if(node.NodeView.Right + margin > Canvas.Width
+                    || node.NodeView.Bottom + margin > Canvas.Height
+                    || node.NodeView.Top - margin < 0)
+                {
+                    return false;
+                }               
+            }
+
+            if(node.Pos == NodePosition.Left || node.Pos == NodePosition.Root)
+            {
+                if(node.NodeView.Left - margin < 0
+                    || node.NodeView.Top - margin < 0
+                    || node.NodeView.Bottom + margin > Canvas.Height)
+                {
+                    return false;
+                }
+            }
+            return true;
+            
         }        
 
         #endregion Refresh MapView

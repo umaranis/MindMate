@@ -10,7 +10,7 @@ namespace MindMate.View.MapControls
 {
     public class MapViewDragHandler
     {
-        private Object dragObject;
+        private Object dragObject;        
         private Point dragStartPoint;
 
         private MapView MapView { get; set; }
@@ -58,7 +58,7 @@ namespace MindMate.View.MapControls
 
             dragObject = null;
             NodeDropLocation = new DropLocation();
-            MapView.Canvas.Cursor = Cursors.Default;
+            MapView.Canvas.Cursor = Cursors.Default;            
         }
 
         /// <summary>
@@ -112,9 +112,14 @@ namespace MindMate.View.MapControls
 
         private void MoveCanvas(MouseEventArgs e)
         {
+            //Console.WriteLine($"CanvasMove event: {e.Location} {dragStartPoint}");
             MapView.Canvas.SuspendLayout();
-            MapView.Canvas.Top = MapView.Canvas.Top + (e.Y - this.dragStartPoint.Y);
-            MapView.Canvas.Left = MapView.Canvas.Left + (e.X - this.dragStartPoint.X);
+
+            (MapView.Canvas.Parent as ICanvasContainer)?.ScrollToPoint(dragStartPoint.X - e.X, dragStartPoint.Y - e.Y);            
+
+            //MapView.Canvas.Top = MapView.Canvas.Top + (e.Y - this.dragStartPoint.Y);
+            //MapView.Canvas.Left = MapView.Canvas.Left + (e.X - this.dragStartPoint.X);
+
             MapView.Canvas.ResumeLayout();            
         }
 

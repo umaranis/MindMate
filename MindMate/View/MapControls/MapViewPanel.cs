@@ -68,8 +68,18 @@ namespace MindMate.View.MapControls
             {
                 MapControls.Drawing.MapPainter.DrawNodeDropHint(DragDropHandler.NodeDropLocation, pe.Graphics);
             }
+            //DrawDebuggingBorders(pe);
             ////base.OnPaint(pe);            
         }
+
+        //private void DrawDebuggingBorders(PaintEventArgs pe)
+        //{
+        //    int l = 8; //length
+        //    pe.Graphics.DrawRectangle(Pens.Black, 0, 0, l, Height);             //left
+        //    pe.Graphics.DrawRectangle(Pens.Black, 0, 0, Height, l);             //top         
+        //    pe.Graphics.DrawRectangle(Pens.Black, Width - l, 0, l, Height);     //right
+        //    pe.Graphics.DrawRectangle(Pens.Black, 0, Height - l, Width, l);     //botton
+        //}
 
         public MapView MapView
         {
