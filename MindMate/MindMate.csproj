@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\NoteEditorCtrl.cs" />
+    <Compile Include="Controller\SearchController.cs" />
     <Compile Include="Controller\TabController.cs" />
     <Compile Include="Debugging\FormDebugHooks.cs" />
     <Compile Include="MetaModel\Icon.cs" />
@@ -373,6 +374,12 @@
     <Compile Include="View\NoteEditing\NoteEditorContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="View\Search\SearchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Search\SearchControl.Designer.cs">
+      <DependentUpon>SearchControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\SideTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -393,6 +400,9 @@
       <DependentUpon>HtmlSourceDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\NoteEditor.resx" />
+    <EmbeddedResource Include="View\Search\SearchControl.resx">
+      <DependentUpon>SearchControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="images\filenew.png" />
     <None Include="Settings.Yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

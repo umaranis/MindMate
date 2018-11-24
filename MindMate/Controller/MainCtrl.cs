@@ -137,6 +137,7 @@ namespace MindMate.Controller
         {
             pluginManager.OnApplicationReady();
             schedular.Start();
+            new SearchController(mainForm.SideBarTabs.SearchControl, () => CurrentMapCtrl.MapView.Tree, action => ScheduleTask(action));
         }
 
         #endregion Launch MindMate application
@@ -234,11 +235,26 @@ namespace MindMate.Controller
             CurrentMapCtrl.SetMapViewBackColor(color);
         }
 
+        /// <summary>
+        /// Schedule task to run in a separate thread
+        /// </summary>
+        /// <param name="task"></param>
         public void ScheduleTask(TaskScheduler.ITask task)
         {
             schedular.AddTask(task);
         }
 
+        /// <summary>
+        /// Schedule task to run in a separate thread
+        /// </summary>
+        public void ScheduleTask(Action action)
+        {
+            schedular.AddTask(action, DateTime.Now);
+        }
+
+        /// <summary>
+        /// ReSchedule task running in a separate thread
+        /// </summary>
         public void RescheduleTask(TaskScheduler.ITask task, DateTime startTime)
         {
             schedular.UpdateTask(task, startTime);

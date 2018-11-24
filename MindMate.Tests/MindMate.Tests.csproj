@@ -83,6 +83,7 @@
     <Compile Include="Controller\MapCtrlTests.cs" />
     <Compile Include="Controller\MapViewMouseEventHandlerTests.cs" />
     <Compile Include="Controller\NoteEditorCtrlTests.cs" />
+    <Compile Include="Controller\SearchControllerTests.cs" />
     <Compile Include="Model\ClipboardManagerTests.cs" />
     <Compile Include="Model\ImageHelperTests.cs" />
     <Compile Include="Model\ResourcesTests.cs" />

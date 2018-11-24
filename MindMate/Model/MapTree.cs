@@ -336,6 +336,21 @@ namespace MindMate.Model
         #endregion LargeObjects
 
         /// <summary>
+        /// Iterate over all nodes in the tree
+        /// </summary>
+        public IEnumerable<MapNode> MapNodes
+        {
+            get
+            {
+                yield return RootNode;
+                foreach(var n in RootNode.Descendents)
+                {
+                    yield return n;
+                }                
+            }
+        }
+
+        /// <summary>
         /// Used for creating isolated MapNode(s)
         /// </summary>
         public static MapTree Default = new MapTree();

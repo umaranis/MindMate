@@ -1,4 +1,5 @@
 ﻿using MindMate.View.NoteEditing;
+using MindMate.View.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace MindMate.View
     {
         private const string NoteTabTitle = "Note Editor";
         private const string TaskListTabTitle = "Tasks";
+        private const string SearchTabTitle = "Search";
 
         public SideTabControl()
         {
@@ -21,11 +23,20 @@ namespace MindMate.View
             imageList.Images.Add(MindMate.Properties.Resources.sticky_note_pin);
             ImageList = imageList;
 
+            //create Note Editor tab in sidebar
             NoteTab = new TabPage(NoteTabTitle) { ImageIndex = 0 };
             NoteEditor = new NoteEditor { Dock = DockStyle.Fill };
             NoteTab.Controls.Add(NoteEditor);
-
             TabPages.Add(NoteTab);
+
+            //create Search Tab in sidebar
+            var searchTab = new TabPage(SearchTabTitle);
+            var searchControl = new Search.SearchControl()
+            {
+                Dock = DockStyle.Fill
+            };
+            searchTab.Controls.Add(searchControl);
+            TabPages.Add(searchTab);
         }
 
         public NoteEditor NoteEditor { get; set; }
@@ -41,7 +52,21 @@ namespace MindMate.View
             }
         }
 
+        public TabPage SearchTab
+        {
+            get
+            {
+                return TabPages.Cast<TabPage>().First(p => p.Text == SearchTabTitle);
+            }
+        }
 
+        public SearchControl SearchControl
+        {
+            get
+            {
+                return SearchTab.Controls[0] as SearchControl;
+            }
+        }
 
     }
 }

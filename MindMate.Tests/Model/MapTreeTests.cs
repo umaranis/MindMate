@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.Model;
+using MindMate.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -561,6 +562,50 @@ namespace MindMate.Tests.Model
             t.SetLargeObject("key1", lob);
 
             Assert.IsFalse(t.RemoveLargeObject("key2"));
+        }
+
+        [TestMethod]
+        public void MapNodes()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            Assert.AreEqual(9, t.MapNodes.Count());
+        }
+
+        [TestMethod]
+        public void MapNodes_SingleChildNodes()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c111 = new MapNode(c11, "c111");
+            var c1111 = new MapNode(c111, "c1111");
+            var c11111 = new MapNode(c1111, "c11111");
+            var c2 = new MapNode(r, "c3", NodePosition.Left);
+            var c21 = new MapNode(c2, "c21");
+            var c211 = new MapNode(c21, "c21");
+
+            Assert.AreEqual(9, t.MapNodes.Count());
+        }
+
+
+        [TestMethod]
+        public void MapNodes_LoadMap()
+        {
+            var manager = new PersistenceManager();
+            var tree = manager.OpenTree(@"Resources\Feature Display.mm");
+
+            Assert.AreEqual(tree.MapNodes.Count(), tree.RootNode.RollUpAggregate<int>(n => 1, (a, b) => a + b));
         }
     }
 }

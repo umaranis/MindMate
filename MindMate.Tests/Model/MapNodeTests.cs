@@ -1401,6 +1401,22 @@ namespace MindMate.Tests.Model
             Assert.AreEqual(c61, c31.GetClosestSameLevelNodeBelow());
         }
 
+        [TestMethod]
+        public void Descendents()
+        {
+            var r = new MapNode(new MapTree(), "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c13 = new MapNode(c1, "c13");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            Assert.AreEqual(8, r.Descendents.Count());
+        }        
+
         [TestMethod()]
         public void UnfoldDescendents()
         {

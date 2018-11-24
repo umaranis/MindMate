@@ -1449,6 +1449,37 @@ namespace MindMate.Model
             }
         }
 
+        public IEnumerable<MapNode> Descendents
+        {
+            get
+            {
+                var current = FirstChild;
+                do
+                {
+                    yield return current;
+                    if (current.FirstChild != null)
+                        current = current.FirstChild;
+                    else if (current.Next != null)
+                        current = current.Next;
+                    else if (current.Parent != null)  {
+                        var temp = current;
+                        current = null;
+                        do {
+                            if (temp.Parent?.Next != null) {
+                                current = temp.Parent.Next;
+                                temp = null;
+                            }
+                            else
+                                temp = temp.Parent;
+                        } while (temp != null);
+                    }
+                    else
+                        current = null;
+                }
+                while (current != null);
+            }
+        }
+
         public NodeLinkType GetLinkType()
         {
             NodeLinkType linkType; int i;
