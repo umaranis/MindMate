@@ -80,6 +80,11 @@ namespace MindMate.Tests.Controller
                             while (taskScheduler.TaskCount != 0) return;
                             Assert.AreEqual(1, control.lstResults.Items.Count);
                             break;
+                        case 10:
+                            Assert.IsFalse(r.Selected);
+                            control.lstResults.SelectedIndex = 0;
+                            Assert.IsTrue(r.Selected);
+                            break;
                         default:                            
                             form.Close();
                             break;
