@@ -17,7 +17,7 @@ namespace MindMate.Tests.Controller
         public void TestMethod1()
         {
             SearchController sut = null;
-            int eventNum = 0;
+            int eventNum = 1;
             Task.Run(() =>
             {
                 var t = new MapTree();
@@ -74,6 +74,7 @@ namespace MindMate.Tests.Controller
                             break;
                         case 8:
                             control.txtSearch.Text = "r";
+                            control.btnSearch.PerformClick();
                             break;
                         case 9:
                             while (taskScheduler.TaskCount != 0) return;
