@@ -89,6 +89,7 @@
     <Compile Include="Model\ResourcesTests.cs" />
     <Compile Include="Serialization\MapZipSerializerTests.cs" />
     <Compile Include="Serialization\PersistentTreeTests.cs" />
+    <Compile Include="TestDouble\IconSelectorHelper.cs" />
     <Compile Include="View\MapControls\MapViewFormatPainterTests.cs" />
     <Compile Include="View\MapControls\MapViewPanelTests.cs" />
     <Compile Include="View\MapControls\MapViewTests_GetMapNodeFromPoint_AlgoVer1.cs" />

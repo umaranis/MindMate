@@ -42,16 +42,16 @@ namespace MindMate.Controller
         {
             int instanceID = ++CurrentSearchID;
             MapTree tree = GetCurrentMapTree();
-            string searchTerm = SearchControl.txtSearch.Text;
+            SearchTerm searchTerm = SearchControl.CreateSearchTerm();
             ScheduleParallelTask(() =>
             {
                 Action actClear = () => SearchControl.lstResults.Items.Clear();
-                SearchControl.Invoke(actClear);
+                SearchControl.Invoke(actClear);                
                 foreach (var n in tree.MapNodes)
                 {
                     if (instanceID != CurrentSearchID) return;  //this is to cancel the search if searchTerm has changed
-                    if (n.Text.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0
-                            || (n.HasNoteText && n.NoteText.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0)) //TODO: include something in search result to identity note
+                    if (n.Text.IndexOf(searchTerm.Text, searchTerm.StringComparison) >= 0
+                            || (n.HasNoteText && !searchTerm.ExcludeNote && n.NoteText.IndexOf(searchTerm.Text, searchTerm.StringComparison) >= 0)) //TODO: include something in search result to identity note
                     {
                         Action actAdd = () => SearchControl.lstResults.Items.Add(n);
                         SearchControl.Invoke(actAdd);
