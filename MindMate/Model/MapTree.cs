@@ -342,11 +342,7 @@ namespace MindMate.Model
         {
             get
             {
-                yield return RootNode;
-                foreach(var n in RootNode.Descendents)
-                {
-                    yield return n;
-                }                
+                return (new[] { RootNode }).Concat(RootNode.Descendents);
             }
         }
 

@@ -17,62 +17,87 @@ namespace MindMate.Tests.View
         [TestMethod()]
         public void IconSelectorExt_CloseWithEscape()
         {
-            MindMate.View.Dialogs.IconSelectorExt.Instance.Show();
+            void Instance_Shown(object sender, EventArgs e)
+            {
+                SetForegroundWindow(IconSelectorExt.Instance.Handle);
+                SendKeys.SendWait("{Esc}");
+            }
+            IconSelectorExt.Instance.Shown += Instance_Shown;                
 
-            SetForegroundWindow(MindMate.View.Dialogs.IconSelectorExt.Instance.Handle);
+            IconSelectorExt.Instance.ShowDialog();
 
-            SendKeys.SendWait("{Esc}");
-
-            Assert.IsNull(MindMate.View.Dialogs.IconSelectorExt.Instance.SelectedIcon);
+            Assert.IsNull(IconSelectorExt.Instance.SelectedIcon, $"SelectedIcon is not null. It's value is {IconSelectorExt.Instance.SelectedIcon}");            
+            IconSelectorExt.Instance.Shown -= Instance_Shown;
+            
         }
+
+        
 
         [TestMethod()]
         public void IconSelectorExt_SelectIconWithShortCut()
         {
-            MindMate.View.Dialogs.IconSelectorExt.Instance.Show();
             var icon = MetaModel.MetaModel.Instance.IconsList.Find(i => i.Shortcut != null);
+            void Instance_Shown(object sender, EventArgs e)
+            {
+                SetForegroundWindow(IconSelectorExt.Instance.Handle);
+                SendKeys.SendWait("{" + icon.Shortcut + "}");
+            }
+            IconSelectorExt.Instance.Shown += Instance_Shown;
 
-            SetForegroundWindow(MindMate.View.Dialogs.IconSelectorExt.Instance.Handle);
+            IconSelectorExt.Instance.ShowDialog();
 
-            SendKeys.SendWait("{" + icon.Shortcut + "}");
+            Assert.AreEqual(icon.Name, IconSelectorExt.Instance.SelectedIcon);
 
-            Assert.AreEqual(icon.Name, MindMate.View.Dialogs.IconSelectorExt.Instance.SelectedIcon);
+            IconSelectorExt.Instance.Shown -= Instance_Shown;
         }
 
         [TestMethod()]
         public void IconSelectorExt_CloseWithEnter()
         {
-            MindMate.View.Dialogs.IconSelectorExt.Instance.Show();
+            void Instance_Shown(object sender, EventArgs e)
+            {
+                SetForegroundWindow(MindMate.View.Dialogs.IconSelectorExt.Instance.Handle);
+                SendKeys.SendWait("{Enter}");
+            };
+            IconSelectorExt.Instance.Shown += Instance_Shown;
 
-            SetForegroundWindow(MindMate.View.Dialogs.IconSelectorExt.Instance.Handle);
-
-            SendKeys.SendWait("{Enter}");
+            IconSelectorExt.Instance.ShowDialog();
 
             Assert.IsNotNull(MindMate.View.Dialogs.IconSelectorExt.Instance.SelectedIcon);
+            IconSelectorExt.Instance.Shown -= Instance_Shown;
+
         }
 
         [TestMethod()]
         public void IconSelectorExt_RemoveAll()
         {
-            MindMate.View.Dialogs.IconSelectorExt.Instance.Show();
-
-            SetForegroundWindow(MindMate.View.Dialogs.IconSelectorExt.Instance.Handle);
-
-            SendKeys.SendWait("{Del}");
+            void Instance_Shown(object sender, EventArgs e)
+            {
+                SetForegroundWindow(MindMate.View.Dialogs.IconSelectorExt.Instance.Handle);
+                SendKeys.SendWait("{Del}");
+            }
+            IconSelectorExt.Instance.Shown += Instance_Shown;
+            IconSelectorExt.Instance.ShowDialog();            
 
             Assert.AreEqual(IconSelectorExt.REMOVE_ALL_ICON_NAME, IconSelectorExt.Instance.SelectedIcon);
+            IconSelectorExt.Instance.Shown -= Instance_Shown;
         }
+
+        
 
         [TestMethod()]
         public void IconSelectorExt_RemoveLast()
         {
-            MindMate.View.Dialogs.IconSelectorExt.Instance.Show();
-
-            SetForegroundWindow(MindMate.View.Dialogs.IconSelectorExt.Instance.Handle);
-
-            SendKeys.SendWait("{Backspace}");
+            void Instance_Shown(object sender, EventArgs e)
+            {
+                SetForegroundWindow(MindMate.View.Dialogs.IconSelectorExt.Instance.Handle);
+                SendKeys.SendWait("{Backspace}");
+            }
+            IconSelectorExt.Instance.Shown += Instance_Shown;
+            IconSelectorExt.Instance.ShowDialog();
 
             Assert.AreEqual(IconSelectorExt.REMOVE_ICON_NAME, IconSelectorExt.Instance.SelectedIcon);
+            IconSelectorExt.Instance.Shown -= Instance_Shown;
         }
 
         [DllImport("user32.dll")]

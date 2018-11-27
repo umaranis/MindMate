@@ -183,10 +183,10 @@
         public System.Windows.Forms.CheckBox ckbCase;
         public System.Windows.Forms.CheckBox ckbSelectedNode;
         public System.Windows.Forms.CheckBox ckbExcludeNote;
-        private System.Windows.Forms.CheckBox ckbAnyIcon;
         private System.Windows.Forms.ToolTip toolTip1;
         public System.Windows.Forms.Button btnAddIcon;
         public System.Windows.Forms.FlowLayoutPanel pnlIcons;
         private System.Windows.Forms.GroupBox grbIcons;
+        public System.Windows.Forms.CheckBox ckbAnyIcon;
     }
 }

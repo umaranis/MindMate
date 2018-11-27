@@ -79,6 +79,7 @@ namespace MindMate.View.Dialogs
                     CloseForm(REMOVE_ALL_ICON_NAME);
                     break;           
                 case Keys.Escape:
+                    this.SelectedIcon = null;
                     this.DialogResult = DialogResult.Cancel;
                     break;                
                 default: //Other keys                    

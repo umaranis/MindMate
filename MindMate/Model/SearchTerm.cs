@@ -12,9 +12,32 @@ namespace MindMate.Model
         public StringComparison StringComparison { get; set; }
         public bool ExcludeNote { get; set; }
         /// <summary>
-        /// Search within current node and it's descendents only
+        /// Search within selected nodes and their descendents only
         /// </summary>
-        public bool SearchCurrentNode { get; set; }
-        public List<string> Icons { get; set; } = new List<string>();
+        public bool SearchSelectedHierarchy { get; set; }
+        public List<string> Icons { get; } = new List<string>();
+        public bool MatchAllIcons { get; set; } = true;
+
+        public bool IsEmpty => String.IsNullOrWhiteSpace(Text) && Icons.Count <= 0;
+
+        public bool MatchNode(MapNode n)
+        {
+            if (Icons.Count != 0)
+            {
+                if (MatchAllIcons)
+                {
+                    if (!Icons.All(icon => n.Icons.Contains(icon))) return false;
+                }
+                else
+                {
+                    if (!Icons.Any(icon => n.Icons.Contains(icon))) return false;
+                }
+            }
+
+            return
+                n.Text.IndexOf(Text, StringComparison) >= 0
+                || (n.HasNoteText && !ExcludeNote && n.NoteText.IndexOf(Text, StringComparison) >= 0)
+                ;
+        }
     }
 }

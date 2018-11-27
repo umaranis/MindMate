@@ -40,25 +40,37 @@ namespace MindMate.Controller
 
         private void Search()
         {
-            int instanceID = ++CurrentSearchID;
-            MapTree tree = GetCurrentMapTree();
             SearchTerm searchTerm = SearchControl.CreateSearchTerm();
+            if (searchTerm.IsEmpty) return;
+            int instanceID = ++CurrentSearchID;
+            MapTree tree = GetCurrentMapTree();            
             ScheduleParallelTask(() =>
             {
                 Action actClear = () => SearchControl.lstResults.Items.Clear();
                 SearchControl.Invoke(actClear);                
-                foreach (var n in tree.MapNodes)
+                foreach (var n in GetNodesToSearch(tree, searchTerm.SearchSelectedHierarchy))
                 {
                     if (instanceID != CurrentSearchID) return;  //this is to cancel the search if searchTerm has changed
-                    if (n.Text.IndexOf(searchTerm.Text, searchTerm.StringComparison) >= 0
-                            || (n.HasNoteText && !searchTerm.ExcludeNote && n.NoteText.IndexOf(searchTerm.Text, searchTerm.StringComparison) >= 0)) //TODO: include something in search result to identity note
+                    if (searchTerm.MatchNode(n)) 
                     {
                         Action actAdd = () => SearchControl.lstResults.Items.Add(n);
                         SearchControl.Invoke(actAdd);
                     }
                 }                
             });
-        }
+        }        
+
+        private IEnumerable<MapNode> GetNodesToSearch(MapTree tree, bool selectedNodeHierarchy)
+        {
+            if (!selectedNodeHierarchy)
+            {
+                return tree.MapNodes;
+            }
+            else
+            {
+                return tree.SelectedNodes.ExcludeNodesAlreadyPartOfHierarchy().SelectMany(n => (n.Descendents.Concat(new[] { n })));
+            }
+        }        
 
         private void BtnSearch_Click(object sender, EventArgs e)
         {

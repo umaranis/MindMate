@@ -248,17 +248,31 @@ namespace MindMate.Tests.Model
 
             t.SelectAllNodes();
 
-            var exclude = t.SelectedNodes.ExcludeNodesAlreadyPartOfHierarchy();
+            Assert.AreEqual(1, t.SelectedNodes.ExcludeNodesAlreadyPartOfHierarchy().Count());
+        }
 
-            for (int i = 0; i < t.SelectedNodes.Count; i++)
-            {
-                if (t.SelectedNodes[i] != r && !exclude[i])
-                {
-                    Assert.Fail();
-                }
-            }
+        [TestMethod()]
+        public void ExcludeNodesAlreadyPartOfHierarchy_Level1()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2");
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
 
-            Assert.AreEqual(1, exclude.Count(b => !b));
+            t.SelectAllNodes();
+            r.Selected = false;
+
+            Assert.AreEqual(11, t.SelectedNodes.Count);
+            Assert.AreEqual(3, t.SelectedNodes.ExcludeNodesAlreadyPartOfHierarchy().Count());
         }
     }
 }

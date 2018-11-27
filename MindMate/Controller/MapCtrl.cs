@@ -1175,22 +1175,17 @@ namespace MindMate.Controller
             Debug.Assert(!location.IsEmpty);
             if (this.MapView.SelectedNodes.Last == null || MapView.SelectedNodes.Contains(tree.RootNode)) return;
 
-            MapNode[] nodes = MapView.SelectedNodes.ToArray();
-            bool[] exclude = MapView.SelectedNodes.ExcludeNodesAlreadyPartOfHierarchy();
+            var nodes = MapView.SelectedNodes.ExcludeNodesAlreadyPartOfHierarchy().ToList();
 
             MapView.SuspendLayout();
             
-            tree.ChangeManager.StartBatch("Drag/Drop Node" + (nodes.Length > 0? "s" : ""));
-            for(int i = 0; i < nodes.Length; i++)
+            tree.ChangeManager.StartBatch("Drag/Drop Node" + (nodes.Count > 0? "s" : ""));
+            foreach(var n in nodes)
             {
-                MapNode n = nodes[i];
-                if (!exclude[i])
-                {
-                    n.Detach();
-                    Debug.Assert(n.Detached, "Detached property is false for node just detached.");
-                    n.AttachTo(location.Parent, location.Sibling, location.InsertAfterSibling);
-                    MapView.SelectedNodes.Add(n, true);
-                }
+                n.Detach();
+                Debug.Assert(n.Detached, "Detached property is false for node just detached.");
+                n.AttachTo(location.Parent, location.Sibling, location.InsertAfterSibling);
+                MapView.SelectedNodes.Add(n, true);
             }
 
             if (location.Parent.Folded) location.Parent.Folded = false;
@@ -1616,7 +1611,7 @@ namespace MindMate.Controller
             catch (Exception e)
             {
                 dialogs.ShowMessageBox("Error", e.Message, MessageBoxIcon.Error);
-                Debug.Write(e.Message);
+                Log.Write("Error in CreateNoteStyle.", e);
             }
 
             return null;

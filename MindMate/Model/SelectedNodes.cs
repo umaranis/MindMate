@@ -166,7 +166,7 @@ namespace MindMate.Model
             return selectedNodes.GetEnumerator();
         }
 
-        public bool[] ExcludeNodesAlreadyPartOfHierarchy()
+        public IEnumerable<MapNode> ExcludeNodesAlreadyPartOfHierarchy()
         {
             SelectedNodes nodes = this;
 
@@ -201,9 +201,10 @@ namespace MindMate.Model
                         exclude[i] = true;
                     }
                 }
+
+                if (!exclude[i]) yield return node1;
             }
 
-            return exclude;
         }
     }
 }

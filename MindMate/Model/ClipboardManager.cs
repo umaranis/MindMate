@@ -50,14 +50,10 @@ namespace MindMate.Model
                 StringBuilder str = new StringBuilder();
                 MapTextSerializer serializer = new MapTextSerializer();
                 
-                bool[] exclude = nodes.ExcludeNodesAlreadyPartOfHierarchy();
-                for (int i = 0; i < nodes.Count; i++ )
+                foreach (var n in nodes.ExcludeNodesAlreadyPartOfHierarchy())
                 {
-                    if (!exclude[i])
-                    {
-                        internalClipboard.Add(nodes[i].CloneAsDetached());
-                        serializer.Serialize(nodes[i], str);
-                    }
+                    internalClipboard.Add(n.CloneAsDetached());
+                    serializer.Serialize(n, str);
                 }                
                 
                 var cbData = new MindMateTextDataObject();
@@ -80,13 +76,9 @@ namespace MindMate.Model
                 StringBuilder str = new StringBuilder();
                 MapTextSerializer serializer = new MapTextSerializer();
 
-                bool[] exclude = nodes.ExcludeNodesAlreadyPartOfHierarchy();
-                for (int i = 0; i < nodes.Count; i++)
+                foreach (var n in nodes.ExcludeNodesAlreadyPartOfHierarchy())
                 {
-                    if(!exclude[i])
-                    {
-                        internalClipboard.Add(nodes[i]);
-                    }
+                   internalClipboard.Add(n);
                 }
                 internalClipboard.ForEach(n =>
                     {
