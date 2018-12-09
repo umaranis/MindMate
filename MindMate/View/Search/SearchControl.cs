@@ -40,6 +40,9 @@ namespace MindMate.View.Search
                         picBox.SizeMode = PictureBoxSizeMode.AutoSize;
                         picBox.Image = icon.Bitmap;
                         picBox.Tag = icon.Name;
+                        toolTip1.SetToolTip(picBox, icon.Title);
+                        picBox.ContextMenuStrip = new ContextMenuStrip();
+                        picBox.ContextMenuStrip.Items.Add("Remove", null, (o, evn) => pnlIcons.Controls.Remove(picBox));                         
                         pnlIcons.Controls.Add(picBox);
                         break;
                 }

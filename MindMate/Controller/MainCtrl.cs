@@ -18,6 +18,7 @@ using System.IO;
 using MindMate.Modules.Undo;
 using MindMate.View.EditorTabs;
 using MindMate.View.MapControls;
+using MindMate.Modules.Logging;
 
 namespace MindMate.Controller
 {
@@ -82,7 +83,9 @@ namespace MindMate.Controller
             Dialogs.StatusBarCtrl = new WinFormsStatusBarCtrl(mainForm.StatusBar, PersistenceManager);
             NodeContextMenu = new NodeContextMenu();
             mainForm.Load += mainForm_Load;
-            mainForm.Shown += mainForm_AfterReady;            
+            mainForm.Shown += mainForm_AfterReady;
+            // changing side bar tab gives focus away to tab control header, below event focuses relevant control again
+            mainForm.SideBarTabs.SelectedIndexChanged += SideBarTabs_SelectedIndexChanged;
         }
 
         void mainForm_Load(object sender, EventArgs e)
@@ -103,7 +106,7 @@ namespace MindMate.Controller
                 {
                     tree = PersistenceManager.NewTree();
                     MetaModel.MetaModel.Instance.LastOpenedFile = null;
-                    System.Diagnostics.Trace.TraceWarning(DateTime.Now.ToString() + ": Couldn't load last opened file. " + exp.Message);
+                    Log.Write("Couldn't load last opened file. " + exp.Message);
                 }
             }
 
@@ -172,6 +175,16 @@ namespace MindMate.Controller
         public void ReturnFocusToMapView()
         {
             mainForm.FocusMapView();
+        }
+
+        private void SideBarTabs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (mainForm.SideBarTabs.SelectedTab == mainForm.SideBarTabs.NoteTab)
+                mainForm.SideBarTabs.SelectedTab.Controls[0].Focus();
+            else if (mainForm.SideBarTabs.SelectedTab == mainForm.SideBarTabs.SearchTab)
+                mainForm.SideBarTabs.SearchControl.Focus();
+            else
+                mainForm.FocusMapView();
         }
 
         public void ShowApplicationOptions()

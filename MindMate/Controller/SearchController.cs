@@ -85,8 +85,11 @@ namespace MindMate.Controller
 
         private void LstResults_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var node = SearchControl.lstResults.SelectedItem as MapNode;
-            if(node != null) node.Selected = true;
+            if (SearchControl.lstResults.SelectedItem is MapNode node && !node.Detached)
+                node.Selected = true;
+            else
+                SearchControl.lstResults.Items.Remove(SearchControl.lstResults.SelectedItem);
+
         }
     }
 }

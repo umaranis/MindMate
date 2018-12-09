@@ -24,9 +24,6 @@ namespace MindMate.WinXP
             // moving splitter makes it the focused control, below event focuses the last control again
             splitContainer1.GotFocus += SplitContainer1_GotFocus;
 
-            // changing side bar tab gives focus away to tab control header, below event focuses relevant control again
-            SideBarTabs.SelectedIndexChanged += SideBarTabs_SelectedIndexChanged;
-
             EditorTabs = new EditorTabs();
             splitContainer1.Panel1.Controls.Add(EditorTabs);
 
@@ -82,14 +79,6 @@ namespace MindMate.WinXP
         private void SplitContainer1_GotFocus(object sender, EventArgs e)
         {
             FocusLastControl();
-        }
-
-        private void SideBarTabs_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (SideBarTabs.SelectedTab == SideBarTabs.NoteTab)
-                SideBarTabs.SelectedTab.Controls[0].Focus();
-            else
-                FocusMapView();
         }
 
         #endregion
