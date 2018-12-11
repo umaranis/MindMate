@@ -77,6 +77,10 @@ namespace MindMate.Tests.Controller
                             case 5:
                                 while (taskScheduler.TaskCount != 0) return;
                                 Assert.AreEqual(6, control.lstResults.Items.Count);
+                                control.btnSelect.PerformClick();
+                                Assert.AreEqual(6, t.SelectedNodes.Count);                                
+                                control.btnClear.PerformClick();
+                                Assert.AreEqual(0, control.lstResults.Items.Count);
                                 break;
                             case 6:
                                 control.txtSearch.Text = "rr";

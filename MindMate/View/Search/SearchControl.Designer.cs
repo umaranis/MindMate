@@ -40,6 +40,8 @@
             this.pnlIcons = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAddIcon = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnClear = new System.Windows.Forms.Button();
+            this.btnSelect = new System.Windows.Forms.Button();
             this.grbIcons.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,7 +73,7 @@
             this.lstResults.FormattingEnabled = true;
             this.lstResults.Location = new System.Drawing.Point(15, 170);
             this.lstResults.Name = "lstResults";
-            this.lstResults.Size = new System.Drawing.Size(327, 446);
+            this.lstResults.Size = new System.Drawing.Size(327, 459);
             this.lstResults.TabIndex = 2;
             this.toolTip1.SetToolTip(this.lstResults, "Search Results");
             // 
@@ -155,10 +157,34 @@
             this.btnAddIcon.UseVisualStyleBackColor = true;
             this.btnAddIcon.Click += new System.EventHandler(this.btnAddIcon_Click);
             // 
+            // btnClear
+            // 
+            this.btnClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnClear.Location = new System.Drawing.Point(267, 65);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(75, 23);
+            this.btnClear.TabIndex = 7;
+            this.btnClear.Text = "Clear";
+            this.toolTip1.SetToolTip(this.btnClear, "Clear search results");
+            this.btnClear.UseVisualStyleBackColor = true;
+            // 
+            // btnSelect
+            // 
+            this.btnSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSelect.Location = new System.Drawing.Point(267, 89);
+            this.btnSelect.Name = "btnSelect";
+            this.btnSelect.Size = new System.Drawing.Size(75, 23);
+            this.btnSelect.TabIndex = 8;
+            this.btnSelect.Text = "Select";
+            this.toolTip1.SetToolTip(this.btnSelect, "Select all nodes found in search results");
+            this.btnSelect.UseVisualStyleBackColor = true;
+            // 
             // SearchControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnSelect);
+            this.Controls.Add(this.btnClear);
             this.Controls.Add(this.grbIcons);
             this.Controls.Add(this.ckbExcludeNote);
             this.Controls.Add(this.ckbSelectedNode);
@@ -188,5 +214,7 @@
         public System.Windows.Forms.FlowLayoutPanel pnlIcons;
         private System.Windows.Forms.GroupBox grbIcons;
         public System.Windows.Forms.CheckBox ckbAnyIcon;
+        public System.Windows.Forms.Button btnClear;
+        public System.Windows.Forms.Button btnSelect;
     }
 }

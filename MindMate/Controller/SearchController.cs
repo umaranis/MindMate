@@ -33,9 +33,11 @@ namespace MindMate.Controller
             ScheduleParallelTask = scheduleParallelTask;
             this.SearchControl = searchControl;
 
-            searchControl.txtSearch.TextChanged += TxtSearch_TextChanged;
-            searchControl.lstResults.SelectedIndexChanged += LstResults_SelectedIndexChanged;
-            searchControl.btnSearch.Click += BtnSearch_Click;
+            SearchControl.txtSearch.TextChanged += TxtSearch_TextChanged;
+            SearchControl.lstResults.SelectedIndexChanged += LstResults_SelectedIndexChanged;
+            SearchControl.btnSearch.Click += BtnSearch_Click;
+            SearchControl.btnClear.Click += BtnClear_Click;
+            SearchControl.btnSelect.Click += BtnSelect_Click;
         }        
 
         private void Search()
@@ -90,6 +92,21 @@ namespace MindMate.Controller
             else
                 SearchControl.lstResults.Items.Remove(SearchControl.lstResults.SelectedItem);
 
+        }
+
+        private void BtnClear_Click(object sender, EventArgs e)
+        {
+            SearchControl.lstResults.Items.Clear();
+        }
+
+        private void BtnSelect_Click(object sender, EventArgs e)
+        {
+            GetCurrentMapTree().SelectedNodes.Clear();
+            foreach (var n in SearchControl.lstResults.Items)
+            {
+                if (n is MapNode node && !node.Detached)
+                    node.AddToSelection();
+            }
         }
     }
 }
