@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MindMate.View.MapControls.Drawing
 {
-    public class MapPainter : BasePainter
+    public class TreePainter : BasePainter
     {
         protected override void DrawNodeLinker(NodeView nodeView, Graphics g, Pen p)
         {
@@ -22,15 +22,8 @@ namespace MindMate.View.MapControls.Drawing
             float control1X, control1Y, control2X, control2Y;
 
 
-            if (node.Pos == NodePosition.Right)
-            {
-                pos1X = parentView.Left + parentView.Width;
-            }
-            else
-            {
-                pos1X = parentView.Left;
-            }
-
+            pos1X = parentView.Left;
+            
             pos1Y = node.Parent.Pos == NodePosition.Root || node.Parent.Shape == NodeShape.Bullet ?
                 parentView.Top + (int)(parentView.Height / 2) - 1 :
                 parentView.Top + parentView.Height - 1;
@@ -42,16 +35,10 @@ namespace MindMate.View.MapControls.Drawing
 
 
 
-            if (node.Pos == NodePosition.Right)
-            {
-                pos2X = nodeView.Left;
-                control1X = pos1X + 10;
-            }
-            else
-            {
-                pos2X = nodeView.Left + nodeView.Width;
-                control1X = pos1X - 10;
-            }
+            pos2X = nodeView.Left;
+            control1X = pos1X + 10;
+            
+            
 
             control1Y = pos1Y;
             control2X = pos1X;
@@ -61,6 +48,11 @@ namespace MindMate.View.MapControls.Drawing
 
             g.DrawBezier(p, new PointF(pos1X, pos1Y), new PointF(control1X, control1Y),
                 new PointF(control2X, control2Y), new PointF(pos2X, pos2Y));
+        }
+
+        protected override void DrawFoldedIndicator(NodeView nodeView, Graphics g, Pen p)
+        {
+            DrawFoldedIndicatorOnRight(nodeView, g, p);
         }
     }
 }

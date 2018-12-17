@@ -140,4 +140,10 @@ namespace MindMate.Model
         After = 0b100_00
     };
 
+    public enum ViewLayout
+    {
+        MindMap,
+        Tree
+    };
+
 }

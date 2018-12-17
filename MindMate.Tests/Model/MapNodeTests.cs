@@ -1043,7 +1043,7 @@ namespace MindMate.Tests.Model
 
             Bitmap bmp2 = new Bitmap(2500, 2500);
             Graphics g = Graphics.FromImage(bmp2);
-            MapPainter.DrawNode(n2, false, mapView, g);
+            new MapPainter().DrawNode(n2, false, mapView, g);
             g.Dispose();
 
             bmp2.Save(@"Resources\CopyFormatTo_CompareOutputWithSavedImage_Des.png", ImageFormat.Png);

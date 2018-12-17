@@ -269,7 +269,7 @@ namespace MindMate.Controller
 
                 tree.ChangeManager.EndBatch();
             }
-        }
+        }       
 
         public void AppendSiblingNodeAndEdit()
         {        
@@ -469,44 +469,7 @@ namespace MindMate.Controller
         /// <param name="expandSelection"></param>
         public void SelectNodeAbove(bool expandSelection = false)
         {
-            MapNode node = MapView.SelectedNodes.Last;
-            if (node == null || node.Parent == null) return;
-            
-            if (node.Previous != null)
-            {
-                if (!MapView.SelectedNodes.Contains(node.Previous))
-                {
-                    this.MapView.SelectedNodes.Add(node.Previous, expandSelection); //select or expand selection
-                }
-                else if(expandSelection)
-                {
-                    MapView.SelectedNodes.Remove(node);//reduce selection
-                }
-                else
-                {
-                    MapView.SelectedNodes.Add(node.Previous);//clear selection and select previous
-                }
-            }
-            else if (node.Parent.Previous != null && node.Parent.Previous.LastChild  != null && !node.Parent.Previous.Folded)
-            {
-                if (!MapView.SelectedNodes.Contains(node.Parent.Previous.LastChild))
-                {
-                    this.MapView.SelectedNodes.Add(node.Parent.Previous.LastChild, expandSelection);
-                }
-                else if(expandSelection)
-                {
-                    MapView.SelectedNodes.Remove(node);
-                }
-                else
-                {
-                    this.MapView.SelectedNodes.Add(node.Parent.Previous.LastChild);
-                }
-            }
-            else if(!expandSelection)
-            {
-                MapView.SelectedNodes.Add(node);
-            }
-            
+            MapView.Layout.Traverser.TraverseUp(tree, expandSelection);            
         }
 
         /// <summary>
@@ -516,99 +479,18 @@ namespace MindMate.Controller
         /// </summary>
         public void SelectNodeBelow(bool expandSelection = false)
         {
-            MapNode node = MapView.SelectedNodes.Last;
-            if (node == null || node.Parent == null) return;
-
-            if (node.Next != null)
-            {
-                if (!MapView.SelectedNodes.Contains(node.Next))
-                {
-                    this.MapView.SelectedNodes.Add(node.Next, expandSelection);
-                }
-                else if(expandSelection)
-                {
-                    MapView.SelectedNodes.Remove(node);
-                }
-                else
-                {
-                    MapView.SelectedNodes.Add(node.Next);
-                }
-            }
-            else if (node.Parent.Next != null && node.Parent.Next.FirstChild != null &&!node.Parent.Next.Folded)
-            {
-                if (!MapView.SelectedNodes.Contains(node.Parent.Next.FirstChild))
-                {
-                    this.MapView.SelectedNodes.Add(node.Parent.Next.FirstChild, expandSelection);
-                }
-                else if (expandSelection)
-                {
-                    MapView.SelectedNodes.Remove(node);
-                }
-                else
-                {
-                    this.MapView.SelectedNodes.Add(node.Parent.Next.FirstChild);
-                }
-            }
-            else if (!expandSelection)
-            {
-                MapView.SelectedNodes.Add(node);
-            }
-            
+            MapView.Layout.Traverser.TraverseDown(tree, expandSelection);            
         }
 
         
         public void SelectNodeRightOrUnfold()
         {
-            MapNode node = MapView.SelectedNodes.Last;
-            if (node == null) return;
-
-            if (node.Pos == NodePosition.Left)
-            {
-                this.MapView.SelectedNodes.Add(node.Parent, false);
-            }
-            else
-            {
-                if (node.Folded)
-                {
-                    this.ToggleFolded(node);
-                    return;
-                }
-
-                MapNode tmpNode = MapView.GetNodeView(node).GetLastSelectedChild(NodePosition.Right);
-                if (tmpNode == null)
-                {
-                    return;
-                }
-
-                this.MapView.SelectedNodes.Add(tmpNode, false);
-            }
+            MapView.Layout.Traverser.TraverseRight(tree);
         }
 
         public void SelectNodeLeftOrUnfold()
         {
-            MapNode node = MapView.SelectedNodes.Last;
-            if (node == null) return;
-
-            if (node.Pos == NodePosition.Right)
-            {
-                this.MapView.SelectedNodes.Add(node.Parent, false);
-            }
-            else
-            {
-                if (node.Folded)
-                {
-                    this.ToggleFolded(node);
-                    return;
-                }
-
-                MapNode tmpNode = MapView.GetNodeView(node).GetLastSelectedChild(NodePosition.Left);
-                if (tmpNode == null)
-                {
-                    return;
-                }
-
-                this.MapView.SelectedNodes.Add(tmpNode, false);
-            }
+            MapView.Layout.Traverser.TraverseLeft(tree);
         }
 
         
@@ -1714,6 +1596,11 @@ namespace MindMate.Controller
         public void ImagePosAfter()
         {
             RunCommand("Image Position After", n => n.SetImagePosition(ImagePosition.After));
+        }
+
+        public void ChangeViewLayout(ViewLayout viewLayout)
+        {
+            MapView.ChangeViewLayout(viewLayout);
         }
 
         /// <summary>

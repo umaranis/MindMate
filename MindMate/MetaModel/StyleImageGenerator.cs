@@ -11,6 +11,8 @@ namespace MindMate.MetaModel
         private const int Height = 30;
         private readonly MapNode mapNode;
 
+        public IPainter Painter { get; } = new MapPainter();
+
         public StyleImageGenerator(MapNode node)
         {
             mapNode = node;
@@ -24,8 +26,8 @@ namespace MindMate.MetaModel
             using (Graphics g = Graphics.FromImage(image))
             {
                 g.Clear(Color.White);
-                MapPainter.DrawNode(mapNode, false, this, g);
-                MapPainter.DrawNodeShape(mapNode, this, g);
+                Painter.DrawNode(mapNode, false, this, g);
+                Painter.DrawNodeShape(mapNode, this, g);
             }
             return image;
         }

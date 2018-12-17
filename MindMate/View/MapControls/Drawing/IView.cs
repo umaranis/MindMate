@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using MindMate.Model;
+using MindMate.View.MapControls.Layout;
 
 namespace MindMate.View.MapControls.Drawing
 {
@@ -14,5 +15,7 @@ namespace MindMate.View.MapControls.Drawing
         MapTree Tree { get; }
 
         MapNode HighlightedNode { get; }
+
+        IPainter Painter { get; }
     }
 }

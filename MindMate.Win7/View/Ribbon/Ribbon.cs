@@ -164,6 +164,10 @@ namespace MindMate.View.Ribbon
             //Format Tab: Node Style
             CreateNodeStyle.ExecuteEvent += CreateNodeStyle_ExecuteEvent;
 
+            //View Tab: View Layout
+            MapViewLayout.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.ChangeViewLayout(ViewLayout.MindMap);
+            TreeViewLayout.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.ChangeViewLayout(ViewLayout.Tree);
+
             //View Tab: View Tasks
             ViewTaskList.ExecuteEvent += ViewTaskList_ExecuteEvent;
 
