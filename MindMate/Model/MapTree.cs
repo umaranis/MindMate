@@ -116,9 +116,12 @@ namespace MindMate.Model
         {
             AttributeSpecChangeEvent(obj, args);
         }
-        
+
 
         #endregion AttributeSpec
+
+        //TODO: Serialize ViewLayout
+        public ViewLayout ViewLayout { get; set; }
 
         public MapNode GetClosestUnselectedNode(MapNode node)
         {

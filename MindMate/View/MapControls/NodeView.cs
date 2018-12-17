@@ -105,7 +105,21 @@ namespace MindMate.View.MapControls
         {
 
         }
-                
+
+        /// <summary>
+        /// If NodeView already exists for the given node, returns it. Otherwise creates a new NodeView
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public static NodeView GetNodeView(MapNode node)
+        {
+            if (node.NodeView == null)
+            {
+                node.NodeView = new NodeView(node);
+            }
+            return node.NodeView;
+        }
+
         private float left;
 
         public float Left

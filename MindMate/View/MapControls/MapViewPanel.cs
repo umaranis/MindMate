@@ -63,10 +63,10 @@ namespace MindMate.View.MapControls
                 
         protected override void OnPaint(PaintEventArgs pe)
         {
-            MapControls.Drawing.MapPainter.DrawTree(MapView, pe.Graphics);
+            MapView.Layout.Painter.DrawTree(MapView, pe.Graphics);
             if (DragDropHandler.IsNodeDragging && !DragDropHandler.NodeDropLocation.IsEmpty)
             {
-                MapControls.Drawing.MapPainter.DrawNodeDropHint(DragDropHandler.NodeDropLocation, pe.Graphics);
+                MapView.Layout.Painter.DrawNodeDropHint(DragDropHandler.NodeDropLocation, pe.Graphics);
             }
             //DrawDebuggingBorders(pe);
             ////base.OnPaint(pe);            

@@ -124,8 +124,18 @@
     </Compile>
     <Compile Include="Serialization\MapZipSerializer.cs" />
     <Compile Include="View\Dialogs\DialogManager.cs" />
+    <Compile Include="View\MapControls\Drawing\IPainter.cs" />
+    <Compile Include="View\MapControls\Drawing\TreePainter.cs" />
+    <Compile Include="View\MapControls\Drawing\MapPainter.cs" />
     <Compile Include="View\MapControls\ICanvasContainer.cs" />
     <Compile Include="View\MapControls\ImageView.cs" />
+    <Compile Include="View\MapControls\Interacting\BaseTraverser.cs" />
+    <Compile Include="View\MapControls\Interacting\ITraverser.cs" />
+    <Compile Include="View\MapControls\Interacting\MapTraverser.cs" />
+    <Compile Include="View\MapControls\Interacting\TreeTraverser.cs" />
+    <Compile Include="View\MapControls\Layout\ILayout.cs" />
+    <Compile Include="View\MapControls\Layout\MapLayout.cs" />
+    <Compile Include="View\MapControls\Layout\TreeLayout.cs" />
     <Compile Include="View\NoteEditing\ImagePaster.cs" />
     <Compile Include="View\NoteEditing\ImageLocalPath.cs" />
     <Compile Include="View\NoteEditing\MimeTypes.cs" />
@@ -332,7 +342,7 @@
     <Compile Include="View\IMainForm.cs" />
     <Compile Include="View\MapControls\ContextMenuAttacher.cs" />
     <Compile Include="View\MapControls\Drawing\IView.cs" />
-    <Compile Include="View\MapControls\Drawing\MapPainter.cs" />
+    <Compile Include="View\MapControls\Drawing\BasePainter.cs" />
     <Compile Include="Model\SelectedNodes.cs" />
     <Compile Include="View\MapControls\Drawing\TextRenderer.cs" />
     <Compile Include="View\MapControls\MapViewDragHandler.cs" />

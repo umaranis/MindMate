@@ -362,6 +362,11 @@ Note:
     <!--Tab: View-->
     <Command Name="TabView" Id="6000" LabelTitle="View" />
     
+    <!--Group: GrpViewLayout-->
+    <Command Name="GrpViewLayout" Id="6300" LabelTitle="View Layout"/>
+    <Command Name="MapViewLayout" Id="6301" LabelTitle="Mind Map" />
+    <Command Name="TreeViewLayout" Id="6302" LabelTitle="Tree" />
+    
     <!--Group: GrpViewTask-->
     <Command Name="GrpViewTask" Id="6100" LabelTitle="Tasks" />
     <Command Name="ViewCalendar" Id="6001" LabelTitle="Calendar" TooltipTitle="Open Calendar" TooltipDescription="Open calendar window to view tasks from open maps." >
@@ -899,6 +904,10 @@ Note:
           </Group>
         </Tab>
         <Tab CommandName="TabView" >
+          <Group CommandName="GrpViewLayout" SizeDefinition="TwoButtons">
+            <Button CommandName="MapViewLayout"/>
+            <Button CommandName="TreeViewLayout" />
+          </Group>
           <Group CommandName="GrpViewTask" SizeDefinition="TwoButtons">
             <Button CommandName="ViewCalendar"/>
             <Button CommandName="ViewTaskList"/>
