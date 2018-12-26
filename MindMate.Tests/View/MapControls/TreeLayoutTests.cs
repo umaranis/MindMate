@@ -11,8 +11,15 @@ using System.Drawing;
 namespace MindMate.Tests.View.MapControls
 {
     [TestClass()]
-    public class MapViewTests
+    public class TreeLayoutTests
     {
+        private MapView CreateMapView(MapTree tree)
+        {
+            var mv = new MapView(tree);
+            mv.ChangeViewLayout(ViewLayout.Tree);
+            return mv;
+        }
+
         [TestMethod()]
         public void MapView_Create()
         {
@@ -20,7 +27,7 @@ namespace MindMate.Tests.View.MapControls
             var r = new MapNode(t, "r");
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
 
             Assert.IsNotNull(v.Tree);
         }
@@ -44,7 +51,7 @@ namespace MindMate.Tests.View.MapControls
             var c32 = new MapNode(c3, "c32");
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
             var rv = v.GetNodeView(r);
 
             var result = v.GetMapNodeFromPoint(new Point((int)rv.Left + 1, (int)rv.Top + 1));
@@ -70,7 +77,7 @@ namespace MindMate.Tests.View.MapControls
             var c32 = new MapNode(c3, "c32");
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
             var rv = v.GetNodeView(r);
 
             var result = v.GetMapNodeFromPoint(new Point((int)rv.Right - 1, (int)rv.Bottom - 1));
@@ -96,7 +103,7 @@ namespace MindMate.Tests.View.MapControls
             var c32 = new MapNode(c3, "c32");
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
             var rv = v.GetNodeView(r);
 
             var result = v.GetMapNodeFromPoint(new Point((int)rv.Left + 1, (int)rv.Top - 1));
@@ -122,7 +129,7 @@ namespace MindMate.Tests.View.MapControls
             var c32 = new MapNode(c3, "c32");
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
             var rv = v.GetNodeView(r);
 
             var result = v.GetMapNodeFromPoint(new Point((int)rv.Left + 1, (int)rv.Bottom + 1));
@@ -148,7 +155,7 @@ namespace MindMate.Tests.View.MapControls
             var c32 = new MapNode(c3, "c32");
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
             var rv = v.GetNodeView(r);
 
             var result = v.GetMapNodeFromPoint(new Point((int)rv.Left - 1, (int)rv.Top + 1));
@@ -174,7 +181,7 @@ namespace MindMate.Tests.View.MapControls
             var c32 = new MapNode(c3, "c32");
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
             var rv = v.GetNodeView(r);
 
             var result = v.GetMapNodeFromPoint(new Point((int)rv.Right + 1, (int)rv.Top + 1));
@@ -200,7 +207,7 @@ namespace MindMate.Tests.View.MapControls
             var c32 = new MapNode(c3, "c32");
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
             var c1v = v.GetNodeView(c1);
 
             var result = v.GetMapNodeFromPoint(new Point((int)c1v.Left + 1, (int)c1v.Top + 1));
@@ -226,7 +233,7 @@ namespace MindMate.Tests.View.MapControls
             var c32 = new MapNode(c3, "c32");
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
             var c11v = v.GetNodeView(c11);
 
             var result = v.GetMapNodeFromPoint(new Point((int)c11v.Left + 1, (int)c11v.Top + 1));
@@ -252,7 +259,7 @@ namespace MindMate.Tests.View.MapControls
             var c32 = new MapNode(c3, "c32");
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
             var c12v = v.GetNodeView(c12);
 
             var result = v.GetMapNodeFromPoint(new Point((int)c12v.Left + 1, (int)c12v.Top + 1));
@@ -278,7 +285,7 @@ namespace MindMate.Tests.View.MapControls
             var c32 = new MapNode(c3, "c32");
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
             var c121v = v.GetNodeView(c121);
 
             var result = v.GetMapNodeFromPoint(new Point((int)c121v.Left + 1, (int)c121v.Top + 1));
@@ -304,7 +311,7 @@ namespace MindMate.Tests.View.MapControls
             var c32 = new MapNode(c3, "c32");
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
             var c13v = v.GetNodeView(c13);
 
             var result = v.GetMapNodeFromPoint(new Point((int)c13v.Left + 1, (int)c13v.Top + 1));
@@ -330,7 +337,7 @@ namespace MindMate.Tests.View.MapControls
             var c32 = new MapNode(c3, "c32");
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
             var c2v = v.GetNodeView(c2);
 
             var result = v.GetMapNodeFromPoint(new Point((int)c2v.Left + 1, (int)c2v.Top + 1));
@@ -356,7 +363,7 @@ namespace MindMate.Tests.View.MapControls
             var c32 = new MapNode(c3, "c32");
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
             var c3v = v.GetNodeView(c3);
 
             var result = v.GetMapNodeFromPoint(new Point((int)c3v.Left + 1, (int)c3v.Top + 1));
@@ -382,91 +389,12 @@ namespace MindMate.Tests.View.MapControls
             var c32 = new MapNode(c3, "c32");
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
             var c31v = v.GetNodeView(c31);
 
             var result = v.GetMapNodeFromPoint(new Point((int)c31v.Left + 1, (int)c31v.Top + 1));
 
             Assert.AreEqual(c31, result);
-        }
-
-        [TestMethod()]
-        public void GetMapNodeFromPoint_ForFoldedNode()
-        {
-            var t = new MapTree();
-            var r = new MapNode(t, "r");
-            var c1 = new MapNode(r, "c1");
-            var c11 = new MapNode(c1, "c11");
-            var c12 = new MapNode(c1, "c12");
-            var c121 = new MapNode(c12, "c121");
-            var c13 = new MapNode(c1, "c13");
-            var c131 = new MapNode(c13, "c131");
-            var c1311 = new MapNode(c131, "c1311");
-            var c2 = new MapNode(r, "c2");
-            var c3 = new MapNode(r, "c3", NodePosition.Left);
-            var c31 = new MapNode(c3, "c31");
-            var c32 = new MapNode(c3, "c32");
-            c3.Folded = true;
-
-            MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
-            var c31v = v.GetNodeView(c31);
-
-            var result = v.GetMapNodeFromPoint(new Point((int)c31v.Left + 1, (int)c31v.Top + 1));
-
-            Assert.IsNull(result);
-        }
-
-        [TestMethod()]
-        public void GetMapNodeFromPoint_RightNodesOnly()
-        {
-            var t = new MapTree();
-            var r = new MapNode(t, "r");
-            var c1 = new MapNode(r, "c1", NodePosition.Right);
-            var c11 = new MapNode(c1, "c11");
-            var c12 = new MapNode(c1, "c12");
-            var c121 = new MapNode(c12, "c121");
-            var c13 = new MapNode(c1, "c13");
-            var c131 = new MapNode(c13, "c131");
-            var c1311 = new MapNode(c131, "c1311");
-            var c2 = new MapNode(r, "c2", NodePosition.Right);
-            var c3 = new MapNode(r, "c3", NodePosition.Right);
-            var c31 = new MapNode(c3, "c31");
-            var c32 = new MapNode(c3, "c32");
-
-            MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
-
-            var result = v.GetMapNodeFromPoint(new Point((int)c32.NodeView.Left + 1, (int)c32.NodeView.Bottom + 1));
-            Assert.IsNull(result);
-            result = v.GetMapNodeFromPoint(new Point((int)r.NodeView.Left - 1, (int)r.NodeView.Bottom + 1));
-            Assert.IsNull(result);
-        }
-
-        [TestMethod()]
-        public void GetMapNodeFromPoint_LeftNodesOnly()
-        {
-            var t = new MapTree();
-            var r = new MapNode(t, "r");
-            var c1 = new MapNode(r, "c1", NodePosition.Left);
-            var c11 = new MapNode(c1, "c11");
-            var c12 = new MapNode(c1, "c12");
-            var c121 = new MapNode(c12, "c121");
-            var c13 = new MapNode(c1, "c13");
-            var c131 = new MapNode(c13, "c131");
-            var c1311 = new MapNode(c131, "c1311");
-            var c2 = new MapNode(r, "c2", NodePosition.Left);
-            var c3 = new MapNode(r, "c3", NodePosition.Left);
-            var c31 = new MapNode(c3, "c31");
-            var c32 = new MapNode(c3, "c32");
-
-            MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
-            var c32v = v.GetNodeView(c32);
-
-            var result = v.GetMapNodeFromPoint(new Point((int)c32v.Left + 1, (int)c32v.Bottom + 1));
-
-            Assert.IsNull(result);
         }
 
         [TestMethod()]
@@ -489,7 +417,7 @@ namespace MindMate.Tests.View.MapControls
             c2.Selected = true;
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
             var c1311v = v.GetNodeView(c1311);
 
             var result = v.GetMapNodeFromPoint(new Point((int)c1311v.Left + 1, (int)c1311v.Top + 1));
@@ -517,7 +445,7 @@ namespace MindMate.Tests.View.MapControls
             c1311.Selected = true;
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
             var c2v = v.GetNodeView(c2);
 
             var result = v.GetMapNodeFromPoint(new Point((int)c2v.Left + 1, (int)c2v.Top + 1));
@@ -526,101 +454,138 @@ namespace MindMate.Tests.View.MapControls
         }
 
         [TestMethod()]
-        public void AddNote()
+        public void GetMapNodeFromPoint_ForFoldedNode()
         {
             var t = new MapTree();
             var r = new MapNode(t, "r");
             var c1 = new MapNode(r, "c1");
-            var c11 = new MapNode(c1, "6");
-            var c12 = new MapNode(c1, "2");
-            var c13 = new MapNode(c1, "4");
-            var c14 = new MapNode(c1, "7");
-            var c15 = new MapNode(c1, "1");
-            var c16 = new MapNode(c1, "5");
-            var c17 = new MapNode(c1, "3");
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
             var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
             var c2 = new MapNode(r, "c2");
             var c3 = new MapNode(r, "c3", NodePosition.Left);
             var c31 = new MapNode(c3, "c31");
             var c32 = new MapNode(c3, "c32");
-            t.SelectedNodes.Add(c32, true);
+            c3.Folded = true;
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
+            var c31v = v.GetNodeView(c31);
 
-            c32.NoteText = "Sample Note";
+            var result = v.GetMapNodeFromPoint(new Point((int)c31v.Left + 1, (int)c31v.Top + 1));
 
-            Assert.IsNotNull(c32.NodeView.NoteIcon);
+            Assert.IsNull(result);
         }
 
         [TestMethod()]
-        public void RemoveNote()
+        public void GetMapNodeFromPoint_RightNodesOnly()
         {
             var t = new MapTree();
             var r = new MapNode(t, "r");
-            var c1 = new MapNode(r, "c1");
-            var c11 = new MapNode(c1, "6");
-            var c12 = new MapNode(c1, "2");
-            var c13 = new MapNode(c1, "4");
-            var c14 = new MapNode(c1, "7");
-            var c15 = new MapNode(c1, "1");
-            var c16 = new MapNode(c1, "5");
-            var c17 = new MapNode(c1, "3");
+            var c1 = new MapNode(r, "c1", NodePosition.Right);
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
             var c121 = new MapNode(c12, "c121");
-            var c2 = new MapNode(r, "c2");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2", NodePosition.Right);
+            var c3 = new MapNode(r, "c3", NodePosition.Right);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            MetaModel.MetaModel.Initialize();
+            var v = CreateMapView(t);
+
+            var result = v.GetMapNodeFromPoint(new Point((int)c32.NodeView.Left + 1, (int)c32.NodeView.Bottom + 1));
+            Assert.IsNull(result);
+            result = v.GetMapNodeFromPoint(new Point((int)r.NodeView.Left - 1, (int)r.NodeView.Bottom + 1));
+            Assert.IsNull(result);
+        }
+
+        [TestMethod()]
+        public void GetMapNodeFromPoint_LeftNodesOnly()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1", NodePosition.Left);
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2", NodePosition.Left);
             var c3 = new MapNode(r, "c3", NodePosition.Left);
             var c31 = new MapNode(c3, "c31");
             var c32 = new MapNode(c3, "c32");
-            t.SelectedNodes.Add(c32, true);
 
             MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
+            var v = CreateMapView(t);
+            var c32v = v.GetNodeView(c32);
 
-            c32.NoteText = "Sample Note";
-            c32.NoteText = null;
+            var result = v.GetMapNodeFromPoint(new Point((int)c32v.Left + 1, (int)c32v.Bottom + 1));
 
-            Assert.IsNull(c32.NodeView.NoteIcon);
+            Assert.IsNull(result);
         }
 
         [TestMethod]
-        public void ExpandCanvas_Right()
+        public void GetMapNodeFromPoint_AroundNodeOutside_Negative()
         {
             var t = new MapTree();
-            var r = new MapNode(t, "r");
+            var r = new MapNode(t, "1");
+            AddFive(r, NodePosition.Right);
+            AddFive(r, NodePosition.Left);
 
             MetaModel.MetaModel.Initialize();
             var v = new MapView(t);
-
-            Assert.AreEqual(v.Canvas.Width, MapView.CANVAS_DEFAULT_WIDTH);
-            Assert.AreEqual(v.Canvas.Height, MapView.CANVAS_DEFAULT_HEIGHT);
-
-            var parent = r;
-            for (int i = 0; i < 40; i++)    parent = new MapNode(parent, $"n{i + 1}", NodePosition.Right);
-
-            Assert.AreEqual(MapView.CANVAS_DEFAULT_WIDTH + MapView.CANVAS_SIZE_INCREMENT, v.Canvas.Width);
-            Assert.AreEqual(MapView.CANVAS_DEFAULT_HEIGHT + MapView.CANVAS_SIZE_INCREMENT, v.Canvas.Height);
-
+            int count = 0;
+            r.ForEach(n => {
+                Assert.AreEqual(n, v.GetMapNodeFromPoint(new Point((int)n.NodeView.Left + 1, (int)n.NodeView.Top + 1)));
+                Assert.IsNull(v.GetMapNodeFromPoint(new Point((int)n.NodeView.Left - 1, (int)n.NodeView.Top + 1)));
+                Assert.IsNull(v.GetMapNodeFromPoint(new Point((int)n.NodeView.Left + 1, (int)n.NodeView.Top - 1)));
+                Assert.IsNull(v.GetMapNodeFromPoint(new Point((int)n.NodeView.Right + 1, (int)n.NodeView.Top + 1)));
+                Assert.IsNull(v.GetMapNodeFromPoint(new Point((int)n.NodeView.Right - 1, (int)n.NodeView.Top - 1)));
+                count++;
+            });
+            System.Diagnostics.Debug.WriteLine(count);
         }
 
-        [TestMethod]
-        public void ExpandCanvas_Left()
+        private void AddFive(MapNode parent, NodePosition pos, int level = 0)
         {
-            var t = new MapTree();
-            var r = new MapNode(t, "r");
-
-            MetaModel.MetaModel.Initialize();
-            var v = new MapView(t);
-
-            Assert.AreEqual(v.Canvas.Width, MapView.CANVAS_DEFAULT_WIDTH);
-            Assert.AreEqual(v.Canvas.Height, MapView.CANVAS_DEFAULT_HEIGHT);
-
-            var parent = r;
-            for (int i = 0; i < 40; i++) parent = new MapNode(parent, $"n{i + 1}", NodePosition.Left);
-
-            Assert.AreEqual(MapView.CANVAS_DEFAULT_WIDTH + MapView.CANVAS_SIZE_INCREMENT, v.Canvas.Width);
-            Assert.AreEqual(MapView.CANVAS_DEFAULT_HEIGHT + MapView.CANVAS_SIZE_INCREMENT, v.Canvas.Height);
-
+            if (level == 4) return;
+            for (int i = 0; i < 5; i++)
+            {
+                AddFive(
+                    new MapNode(parent, parent.Text + "-" + i, pos),
+                    pos, level + 1);
+            }
         }
+
         
+
+        [TestMethod]
+        public void GetMapNodeFromPoint_AroundNodeOutside_Negative_2()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "0");
+            AddFive(r, NodePosition.Right);
+            AddFive(r, NodePosition.Left);
+
+            MetaModel.MetaModel.Initialize();
+            var v = new MapView(t);
+
+            MapNode n = r.ChildRightNodes.ElementAt(2).ChildNodes.ElementAt(1).ChildNodes.ElementAt(2);
+            Assert.AreEqual(n, v.GetMapNodeFromPoint(new Point((int)n.NodeView.Left + 1, (int)n.NodeView.Top + 1)));
+            Assert.IsNull(v.GetMapNodeFromPoint(new Point((int)n.NodeView.Left - 1, (int)n.NodeView.Top + 1)));
+            Assert.IsNull(v.GetMapNodeFromPoint(new Point((int)n.NodeView.Left + 1, (int)n.NodeView.Top - 1)));
+            Assert.IsNull(v.GetMapNodeFromPoint(new Point((int)n.NodeView.Right + 1, (int)n.NodeView.Top + 1)));
+            Assert.IsNull(v.GetMapNodeFromPoint(new Point((int)n.NodeView.Right - 1, (int)n.NodeView.Top - 1)));
+
+        }
+
     }
 }

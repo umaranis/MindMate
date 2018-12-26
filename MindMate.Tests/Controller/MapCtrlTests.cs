@@ -2091,5 +2091,26 @@ namespace MindMate.Tests.Controller
             Assert.AreEqual(ImageAlignment.AfterCenter, c2.ImageAlignment);
         }
 
+        [TestMethod()]
+        public void ChangeViewLayout()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), A.Fake<DialogManager>(), null);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            r.AddToSelection();
+
+            mapCtrl.ChangeViewLayout(ViewLayout.Tree);
+            Assert.AreEqual(tree.ViewLayout, ViewLayout.Tree);
+
+            mapCtrl.ChangeViewLayout(ViewLayout.MindMap);
+            Assert.AreEqual(tree.ViewLayout, ViewLayout.MindMap);
+        }
+
     }
 }

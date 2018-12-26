@@ -3,6 +3,7 @@ using MindMate.View.MapControls.Drawing;
 using MindMate.View.MapControls.Interacting;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -100,5 +101,30 @@ namespace MindMate.View.MapControls.Layout
             return true;
         }
 
+        public MapNode GetMapNodeFromPoint(Point point)
+        {
+            var node = mapView.Tree.SelectedNodes.Last ?? mapView.Tree.RootNode;
+            if(node != null && node.NodeView.IsPointInsideNode(point))
+            {
+                return node;
+            }
+            else
+            {
+                Func<MapNode, MapNode> GetNextNode;
+                if (node.NodeView.Top < point.Y)
+                    GetNextNode = TreeTraverser.GetNodeBelow;
+                else
+                    GetNextNode = TreeTraverser.GetNodeAbove;
+
+                var tmp = GetNextNode(node);
+                while(tmp != null)
+                {
+                    if (tmp.NodeView.IsPointInsideNode(point)) return tmp;
+                    tmp = GetNextNode(tmp);
+                }
+            }
+
+            return null;
+        }
     }
 }
