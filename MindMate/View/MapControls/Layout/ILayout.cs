@@ -27,6 +27,13 @@ namespace MindMate.View.MapControls.Layout
         float GetNodeHeight(MapNode node, NodePosition pos);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="point"></param>
+        /// <returns>returns null if no MapNode found</returns>
+        MapNode GetMapNodeFromPoint(System.Drawing.Point point);
+
+        /// <summary>
         /// Returns Painter responsible for drawing the nodes and other elements.        
         /// </summary>
         IPainter Painter { get; }

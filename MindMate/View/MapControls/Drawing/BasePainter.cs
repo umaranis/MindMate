@@ -274,7 +274,7 @@ namespace MindMate.View.MapControls.Drawing
             if(disposePen) p.Dispose();
         }
 
-        const int INDICATOR_MARGIN = 2;
+        public const int INDICATOR_MARGIN = 2;
 
         protected virtual void DrawFoldedIndicator(NodeView nodeView, Graphics g, Pen p)
         {

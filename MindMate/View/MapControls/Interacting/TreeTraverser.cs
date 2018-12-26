@@ -10,7 +10,7 @@ namespace MindMate.View.MapControls.Interacting
     public class TreeTraverser : BaseTraverser
     {
 
-        private MapNode GetNodeBelow(MapNode node)
+        public static MapNode GetNodeBelow(MapNode node)
         {
             if (node.HasChildren && !node.Folded)
             {
@@ -36,7 +36,7 @@ namespace MindMate.View.MapControls.Interacting
             return null;
         }
 
-        private MapNode GetNodeAbove(MapNode node)
+        public static MapNode GetNodeAbove(MapNode node)
         {
             if(node.Previous != null)
             {
