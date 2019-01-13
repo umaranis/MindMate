@@ -1,35 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using MindMate.Model;
 using MindMate.View.MapControls.Drawing;
 using MindMate.View.MapControls.Interacting;
 
 namespace MindMate.View.MapControls.Layout
 {
-    class MapLayout : ILayout
+    class MapLayout : BaseLayout
     {
 
-        public MapLayout(MapView mapView)
+        public MapLayout(MapView mapView) : base(mapView)
         {
-            this.mapView = mapView;
         }
 
-        private MapView mapView;
+        public override IPainter Painter { get; } = new MapPainter();
 
-        public IPainter Painter { get; } = new MapPainter();
-        public ITraverser Traverser { get; } = new MapTraverser();
+        public override ITraverser Traverser { get; } = new MapTraverser();
 
+        private MapNode rightMostNode;
+        private MapNode leftMostNode;        
+
+        
         /// <summary>
         /// Get height of the node including child nodes
         /// </summary>
         /// <param name="node"></param>
         /// <param name="pos"></param>
         /// <returns></returns>
-        public float GetNodeHeight(MapNode node, NodePosition pos)
+        public override float GetNodeHeight(MapNode node, NodePosition pos)
         {
             NodeView nView = NodeView.GetNodeView(node);
             if (!node.HasChildren || node.Folded)
@@ -57,72 +61,114 @@ namespace MindMate.View.MapControls.Layout
             return (nView.Height > height ? nView.Height : height);
         }
 
-        /// <summary>
-        /// Returns true if successfully refreshes all node positions. If canvas is not big enough, the operation is aborted and 'false' is returned.
-        /// </summary>
-        /// <param name="parent"></param>
-        /// <param name="sideToRefresh"></param>
-        /// <returns></returns>
-        public bool RefreshChildNodePositions(MapNode parent, NodePosition sideToRefresh)
+        public override void RefreshNodePositions()
         {
-            NodeView nView = NodeView.GetNodeView(parent);
+            NodeView nodeView = NodeView.GetNodeView(Tree.RootNode);
 
-            if (!parent.HasChildren || parent.Folded)
-            {
-                if (!mapView.NodeWithinCanvas(parent, 50))
-                {
-                    return false;
-                }
-                return true;
-            }
-            else
-            {
-                for (int i = 0; i < 2; i++)
-                {
-                    IEnumerable<MapNode> childNodes;
-                    NodePosition rpos;
+            var left = this.Canvas.Width / 2;
+            var top = this.Canvas.Height / 2;
 
-                    if (i == 0)
-                    {
-                        rpos = NodePosition.Left;
-                        childNodes = parent.ChildLeftNodes;
-                    }
-                    else
-                    {
-                        rpos = NodePosition.Right;
-                        childNodes = parent.ChildRightNodes;
-                    }
+            nodeView.RefreshPosition(left - (nodeView.Width / 2), top);
 
-                    float left = nView.Left + nView.Width + MapView.HOR_MARGIN; ;
-                    float top = nView.Top - (int)((GetNodeHeight(nView.Node, rpos) - nView.Height) / 2) - ((nView.Node.Pos == NodePosition.Root) ? (int)(nView.Height / 2) : 0);
-                    int topOffset;
-                    foreach (MapNode rnode in childNodes)
-                    {
-                        NodeView tView = NodeView.GetNodeView(rnode);
+            RefreshChildNodePositions(Tree.RootNode, NodePosition.Undefined);
 
-
-                        topOffset = (int)((GetNodeHeight(rnode, rpos) - tView.Height) / 2);
-                        if (i == 0)
-                        {
-                            left = nView.Left - tView.Width - MapView.HOR_MARGIN;
-                        }
-
-                        tView.RefreshPosition(left, top + topOffset);
-
-                        top += (topOffset * 2) + tView.Height + MapView.VER_MARGIN;
-
-                        if (!rnode.Folded)
-                        {
-                            // recursive call
-                            bool continueProcess = RefreshChildNodePositions(rnode, NodePosition.Undefined);
-                            if (!continueProcess) return false;
-                        }
-                    }
-                }
-
-            }
-            return true;
         }
+
+        public override void RefreshChildNodePositions(MapNode parent, NodePosition sideToRefresh)
+        {
+            if (!BaseLayout.IsNodeVisible(rightMostNode) || parent.NodeView.Right > rightMostNode.NodeView.Right)
+            {
+                rightMostNode = parent;
+            }
+            if(!BaseLayout.IsNodeVisible(leftMostNode) || parent.NodeView.Left < leftMostNode.NodeView.Left)
+            {
+                leftMostNode = parent;
+            }            
+
+            if(parent.Pos == NodePosition.Right || parent.Pos == NodePosition.Root)
+                RefreshChildNodePositionsRight(parent);
+
+            if (parent.Pos == NodePosition.Left || parent.Pos == NodePosition.Root)
+                RefreshChildNodePositionsLeft(parent);
+
+            var bottomMostNode = GetBottomMostNode(parent.Tree);
+            var topMostNode = GetTopMostNode(parent.Tree);
+
+            var mapSize = new Size((int)(rightMostNode.NodeView.Right + (leftMostNode.NodeView.Left < 0? -leftMostNode.NodeView.Left : 0)), 
+                             (int)(bottomMostNode.NodeView.Bottom + (topMostNode.NodeView.Top < 0? -topMostNode.NodeView.Top : 0)));
+
+            var increment = CalculateChangeInCanvasSize(Canvas.Size, mapSize, Canvas.Parent?.Size ?? Canvas.Size);
+
+            if (!increment.IsEmpty) //means that canvas was not big enough, therefore refresh operation was aborted
+            {
+                Canvas.Size = new Size(Canvas.Width + increment.Width, Canvas.Height + increment.Height);
+                RefreshNodePositions();
+                (Canvas.Parent as ICanvasContainer)?.ScrollToPoint(increment.Width / 2, increment.Height / 2);
+            }
+        }        
+
+        private void RefreshChildNodePositionsRight(MapNode parent)
+        {
+            NodeView parentView = NodeView.GetNodeView(parent);
+
+            float left = parentView.Left + parentView.Width + MapView.HOR_MARGIN; ;
+            float top = parentView.Top - (int)((GetNodeHeight(parentView.Node, NodePosition.Right) - parentView.Height) / 2) - ((parentView.Node.Pos == NodePosition.Root) ? (int)(parentView.Height / 2) : 0);
+            int topOffset;
+            foreach (MapNode childNode in parent.ChildRightNodes)
+            {
+                NodeView childView = NodeView.GetNodeView(childNode);
+
+                topOffset = (int)((GetNodeHeight(childNode, NodePosition.Right) - childView.Height) / 2);
+                
+                childView.RefreshPosition(left, top + topOffset);
+
+                top += (topOffset * 2) + childView.Height + MapView.VER_MARGIN;
+
+                if(childView.Right > rightMostNode.NodeView.Right)
+                {
+                    rightMostNode = childNode;
+                }
+
+                if (!childNode.Folded && childNode.HasChildren)
+                {
+                    // recursive call
+                    RefreshChildNodePositionsRight(childNode);
+                }
+            }
+        }
+
+        private void RefreshChildNodePositionsLeft(MapNode parent)
+        {
+            NodeView parentView = NodeView.GetNodeView(parent);            
+
+            float left = parentView.Left + parentView.Width + MapView.HOR_MARGIN; ;
+            float top = parentView.Top - (int)((GetNodeHeight(parentView.Node, NodePosition.Left) - parentView.Height) / 2) - ((parentView.Node.Pos == NodePosition.Root) ? (int)(parentView.Height / 2) : 0);
+            int topOffset;
+            foreach (MapNode childNode in parent.ChildLeftNodes)
+            {
+                NodeView childView = NodeView.GetNodeView(childNode);
+
+
+                topOffset = (int)((GetNodeHeight(childNode, NodePosition.Left) - childView.Height) / 2);
+                left = parentView.Left - childView.Width - MapView.HOR_MARGIN;                    
+
+                childView.RefreshPosition(left, top + topOffset);
+
+                top += (topOffset * 2) + childView.Height + MapView.VER_MARGIN;
+
+                if(childView.Left < leftMostNode.NodeView.Left)
+                {
+                    leftMostNode = childNode;
+                }
+
+                if (!childNode.Folded && childNode.HasChildren)
+                {
+                    // recursive call
+                    RefreshChildNodePositionsLeft(childNode);
+                }
+            }
+        }
+        
 
         /// <summary>
         /// New Algorithm:
@@ -164,7 +210,7 @@ namespace MindMate.View.MapControls.Layout
         /// </summary>
         /// <param name="point"></param>
         /// <returns></returns>
-        public MapNode GetMapNodeFromPoint(System.Drawing.Point point)
+        public override MapNode GetMapNodeFromPoint(System.Drawing.Point point)
         {
             return GetMapNodeFromPoint(mapView.Tree, point);
         }
@@ -255,6 +301,120 @@ namespace MindMate.View.MapControls.Layout
             return null;
         }
 
+        public override void OnParentResize(Panel parent)
+        {
+        }
 
+        public override Size CalculateChangeInCanvasSize(Size currentSize, Size mapSize, Size parentSize)
+        {
+            var mapSizeWithMargin = new Size(mapSize.Width + 50, mapSize.Height + 50);
+            if(currentSize.Width < mapSizeWithMargin.Width || currentSize.Height < mapSizeWithMargin.Height)
+            {
+                int increment = (int)Math.Ceiling((double)
+                    Math.Max(mapSizeWithMargin.Width - currentSize.Width, mapSizeWithMargin.Height - currentSize.Height) 
+                    / 1000) * 1000;
+                return new Size(increment, increment);
+            }
+
+            return Size.Empty;
+        }
+
+        public static MapNode GetBottomMostNode(MapTree tree)
+        {
+            MapNode rightBottom = tree.RootNode.GetLastChild(NodePosition.Right);
+            if (rightBottom != null)
+            {
+                rightBottom = GetBottomMostNode(rightBottom);
+            }
+            else
+            {
+                rightBottom = tree.RootNode;
+            }
+
+            MapNode leftBottom = tree.RootNode.GetLastChild(NodePosition.Left);
+            if (leftBottom != null)
+            {
+                leftBottom = GetBottomMostNode(leftBottom);
+            }
+            else
+            {
+                leftBottom = tree.RootNode;
+            }
+
+            if (NodeView.GetNodeView(rightBottom).Bottom > NodeView.GetNodeView(leftBottom).Bottom)
+                return rightBottom;
+            else
+                return leftBottom;
+            
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parent">Must NOT be root node or null</param>
+        /// <returns></returns>
+        public static MapNode GetBottomMostNode(MapNode parent)
+        {
+            Debug.Assert(parent.Pos != NodePosition.Root || parent.Pos != NodePosition.Undefined);
+
+            var tmp = parent;
+            while (true)
+            {
+                if (!tmp.HasChildren || tmp.Folded)
+                {
+                    return tmp;
+                }
+                tmp = tmp.LastChild;
+            }
+        }
+
+        public static MapNode GetTopMostNode(MapTree tree)
+        {
+            MapNode rightTop = tree.RootNode.GetFirstChild(NodePosition.Right);
+            if (rightTop != null)
+            {
+                rightTop = GetTopMostNode(rightTop);
+            }
+            else
+            {
+                rightTop = tree.RootNode;
+            }
+
+            MapNode leftTop = tree.RootNode.GetFirstChild(NodePosition.Left);
+            if (leftTop != null)
+            {
+                leftTop = GetTopMostNode(leftTop);
+            }
+            else
+            {
+                leftTop = tree.RootNode;
+            }
+
+            if (NodeView.GetNodeView(rightTop).Top < NodeView.GetNodeView(leftTop).Top)
+                return rightTop;
+            else
+                return leftTop;
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parent">Must NOT be root node or null</param>
+        /// <returns></returns>
+        public static MapNode GetTopMostNode(MapNode parent)
+        {
+            Debug.Assert(parent.Pos != NodePosition.Root || parent.Pos != NodePosition.Undefined);
+
+            var tmp = parent;
+            while (true)
+            {
+                if (!tmp.HasChildren || tmp.Folded)
+                {
+                    return tmp;
+                }
+                tmp = tmp.FirstChild;
+            }
+        }
     }
 }

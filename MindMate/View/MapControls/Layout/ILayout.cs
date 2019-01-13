@@ -1,6 +1,8 @@
 ﻿using MindMate.Model;
 using MindMate.View.MapControls.Drawing;
 using MindMate.View.MapControls.Interacting;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace MindMate.View.MapControls.Layout
 {
@@ -10,13 +12,15 @@ namespace MindMate.View.MapControls.Layout
     /// </summary>
     public interface ILayout
     {
+        void RefreshNodePositions();
+        
         /// <summary>
         /// Returns true if successfully refreshes all node positions. If canvas is not big enough, the operation is aborted and 'false' is returned.
         /// </summary>
         /// <param name="parent"></param>
         /// <param name="sideToRefresh"></param>
         /// <returns></returns>
-        bool RefreshChildNodePositions(MapNode parent, NodePosition sideToRefresh);
+        void RefreshChildNodePositions(MapNode parent, NodePosition sideToRefresh);
 
         /// <summary>
         /// Get height of the node including child nodes
@@ -38,5 +42,8 @@ namespace MindMate.View.MapControls.Layout
         /// </summary>
         IPainter Painter { get; }
         ITraverser Traverser { get; }
+
+        void OnParentResize(Panel parent);
+        
     }
 }
