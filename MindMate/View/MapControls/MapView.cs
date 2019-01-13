@@ -50,9 +50,9 @@ namespace MindMate.View.MapControls
 
             Canvas = new MapViewPanel(this);            
             
-            Canvas.BackColor = System.Drawing.Color.White;
-            Canvas.Location = new System.Drawing.Point(0, 0);
             Canvas.TabIndex = 0;
+            Canvas.BackColor = System.Drawing.Color.White;
+            Canvas.Location = new System.Drawing.Point(0, 0);            
             Canvas.Width = CANVAS_DEFAULT_WIDTH;
             Canvas.Height = CANVAS_DEFAULT_HEIGHT;
 
@@ -62,9 +62,11 @@ namespace MindMate.View.MapControls
             Canvas.Invalidate();
 
             this.nodeTextEditor = new MapViewTextEditor(this, NodeView.DefaultFont);
-            FormatPainter = new MapViewFormatPainter(this);            
+            FormatPainter = new MapViewFormatPainter(this);
+
         }
 
+                
         private readonly MapTree tree;
         public MapTree Tree
         {
@@ -317,21 +319,12 @@ namespace MindMate.View.MapControls
         {
             if (LayoutSuspended) return;
 
-            NodeView nodeView = this.GetNodeView(Tree.RootNode);
-
-            //var left = this.rootPosX;
-            var left = this.Canvas.Width / 2;
-            //var top = this.rootPosY;
-            var top = this.Canvas.Height / 2;
-            // add unit string for xhtml
-
-
-            nodeView.RefreshPosition(left - (nodeView.Width / 2), top);
-
-            RefreshChildNodePositions(Tree.RootNode, NodePosition.Undefined);
+            Layout.RefreshNodePositions();
 
         }
 
+
+        
         /// <summary>
         /// Refreshes or initializes node positions relative to the parent node position. 
         /// Parent node position must already be set.
@@ -342,14 +335,7 @@ namespace MindMate.View.MapControls
         {
             if (LayoutSuspended) return;
 
-            bool success = Layout.RefreshChildNodePositions(parent, sideToRefresh);
-
-            if(!success) //means that canvas was not big enough, therefore refresh operation was aborted
-            {
-                Canvas.Size = new Size(Canvas.Width + 1000, Canvas.Height + 1000);
-                RefreshNodePositions();                
-                (Canvas.Parent as ICanvasContainer)?.ScrollToPoint(500, 500);                
-            }
+            Layout.RefreshChildNodePositions(parent, sideToRefresh);
         }        
 
         /// <summary>
@@ -426,7 +412,9 @@ namespace MindMate.View.MapControls
                     break;
             }
             RefreshNodePositions();
-            Canvas.Invalidate();
+            Canvas.Invalidate();            
+            if(Canvas.Parent != null)   AdjustLocationToShowNodeView(Tree.SelectedNodes.Last.NodeView);
+            
         }
     }
         

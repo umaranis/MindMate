@@ -133,6 +133,7 @@
     <Compile Include="View\MapControls\Interacting\ITraverser.cs" />
     <Compile Include="View\MapControls\Interacting\MapTraverser.cs" />
     <Compile Include="View\MapControls\Interacting\TreeTraverser.cs" />
+    <Compile Include="View\MapControls\Layout\BaseLayout.cs" />
     <Compile Include="View\MapControls\Layout\ILayout.cs" />
     <Compile Include="View\MapControls\Layout\MapLayout.cs" />
     <Compile Include="View\MapControls\Layout\TreeLayout.cs" />

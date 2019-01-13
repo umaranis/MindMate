@@ -963,6 +963,19 @@ namespace MindMate.Model
             }
         }
 
+        public IEnumerable<MapNode> Ancestors
+        {
+            get
+            {
+                var tmp = this.Parent;
+                while(tmp != null)
+                {
+                    yield return tmp;
+                    tmp = tmp.Parent;
+                }
+            }
+        }
+
 
         private void ChangePos(NodePosition pos)
         {

@@ -26,7 +26,11 @@ namespace MindMate.View.EditorTabs
             Tree = tree;
             MapView = mapView;
             tree.DirtyChanged += Tree_DirtyChanged;            
-            AutoScroll = true;            
+            AutoScroll = true;
+            Layout += (o, e) =>
+            {
+                mapView.Layout.OnParentResize(this);
+            };
         }        
 
         private void Tree_DirtyChanged(PersistentTree tree)

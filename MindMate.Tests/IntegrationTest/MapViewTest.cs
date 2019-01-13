@@ -247,8 +247,8 @@ namespace MindMateTest
 
             view.Canvas.Dispose();
 
-            Assert.AreEqual(view.Canvas.Width, MapView.CANVAS_DEFAULT_WIDTH + MapView.CANVAS_SIZE_INCREMENT);
-            Assert.AreEqual(view.Canvas.Height, MapView.CANVAS_DEFAULT_HEIGHT + MapView.CANVAS_SIZE_INCREMENT);
+            Assert.AreEqual(MapView.CANVAS_DEFAULT_WIDTH + MapView.CANVAS_SIZE_INCREMENT, view.Canvas.Width);
+            Assert.AreEqual(MapView.CANVAS_DEFAULT_HEIGHT + MapView.CANVAS_SIZE_INCREMENT, view.Canvas.Height);
             Assert.AreEqual(0.0f, image.PercentageDifference(refImage, 0), "Images don't match for ExtendCanvas test.");            
 
             image.Dispose();
