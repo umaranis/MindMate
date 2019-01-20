@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "MindMate"
-#define MyAppVersion "0.5"
+#define MyAppVersion "0.6"
 #define MyAppURL "http://www.umaranis.com/"
 #define MyAppExeName "MindMate.Win.exe"
 
