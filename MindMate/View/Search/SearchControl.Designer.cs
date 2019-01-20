@@ -183,6 +183,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnSelect);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.grbIcons);
@@ -190,7 +191,6 @@
             this.Controls.Add(this.ckbSelectedNode);
             this.Controls.Add(this.ckbCase);
             this.Controls.Add(this.lstResults);
-            this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtSearch);
             this.Name = "SearchControl";
             this.Size = new System.Drawing.Size(355, 634);
