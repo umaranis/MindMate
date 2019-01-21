@@ -42,7 +42,7 @@ namespace MindMate.Controller
 
         private void ContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            NodeContextMenu.mEditNode.Text = CurrentMapCtrl.MapView.NodeTextEditor.IsTextEditing ? "End Editing" : "Edit Node";
+            NodeContextMenu.mEditNode.Text = CurrentMapCtrl.MapView.NodeTextEditor.IsTextEditing ? "End Editing" : "Edit Text";
         }
 
         private void mDeleteNode_Click(object sender, EventArgs e)

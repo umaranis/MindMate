@@ -43,7 +43,7 @@ namespace MindMate.View.MapControls
             // 
             this.mEditNode.Name = "mEditNode";
             this.mEditNode.Size = new Size(166, 22);
-            this.mEditNode.Text = "Edit Node";
+            this.mEditNode.Text = "Edit Text";
             // 
             // mInsertChild
             // 
