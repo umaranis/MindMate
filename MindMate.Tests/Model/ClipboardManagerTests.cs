@@ -15,31 +15,9 @@ namespace MindMate.Tests.Model
     public class ClipboardManagerTests
     {
         [TestMethod]
-        public void PasteText()
-        {
-            string text = "Testing!";
-            Clipboard.SetText(text);
-            var n = new MapNode(new MapTree(), "node");
-            ClipboardManager.Paste(n, true);
-            Assert.AreEqual(text, n.FirstChild.Text);
-        }
-
-        [TestMethod]
-        public void PasteText_Unfold()
-        {
-            string text = "Testing!";
-            Clipboard.SetText(text);
-            var n = new MapNode(new MapNode(new MapTree(), "root"), "parent");
-            new MapNode(n, "child");
-            n.Folded = true;            
-            ClipboardManager.Paste(n);
-            Assert.IsFalse(n.Folded);
-        }
-
-        [TestMethod]
         public void CanPaste_Image_True()
         {
-            Clipboard.SetImage(Image.FromFile(@"Resources\OrangeTestImage.jpg"));
+            Clipboard.SetImage(Image.FromFile(@"Resources\MapCtrl1.png"));
             Assert.IsTrue(ClipboardManager.CanPaste);
         }
 
@@ -48,12 +26,12 @@ namespace MindMate.Tests.Model
         {
             Clipboard.Clear();
             Assert.IsFalse(ClipboardManager.CanPaste);
-        }        
+        }
 
         [TestMethod]
         public void Paste_Image()
         {
-            Clipboard.SetImage(Image.FromFile(@"Resources\OrangeTestImage.jpg"));
+            Clipboard.SetImage(Image.FromFile(@"Resources\MapCtrl1.png"));
             var n = new MapNode(new MapTree(), "node");
             Assert.IsFalse(n.HasImage);
             ClipboardManager.Paste(n);
@@ -66,7 +44,7 @@ namespace MindMate.Tests.Model
         public void Paste_ImageFileList()
         {
             var fileList = new StringCollection();
-            fileList.Add(@"Resources\OrangeTestImage.jpg");
+            fileList.Add(@"Resources\MapCtrl1.png");
             Clipboard.SetFileDropList(fileList);
             var n = new MapNode(new MapTree(), "node");
             Assert.IsFalse(n.HasImage);
@@ -80,7 +58,7 @@ namespace MindMate.Tests.Model
         public void Paste_ImageFileListAsImage()
         {
             var fileList = new StringCollection();
-            fileList.Add(@"Resources\OrangeTestImage.jpg");
+            fileList.Add(@"Resources\MapCtrl1.png");
             Clipboard.SetFileDropList(fileList);
             var n = new MapNode(new MapTree(), "node");
             Assert.IsFalse(n.HasImage);
@@ -93,7 +71,7 @@ namespace MindMate.Tests.Model
         public void Paste_ImageFileListAsImageTwice()
         {
             var fileList = new StringCollection();
-            fileList.Add(@"Resources\OrangeTestImage.jpg");
+            fileList.Add(@"Resources\MapCtrl1.png");
             Clipboard.SetFileDropList(fileList);
             var n = new MapNode(new MapTree(), "node");
             Assert.IsFalse(n.HasImage);
@@ -102,16 +80,6 @@ namespace MindMate.Tests.Model
             ClipboardManager.Paste(n, false, true);
             Assert.IsTrue(n.FirstChild.HasImage);
 
-        }
-
-        [TestMethod]
-        public void Cut()
-        {
-            var n = new MapNode(new MapNode(new MapTree(), "root"), "parent");
-            new MapNode(n, "child");
-            n.Selected = true;
-            ClipboardManager.Cut(n.Tree.SelectedNodes);
-            Assert.IsTrue(Clipboard.ContainsData(ClipboardManager.MindMateClipboardFormat));
         }
     }
 }
