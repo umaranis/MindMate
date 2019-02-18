@@ -41,6 +41,7 @@ namespace MindMate.Tests.Model
 
         [TestMethod]
         [ExpectedException(typeof(NotImplementedException))]
+        [ExcludeFromCodeCoverage]
         public void SetData_3()
         {
             var t = new MapTree();
@@ -52,6 +53,7 @@ namespace MindMate.Tests.Model
 
         [TestMethod]
         [ExpectedException(typeof(NotImplementedException))]
+        [ExcludeFromCodeCoverage]
         public void SetData_4()
         {
             var t = new MapTree();
@@ -63,6 +65,7 @@ namespace MindMate.Tests.Model
 
         [TestMethod]
         [ExpectedException(typeof(NotImplementedException))]
+        [ExcludeFromCodeCoverage]
         public void SetData_byType()
         {
             var t = new MapTree();
