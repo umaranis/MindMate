@@ -11,8 +11,9 @@ namespace MindMate.Serialization
     {
         public void Serialize(MapNode mapNode, StringBuilder str, int indent = 0)
         {
+            if (str.Length > 0) str.AppendLine();
             for (int i = 0; i < indent; i++) str.Append("\t");
-            str.AppendLine(mapNode.Text);
+            str.Append(mapNode.Text);
             
             foreach(MapNode childNode in mapNode.ChildNodes)
             {
@@ -20,6 +21,12 @@ namespace MindMate.Serialization
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="location"></param>
+        /// <param name="CreateNode">Given parent node and text, it instantiates the MapNode and returns it</param>
         public void Deserialize(string text, MapNode location, Func<MapNode, string, MapNode> CreateNode)
         {
             string line;
