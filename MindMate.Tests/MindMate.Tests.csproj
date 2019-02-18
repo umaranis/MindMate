@@ -86,9 +86,11 @@
     <Compile Include="Controller\SearchControllerTests.cs" />
     <Compile Include="Model\ClipboardManagerTests.cs" />
     <Compile Include="Model\ImageHelperTests.cs" />
+    <Compile Include="Model\MindMateClipboardDataObjectTests.cs" />
     <Compile Include="Model\ResourcesTests.cs" />
     <Compile Include="Serialization\MapZipSerializerTests.cs" />
     <Compile Include="Serialization\PersistentTreeTests.cs" />
+    <Compile Include="Serialization\MapTextSerializerTests.cs" />
     <Compile Include="View\MapControls\MapViewFormatPainterTests.cs" />
     <Compile Include="View\MapControls\MapViewPanelTests.cs" />
     <Compile Include="View\MapControls\MapViewTests_GetMapNodeFromPoint_AlgoVer1.cs" />

@@ -14,7 +14,7 @@ namespace MindMate.Model
     {
         private static readonly List<MapNode> internalClipboard = new List<MapNode>();
 
-        public const string MindMateTextFormat = "MindMateText";
+        public const string MindMateClipboardFormat = "MindMateContent";
 
         public static event Action StatusChanged;
 
@@ -34,7 +34,7 @@ namespace MindMate.Model
         {
             get
             {
-                return Clipboard.ContainsData(MindMateTextFormat) || 
+                return Clipboard.ContainsData(MindMateClipboardFormat) || 
                        Clipboard.ContainsText() ||
                        Clipboard.ContainsFileDropList() ||
                        Clipboard.ContainsImage();
@@ -46,24 +46,17 @@ namespace MindMate.Model
             if (nodes.Count > 0)
             {
                 internalClipboard.Clear();
-
-                StringBuilder str = new StringBuilder();
-                MapTextSerializer serializer = new MapTextSerializer();
-                
                 foreach (var n in nodes.ExcludeNodesAlreadyPartOfHierarchy())
                 {
                     internalClipboard.Add(n.CloneAsDetached());
-                    serializer.Serialize(n, str);
                 }                
                 
-                var cbData = new MindMateTextDataObject();
-                cbData.SetData(str.ToString());
+                var cbData = new MindMateClipboardDataObject(internalClipboard);
                 Clipboard.SetDataObject(cbData);
-                //Clipboard.SetText(str.ToString(), TextDataFormat.Text);
 
                 hasCutNode = false;
 
-                if(StatusChanged != null) { StatusChanged(); }
+                StatusChanged?.Invoke();
             }
         }
 
@@ -72,33 +65,24 @@ namespace MindMate.Model
             if(nodes.Count > 0)
             {
                 internalClipboard.Clear();
-
-                StringBuilder str = new StringBuilder();
-                MapTextSerializer serializer = new MapTextSerializer();
-
                 foreach (var n in nodes.ExcludeNodesAlreadyPartOfHierarchy())
                 {
                    internalClipboard.Add(n);
                 }
-                internalClipboard.ForEach(n =>
-                    {
-                        serializer.Serialize(n, str);
-                        n.Detach();
-                    });
+                internalClipboard.ForEach(n => n.Detach());
                 
 
-                var cbData = new MindMateTextDataObject();
-                cbData.SetData(str.ToString());
+                var cbData = new MindMateClipboardDataObject(internalClipboard);
                 Clipboard.SetDataObject(cbData);
 
                 hasCutNode = true;
-                if (StatusChanged != null) { StatusChanged(); }
+                StatusChanged?.Invoke();
             }
         }
 
         public static void Paste(MapNode pasteLocation, bool asText = false, bool pasteFileAsImage = false)
         {
-            if(Clipboard.ContainsData(MindMateTextFormat))
+            if(Clipboard.ContainsData(MindMateClipboardFormat))
             {
                 foreach(MapNode node in internalClipboard)
                 {
@@ -148,8 +132,7 @@ namespace MindMate.Model
             }
             
             hasCutNode = false;
-            if (StatusChanged != null) { StatusChanged(); }
-
+            StatusChanged?.Invoke();
             if (pasteLocation.Folded) { pasteLocation.Folded = false; }
         }
 
@@ -216,8 +199,17 @@ namespace MindMate.Model
             return null;            
         }        
 
-        class MindMateTextDataObject : IDataObject
+        public class MindMateClipboardDataObject : IDataObject
         {
+
+            private List<MapNode> mapNodes;
+            public MindMateClipboardDataObject(List<MapNode> mapNodes)
+            {
+                this.mapNodes = mapNodes;
+            }
+
+            private string[] formats;
+
             private string text;
             
             public object GetData(Type format)
@@ -227,19 +219,28 @@ namespace MindMate.Model
 
             public object GetData(string format)
             {
-                if(format == DataFormats.Text || format == MindMateTextFormat)
-                {
-                    return text;
-                }
-
-                return null;
+                return GetData(format, true);
             }
 
             public object GetData(string format, bool autoConvert)
             {
-                if (format == DataFormats.Text || format == MindMateTextFormat)
+                string[] formats = GetFormats();
+                if (!formats.Contains(format)) return null;
+
+                if (format == DataFormats.Text || format == MindMateClipboardFormat)
                 {
+                    if (text == null)
+                    {
+                        StringBuilder str = new StringBuilder();
+                        MapTextSerializer serializer = new MapTextSerializer();
+                        mapNodes.ForEach(n => serializer.Serialize(n, str));
+                        text = str.ToString();
+                    }
                     return text;
+                }
+                else if (format == DataFormats.Bitmap)
+                {
+                    return mapNodes.First(n => n.HasImage).GetImage();
                 }
 
                 return null;
@@ -252,27 +253,39 @@ namespace MindMate.Model
 
             public bool GetDataPresent(string format)
             {
-                return format == DataFormats.Text || format == MindMateTextFormat;
+                return GetDataPresent(format, true);
             }
 
             public bool GetDataPresent(string format, bool autoConvert)
             {
-                return format == DataFormats.Text || format == MindMateTextFormat;
+                return GetFormats().Contains(format);
             }
 
             public string[] GetFormats()
             {
-                return new string [] { DataFormats.Text, MindMateTextFormat};
+                return GetFormats(true);
             }
 
             public string[] GetFormats(bool autoConvert)
             {
-                return new string[] { DataFormats.Text, MindMateTextFormat };
+                if(formats == null)
+                {
+                    bool hasImage = mapNodes.Any(n => n.HasImage);
+                    if (hasImage)
+                    {
+                        formats = new string[] { DataFormats.Text, MindMateClipboardFormat, DataFormats.Bitmap };
+                    }
+                    else
+                    {
+                        formats = new string[] { DataFormats.Text, MindMateClipboardFormat };
+                    }
+                }
+                return formats;
             }
 
             public void SetData(object data)
             {
-                text = (string)data;
+                throw new NotImplementedException();
             }
 
             public void SetData(Type format, object data)
