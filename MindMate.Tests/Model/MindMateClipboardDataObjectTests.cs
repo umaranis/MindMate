@@ -8,6 +8,7 @@ using MindMate.Model;
 using static MindMate.Model.ClipboardManager;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MindMate.Tests.Model
 {
@@ -16,6 +17,7 @@ namespace MindMate.Tests.Model
     {
         [TestMethod]
         [ExpectedException(typeof(NotImplementedException))]
+        [ExcludeFromCodeCoverage]
         public void SetData_1()
         {
             var t = new MapTree();
@@ -27,6 +29,7 @@ namespace MindMate.Tests.Model
 
         [TestMethod]
         [ExpectedException(typeof(NotImplementedException))]
+        [ExcludeFromCodeCoverage]
         public void SetData_2()
         {
             var t = new MapTree();
