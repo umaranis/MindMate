@@ -20,9 +20,7 @@ namespace MindMate.View.MapControls.Layout
         public abstract float GetNodeHeight(MapNode node, NodePosition pos);
         public abstract void OnParentResize(Panel parent);
         public abstract void RefreshNodePositions();        
-        public abstract void RefreshChildNodePositions(MapNode parent, NodePosition sideToRefresh);
-
-        public abstract Size CalculateChangeInCanvasSize(Size currentSize, Size mapSize, Size parentSize);
+        public abstract void RefreshChildNodePositions(MapNode parent, NodePosition sideToRefresh);        
 
         public BaseLayout(MapView mapView)
         {

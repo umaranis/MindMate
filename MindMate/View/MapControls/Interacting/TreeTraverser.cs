@@ -38,26 +38,20 @@ namespace MindMate.View.MapControls.Interacting
 
         public static MapNode GetNodeAbove(MapNode node)
         {
-            if(node.Previous != null)
+            var tmp = node.Previous;
+            while (tmp != null) //once inside the loop, the only way out is through return statement
             {
-                var tmp = node.Previous;
-                while (tmp != null)
+                if (tmp.HasChildren && !tmp.Folded)
                 {
-                    if (tmp.HasChildren && !tmp.Folded)
-                    {
-                        tmp = tmp.LastChild;
-                    }
-                    else
-                    {
-                        return tmp;
-                    }
+                    tmp = tmp.LastChild;
                 }
-                return null;
+                else
+                {
+                    return tmp;
+                }
             }
-            else
-            {
-                return node.Parent;
-            }
+
+            return node.Parent;   
         }
 
         private void TraverseUpDownTo(MapTree tree, MapNode node, MapNode next, bool expandSelection)
@@ -102,10 +96,7 @@ namespace MindMate.View.MapControls.Interacting
             MapNode node = tree.SelectedNodes.Last;
             if (node == null) return;
 
-            if (node.Pos == NodePosition.Right)
-            {
-                tree.SelectedNodes.Add(node.Parent, false);
-            }            
+            tree.SelectedNodes.Add(node.Parent, false);
         }
 
         public override void TraverseRight(MapTree tree)

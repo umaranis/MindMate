@@ -164,7 +164,7 @@ namespace MindMate.View.MapControls.Layout
             }
         }
 
-        public override Size CalculateChangeInCanvasSize(Size currentSize, Size mapSize, Size parentSize)
+        public Size CalculateChangeInCanvasSize(Size currentSize, Size mapSize, Size parentSize)
         {
             var result = new Size(0,0);
             if(mapSize.Width < parentSize.Width)

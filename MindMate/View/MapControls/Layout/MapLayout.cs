@@ -97,9 +97,9 @@ namespace MindMate.View.MapControls.Layout
             var mapSize = new Size((int)(rightMostNode.NodeView.Right + (leftMostNode.NodeView.Left < 0? -leftMostNode.NodeView.Left : 0)), 
                              (int)(bottomMostNode.NodeView.Bottom + (topMostNode.NodeView.Top < 0? -topMostNode.NodeView.Top : 0)));
 
-            var increment = CalculateChangeInCanvasSize(Canvas.Size, mapSize, Canvas.Parent?.Size ?? Canvas.Size);
+            var increment = CalculateChangeInCanvasSize(Canvas.Size, topMostNode, bottomMostNode, rightMostNode, leftMostNode, Canvas.Parent?.Size ?? Canvas.Size);
 
-            if (!increment.IsEmpty) //means that canvas was not big enough, therefore refresh operation was aborted
+            if (!increment.IsEmpty) //means that canvas was not big enough
             {
                 Canvas.Size = new Size(Canvas.Width + increment.Width, Canvas.Height + increment.Height);
                 RefreshNodePositions();
@@ -305,18 +305,32 @@ namespace MindMate.View.MapControls.Layout
         {
         }
 
-        public override Size CalculateChangeInCanvasSize(Size currentSize, Size mapSize, Size parentSize)
+        public Size CalculateChangeInCanvasSize(Size currentSize, MapNode topMostMode, MapNode bottomMostNode, MapNode rightMostNode, MapNode leftMostNode, Size parentSize)
         {
-            var mapSizeWithMargin = new Size(mapSize.Width + 50, mapSize.Height + 50);
-            if(currentSize.Width < mapSizeWithMargin.Width || currentSize.Height < mapSizeWithMargin.Height)
+            const int margin = 50;
+            int increment = 0;
+
+            int top = (int)topMostMode.NodeView.Top - margin;
+            increment = -top;
+
+            int bottom = ((int)bottomMostNode.NodeView.Bottom + margin) - Canvas.Height;
+            increment = Math.Max(increment, bottom);            
+
+            int left = (int)leftMostNode.NodeView.Left - margin;
+            increment = Math.Max(increment, -left);
+
+            int right = (int)rightMostNode.NodeView.Right + margin - Canvas.Width;
+            increment = Math.Max(increment, right);            
+
+            if(increment > 0)
             {
-                int increment = (int)Math.Ceiling((double)
-                    Math.Max(mapSizeWithMargin.Width - currentSize.Width, mapSizeWithMargin.Height - currentSize.Height) 
-                    / 1000) * 1000;
+                increment = (int)Math.Ceiling((double)increment / 1000)    * 1000;  //round to nearest thousand
                 return new Size(increment, increment);
             }
-
-            return Size.Empty;
+            else
+            {
+                return Size.Empty;
+            }            
         }
 
         public static MapNode GetBottomMostNode(MapTree tree)
