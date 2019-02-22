@@ -615,6 +615,8 @@
     <None Include="Resources\image_align_after.png" />
     <None Include="Resources\image_align_before.png" />
     <None Include="Resources\image_align_bottom.png" />
+    <None Include="Resources\tree_view.png" />
+    <None Include="Resources\map_view_2.png" />
     <Content Include="Serialization\MapYamlSerializer.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapYamlSerializer.Generated.cs</LastGenOutput>

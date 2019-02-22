@@ -302,6 +302,8 @@ namespace MindMate.View.Ribbon
             MoveColumnLeft.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveColumnLeft_LargeImage);
             MoveColumnRight.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveColumnRight_SmallImage);
             MoveColumnRight.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveColumnRight_LargeImage);
+            MapViewLayout.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.map_view_2);
+            TreeViewLayout.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.tree_view);
 				
 
 			mainForm.FocusedControlChanged += MainForm_FocusedControlChanged;
