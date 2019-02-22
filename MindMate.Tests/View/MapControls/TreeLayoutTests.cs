@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MindMate.Model;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace MindMate.Tests.View.MapControls
 {
@@ -584,6 +585,79 @@ namespace MindMate.Tests.View.MapControls
             Assert.IsNull(v.GetMapNodeFromPoint(new Point((int)n.NodeView.Left + 1, (int)n.NodeView.Top - 1)));
             Assert.IsNull(v.GetMapNodeFromPoint(new Point((int)n.NodeView.Right + 1, (int)n.NodeView.Top + 1)));
             Assert.IsNull(v.GetMapNodeFromPoint(new Point((int)n.NodeView.Right - 1, (int)n.NodeView.Top - 1)));
+
+        }
+
+        [TestMethod()]
+        public void OnParentResize_NoScrollbarsNeeded()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1", NodePosition.Left);
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2", NodePosition.Left);
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            MetaModel.MetaModel.Initialize();
+            var v = CreateMapView(t);
+            var parent = new Panel() { Size = new Size(500, 500) };
+            v.Layout.OnParentResize(parent);
+
+            Assert.IsTrue(v.Canvas.Width == 500);
+
+        }
+
+        [TestMethod()]
+        public void OnParentResize_ScrollbarsNeeded()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            var c1 = new MapNode(r, "c1", NodePosition.Left);
+            var c11 = new MapNode(c1, "c11");
+            var c12 = new MapNode(c1, "c12");
+            var c121 = new MapNode(c12, "c121");
+            var c13 = new MapNode(c1, "c13");
+            var c131 = new MapNode(c13, "c131");
+            var c1311 = new MapNode(c131, "c1311");
+            var c2 = new MapNode(r, "c2", NodePosition.Left);
+            var c3 = new MapNode(r, "c3", NodePosition.Left);
+            var c31 = new MapNode(c3, "c31");
+            var c32 = new MapNode(c3, "c32");
+
+            MetaModel.MetaModel.Initialize();
+            var v = CreateMapView(t);
+            var parent = new Panel() { Size = new Size(100, 100) };
+            v.Layout.OnParentResize(parent);
+
+            Assert.IsTrue(v.Canvas.Width > 100);
+
+        }
+
+        [TestMethod]
+        public void ExpandCanvas_Right()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+
+            MetaModel.MetaModel.Initialize();
+            var v = new MapView(t);
+            v.ChangeViewLayout(ViewLayout.Tree);
+
+            Assert.AreEqual(v.Canvas.Width, MapView.CANVAS_DEFAULT_WIDTH);
+            Assert.AreEqual(v.Canvas.Height, MapView.CANVAS_DEFAULT_HEIGHT);
+
+            var parent = r;
+            for (int i = 0; i < 40; i++) parent = new MapNode(parent, $"n{i + 1}", NodePosition.Right);
+
+            Assert.AreEqual(MapView.CANVAS_DEFAULT_WIDTH + MapView.CANVAS_SIZE_INCREMENT, v.Canvas.Width);
+            Assert.AreEqual(MapView.CANVAS_DEFAULT_HEIGHT + MapView.CANVAS_SIZE_INCREMENT, v.Canvas.Height);
 
         }
 

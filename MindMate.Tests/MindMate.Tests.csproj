@@ -94,6 +94,8 @@
     <Compile Include="Serialization\MapZipSerializerTests.cs" />
     <Compile Include="Serialization\PersistentTreeTests.cs" />
     <Compile Include="Serialization\MapTextSerializerTests.cs" />
+    <Compile Include="View\MapControls\Interacting\TreeTraverserTests.cs" />
+    <Compile Include="View\MapControls\Interacting\MapTraverserTests.cs" />
     <Compile Include="View\MapControls\MapViewFormatPainterTests.cs" />
     <Compile Include="View\MapControls\MapViewPanelTests.cs" />
     <Compile Include="View\MapControls\TreeLayoutTests.cs" />
