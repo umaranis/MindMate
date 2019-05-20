@@ -175,11 +175,15 @@ namespace MindMate.View.MapControls.Layout
             {
                 result.Width = mapSize.Width + 50 - currentSize.Width;
             }
-            if(currentSize.Height - mapSize.Height < 0 || currentSize.Height - mapSize.Height > 100)
+            if (mapSize.Height < parentSize.Height)
+            {
+                result.Height = parentSize.Height - currentSize.Width;
+            }
+            else
             {
                 result.Height = mapSize.Height + 50 - currentSize.Height;
             }
-            
+                        
             return result;  
         }
 

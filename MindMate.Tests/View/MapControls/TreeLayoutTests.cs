@@ -650,15 +650,31 @@ namespace MindMate.Tests.View.MapControls
             var v = new MapView(t);
             v.ChangeViewLayout(ViewLayout.Tree);
 
+            v.Canvas.Width /= 4;
+
+            var parent = r;
+            for (int i = 0; i < 50; i++) parent = new MapNode(parent, $"n{i + 1}", NodePosition.Right);
+
+            Assert.IsTrue(MapView.CANVAS_DEFAULT_WIDTH / 4 < v.Canvas.Width);
+
+        }
+
+        [TestMethod]
+        public void ExpandCanvas_Bottom()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+
+            MetaModel.MetaModel.Initialize();
+            var v = new MapView(t);
+            v.ChangeViewLayout(ViewLayout.Tree);
+
             Assert.AreEqual(v.Canvas.Width, MapView.CANVAS_DEFAULT_WIDTH);
             Assert.AreEqual(v.Canvas.Height, MapView.CANVAS_DEFAULT_HEIGHT);
 
-            var parent = r;
-            for (int i = 0; i < 40; i++) parent = new MapNode(parent, $"n{i + 1}", NodePosition.Right);
+            for (int i = 0; i < 170; i++) new MapNode(r, $"n{i + 1}", NodePosition.Right);
 
-            Assert.AreEqual(MapView.CANVAS_DEFAULT_WIDTH + MapView.CANVAS_SIZE_INCREMENT, v.Canvas.Width);
-            Assert.AreEqual(MapView.CANVAS_DEFAULT_HEIGHT + MapView.CANVAS_SIZE_INCREMENT, v.Canvas.Height);
-
+            Assert.IsTrue(MapView.CANVAS_DEFAULT_HEIGHT < v.Canvas.Height);
         }
 
     }
