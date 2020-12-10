@@ -2,25 +2,24 @@ version: 1.0.{build}
 
 image: Visual Studio 2017
 
-before_build:    
-    - nuget restore
+before_build:
+  - nuget restore
 
 build:
-    project: MindMate.sln
-    verbosity: detailed
+  project: MindMate.sln
+  verbosity: minimal
 
 environment:
-    COVERALLS_REPO_TOKEN:  
-       secure: nd3KmHPGpBL6aplI+Pj5wzmgAldV99JEa9uHKESrjKjqAAIMdH2r+dgPFGdPrnSV
+  COVERALLS_REPO_TOKEN:
+    secure: nd3KmHPGpBL6aplI+Pj5wzmgAldV99JEa9uHKESrjKjqAAIMdH2r+dgPFGdPrnSV
 
-after_test: 
-# generate report for NUnit testing framework:
-#   -cmd: packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -register:user -filter:"+[*]*" -target:"packages\NUnit.Runners.2.6.4\tools\nunit-console.exe" -targetargs:"/noshadow /domain:single YOURPROJECT.Tests\bin\debug\YOURPROJECT.Tests.dll" -output:coverage.xml
+after_test:
+  # generate report for NUnit testing framework:
+  #   -cmd: packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -register:user -filter:"+[*]*" -target:"packages\NUnit.Runners.2.6.4\tools\nunit-console.exe" -targetargs:"/noshadow /domain:single YOURPROJECT.Tests\bin\debug\YOURPROJECT.Tests.dll" -output:coverage.xml
 
-# generate report for MSTest testing framework:
-     #- cmd: packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -register:user -filter:"+[*]*" -target:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe" -targetargs:"/testcontainer:MindMate.Tests/bin/debug/MindMate.Tests.dll" -output:coverage.xml
-     - cmd: packages\coveralls.io.1.3.4\tools\coveralls.net.exe --opencover coverage.xml
+  # generate report for MSTest testing framework:
+  #- cmd: packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -register:user -filter:"+[*]*" -target:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe" -targetargs:"/testcontainer:MindMate.Tests/bin/debug/MindMate.Tests.dll" -output:coverage.xml
+  - cmd: packages\coveralls.io.1.3.4\tools\coveralls.net.exe --opencover coverage.xml
 
 test_script:
-     - cmd: packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -register:user -filter:"+[MindMate*]*" -target:"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" -targetargs:"/logger:Appveyor MindMate.Tests/bin/debug/MindMate.Tests.dll" -excludebyattribute:*.ExcludeFromCodeCoverage* -output:coverage.xml
-
+  - cmd: packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -register:user -filter:"+[MindMate*]*" -target:"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" -targetargs:"/logger:Appveyor MindMate.Tests/bin/debug/MindMate.Tests.dll" -excludebyattribute:*.ExcludeFromCodeCoverage* -output:coverage.xml
