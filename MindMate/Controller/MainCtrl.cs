@@ -574,14 +574,12 @@ namespace MindMate.Controller
         {
             if (PromptForUnsavedChanges(PersistenceManager.CurrentTree) == ContinueOperation.Continue)
             {
+                var tree = PersistenceManager.CurrentTree;
                 if (mainForm.EditorTabs.TabCount == 1)
                 {
-                    Application.Exit();
+                    NewMap();
                 }
-                else
-                {
-                    PersistenceManager.CloseCurerntTree();
-                }
+                PersistenceManager.Close(tree);
                 mainForm.RefreshRecentFilesMenuItems();
             }
         }
