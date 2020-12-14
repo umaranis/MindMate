@@ -127,6 +127,20 @@ namespace MindMate.Controller
                 }
                 }; // register for NoteEditor changes
 
+            mainForm.NoteEditor.OnSave += (obj) =>
+            {
+                if (this.PersistenceManager.CurrentTree.IsNewMap)
+                {
+                    // bug fix: if the map is new and following call will trigger a file save dialog, we have to do it through a separate thread to avoid 'S' being written in the note editor
+                    Action action = () => SaveCurrentMap();
+                    this.schedular.AddTask(() => ((Control)mainForm).Invoke(action), DateTime.Now);
+                }
+                else
+                {
+                    SaveCurrentMap();
+                }
+            };
+
             mainForm.FormClosing += mainForm_FormClosing;
 
         }

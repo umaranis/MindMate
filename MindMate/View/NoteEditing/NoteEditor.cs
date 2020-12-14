@@ -61,7 +61,12 @@ namespace MindMate.View.NoteEditing
         public event Action<object> OnDirty = delegate { };
 
         private bool ignoreDirtyNotification = true;               // Ignore when body as HTML property is set. Initialized by true to skip initial setup notification.
-        public bool Dirty { get ; set; }            
+        public bool Dirty { get ; set; }
+
+        /// <summary>
+        /// Event is fired when user presses Ctrl + S in the note editor window
+        /// </summary>
+        public event Action<object> OnSave;
 
         
         /// <summary>
@@ -426,18 +431,22 @@ namespace MindMate.View.NoteEditing
             {
                 if (e.KeyCode == Keys.O || e.KeyCode == Keys.L)
                 {
-                    e.IsInputKey = true;                    
+                    e.IsInputKey = true;
                 }
                 else if (e.KeyCode == Keys.V)
                 {
                     e.IsInputKey = true;
                     Paste();
-                }                
+                }
+                else if (e.KeyCode == Keys.S && this.OnSave != null)
+                {
+                    OnSave(this);                    
+                }
             }
 
             base.OnPreviewKeyDown(e);
         }        
-
+        
         public void Cut()
         {            
             Document.ExecCommand("Cut", false, null);
