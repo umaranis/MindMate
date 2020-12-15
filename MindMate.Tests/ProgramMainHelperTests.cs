@@ -58,6 +58,14 @@ namespace MindMate.Tests.Model
             ProgramMainHelper.SetFileToOpenFromAppArguments(new string[] { file }, f);
             Assert.AreEqual(file, ProgramMainHelper.GetFileToOpenFromAppArguments(f));
             f.Dispose();
-        }        
+        }
+
+        [TestMethod()]
+        public void Logging_NoException()
+        {
+            ProgramMainHelper.EnableLogListeners();
+            ProgramMainHelper.Application_ThreadException(null, new System.Threading.ThreadExceptionEventArgs(new Exception("Test exception")));
+            ProgramMainHelper.CloseLogListeners();
+        }
     }
 }
