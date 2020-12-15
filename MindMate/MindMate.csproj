@@ -117,6 +117,7 @@
     <Compile Include="Model\SearchTerm.cs" />
     <Compile Include="Modules\Logging\Log.cs" />
     <Compile Include="Modules\Undo\Changes\ImageSizeChange.cs" />
+    <Compile Include="ProgramMainHelper.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

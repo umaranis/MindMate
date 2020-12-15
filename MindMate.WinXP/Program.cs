@@ -16,40 +16,26 @@ namespace MindMate.WinXP
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            EnableLogListeners();
+            ProgramMainHelper.EnableLogListeners();
             //MyWebMind.Debug.IconListCreator.GenerateIconXML();
             MainCtrl mainCtrl = new MainCtrl();
 			MainForm form = new MainForm();
+            ProgramMainHelper.SetFileToOpenFromAppArguments(args, form);
             mainCtrl.InitMindMate(form, new DialogManager());
+
+            // specific to WinXP
             MainMenuCtrl mainMenuCtrl = new MainMenuCtrl(form.MainMenu, mainCtrl);
             form.MainMenuCtrl = mainMenuCtrl;
-            Application.ThreadException += Application_ThreadException; 
+
+            // specific to WinXP
+
+            Application.ThreadException += ProgramMainHelper.Application_ThreadException; 
             Application.Run(form);
-            CloseLogListeners();
-        }
-
-        private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
-        {
-            Log.Write(e);
-        }
-
-        private static void EnableLogListeners()
-        {
-            Trace.Listeners.Add(new System.Diagnostics.TextWriterTraceListener(MetaModel.MetaModel.GetFileDirectory() + "MindMate_Trace.log"));
-            Trace.AutoFlush = true;
-            
-            //Debug.Listeners.Add(new TextWriterTraceListener("SystemLog.txt"));
-            //Debug.AutoFlush = true;
-        }
-
-        private static void CloseLogListeners()
-        {
-            System.Diagnostics.Trace.Close();
-            //System.Diagnostics.Debug.Close();
-        }
+            ProgramMainHelper.CloseLogListeners();
+        }        
     }
 }

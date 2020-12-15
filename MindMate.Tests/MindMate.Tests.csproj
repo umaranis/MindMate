@@ -91,6 +91,7 @@
     <Compile Include="Model\ImageHelperTests.cs" />
     <Compile Include="Model\MindMateClipboardDataObjectTests.cs" />
     <Compile Include="Model\ResourcesTests.cs" />
+    <Compile Include="ProgramMainHelperTests.cs" />
     <Compile Include="Serialization\MapZipSerializerTests.cs" />
     <Compile Include="Serialization\PersistentTreeTests.cs" />
     <Compile Include="Serialization\MapTextSerializerTests.cs" />

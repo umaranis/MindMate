@@ -92,7 +92,21 @@ namespace MindMate.Controller
         {
             MapTree tree;
 
-            if (MetaModel.MetaModel.Instance.LastOpenedFile == null)
+            string fileArg = ProgramMainHelper.GetFileToOpenFromAppArguments(mainForm);
+            if (fileArg != null)
+            {
+                try
+                {
+                    tree = PersistenceManager.OpenTree(fileArg);
+                }
+                catch (Exception exp)
+                {
+                    tree = PersistenceManager.NewTree();
+                    MetaModel.MetaModel.Instance.LastOpenedFile = null;
+                    Log.Write("Couldn't load the file provided in application argument. " + exp.Message);
+                }
+            } 
+            else if (MetaModel.MetaModel.Instance.LastOpenedFile == null)
             {
                 tree = PersistenceManager.NewTree();          
             }

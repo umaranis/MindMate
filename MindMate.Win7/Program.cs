@@ -16,41 +16,26 @@ namespace MindMate.Win7
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            EnableLogListeners();
+            ProgramMainHelper.EnableLogListeners();            
             //MyWebMind.Debug.IconListCreator.GenerateIconXML();
             MainCtrl mainCtrl = new MainCtrl();
-            MainForm form = new MainForm(mainCtrl);            
+            MainForm form = new MainForm(mainCtrl);
+            ProgramMainHelper.SetFileToOpenFromAppArguments(args, form);
             mainCtrl.InitMindMate(form, new DialogManager());
+
+            // specific to win7
             var ribbonHandler = new View.Ribbon.Ribbon(form.Ribbon, mainCtrl, form);
             form.RibbonCtrl = ribbonHandler;
-            form.Load += (sender, args) => ribbonHandler.OnRibbonLoaded();
-            Application.ThreadException += Application_ThreadException;
+            form.Load += (sender, arguments) => ribbonHandler.OnRibbonLoaded();
+            // specific to win7
+
+            Application.ThreadException += ProgramMainHelper.Application_ThreadException;
             Application.Run(form);
-            CloseLogListeners();
-        }
-
-        private static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
-        {
-            Log.Write(e);
-        }       
-
-        private static void EnableLogListeners()
-        {
-            Trace.Listeners.Add(new System.Diagnostics.TextWriterTraceListener(MetaModel.MetaModel.GetFileDirectory() + "MindMate_Trace.log"));
-            Trace.AutoFlush = true;
-            
-            //Debug.Listeners.Add(new TextWriterTraceListener("SystemLog.txt"));
-            //Debug.AutoFlush = true;
-        }
-
-        private static void CloseLogListeners()
-        {
-            System.Diagnostics.Trace.Close();
-            //System.Diagnostics.Debug.Close();
+            ProgramMainHelper.CloseLogListeners();
         }
     }
 }
