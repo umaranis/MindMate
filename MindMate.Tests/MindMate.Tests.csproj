@@ -99,6 +99,7 @@
     <Compile Include="View\MapControls\MapViewPanelTests.cs" />
     <Compile Include="View\MapControls\MapViewTests_GetMapNodeFromPoint_AlgoVer1.cs" />
     <Compile Include="View\MapControls\MapViewTests_GetMapNodeFromPoint.cs" />
+    <Compile Include="View\MapControls\NodeFormatTests.cs" />
     <Compile Include="View\NoteEditing\ImagePasterTests.cs" />
     <Compile Include="View\NoteEditing\HtmlTableHelperTests.cs" />
     <Compile Include="View\NoteEditing\ImageLocalProviderTests.cs" />

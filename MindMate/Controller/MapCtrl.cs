@@ -967,7 +967,7 @@ namespace MindMate.Controller
             if (this.MapView.SelectedNodes.Count == 1)
                 color = this.MapView.SelectedNodes.First.LineColor;
 
-            if (color.IsEmpty) color = NodeView.DefaultLineColor;
+            if (color.IsEmpty) color = NodeFormat.DefaultLineColor;
             
             //get new color specified by user
             color = dialogs.ShowColorPicker(color);
@@ -988,7 +988,7 @@ namespace MindMate.Controller
             if (this.MapView.SelectedNodes.Count == 1)
                 color = this.MapView.SelectedNodes.First.Color;
 
-            if (color.IsEmpty) color = NodeView.DefaultTextColor;
+            if (color.IsEmpty) color = NodeFormat.DefaultColor;
 
             //get new color specified by user
             color = dialogs.ShowColorPicker(color);
@@ -1062,7 +1062,7 @@ namespace MindMate.Controller
             if (MapView.SelectedNodes.IsEmpty) return;
 
             Font font = this.MapView.SelectedNodes.First != null ?
-                this.MapView.SelectedNodes.First.NodeView.Font : null;
+                this.MapView.SelectedNodes.First.NodeView.NodeFormat.Font : null;
             font = dialogs.ShowFontDialog(font);
             if (font == null) return;
 
@@ -1073,7 +1073,7 @@ namespace MindMate.Controller
             for (int i = 0; i < selectCnt; i++)
             {
                 MapNode node = this.MapView.SelectedNodes[i];
-                if (node.NodeView.Font != font)
+                if (node.NodeView.NodeFormat.Font != font)
                 {
                     //update model
                     if(node.FontName != font.Name) node.FontName = font.Name;

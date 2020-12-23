@@ -1598,6 +1598,11 @@ namespace MindMate.Model
             Shape = NodeShape.None;
         }
 
+        public bool HasFormatting()
+        {
+            return HasBackColor || HasBold || HasColor || HasFontName || HasFontSize || HasItalic || HasStrikeout || HasLineColor || HasLinePattern || HasLineWidth || HasShape;
+        }
+
         /// <summary>
         /// Unfold the node and all its descendents recursively
         /// <returns>true if any node was unfolded</returns>

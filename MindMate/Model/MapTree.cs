@@ -5,8 +5,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using MindMate.Modules.Undo;
+using MindMate.View.MapControls;
 
 namespace MindMate.Model
 {
@@ -341,10 +343,36 @@ namespace MindMate.Model
         public IEnumerable<MapNode> MapNodes
         {
             get
-            {
+            {                
                 return (new[] { RootNode }).Concat(RootNode.Descendents);
-            }
+            }            
         }
+
+        #region Default Node Formatting / Theme
+
+        /// <summary>
+        /// Null if the format is not defined
+        /// </summary>
+        public NodeFormat DefaultFormat { get; set; } = NodeFormat.CreateDefaultFormat();
+        /// <summary>
+        /// Background color of Map Canvas
+        /// </summary>
+        public Color MapBackColor { get; set; }
+        /// <summary>
+        /// Background color of note editor window
+        /// </summary>
+        public Color NoteBackColor { get; set; }
+        /// <summary>
+        /// Color used for outlining the selected node
+        /// </summary>
+        public Color HighlightColor { get; set; }
+        /// <summary>
+        /// Color used to highlight the drag and drop target
+        /// </summary>
+        public Color DropHintColor { get; set; }
+        
+        #endregion Default Node Formatting / Theme
+
 
         /// <summary>
         /// Used for creating isolated MapNode(s)

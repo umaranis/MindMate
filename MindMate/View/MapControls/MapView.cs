@@ -57,7 +57,7 @@ namespace MindMate.View.MapControls
             RefreshNodePositions();
             Canvas.Invalidate();
 
-            this.nodeTextEditor = new MapViewTextEditor(this, NodeView.DefaultFont);
+            this.nodeTextEditor = new MapViewTextEditor(this, NodeFormat.DefaultFont);
             FormatPainter = new MapViewFormatPainter(this);                 
 
         }
@@ -165,6 +165,14 @@ namespace MindMate.View.MapControls
                     node.NodeView.RefreshImageView();
 					if (node == tree.RootNode) RefreshNodePositions();
                     else RefreshChildNodePositions(tree.RootNode, node.Pos);
+                    break;
+                case NodeProperties.BackColor:
+                case NodeProperties.Color:
+                case NodeProperties.LineColor:
+                case NodeProperties.LinePattern:
+                case NodeProperties.LineWidth:
+                case NodeProperties.Shape:
+                    node.NodeView.RefreshNodeFormat();
                     break;
             }
 

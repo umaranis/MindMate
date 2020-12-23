@@ -1176,8 +1176,8 @@ namespace MindMate.View.Ribbon
                 RichFont.Bold = n.Bold ? FontProperties.Set : FontProperties.NotSet;
                 RichFont.Italic = n.Italic ? FontProperties.Set : FontProperties.NotSet;
                 RichFont.Strikethrough = n.Strikeout ? FontProperties.Set : FontProperties.NotSet;
-                RichFont.Family = n.NodeView.Font.Name;
-                RichFont.Size = (decimal)n.NodeView.Font.Size;
+                RichFont.Family = n.NodeView.NodeFormat.Font.Name;
+                RichFont.Size = (decimal)n.NodeView.NodeFormat.Font.Size;
             }
             //else
             //{

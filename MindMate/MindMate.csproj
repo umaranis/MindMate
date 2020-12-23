@@ -114,6 +114,7 @@
     <Compile Include="Controller\WinFormsStatusBarCtrl.cs" />
     <Compile Include="Controller\StatusBarCtrl.cs" />
     <Compile Include="Controller\INoteEditor.cs" />
+    <Compile Include="View\MapControls\NodeFormat.cs" />
     <Compile Include="Model\SearchTerm.cs" />
     <Compile Include="Modules\Logging\Log.cs" />
     <Compile Include="Modules\Undo\Changes\ImageSizeChange.cs" />

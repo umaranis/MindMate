@@ -97,9 +97,9 @@ namespace MindMate.View.MapControls.Drawing
                     g.FillRectangle(brush, new RectangleF(nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height));
                 }
             }
-            TextRenderer.DrawText(g, node.Text, nodeView.Font,
+            TextRenderer.DrawText(g, node.Text, nodeView.NodeFormat.Font,
                 new RectangleF(nodeView.RecText.Left, nodeView.RecText.Top, NodeView.MAXIMUM_TEXT_WIDTH, 5000),
-                nodeView.TextColor);
+                nodeView.NodeFormat.Color);
             for (int i = 0; i < nodeView.RecIcons.Count; i++)
             {
                 nodeView.RecIcons[i].Draw(g);
@@ -118,9 +118,9 @@ namespace MindMate.View.MapControls.Drawing
             if (!node.BackColor.IsEmpty)
                 g.FillPath(new SolidBrush(node.BackColor), path);
                 
-            TextRenderer.DrawText(g, node.Text, nodeView.Font,
+            TextRenderer.DrawText(g, node.Text, nodeView.NodeFormat.Font,
                 new RectangleF(nodeView.RecText.Left, nodeView.RecText.Top, NodeView.MAXIMUM_TEXT_WIDTH, 5000),
-                nodeView.TextColor);
+                nodeView.NodeFormat.Color);
             for (int i = 0; i < nodeView.RecIcons.Count; i++)
             {
                 nodeView.RecIcons[i].Draw(g);
@@ -219,10 +219,9 @@ namespace MindMate.View.MapControls.Drawing
                 control2Y = pos2Y;
 
 
-                Pen p = Pens.Gray;
-                bool disposePen = CreateCustomPen(node, ref p);
-                
                 g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+
+                Pen p = nodeView.NodeFormat.LinePen;
 
                 g.DrawBezier(p, new PointF(pos1X, pos1Y), new PointF(control1X, control1Y),
                     new PointF(control2X, control2Y), new PointF(pos2X, pos2Y));
@@ -233,9 +232,6 @@ namespace MindMate.View.MapControls.Drawing
                 DrawFoldedIndicator(nodeView, g, p);
 
                 DrawFoldedIndicatorToNodeConnector(nodeView, g, p);
-
-                if (disposePen) p.Dispose();
-
             }
 
 
@@ -248,42 +244,7 @@ namespace MindMate.View.MapControls.Drawing
                     DrawNodeLinker(cNode, iView, g);
                 }
             }
-        }
-
-        /// <summary>
-        /// Creates a custom pen if required, otherwise returns false
-        /// </summary>
-        /// <param name="pen"></param>
-        /// <returns></returns>
-        private static bool CreateCustomPen(MapNode node, ref Pen p)
-        {
-            bool customPen = false;
-            if (!node.LineColor.IsEmpty)
-            {
-                p = new Pen(node.LineColor);
-                customPen = true;
-            }
-
-            if (node.LineWidth != 0 && node.LineWidth != 1)
-            {
-                if (customPen == false)
-                    p = new Pen(Color.Gray, node.LineWidth);
-                else
-                    p.Width = node.LineWidth;
-                customPen = true;
-            }
-
-            if (node.LinePattern != System.Drawing.Drawing2D.DashStyle.Solid &&
-                node.LinePattern != System.Drawing.Drawing2D.DashStyle.Custom)
-            {
-                if (customPen == false) p = new Pen(Color.Gray);
-                p.DashCap = System.Drawing.Drawing2D.DashCap.Round;
-                p.DashStyle = node.LinePattern;
-                customPen = true;
-            }
-
-            return customPen;
-        }
+        }        
 
         private static void DrawNodeShape(NodeView nodeView, Graphics g, Pen p)
         {
@@ -313,12 +274,7 @@ namespace MindMate.View.MapControls.Drawing
 
         public static void DrawNodeShape(MapNode node, IView iView, Graphics g)
         {
-            Pen p = Pens.Gray;
-            bool disposePen = CreateCustomPen(node, ref p);
-
-            DrawNodeShape(iView.GetNodeView(node), g, p);
-
-            if(disposePen) p.Dispose();
+            DrawNodeShape(iView.GetNodeView(node), g, node.NodeView.NodeFormat.LinePen);
         }
 
         const int INDICATOR_MARGIN = 2;

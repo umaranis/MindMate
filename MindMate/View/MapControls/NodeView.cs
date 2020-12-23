@@ -37,10 +37,6 @@ namespace MindMate.View.MapControls
         public const int BOTTOM_PADDING = 2;
         public const int ICON_SIZE = 16;
 
-        public static Font DefaultFont = new Font(FontFamily.GenericSansSerif, 10);
-        public static Color DefaultLineColor = Color.Gray;
-        public static Color DefaultTextColor = Color.Black;
-
         private MapNode node;
         public MapNode Node {get{ return node; }}
 
@@ -65,20 +61,8 @@ namespace MindMate.View.MapControls
         private List<IconView> recIcons = new List<IconView>(); 
         public List<IconView> RecIcons  {   get { return recIcons; }    }
 
-        private Font font;
-        public Font Font {  get { return font; }    }
-
-
-        public Color TextColor  {   
-            get 
-            {
-                if (node.Color.IsEmpty)
-                    return DefaultTextColor;
-                else
-                    return node.Color;
-            }   
-        }
-        
+        private NodeFormat nodeFomat;
+        public NodeFormat NodeFormat => nodeFomat;
 
         public Color BackColor
         {
@@ -154,7 +138,7 @@ namespace MindMate.View.MapControls
         {
             get
             {
-                return font.Height*2 <= recText.Height ? true : false;
+                return NodeFormat.Font.Height*2 <= recText.Height;
             }
         }
 
@@ -191,9 +175,15 @@ namespace MindMate.View.MapControls
         //    CreateNodeViewContent();
         //}
 
+        public void RefreshNodeFormat()
+        {
+            nodeFomat = NodeFormat.CreateNodeFormat(node);
+        }
+
         public void RefreshFont()
         {
-            CreateFont();
+            RefreshNodeFormat();
+            CreateTextRec();
 
             this.RefreshNodeViewSize();
         }
@@ -268,7 +258,7 @@ namespace MindMate.View.MapControls
         public void RefreshText()
         {
             //SizeF s = MapView.graphics.MeasureString(node.Text, font, NodeView.MAXIMUM_TEXT_WIDTH);
-            SizeF s = Drawing.TextRenderer.MeasureText(node.Text, font);
+            SizeF s = Drawing.TextRenderer.MeasureText(node.Text, NodeFormat.Font);
 
             RefreshText(s);
         }
@@ -322,42 +312,10 @@ namespace MindMate.View.MapControls
             }
         }
 
-        private void CreateFont()
+        private void CreateTextRec()
         {
-            if (font != null && font != DefaultFont) font.Dispose();
-
-            //step 1: refresh font from MapNode
-            FontStyle style = FontStyle.Regular;
-            if (node.Bold) style |= FontStyle.Bold;
-            if (node.Italic) style |= FontStyle.Italic;
-            if (node.Strikeout) style |= FontStyle.Strikeout;
-
-            if (style == FontStyle.Regular && node.FontName == null && node.FontSize == 0) //set the default font
-            {
-                font = DefaultFont;
-            }
-            else
-            {
-
-                FontFamily ff;
-                try
-                {
-                    ff = node.FontName != null ? new FontFamily(node.FontName) : DefaultFont.FontFamily;
-                }
-                catch (ArgumentException)
-                {
-                    ff = DefaultFont.FontFamily;
-                    System.Diagnostics.Trace.TraceError("Specified Font Name (" + node.FontName + ") not found. Using default font instead.");
-                }
-
-                font = new Font(
-                    ff, node.FontSize != 0 ? node.FontSize : DefaultFont.Size,
-                    style);
-
-            }
-
             //step 2: recalculate text rec size        
-            SizeF s = Drawing.TextRenderer.MeasureText(node.Text, font);
+            SizeF s = Drawing.TextRenderer.MeasureText(node.Text, nodeFomat.Font);
 
             //if (s.Height == 0) //if empty text than set minimum size
             //    s = new SizeF(10, font.Height);
@@ -398,7 +356,8 @@ namespace MindMate.View.MapControls
 
             CreateImageView();
 
-            CreateFont();
+            RefreshNodeFormat();
+            CreateTextRec();            
 
             RefreshNodeViewSize();
 
