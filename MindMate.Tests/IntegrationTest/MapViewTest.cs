@@ -454,5 +454,45 @@ namespace MindMateTest
 			image.Dispose();
 			refImage.Dispose();
 		}
+
+		[TestMethod]
+		public void MapView_FeatureDisplay5_BackColor_NodeShape()
+		{
+			PersistentTree tree = new PersistenceManager().NewTree();
+
+			MindMate.MetaModel.MetaModel.Initialize();
+			MapView view = new MapView(tree);
+
+			var n1 = new MapNode(tree.RootNode, "Sample", NodePosition.Right);
+			n1.BackColor = Color.AliceBlue;
+			n1.Shape = NodeShape.Box;
+
+			var n2 = new MapNode(tree.RootNode, "Sample", NodePosition.Right);
+			n2.BackColor = Color.Brown;
+			n2.Shape = NodeShape.Bubble;
+
+			var n3 = new MapNode(tree.RootNode, "Sample", NodePosition.Right);
+			n3.BackColor = Color.ForestGreen;
+			n3.Shape = NodeShape.Bullet;
+
+			var n4 = new MapNode(tree.RootNode, "Sample", NodePosition.Right);
+			n4.BackColor = Color.DeepPink;
+			n4.Shape = NodeShape.Fork;
+
+			var n5 = new MapNode(tree.RootNode, "Sample", NodePosition.Right);
+			n5.BackColor = Color.Khaki;
+			n5.Shape = NodeShape.None;
+
+			var image = view.DrawToBitmap();
+			if (SAVE_ACTUAL_IMAGE) image.Save(@"Resources\Feature Display5 - Actual.png");  
+			var refImage = (Bitmap)Bitmap.FromFile(@"Resources\Feature Display5.png");
+
+			view.Canvas.Dispose();
+
+			Assert.AreEqual(0.0f, image.PercentageDifference(refImage, 0), "Images don't match for 'Feature Display.mm'");
+
+			image.Dispose();
+			refImage.Dispose();
+		}
 	}
 }
