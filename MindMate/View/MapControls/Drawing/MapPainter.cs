@@ -92,10 +92,7 @@ namespace MindMate.View.MapControls.Drawing
             MapNode node = nodeView.Node;
             if (!nodeView.NodeFormat.BackColor.IsEmpty)
             {
-                using (Brush brush = new SolidBrush(nodeView.NodeFormat.BackColor))
-                {
-                    g.FillRectangle(brush, new RectangleF(nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height));
-                }
+                g.FillRectangle(nodeView.NodeFormat.BackColorBrush, new RectangleF(nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height));                
             }
             TextRenderer.DrawText(g, node.Text, nodeView.NodeFormat.Font,
                 new RectangleF(nodeView.RecText.Left, nodeView.RecText.Top, NodeView.MAXIMUM_TEXT_WIDTH, 5000),
@@ -116,7 +113,7 @@ namespace MindMate.View.MapControls.Drawing
             System.Drawing.Drawing2D.GraphicsPath path = RoundedRectangle.Create((int)nodeView.Left, (int)nodeView.Top, (int)nodeView.Width, (int)nodeView.Height);
 
             if (!node.BackColor.IsEmpty)
-                g.FillPath(new SolidBrush(node.BackColor), path);
+                g.FillPath(nodeView.NodeFormat.BackColorBrush, path);
                 
             TextRenderer.DrawText(g, node.Text, nodeView.NodeFormat.Font,
                 new RectangleF(nodeView.RecText.Left, nodeView.RecText.Top, NodeView.MAXIMUM_TEXT_WIDTH, 5000),

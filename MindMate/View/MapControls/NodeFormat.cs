@@ -34,6 +34,7 @@ namespace MindMate.View.MapControls
 
             Font = DefaultFont;
             LinePen = Pens.Gray;
+            BackColorBrush = null;
         }
 
 
@@ -55,6 +56,7 @@ namespace MindMate.View.MapControls
             LinePen = new Pen(LineColor, LineWidth);
             LinePen.DashCap = DashCap.Round;
             LinePen.DashStyle = LinePattern;
+            BackColorBrush = BackColor.IsEmpty ? null : new SolidBrush(BackColor);
         }
 
         private static NodeFormat defaultObject;
@@ -129,6 +131,7 @@ namespace MindMate.View.MapControls
         #region calculated properties
         public Font Font { get; }
         public Pen LinePen { get; }
+        public Brush BackColorBrush { get; }
         #endregion calculated properties
 
 
