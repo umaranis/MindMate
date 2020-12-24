@@ -359,6 +359,12 @@ Note:
     <!--Group: Clear Format-->
     <Command Name="GrpClearFormat" Id="5500" LabelTitle="Clear" />
     
+    <!--Group: Default Format -->
+    <Command Name="GrpDefaultFormat" Id="5600" LabelTitle="Default Format"/>
+    <Command Name="SetSelectedAsDefaultFormat" Id="5601" LabelTitle="Set Selected as Default" TooltipDescription="Set formatting of the selected node as the default formatting for the map.">
+      <Command.LargeImages><Image>Res/one_way_transition1.png</Image></Command.LargeImages>
+    </Command>
+    
     <!--Tab: View-->
     <Command Name="TabView" Id="6000" LabelTitle="View" />
     
@@ -896,6 +902,9 @@ Note:
           </Group>
           <Group CommandName="GrpClearFormat" SizeDefinition="OneButton">
             <Button CommandName="ClearFormatting" />
+          </Group>
+          <Group CommandName="GrpDefaultFormat" SizeDefinition="OneButton">
+            <Button CommandName="SetSelectedAsDefaultFormat" />
           </Group>
         </Tab>
         <Tab CommandName="TabView" >

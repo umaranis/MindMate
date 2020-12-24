@@ -84,8 +84,9 @@ namespace MindMate.View.MapControls
             this.tree.IconChanged += tree_IconChanged;
             this.tree.SelectedNodes.NodeSelected += SelectedNodes_NodeSelected;
             this.tree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
-        }
-                                               
+            this.tree.TreeFormatChanged += Tree_TreeFormatChanged;
+        }        
+
         public MapViewPanel Canvas { get; set; }
 
         public SelectedNodes SelectedNodes
@@ -141,7 +142,7 @@ namespace MindMate.View.MapControls
                 case NodeProperties.Bold:
                 case NodeProperties.Italic:
                 case NodeProperties.Strikeout:
-                    node.NodeView.RefreshFont();
+                    node.NodeView.RefreshFontAndFormat();
 					if (node == tree.RootNode) RefreshNodePositions();
                     else RefreshChildNodePositions(tree.RootNode, node.Pos);
                     break;                
@@ -150,7 +151,7 @@ namespace MindMate.View.MapControls
                     break;
                 case NodeProperties.FontName:
                 case NodeProperties.FontSize:
-                    node.NodeView.RefreshFont();
+                    node.NodeView.RefreshFontAndFormat();
 					if (node == tree.RootNode) RefreshNodePositions();
                     else RefreshChildNodePositions(tree.RootNode, node.Pos);
                     break;
@@ -172,7 +173,7 @@ namespace MindMate.View.MapControls
                 case NodeProperties.LinePattern:
                 case NodeProperties.LineWidth:
                 case NodeProperties.Shape:
-                    node.NodeView.RefreshNodeFormat();
+                    node.NodeView.RefreshFontAndFormat();
                     break;
             }
 
@@ -226,6 +227,25 @@ namespace MindMate.View.MapControls
             Canvas.Invalidate();
         }
 
+        private void Tree_TreeFormatChanged(MapTree tree, TreeDefaultFormatChangedEventArgs e)
+        {
+            switch(e.ChangeType)
+            {
+                case TreeFormatChange.NodeFormat:
+                    Tree.RootNode.ForEach(n => n.NodeView?.RefreshFontAndFormat());
+                    RefreshNodePositions();
+                    break;
+                case TreeFormatChange.MapCanvasBackColor:
+                case TreeFormatChange.NodeDropHintColor:
+                case TreeFormatChange.NodeHighlightColor:
+                    break;
+                case TreeFormatChange.NoteEditorBackColor:
+                    return; //no need to invalidate canvas
+            }
+
+            Canvas.Invalidate();
+        }
+
         void SelectedNodes_NodeDeselected(MapNode node, SelectedNodes selectedNodes)
         {            
             Canvas.Invalidate();
@@ -237,7 +257,7 @@ namespace MindMate.View.MapControls
             AdjustLocationToShowNodeView(nView);         
 
             Canvas.Invalidate();
-        }
+        }        
 
         internal void AdjustLocationToShowNodeView(NodeView nView)
         {

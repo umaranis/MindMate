@@ -164,6 +164,9 @@ namespace MindMate.View.Ribbon
             //Format Tab: Node Style
             CreateNodeStyle.ExecuteEvent += CreateNodeStyle_ExecuteEvent;
 
+            //Format Tab: Default Format
+            SetSelectedAsDefaultFormat.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.SetSelectedNodeFormatAsDefault();
+
             //View Tab: View Tasks
             ViewTaskList.ExecuteEvent += ViewTaskList_ExecuteEvent;
 

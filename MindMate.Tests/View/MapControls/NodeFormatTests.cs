@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.Model;
-using MindMate.View.MapControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;

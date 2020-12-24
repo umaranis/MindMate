@@ -41,4 +41,10 @@ namespace MindMate.Model
         public MapTree.AttributeSpec AttributeSpec { get; set; }
         public string NewValue { get; set; }        
     }
+
+    public class TreeDefaultFormatChangedEventArgs : EventArgs
+    {
+        public TreeFormatChange ChangeType { get; set; }
+        public object OldValue { get; set; }        
+    }
 }

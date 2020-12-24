@@ -62,7 +62,8 @@ namespace MindMate.Modules.Undo
             tree.IconChanged += Tree_IconChanged;
             tree.NodePropertyChanged += Tree_NodePropertyChanged;
             tree.TreeStructureChanged += Tree_TreeStructureChanged;
-        }
+            tree.TreeFormatChanged += Tree_TreeFormatChanged;
+        }        
 
         public void Unregister(MapTree tree)
         {
@@ -71,6 +72,7 @@ namespace MindMate.Modules.Undo
             tree.IconChanged -= Tree_IconChanged;
             tree.NodePropertyChanged -= Tree_NodePropertyChanged;
             tree.TreeStructureChanged -= Tree_TreeStructureChanged;
+            tree.TreeFormatChanged -= Tree_TreeFormatChanged;
 
             undoStack.Clear();
             redoStack.Clear();
@@ -121,7 +123,13 @@ namespace MindMate.Modules.Undo
         {
             IChange change = factory.CreateChange(node, e);
             if (change != null) { RecordChange(change); }
-        }        
+        }
+
+        private void Tree_TreeFormatChanged(MapTree tree, TreeDefaultFormatChangedEventArgs e)
+        {
+            IChange change = factory.CreateChange(tree, e);
+            if (change != null) { RecordChange(change); }
+        }
 
         #region Batch Changes
 

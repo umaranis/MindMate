@@ -8,21 +8,21 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using MindMate.Modules.Undo;
-using MindMate.View.MapControls;
 
 namespace MindMate.Model
 {
 
     public partial class MapTree
     {
-        
-        public MapTree() 
+
+        public MapTree()
         {
             selectedNodes = new SelectedNodes();
         }
 
         private MapNode rootNode;
-        public MapNode RootNode { 
+        public MapNode RootNode
+        {
             get
             {
                 return rootNode;
@@ -90,7 +90,7 @@ namespace MindMate.Model
         #region AttributeSpec
 
         private Dictionary<string, AttributeSpec> attributeSpecs = new Dictionary<string, AttributeSpec>();
-        
+
         public IEnumerable<AttributeSpec> AttributeSpecs
         {
             get { return attributeSpecs.Values; }
@@ -109,7 +109,7 @@ namespace MindMate.Model
             else
                 return null;
         }
-                        
+
         public int AttributeSpecCount { get { return attributeSpecs.Count; } }
 
         public event Action<AttributeSpec, AttributeSpecEventArgs> AttributeSpecChangeEvent = delegate { };
@@ -118,7 +118,7 @@ namespace MindMate.Model
         {
             AttributeSpecChangeEvent(obj, args);
         }
-        
+
 
         #endregion AttributeSpec
 
@@ -191,7 +191,7 @@ namespace MindMate.Model
             int rightCount = RootNode.ChildRightNodes.Count();
             int leftCount = RootNode.ChildLeftNodes.Count();
 
-            int diff = (int)Math.Truncate((rightCount - leftCount)/2d);
+            int diff = (int)Math.Truncate((rightCount - leftCount) / 2d);
 
             if (diff > 0)
             {
@@ -199,7 +199,7 @@ namespace MindMate.Model
                 {
                     RootNode.GetLastChild(NodePosition.Right)?.MoveDown();
                     diff--;
-                } 
+                }
             }
             else
             {
@@ -217,6 +217,7 @@ namespace MindMate.Model
         public event Action<MapNode, TreeStructureChangedEventArgs> TreeStructureChanged = delegate { };
         public event Action<MapNode, IconChangedEventArgs> IconChanged = delegate { };
         public event Action<MapNode, AttributeChangeEventArgs> AttributeChanged = delegate { };
+        public event Action<MapTree, TreeDefaultFormatChangedEventArgs> TreeFormatChanged = delegate { };
         /// <summary>
         /// Event is fired before changes are applied. See AttributeChanged event for notification after the changes.
         /// </summary>
@@ -264,6 +265,11 @@ namespace MindMate.Model
             AttributeChanging(node, args);
         }
 
+        private void FireEvent(TreeDefaultFormatChangedEventArgs args)
+        {
+            TreeFormatChanged(this, args);
+        }
+
         #endregion
 
         #region Change Manager
@@ -274,7 +280,7 @@ namespace MindMate.Model
             private set;
         }
 
-        public bool ChangeManagerOn 
+        public bool ChangeManagerOn
         {
             get { return ChangeManager != null; }
         }
@@ -285,7 +291,7 @@ namespace MindMate.Model
         /// </summary>
         public void TurnOnChangeManager()
         {
-            if(!ChangeManagerOn)
+            if (!ChangeManagerOn)
             {
                 ChangeManager = new ChangeManager();
                 ChangeManager.RegisterMap(this);
@@ -343,40 +349,114 @@ namespace MindMate.Model
         public IEnumerable<MapNode> MapNodes
         {
             get
-            {                
+            {
                 return (new[] { RootNode }).Concat(RootNode.Descendents);
-            }            
+            }
         }
 
         #region Default Node Formatting / Theme
 
+        private NodeFormat nodeFormat = NodeFormat.CreateDefaultFormat();
         /// <summary>
         /// Null if the format is not defined
         /// </summary>
-        public NodeFormat DefaultFormat { get; set; } = NodeFormat.CreateDefaultFormat();
+        public NodeFormat DefaultFormat
+        {
+            get => nodeFormat;
+            set
+            {
+                var oldValue = nodeFormat;
+                nodeFormat = value;
+
+                FireEvent(new TreeDefaultFormatChangedEventArgs()
+                {
+                    ChangeType = TreeFormatChange.NodeFormat,
+                    OldValue = oldValue
+                });
+            }
+        }
+
+        private Color mapBackColor;
         /// <summary>
         /// Background color of Map Canvas
         /// </summary>
-        public Color MapBackColor { get; set; }
+        public Color MapBackColor
+        {
+            get => mapBackColor;
+            set
+            {
+                var oldValue = mapBackColor;
+                mapBackColor = value;
+                FireEvent(new TreeDefaultFormatChangedEventArgs()
+                {
+                    ChangeType = TreeFormatChange.MapCanvasBackColor,
+                    OldValue = oldValue
+                });
+            }
+        }
+
+        private Color noteBackColor;
         /// <summary>
         /// Background color of note editor window
         /// </summary>
-        public Color NoteBackColor { get; set; }
+        public Color NoteBackColor
+        {
+            get => noteBackColor;
+            set
+            {
+                var oldValue = noteBackColor;
+                noteBackColor = value;
+                FireEvent(new TreeDefaultFormatChangedEventArgs()
+                {
+                    ChangeType = TreeFormatChange.NoteEditorBackColor,
+                    OldValue = oldValue
+                });
+            }
+        }
+
+        private Color highlightColor;
         /// <summary>
         /// Color used for outlining the selected node
         /// </summary>
-        public Color HighlightColor { get; set; }
+        public Color HighlightColor 
+        { 
+            get => highlightColor;
+            set
+            {
+                var oldValue = highlightColor;
+                highlightColor = value;
+                FireEvent(new TreeDefaultFormatChangedEventArgs()
+                {
+                    ChangeType = TreeFormatChange.NodeHighlightColor,
+                    OldValue = oldValue
+                });
+            }
+        }
+
+        private Color dropHintColor;
         /// <summary>
         /// Color used to highlight the drag and drop target
         /// </summary>
-        public Color DropHintColor { get; set; }
-        
+        public Color DropHintColor
+        {
+            get => dropHintColor;
+            set {
+                var oldValue = dropHintColor;
+                dropHintColor = value;
+                FireEvent(new TreeDefaultFormatChangedEventArgs()
+                {
+                    ChangeType = TreeFormatChange.NodeDropHintColor,
+                    OldValue = oldValue
+                });
+            }
+        }
+
         #endregion Default Node Formatting / Theme
 
 
         /// <summary>
         /// Used for creating isolated MapNode(s)
         /// </summary>
-        public static MapTree Default = new MapTree();
+        public static MapTree Default = new MapTree();        
     }
 }

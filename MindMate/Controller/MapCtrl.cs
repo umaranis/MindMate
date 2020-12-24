@@ -1083,7 +1083,7 @@ namespace MindMate.Controller
                     if(node.Strikeout != font.Strikeout) node.Strikeout = font.Strikeout;
                     
                     //update view
-                    node.NodeView.RefreshFont();
+                    node.NodeView.RefreshFontAndFormat();
 
                     if (sideToRefresh != node.Pos)
                         sideToRefresh = NodePosition.Undefined;
@@ -1716,6 +1716,15 @@ namespace MindMate.Controller
             RunCommand("Image Position After", n => n.SetImagePosition(ImagePosition.After));
         }
 
+        public void SetSelectedNodeFormatAsDefault()
+        {
+            var format = tree.SelectedNodes.First?.NodeView?.NodeFormat;
+            if (format != null)
+            {
+                tree.DefaultFormat = format;
+            }
+        }
+        
         /// <summary>
         /// Runs the given command on all selected nodes
         /// </summary>

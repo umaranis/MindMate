@@ -114,10 +114,15 @@
     <Compile Include="Controller\WinFormsStatusBarCtrl.cs" />
     <Compile Include="Controller\StatusBarCtrl.cs" />
     <Compile Include="Controller\INoteEditor.cs" />
-    <Compile Include="View\MapControls\NodeFormat.cs" />
+    <Compile Include="Modules\Undo\Changes\DefaultTreeFormatChange.cs" />
+    <Compile Include="Model\NodeFormat.cs" />
     <Compile Include="Model\SearchTerm.cs" />
     <Compile Include="Modules\Logging\Log.cs" />
     <Compile Include="Modules\Undo\Changes\ImageSizeChange.cs" />
+    <Compile Include="Modules\Undo\Changes\MapCanvasBackColorChange.cs" />
+    <Compile Include="Modules\Undo\Changes\NodeDropHintColorChange.cs" />
+    <Compile Include="Modules\Undo\Changes\NodeHighlightColorChange.cs" />
+    <Compile Include="Modules\Undo\Changes\NoteEditorBackColorChange.cs" />
     <Compile Include="ProgramMainHelper.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

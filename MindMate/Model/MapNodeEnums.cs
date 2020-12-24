@@ -88,6 +88,18 @@ namespace MindMate.Model
         MovedDown
     }
 
+    public enum TreeFormatChange
+    {
+        NodeFormat,
+        MapCanvasBackColor,
+        NoteEditorBackColor,
+        NodeHighlightColor,
+        /// <summary>
+        /// Drop target hint color during drag and drop
+        /// </summary>
+        NodeDropHintColor
+    }
+
 
     public enum NodeLinkType
     {

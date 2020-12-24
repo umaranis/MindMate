@@ -142,6 +142,8 @@ namespace MindMate.View.Ribbon
 		NodeStyleGallery = 5401,		
 		CreateNodeStyle = 5402,		
 		GrpClearFormat = 5500,		
+		GrpDefaultFormat = 5600,		
+		SetSelectedAsDefaultFormat = 5601,		
 		TabView = 6000,		
 		GrpViewTask = 6100,		
 		ViewCalendar = 6001,		

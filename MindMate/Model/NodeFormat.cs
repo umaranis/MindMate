@@ -1,5 +1,4 @@
-﻿using MindMate.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -7,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MindMate.View.MapControls
+namespace MindMate.Model
 {
     /// <summary>
     /// The properties should never be null except BackColor. 
@@ -76,18 +75,19 @@ namespace MindMate.View.MapControls
             }
             else
             {
+                var def = node.Tree.DefaultFormat;
                 return new NodeFormat(
-                    node.BackColor,
+                    node.HasBackColor ? node.BackColor : def.BackColor,
                     node.Bold,
-                    node.HasColor ? node.Color : DefaultColor,
-                    node.HasFontName ? node.FontName : DefaultFontName,
-                    node.HasFontSize ? node.FontSize : DefaultFontSize,
+                    node.HasColor ? node.Color : def.Color,
+                    node.HasFontName ? node.FontName : def.FontName,
+                    node.HasFontSize ? node.FontSize : def.FontSize,
                     node.Italic,
                     node.Strikeout,
-                    node.HasLineColor ? node.LineColor : DefaultLineColor,
-                    node.HasLinePattern ? node.LinePattern : DefaultLinePattern,
-                    node.HasLineWidth ? node.LineWidth : DefaultLineWidth,
-                    node.HasShape ? node.Shape : DefaultNodeShape
+                    node.HasLineColor ? node.LineColor : def.LineColor,
+                    node.HasLinePattern ? node.LinePattern : def.LinePattern,
+                    node.HasLineWidth ? node.LineWidth : def.LineWidth,
+                    node.HasShape ? node.Shape : def.Shape
                     );
             }
         }

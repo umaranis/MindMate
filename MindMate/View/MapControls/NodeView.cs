@@ -167,14 +167,9 @@ namespace MindMate.View.MapControls
         //    CreateNodeViewContent();
         //}
 
-        public void RefreshNodeFormat()
+        public void RefreshFontAndFormat()
         {
-            nodeFomat = NodeFormat.CreateNodeFormat(node);
-        }
-
-        public void RefreshFont()
-        {
-            RefreshNodeFormat();
+            CreateNodeFormat();
             CreateTextRec();
 
             this.RefreshNodeViewSize();
@@ -304,6 +299,11 @@ namespace MindMate.View.MapControls
             }
         }
 
+        private void CreateNodeFormat()
+        {
+            nodeFomat = NodeFormat.CreateNodeFormat(node);
+        }
+
         private void CreateTextRec()
         {
             //step 2: recalculate text rec size        
@@ -348,7 +348,7 @@ namespace MindMate.View.MapControls
 
             CreateImageView();
 
-            RefreshNodeFormat();
+            CreateNodeFormat();
             CreateTextRec();            
 
             RefreshNodeViewSize();

@@ -135,6 +135,25 @@ namespace MindMate.Modules.Undo
                 default:
                     return null;
             }
-        }        
+        }
+        
+        internal IChange CreateChange(MapTree tree, TreeDefaultFormatChangedEventArgs e)
+        {
+            switch(e.ChangeType)
+            {
+                case TreeFormatChange.NodeFormat:
+                    return new DefaultTreeFormatChange(tree, (NodeFormat)e.OldValue);
+                case TreeFormatChange.MapCanvasBackColor:
+                    return new MapCanvasBackColorChange(tree, (Color)e.OldValue);
+                case TreeFormatChange.NoteEditorBackColor:
+                    return new NoteEditorBackColorChange(tree, (Color)e.OldValue);
+                case TreeFormatChange.NodeHighlightColor:
+                    return new NodeHighlightColorChange(tree, (Color)e.OldValue);
+                case TreeFormatChange.NodeDropHintColor:
+                    return new NodeDropHintColorChange(tree, (Color)e.OldValue);
+                default:
+                    return null;
+            }
+        }
     }
 }
