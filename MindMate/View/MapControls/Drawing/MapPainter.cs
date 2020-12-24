@@ -90,17 +90,18 @@ namespace MindMate.View.MapControls.Drawing
         private static void DrawNode(NodeView nodeView, Graphics g, bool highlight = false)
         {
             MapNode node = nodeView.Node;
-            if (!nodeView.NodeFormat.BackColor.IsEmpty)
-            {
-                g.FillRectangle(nodeView.NodeFormat.BackColorBrush, new RectangleF(nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height));                
-            }
+
+            DrawBackColor(nodeView, g);
+            
             TextRenderer.DrawText(g, node.Text, nodeView.NodeFormat.Font,
                 new RectangleF(nodeView.RecText.Left, nodeView.RecText.Top, NodeView.MAXIMUM_TEXT_WIDTH, 5000),
                 nodeView.NodeFormat.Color);
+            
             for (int i = 0; i < nodeView.RecIcons.Count; i++)
             {
                 nodeView.RecIcons[i].Draw(g);
             }
+            
             nodeView.NoteIcon?.Draw(g);
             nodeView.Link?.Draw(g);
             nodeView.ImageView?.Draw(g);
@@ -110,11 +111,8 @@ namespace MindMate.View.MapControls.Drawing
         {
             MapNode node = nodeView.Node;
 
-            System.Drawing.Drawing2D.GraphicsPath path = RoundedRectangle.Create((int)nodeView.Left, (int)nodeView.Top, (int)nodeView.Width, (int)nodeView.Height);
+            DrawBackColor(nodeView, g);
 
-            if (!node.BackColor.IsEmpty)
-                g.FillPath(nodeView.NodeFormat.BackColorBrush, path);
-                
             TextRenderer.DrawText(g, node.Text, nodeView.NodeFormat.Font,
                 new RectangleF(nodeView.RecText.Left, nodeView.RecText.Top, NodeView.MAXIMUM_TEXT_WIDTH, 5000),
                 nodeView.NodeFormat.Color);
@@ -134,7 +132,24 @@ namespace MindMate.View.MapControls.Drawing
             Pen p = Pens.Gray;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
+            GraphicsPath path = RoundedRectangle.Create((int)nodeView.Left, (int)nodeView.Top, (int)nodeView.Width, (int)nodeView.Height);
             g.DrawPath(p, path);
+        }
+
+        private static void DrawBackColor(NodeView nodeView, Graphics g)
+        {
+            if (!nodeView.NodeFormat.BackColor.IsEmpty)
+            {
+                if (nodeView.Node.Pos == NodePosition.Root || nodeView.NodeFormat.Shape == NodeShape.Bubble)
+                {
+                    GraphicsPath path = RoundedRectangle.Create((int)nodeView.Left, (int)nodeView.Top, (int)nodeView.Width, (int)nodeView.Height);
+                    g.FillPath(nodeView.NodeFormat.BackColorBrush, path);
+                }
+                else
+                {
+                    g.FillRectangle(nodeView.NodeFormat.BackColorBrush, new RectangleF(nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height));
+                }
+            }
         }
 
         private static void DrawSelection(NodeView nView, Graphics g)
