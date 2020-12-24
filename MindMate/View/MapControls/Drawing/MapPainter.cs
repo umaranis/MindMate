@@ -90,9 +90,9 @@ namespace MindMate.View.MapControls.Drawing
         private static void DrawNode(NodeView nodeView, Graphics g, bool highlight = false)
         {
             MapNode node = nodeView.Node;
-            if (!nodeView.BackColor.IsEmpty)
+            if (!nodeView.NodeFormat.BackColor.IsEmpty)
             {
-                using (Brush brush = new SolidBrush(nodeView.BackColor))
+                using (Brush brush = new SolidBrush(nodeView.NodeFormat.BackColor))
                 {
                     g.FillRectangle(brush, new RectangleF(nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height));
                 }
@@ -192,12 +192,12 @@ namespace MindMate.View.MapControls.Drawing
                     pos1X = parentView.Left;
                 }
 
-                pos1Y = node.Parent.Pos == NodePosition.Root || node.Parent.Shape == NodeShape.Bullet ?
+                pos1Y = node.Parent.Pos == NodePosition.Root || node.Parent.NodeView.NodeFormat.Shape == NodeShape.Bullet ?
                     parentView.Top + (int)(parentView.Height / 2) - 1 :
                     parentView.Top + parentView.Height - 1;
                 
                 
-                pos2Y = node.Shape == NodeShape.Fork || node.Shape == NodeShape.None ?
+                pos2Y = node.NodeView.NodeFormat.Shape == NodeShape.Fork || node.NodeView.NodeFormat.Shape == NodeShape.None ?
                     nodeView.Top + nodeView.Height - 1 :
                     nodeView.Top + nodeView.Height / 2;
 
@@ -248,7 +248,7 @@ namespace MindMate.View.MapControls.Drawing
 
         private static void DrawNodeShape(NodeView nodeView, Graphics g, Pen p)
         {
-            switch (nodeView.Node.Shape)
+            switch (nodeView.NodeFormat.Shape)
             {
                 case NodeShape.None:
                 case NodeShape.Fork:
@@ -257,7 +257,7 @@ namespace MindMate.View.MapControls.Drawing
                     break;
                 case NodeShape.Bubble:
                     System.Drawing.Drawing2D.GraphicsPath path = RoundedRectangle.Create((int)nodeView.Left, (int)nodeView.Top, (int)nodeView.Width, (int)nodeView.Height);
-                    g.DrawPath(p, path);
+                    g.DrawPath(p, path);                    
                     break;
                 case NodeShape.Box:
                     g.DrawRectangle(p, nodeView.Left, nodeView.Top, nodeView.Width, nodeView.Height);
@@ -284,7 +284,7 @@ namespace MindMate.View.MapControls.Drawing
             if (nodeView.Node.HasChildren && nodeView.Node.Folded)
             {
                 float x;
-                float y = nodeView.Node.Shape == NodeShape.Fork || nodeView.Node.Shape == NodeShape.None ?
+                float y = nodeView.NodeFormat.Shape == NodeShape.Fork || nodeView.NodeFormat.Shape == NodeShape.None ?
                     y = nodeView.Top + nodeView.Height - 1 : // draw folded indicator at bottom
                     y = nodeView.Top + nodeView.Height / 2;  // draw folded indicator at mid point
                 
@@ -293,7 +293,7 @@ namespace MindMate.View.MapControls.Drawing
                     x = nodeView.Left + nodeView.Width + INDICATOR_MARGIN;
 
                     // draw folded indicator
-                    if(nodeView.Node.Shape != NodeShape.Bullet)
+                    if(nodeView.NodeFormat.Shape != NodeShape.Bullet)
                         g.DrawEllipse(p, new RectangleF(new PointF(x, y - 3), new Size(6, 6))); 
                     else
                         g.FillPolygon(p.Brush, new PointF[3] {
@@ -308,7 +308,7 @@ namespace MindMate.View.MapControls.Drawing
                     x = nodeView.Left - INDICATOR_MARGIN; 
                     
                     // draw folded indicator
-                    if (nodeView.Node.Shape != NodeShape.Bullet)
+                    if (nodeView.NodeFormat.Shape != NodeShape.Bullet)
                         g.DrawEllipse(p, new RectangleF(new PointF(x - 6, y - 3), new Size(6, 6)));
                     else
                         g.FillPolygon(p.Brush, new PointF[3] {
@@ -324,7 +324,7 @@ namespace MindMate.View.MapControls.Drawing
         private static void DrawFoldedIndicatorToNodeConnector(NodeView nodeView, Graphics g, Pen p)
         {
             if (nodeView.Node.HasChildren && nodeView.Node.Folded && // only if node is folded
-                (nodeView.Node.Shape == NodeShape.Fork || nodeView.Node.Shape == NodeShape.None)) // only if shape is fork
+                (nodeView.NodeFormat.Shape == NodeShape.Fork || nodeView.NodeFormat.Shape == NodeShape.None)) // only if shape is fork
             {
                 float x, y;
                 y = nodeView.Top + nodeView.Height - 1;

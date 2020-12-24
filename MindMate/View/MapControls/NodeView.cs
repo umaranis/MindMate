@@ -63,15 +63,7 @@ namespace MindMate.View.MapControls
 
         private NodeFormat nodeFomat;
         public NodeFormat NodeFormat => nodeFomat;
-
-        public Color BackColor
-        {
-            get
-            {
-                return node.BackColor;
-            }
-        }
-
+        
         public ImageView ImageView { get; private set; }
         
 
