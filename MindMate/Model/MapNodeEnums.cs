@@ -93,6 +93,9 @@ namespace MindMate.Model
         NodeFormat,
         MapCanvasBackColor,
         NoteEditorBackColor,
+        /// <summary>
+        /// Color used to highlight the node on hover and on selection
+        /// </summary>
         NodeHighlightColor,
         /// <summary>
         /// Drop target hint color during drag and drop

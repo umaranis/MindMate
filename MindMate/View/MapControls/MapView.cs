@@ -47,8 +47,8 @@ namespace MindMate.View.MapControls
 
             Canvas = new MapViewPanel(this);            
             
-            Canvas.BackColor = System.Drawing.Color.White;
-            Canvas.Location = new System.Drawing.Point(0, 0);
+            Canvas.BackColor = tree.MapBackColor;
+            Canvas.Location = new Point(0, 0);
             Canvas.TabIndex = 0;
             Canvas.Width = CANVAS_DEFAULT_WIDTH;
             Canvas.Height = CANVAS_DEFAULT_HEIGHT;
@@ -234,12 +234,14 @@ namespace MindMate.View.MapControls
                 case TreeFormatChange.NodeFormat:
                     Tree.RootNode.ForEach(n => n.NodeView?.RefreshFontAndFormat());
                     RefreshNodePositions();
-                    break;
-                case TreeFormatChange.MapCanvasBackColor:
+                    break;                
                 case TreeFormatChange.NodeDropHintColor:
                 case TreeFormatChange.NodeHighlightColor:
                     break;
-                case TreeFormatChange.NoteEditorBackColor:
+                case TreeFormatChange.MapCanvasBackColor:
+                    Canvas.BackColor = Tree.MapBackColor;
+                    return; //no need to invalidate canvas
+                case TreeFormatChange.NoteEditorBackColor: //TODO: TreeFormatChange.NoteEditorBackColor
                     return; //no need to invalidate canvas
             }
 

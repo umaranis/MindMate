@@ -138,7 +138,7 @@
         <Image>Res/FontBackgroundColor.SmallImage.bmp</Image>
       </Command.SmallImages>
     </Command>
-    <Command Name="ClearFormatting" Id="2102" LabelTitle="Clear Format" TooltipTitle="Clear All Formatting" TooltipDescription="Remove all formatting like font and color.">
+    <Command Name="ClearFormatting" Id="2102" LabelTitle="Clear Format" TooltipTitle="Clear All Formatting" TooltipDescription="Remove all formatting like font and color from the selected nodes.">
       <Command.LargeImages>
         <Image>Res/clear_formatting-large.bmp</Image>
       </Command.LargeImages>

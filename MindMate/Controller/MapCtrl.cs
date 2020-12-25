@@ -56,7 +56,8 @@ namespace MindMate.Controller
                         
             MapView.NodeTextEditor.Enabled = true;
 
-            MapView.Canvas.BackColor = MetaModel.MetaModel.Instance.MapEditorBackColor;
+            //TODO: Remove this field from MetaModel
+            //MapView.Canvas.BackColor = MetaModel.MetaModel.Instance.MapEditorBackColor;
 
             new ContextMenuAttacher(nodeContextMenu, MapView);
         }        
@@ -1722,6 +1723,18 @@ namespace MindMate.Controller
             if (format != null)
             {
                 tree.DefaultFormat = format;
+            }            
+        }
+
+        //TODO: wire it up with ribbon
+        public void SetDefaultFormat()
+        {
+            var form = new DefaultFormatSettings(this.dialogs);
+            var controller = new DefaultFormatSettingsCtrl();
+            controller.UpdateSettingsFromMapTree(this.tree, form);
+            if(form.ShowDialog() == DialogResult.OK)
+            {
+                controller.UpdateMapTreeFromSettings(this.tree, form);
             }
         }
         

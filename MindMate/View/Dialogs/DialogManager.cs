@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace MindMate.View.Dialogs
 {
+    //TODO: Add a method for DefaultFormatSettings dialog
     public class DialogManager
     {
 #if DEBUG
@@ -65,7 +66,7 @@ namespace MindMate.View.Dialogs
 #endif
         public System.Drawing.Color ShowColorPicker(System.Drawing.Color currentColor)
         {
-            if (colorDialog == null) colorDialog = new ColorDialog();
+            if (colorDialog == null) colorDialog = new ColorDialog() { FullOpen = true };
             if (!currentColor.IsEmpty) colorDialog.Color = currentColor;
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
@@ -73,7 +74,7 @@ namespace MindMate.View.Dialogs
             }
             else
             {
-                return new System.Drawing.Color();
+                return System.Drawing.Color.Empty;
             }
         }
         

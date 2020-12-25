@@ -16,19 +16,6 @@ namespace MindMate.View.MapControls.Drawing
     public static class MapPainter
     {
 
-        public static Brush HighlightBrush = new SolidBrush(Color.FromArgb(235, 235, 235));
-        private static readonly Pen dropHintPen;
-        private static readonly Pen nodeHighlightPen;
-
-        static MapPainter()
-        {
-            dropHintPen = new Pen(Color.Red);
-            dropHintPen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-
-            nodeHighlightPen = new Pen(Color.MediumBlue);
-            nodeHighlightPen.DashStyle = DashStyle.Dash;
-        }
-
         /// <summary>
         /// Draw tree (nodes + connections)
         /// </summary>
@@ -154,10 +141,11 @@ namespace MindMate.View.MapControls.Drawing
 
         private static void DrawSelection(NodeView nView, Graphics g)
         {
-            g.DrawLine(Pens.MediumBlue, nView.Left, nView.Top, nView.Right, nView.Top);
-            g.DrawLine(Pens.MediumBlue, nView.Left, nView.Bottom - 1, nView.Right, nView.Bottom - 1);
-            g.DrawArc(Pens.MediumBlue, nView.Right - 2, nView.Top, 5, nView.Height - 1, 270, 180);
-            g.DrawArc(Pens.MediumBlue, nView.Left - 3, nView.Top, 5, nView.Height - 1, 90, 180);
+            Pen p = nView.Node.Tree.SelectedNodeOutlinePen;
+            g.DrawLine(p, nView.Left, nView.Top, nView.Right, nView.Top);
+            g.DrawLine(p, nView.Left, nView.Bottom - 1, nView.Right, nView.Bottom - 1);
+            g.DrawArc(p, nView.Right - 2, nView.Top, 5, nView.Height - 1, 270, 180);
+            g.DrawArc(p, nView.Left - 3, nView.Top, 5, nView.Height - 1, 90, 180);
         }
 
         /// <summary>
@@ -167,6 +155,7 @@ namespace MindMate.View.MapControls.Drawing
         /// <param name="g"></param>
         private static void DrawHighlight(NodeView nView, Graphics g)
         {
+            Pen nodeHighlightPen = nView.Node.Tree.NodeHighlightPen;
             g.DrawLine(nodeHighlightPen, nView.Left, nView.Top, nView.Right, nView.Top);
             g.DrawLine(nodeHighlightPen, nView.Left, nView.Bottom - 1, nView.Right, nView.Bottom - 1);
             g.DrawArc(nodeHighlightPen, nView.Right - 2, nView.Top, 5, nView.Height - 1, 270, 180);
@@ -357,7 +346,8 @@ namespace MindMate.View.MapControls.Drawing
         public static void DrawNodeDropHint(DropLocation location, Graphics g)
         {
             NodeView pView = location.Parent.NodeView;
-            
+            Pen dropHintPen = pView.Node.Tree.DropHintPen;
+
             g.DrawLine(dropHintPen, pView.Left, pView.Top, pView.Right, pView.Top);
             g.DrawLine(dropHintPen, pView.Left, pView.Bottom - 1, pView.Right, pView.Bottom - 1);
             g.DrawArc(dropHintPen, pView.Right - 2, pView.Top, 5, pView.Height - 1, 270, 180);

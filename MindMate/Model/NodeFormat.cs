@@ -37,7 +37,7 @@ namespace MindMate.Model
         }
 
 
-        private NodeFormat(Color backColor, bool bold, Color color, string fontName, float fontSize, bool italic, bool strikeout, Color lineColor, DashStyle linePattern, int lineWidth, NodeShape shape)
+        public NodeFormat(Color backColor, bool bold, Color color, string fontName, float fontSize, bool italic, bool strikeout, Color lineColor, DashStyle linePattern, int lineWidth, NodeShape shape)
         {
             BackColor = backColor;
             Bold = bold;
@@ -143,6 +143,7 @@ namespace MindMate.Model
         /// Default Text Color
         /// </summary>
         public static Color DefaultColor => Color.Black;
+        public static Color DefaultBackColor => Color.Empty;
         public static Color DefaultLineColor => Color.Gray;
         public static DashStyle DefaultLinePattern => DashStyle.Solid;
         public static int DefaultLineWidth => 1;

@@ -114,6 +114,7 @@
     <Compile Include="Controller\WinFormsStatusBarCtrl.cs" />
     <Compile Include="Controller\StatusBarCtrl.cs" />
     <Compile Include="Controller\INoteEditor.cs" />
+    <Compile Include="Model\TreeFormat.cs" />
     <Compile Include="Modules\Undo\Changes\DefaultTreeFormatChange.cs" />
     <Compile Include="Model\NodeFormat.cs" />
     <Compile Include="Model\SearchTerm.cs" />
@@ -130,6 +131,13 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Serialization\MapZipSerializer.cs" />
+    <Compile Include="Controller\DefaultFormatSettingsCtrl.cs" />
+    <Compile Include="View\Dialogs\DefaultFormatSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Dialogs\DefaultFormatSettings.Designer.cs">
+      <DependentUpon>DefaultFormatSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Dialogs\DialogManager.cs" />
     <Compile Include="View\MapControls\ICanvasContainer.cs" />
     <Compile Include="View\MapControls\ImageView.cs" />
@@ -399,6 +407,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Plugins\Tasks\Reminder\TaskReminderDialog.resx">
       <DependentUpon>TaskReminderDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Dialogs\DefaultFormatSettings.resx">
+      <DependentUpon>DefaultFormatSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Dialogs\InputBox.resx">
       <DependentUpon>InputBox.cs</DependentUpon>

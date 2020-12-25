@@ -18,7 +18,7 @@ namespace MindMate.Modules.Undo.Changes
 
         public void Undo()
         {
-            tree.HighlightColor = oldValue;
+            tree.SelectedOutlineColor = oldValue;
         }
     }
 }

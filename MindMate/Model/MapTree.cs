@@ -376,17 +376,18 @@ namespace MindMate.Model
             }
         }
 
-        private Color mapBackColor;
+        private TreeFormat treeFormat = new TreeFormat();
+
         /// <summary>
         /// Background color of Map Canvas
         /// </summary>
         public Color MapBackColor
         {
-            get => mapBackColor;
+            get => treeFormat.CanvasBackColor;
             set
             {
-                var oldValue = mapBackColor;
-                mapBackColor = value;
+                var oldValue = treeFormat.CanvasBackColor;
+                treeFormat.CanvasBackColor = value;
                 FireEvent(new TreeDefaultFormatChangedEventArgs()
                 {
                     ChangeType = TreeFormatChange.MapCanvasBackColor,
@@ -395,17 +396,16 @@ namespace MindMate.Model
             }
         }
 
-        private Color noteBackColor;
         /// <summary>
         /// Background color of note editor window
         /// </summary>
         public Color NoteBackColor
         {
-            get => noteBackColor;
+            get => treeFormat.NoteEditorBackColor;
             set
             {
-                var oldValue = noteBackColor;
-                noteBackColor = value;
+                var oldValue = treeFormat.NoteEditorBackColor;
+                treeFormat.NoteEditorBackColor = value;
                 FireEvent(new TreeDefaultFormatChangedEventArgs()
                 {
                     ChangeType = TreeFormatChange.NoteEditorBackColor,
@@ -414,35 +414,33 @@ namespace MindMate.Model
             }
         }
 
-        private Color highlightColor;
         /// <summary>
-        /// Color used for outlining the selected node
+        /// Color used for outlining the selected node and on hover
         /// </summary>
-        public Color HighlightColor 
+        public Color SelectedOutlineColor 
         { 
-            get => highlightColor;
+            get => treeFormat.NodeHighlightColor;
             set
             {
-                var oldValue = highlightColor;
-                highlightColor = value;
+                var oldValue = treeFormat.NodeHighlightColor;
+                treeFormat.NodeHighlightColor = value;
                 FireEvent(new TreeDefaultFormatChangedEventArgs()
                 {
                     ChangeType = TreeFormatChange.NodeHighlightColor,
                     OldValue = oldValue
                 });
             }
-        }
+        }        
 
-        private Color dropHintColor;
         /// <summary>
         /// Color used to highlight the drag and drop target
         /// </summary>
         public Color DropHintColor
         {
-            get => dropHintColor;
+            get => treeFormat.DropHintColor;
             set {
-                var oldValue = dropHintColor;
-                dropHintColor = value;
+                var oldValue = treeFormat.DropHintColor;
+                treeFormat.DropHintColor = value;
                 FireEvent(new TreeDefaultFormatChangedEventArgs()
                 {
                     ChangeType = TreeFormatChange.NodeDropHintColor,
@@ -450,6 +448,10 @@ namespace MindMate.Model
                 });
             }
         }
+
+        public Pen SelectedNodeOutlinePen => this.treeFormat.SelectedNodeOutlinePen;
+        public Pen NodeHighlightPen => this.treeFormat.NodeHighlightPen;
+        public Pen DropHintPen => this.treeFormat.DropHintPen;
 
         #endregion Default Node Formatting / Theme
 
