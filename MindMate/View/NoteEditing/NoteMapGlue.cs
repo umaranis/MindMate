@@ -45,7 +45,7 @@ namespace MindMate.View.NoteEditing
             editor.BackColor = MetaModel.MetaModel.Instance.NoteEditorBackColor; //System.Drawing.Color.LightYellow;     
             new NoteEditorContextMenu(editor);
                    
-            manager.CurrentTreeChanged += Manager_CurrentTreeChanged;
+            manager.CurrentTreeChanged += Manager_CurrentTreeChanged;            
             if (manager.CurrentTree != null) { Register(manager.CurrentTree); }
 
             if (editor.DocumentReady)
@@ -133,6 +133,7 @@ namespace MindMate.View.NoteEditing
             {
                 Register(newTree);
             }
+            editor.BackColor = newTree.NoteBackColor;
         }
 
         /// <summary>
@@ -158,10 +159,10 @@ namespace MindMate.View.NoteEditing
                 tree.SelectedNodes.NodeDeselected += Tree_NodeDeselected;
                 // event for Node's Rich Content change (required where Note content is changed outside of Note window)
                 tree.NodePropertyChanged += Tree_NodePropertyChanged;
+                tree.TreeFormatChanged += Tree_TreeFormatChanged;
                 
             }            
-        }
-
+        }        
 
         private void Unregister(MapTree tree)
         {
@@ -170,6 +171,7 @@ namespace MindMate.View.NoteEditing
                 tree.SelectedNodes.NodeSelected -= Tree_NodeSelected;
                 tree.SelectedNodes.NodeDeselected -= Tree_NodeDeselected;
                 tree.NodePropertyChanged -= Tree_NodePropertyChanged;
+                tree.TreeFormatChanged -= Tree_TreeFormatChanged;
             }
         }
 
@@ -202,6 +204,14 @@ namespace MindMate.View.NoteEditing
             if (node.Selected && e.ChangedProperty == NodeProperties.NoteText)
             {
                 SetEditorContent(node.Tree.SelectedNodes);
+            }
+        }
+
+        private void Tree_TreeFormatChanged(MapTree tree, TreeDefaultFormatChangedEventArgs e)
+        {
+            if(e.ChangeType == TreeFormatChange.NoteEditorBackColor)
+            {
+                editor.BackColor = tree.NoteBackColor;
             }
         }
 
