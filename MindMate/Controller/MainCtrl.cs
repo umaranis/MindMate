@@ -191,7 +191,6 @@ namespace MindMate.Controller
 
         private void SaveSettingsAtClose()
         {
-            //TODO: Save changes only when a new file is saved or opened
             MetaModel.MetaModel.Instance.LastOpenedFile = PersistenceManager.CurrentTree?.FileName;
             MetaModel.MetaModel.Instance.Save();
         }

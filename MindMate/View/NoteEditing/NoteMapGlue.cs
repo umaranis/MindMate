@@ -132,8 +132,8 @@ namespace MindMate.View.NoteEditing
             if (newTree != null)
             {
                 Register(newTree);
-            }
-            editor.BackColor = newTree.NoteBackColor;
+                editor.BackColor = newTree.NoteBackColor;
+            }            
         }
 
         /// <summary>
