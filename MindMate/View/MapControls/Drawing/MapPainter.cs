@@ -111,12 +111,14 @@ namespace MindMate.View.MapControls.Drawing
             nodeView.Link?.Draw(g);
             nodeView.ImageView?.Draw(g);
 
-            System.Drawing.Drawing2D.GraphicsPath pathCap = RoundedRectangle.Create((int)nodeView.Left, (int)nodeView.Top - 2, (int)nodeView.Width, (int)nodeView.Height + 2);
-            g.DrawPath(Pens.Gray, pathCap);
-            pathCap = RoundedRectangle.Create((int)nodeView.Left, (int)nodeView.Top - 1, (int)nodeView.Width, (int)nodeView.Height + 1);
-            g.DrawPath(Pens.LightGray, pathCap);
+            Pen p = nodeView.NodeFormat.LinePen;
 
-            Pen p = Pens.Gray;
+            GraphicsPath pathCap = RoundedRectangle.Create((int)nodeView.Left, (int)nodeView.Top - 2, (int)nodeView.Width, (int)nodeView.Height + 2);
+            g.DrawPath(p, pathCap);
+            pathCap = RoundedRectangle.Create((int)nodeView.Left, (int)nodeView.Top - 1, (int)nodeView.Width, (int)nodeView.Height + 1);
+            g.DrawPath(p, pathCap);
+
+            
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
 
             GraphicsPath path = RoundedRectangle.Create((int)nodeView.Left, (int)nodeView.Top, (int)nodeView.Width, (int)nodeView.Height);
