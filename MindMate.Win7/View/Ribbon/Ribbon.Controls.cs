@@ -142,6 +142,7 @@ namespace MindMate.View.Ribbon
 		private RibbonButton CreateNodeStyle;		
 		private RibbonGroup GrpClearFormat;		
 		private RibbonGroup GrpDefaultFormat;		
+		private RibbonButton DefaultFormatSettings;		
 		private RibbonButton SetSelectedAsDefaultFormat;		
 		private RibbonTab TabView;		
 		private RibbonGroup GrpViewTask;		
@@ -336,6 +337,7 @@ namespace MindMate.View.Ribbon
 			CreateNodeStyle = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.CreateNodeStyle);
 			GrpClearFormat = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpClearFormat);
 			GrpDefaultFormat = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpDefaultFormat);
+			DefaultFormatSettings = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.DefaultFormatSettings);
 			SetSelectedAsDefaultFormat = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SetSelectedAsDefaultFormat);
 			TabView = new RibbonTab(ribbon, (uint)RibbonMarkupCommands.TabView);
 			GrpViewTask = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpViewTask);

@@ -1726,8 +1726,7 @@ namespace MindMate.Controller
             }            
         }
 
-        //TODO: wire it up with ribbon
-        public void SetDefaultFormat()
+        public void SetDefaultFormatDialog()
         {
             var form = new DefaultFormatSettings(this.dialogs);
             var controller = new DefaultFormatSettingsCtrl();
