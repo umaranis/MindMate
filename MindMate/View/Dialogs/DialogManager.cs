@@ -97,6 +97,14 @@ namespace MindMate.View.Dialogs
             }
         }
 
+#if DEBUG
+        virtual
+#endif
+        public DialogResult ShowDefaultFormatSettingsDialog(DefaultFormatSettings form)
+        {
+            return form.ShowDialog();
+        }
+
         public WinFormsStatusBarCtrl StatusBarCtrl { get; set; }
 #if DEBUG
         virtual

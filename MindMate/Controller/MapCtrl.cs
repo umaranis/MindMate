@@ -1731,7 +1731,7 @@ namespace MindMate.Controller
             var form = new DefaultFormatSettings(this.dialogs);
             var controller = new DefaultFormatSettingsCtrl();
             controller.UpdateSettingsFromMapTree(this.tree, form);
-            if(form.ShowDialog() == DialogResult.OK)
+            if(this.dialogs.ShowDefaultFormatSettingsDialog(form) == DialogResult.OK)
             {
                 controller.UpdateMapTreeFromSettings(this.tree, form);
             }
