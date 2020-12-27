@@ -74,8 +74,8 @@ namespace MindMate.Model
             DefaultDropHintPen.DashStyle = DashStyle.Dash;
         }
 
-        public static Color DefaultCanvasBackColor => Color.White;
-        public static Color DefaultNoteEditorBackColor => Color.White;
+        public static Color DefaultCanvasBackColor => MetaModel.MetaModel.Instance?.MapEditorBackColor ?? Color.White;
+        public static Color DefaultNoteEditorBackColor => MetaModel.MetaModel.Instance?.NoteEditorBackColor ?? Color.White;
         /// <summary>
         /// Highlight Color used on node hover and on selection of nodes
         /// </summary>

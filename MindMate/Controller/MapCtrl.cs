@@ -56,9 +56,6 @@ namespace MindMate.Controller
                         
             MapView.NodeTextEditor.Enabled = true;
 
-            //TODO: Remove this field from MetaModel
-            //MapView.Canvas.BackColor = MetaModel.MetaModel.Instance.MapEditorBackColor;
-
             new ContextMenuAttacher(nodeContextMenu, MapView);
         }        
 

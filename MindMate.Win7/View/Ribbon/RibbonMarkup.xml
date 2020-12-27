@@ -361,7 +361,9 @@ Note:
     
     <!--Group: Default Format -->
     <Command Name="GrpDefaultFormat" Id="5600" LabelTitle="Default Format"/>
-    <Command Name="DefaultFormatSettings" Id="5602" LabelTitle="Set default format" TooltipDescription="Open settings dialog for default font, color etc." >
+    <Command Name="DefaultFormatSettings" Id="5602" LabelTitle="Set default format" TooltipDescription="Open settings dialog for default font, color etc.
+
+The settings will apply on the current document. Each document can have their own settings." >
       <Command.LargeImages><Image>Res/settings3_32px.png</Image></Command.LargeImages>
     </Command>
     <Command Name="SetSelectedAsDefaultFormat" Id="5601" LabelTitle="Set Selected as Default" TooltipDescription="Set formatting of the selected node as the default formatting for the map.">
