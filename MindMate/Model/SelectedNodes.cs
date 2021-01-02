@@ -65,13 +65,15 @@ namespace MindMate.Model
 
         public bool IsEmpty { get { return Count == 0; } }
 
+        public bool IsMultiple { get { return Count > 1; } }
+
         public MapNode this [int index]
         {
             get
             {
                 return selectedNodes[index];
             }
-        }
+        }        
 
         /// <summary>
         /// Nothing happens if the given node is the selected already.

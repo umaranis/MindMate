@@ -4,6 +4,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -1013,8 +1014,7 @@ namespace MindMate.Controller
 
             if (tree.ChangeManager.IsBatchOpen) { tree.ChangeManager.EndBatch(); }
         }
-
-        //TODO: No option in ribbon to launch Color Picker dialog for BackColor
+        
         /// <summary>
         /// Change Background Color for selected nodes using Color Picker Dialog
         /// </summary>
@@ -1533,58 +1533,54 @@ namespace MindMate.Controller
 
         public void SortByCreateDateAsc()
         {
-            tree.ChangeManager.StartBatch("Sort by Creation Date Asc");
-
-            foreach (var node in tree.SelectedNodes)
+            RunCommand("Sort by Creation Date Asc", true, () =>
             {
-                node.SortChildren((n1, n2) => DateTime.Compare(n1.Created, n2.Created));
+                foreach (var node in tree.SelectedNodes)
+                {
+                    node.SortChildren((n1, n2) => DateTime.Compare(n1.Created, n2.Created));
 
-                if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
-            }
-
-            tree.ChangeManager.EndBatch();
+                    if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
+                }
+            });
         }
 
         public void SortByCreateDateDesc()
         {
-            tree.ChangeManager.StartBatch("Sort by Creation Date Desc");
-
-            foreach (var node in tree.SelectedNodes)
+            RunCommand("Sort by Creation Date Desc", true, () =>
             {
-                node.SortChildren((n1, n2) => DateTime.Compare(n2.Created, n1.Created));
+                foreach (var node in tree.SelectedNodes)
+                {
+                    node.SortChildren((n1, n2) => DateTime.Compare(n2.Created, n1.Created));
 
-                if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
-            }
-
-            tree.ChangeManager.EndBatch();
+                    if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
+                }
+            });
         }
 
         public void SortByModifiedDateAsc()
         {
-            tree.ChangeManager.StartBatch("Sort by Modified Date Asc");
-
-            foreach (var node in tree.SelectedNodes)
+            RunCommand("Sort by Modified Date Asc", true, () =>
             {
-                node.SortChildren((n1, n2) => DateTime.Compare(n1.Modified, n2.Modified));
+                foreach (var node in tree.SelectedNodes)
+                {
+                    node.SortChildren((n1, n2) => DateTime.Compare(n1.Modified, n2.Modified));
 
-                if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
-            }
-
-            tree.ChangeManager.EndBatch();
+                    if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
+                }
+            });
         }
 
         public void SortByModifiedDateDesc()
         {
-            tree.ChangeManager.StartBatch("Sort by Modified Date Desc");
-
-            foreach (var node in tree.SelectedNodes)
+            RunCommand("Sort by Modified Date Desc", true, () =>
             {
-                node.SortChildren((n1, n2) => DateTime.Compare(n2.Modified, n1.Modified));
+                foreach (var node in tree.SelectedNodes)
+                {
+                    node.SortChildren((n1, n2) => DateTime.Compare(n2.Modified, n1.Modified));
 
-                if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
-            }
-
-            tree.ChangeManager.EndBatch();
+                    if (node.Pos == NodePosition.Root) { tree.RebalanceTree(); }
+                }
+            });            
         }
 
         /// <summary>
@@ -1617,21 +1613,12 @@ namespace MindMate.Controller
 
         public void ApplyNodeStyle(NodeStyle style)
         {
-            using (tree.ChangeManager.StartBatch("Apply Node Style"))
-            {
-                style.ApplyTo(tree.SelectedNodes);
-            }
+            RunCommand("Apply Node Style", true, () => style.ApplyTo(tree.SelectedNodes) );
         }
 
         public void ClearFormatting()
         {
-            using (tree.ChangeManager.StartBatch("Clear Formatting"))
-            {
-                foreach (var node in tree.SelectedNodes)
-                {
-                    node.ClearFormatting();
-                }
-            }
+            RunCommand("Clear Formatting", node => node.ClearFormatting());
         }
 
         public void InsertImage()
@@ -1639,28 +1626,18 @@ namespace MindMate.Controller
             string fileName = dialogs.GetImageFile();
             if (fileName != null)
             {
-                using (tree.ChangeManager.StartBatch("Insert Image"))
-                {
-                    foreach (var node in tree.SelectedNodes)
+                RunCommand("Insert Image", node => {
+                    if (ImageHelper.GetImageFromFile(fileName, out Image image))
                     {
-                        if (ImageHelper.GetImageFromFile(fileName, out Image image))
-                        {
-                            node.InsertImage(image, true);
-                        }
+                        node.InsertImage(image, true);
                     }
-                }
+                });               
             }
         }
 
         public void RemoveImage()
         {
-            using (tree.ChangeManager.StartBatch("Remove Image"))
-            {
-                foreach (var node in tree.SelectedNodes)
-                {
-                    node.RemoveImage();
-                }
-            }
+            RunCommand("Remove Image", n => n.RemoveImage());
         }
 
         public void IncreaseImageSize()
@@ -1716,22 +1693,30 @@ namespace MindMate.Controller
 
         public void SetSelectedNodeFormatAsDefault()
         {
-            var format = tree.SelectedNodes.First?.NodeView?.NodeFormat;
-            if (format != null)
+            RunCommand("Set Selected Node Format As Default", false, () =>
             {
-                tree.DefaultFormat = format;
-            }            
+                var format = tree.SelectedNodes.First?.NodeView?.NodeFormat;
+                if (format != null)
+                {
+                    tree.DefaultFormat = format;
+                }
+
+            });
         }
 
         public void SetDefaultFormatDialog()
         {
-            var form = new DefaultFormatSettings(this.dialogs);
-            var controller = new DefaultFormatSettingsCtrl();
-            controller.UpdateSettingsFromMapTree(this.tree, form);
-            if(this.dialogs.ShowDefaultFormatSettingsDialog(form) == DialogResult.OK)
-            {
-                controller.UpdateMapTreeFromSettings(this.tree, form);
-            }
+            RunCommand("Set Default Format Dialog", true, () => {
+
+                var form = new DefaultFormatSettings(this.dialogs);
+                var controller = new DefaultFormatSettingsCtrl();
+                controller.UpdateSettingsFromMapTree(this.tree, form);
+                if (this.dialogs.ShowDefaultFormatSettingsDialog(form) == DialogResult.OK)
+                {
+                    controller.UpdateMapTreeFromSettings(this.tree, form);
+                }
+
+            });            
         }
         
         /// <summary>
@@ -1741,15 +1726,14 @@ namespace MindMate.Controller
         /// <param name="action"></param>
         private void RunCommand(string command, Action<MapNode> action)
         {
-            //TODO: exception handling
             //TODO: utilize this method in MapCtrl wherever possible
-            using (tree.ChangeManager.StartBatch(command))
+            RunCommand(command, tree.SelectedNodes.IsMultiple, () =>
             {
                 foreach (var node in tree.SelectedNodes)
                 {
                     action(node);
                 }
-            }
+            });
         }
 
         /// <summary>
@@ -1760,14 +1744,37 @@ namespace MindMate.Controller
         /// <param name="condition"></param>
         private void RunCommand(string command, Action<MapNode> action, Func<MapNode, bool> condition)
         {
-            //TODO: exception handling
             //TODO: utilize this method in MapCtrl wherever possible
-            using (tree.ChangeManager.StartBatch(command))
+            RunCommand(command, tree.SelectedNodes.IsMultiple, () =>
             {
                 foreach (var node in tree.SelectedNodes.Where(condition))
                 {
                     action(node);
                 }
+            });
+        }
+
+        //TODO: utilize this method in MapCtrl wherever possible
+        private void RunCommand(string command, bool useBatch, Action action)
+        {
+            try
+            {
+                if(useBatch)
+                {
+                    using(tree.ChangeManager.StartBatch(command))
+                    {
+                        action();
+                    }
+                }
+                else
+                {
+                    action();
+                }
+            }
+            catch (Exception exp)
+            {
+                Log.Write($"Unexpected exception while executing command '{command}': {exp.Message}");
+                dialogs.ShowMessageBox("Error", exp.Message, MessageBoxIcon.Error);
             }
         }
 
