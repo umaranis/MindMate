@@ -2153,5 +2153,40 @@ namespace MindMate.Tests.Controller
             mapCtrl.SetDefaultFormatDialog();
             Assert.AreEqual(NodeShape.Bubble, c1.NodeView.NodeFormat.Shape);
         }
+
+        [TestMethod()]
+        public void SetDefaultFormatDialog_ChangeAll()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            DialogManager dialogs = A.Fake<DialogManager>();
+            A.CallTo(dialogs).Where(call => call.Method.Name == "ShowDefaultFormatSettingsDialog").WithReturnType<DialogResult>().Invokes(a =>
+            {
+                var f = (DefaultFormatSettings)a.Arguments[0];
+                f.Prop_NodeShape = NodeShape.Bubble;
+                f.Prop_BackColor = Color.AliceBlue;
+                f.Prop_DropHintColor = Color.Aquamarine;
+                f.Prop_Font = new Font(FontFamily.GenericMonospace, 14, FontStyle.Bold);
+                f.Prop_LineColor = Color.Chocolate;
+                f.Prop_LinePattern = DashStyle.DashDotDot;
+                f.Prop_LineWidth = 4;
+                f.Prop_MapBackColor = Color.LightCyan;
+                f.Prop_NoteEditorBackColor = Color.LightGreen;
+                f.Prop_SelectedOutlineColor = Color.DarkKhaki;
+                f.Prop_TextColor = Color.DarkGoldenrod;                
+            }).Returns<DialogResult>(DialogResult.OK);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), dialogs, null);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            var expectedMapBackColor = tree.MapBackColor;
+            tree.TurnOnChangeManager();
+            mapCtrl.SetDefaultFormatDialog();
+            tree.ChangeManager.Undo();
+            Assert.AreEqual(NodeShape.Fork, c1.NodeView.NodeFormat.Shape);
+            Assert.AreEqual(expectedMapBackColor, tree.MapBackColor);
+        }
     }
 }
