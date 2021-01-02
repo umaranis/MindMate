@@ -15,6 +15,7 @@ using FakeItEasy.ExtensionSyntax.Full;
 using MindMate.Plugins.Tasks.Model;
 using MindMate.Tests.TestDouble;
 using MindMate.View.Dialogs;
+using System.Windows.Forms;
 
 namespace MindMate.Tests.Controller
 {
@@ -2111,6 +2112,46 @@ namespace MindMate.Tests.Controller
             Assert.AreEqual(NodeShape.Bubble, c1.NodeView.NodeFormat.Shape);
             tree.ChangeManager.Undo();
             Assert.AreNotEqual(NodeShape.Bubble, c1.NodeView.NodeFormat.Shape);            
+        }
+
+        [TestMethod()]
+        public void SetDefaultFormatDialog_Cancel()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            DialogManager dialogs = A.Fake<DialogManager>();
+            A.CallTo(dialogs).Where(call => call.Method.Name == "ShowDefaultFormatSettingsDialog").WithReturnType<DialogResult>().Returns(DialogResult.Cancel);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), dialogs, null);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();            
+            mapCtrl.SetDefaultFormatDialog();
+            Assert.AreEqual(NodeShape.Fork, c1.NodeView.NodeFormat.Shape);
+        }
+
+        [TestMethod()]
+        public void SetDefaultFormatDialog_OK()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            DialogManager dialogs = A.Fake<DialogManager>();
+            A.CallTo(dialogs).Where(call => call.Method.Name == "ShowDefaultFormatSettingsDialog").WithReturnType<DialogResult>().Invokes(a =>
+            {
+                var f = (DefaultFormatSettings)a.Arguments[0];
+                f.Prop_NodeShape = NodeShape.Bubble;
+            }).Returns<DialogResult>(DialogResult.OK);
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), dialogs, null);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            tree.TurnOnChangeManager();
+            mapCtrl.SetDefaultFormatDialog();
+            Assert.AreEqual(NodeShape.Bubble, c1.NodeView.NodeFormat.Shape);
         }
     }
 }

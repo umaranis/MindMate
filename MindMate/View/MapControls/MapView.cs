@@ -241,7 +241,7 @@ namespace MindMate.View.MapControls
                 case TreeFormatChange.MapCanvasBackColor:
                     Canvas.BackColor = Tree.MapBackColor;
                     return; //no need to invalidate canvas
-                case TreeFormatChange.NoteEditorBackColor: //TODO: TreeFormatChange.NoteEditorBackColor
+                case TreeFormatChange.NoteEditorBackColor: //this event is handled by NoteMapGlue 
                     return; //no need to invalidate canvas
             }
 

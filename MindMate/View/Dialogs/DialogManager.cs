@@ -8,7 +8,6 @@ using System.Windows.Forms;
 
 namespace MindMate.View.Dialogs
 {
-    //TODO: Add a method for DefaultFormatSettings dialog
     public class DialogManager
     {
 #if DEBUG
