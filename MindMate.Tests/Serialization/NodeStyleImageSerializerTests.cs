@@ -21,7 +21,7 @@ namespace MindMate.Tests.Serialization
             var refNode = new MapNode(new MapTree(), "OK");
             refNode.Italic = true;
             var nodeStyle = new NodeStyle("TestStyle1", refNode, true);
-            new NodeStyleImageSerializer().SerializeImage(nodeStyle.Image, nodeStyle.Title);
+            new NodeStyleImageSerializer().SerializeImage(nodeStyle.Image, nodeStyle.Title + Guid.NewGuid());
         }
 
         [TestMethod()]

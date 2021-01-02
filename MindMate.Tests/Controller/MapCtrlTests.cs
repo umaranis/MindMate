@@ -1742,7 +1742,7 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             var dialogManager = A.Fake<DialogManager>();
-            A.CallTo(() => dialogManager.ShowInputBox("Enter the style name:", null)).Returns("ApplyNodeStyle_test");
+            A.CallTo(() => dialogManager.ShowInputBox("Enter the style name:", null)).Returns("ApplyNodeStyle_" + Guid.NewGuid());
             MapCtrl mapCtrl = new MapCtrl(new MapView(tree), dialogManager, null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
