@@ -47,7 +47,7 @@ namespace MindMate.View.MapControls
 
             Canvas = new MapViewPanel(this);            
             
-            Canvas.BackColor = tree.MapBackColor;
+            Canvas.BackColor = tree.CanvasBackColor;
             Canvas.Location = new Point(0, 0);
             Canvas.TabIndex = 0;
             Canvas.Width = CANVAS_DEFAULT_WIDTH;
@@ -239,7 +239,7 @@ namespace MindMate.View.MapControls
                 case TreeFormatChange.NodeHighlightColor:
                     break;
                 case TreeFormatChange.MapCanvasBackColor:
-                    Canvas.BackColor = Tree.MapBackColor;
+                    Canvas.BackColor = Tree.CanvasBackColor;
                     return; //no need to invalidate canvas
                 case TreeFormatChange.NoteEditorBackColor: //this event is handled by NoteMapGlue 
                     return; //no need to invalidate canvas

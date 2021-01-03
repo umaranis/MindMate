@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -18,7 +19,6 @@ namespace MindMate.Serialization
 {
     public class MindMapSerializer
     {
-
         /// <summary>
         /// XmlTextWriter based
         /// </summary>
@@ -29,6 +29,7 @@ namespace MindMate.Serialization
             //xml.WriteStartDocument();
             xml.WriteStartElement("map");
             xml.WriteAttributeString("version", "0.9.0");
+            this.SerializeFormat(tree, xml);
             this.SerializeAttributeRegistry(tree, xml);
             this.Serialize(tree.RootNode, xml);
             xml.WriteEndElement();
@@ -67,6 +68,35 @@ namespace MindMate.Serialization
                 xml.WriteEndElement();
             }
         }
+
+        public void SerializeFormat(MapTree tree, XmlTextWriter xml)
+        {
+            if (tree.DefaultFormat.HasBackColor || tree.DefaultFormat.Bold || tree.DefaultFormat.HasColor || tree.DefaultFormat.HasFontName
+                || tree.DefaultFormat.HasFontSize || tree.DefaultFormat.HasItalic || tree.DefaultFormat.HasLineColor
+                || tree.DefaultFormat.HasLinePattern || tree.DefaultFormat.HasLineWidth || tree.DefaultFormat.HasShape || tree.DefaultFormat.HasStrikeout)
+            {
+                xml.WriteStartElement("format");
+
+                if (tree.DefaultFormat.HasBackColor) xml.WriteAttributeString("BACKGROUND_COLOR", Convert.ToString(tree.DefaultFormat.BackColor));
+                if (tree.DefaultFormat.Bold) xml.WriteAttributeString("BOLD", "true");
+                if (tree.DefaultFormat.HasColor) xml.WriteAttributeString("COLOR", Convert.ToString(tree.DefaultFormat.Color));
+                if (tree.DefaultFormat.HasFontName) xml.WriteAttributeString("FONTNAME", tree.DefaultFormat.FontName);
+                if (tree.DefaultFormat.HasFontSize) xml.WriteAttributeString("FONTSIZE", tree.DefaultFormat.FontSize.ToString());
+                if (tree.DefaultFormat.HasItalic) xml.WriteAttributeString("ITALIC", "true");
+                if (tree.DefaultFormat.HasLineColor) xml.WriteAttributeString("LINECOLOR", Convert.ToString(tree.DefaultFormat.LineColor));
+                if (tree.DefaultFormat.HasLinePattern) xml.WriteAttributeString("PATTERN", Convert.ToString(tree.DefaultFormat.LinePattern));
+                if (tree.DefaultFormat.HasLineWidth) xml.WriteAttributeString("LINEWIDTH", tree.DefaultFormat.LineWidth.ToString());
+                if (tree.DefaultFormat.HasShape) xml.WriteAttributeString("STYLE", Convert.ToString(tree.DefaultFormat.Shape));
+                if (tree.DefaultFormat.HasStrikeout) xml.WriteAttributeString("STRIKEOUT", "true");
+                
+                if (tree.HasCanvasBackColor) xml.WriteAttributeString("CANVASCOLOR", Convert.ToString(tree.CanvasBackColor));
+                if (tree.HasNoteBackColor) xml.WriteAttributeString("NOTEBACKCOLOR", Convert.ToString(tree.NoteBackColor));
+                if (tree.HasSelectedOutlineColor) xml.WriteAttributeString("HIGHLIGHTCOLOR", Convert.ToString(tree.SelectedOutlineColor));
+                if (tree.HasDropHintColor) xml.WriteAttributeString("DROPHINTCOLOR", Convert.ToString(tree.DropHintColor));
+
+                xml.WriteEndElement();
+            }
+        }
         
         /// <summary>
         /// XmlTextWriter based
@@ -92,9 +122,9 @@ namespace MindMate.Serialization
             xml.WriteAttributeString("MODIFIED", ((long)(mapNode.Modified.Subtract(new DateTime(1970, 1, 1)).TotalMilliseconds)).ToString());
 
             if (!mapNode.BackColor.IsEmpty)
-                xml.WriteAttributeString("BACKGROUND_COLOR", Convert.ToColorHexValue(mapNode.BackColor));
+                xml.WriteAttributeString("BACKGROUND_COLOR", Convert.ToString(mapNode.BackColor));
             if (!mapNode.Color.IsEmpty)
-                xml.WriteAttributeString("COLOR", Convert.ToColorHexValue(mapNode.Color));
+                xml.WriteAttributeString("COLOR", Convert.ToString(mapNode.Color));
 
             if (!string.IsNullOrEmpty(mapNode.Id))
                 xml.WriteAttributeString("ID", mapNode.Id);
@@ -140,7 +170,7 @@ namespace MindMate.Serialization
                 !mapNode.LineColor.IsEmpty)
             {
                 xml.WriteStartElement("edge");
-                if (!mapNode.LineColor.IsEmpty) xml.WriteAttributeString("COLOR", Convert.ToColorHexValue(mapNode.LineColor));
+                if (!mapNode.LineColor.IsEmpty) xml.WriteAttributeString("COLOR", Convert.ToString(mapNode.LineColor));
                 if (mapNode.LineWidth != 0) xml.WriteAttributeString("WIDTH", mapNode.LineWidth.ToString());
                 if (mapNode.LinePattern != System.Drawing.Drawing2D.DashStyle.Custom)
                     xml.WriteAttributeString("PATTERN", Enum.GetName(mapNode.LinePattern.GetType(), mapNode.LinePattern).ToLower());
@@ -190,7 +220,11 @@ namespace MindMate.Serialization
             for (int i = 0; i < x.ChildNodes.Count; i++)
             {
                 XmlNode xnode = x.ChildNodes[i];
-                if (xnode.Name == "attribute_registry")
+                if(xnode.Name == "format")
+                {
+                    this.DeserializeFormat(xnode, tree);
+                }
+                else if (xnode.Name == "attribute_registry")
                 {
                     this.DeserializeAttributeRegistry(xnode, tree);
                 }
@@ -249,6 +283,31 @@ namespace MindMate.Serialization
                     new MapTree.AttributeSpec(tree, attrName, visible, dataType, listOption, attrValues, type);
                 }
             }
+        }
+
+        public void DeserializeFormat(XmlNode xmlNode, MapTree tree)
+        {
+            XmlAttribute att;
+
+            Color backColor = (att = xmlNode.Attributes["BACKGROUND_COLOR"]) != null ? Convert.ToColor(att.Value) : NodeFormat.DefaultBackColor;
+            bool bold = (att = xmlNode.Attributes["BOLD"]) != null ? Convert.ToBool(att.Value) : false;
+            Color color = (att = xmlNode.Attributes["COLOR"]) != null ? Convert.ToColor(att.Value) : NodeFormat.DefaultColor;
+            string fontName = (att = xmlNode.Attributes["FONTNAME"]) != null ? att.Value : NodeFormat.DefaultFontName;
+            float fontSize = (att = xmlNode.Attributes["FONTSIZE"]) != null ? float.Parse(att.Value) : NodeFormat.DefaultFontSize;
+            bool italic = (att = xmlNode.Attributes["ITALIC"]) != null ? Convert.ToBool(att.Value) : false;
+            Color lineColor = (att = xmlNode.Attributes["LINECOLOR"]) != null ? Convert.ToColor(att.Value) : NodeFormat.DefaultLineColor;
+            DashStyle linePattern = (att = xmlNode.Attributes["PATTERN"]) != null ? Convert.ToDashStyle(att.Value) : NodeFormat.DefaultLinePattern;
+            int lineWidth = (att = xmlNode.Attributes["LINEWIDTH"]) != null ? int.Parse(att.Value) : NodeFormat.DefaultLineWidth;
+            NodeShape shape = (att = xmlNode.Attributes["STYPE"]) != null ? Convert.ToNodeStyle(att.Value) : NodeFormat.DefaultNodeShape;
+            bool strikeout = (att = xmlNode.Attributes["STRIKEOUT"]) != null ? Convert.ToBool(att.Value) : false;
+            
+            if ((att = xmlNode.Attributes["CANVASCOLOR"]) != null) { tree.CanvasBackColor = Convert.ToColor(att.Value); }
+            if ((att = xmlNode.Attributes["NOTEBACKCOLOR"]) != null) { tree.NoteBackColor = Convert.ToColor(att.Value); }
+            if ((att = xmlNode.Attributes["HIGHLIGHTCOLOR"]) != null) { tree.SelectedOutlineColor = Convert.ToColor(att.Value); }
+            if ((att = xmlNode.Attributes["DROPHINTCOLOR"]) != null) { tree.DropHintColor = Convert.ToColor(att.Value); }
+
+            var format = new NodeFormat(backColor, bold, color, fontName, fontSize, italic, strikeout, lineColor, linePattern, lineWidth, shape);
+            tree.DefaultFormat = format;
         }
 
         /// <summary>

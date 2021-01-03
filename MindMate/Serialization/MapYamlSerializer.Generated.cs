@@ -96,12 +96,12 @@ namespace MindMate.Serialization
 			if (node.HasBackColor)
 			{
 				emitter.Emit(new Scalar(BackColor));
-				emitter.Emit(new Scalar(Convert.ToColorHexValue(node.BackColor)));
+				emitter.Emit(new Scalar(Convert.ToString(node.BackColor)));
 			}
 			if (node.HasColor)
 			{
 				emitter.Emit(new Scalar(Color));
-				emitter.Emit(new Scalar(Convert.ToColorHexValue(node.Color)));
+				emitter.Emit(new Scalar(Convert.ToString(node.Color)));
 			}
 			if (node.HasShape)
 			{
@@ -121,7 +121,7 @@ namespace MindMate.Serialization
 			if (node.HasLineColor)
 			{
 				emitter.Emit(new Scalar(LineColor));
-				emitter.Emit(new Scalar(Convert.ToColorHexValue(node.LineColor)));
+				emitter.Emit(new Scalar(Convert.ToString(node.LineColor)));
 			}
 			if (node.HasNoteText)
 			{

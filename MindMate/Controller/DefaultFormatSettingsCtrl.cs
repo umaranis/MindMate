@@ -23,7 +23,7 @@ namespace MindMate.Controller
             settings.Prop_LinePattern = n.LinePattern;
             settings.Prop_LineWidth = n.LineWidth;
 
-            settings.Prop_MapBackColor = tree.MapBackColor;
+            settings.Prop_MapBackColor = tree.CanvasBackColor;
             settings.Prop_NoteEditorBackColor = tree.NoteBackColor;
             settings.Prop_SelectedOutlineColor = tree.SelectedOutlineColor;
             settings.Prop_DropHintColor = tree.DropHintColor;
@@ -42,9 +42,9 @@ namespace MindMate.Controller
                     settings.Prop_LineWidth, settings.Prop_NodeShape);
             }
 
-            if(settings.Prop_MapBackColor != tree.MapBackColor)
+            if(settings.Prop_MapBackColor != tree.CanvasBackColor)
             {
-                tree.MapBackColor = settings.Prop_MapBackColor;
+                tree.CanvasBackColor = settings.Prop_MapBackColor;
             }
             if(settings.Prop_NoteEditorBackColor != tree.NoteBackColor)
             {

@@ -2181,12 +2181,12 @@ namespace MindMate.Tests.Controller
             }).Returns<DialogResult>(DialogResult.OK);
             MapCtrl mapCtrl = new MapCtrl(new MapView(tree), dialogs, null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
-            var expectedMapBackColor = tree.MapBackColor;
+            var expectedMapBackColor = tree.CanvasBackColor;
             tree.TurnOnChangeManager();
             mapCtrl.SetDefaultFormatDialog();
             tree.ChangeManager.Undo();
             Assert.AreEqual(NodeShape.Fork, c1.NodeView.NodeFormat.Shape);
-            Assert.AreEqual(expectedMapBackColor, tree.MapBackColor);
+            Assert.AreEqual(expectedMapBackColor, tree.CanvasBackColor);
         }
     }
 }

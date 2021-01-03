@@ -3,6 +3,8 @@ using MindMate.Model;
 using MindMate.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -129,5 +131,36 @@ namespace MindMate.Tests
                 Assert.AreEqual(10, tree2.RootNode.ImageSize.Width);
             }
         }
+
+        [TestMethod]
+        public void DeserializeSerialize_Format()
+        {
+            MindMapSerializer s = new MindMapSerializer();
+            MapTree tree = new MapTree();
+            new MapNode(tree, "root");
+
+            tree.DefaultFormat = new NodeFormat(Color.Brown, true, Color.DarkGoldenrod, FontFamily.GenericMonospace.Name, 12, true, true,
+                Color.Red, DashStyle.Dot, 4, NodeShape.Box);
+            tree.CanvasBackColor = Color.Cyan;
+            tree.NoteBackColor = Color.Crimson;
+            tree.SelectedOutlineColor = Color.DarkOrchid;
+            tree.DropHintColor = Color.DarkSalmon;
+
+            string serializedText;
+            using (MemoryStream stream = new MemoryStream())
+            {
+                s.Serialize(stream, tree);
+                stream.Position = 0;
+                serializedText = new StreamReader(stream).ReadToEnd();
+            }
+
+            var tree2 = new MapTree();
+            s.Deserialize(serializedText, tree2);
+
+            Assert.AreEqual(tree.DropHintColor, tree2.DropHintColor);
+            Assert.AreEqual(tree.DefaultFormat.FontName, tree2.DefaultFormat.FontName);
+            Assert.AreEqual(tree.DefaultFormat.Color, tree2.DefaultFormat.Color);
+        }
+
     }
 }

@@ -42,7 +42,7 @@ namespace MindMate.View.NoteEditing
         public NoteMapGlue(NoteEditor editor, PersistenceManager manager)
         {
             this.editor = editor;
-            editor.BackColor = MetaModel.MetaModel.Instance.NoteEditorBackColor; //System.Drawing.Color.LightYellow;     
+            editor.BackColor = manager.CurrentTree?.CanvasBackColor ?? MetaModel.MetaModel.Instance.NoteEditorBackColor;
             new NoteEditorContextMenu(editor);
                    
             manager.CurrentTreeChanged += Manager_CurrentTreeChanged;            

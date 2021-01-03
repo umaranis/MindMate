@@ -151,6 +151,19 @@ namespace MindMate.Model
         public static Font DefaultFont { get; private set; }
         #endregion default values
 
+        #region Has Value
+        public bool HasBackColor => BackColor != DefaultBackColor;
+        public bool HasBold => Bold != false;
+        public bool HasColor => Color != DefaultColor;
+        public bool HasFontName => !FontName.Equals(DefaultFontName);
+        public bool HasFontSize => FontSize != DefaultFontSize;
+        public bool HasItalic => Italic != false;
+        public bool HasStrikeout => Strikeout != false;
+        public bool HasLineColor => LineColor != DefaultLineColor;
+        public bool HasLinePattern => LinePattern != DefaultLinePattern;
+        public bool HasLineWidth => LineWidth != DefaultLineWidth;
+        public bool HasShape => Shape != DefaultNodeShape;
+        #endregion Has Value
 
         private Font CreateFont()
         {

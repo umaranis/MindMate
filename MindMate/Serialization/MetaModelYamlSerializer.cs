@@ -66,10 +66,10 @@ namespace MindMate.Serialization
             }
             //map back color
             emitter.Emit(new Scalar(MapBackColor));
-            emitter.Emit(new Scalar(Convert.ToColorHexValue(metaModel.MapEditorBackColor)));
+            emitter.Emit(new Scalar(Convert.ToString(metaModel.MapEditorBackColor)));
             //note back color
             emitter.Emit(new Scalar(NoteBackColor));
-            emitter.Emit(new Scalar(Convert.ToColorHexValue(metaModel.NoteEditorBackColor)));
+            emitter.Emit(new Scalar(Convert.ToString(metaModel.NoteEditorBackColor)));
             //node styles
             if (metaModel.NodeStyles.Any())
             {
@@ -131,14 +131,14 @@ namespace MindMate.Serialization
             if (section != null && section.Value.Equals(MapBackColor))
             {
                 p.Expect<Scalar>();
-                metaModel.MapEditorBackColor = (Color)(new ColorConverter().ConvertFromString(p.Expect<Scalar>().Value));
+                metaModel.MapEditorBackColor = Convert.ToColor(p.Expect<Scalar>().Value);
                 section = p.Peek<Scalar>();
             }
 
             if (section != null && section.Value.Equals(NoteBackColor))
             {
                 p.Expect<Scalar>();
-                metaModel.NoteEditorBackColor = (Color)(new ColorConverter().ConvertFromString(p.Expect<Scalar>().Value));
+                metaModel.NoteEditorBackColor = Convert.ToColor(p.Expect<Scalar>().Value);
                 section = p.Peek<Scalar>(); 
             }
 

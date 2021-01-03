@@ -381,7 +381,7 @@ namespace MindMate.Model
         /// <summary>
         /// Background color of Map Canvas
         /// </summary>
-        public Color MapBackColor
+        public Color CanvasBackColor
         {
             get => treeFormat.CanvasBackColor;
             set
@@ -395,6 +395,7 @@ namespace MindMate.Model
                 });
             }
         }
+        public bool HasCanvasBackColor => CanvasBackColor != TreeFormat.DefaultCanvasBackColor;
 
         /// <summary>
         /// Background color of note editor window
@@ -413,6 +414,7 @@ namespace MindMate.Model
                 });
             }
         }
+        public bool HasNoteBackColor => NoteBackColor != TreeFormat.DefaultNoteEditorBackColor;
 
         /// <summary>
         /// Color used for outlining the selected node and on hover
@@ -430,7 +432,8 @@ namespace MindMate.Model
                     OldValue = oldValue
                 });
             }
-        }        
+        }
+        public bool HasSelectedOutlineColor => SelectedOutlineColor != TreeFormat.DefaultSelectedNodeOutlineColor;
 
         /// <summary>
         /// Color used to highlight the drag and drop target
@@ -448,6 +451,7 @@ namespace MindMate.Model
                 });
             }
         }
+        public bool HasDropHintColor => DropHintColor != TreeFormat.DefaultDropTargetHintColor;
 
         public Pen SelectedNodeOutlinePen => this.treeFormat.SelectedNodeOutlinePen;
         public Pen NodeHighlightPen => this.treeFormat.NodeHighlightPen;

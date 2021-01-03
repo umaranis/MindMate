@@ -150,7 +150,7 @@ namespace MindMate.View.NoteEditing
         private void SetBackgroundColor(Color value)
         {
             if (this.Document != null && this.Document.Body != null)
-                this.Document.Body.Style = "background-color: " + MindMate.Serialization.Convert.ToColorHexValue(value);
+                this.Document.Body.Style = "background-color: " + MindMate.Serialization.Convert.ToString(value);
         }
 
         /// <summary>

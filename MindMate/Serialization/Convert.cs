@@ -7,6 +7,7 @@ using MindMate.Model;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 
@@ -68,7 +69,7 @@ namespace MindMate.Serialization
             }
         }
 
-        public static System.Drawing.Drawing2D.DashStyle ToDashStyle(string pattern)
+        public static DashStyle ToDashStyle(string pattern)
         {
             switch (pattern)
             {
@@ -83,6 +84,11 @@ namespace MindMate.Serialization
                 default:
                     return System.Drawing.Drawing2D.DashStyle.Custom;
             }
+        }
+
+        public static string ToString(DashStyle linePattern)
+        {
+            return Enum.GetName(linePattern.GetType(), linePattern).ToLower();
         }
 
         public static NodePosition ToNodePosition(string pos)
@@ -100,9 +106,36 @@ namespace MindMate.Serialization
             }
         }
 
-        public static string ToColorHexValue(Color c)
+        public static string ToString(Color c)
         {
             return "#" + c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
+        }
+
+        public static Color ToColor(string color)
+        {
+            return (Color)(new ColorConverter().ConvertFromString(color));
+        }
+
+        public static bool ToBool(string boolean)
+        {
+            switch(boolean)
+            {
+                case "true":
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        public static string ToString(bool boolean)
+        {
+            switch(boolean)
+            {
+                case true:
+                    return "true";
+                default:
+                    return "false";
+            }
         }
     }
 }
