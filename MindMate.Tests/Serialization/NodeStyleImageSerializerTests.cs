@@ -38,8 +38,13 @@ namespace MindMate.Tests.Serialization
         [TestMethod]
         public void DeserializeImage()
         {
-            SerializeImage();
-            Bitmap image = new NodeStyleImageSerializer().DeserializeImage("TestStyle1");
+            MetaModel.MetaModel.Initialize();
+            var refNode = new MapNode(new MapTree(), "OK");
+            refNode.Italic = true;
+            var nodeStyle = new NodeStyle("TestStyle1", refNode, true);
+            var fileName = nodeStyle.Title + Guid.NewGuid();
+            new NodeStyleImageSerializer().SerializeImage(nodeStyle.Image, fileName);
+            Bitmap image = new NodeStyleImageSerializer().DeserializeImage(fileName);
             Assert.IsNotNull(image);
         }
 
