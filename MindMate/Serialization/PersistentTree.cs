@@ -122,6 +122,7 @@ namespace MindMate.Serialization
             this.TreeStructureChanged += Tree_TreeStructureChanged;
             this.IconChanged += Tree_IconChanged;
             this.AttributeChanged += Tree_AttributeChanged;
+            this.TreeFormatChanged += PersistentTree_TreeFormatChanged;
         }
 
         private void Tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
@@ -140,6 +141,11 @@ namespace MindMate.Serialization
         }
 
         private void Tree_AttributeChanged(MapNode node, AttributeChangeEventArgs e)
+        {
+            TreeChanged();
+        }
+
+        private void PersistentTree_TreeFormatChanged(MapTree arg1, TreeDefaultFormatChangedEventArgs arg2)
         {
             TreeChanged();
         }

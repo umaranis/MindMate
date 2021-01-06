@@ -167,6 +167,8 @@ namespace MindMate.View.Ribbon
             //Format Tab: Default Format
             DefaultFormatSettings.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.SetDefaultFormatDialog();
             SetSelectedAsDefaultFormat.ExecuteEvent += (o, e) => mainCtrl.CurrentMapCtrl.SetSelectedNodeFormatAsDefault();
+            ApplyTheme.ItemsSourceReady += ApplyTheme_ItemsSourceReady;
+            ApplyTheme.ExecuteEvent += ApplyTheme_ExecuteEvent;
 
             //View Tab: View Tasks
             ViewTaskList.ExecuteEvent += ViewTaskList_ExecuteEvent;
@@ -232,7 +234,7 @@ namespace MindMate.View.Ribbon
             mainForm.EditorTabs.ControlRemoved += Tabs_ControlRemoved;
             mainForm.EditorTabs.SelectedIndexChanged += Tabs_SelectedIndexChanged;
             mainForm.NoteEditor.CursorMoved += NoteEditor_CursorMoved;       
-        }        
+        }
 
         /// <summary>
         /// Setting certain properties (like image) doesn't work if Ribbon is not loaded. Use this method to set such properties.
@@ -1074,6 +1076,26 @@ namespace MindMate.View.Ribbon
             {
                 mainCtrl.CurrentMapCtrl.ApplyNodeStyle(galleryStyle.NodeStyle);
             }
+        }
+
+        private void ApplyTheme_ItemsSourceReady(object sender, EventArgs e)
+        {
+            var itemSource = ApplyTheme.ItemsSource;
+            itemSource.Clear();
+
+            foreach(var theme in MetaModel.MetaModel.Instance.Themes.Themes)
+            {
+                itemSource.Add(new GalleryItemPropertySet()
+                {
+                    Label = theme
+                });
+            }            
+        }
+
+        private void ApplyTheme_ExecuteEvent(object sender, ExecuteEventArgs e)
+        {
+            var theme = ((GalleryItemPropertySet)e.CommandExecutionProperties).Label;
+            mainCtrl.CurrentMapCtrl.ApplyTheme(theme);
         }
 
         #endregion

@@ -253,8 +253,9 @@
     <None Include="View\Ribbon\Res\ToggleExpandCurrent-sua.bmp" />
     <None Include="View\Ribbon\Res\Undo-32.bmp" />
     <None Include="View\Ribbon\Res\Up-32.bmp" />
-    <Content Include="View\Ribbon\Res\final_state_32px.png" />
+    <Content Include="View\Ribbon\Res\icons8-change-theme-32.png" />
     <Content Include="View\Ribbon\Res\one_way_transition1.png" />
+    <Content Include="View\Ribbon\Res\settings3_32px.png" />
     <Content Include="View\Ribbon\Ribbon.Controls.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Ribbon.Controls.cs</LastGenOutput>

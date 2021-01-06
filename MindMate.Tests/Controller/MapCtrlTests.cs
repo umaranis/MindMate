@@ -16,6 +16,7 @@ using MindMate.Plugins.Tasks.Model;
 using MindMate.Tests.TestDouble;
 using MindMate.View.Dialogs;
 using System.Windows.Forms;
+using MindMate.MetaModel;
 
 namespace MindMate.Tests.Controller
 {
@@ -2187,6 +2188,30 @@ namespace MindMate.Tests.Controller
             tree.ChangeManager.Undo();
             Assert.AreEqual(NodeShape.Fork, c1.NodeView.NodeFormat.Shape);
             Assert.AreEqual(expectedMapBackColor, tree.CanvasBackColor);
+        }
+
+        [TestMethod()]
+        public void ApplyTheme()
+        {
+            MapTree tree = new MapTree();
+            MapNode r = new MapNode(tree, "r");
+            var c1 = new MapNode(r, "c1");
+            var c2 = new MapNode(r, "c2");
+            var form = new System.Windows.Forms.Form();
+            MetaModel.MetaModel.Initialize();
+            DialogManager dialogs = A.Fake<DialogManager>();            
+            MapCtrl mapCtrl = new MapCtrl(new MapView(tree), dialogs, null);
+            form.Controls.Add(mapCtrl.MapView.Canvas);
+            var expectedMapBackColor = tree.CanvasBackColor;
+            tree.TurnOnChangeManager();
+            foreach (var theme in MetaModel.MetaModel.Instance.Themes.Themes)
+            {
+                mapCtrl.ApplyTheme(theme);
+                tree.ChangeManager.Undo();
+            }            
+            Assert.AreEqual(c1.NodeView.NodeFormat.LineColor, NodeFormat.DefaultLineColor);
+            Assert.AreEqual(c1.NodeView.NodeFormat.Color, NodeFormat.DefaultColor);
+            Assert.AreEqual(tree.CanvasBackColor, TreeFormat.DefaultCanvasBackColor);            
         }
     }
 }

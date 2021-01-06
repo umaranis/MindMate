@@ -102,6 +102,8 @@ namespace MindMate.MetaModel
             get { return nodeStyles; }
         }
 
+        public ThemeManager Themes { get; } = new ThemeManager();
+
         private static MetaModel Load()
         {
             MetaModel model;

@@ -369,6 +369,9 @@ The settings will apply on the current document. Each document can have their ow
     <Command Name="SetSelectedAsDefaultFormat" Id="5601" LabelTitle="Set Selected as Default" TooltipDescription="Set formatting of the selected node as the default formatting for the map.">
       <Command.LargeImages><Image>Res/one_way_transition1.png</Image></Command.LargeImages>
     </Command>
+    <Command Name="ApplyTheme" Id="5603" LabelTitle="Apply Theme" TooltipDescription="Apply theme to the current map.">
+      <Command.LargeImages><Image>Res/icons8-change-theme-32.png</Image></Command.LargeImages>
+    </Command>
     
     <!--Tab: View-->
     <Command Name="TabView" Id="6000" LabelTitle="View" />
@@ -908,9 +911,14 @@ The settings will apply on the current document. Each document can have their ow
           <Group CommandName="GrpClearFormat" SizeDefinition="OneButton">
             <Button CommandName="ClearFormatting" />
           </Group>
-          <Group CommandName="GrpDefaultFormat" SizeDefinition="TwoButtons">
-            <Button CommandName="DefaultFormatSettings" />
+          <Group CommandName="GrpDefaultFormat" SizeDefinition="ThreeButtons">
+            <Button CommandName="DefaultFormatSettings" />            
             <Button CommandName="SetSelectedAsDefaultFormat" />
+            <DropDownGallery CommandName="ApplyTheme" HasLargeItems="true" >
+              <DropDownGallery.MenuLayout>
+                <VerticalMenuLayout Gripper="None" />
+              </DropDownGallery.MenuLayout>              
+            </DropDownGallery>
           </Group>
         </Tab>
         <Tab CommandName="TabView" >

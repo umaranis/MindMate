@@ -144,6 +144,7 @@ namespace MindMate.View.Ribbon
 		private RibbonGroup GrpDefaultFormat;		
 		private RibbonButton DefaultFormatSettings;		
 		private RibbonButton SetSelectedAsDefaultFormat;		
+		private RibbonDropDownGallery ApplyTheme;		
 		private RibbonTab TabView;		
 		private RibbonGroup GrpViewTask;		
 		private RibbonButton ViewCalendar;		
@@ -339,6 +340,7 @@ namespace MindMate.View.Ribbon
 			GrpDefaultFormat = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpDefaultFormat);
 			DefaultFormatSettings = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.DefaultFormatSettings);
 			SetSelectedAsDefaultFormat = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.SetSelectedAsDefaultFormat);
+			ApplyTheme = new RibbonDropDownGallery(ribbon, (uint)RibbonMarkupCommands.ApplyTheme);
 			TabView = new RibbonTab(ribbon, (uint)RibbonMarkupCommands.TabView);
 			GrpViewTask = new RibbonGroup(ribbon, (uint)RibbonMarkupCommands.GrpViewTask);
 			ViewCalendar = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ViewCalendar);

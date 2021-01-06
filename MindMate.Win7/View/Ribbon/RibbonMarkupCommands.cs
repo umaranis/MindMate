@@ -145,6 +145,7 @@ namespace MindMate.View.Ribbon
 		GrpDefaultFormat = 5600,		
 		DefaultFormatSettings = 5602,		
 		SetSelectedAsDefaultFormat = 5601,		
+		ApplyTheme = 5603,		
 		TabView = 6000,		
 		GrpViewTask = 6100,		
 		ViewCalendar = 6001,		

@@ -1479,7 +1479,7 @@ namespace MindMate.Controller
             }
 
             tree.ChangeManager.EndBatch();
-        }
+        }        
 
         public void SortByTaskDesc()
         {
@@ -1718,7 +1718,12 @@ namespace MindMate.Controller
 
             });            
         }
-        
+
+        public void ApplyTheme(string theme)
+        {
+            RunCommand("Apply Theme", true, () => MetaModel.MetaModel.Instance.Themes.ApplyTheme(theme, tree) );
+        }
+
         /// <summary>
         /// Runs the given command on all selected nodes
         /// </summary>
