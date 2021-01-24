@@ -417,6 +417,25 @@ namespace MindMate.Model
         public bool HasNoteBackColor => NoteBackColor != TreeFormat.DefaultNoteEditorBackColor;
 
         /// <summary>
+        /// Text color of note editor window
+        /// </summary>
+        public Color NoteForeColor
+        {
+            get => treeFormat.NoteEditorForeColor;
+            set
+            {
+                var oldValue = treeFormat.NoteEditorForeColor;
+                treeFormat.NoteEditorForeColor = value;
+                FireEvent(new TreeDefaultFormatChangedEventArgs()
+                {
+                    ChangeType = TreeFormatChange.NoteEditorForeColor,
+                    OldValue = oldValue
+                });
+            }
+        }
+        public bool HasNoteForeColor => NoteForeColor != TreeFormat.DefaultNoteEditorForeColor;
+
+        /// <summary>
         /// Color used for outlining the selected node and on hover
         /// </summary>
         public Color SelectedOutlineColor 

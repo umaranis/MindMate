@@ -25,6 +25,7 @@ namespace MindMate.Controller
 
             settings.Prop_MapBackColor = tree.CanvasBackColor;
             settings.Prop_NoteEditorBackColor = tree.NoteBackColor;
+            settings.Prop_NoteEditorTextColor = tree.NoteForeColor;
             settings.Prop_SelectedOutlineColor = tree.SelectedOutlineColor;
             settings.Prop_DropHintColor = tree.DropHintColor;
         }
@@ -49,6 +50,10 @@ namespace MindMate.Controller
             if(settings.Prop_NoteEditorBackColor != tree.NoteBackColor)
             {
                 tree.NoteBackColor = settings.Prop_NoteEditorBackColor;
+            }
+            if(settings.Prop_NoteEditorTextColor != tree.NoteForeColor)
+            {
+                tree.NoteForeColor = settings.Prop_NoteEditorTextColor;
             }
             if(settings.Prop_SelectedOutlineColor != tree.SelectedOutlineColor)
             {

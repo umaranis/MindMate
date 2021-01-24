@@ -147,6 +147,8 @@ namespace MindMate.Modules.Undo
                     return new MapCanvasBackColorChange(tree, (Color)e.OldValue);
                 case TreeFormatChange.NoteEditorBackColor:
                     return new NoteEditorBackColorChange(tree, (Color)e.OldValue);
+                case TreeFormatChange.NoteEditorForeColor:
+                    return new NoteEditorTextColorChange(tree, (Color)e.OldValue);
                 case TreeFormatChange.NodeHighlightColor:
                     return new NodeHighlightColorChange(tree, (Color)e.OldValue);
                 case TreeFormatChange.NodeDropHintColor:

@@ -143,6 +143,7 @@ namespace MindMate.Tests
                 Color.Red, DashStyle.Dot, 4, NodeShape.Box);
             tree.CanvasBackColor = Color.Cyan;
             tree.NoteBackColor = Color.Crimson;
+            tree.NoteForeColor = Color.Coral;
             tree.SelectedOutlineColor = Color.DarkOrchid;
             tree.DropHintColor = Color.DarkSalmon;
 
@@ -160,6 +161,7 @@ namespace MindMate.Tests
             Assert.AreEqual(tree.DropHintColor, tree2.DropHintColor);
             Assert.AreEqual(tree.DefaultFormat.FontName, tree2.DefaultFormat.FontName);
             Assert.AreEqual(tree.DefaultFormat.Color, tree2.DefaultFormat.Color);
+            Assert.AreEqual(tree.NoteForeColor, tree.NoteForeColor);
         }
 
     }

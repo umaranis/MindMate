@@ -38,6 +38,7 @@ namespace MindMate.MetaModel
                     tree.DefaultFormat = NodeFormat.CreateDefaultFormat();
                     tree.CanvasBackColor = TreeFormat.DefaultCanvasBackColor;
                     tree.NoteBackColor = TreeFormat.DefaultNoteEditorBackColor;
+                    tree.NoteForeColor = TreeFormat.DefaultNoteEditorForeColor;
                     tree.SelectedOutlineColor = TreeFormat.DefaultSelectedNodeOutlineColor;
                     tree.DropHintColor = TreeFormat.DefaultDropTargetHintColor;
                     break;
@@ -48,6 +49,7 @@ namespace MindMate.MetaModel
                     var backColor = Color.FromArgb(40, 44, 52);
                     tree.CanvasBackColor = backColor;
                     tree.NoteBackColor = backColor;
+                    tree.NoteForeColor = Color.White;
                     tree.SelectedOutlineColor = Color.Red;
                     tree.DropHintColor = Color.FromArgb(255, 128, 64);
                     break;
@@ -57,6 +59,7 @@ namespace MindMate.MetaModel
                         NodeFormat.DefaultLineWidth, NodeFormat.DefaultNodeShape);
                     tree.CanvasBackColor = Color.Black;
                     tree.NoteBackColor = Color.Black;
+                    tree.NoteForeColor = Color.White;
                     tree.SelectedOutlineColor = Color.Red;
                     tree.DropHintColor = Color.FromArgb(255, 128, 64);
                     break;
@@ -67,6 +70,7 @@ namespace MindMate.MetaModel
                     backColor = Color.WhiteSmoke;
                     tree.CanvasBackColor = backColor;
                     tree.NoteBackColor = backColor;
+                    tree.NoteForeColor = Color.Black;
                     tree.SelectedOutlineColor = Color.Green;
                     tree.DropHintColor = Color.Red;
                     break;
@@ -77,36 +81,43 @@ namespace MindMate.MetaModel
                     backColor = Color.FromArgb(64, 57, 73);
                     tree.CanvasBackColor = backColor;
                     tree.NoteBackColor = backColor;
+                    tree.NoteForeColor = Color.White;
                     tree.SelectedOutlineColor = Color.Yellow;
                     tree.DropHintColor = Color.Lime;
                     break;                                    
                 case "Solarized Blue":
-                    tree.DefaultFormat = new NodeFormat(Color.Empty, false, Color.FromArgb(60,151,174), NodeFormat.DefaultFontName,
+                    var textColor = Color.FromArgb(60, 151, 174);
+                    tree.DefaultFormat = new NodeFormat(Color.Empty, false, textColor, NodeFormat.DefaultFontName,
                         10, false, false, Color.FromArgb(255, 128, 64), NodeFormat.DefaultLinePattern,
                         1, NodeShape.Fork);
                     backColor = Color.FromArgb(253, 246, 227);
                     tree.CanvasBackColor = backColor;
                     tree.NoteBackColor = backColor;
+                    tree.NoteForeColor = textColor;
                     tree.SelectedOutlineColor = Color.FromArgb(64,0,0);
                     tree.DropHintColor = Color.Black;
                     break;
                 case "Solarized Orange":
-                    tree.DefaultFormat = new NodeFormat(Color.Empty, false, Color.FromArgb(255, 128, 64), NodeFormat.DefaultFontName,
+                    textColor = Color.FromArgb(255, 128, 64);
+                    tree.DefaultFormat = new NodeFormat(Color.Empty, false, textColor, NodeFormat.DefaultFontName,
                         10, false, false, Color.FromArgb(60, 151, 174), NodeFormat.DefaultLinePattern,
                         1, NodeShape.Bullet);
                     backColor = Color.FromArgb(253, 246, 227);
                     tree.CanvasBackColor = backColor;
                     tree.NoteBackColor = backColor;
+                    tree.NoteForeColor = textColor;
                     tree.SelectedOutlineColor = Color.FromArgb(64, 0, 0);
                     tree.DropHintColor = Color.Black;
                     break;
                 case "Solarized Dark":
-                    tree.DefaultFormat = new NodeFormat(Color.Empty, false, Color.FromArgb(253, 246, 227), NodeFormat.DefaultFontName,
+                    textColor = Color.FromArgb(253, 246, 227);
+                    tree.DefaultFormat = new NodeFormat(Color.Empty, false, textColor, NodeFormat.DefaultFontName,
                         10, false, false, Color.FromArgb(60, 151, 174), NodeFormat.DefaultLinePattern,
                         1, NodeShape.Fork);
                     backColor = Color.FromArgb(0,43,54);
                     tree.CanvasBackColor = backColor;
                     tree.NoteBackColor = backColor;
+                    tree.NoteForeColor = textColor;
                     tree.SelectedOutlineColor = Color.FromArgb(255, 128, 64);
                     tree.DropHintColor = Color.Red;
                     break;
@@ -117,26 +128,31 @@ namespace MindMate.MetaModel
                     backColor = Color.FromArgb(57, 0, 0);
                     tree.CanvasBackColor = backColor;
                     tree.NoteBackColor = backColor;
+                    tree.NoteForeColor = Color.White;
                     tree.SelectedOutlineColor = Color.Red;
                     tree.DropHintColor = Color.FromArgb(0, 128, 255);
                     break;
                 case "Dim":
-                    tree.DefaultFormat = new NodeFormat(Color.Empty, false, Color.FromArgb(203,105,89), NodeFormat.DefaultFontName,
+                    textColor = Color.FromArgb(203, 105, 89);
+                    tree.DefaultFormat = new NodeFormat(Color.Empty, false, textColor, NodeFormat.DefaultFontName,
                         NodeFormat.DefaultFontSize, false, false, Color.FromArgb(103, 159, 115), NodeFormat.DefaultLinePattern,
                         NodeFormat.DefaultLineWidth, NodeFormat.DefaultNodeShape);
                     backColor = Color.FromArgb(41, 40, 40);
                     tree.CanvasBackColor = backColor;
                     tree.NoteBackColor = backColor;
+                    tree.NoteForeColor = textColor;
                     tree.SelectedOutlineColor = Color.Red;
                     tree.DropHintColor = Color.FromArgb(255, 128, 64);
                     break;
                 case "Twine":
-                    tree.DefaultFormat = new NodeFormat(Color.Empty, false, Color.FromArgb(210,141,37), NodeFormat.DefaultFontName,
+                    textColor = Color.FromArgb(210, 141, 37);
+                    tree.DefaultFormat = new NodeFormat(Color.Empty, false, textColor, NodeFormat.DefaultFontName,
                         NodeFormat.DefaultFontSize, false, false, Color.FromArgb(189, 153, 86), NodeFormat.DefaultLinePattern,
                         NodeFormat.DefaultLineWidth, NodeFormat.DefaultNodeShape);
                     backColor = Color.FromArgb(34, 26, 15);
                     tree.CanvasBackColor = backColor;
                     tree.NoteBackColor = backColor;
+                    tree.NoteForeColor = textColor;
                     tree.SelectedOutlineColor = Color.FromArgb(198,53,52);
                     tree.DropHintColor = Color.FromArgb(255, 128, 64);
                     break;

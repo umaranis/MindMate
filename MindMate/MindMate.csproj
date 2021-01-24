@@ -124,6 +124,7 @@
     <Compile Include="Modules\Undo\Changes\MapCanvasBackColorChange.cs" />
     <Compile Include="Modules\Undo\Changes\NodeDropHintColorChange.cs" />
     <Compile Include="Modules\Undo\Changes\NodeHighlightColorChange.cs" />
+    <Compile Include="Modules\Undo\Changes\NoteEditorTextColorChange.cs" />
     <Compile Include="Modules\Undo\Changes\NoteEditorBackColorChange.cs" />
     <Compile Include="ProgramMainHelper.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

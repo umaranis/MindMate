@@ -209,9 +209,14 @@ namespace MindMate.View.NoteEditing
 
         private void Tree_TreeFormatChanged(MapTree tree, TreeDefaultFormatChangedEventArgs e)
         {
-            if(e.ChangeType == TreeFormatChange.NoteEditorBackColor)
+            switch(e.ChangeType)
             {
-                editor.BackColor = tree.NoteBackColor;
+                case TreeFormatChange.NoteEditorBackColor:
+                    editor.BackColor = tree.NoteBackColor;
+                    break;
+                case TreeFormatChange.NoteEditorForeColor:
+                    editor.ForeColor = tree.NoteForeColor;
+                    break;
             }
         }
 

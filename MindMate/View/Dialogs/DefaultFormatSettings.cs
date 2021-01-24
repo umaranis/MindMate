@@ -129,6 +129,12 @@ namespace MindMate.View.Dialogs
             set => valNoteBackColor.BackColor = value;
         }
 
+        public Color Prop_NoteEditorTextColor
+        {
+            get => valNoteTextColor.BackColor;
+            set => valNoteTextColor.BackColor = value;
+        }
+
         public Color Prop_SelectedOutlineColor
         {
             get => valSelectedOutlineColor.BackColor;
@@ -242,6 +248,17 @@ namespace MindMate.View.Dialogs
         private void btnResetDropTargetHintColor_Click(object sender, EventArgs e)
         {
             Prop_DropHintColor = TreeFormat.DefaultDropTargetHintColor;
+        }
+
+        private void btnSetNoteTextColor_Click(object sender, EventArgs e)
+        {
+            var c = dialogManager.ShowColorPicker(Prop_NoteEditorTextColor);
+            if (!c.IsEmpty) { Prop_NoteEditorTextColor = c; }
+        }
+
+        private void btnResetNoteTextColor_Click(object sender, EventArgs e)
+        {
+            Prop_NoteEditorTextColor = TreeFormat.DefaultNoteEditorForeColor;
         }
     }
 }

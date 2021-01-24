@@ -17,6 +17,7 @@ namespace MindMate.Model
 
         public Color CanvasBackColor { get; set; } = DefaultCanvasBackColor;
         public Color NoteEditorBackColor { get; set; } = DefaultNoteEditorBackColor;
+        public Color NoteEditorForeColor { get; set; } = DefaultNoteEditorForeColor;
 
         private Color nodeHighlightColor = DefaultSelectedNodeOutlineColor;        
         /// <summary>
@@ -53,7 +54,7 @@ namespace MindMate.Model
 
         /// <summary>
         /// Pen for selected node effect
-        /// </summary>
+        /// </summary> 
         public Pen SelectedNodeOutlinePen { get; private set; } = DefaultSelectedNodeOutlinePen;
         /// <summary>
         /// Pen for hover over node effect
@@ -76,6 +77,7 @@ namespace MindMate.Model
 
         public static Color DefaultCanvasBackColor => MetaModel.MetaModel.Instance?.MapEditorBackColor ?? Color.White;
         public static Color DefaultNoteEditorBackColor => MetaModel.MetaModel.Instance?.NoteEditorBackColor ?? Color.White;
+        public static Color DefaultNoteEditorForeColor => Color.Black;
         /// <summary>
         /// Highlight Color used on node hover and on selection of nodes
         /// </summary>

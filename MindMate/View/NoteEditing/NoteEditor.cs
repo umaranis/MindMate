@@ -11,6 +11,7 @@ using System.Runtime.InteropServices;
 using MindMate.View.NoteEditing.MsHtmlWrap;
 using System.Text.RegularExpressions;
 using MindMate.Modules.Logging;
+using Convert = MindMate.Serialization.Convert;
 
 namespace MindMate.View.NoteEditing
 {
@@ -80,7 +81,7 @@ namespace MindMate.View.NoteEditing
         {
             TableEditor = new HtmlTableHelper(this);
 
-            SetBackgroundColor(BackColor);
+            SetBodyCSS();
 
             IHTMLStyleSheet style = htmlDoc.createStyleSheet("", 0);
             style.cssText = @"table, th, td { border-collapse: collapse; border-color: black } "; //table, th, td { border: 1px solid black; }
@@ -138,19 +139,41 @@ namespace MindMate.View.NoteEditing
                 base.BackColor = value;
                 if (DocumentReady)
                 {
-                    SetBackgroundColor(value);
+                    SetBodyCSS();
+                }
+            }
+        }
+                
+        /// <summary>
+        /// Get/Set the foreground color of the editor.
+        /// Note that if this is called before the document is rendered and 
+        /// complete, the navigated event handler will set the body's 
+        /// color based on the state of ForeColor.
+        /// </summary>
+        public override Color ForeColor
+        {
+            get => base.ForeColor;
+            set
+            {
+                base.ForeColor = value;
+                if (DocumentReady)
+                {
+                    SetBodyCSS();
                 }
             }
         }
 
         /// <summary>
-        /// Set the background color of the body by setting it's CSS style
+        /// Set the backgound and text color by setting css style of the body
         /// </summary>
-        /// <param name="value">the color to use for the background</param>
-        private void SetBackgroundColor(Color value)
+        private void SetBodyCSS()
         {
             if (this.Document != null && this.Document.Body != null)
-                this.Document.Body.Style = "background-color: " + MindMate.Serialization.Convert.ToString(value);
+            {
+                this.Document.Body.Style = 
+                    "background-color: " + Convert.ToString(base.BackColor) +
+                    "; color: " + Convert.ToString(base.ForeColor);
+            }
         }
 
         /// <summary>

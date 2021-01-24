@@ -85,6 +85,11 @@ namespace MindMate.View.Dialogs
             this.valDropTargetHintColor = new System.Windows.Forms.Label();
             this.btnSetDropTargetHintColor = new System.Windows.Forms.Button();
             this.btnResetDropTargetHintColor = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel10 = new System.Windows.Forms.FlowLayoutPanel();
+            this.valNoteTextColor = new System.Windows.Forms.Label();
+            this.btnSetNoteTextColor = new System.Windows.Forms.Button();
+            this.btnResetNoteTextColor = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
@@ -102,6 +107,7 @@ namespace MindMate.View.Dialogs
             this.flowLayoutPanel4.SuspendLayout();
             this.flowLayoutPanel9.SuspendLayout();
             this.flowLayoutPanel11.SuspendLayout();
+            this.flowLayoutPanel10.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblHighlightColor
@@ -537,7 +543,7 @@ namespace MindMate.View.Dialogs
             this.groupBox2.Controls.Add(this.tableLayoutPanel2);
             this.groupBox2.Location = new System.Drawing.Point(13, 289);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(427, 166);
+            this.groupBox2.Size = new System.Drawing.Size(427, 196);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Others";
@@ -548,30 +554,32 @@ namespace MindMate.View.Dialogs
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.label12, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.label3, 0, 4);
+            this.tableLayoutPanel2.Controls.Add(this.label12, 0, 3);
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel3, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.label14, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel4, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.label16, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel9, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel11, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel9, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel11, 1, 4);
+            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 2);
+            this.tableLayoutPanel2.Controls.Add(this.flowLayoutPanel10, 1, 2);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(6, 19);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 4;
+            this.tableLayoutPanel2.RowCount = 5;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(419, 132);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(419, 165);
             this.tableLayoutPanel2.TabIndex = 4;
             // 
             // label3
             // 
             this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(3, 109);
+            this.label3.Location = new System.Drawing.Point(3, 142);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(94, 13);
             this.label3.TabIndex = 9;
@@ -582,7 +590,7 @@ namespace MindMate.View.Dialogs
             // 
             this.label12.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 76);
+            this.label12.Location = new System.Drawing.Point(3, 109);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(144, 13);
             this.label12.TabIndex = 5;
@@ -714,7 +722,7 @@ namespace MindMate.View.Dialogs
             this.flowLayoutPanel9.Controls.Add(this.valSelectedOutlineColor);
             this.flowLayoutPanel9.Controls.Add(this.btnSetSelectedOutlineColor);
             this.flowLayoutPanel9.Controls.Add(this.btnResetSelectedOutlineColor);
-            this.flowLayoutPanel9.Location = new System.Drawing.Point(160, 69);
+            this.flowLayoutPanel9.Location = new System.Drawing.Point(160, 102);
             this.flowLayoutPanel9.Margin = new System.Windows.Forms.Padding(3, 3, 3, 8);
             this.flowLayoutPanel9.Name = "flowLayoutPanel9";
             this.flowLayoutPanel9.Size = new System.Drawing.Size(256, 22);
@@ -762,7 +770,7 @@ namespace MindMate.View.Dialogs
             this.flowLayoutPanel11.Controls.Add(this.valDropTargetHintColor);
             this.flowLayoutPanel11.Controls.Add(this.btnSetDropTargetHintColor);
             this.flowLayoutPanel11.Controls.Add(this.btnResetDropTargetHintColor);
-            this.flowLayoutPanel11.Location = new System.Drawing.Point(160, 102);
+            this.flowLayoutPanel11.Location = new System.Drawing.Point(160, 135);
             this.flowLayoutPanel11.Margin = new System.Windows.Forms.Padding(3, 3, 3, 8);
             this.flowLayoutPanel11.Name = "flowLayoutPanel11";
             this.flowLayoutPanel11.Size = new System.Drawing.Size(256, 22);
@@ -803,10 +811,67 @@ namespace MindMate.View.Dialogs
             this.btnResetDropTargetHintColor.UseVisualStyleBackColor = true;
             this.btnResetDropTargetHintColor.Click += new System.EventHandler(this.btnResetDropTargetHintColor_Click);
             // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 76);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(114, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Note Editor Text Color:";
+            // 
+            // flowLayoutPanel10
+            // 
+            this.flowLayoutPanel10.AutoSize = true;
+            this.flowLayoutPanel10.Controls.Add(this.valNoteTextColor);
+            this.flowLayoutPanel10.Controls.Add(this.btnSetNoteTextColor);
+            this.flowLayoutPanel10.Controls.Add(this.btnResetNoteTextColor);
+            this.flowLayoutPanel10.Location = new System.Drawing.Point(160, 69);
+            this.flowLayoutPanel10.Margin = new System.Windows.Forms.Padding(3, 3, 3, 8);
+            this.flowLayoutPanel10.Name = "flowLayoutPanel10";
+            this.flowLayoutPanel10.Size = new System.Drawing.Size(256, 22);
+            this.flowLayoutPanel10.TabIndex = 11;
+            // 
+            // valNoteTextColor
+            // 
+            this.valNoteTextColor.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.valNoteTextColor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.valNoteTextColor.Location = new System.Drawing.Point(0, 1);
+            this.valNoteTextColor.Margin = new System.Windows.Forms.Padding(0);
+            this.valNoteTextColor.Name = "valNoteTextColor";
+            this.valNoteTextColor.Size = new System.Drawing.Size(170, 20);
+            this.valNoteTextColor.TabIndex = 4;
+            this.valNoteTextColor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btnSetNoteTextColor
+            // 
+            this.btnSetNoteTextColor.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnSetNoteTextColor.Location = new System.Drawing.Point(170, 0);
+            this.btnSetNoteTextColor.Margin = new System.Windows.Forms.Padding(0);
+            this.btnSetNoteTextColor.Name = "btnSetNoteTextColor";
+            this.btnSetNoteTextColor.Size = new System.Drawing.Size(43, 22);
+            this.btnSetNoteTextColor.TabIndex = 15;
+            this.btnSetNoteTextColor.Text = "Set";
+            this.btnSetNoteTextColor.UseVisualStyleBackColor = true;
+            this.btnSetNoteTextColor.Click += new System.EventHandler(this.btnSetNoteTextColor_Click);
+            // 
+            // btnResetNoteTextColor
+            // 
+            this.btnResetNoteTextColor.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.btnResetNoteTextColor.Location = new System.Drawing.Point(213, 0);
+            this.btnResetNoteTextColor.Margin = new System.Windows.Forms.Padding(0);
+            this.btnResetNoteTextColor.Name = "btnResetNoteTextColor";
+            this.btnResetNoteTextColor.Size = new System.Drawing.Size(43, 22);
+            this.btnResetNoteTextColor.TabIndex = 16;
+            this.btnResetNoteTextColor.Text = "Reset";
+            this.btnResetNoteTextColor.UseVisualStyleBackColor = true;
+            this.btnResetNoteTextColor.Click += new System.EventHandler(this.btnResetNoteTextColor_Click);
+            // 
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnOK.Location = new System.Drawing.Point(267, 469);
+            this.btnOK.Location = new System.Drawing.Point(267, 496);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 5;
@@ -816,7 +881,7 @@ namespace MindMate.View.Dialogs
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(357, 469);
+            this.btnCancel.Location = new System.Drawing.Point(357, 496);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 6;
@@ -828,7 +893,7 @@ namespace MindMate.View.Dialogs
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(453, 504);
+            this.ClientSize = new System.Drawing.Size(453, 532);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.groupBox2);
@@ -857,6 +922,7 @@ namespace MindMate.View.Dialogs
             this.flowLayoutPanel4.ResumeLayout(false);
             this.flowLayoutPanel9.ResumeLayout(false);
             this.flowLayoutPanel11.ResumeLayout(false);
+            this.flowLayoutPanel10.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -920,5 +986,10 @@ namespace MindMate.View.Dialogs
         private System.Windows.Forms.Button btnResetDropTargetHintColor;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel10;
+        private System.Windows.Forms.Label valNoteTextColor;
+        private System.Windows.Forms.Button btnSetNoteTextColor;
+        private System.Windows.Forms.Button btnResetNoteTextColor;
     }
 }

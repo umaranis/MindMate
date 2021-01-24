@@ -91,6 +91,7 @@ namespace MindMate.Serialization
                 
                 if (tree.HasCanvasBackColor) xml.WriteAttributeString("CANVASCOLOR", Convert.ToString(tree.CanvasBackColor));
                 if (tree.HasNoteBackColor) xml.WriteAttributeString("NOTEBACKCOLOR", Convert.ToString(tree.NoteBackColor));
+                if (tree.HasNoteForeColor) xml.WriteAttributeString("NOTETEXTCOLOR", Convert.ToString(tree.NoteForeColor));
                 if (tree.HasSelectedOutlineColor) xml.WriteAttributeString("HIGHLIGHTCOLOR", Convert.ToString(tree.SelectedOutlineColor));
                 if (tree.HasDropHintColor) xml.WriteAttributeString("DROPHINTCOLOR", Convert.ToString(tree.DropHintColor));
 
@@ -303,6 +304,7 @@ namespace MindMate.Serialization
             
             if ((att = xmlNode.Attributes["CANVASCOLOR"]) != null) { tree.CanvasBackColor = Convert.ToColor(att.Value); }
             if ((att = xmlNode.Attributes["NOTEBACKCOLOR"]) != null) { tree.NoteBackColor = Convert.ToColor(att.Value); }
+            if ((att = xmlNode.Attributes["NOTETEXTCOLOR"]) != null) { tree.NoteForeColor = Convert.ToColor(att.Value); }
             if ((att = xmlNode.Attributes["HIGHLIGHTCOLOR"]) != null) { tree.SelectedOutlineColor = Convert.ToColor(att.Value); }
             if ((att = xmlNode.Attributes["DROPHINTCOLOR"]) != null) { tree.DropHintColor = Convert.ToColor(att.Value); }
 
