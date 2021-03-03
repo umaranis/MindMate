@@ -637,7 +637,13 @@ namespace MindMate.Model
             if (this.Next == null) parent.LastChild = this;
 
             if (this.HasChildren)
-                ForEach(n => n.pos = this.pos);
+            {
+                ForEach(n =>
+                {
+                    n.pos = this.pos;
+                    n.Tree = this.Tree;
+                });
+            }
 
             parent.modified = DateTime.Now;
             if(raiseAttachEvent)    Tree.FireEvent(this, TreeStructureChange.Attached);
