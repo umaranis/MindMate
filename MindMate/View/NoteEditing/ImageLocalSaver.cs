@@ -1,4 +1,5 @@
 ﻿using MindMate.Model;
+using MindMate.Modules.Logging;
 using MindMate.Serialization;
 using System;
 using System.Collections.Generic;
@@ -47,18 +48,29 @@ namespace MindMate.View.NoteEditing
                         try
                         {
                             data = web.DownloadData(originalSrc);
-                            extension = MimeTypes.GetExtension(web.ResponseHeaders["Content-Type"]);
                         }
-                        catch (WebException) //resource not found (404) and no connection
+                        catch (Exception exp) 
                         {
-                            extension = "png";
+                            Log.Write("[ImageLocalSaver] Cannot download the image: " + exp.Message);
                         }
+                        if (data != null)
+                        {
+                            try
+                            {
+                                extension = MimeTypes.GetExtension(web.ResponseHeaders["Content-Type"]);
+                            }
+                            catch (WebException exp) //resource not found (404) and no connection
+                            {
+                                Log.Write("[ImageLocalSaver] Cannot get the content type of image: " + exp.Message);
+                                extension = "png";
+                            }
 
-                        var newInternalSrc = ImageLocalPath.CreateNewLocalPath(extension);                            
-                        tree.SetLargeObject(newInternalSrc.FileName, new BytesLob(data));
-                        
-                        elem.SetAttribute("srcOrig", originalSrc);
-                        elem.SetAttribute("src", newInternalSrc.Url);
+                            var newInternalSrc = ImageLocalPath.CreateNewLocalPath(extension);
+                            tree.SetLargeObject(newInternalSrc.FileName, new BytesLob(data));
+
+                            elem.SetAttribute("srcOrig", originalSrc);
+                            elem.SetAttribute("src", newInternalSrc.Url);
+                        }
                     }
                 }                
             }
