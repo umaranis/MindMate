@@ -33,6 +33,12 @@ namespace MindMate.View.NoteEditing
         /// </summary>
         public static void ProcessImages(HtmlDocument document, PersistentTree tree)
         {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls
+                   | SecurityProtocolType.Tls11
+                   | SecurityProtocolType.Tls12
+                   | SecurityProtocolType.Ssl3;
+
             using (var web = new WebClient())
             {
                 var elemCol = document.GetElementsByTagName("img");

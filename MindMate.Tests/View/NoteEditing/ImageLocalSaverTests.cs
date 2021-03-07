@@ -15,7 +15,10 @@ namespace MindMate.Tests.View
     [TestClass()]
     public class ImageLocalSaverTests
     {
-        [TestMethod()]
+        /// <summary>
+        /// ImageLocalSaver event handling
+        /// </summary>
+        [TestMethod()]        
         public void ImageLocalSaver_ctor_ImagesAreProcessed()
         {
             var p = new PersistenceManager();
@@ -44,12 +47,15 @@ namespace MindMate.Tests.View
 
             Assert.IsTrue(html.Contains("srcOrig"));
             int imgUpdated = Regex.Matches(html, "srcOrig", RegexOptions.IgnoreCase).Count;
-            Assert.AreEqual(79, imgUpdated);
+            Assert.IsTrue(imgUpdated > 50);
 
             int imgCount = Regex.Matches(html, "<img", RegexOptions.IgnoreCase).Count;
-            Assert.IsTrue(imgCount > imgUpdated);
+            Assert.IsTrue(imgCount >= imgUpdated);
         }
 
+        /// <summary>
+        /// ImageLocalSaver, direct call to ProcessImages rather than event handling
+        /// </summary>
         [TestMethod()]
         public void ProcessImages_BBC_CheckImgTags()
         {
@@ -79,10 +85,10 @@ namespace MindMate.Tests.View
 
             Assert.IsTrue(html.Contains("srcOrig"));
             int imgUpdated = Regex.Matches(html, "srcOrig", RegexOptions.IgnoreCase).Count;
-            Assert.AreEqual(79, imgUpdated);
+            Assert.IsTrue(imgUpdated > 50);
 
             int imgCount = Regex.Matches(html, "<img", RegexOptions.IgnoreCase).Count;
-            Assert.IsTrue(imgCount > imgUpdated);
+            Assert.IsTrue(imgCount >= imgUpdated);
         }
 
 
