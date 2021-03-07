@@ -128,6 +128,7 @@ namespace MindMate.View.NoteEditing
         {
             if (oldTree != null)
             {
+                UpdateNodeFromEditor();
                 Unregister(oldTree);
             }
             if (newTree != null)
