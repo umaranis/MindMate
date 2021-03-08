@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MindMate.Model;
 using MindMate.Serialization;
 using MindMate.View.NoteEditing;
 using System;
@@ -16,13 +17,17 @@ namespace MindMate.Tests.View
     public class ImageLocalSaverTests
     {
         /// <summary>
-        /// ImageLocalSaver event handling
+        /// 1- ImageLocalSaver event handling
+        /// 2- Downloading images over HTTPS
         /// </summary>
         [TestMethod()]        
         public void ImageLocalSaver_ctor_ImagesAreProcessed()
         {
             var p = new PersistenceManager();
-            var tree = p.OpenTree(@"Resources\Websites.mm");
+            var tree = p.NewTree();
+            tree.RootNode = new MapNode(tree, "");
+            tree.RootNode.NoteText = "<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Bjarne-stroustrup_%28cropped%29.jpg/220px-Bjarne-stroustrup_%28cropped%29.jpg' alt='test image'>" +
+                "<img src='https://miro.medium.com/max/625/1*L5mEbfHlE5dmvK3vx7XFBA.png' alt='test image'>";
             string html = null;
 
             System.Threading.Thread t = new System.Threading.Thread(() =>
@@ -33,7 +38,7 @@ namespace MindMate.Tests.View
                 new ImageLocalSaver(editor, p);
                 form.Shown += (sender, args) =>
                 {
-                    editor.UpdateHtmlSource(tree.RootNode.FirstChild.NoteText);
+                    editor.UpdateHtmlSource(tree.RootNode.NoteText);
 
                     html = editor.HTML;
                     form.Close();
@@ -47,10 +52,10 @@ namespace MindMate.Tests.View
 
             Assert.IsTrue(html.Contains("srcOrig"));
             int imgUpdated = Regex.Matches(html, "srcOrig", RegexOptions.IgnoreCase).Count;
-            Assert.IsTrue(imgUpdated > 50);
+            Assert.AreEqual(2, imgUpdated);
 
-            int imgCount = Regex.Matches(html, "<img", RegexOptions.IgnoreCase).Count;
-            Assert.IsTrue(imgCount >= imgUpdated);
+            int imgLinkCount = Regex.Matches(html, "mm://", RegexOptions.IgnoreCase).Count;
+            Assert.AreEqual(2, imgLinkCount);
         }
 
         /// <summary>
