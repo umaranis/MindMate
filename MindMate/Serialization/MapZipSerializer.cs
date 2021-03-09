@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MindMate.Model;
 using System.Collections;
+using MindMate.Modules.Logging;
 
 namespace MindMate.Serialization
 {
@@ -106,6 +107,34 @@ namespace MindMate.Serialization
         {
             try
             {
+                T obj = new T();
+                if(DeserializeLargeObject(fileName, objectKey, obj))
+                {
+                    return obj;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception exp)
+            {
+                Log.Write($"[MapZipSerializer.DeserializeLargeObject] Cannot load large object for file '{fileName}' and key {objectKey} : {exp.Message}");
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="objectKey"></param>
+        /// <param name="outObject">Pass in empty object. The method will fill it up by deserializing. </param>
+        /// <returns>false if fails to deserialize</returns>
+        public bool DeserializeLargeObject(string fileName, string objectKey, ILargeObject outObject)
+        {
+            try
+            {
                 using (var fileStream = new FileStream(fileName, FileMode.Open))
                 {
                     using (var zip = new ZipArchive(fileStream, ZipArchiveMode.Read))
@@ -114,13 +143,41 @@ namespace MindMate.Serialization
 
                         using (var stream = entry.Open())
                         {
-                            T obj = new T();
-                            obj.LoadFromStream(stream, (int)entry.Length);
-                            return obj;
+                            outObject.LoadFromStream(stream, (int)entry.Length);
+                            return true;
                         }
 
                     }
                 }
+            }
+            catch (Exception exp)
+            {
+                Log.Write($"[MapZipSerializer.DeserializeLargeObject] Cannot load large object for file '{fileName}' and key {objectKey} : {exp.Message}");
+                return false;
+            }
+        }
+
+        public List<string> DeserializeAllLargeObjectKeys(string fileName)
+        {
+            try
+            {
+                var list = new List<string>();
+
+                using (var fileStream = new FileStream(fileName, FileMode.Open))
+                {
+                    using (var zip = new ZipArchive(fileStream, ZipArchiveMode.Read))
+                    {
+                        foreach(var entry in zip.Entries)
+                        {
+                            if (!entry.Name.Equals(MAPXMLFILE))
+                            {
+                                list.Add(entry.Name);
+                            }
+                        }
+                    }
+                }
+
+                return list;
             }
             catch (Exception)
             {

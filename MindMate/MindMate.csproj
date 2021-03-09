@@ -107,6 +107,7 @@
     <Compile Include="Model\AdvancedProperties.cs" />
     <Compile Include="Model\ImageHelper.cs" />
     <Compile Include="Model\LargeObject.cs" />
+    <Compile Include="Model\LargeObjectHelper.cs" />
     <Compile Include="Model\MapNode.Attribute.cs" />
     <Compile Include="Model\ClipboardManager.cs" />
     <Compile Include="Controller\ContextMenuCtrl.cs" />

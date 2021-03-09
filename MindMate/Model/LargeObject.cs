@@ -23,6 +23,9 @@ namespace MindMate.Model
         void LoadFromStream(Stream stream, int size);
     }
 
+    /// <summary>
+    /// Used for images within the note editor
+    /// </summary>
     public class BytesLob : ILargeObject
     {
         public byte[] Bytes { get; set; }
@@ -41,6 +44,9 @@ namespace MindMate.Model
         }       
     }
 
+    /// <summary>
+    /// Used for images within in map
+    /// </summary>
     public class ImageLob : ILargeObject
     {
         public Image Image { get; set; }

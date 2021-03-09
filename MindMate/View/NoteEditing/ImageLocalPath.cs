@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MindMate.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -56,7 +57,7 @@ namespace MindMate.View.NoteEditing
         /// <returns></returns>
         public static ImageLocalPath CreateNewLocalPath(string extension)
         {
-            return new ImageLocalPath(Guid.NewGuid().ToString(), extension);
+            return new ImageLocalPath(LargeObjectHelper.GenerateNewKey<BytesLob>(), extension);
         }        
     }
 }

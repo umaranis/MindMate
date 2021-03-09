@@ -1692,7 +1692,7 @@ namespace MindMate.Model
 
             //add image to node
             var imageLOB = new ImageLob(image);
-            var imageKey = Guid.NewGuid().ToString() + "." + ext;
+            var imageKey = LargeObjectHelper.GenerateNewKey<ImageLob>() + "." + ext;
             Tree.SetLargeObject(imageKey, imageLOB);
             Image = imageKey;    
             

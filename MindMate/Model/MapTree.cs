@@ -310,6 +310,10 @@ namespace MindMate.Model
 
         protected Dictionary<string, ILargeObject> lobStore = new Dictionary<string, ILargeObject>();
 
+        /// <summary>
+        /// For lazy loading tree like <see cref="MindMate.Serialization.PersistentTree"/>, the enumeration will only return large object already loaded.
+        /// If required, use <see cref="Serialization.PersistentTree.LoadAllLargeObjects"/> to load all first.
+        /// </summary>
         public IEnumerable<KeyValuePair<string, ILargeObject>> LargeObjectsDictionary => lobStore;
 
         /// <summary>
@@ -331,7 +335,7 @@ namespace MindMate.Model
             return result;
         }
 
-        public virtual void SetLargeObject<T>(string key, T largeObject) where T : class, ILargeObject, new()
+        public virtual void SetLargeObject(string key, ILargeObject largeObject) 
         {
             lobStore[key] = largeObject;
         }

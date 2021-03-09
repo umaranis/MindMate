@@ -10,6 +10,9 @@ using System.Text;
 
 namespace MindMate.Serialization
 {
+    /// <summary>
+    /// Extends MapTree class to make it persistent to a file. Also enables lazy loading of Large Objects (like images)
+    /// </summary>
     public class PersistentTree : MapTree, IDisposable
     {
         /// <summary>
@@ -86,6 +89,11 @@ namespace MindMate.Serialization
         /// <param name="fileName"></param>
         public void Save(string fileName)
         {
+            if(this.FileName != null && this.FileName != fileName) // Save As - load all large objects
+            {
+                LoadAllLargeObjects();
+            }
+
             FileName = fileName;
             Save(true);
         }
@@ -214,7 +222,7 @@ namespace MindMate.Serialization
             }
         }
 
-        public override void SetLargeObject<T>(string key, T largeObject)
+        public override void SetLargeObject(string key, ILargeObject largeObject)
         {
             base.SetLargeObject(key, largeObject);
             newLobs.Add(key);
@@ -228,6 +236,27 @@ namespace MindMate.Serialization
         }
 
         #endregion Lazy loaded Large Object Cache
+
+        /// <summary>
+        /// Large Objects are loaded on demand by PersistentTree, by default. This method forces to preload all of them.
+        /// This is useful when making a copy of the map (like in Save As)
+        /// </summary>
+        public void LoadAllLargeObjects()
+        {
+            var ser = new MapZipSerializer();
+            List<string> keys = ser.DeserializeAllLargeObjectKeys(FileName);
+            foreach (var key in keys)
+            {
+                if(!lobStore.ContainsKey(key))
+                {
+                    ILargeObject largeObject = LargeObjectHelper.CreateFromKey(key);
+                    if(ser.DeserializeLargeObject(FileName, key, largeObject))
+                    {
+                        base.SetLargeObject(key, largeObject);
+                    }
+                }
+            }
+        }
 
         #region IDisposable Support
 

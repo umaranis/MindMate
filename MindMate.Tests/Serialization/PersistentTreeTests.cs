@@ -216,6 +216,19 @@ namespace MindMate.Tests.Serialization
             Assert.AreEqual("Testing", tree2.RootNode.Text);
         }
 
+        /// <summary>
+        /// Ensure lazy loaded large objects are not missed in SaveAs operation
+        /// </summary>
+        [TestMethod]
+        public void SaveAsTest()
+        {
+            var manager = new PersistenceManager();
+            var tree = manager.OpenTree(@"Resources\Html Code Cleaner.mm");
+            Assert.AreEqual(0, tree.LargeObjectsDictionary.Count()); // no large objects loaded yet
+            tree.Save(@"Resources\Html Code Cleaner - SaveAs.mm");
+            Assert.AreEqual(8, tree.LargeObjectsDictionary.Count()); // all large objects loaded
+        }
+
 
     }
 }
