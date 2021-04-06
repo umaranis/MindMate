@@ -100,6 +100,10 @@ namespace MindMate.View.NoteEditing
             }
         }
 
+        /// <summary>
+        /// Updates the MapNode from the Note Editor if the editor is dirty.
+        /// Uses change manager to enable undo.
+        /// </summary>
         public void UpdateNodeFromEditor()
         {
             if (editor.Dirty && CurrentMapNpde != null)

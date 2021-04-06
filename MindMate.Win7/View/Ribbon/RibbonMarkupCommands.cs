@@ -191,6 +191,7 @@ namespace MindMate.View.Ribbon
 		GrpNoteInsertImage = 7700,		
 		NoteInsertImage = 7701,		
 		GrpNoteEditHtml = 7600,		
+		NoteCleanHtml = 7602,		
 		NoteEditHtml = 7601,		
 		TabGroupNoteTable = 8000,		
 		TabNoteTableLayout = 8100,		

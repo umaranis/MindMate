@@ -168,5 +168,16 @@ namespace MindMate.Controller
                 noteGlue.Editor.UpdateHtmlSource(form.HtmlSource); //this makes the editor dirty as opposed to setting 'noteGlue.Editor.HTML'
             }
         }
+
+        public void CleanHtmlCode()
+        {
+            HtmlCodeCleaner.Clean(noteGlue.Editor);
+
+            // - makes the editor dirty 
+            // - also revolves an issue where editor is stuck in an odd state if 
+            //     1) a fixed sized div was selected earlier
+            //     2) and the div size is cleared during Clean operation
+            noteGlue.Editor.UpdateHtmlSource(noteGlue.Editor.HTML);             
+        }
     }
 }

@@ -144,6 +144,7 @@
     <Compile Include="View\Dialogs\DialogManager.cs" />
     <Compile Include="View\MapControls\ICanvasContainer.cs" />
     <Compile Include="View\MapControls\ImageView.cs" />
+    <Compile Include="View\NoteEditing\HtmlCodeCleaner.cs" />
     <Compile Include="View\NoteEditing\ImagePaster.cs" />
     <Compile Include="View\NoteEditing\ImageLocalPath.cs" />
     <Compile Include="View\NoteEditing\MimeTypes.cs" />
@@ -625,6 +626,7 @@
     <None Include="Resources\image_align_after.png" />
     <None Include="Resources\image_align_before.png" />
     <None Include="Resources\image_align_bottom.png" />
+    <Content Include="Resources\html-clean-32.png" />
     <Content Include="Serialization\MapYamlSerializer.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapYamlSerializer.Generated.cs</LastGenOutput>

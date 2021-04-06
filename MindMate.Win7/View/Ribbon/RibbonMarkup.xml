@@ -459,8 +459,12 @@ The settings will apply on the current document. Each document can have their ow
     <Command Name="NoteInsertImage" Id="7701" LabelTitle="Insert Image" TooltipDescription="Select an Image file to be inserted in note." />
     
     <!--Group: Edit Html-->
-    <Command Name="GrpNoteEditHtml" Id="7600" />
-    <Command Name="NoteEditHtml" Id="7601" LabelTitle="Edit Html Source" TooltipDescription="Edit Html source code for the note." />
+    <Command Name="GrpNoteEditHtml" Id="7600" LabelTitle="HTML"/>
+    <Command Name="NoteCleanHtml" Id="7602" LabelTitle="Clean Html" TooltipDescription="Cleans HTML copied from the web.
+
+- removes input controls
+- removes absolute positioning and sizes" />
+    <Command Name="NoteEditHtml" Id="7601" LabelTitle="Edit Source" TooltipDescription="Edit Html source code for the note." />
     
     <!--Tab: Note Table-->    
     <Command Name="TabGroupNoteTable" Id="8000" LabelTitle="Table Tools" />
@@ -1086,7 +1090,8 @@ The settings will apply on the current document. Each document can have their ow
             <Group CommandName="GrpNoteInsertImage" SizeDefinition="OneButton">
               <Button CommandName="NoteInsertImage" />
             </Group>
-            <Group CommandName="GrpNoteEditHtml" SizeDefinition="OneButton">
+            <Group CommandName="GrpNoteEditHtml" SizeDefinition="TwoButtons">
+              <Button CommandName="NoteCleanHtml" />
               <Button CommandName="NoteEditHtml" />
             </Group>
           </Tab>

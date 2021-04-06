@@ -210,8 +210,10 @@ namespace MindMate.View.Ribbon
 			//Note Editor Tab: Image
 			NoteInsertImage.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.InsertImage();
 
-            //Note Editor Tab: Note Edit Html
+            //Note Editor Tab: Html Code
+            NoteCleanHtml.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.CleanHtmlCode();
             NoteEditHtml.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.ShowHtmlSourceDialog();
+
 
             //Note Editor Table Tab
             ModifyTableProperties.ExecuteEvent += (o, e) => mainCtrl.NoteCrtl.ModifyTable();
@@ -304,6 +306,7 @@ namespace MindMate.View.Ribbon
             MoveColumnLeft.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveColumnLeft_LargeImage);
             MoveColumnRight.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveColumnRight_SmallImage);
             MoveColumnRight.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.MoveColumnRight_LargeImage);
+            NoteCleanHtml.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.html_clean_32);
 				
 
 			mainForm.FocusedControlChanged += MainForm_FocusedControlChanged;

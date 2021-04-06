@@ -154,7 +154,45 @@ namespace MindMate.Tests.Controller
             t.Join();
 
             Assert.AreEqual("updated", result);
-        } 
-        
+        }
+
+        [TestMethod()]
+        public void CleanHtmlCode()
+        {
+            bool result = true;
+
+            System.Threading.Thread t = new System.Threading.Thread(() =>
+            {
+                MetaModel.MetaModel.Initialize();
+                var persistence = new PersistenceManager();
+                var noteEditor = new NoteEditor();
+
+                var form = CreateForm();
+                form.Controls.Add(noteEditor);
+                form.Shown += (sender, args) =>
+                {
+                    var ptree1 = persistence.NewTree();
+                    var c1 = new MapNode(ptree1.RootNode, "c1");
+                    c1.NoteText = "<div style='width:30px'>Testing</div>";
+                    c1.Selected = true;
+
+                    var sut = new NoteEditorCtrl(noteEditor, persistence, null);
+                    sut.CleanHtmlCode();
+                    ptree1.RootNode.Selected = true; //deselection of c1 triggers the update of NoteText
+
+                    result = !c1.NoteText.Contains("30");
+
+                    form.Close();
+                };
+
+                form.ShowDialog();
+            });
+            t.SetApartmentState(System.Threading.ApartmentState.STA);
+            t.Start();
+            t.Join();
+
+            Assert.IsTrue(result);
+        }
+
     }
 }
