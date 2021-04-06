@@ -178,6 +178,9 @@ namespace MindMate.Tests.Controller
 
                     var sut = new NoteEditorCtrl(noteEditor, persistence, null);
                     sut.CleanHtmlCode();
+
+                    noteEditor.Dirty = true; //marking as dirty manually. Automatically, it will not happen till the next event loop.
+
                     ptree1.RootNode.Selected = true; //deselection of c1 triggers the update of NoteText
 
                     result = !c1.NoteText.Contains("30");

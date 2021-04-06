@@ -62,6 +62,11 @@ namespace MindMate.View.NoteEditing
         public event Action<object> OnDirty = delegate { };
 
         private bool ignoreDirtyNotification = true;               // Ignore when body as HTML property is set. Initialized by true to skip initial setup notification.
+
+        /// <summary>
+        /// Specifies if the editor has unsaved changes.
+        /// Don't expect dirty flag to be checked right after the change. Dirty flag is usually set in the next event loop call triggered by registering IHTMLChangeSink.Notify. 
+        /// </summary>
         public bool Dirty { get ; set; }
 
         /// <summary>
