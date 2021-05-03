@@ -165,6 +165,23 @@ namespace MindMate.Tests.Modules.Undo
             Assert.AreEqual(0, sut.UndoStackCount);
             Assert.AreNotEqual(15, r.ImageSize.Width);
         }
+
+        [TestMethod]
+        public void ChangeRecorded()
+        {
+            var t = new MapTree();
+            var r = new MapNode(t, "r");
+            t.TurnOnChangeManager();
+            var sut = t.ChangeManager;
+
+            var result = false;
+            sut.ChangeRecorded += (m, c) => result = true;
+            
+            r.Text = "changed";          
+
+            Assert.IsTrue(result);
+        }
+
         
     }
 }
