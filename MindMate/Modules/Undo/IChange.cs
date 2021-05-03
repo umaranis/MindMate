@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MindMate.Modules.Undo
 {
-    interface IChange
+    public interface IChange
     {
         string Description { get; }
         void Undo();

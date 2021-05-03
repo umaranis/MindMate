@@ -1127,10 +1127,12 @@ namespace MindMate.View.Ribbon
                 oldTree.SelectedNodes.NodeSelected -= SelectedNodes_NodeSelected;
                 oldTree.SelectedNodes.NodeDeselected -= SelectedNodes_NodeDeselected;
                 oldTree.NodePropertyChanged -= Tree_NodePropertyChanged;
-                oldTree.IconChanged -= Tree_IconChanged;
-                oldTree.TreeStructureChanged -= Tree_TreeStructureChanged;
-                oldTree.AttributeChanged -= Tree_AttributeChanged;
-                oldTree.AttributeSpecChangeEvent -= Tree_AttributeSpecChangeEvent;
+                //oldTree.IconChanged -= Tree_IconChanged;
+                //oldTree.TreeStructureChanged -= Tree_TreeStructureChanged;
+                //oldTree.AttributeChanged -= Tree_AttributeChanged;
+                //oldTree.AttributeSpecChangeEvent -= Tree_AttributeSpecChangeEvent;
+
+                newTree.ChangeManager.ChangeRecorded -= ChangeManager_ChangeRecorded;
             }
 
             if (newTree != null)
@@ -1138,19 +1140,26 @@ namespace MindMate.View.Ribbon
                 newTree.SelectedNodes.NodeSelected += SelectedNodes_NodeSelected;
                 newTree.SelectedNodes.NodeDeselected += SelectedNodes_NodeDeselected;
                 newTree.NodePropertyChanged += Tree_NodePropertyChanged;
-                newTree.IconChanged += Tree_IconChanged;
-                newTree.TreeStructureChanged += Tree_TreeStructureChanged;
-                newTree.AttributeChanged += Tree_AttributeChanged;
-                newTree.AttributeSpecChangeEvent += Tree_AttributeSpecChangeEvent;
+                //newTree.IconChanged += Tree_IconChanged;
+                //newTree.TreeStructureChanged += Tree_TreeStructureChanged;
+                //newTree.AttributeChanged += Tree_AttributeChanged;
+                //newTree.AttributeSpecChangeEvent += Tree_AttributeSpecChangeEvent;
+
+                newTree.ChangeManager.ChangeRecorded += ChangeManager_ChangeRecorded;
 
                 UpdateFontControl(newTree.SelectedNodes);
-                UpdateUndoGroup(newTree);
+                UpdateUndoGroup(newTree.ChangeManager);
             }
             else
             {
                 ClearFontControl();
             }
             
+        }
+
+        private void ChangeManager_ChangeRecorded(Modules.Undo.ChangeManager changeManager, Modules.Undo.IChange change)
+        {
+            UpdateUndoGroup(changeManager);
         }
 
         private void Tree_NodePropertyChanged(MapNode node, NodePropertyChangedEventArgs e)
@@ -1163,29 +1172,29 @@ namespace MindMate.View.Ribbon
                 {
                     UpdateFontControl(node.Tree.SelectedNodes);
                 }
-                UpdateUndoGroup(node.Tree);
+                UpdateUndoGroup(node.Tree.ChangeManager);
             }
         }
 
-        private void Tree_IconChanged(MapNode node, IconChangedEventArgs arg2)
-        {
-            UpdateUndoGroup(node.Tree);
-        }
+        //private void Tree_IconChanged(MapNode node, IconChangedEventArgs arg2)
+        //{
+        //    UpdateUndoGroup(node.Tree);
+        //}
 
-        private void Tree_TreeStructureChanged(MapNode node, TreeStructureChangedEventArgs arg2)
-        {
-            UpdateUndoGroup(node.Tree);
-        }
+        //private void Tree_TreeStructureChanged(MapNode node, TreeStructureChangedEventArgs arg2)
+        //{
+        //    UpdateUndoGroup(node.Tree);
+        //}
 
-        private void Tree_AttributeChanged(MapNode node, AttributeChangeEventArgs arg2)
-        {
-            UpdateUndoGroup(node.Tree);
-        }
+        //private void Tree_AttributeChanged(MapNode node, AttributeChangeEventArgs arg2)
+        //{
+        //    UpdateUndoGroup(node.Tree);
+        //}
 
-        private void Tree_AttributeSpecChangeEvent(MapTree.AttributeSpec aSpec, MapTree.AttributeSpecEventArgs e)
-        {
-            UpdateUndoGroup(aSpec.Tree);
-        }
+        //private void Tree_AttributeSpecChangeEvent(MapTree.AttributeSpec aSpec, MapTree.AttributeSpecEventArgs e)
+        //{
+        //    UpdateUndoGroup(aSpec.Tree);
+        //}
 
         private void SelectedNodes_NodeSelected(MapNode node, SelectedNodes selectedNodes)
         {
@@ -1223,10 +1232,10 @@ namespace MindMate.View.Ribbon
             RichFont.Size = 0;
         }
 
-        private void UpdateUndoGroup(MapTree tree)
+        private void UpdateUndoGroup(Modules.Undo.ChangeManager changeManager)
         {
-            Undo.Enabled = tree.ChangeManager.CanUndo;
-            Redo.Enabled = tree.ChangeManager.CanRedo;
+            Undo.Enabled = changeManager.CanUndo;
+            Redo.Enabled = changeManager.CanRedo;
         }
 
         private void ClipboardManager_StatusChanged()

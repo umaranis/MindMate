@@ -93,6 +93,9 @@ namespace MindMate.Modules.Undo
             {
                 redoStack.Push(change);
             }
+
+
+            if (ChangeRecorded != null) { ChangeRecorded(this, change); }
         }
 
         private void Tree_TreeStructureChanged(MapNode node, TreeStructureChangedEventArgs e)
@@ -165,5 +168,11 @@ namespace MindMate.Modules.Undo
         }
 
         #endregion Batch Changes
+
+        /// <summary>
+        /// Event fired after the change is recorded by the change manager.
+        /// This event is used by Ribbon to enable/disable undo and redo buttons (Tree change events cannot be used for this purpose because we cannot know the order of execution of event handlers i.e. ChangeManager handler and Ribbon handler).
+        /// </summary>
+        public event Action<ChangeManager, IChange> ChangeRecorded;
     }
 }
