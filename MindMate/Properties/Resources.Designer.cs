@@ -373,6 +373,26 @@ namespace MindMate.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap icons8_html_filetype_16 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_html_filetype_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap icons8_html_filetype_32 {
+            get {
+                object obj = ResourceManager.GetObject("icons8_html_filetype_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap image_align_after {
             get {
                 object obj = ResourceManager.GetObject("image_align_after", resourceCulture);

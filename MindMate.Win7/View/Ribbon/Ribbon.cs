@@ -42,6 +42,7 @@ namespace MindMate.View.Ribbon
             SaveAll.ExecuteEvent += SaveAll_ExecuteEvent;
             ExportAsPNG.ExecuteEvent += ExportAsPNG_ExecuteEvent;
             ExportAsJPG.ExecuteEvent += ExportAsJPG_ExecuteEvent;
+            ExportAsHTML.ExecuteEvent += (o, e) => mainCtrl.ExportAsHtml();
             Close.ExecuteEvent += Close_ExecuteEvent;
 
             RecentItems.RecentItems = CreateRecentItemsList();
@@ -243,6 +244,8 @@ namespace MindMate.View.Ribbon
         /// </summary>
         public void OnRibbonLoaded()
         {
+            ExportAsHTML.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.icons8_html_filetype_32);
+            ExportAsHTML.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.icons8_html_filetype_16);
 			InsertImage.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Add_Image_32);
 			InsertImage.SmallImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Add_Image_16);
             RemoveImage.LargeImage = ribbon.ConvertToUIImage(MindMate.Properties.Resources.Remove_Image_32);

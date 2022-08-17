@@ -26,6 +26,7 @@ namespace MindMate.View.Ribbon
 		Export = 1010,		
 		ExportAsPNG = 1008,		
 		ExportAsJPG = 1009,		
+		ExportAsHTML = 1011,		
 		Close = 1005,		
 		ButtonExit = 1004,		
 		RecentItems = 1020,		

@@ -171,7 +171,7 @@ namespace MindMate.Serialization
                         {
                             if (!entry.Name.Equals(MAPXMLFILE))
                             {
-                                list.Add(entry.Name);
+                                list.Add(entry.FullName);
                             }
                         }
                     }

@@ -264,7 +264,30 @@ namespace MindMate.Controller
                 }
             }
         }
-        
+
+        public void ExportAsHtml()
+        {
+            try
+            {
+
+
+                SaveFileDialog file = new SaveFileDialog();
+                file.AddExtension = true;
+                file.DefaultExt = "html";
+                file.Filter = "HTML (*.html)|*.html|All files (*.*)|*.*";
+                if (file.ShowDialog() == DialogResult.OK)
+                {
+                    var serializer = new HtmlSerializer();
+                    serializer.Serialize(PersistenceManager.CurrentTree, file.FileName);
+                }
+            }
+            catch(Exception exp)
+            {
+                Log.Write("Couldn't export to HTML: " + exp.Message);
+                MessageBox.Show("Export to HTML failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         public void ShowAboutBox()
         {
             new AboutBox().ShowDialog();

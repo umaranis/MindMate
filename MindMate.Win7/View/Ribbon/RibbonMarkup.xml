@@ -39,6 +39,7 @@
     <Command Name="ExportAsJPG" Id="1009" LabelTitle="As Image (JPG)" LabelDescription="Jpeg file format" >
       <Command.LargeImages><Image>Res/JPG Filled-32.bmp</Image></Command.LargeImages>
     </Command>
+    <Command Name="ExportAsHTML" Id="1011" LabelTitle="As HTML" LabelDescription="HTML file format" />
     <Command Name="Close" Id="1005" LabelTitle="Close" LabelDescription="Close Mind Map" TooltipTitle="Close" TooltipDescription="Close current Mind Map">
       <Command.LargeImages><Image>Res/Close3.bmp</Image></Command.LargeImages>
       <Command.SmallImages><Image>Res/Close4.bmp</Image></Command.SmallImages>
@@ -518,6 +519,7 @@ The settings will apply on the current document. Each document can have their ow
               <MenuGroup Class='MajorItems'>
                 <Button CommandName='ExportAsPNG' />
                 <Button CommandName='ExportAsJPG' />
+                <Button CommandName='ExportAsHTML' />
               </MenuGroup>
             </DropDownButton>
           </MenuGroup>

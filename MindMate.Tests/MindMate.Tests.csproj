@@ -95,6 +95,7 @@
     <Compile Include="Serialization\MapZipSerializerTests.cs" />
     <Compile Include="Serialization\PersistentTreeTests.cs" />
     <Compile Include="Serialization\MapTextSerializerTests.cs" />
+    <Compile Include="Serialization\HtmlSerializerTests.cs" />
     <Compile Include="View\MapControls\MapViewFormatPainterTests.cs" />
     <Compile Include="View\MapControls\MapViewPanelTests.cs" />
     <Compile Include="View\MapControls\MapViewTests_GetMapNodeFromPoint_AlgoVer1.cs" />
@@ -163,6 +164,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Feature Display2.mm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Feature Display3.mm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Flags.mm">

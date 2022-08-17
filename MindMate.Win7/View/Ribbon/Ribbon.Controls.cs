@@ -26,6 +26,7 @@ namespace MindMate.View.Ribbon
 		private RibbonDropDownButton Export;		
 		private RibbonButton ExportAsPNG;		
 		private RibbonButton ExportAsJPG;		
+		private RibbonButton ExportAsHTML;		
 		private RibbonButton Close;		
 		private RibbonButton ButtonExit;		
 		private RibbonTab TabHome;		
@@ -223,6 +224,7 @@ namespace MindMate.View.Ribbon
 			Export = new RibbonDropDownButton(ribbon, (uint)RibbonMarkupCommands.Export);
 			ExportAsPNG = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ExportAsPNG);
 			ExportAsJPG = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ExportAsJPG);
+			ExportAsHTML = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ExportAsHTML);
 			Close = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.Close);
 			ButtonExit = new RibbonButton(ribbon, (uint)RibbonMarkupCommands.ButtonExit);
 			TabHome = new RibbonTab(ribbon, (uint)RibbonMarkupCommands.TabHome);

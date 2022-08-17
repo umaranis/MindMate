@@ -133,6 +133,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Serialization\HtmlSerializer.cs" />
     <Compile Include="Serialization\MapZipSerializer.cs" />
     <Compile Include="Controller\DefaultFormatSettingsCtrl.cs" />
     <Compile Include="View\Dialogs\DefaultFormatSettings.cs">
@@ -627,6 +628,8 @@
     <None Include="Resources\image_align_before.png" />
     <None Include="Resources\image_align_bottom.png" />
     <Content Include="Resources\html-clean-32.png" />
+    <None Include="Resources\icons8-html-filetype-16.png" />
+    <None Include="Resources\icons8-html-filetype-32.png" />
     <Content Include="Serialization\MapYamlSerializer.Generated.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MapYamlSerializer.Generated.cs</LastGenOutput>
