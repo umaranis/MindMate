@@ -16,7 +16,7 @@ namespace MindMate.Serialization
         /// </summary>
         /// <param name="tree">PersistentTree instead of MapTree because on PersistentTree we can do LoadAllLargeObjects (MapTree could be lazy loaded and doesn't have the logic to load from disk)</param>
         /// <param name="filePath"></param>
-        public void Serialize(PersistentTree tree, string filePath)
+        public void Serialize(MapTree tree, string filePath)
         {
             tree.LoadAllLargeObjects();
             using (StreamWriter file = new StreamWriter(filePath, append: false))
@@ -57,6 +57,7 @@ namespace MindMate.Serialization
             file.Write("<div>");
             SerializeIcons(file, node, filesDir);            
             file.Write(node.Text);
+            SerializeLink(file, node, filesDir);
             SerializeImage(file, node, filesDir);
             SerializeNote(file, node, filesDir);
             file.Write("</div>");
@@ -80,6 +81,18 @@ namespace MindMate.Serialization
             {
                 var icon = MetaModel.MetaModel.Instance.GetIcon(i);
                 file.Write($"<img src='{filesDir + "/system/" + icon.Name + ".png"}' alt='{icon.Title}' width='16' height='16' class='icon'>");
+            }
+        }
+
+        private void SerializeLink(StreamWriter file, MapNode node, string filesDir)
+        {
+            if(node.HasLink)
+            {
+                file.Write("<span class='node-link'>(");
+                file.Write($"<img src='{filesDir + "/system/" + node.GetLinkType().ToString() + ".png"}' alt='link' width='16' height='16' class='icon'>");
+                var linkText = !node.Text.Equals(node.Link) ? node.Link : "link";
+                file.Write("<a href='" + node.Link + "'>" + linkText + "</a>");
+                file.Write(")</span>");
             }
         }
 
@@ -159,6 +172,14 @@ header {
 .note-icon {
   margin-right: 0.2em;
 }
+
+.node-link {
+  margin-left: 0.3em;
+}
+
+.node-link > .icon {
+    padding-left: 0.2em; 
+}
 ");
             }
 
@@ -188,6 +209,16 @@ header {
             }
 
             MindMate.Properties.Resources.sticky_note_pin.Save(filesDir + "/system/note.png", ImageFormat.Png);
+
+            MindMate.Properties.Resources.LinkLocal.Save(filesDir + "/system/MindMapNode.png", ImageFormat.Png);
+            MindMate.Properties.Resources.LinkWeb.Save(filesDir + "/system/InternetLink.png", ImageFormat.Png); ;
+            MindMate.Properties.Resources.LinkEmail.Save(filesDir + "/system/EmailLink.png", ImageFormat.Png); ;
+            MindMate.Properties.Resources.LinkExecutable.Save(filesDir + "/system/Executable.png", ImageFormat.Png); ;
+            MindMate.Properties.Resources.LinkImage.Save(filesDir + "/system/ImageFile.png", ImageFormat.Png); ;
+            MindMate.Properties.Resources.LinkVideo.Save(filesDir + "/system/VideoFile.png", ImageFormat.Png); ;
+            MindMate.Properties.Resources.LinkFolder.Save(filesDir + "/system/Folder.png", ImageFormat.Png); ;
+            MindMate.Properties.Resources.LinkFile.Save(filesDir + "/system/File.png", ImageFormat.Png); ;
+
         }
 
         private string CreateDirectories(string filePath)

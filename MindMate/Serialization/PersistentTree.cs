@@ -241,8 +241,10 @@ namespace MindMate.Serialization
         /// Large Objects are loaded on demand by PersistentTree, by default. This method forces to preload all of them.
         /// This is useful when making a copy of the map (like in Save As)
         /// </summary>
-        public void LoadAllLargeObjects()
+        public override void LoadAllLargeObjects()
         {
+            if (FileName == null) return; //this map is not saved yet, no large objects to load
+
             var ser = new MapZipSerializer();
             List<string> keys = ser.DeserializeAllLargeObjectKeys(FileName);
             foreach (var key in keys)

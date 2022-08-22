@@ -482,6 +482,15 @@ namespace MindMate.Model
 
         #endregion Default Node Formatting / Theme
 
+        /// <summary>
+        /// This method is to ensure that all large objects are loaded.
+        /// Not applicable to MapTree but some dervied classes of MapTree may lazy load large objects (for example, PersistentTree). 
+        /// </summary>
+        public virtual void LoadAllLargeObjects()
+        {
+
+        }
+
 
         /// <summary>
         /// Used for creating isolated MapNode(s)

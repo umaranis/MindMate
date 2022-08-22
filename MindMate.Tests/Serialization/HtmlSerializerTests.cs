@@ -12,14 +12,14 @@ namespace MindMate.Tests.Serialization
         [TestMethod]
         public void CreateFile()
         {
-            var sut = new HtmlSerializer();
-
+            MetaModel.MetaModel.Initialize();
             var tree = new PersistenceManager().NewTree();
             var root = new MapNode(tree, "Center");
             new MapNode(root, "c1");
             new MapNode(root, "c2");
             new MapNode(root, "c3");
 
+            var sut = new HtmlSerializer();
             sut.Serialize(tree, "HtmlSerializerTests_1.html");
             Assert.IsTrue(File.Exists("HtmlSerializerTests_1.html"));
         }
@@ -28,8 +28,11 @@ namespace MindMate.Tests.Serialization
         public void ExportBigFile()
         {
             MetaModel.MetaModel.Initialize();
-            var m = new PersistenceManager();
-            var tree = m.OpenTree(@"Resources\Sample Map.mm");
+
+            MindMapSerializer s = new MindMapSerializer();
+            string originalText = File.ReadAllText(@"Resources\Sample Map.mm");
+            MapTree tree = new MapTree();
+            s.Deserialize(originalText, tree);
 
             var sut = new HtmlSerializer();
             sut.Serialize(tree, "HtmlSerializerTests_1.html");
@@ -48,7 +51,29 @@ namespace MindMate.Tests.Serialization
             var sut = new HtmlSerializer();
             sut.Serialize(tree, "HtmlSerializerTests_2.html");
 
-            //TOOD: Assert.IsTrue(File.ReadAllText("HtmlSerializerTests_2.html").Contains("sample data for testing purposes"));
+            string output = File.ReadAllText("HtmlSerializerTests_2.html");
+            Assert.IsTrue(output.Contains("FIFA World Cup"));   // note
+            Assert.IsTrue(output.Contains("ksmiletris.png"));   // icon
+            Assert.IsTrue(output.Contains("ImageLob-"));        // image
+            Assert.IsTrue(output.Contains("BytesLob-"));    // image in a note
+
+        }
+
+        [TestMethod]
+        public void CompleteFeatureTest2()
+        {
+            MetaModel.MetaModel.Initialize();
+            var m = new PersistenceManager();
+            var tree = m.OpenTree(@"Resources\Feature Display Test.mm");
+
+            var sut = new HtmlSerializer();
+            sut.Serialize(tree, "HtmlSerializerTests_3.html");
+
+            string output = File.ReadAllText("HtmlSerializerTests_3.html");
+            Assert.IsTrue(output.Contains("Umar Anis"));        // node text            
+            Assert.IsTrue(output.Contains("FIFA World Cup"));   // note            
+            Assert.IsTrue(output.Contains("ImageLob-"));        // image
+            Assert.IsTrue(output.Contains("BytesLob-"));        // image in a note
 
         }
     }

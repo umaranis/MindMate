@@ -160,6 +160,9 @@
     <None Include="Resources\DefaultSettings.Yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Feature Display Test.mm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\Feature Display.mm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
