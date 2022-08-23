@@ -19,7 +19,7 @@ after_test:
 
   # generate report for MSTest testing framework:
   #- cmd: packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -register:user -filter:"+[*]*" -target:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe" -targetargs:"/testcontainer:MindMate.Tests/bin/debug/MindMate.Tests.dll" -output:coverage.xml
-  - cmd: packages\coveralls.io.1.4.2\tools\coveralls.net.exe --opencover coverage.xml
+  - cmd: packages\coveralls.io.1.4.2\tools\coveralls.net.exe --opencover coverage.xml --debug
 
 test_script:
   - cmd: packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -register -filter:"+[MindMate*]*" -target:"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstest.console.exe" -targetargs:"/logger:Appveyor MindMate.Tests/bin/debug/MindMate.Tests.dll" -excludebyattribute:*.ExcludeFromCodeCoverage* -output:coverage.xml
