@@ -30,7 +30,7 @@
         {
             this.toolStrip1 = new Toolbar();
             this.menuStrip = new MainMenu();
-            this.statusStrip1 = new View.StatusBar();
+            this.statusStrip1 = new MindMate.WinFormsUI.StatusBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
@@ -74,7 +74,7 @@
         #endregion
 
         private MainMenu menuStrip;
-        public View.StatusBar statusStrip1;
+        public MindMate.WinFormsUI.StatusBar statusStrip1;
         internal System.Windows.Forms.SplitContainer splitContainer1;
         private Toolbar toolStrip1;
     }

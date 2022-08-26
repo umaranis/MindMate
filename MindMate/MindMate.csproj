@@ -113,7 +113,6 @@
     <Compile Include="Controller\ContextMenuCtrl.cs" />
     <Compile Include="Controller\MainCtrl.cs" />
     <Compile Include="Controller\MapViewKeyEventHandler.cs" />
-    <Compile Include="Controller\WinFormsStatusBarCtrl.cs" />
     <Compile Include="Controller\StatusBarCtrl.cs" />
     <Compile Include="Controller\INoteEditor.cs" />
     <Compile Include="Model\TreeFormat.cs" />
@@ -143,6 +142,7 @@
       <DependentUpon>DefaultFormatSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Dialogs\DialogManager.cs" />
+    <Compile Include="View\IStatusBar.cs" />
     <Compile Include="View\MapControls\ICanvasContainer.cs" />
     <Compile Include="View\MapControls\ImageView.cs" />
     <Compile Include="View\NoteEditing\HtmlCodeCleaner.cs" />
@@ -402,9 +402,6 @@
       <DependentUpon>SearchControl.cs</DependentUpon>
     </Compile>
     <Compile Include="View\SideTabControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="View\StatusBar.cs">
       <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="Plugins\Tasks\Calender\MindMateCalender.resx">

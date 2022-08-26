@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -124,6 +124,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MindMate.WinFormsUI\MindMate.WinFormsUI.csproj">
+      <Project>{305b6e8d-8936-4d57-b4ac-6059d27e6a1a}</Project>
+      <Name>MindMate.WinFormsUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MindMate\MindMate.csproj">
       <Project>{5940ee6d-1ef0-4745-9983-ba0f9b9fd5cd}</Project>
       <Name>MindMate</Name>
