@@ -423,7 +423,6 @@
     <EmbeddedResource Include="View\NoteEditing\HtmlSourceDialog.resx">
       <DependentUpon>HtmlSourceDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\NoteEditor.resx" />
     <EmbeddedResource Include="View\Search\SearchControl.resx">
       <DependentUpon>SearchControl.cs</DependentUpon>
     </EmbeddedResource>
