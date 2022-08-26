@@ -43,7 +43,11 @@ namespace MindMate.Controller
         private void Search()
         {
             SearchTerm searchTerm = SearchControl.CreateSearchTerm();
-            if (searchTerm.IsEmpty) return;
+            if (searchTerm.IsEmpty)
+            {
+                SearchControl.ClearResults();
+                return;
+            }
             int instanceID = ++CurrentSearchID;
             MapTree tree = GetCurrentMapTree();            
             ScheduleParallelTask(() =>
