@@ -1,10 +1,10 @@
 Please use following tags in your commit message:
-- feature
+- feat (or feature)
 - bug
 - test
 - build
-- performance
+- perf (or performance)
 - refactor
 - docs
 
-Example: [feature] added functionality for task reminders
+Example: [feat] added functionality for task reminders
