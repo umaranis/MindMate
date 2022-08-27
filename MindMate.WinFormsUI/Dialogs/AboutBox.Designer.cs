@@ -1,4 +1,4 @@
-﻿namespace MindMate.View.Dialogs
+﻿namespace MindMate.WinFormsUI.Dialogs
 {
     partial class AboutBox
     {
@@ -98,7 +98,7 @@
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(271, 17);
             this.labelVersion.TabIndex = 0;
-            this.labelVersion.Text = "Version: 0.0.1 (Pre Beta)";
+            this.labelVersion.Text = "Version: 0.0.7 (Beta)";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelCopyright
@@ -122,7 +122,7 @@
             this.labelCompanyName.Name = "labelCompanyName";
             this.labelCompanyName.Size = new System.Drawing.Size(271, 17);
             this.labelCompanyName.TabIndex = 22;
-            this.labelCompanyName.Text = "Contact: syed.umar.anis@gmail.com ";
+            this.labelCompanyName.Text = "Email: mail@umaranis.com";
             this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // textBoxDescription

@@ -322,12 +322,6 @@
     <Compile Include="Serialization\PersistenceManager.cs" />
     <Compile Include="Serialization\PersistentTree.cs" />
     <Compile Include="Serialization\SerializedAttribute.cs" />
-    <Compile Include="View\Dialogs\AboutBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\Dialogs\AboutBox.Designer.cs">
-      <DependentUpon>AboutBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="View\Dialogs\IconSelectorExt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -460,10 +454,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Plugins\Tasks\TaskList\TaskView.resx">
       <DependentUpon>TaskView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\Dialogs\AboutBox.resx">
-      <DependentUpon>AboutBox.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Dialogs\IconSelectorExt.resx">
       <DependentUpon>IconSelectorExt.cs</DependentUpon>

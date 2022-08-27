@@ -272,12 +272,7 @@ namespace MindMate.Controller
                 Log.Write("Couldn't export to HTML: " + exp.Message);
                 MessageBox.Show("Export to HTML failed", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        public void ShowAboutBox()
-        {
-            new AboutBox().ShowDialog();
-        }
+        }        
 
         public void SetMapViewBackColor(System.Drawing.Color color)
         {

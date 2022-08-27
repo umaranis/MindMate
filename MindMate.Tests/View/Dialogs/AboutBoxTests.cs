@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.View.Dialogs;
+using MindMate.WinFormsUI.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;

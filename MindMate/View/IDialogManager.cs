@@ -17,5 +17,7 @@ namespace MindMate.View
         string ShowInputBox(string question, string caption = null);
         void ShowMessageBox(string title, string msg, MessageBoxIcon icon);
         void ShowStatusNotification(string msg);
+
+        void ShowAboutBox();
     }
 }
