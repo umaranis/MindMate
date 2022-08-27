@@ -1,4 +1,5 @@
 ﻿using MindMate.Model;
+using MindMate.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MindMate.View.Dialogs
+namespace MindMate.WinFormsUI.Dialogs
 {
     public partial class DefaultFormatSettings : Form
     {

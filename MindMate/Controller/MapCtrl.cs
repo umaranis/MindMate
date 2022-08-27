@@ -17,7 +17,6 @@ using MindMate.Modules.Logging;
 using MindMate.Plugins.Tasks.Model;
 using MindMate.Serialization;
 using MindMate.View;
-using MindMate.View.Dialogs;
 using MindMate.View.MapControls;
 
 namespace MindMate.Controller
@@ -1694,15 +1693,7 @@ namespace MindMate.Controller
         public void SetDefaultFormatDialog()
         {
             RunCommand("Set Default Format Dialog", true, () => {
-
-                var form = new DefaultFormatSettings(this.dialogs);
-                var controller = new DefaultFormatSettingsCtrl();
-                controller.UpdateSettingsFromMapTree(this.tree, form);
-                if (this.dialogs.ShowDefaultFormatSettingsDialog(form) == DialogResult.OK)
-                {
-                    controller.UpdateMapTreeFromSettings(this.tree, form);
-                }
-
+                dialogs.ShowDefaultFormatSettingsDialog(this.tree);
             });            
         }
 

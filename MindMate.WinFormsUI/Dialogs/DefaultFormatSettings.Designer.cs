@@ -1,5 +1,5 @@
 ﻿
-namespace MindMate.View.Dialogs
+namespace MindMate.WinFormsUI.Dialogs
 {
     partial class DefaultFormatSettings
     {

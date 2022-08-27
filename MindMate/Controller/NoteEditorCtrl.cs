@@ -1,6 +1,5 @@
 ﻿using MindMate.Serialization;
 using MindMate.View;
-using MindMate.View.Dialogs;
 using MindMate.View.NoteEditing;
 using mshtml;
 using System;

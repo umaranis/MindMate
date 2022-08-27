@@ -1,5 +1,5 @@
 ﻿using MindMate.Controller;
-using MindMate.View.Dialogs;
+using MindMate.Model;
 using MindMate.View.MapControls;
 using System.Drawing;
 using System.Windows.Forms;
@@ -13,7 +13,7 @@ namespace MindMate.View
         string GetImageFile();
         bool SeekDeleteConfirmation(string msg);
         Color ShowColorPicker(Color currentColor);
-        DialogResult ShowDefaultFormatSettingsDialog(DefaultFormatSettings form);
+        void ShowDefaultFormatSettingsDialog(MapTree tree);
         Font ShowFontDialog(Font currentFont);
         string ShowInputBox(string question, string caption = null);
         void ShowMessageBox(string title, string msg, MessageBoxIcon icon);
