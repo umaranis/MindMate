@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace MindMate.WinFormsUI.Dialogs
 {
@@ -118,6 +119,23 @@ namespace MindMate.WinFormsUI.Dialogs
         public void ShowAboutBox()
         {
             new AboutBox().ShowDialog();
+        }
+
+        public bool LinkManualEditDialog(ref string link)
+        {
+            LinkManualEdit frm = new LinkManualEdit();
+            frm.LinkText = link;
+
+            if(frm.ShowDialog() == DialogResult.OK)
+            {
+                link = frm.LinkText;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+                
         }
 
     }

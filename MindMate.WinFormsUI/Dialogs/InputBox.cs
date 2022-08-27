@@ -12,25 +12,28 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MindMate.View.Dialogs
+namespace MindMate.WinFormsUI.Dialogs
 {
-    public partial class LinkManualEdit : Form
+    public partial class InputBox : Form
     {
-        public LinkManualEdit()
+        public InputBox(string question, string caption = null)
         {
             InitializeComponent();
+            this.lblQuestion.Text = question;
+            if(caption != null) Text = caption;
         }
 
-        public string LinkText
+        public string Answer
         {
             get
             {
-                return textBox1.Text;
+                return txtAnswer.Text;
             }
             set
             {
-                textBox1.Text = value;
+                txtAnswer.Text = value;
             }
         }
+        
     }
 }

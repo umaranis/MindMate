@@ -66,12 +66,11 @@ namespace MindMate.Controller
             if (tree.SelectedNodes.Count > 0)
             {
                 MapNode node = MapView.SelectedNodes.First;
-
-                LinkManualEdit frm = new LinkManualEdit();
-                frm.LinkText = node.Link;
-                if (frm.ShowDialog() == DialogResult.OK)
+                string link = node.Link;
+                bool success = dialogs.LinkManualEditDialog(ref link);
+                if (success)
                 {
-                    AddHyperlink(frm.LinkText == "" ? null : frm.LinkText);
+                    AddHyperlink(link == "" ? null : link);
                 }
             }
         }
