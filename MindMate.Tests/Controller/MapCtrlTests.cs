@@ -2143,11 +2143,14 @@ namespace MindMate.Tests.Controller
             var form = new System.Windows.Forms.Form();
             MetaModel.MetaModel.Initialize();
             DialogManager dialogs = A.Fake<DialogManager>();
-            A.CallTo(dialogs).Where(call => call.Method.Name == "ShowDefaultFormatSettingsDialog").WithReturnType<DialogResult>().Invokes(a =>
+            A.CallTo(dialogs).Where(call => call.Method.Name == "ShowDefaultFormatSettingsDialog").Invokes(a =>
             {
-                var f = (DefaultFormatSettings)a.Arguments[0];
-                f.Prop_NodeShape = NodeShape.Bubble;
-            }).Returns<DialogResult>(DialogResult.OK);
+                DefaultFormatSettings settingsForm = new DefaultFormatSettings(dialogs);
+                var controller = new DefaultFormatSettingsCtrl();
+                controller.UpdateSettingsFromMapTree(tree, settingsForm);
+                settingsForm.Prop_NodeShape = NodeShape.Bubble;
+                controller.UpdateMapTreeFromSettings(tree, settingsForm);
+            });
             MapCtrl mapCtrl = new MapCtrl(new MapView(tree), dialogs, null);
             form.Controls.Add(mapCtrl.MapView.Canvas);
             tree.TurnOnChangeManager();
