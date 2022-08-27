@@ -19,6 +19,7 @@ using MindMate.Modules.Undo;
 using MindMate.View.EditorTabs;
 using MindMate.View.MapControls;
 using MindMate.Modules.Logging;
+using MindMate.View.NoteEditing;
 
 namespace MindMate.Controller
 {
@@ -84,8 +85,9 @@ namespace MindMate.Controller
             NodeContextMenu = new NodeContextMenu();
             mainForm.Load += mainForm_Load;
             mainForm.Shown += mainForm_AfterReady;
+
             // changing side bar tab gives focus away to tab control header, below event focuses relevant control again
-            mainForm.SideBarTabs.SelectedIndexChanged += SideBarTabs_SelectedIndexChanged;
+            mainForm.SideBarTabs.GotExtraFocus += (s, e) => mainForm.FocusMapView();
         }
 
         void mainForm_Load(object sender, EventArgs e)
@@ -202,17 +204,7 @@ namespace MindMate.Controller
         public void ReturnFocusToMapView()
         {
             mainForm.FocusMapView();
-        }
-
-        private void SideBarTabs_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (mainForm.SideBarTabs.SelectedTab == mainForm.SideBarTabs.NoteTab)
-                mainForm.SideBarTabs.SelectedTab.Controls[0].Focus();
-            else if (mainForm.SideBarTabs.SelectedTab == mainForm.SideBarTabs.SearchTab)
-                mainForm.SideBarTabs.SearchControl.Focus();
-            else
-                mainForm.FocusMapView();
-        }
+        }       
 
         public void ShowApplicationOptions()
         {
@@ -453,8 +445,7 @@ namespace MindMate.Controller
 
         public void StartNoteEditing()
         {
-            mainForm.SideBarTabs.SelectedTab = mainForm.SideBarTabs.NoteTab;
-            mainForm.SideBarTabs.NoteEditor.Focus();
+            mainForm.SideBarTabs.SelectTab(NoteEditor.NoteEditorWindowTitle);
         }
 
 		public void InsertImage()
@@ -468,12 +459,12 @@ namespace MindMate.Controller
 
         public void ViewNoteTab()
         {
-            mainForm.SideBarTabs.SelectedTab = mainForm.SideBarTabs.NoteTab;
+            mainForm.SideBarTabs.SelectTab(NoteEditor.NoteEditorWindowTitle);
         }
 
         public void ViewTaskListTab()
         {
-            mainForm.SideBarTabs.SelectedTab = mainForm.SideBarTabs.TaskListTab;
+            mainForm.SideBarTabs.SelectTab(MindMate.Plugins.Tasks.TaskPlugin.TasksWindowTitle);
         }
 
         #endregion Coordinating actions and dialogs

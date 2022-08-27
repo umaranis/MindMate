@@ -98,7 +98,7 @@ namespace MindMate.Win7
         public View.Ribbon.Ribbon RibbonCtrl { get; set; }
 
         public EditorTabs EditorTabs { get; private set; }
-        public SideTabControl SideBarTabs { get; private set; }
+        public ISideBarControl SideBarTabs { get; private set; }
         public NoteEditor NoteEditor { get; private set; }
 
         public IStatusBar StatusBar { get { return this.statusStrip1; } }
@@ -110,10 +110,12 @@ namespace MindMate.Win7
         
         private void SetupSideBar()
         {
-            SideBarTabs = new SideTabControl();
+            var sideBar = new SideTabControl();
+
+            SideBarTabs = sideBar;
             NoteEditor = SideBarTabs.NoteEditor;
             
-            this.splitContainer1.Panel2.Controls.Add(SideBarTabs);
+            this.splitContainer1.Panel2.Controls.Add(sideBar);
         }
 
         public void InsertMenuItems(MainMenuItem[] menuItems)

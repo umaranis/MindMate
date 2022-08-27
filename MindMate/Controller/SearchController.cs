@@ -16,7 +16,7 @@ namespace MindMate.Controller
     /// </summary>
     public class SearchController
     {
-        private SearchControl SearchControl;
+        private ISearchControl SearchControl;
         private int CurrentSearchID { get; set; }
         private Func<MapTree> GetCurrentMapTree;
         private Action<Action> ScheduleParallelTask;
@@ -27,17 +27,15 @@ namespace MindMate.Controller
         /// <param name="searchControl"></param>
         /// <param name="getCurrentMapTree">delegate which returns the current MapTree</param>
         /// <param name="scheduleParallelTask">This is function is used to schedule tasks to run in a separate thread. The function ensures that the tasks are run in order and never parallel.</param>
-        public SearchController(SearchControl searchControl, Func<MapTree> getCurrentMapTree, Action<Action> scheduleParallelTask)
+        public SearchController(ISearchControl searchControl, Func<MapTree> getCurrentMapTree, Action<Action> scheduleParallelTask)
         {
             GetCurrentMapTree = getCurrentMapTree;
             ScheduleParallelTask = scheduleParallelTask;
             this.SearchControl = searchControl;
 
-            SearchControl.txtSearch.TextChanged += TxtSearch_TextChanged;
-            SearchControl.lstResults.SelectedIndexChanged += LstResults_SelectedIndexChanged;
-            SearchControl.btnSearch.Click += BtnSearch_Click;
-            SearchControl.btnClear.Click += BtnClear_Click;
-            SearchControl.btnSelect.Click += BtnSelect_Click;
+            SearchControl.SearchResultSelected += (s, o) => SearchControl.SelectedResultMapNode.Selected = true;
+            SearchControl.SearchTermChanged += (s, o) => Search();
+            SearchControl.SearchResultAllSelected += SearchControl_SearchResultAllSelected;
         }        
 
         private void Search()
@@ -52,15 +50,13 @@ namespace MindMate.Controller
             MapTree tree = GetCurrentMapTree();            
             ScheduleParallelTask(() =>
             {
-                Action actClear = () => SearchControl.lstResults.Items.Clear();
-                SearchControl.Invoke(actClear);                
+                SearchControl.InvokeInUIThread(SearchControl.ClearResults);                
                 foreach (var n in GetNodesToSearch(tree, searchTerm.SearchSelectedHierarchy))
                 {
                     if (instanceID != CurrentSearchID) return;  //this is to cancel the search if searchTerm has changed
                     if (searchTerm.MatchNode(n)) 
                     {
-                        Action actAdd = () => SearchControl.lstResults.Items.Add(n);
-                        SearchControl.Invoke(actAdd);
+                        SearchControl.InvokeInUIThread(() => SearchControl.AddResult(n));
                     }
                 }                
             });
@@ -78,39 +74,14 @@ namespace MindMate.Controller
             }
         }        
 
-        private void BtnSearch_Click(object sender, EventArgs e)
-        {
-            Search();
-        }
-
-        private void TxtSearch_TextChanged(object sender, EventArgs e)
-        {
-            if(SearchControl.txtSearch.Text.Length > 1)
-                Search();
-        }        
-
-        private void LstResults_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (SearchControl.lstResults.SelectedItem is MapNode node && !node.Detached)
-                node.Selected = true;
-            else
-                SearchControl.lstResults.Items.Remove(SearchControl.lstResults.SelectedItem);
-
-        }
-
-        private void BtnClear_Click(object sender, EventArgs e)
-        {
-            SearchControl.lstResults.Items.Clear();
-        }
-
-        private void BtnSelect_Click(object sender, EventArgs e)
+        private void SearchControl_SearchResultAllSelected(object sender, EventArgs e)
         {
             GetCurrentMapTree().SelectedNodes.Clear();
-            foreach (var n in SearchControl.lstResults.Items)
+            foreach (var n in SearchControl.Results)
             {
                 if (n is MapNode node && !node.Detached)
                     node.AddToSelection();
             }
-        }
+        }        
     }
 }

@@ -723,6 +723,8 @@ namespace MindMate.View.NoteEditing
         {
             GetUndoManager().DiscardFrom(null);
         }
+
+        public const string NoteEditorWindowTitle = "Note Editor";
         
     }
 

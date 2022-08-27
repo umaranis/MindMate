@@ -42,6 +42,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SearchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SearchControl.Designer.cs">
+      <DependentUpon>SearchControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SideTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="StatusBar.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -53,6 +62,11 @@
       <Project>{5940ee6d-1ef0-4745-9983-ba0f9b9fd5cd}</Project>
       <Name>MindMate</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SearchControl.resx">
+      <DependentUpon>SearchControl.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

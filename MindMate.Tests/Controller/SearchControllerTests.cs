@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.Controller;
 using MindMate.Model;
 using MindMate.View.Dialogs;
-using MindMate.View.Search;
+using MindMate.WinFormsUI;
 using System.Linq;
 
 namespace MindMate.Tests.Controller

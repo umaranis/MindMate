@@ -29,6 +29,7 @@ namespace MindMate.Plugins.Tasks
 
         public IPluginManager PluginManager { get; private set; }
 
+        public const string TasksWindowTitle = "Tasks";
 
         public void Initialize(IPluginManager pluginMgr)
         {
@@ -124,7 +125,7 @@ namespace MindMate.Plugins.Tasks
 
         public Control[] CreateSideBarWindows()
         {
-            taskListView.Text = "Tasks";
+            taskListView.Text = TasksWindowTitle;
             return new Control [] { taskListView };
         }
 

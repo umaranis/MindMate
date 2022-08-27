@@ -140,6 +140,10 @@
     <Compile Include="View\NoteEditing\TablePropertyFormTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MindMate.WinFormsUI\MindMate.WinFormsUI.csproj">
+      <Project>{305b6e8d-8936-4d57-b4ac-6059d27e6a1a}</Project>
+      <Name>MindMate.WinFormsUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MindMate.WinXP\MindMate.WinXP.csproj">
       <Project>{0A5B3905-EE9E-41D1-B9C3-A42FE17818F3}</Project>
       <Name>MindMate.WinXP</Name>
