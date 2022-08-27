@@ -13,7 +13,7 @@ using System.Text;
 using System.Windows.Forms;
 using MindMate.MetaModel;
 
-namespace MindMate.View.Dialogs
+namespace MindMate.WinFormsUI.Dialogs
 {
     public partial class IconSelector : Form
     {

@@ -12,6 +12,7 @@ using MindMate.Model;
 using MindMate.View.Dialogs;
 using MindMate.MetaModel;
 using MindMate.View.Search;
+using MindMate.WinFormsUI.Dialogs;
 
 namespace MindMate.WinFormsUI
 {

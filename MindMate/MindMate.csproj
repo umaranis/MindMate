@@ -322,12 +322,6 @@
     <Compile Include="Serialization\PersistenceManager.cs" />
     <Compile Include="Serialization\PersistentTree.cs" />
     <Compile Include="Serialization\SerializedAttribute.cs" />
-    <Compile Include="View\Dialogs\IconSelectorExt.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\Dialogs\IconSelectorExt.Designer.cs">
-      <DependentUpon>IconSelectorExt.cs</DependentUpon>
-    </Compile>
     <Compile Include="MetaModel\ISystemIcon.cs" />
     <Compile Include="View\EditorTabs\EditorTabs.cs">
       <SubType>Component</SubType>
@@ -401,12 +395,6 @@
     <None Include="Settings.Yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="View\Dialogs\IconSelector.cs">
-      <SubType>Form</SubType>
-    </None>
-    <None Include="View\Dialogs\IconSelector.Designer.cs">
-      <DependentUpon>IconSelector.cs</DependentUpon>
-    </None>
     <Compile Include="View\MapControls\NodeView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\MapControls\TextCursorPosition.cs" />
@@ -433,10 +421,6 @@
     <EmbeddedResource Include="Plugins\Tasks\TaskList\TaskView.resx">
       <DependentUpon>TaskView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Dialogs\IconSelectorExt.resx">
-      <DependentUpon>IconSelectorExt.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="View\MapControls\MapViewPanel.resx">
       <DependentUpon>MapViewPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -446,10 +430,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="View\Dialogs\IconSelector.resx">
-      <DependentUpon>IconSelector.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
     <None Include="app.config" />
     <Compile Include="Controller\MapViewMouseEventHandler.cs" />
     <Compile Include="Model\MapNode.cs" />

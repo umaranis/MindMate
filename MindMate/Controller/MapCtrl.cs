@@ -695,19 +695,19 @@ namespace MindMate.Controller
 
         public void AppendIconFromIconSelectorExt()
         {
-
-            if (IconSelectorExt.Instance.ShowDialog() == DialogResult.OK)
+            string selectedIcon;
+            if (dialogs.ShowIconSelector(out selectedIcon))
             {
-                switch (IconSelectorExt.Instance.SelectedIcon)
+                switch (selectedIcon)
                 {
-                    case IconSelectorExt.REMOVE_ICON_NAME:
+                    case "remove":
                         RemoveLastIcon();
                         break;
-                    case IconSelectorExt.REMOVE_ALL_ICON_NAME:
+                    case "removeAll":
                         RemoveAllIcon();
                         break;
                     default:
-                        AppendIcon(IconSelectorExt.Instance.SelectedIcon);
+                        AppendIcon(selectedIcon);
                         break;
                 }
 

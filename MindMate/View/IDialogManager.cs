@@ -24,5 +24,7 @@ namespace MindMate.View
         bool ShowLinkManualEditDialog(ref string link);
 
         bool ShowMultiLineEditDialog(ref string text, TextCursorPosition pos = TextCursorPosition.Undefined);
+
+        bool ShowIconSelector(out string selectedIcon);
     }
 }
