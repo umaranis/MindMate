@@ -398,7 +398,7 @@ namespace MindMate.WinXP
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mainCtrl.ShowApplicationOptions();
+            mainCtrl.CurrentMapCtrl.SetDefaultFormatDialog();
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)

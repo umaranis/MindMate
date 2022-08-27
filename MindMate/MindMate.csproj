@@ -490,17 +490,7 @@
       <DependentUpon>MultiLineNodeEdit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\Dialogs\Options.resx">
-      <DependentUpon>Options.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <None Include="app.config" />
-    <Compile Include="View\Dialogs\Options.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\Dialogs\Options.Designer.cs">
-      <DependentUpon>Options.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controller\MapViewMouseEventHandler.cs" />
     <Compile Include="Model\MapNode.cs" />
     <Compile Include="Model\MapTree.cs" />
