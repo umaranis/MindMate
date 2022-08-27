@@ -14,9 +14,9 @@ namespace MindMate.View.Dialogs
 {
     public partial class DefaultFormatSettings : Form
     {
-        private readonly DialogManager dialogManager;
+        private readonly IDialogManager dialogManager;
 
-        public DefaultFormatSettings(DialogManager dialogManager)
+        public DefaultFormatSettings(IDialogManager dialogManager)
         {
             InitializeComponent();
 

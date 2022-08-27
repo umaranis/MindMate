@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Linq;
 using System.Drawing;
 using MindMate.View.Dialogs;
+using MindMate.WinFormsUI.Dialogs;
 
 namespace MindMate.Tests.Controller
 {

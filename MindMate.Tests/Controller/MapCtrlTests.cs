@@ -17,6 +17,7 @@ using MindMate.Tests.TestDouble;
 using MindMate.View.Dialogs;
 using System.Windows.Forms;
 using MindMate.MetaModel;
+using MindMate.WinFormsUI.Dialogs;
 
 namespace MindMate.Tests.Controller
 {

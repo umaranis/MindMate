@@ -33,7 +33,7 @@ namespace MindMate.Controller
     {
         private View.IMainForm mainForm;
         private Plugins.PluginManager pluginManager;
-        public DialogManager Dialogs { get; private set; }
+        public IDialogManager Dialogs { get; private set; }
 
         public MapCtrl CurrentMapCtrl
         {
@@ -71,7 +71,7 @@ namespace MindMate.Controller
 
 		#region Launch MindMate application
         
-        public void InitMindMate(IMainForm mainForm, DialogManager dialogs)
+        public void InitMindMate(IMainForm mainForm, IDialogManager dialogs)
         {
             this.mainForm = mainForm;
             MetaModel.MetaModel.Initialize();
