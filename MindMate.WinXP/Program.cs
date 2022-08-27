@@ -1,6 +1,5 @@
 ﻿using MindMate.Controller;
 using MindMate.Modules.Logging;
-using MindMate.View.Dialogs;
 using MindMate.WinFormsUI.Dialogs;
 using System;
 using System.Collections.Generic;

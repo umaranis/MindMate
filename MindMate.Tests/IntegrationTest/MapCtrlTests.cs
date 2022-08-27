@@ -12,7 +12,6 @@ using System.Drawing;
 using System.Linq;
 using MindMate.Tests.TestDouble;
 using FakeItEasy;
-using MindMate.View.Dialogs;
 using MindMate.WinFormsUI.Dialogs;
 
 namespace MindMate.Tests.IntegrationTest

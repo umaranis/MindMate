@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.Controller;
 using MindMate.Model;
-using MindMate.View.Dialogs;
 using MindMate.View.MapControls;
 using MindMate.WinFormsUI.Dialogs;
 using System;
