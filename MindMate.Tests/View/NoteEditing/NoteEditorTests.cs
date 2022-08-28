@@ -1,8 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MindMate.View.NoteEditing;
+using MindMate.WinFormsUI.NoteEditing;
 using mshtml;
 using System.Drawing;
 using System.Windows.Forms;
+using MindMate.View;
 
 namespace MindMate.Tests.View.NoteEditing
 {

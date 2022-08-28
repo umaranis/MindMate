@@ -1,6 +1,6 @@
 ﻿using MindMate.Plugins.Tasks.SideBar;
 using MindMate.View;
-using MindMate.View.NoteEditing;
+using MindMate.WinFormsUI.NoteEditing;
 using MindMate.View;
 using System;
 using System.Collections.Generic;
@@ -8,6 +8,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Windows.Forms;
+using MindMate.Controller;
 
 namespace MindMate.WinFormsUI
 {
@@ -31,9 +32,10 @@ namespace MindMate.WinFormsUI
             ImageList = imageList;
 
             //create Note Editor tab in sidebar
-            NoteTab = new TabPage(NoteEditor.NoteEditorWindowTitle) { ImageIndex = 0 };
-            NoteEditor = new NoteEditor { Dock = DockStyle.Fill };
-            NoteTab.Controls.Add(NoteEditor);
+            NoteTab = new TabPage(MainCtrl.NoteEditorWindowTitle) { ImageIndex = 0 };
+            var ctrl = new NoteEditor { Dock = DockStyle.Fill };
+            NoteEditor = ctrl;
+            NoteTab.Controls.Add(ctrl);
             TabPages.Add(NoteTab);
 
             //create Search Tab in sidebar
@@ -58,7 +60,7 @@ namespace MindMate.WinFormsUI
                 GotExtraFocus?.Invoke(this, e);
         }
 
-        public NoteEditor NoteEditor { get; set; }
+        public INoteEditor NoteEditor { get; set; }
 
         public TabPage NoteTab { get; private set; }
 

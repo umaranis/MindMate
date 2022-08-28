@@ -1,7 +1,7 @@
 ﻿using System.Windows.Forms;
 using MindMate.View.MapControls;
-using MindMate.View.NoteEditing;
 using System;
+using MindMate.Controller;
 
 namespace MindMate.View
 {
@@ -11,7 +11,7 @@ namespace MindMate.View
     {
         EditorTabs.EditorTabs EditorTabs { get; }
         bool IsNoteEditorActive { get; }
-        NoteEditor NoteEditor { get; }
+        INoteEditor NoteEditor { get; }
         ISideBarControl SideBarTabs { get; }
         IStatusBar StatusBar { get; }
         string Text { get; set; }
@@ -24,5 +24,7 @@ namespace MindMate.View
         void FocusMapView();
         void InsertMenuItems(Plugins.MainMenuItem[] menuItems);
         void RefreshRecentFilesMenuItems();
+
+        INoteEditorCtrl CreateNoteEditorController(MainCtrl mainCtrl);
     }
 }

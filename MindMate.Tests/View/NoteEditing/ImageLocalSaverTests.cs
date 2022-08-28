@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.Model;
 using MindMate.Serialization;
-using MindMate.View.NoteEditing;
+using MindMate.WinFormsUI.NoteEditing;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

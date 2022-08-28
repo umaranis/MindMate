@@ -6,7 +6,6 @@
 using System;
 using System.Windows.Forms;
 using MindMate.Plugins;
-using MindMate.View.NoteEditing;
 using MindMate.Controller;
 using MindMate.View;
 using MindMate.View.EditorTabs;
@@ -14,7 +13,7 @@ using MindMate.WinFormsUI;
 
 namespace MindMate.Win7
 {
-    public partial class MainForm : Form, View.IMainForm
+    public partial class MainForm : MainFormBase
     {
         private readonly MainCtrl mainCtrl;
         
@@ -22,17 +21,12 @@ namespace MindMate.Win7
         {
             this.mainCtrl = mainCtrl;
             Ribbon = new RibbonLib.Ribbon {ResourceName = "MindMate.Win7.View.Ribbon.RibbonMarkup.ribbon"};
-            InitializeComponent();
             this.Controls.Add(Ribbon);
-            SetupSideBar();
-
-            // moving splitter makes it the focused control, below event focuses the last control again
-            splitContainer1.GotFocus += SplitContainer1_GotFocus; 
             
+            SetupSideBar();
             EditorTabs = new EditorTabs();
             splitContainer1.Panel1.Controls.Add(EditorTabs);
-                       
-            Shown += MainForm_Shown;          
+
 
 #if (Win7)
             //this is required for Windows 7 & 8, otherwise sidebar is not laid out properly
@@ -41,89 +35,20 @@ namespace MindMate.Win7
 #endif            
         }
         
-        #region Manage Focus
-
-        private Control focusedControl;
-        public Control FocusedControl
-        {
-            get
-            {
-                return focusedControl;
-            }
-
-            set
-            {
-                if (focusedControl != value)
-                {
-                    var oldvalue = focusedControl;
-                    focusedControl = value;                    
-                    FocusedControlChanged?.Invoke(value, oldvalue);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Occurs when focus is tranferred to a control which can have permanent focus. NoteEditor and EditorTab can have permanent focus.
-        /// Focus can temporarily transfer to controls like Menu, Ribbon etc., but these are ignored by this event.
-        /// </summary>
-        public event FocusedControlChangeDelegate FocusedControlChanged;        
-
-        private void FocusLastControl()
-        {
-            if (FocusedControl != null)
-                FocusedControl.Focus();
-            else
-                EditorTabs.Focus();
-        }
-
-        public void FocusMapView()
-        {
-            EditorTabs.Focus();
-        }
-
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-            EditorTabs.ControlGotFocus += (a, b) => FocusedControl = EditorTabs;
-            NoteEditor.Document.Focusing += (a, b) => FocusedControl = NoteEditor;
-        }
-
-        private void SplitContainer1_GotFocus(object sender, EventArgs e)
-        {
-            FocusLastControl();
-        }
-
-        #endregion
+        
 
         public RibbonLib.Ribbon Ribbon { get; private set; }
         public View.Ribbon.Ribbon RibbonCtrl { get; set; }
-
-        public EditorTabs EditorTabs { get; private set; }
-        public ISideBarControl SideBarTabs { get; private set; }
-        public NoteEditor NoteEditor { get; private set; }
-
-        public IStatusBar StatusBar { get { return this.statusStrip1; } }
-
-        public bool IsNoteEditorActive
-        {
-            get { return ActiveControl == splitContainer1 && splitContainer1.ActiveControl == NoteEditor; }
-        }
         
-        private void SetupSideBar()
-        {
-            var sideBar = new SideTabControl();
 
-            SideBarTabs = sideBar;
-            NoteEditor = SideBarTabs.NoteEditor;
-            
-            this.splitContainer1.Panel2.Controls.Add(sideBar);
-        }
+        
 
-        public void InsertMenuItems(MainMenuItem[] menuItems)
+        public override void InsertMenuItems(MainMenuItem[] menuItems)
         {
             RibbonCtrl.SetupPluginCommands(menuItems);
         }
 
-        public void RefreshRecentFilesMenuItems()
+        public override void RefreshRecentFilesMenuItems()
         {
             RibbonCtrl.RefreshRecentItemsList();
         }

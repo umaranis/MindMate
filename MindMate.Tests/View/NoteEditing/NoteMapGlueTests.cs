@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MindMate.Model;
 using MindMate.Serialization;
-using MindMate.View.NoteEditing;
+using MindMate.WinFormsUI.NoteEditing;
 
 namespace MindMate.Tests.View
 {

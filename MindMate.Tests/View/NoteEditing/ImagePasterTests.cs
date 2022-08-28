@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.Serialization;
-using MindMate.View.NoteEditing;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -10,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MindMate.WinFormsUI.NoteEditing;
 
 namespace MindMate.Tests.View.NoteEditing
 {

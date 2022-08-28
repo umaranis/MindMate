@@ -18,7 +18,6 @@ using MindMate.Modules.Undo;
 using MindMate.View.EditorTabs;
 using MindMate.View.MapControls;
 using MindMate.Modules.Logging;
-using MindMate.View.NoteEditing;
 
 namespace MindMate.Controller
 {
@@ -47,8 +46,8 @@ namespace MindMate.Controller
 
         public StatusBarCtrl statusBarCtrl;
 
-        private NoteEditorCtrl noteCrtl;
-        public NoteEditorCtrl NoteCrtl
+        private INoteEditorCtrl noteCrtl;
+        public INoteEditorCtrl NoteCrtl
         {
             get
             {
@@ -67,6 +66,7 @@ namespace MindMate.Controller
         }
 
         public const string APPLICATION_NAME = "Mind Mate";
+        public const string NoteEditorWindowTitle = "Note Editor";
 
 		#region Launch MindMate application
         
@@ -125,7 +125,7 @@ namespace MindMate.Controller
                 }
             }
 
-            noteCrtl = new NoteEditorCtrl(mainForm.NoteEditor, PersistenceManager, Dialogs);             
+            noteCrtl = mainForm.CreateNoteEditorController(this);             
 
             pluginManager.InitializeContextMenu(NodeContextMenu);
             
@@ -433,7 +433,7 @@ namespace MindMate.Controller
 
         public void StartNoteEditing()
         {
-            mainForm.SideBarTabs.SelectTab(NoteEditor.NoteEditorWindowTitle);
+            mainForm.SideBarTabs.SelectTab(NoteEditorWindowTitle);
         }
 
 		public void InsertImage()
@@ -447,7 +447,7 @@ namespace MindMate.Controller
 
         public void ViewNoteTab()
         {
-            mainForm.SideBarTabs.SelectTab(NoteEditor.NoteEditorWindowTitle);
+            mainForm.SideBarTabs.SelectTab(NoteEditorWindowTitle);
         }
 
         public void ViewTaskListTab()
