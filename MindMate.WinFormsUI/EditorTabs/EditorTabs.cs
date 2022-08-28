@@ -15,7 +15,7 @@ namespace MindMate.View.EditorTabs
     /// Main Tabs Window for MapView and other view controls.
     /// Passive View: Controller manages events and updating the view from model.
     /// </summary>
-    public sealed class EditorTabs : TabControl
+    public sealed class EditorTabs : TabControl, IEditorTabs
     {
         public EditorTabs()
         {
@@ -55,7 +55,10 @@ namespace MindMate.View.EditorTabs
             Tab tab = new Tab(mapView, tree);
             tab.UpdateTitle();
             OpenTabInternal(tab);
-            mapView.CenterOnForm();
+            
+            // center MapView
+            var canvas = tab.Control;
+            tab.ScrollToPoint((canvas.Width - canvas.Parent.Width) / 2, (canvas.Height - canvas.Parent.Height) / 2);
 
             return tab;
         }
@@ -182,6 +185,10 @@ namespace MindMate.View.EditorTabs
             //base.OnGotFocus(e);
         }
 
+        public MapCtrl CurrentMapCtrl
+        {
+            get => (MapCtrl)this.SelectedTab?.Tag;
+        }
     }    
 
 }

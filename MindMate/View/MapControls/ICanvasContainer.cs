@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MindMate.View.MapControls
 {
-    interface ICanvasContainer
+    public interface ICanvasContainer
     {
         void ScrollToPoint(int x, int y);
     }

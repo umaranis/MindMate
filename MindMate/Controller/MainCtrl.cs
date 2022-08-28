@@ -15,7 +15,6 @@ using MindMate.Model;
 using MindMate.Serialization;
 using System.IO;
 using MindMate.Modules.Undo;
-using MindMate.View.EditorTabs;
 using MindMate.View.MapControls;
 using MindMate.Modules.Logging;
 
@@ -33,14 +32,7 @@ namespace MindMate.Controller
         private Plugins.PluginManager pluginManager;
         public IDialogManager Dialogs { get; private set; }
 
-        public MapCtrl CurrentMapCtrl
-        {
-            get
-            {
-                Tab tab = mainForm.EditorTabs.SelectedTab as Tab;
-                return (MapCtrl)tab?.ControllerTag;
-            }
-        }
+        public MapCtrl CurrentMapCtrl => mainForm.EditorTabs.CurrentMapCtrl;
 
         public ChangeManager ChangeManager { get { return CurrentMapCtrl.MapView.Tree.ChangeManager; } }
 
@@ -77,7 +69,7 @@ namespace MindMate.Controller
             schedular = new TaskScheduler.TaskScheduler();
             PersistenceManager = new PersistenceManager();            
             pluginManager = new Plugins.PluginManager(this);
-            new TabController(this, mainForm);
+            mainForm.SetupTabController(this);
             pluginManager.Initialize();
             Dialogs = dialogs;
             Dialogs.StatusBarCtrl = new StatusBarCtrl(mainForm.StatusBar, PersistenceManager);

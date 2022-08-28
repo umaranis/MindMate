@@ -21,11 +21,21 @@ namespace MindMate.WinFormsUI
         {
             InitializeComponent();
             
+            CreateMenuSystem();
+            
+            SetupSideBar();
+            editorTabs = new EditorTabs();
+            splitContainer1.Panel1.Controls.Add(editorTabs);
+            
             // moving splitter makes it the focused control, below event focuses the last control again
             splitContainer1.GotFocus += SplitContainer1_GotFocus;
             Shown += MainForm_Shown;
         }
-        public EditorTabs EditorTabs { get; protected set; }
+
+        private EditorTabs editorTabs;
+
+        public IEditorTabs EditorTabs => editorTabs;
+        
         public bool IsNoteEditorActive
         {
             get { return ActiveControl == splitContainer1 && splitContainer1.ActiveControl == NoteEditor; }
@@ -35,6 +45,8 @@ namespace MindMate.WinFormsUI
         public INoteEditor NoteEditor { get => noteEditor; private set => noteEditor = (NoteEditor)value; }
         public ISideBarControl SideBarTabs { get; private set; }
         public IStatusBar StatusBar { get { return this.statusStrip1; } }
+
+        public abstract void CreateMenuSystem();
         
         #region Manage Focus
 
@@ -61,17 +73,17 @@ namespace MindMate.WinFormsUI
             if (FocusedControl != null)
                 FocusedControl.Focus();
             else
-                EditorTabs.Focus();
+                editorTabs.Focus();
         }
 
         public void FocusMapView()
         {
-            EditorTabs.Focus();
+            editorTabs.Focus();
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            EditorTabs.ControlGotFocus += (a, b) => FocusedControl = EditorTabs;
+            editorTabs.ControlGotFocus += (a, b) => FocusedControl = editorTabs;
             noteEditor.Document.Focusing += (a, b) => FocusedControl = noteEditor;
         }
 
@@ -104,6 +116,11 @@ namespace MindMate.WinFormsUI
             NoteEditor = sideBar.NoteEditor;
             
             this.splitContainer1.Panel2.Controls.Add(sideBar);
+        }
+
+        public void SetupTabController(MainCtrl mainCtrl)
+        {
+            new TabController(mainCtrl, editorTabs);
         }
         
         private void InitializeComponent()

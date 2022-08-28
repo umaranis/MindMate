@@ -11,50 +11,50 @@ namespace MindMate.Controller
     public class TabController
     {
         private readonly MainCtrl mainCtrl;
-        private readonly IMainForm mainForm;
+        private readonly EditorTabs editorTabs;
 
-        public TabController(MainCtrl mainCtrl, IMainForm mainForm)
+        public TabController(MainCtrl mainCtrl, EditorTabs editorTabs)
         {
             this.mainCtrl = mainCtrl;
-            this.mainForm = mainForm;
+            this.editorTabs = editorTabs;
 
             this.mainCtrl.PersistenceManager.NewTreeCreated += PersistenceManager_NewTreeCreated;
             this.mainCtrl.PersistenceManager.TreeOpened += PersistenceManager_TreeOpened;
             this.mainCtrl.PersistenceManager.TreeClosed += PersistenceManager_TreeClosed;
             this.mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
 
-            this.mainForm.EditorTabs.SelectedIndexChanged += EditorTabsOnSelectedIndexChanged;
+            editorTabs.SelectedIndexChanged += EditorTabsOnSelectedIndexChanged;
         }
 
         private void PersistenceManager_NewTreeCreated(Serialization.PersistenceManager manager, Serialization.PersistentTree e)
         {
-            Tab tab = mainForm.EditorTabs.OpenTab(e);
+            Tab tab = editorTabs.OpenTab(e);
             tab.ControllerTag = new MapCtrl(tab.MapView, mainCtrl.Dialogs, mainCtrl.NodeContextMenu);
         }
 
         private void PersistenceManager_TreeOpened(Serialization.PersistenceManager manager, Serialization.PersistentTree e)
         {
-            Tab tab = mainForm.EditorTabs.OpenTab(e);
+            Tab tab = editorTabs.OpenTab(e);
             tab.ControllerTag = new MapCtrl(tab.MapView, mainCtrl.Dialogs, mainCtrl.NodeContextMenu);
         }
 
         private void PersistenceManager_TreeClosed(Serialization.PersistenceManager manager, Serialization.PersistentTree e)
         {
-            mainForm.EditorTabs.CloseTab(e);
+            editorTabs.CloseTab(e);
         }
 
         private void PersistenceManager_CurrentTreeChanged(Serialization.PersistenceManager manager, Serialization.PersistentTree oldTree, Serialization.PersistentTree newTree)
         {
             if (newTree != null)
             {
-                Tab tab = mainForm.EditorTabs.FindTab(newTree);
-                mainForm.EditorTabs.SelectedTab = tab;
+                Tab tab = editorTabs.FindTab(newTree);
+                editorTabs.SelectedTab = tab;
             }
         }
 
         private void EditorTabsOnSelectedIndexChanged(object sender, EventArgs eventArgs)
         {
-            mainCtrl.PersistenceManager.CurrentTree = (mainForm.EditorTabs.SelectedTab as Tab)?.Tree;
+            mainCtrl.PersistenceManager.CurrentTree = (editorTabs.SelectedTab as Tab)?.Tree;
         }
     }
 }

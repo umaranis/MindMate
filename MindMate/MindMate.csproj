@@ -93,7 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\SearchController.cs" />
-    <Compile Include="Controller\TabController.cs" />
     <Compile Include="MetaModel\ThemeManager.cs" />
     <Compile Include="Debugging\FormDebugHooks.cs" />
     <Compile Include="MetaModel\Icon.cs" />
@@ -130,6 +129,7 @@
     <Compile Include="Serialization\HtmlSerializer.cs" />
     <Compile Include="Serialization\MapZipSerializer.cs" />
     <Compile Include="View\IDialogManager.cs" />
+    <Compile Include="View\IEditorTabs.cs" />
     <Compile Include="View\INoteEditor.cs" />
     <Compile Include="View\INoteEditorCtrl.cs" />
     <Compile Include="View\ISideBarControl.cs" />
@@ -292,15 +292,6 @@
     <Compile Include="Serialization\PersistentTree.cs" />
     <Compile Include="Serialization\SerializedAttribute.cs" />
     <Compile Include="MetaModel\ISystemIcon.cs" />
-    <Compile Include="View\EditorTabs\EditorTabs.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="View\EditorTabs\Tab.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="View\EditorTabs\TabBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="View\IMainForm.cs" />
     <Compile Include="View\MapControls\ContextMenuAttacher.cs" />
     <Compile Include="View\MapControls\Drawing\IView.cs" />
