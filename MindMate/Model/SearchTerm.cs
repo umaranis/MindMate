@@ -18,7 +18,7 @@ namespace MindMate.Model
         public List<string> Icons { get; } = new List<string>();
         public bool MatchAllIcons { get; set; } = true;
 
-        public bool IsEmpty => (String.IsNullOrWhiteSpace(Text) || Text.Length < 2) && Icons.Count <= 0;
+        public bool IsEmpty => String.IsNullOrWhiteSpace(Text) && Icons.Count <= 0;
 
         public bool MatchNode(MapNode n)
         {
