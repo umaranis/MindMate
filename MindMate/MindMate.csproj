@@ -134,6 +134,13 @@
     </Compile>
     <Compile Include="Serialization\HtmlSerializer.cs" />
     <Compile Include="Serialization\MapZipSerializer.cs" />
+    <Compile Include="Controller\DefaultFormatSettingsCtrl.cs" />
+    <Compile Include="View\Dialogs\DefaultFormatSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Dialogs\DefaultFormatSettings.Designer.cs">
+      <DependentUpon>DefaultFormatSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\IDialogManager.cs" />
     <Compile Include="View\ISideBarControl.cs" />
     <Compile Include="View\IStatusBar.cs" />
@@ -377,6 +384,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Plugins\Tasks\Reminder\TaskReminderDialog.resx">
       <DependentUpon>TaskReminderDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Dialogs\DefaultFormatSettings.resx">
+      <DependentUpon>DefaultFormatSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\NoteEditing\HtmlSourceDialog.resx">
       <DependentUpon>HtmlSourceDialog.cs</DependentUpon>

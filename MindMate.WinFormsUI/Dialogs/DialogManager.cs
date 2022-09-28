@@ -1,6 +1,7 @@
 ﻿using MindMate.Controller;
 using MindMate.Model;
 using MindMate.View;
+using MindMate.View.Dialogs;
 using MindMate.View.MapControls;
 using System;
 using System.Collections.Generic;
@@ -103,15 +104,9 @@ namespace MindMate.WinFormsUI.Dialogs
 #if DEBUG
         virtual
 #endif
-        public void ShowDefaultFormatSettingsDialog(MapTree tree)
+        public DialogResult ShowDefaultFormatSettingsDialog(DefaultFormatSettings form)
         {
-            DefaultFormatSettings form = new DefaultFormatSettings(this);
-            var controller = new DefaultFormatSettingsCtrl();
-            controller.UpdateSettingsFromMapTree(tree, form);
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                controller.UpdateMapTreeFromSettings(tree, form);
-            }
+            return form.ShowDialog();
         }
 
         public StatusBarCtrl StatusBarCtrl { get; set; }

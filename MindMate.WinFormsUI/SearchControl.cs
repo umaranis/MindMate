@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MindMate.Controller;
 using MindMate.Model;
+using MindMate.View.Dialogs;
 using MindMate.MetaModel;
 using MindMate.View.Search;
 using MindMate.WinFormsUI.Dialogs;

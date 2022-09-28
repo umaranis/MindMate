@@ -14,6 +14,7 @@ using FakeItEasy;
 using FakeItEasy.ExtensionSyntax.Full;
 using MindMate.Plugins.Tasks.Model;
 using MindMate.Tests.TestDouble;
+using MindMate.View.Dialogs;
 using System.Windows.Forms;
 using MindMate.MetaModel;
 using MindMate.WinFormsUI.Dialogs;

@@ -10,6 +10,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using MindMate.View;
+using MindMate.View.Dialogs;
 using System.Windows.Forms;
 using MindMate.Model;
 using MindMate.Serialization;
