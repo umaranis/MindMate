@@ -10,7 +10,6 @@ using MindMate.View.NoteEditing;
 using MindMate.Controller;
 using MindMate.View;
 using MindMate.View.EditorTabs;
-using MindMate.WinFormsUI;
 
 namespace MindMate.Win7
 {
@@ -101,7 +100,7 @@ namespace MindMate.Win7
         public SideTabControl SideBarTabs { get; private set; }
         public NoteEditor NoteEditor { get; private set; }
 
-        public IStatusBar StatusBar { get { return this.statusStrip1; } }
+        public View.StatusBar StatusBar { get { return this.statusStrip1; } }
 
         public bool IsNoteEditorActive
         {

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.3.32819.101
+# Visual Studio 15
+VisualStudioVersion = 15.0.25618.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MindMate", "MindMate\MindMate.csproj", "{5940EE6D-1EF0-4745-9983-BA0F9B9FD5CD}"
 EndProject
@@ -10,8 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MindMate.Win7", "MindMate.Win7\MindMate.Win7.csproj", "{E7D630E3-91AB-401D-ABC2-279A9D63D91E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MindMate.Tests", "MindMate.Tests\MindMate.Tests.csproj", "{73A1FB99-58AC-4C8D-ACDD-523FEB02E99F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MindMate.WinFormsUI", "MindMate.WinFormsUI\MindMate.WinFormsUI.csproj", "{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,29 +94,8 @@ Global
 		{73A1FB99-58AC-4C8D-ACDD-523FEB02E99F}.RelWin7|Mixed Platforms.Build.0 = Release|Any CPU
 		{73A1FB99-58AC-4C8D-ACDD-523FEB02E99F}.RelWin7|x86.ActiveCfg = Release|Any CPU
 		{73A1FB99-58AC-4C8D-ACDD-523FEB02E99F}.RelWin7|x86.Build.0 = Release|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.Debug|x86.Build.0 = Debug|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.Release|x86.ActiveCfg = Release|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.Release|x86.Build.0 = Release|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.RelWin7|Any CPU.ActiveCfg = Release|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.RelWin7|Any CPU.Build.0 = Release|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.RelWin7|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.RelWin7|Mixed Platforms.Build.0 = Release|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.RelWin7|x86.ActiveCfg = Release|Any CPU
-		{305B6E8D-8936-4D57-B4AC-6059D27E6A1A}.RelWin7|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {1C5D7837-7B18-4B40-A352-CCFC04268092}
 	EndGlobalSection
 EndGlobal

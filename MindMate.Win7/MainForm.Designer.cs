@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.statusStrip1 = new MindMate.WinFormsUI.StatusBar();
+            this.statusStrip1 = new View.StatusBar();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
@@ -69,7 +69,7 @@
 
         #endregion
 
-        public MindMate.WinFormsUI.StatusBar statusStrip1;
+        public View.StatusBar statusStrip1;
         internal System.Windows.Forms.SplitContainer splitContainer1;
     }
 }

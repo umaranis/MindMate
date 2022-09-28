@@ -90,7 +90,7 @@ namespace MindMate.WinXP
         public SideTabControl SideBarTabs { get; private set; }
         public NoteEditor NoteEditor { get; private set; }
 
-        public IStatusBar StatusBar { get { return this.statusStrip1; } }
+        public View.StatusBar StatusBar { get { return this.statusStrip1; } }
 
         public bool IsNoteEditorActive
         {

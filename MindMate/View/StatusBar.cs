@@ -1,13 +1,12 @@
-﻿using MindMate.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MindMate.WinFormsUI
+namespace MindMate.View
 {
-    public class StatusBar : StatusStrip, IStatusBar
+    public class StatusBar : StatusStrip
     {
         public StatusBar()
         {
@@ -53,11 +52,6 @@ namespace MindMate.WinFormsUI
             this.TabIndex = 3;
             this.Text = "statusStrip1";
             this.ResumeLayout(false);
-        }
-
-        public void UpdateText(int position, string text)
-        {
-            this.Items[position].Text = text;
         }
 
         internal System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;

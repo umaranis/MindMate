@@ -104,7 +104,7 @@ namespace MindMate.View.Dialogs
             return form.ShowDialog();
         }
 
-        public StatusBarCtrl StatusBarCtrl { get; set; }
+        public WinFormsStatusBarCtrl StatusBarCtrl { get; set; }
 #if DEBUG
         virtual
 #endif

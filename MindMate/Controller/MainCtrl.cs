@@ -45,7 +45,7 @@ namespace MindMate.Controller
 
         public ChangeManager ChangeManager { get { return CurrentMapCtrl.MapView.Tree.ChangeManager; } }
 
-        public StatusBarCtrl statusBarCtrl;
+        public WinFormsStatusBarCtrl statusBarCtrl;
 
         private NoteEditorCtrl noteCrtl;
         public NoteEditorCtrl NoteCrtl
@@ -80,7 +80,7 @@ namespace MindMate.Controller
             new TabController(this, mainForm);
             pluginManager.Initialize();
             Dialogs = dialogs;
-            Dialogs.StatusBarCtrl = new StatusBarCtrl(mainForm.StatusBar, PersistenceManager);
+            Dialogs.StatusBarCtrl = new WinFormsStatusBarCtrl(mainForm.StatusBar, PersistenceManager);
             NodeContextMenu = new NodeContextMenu();
             mainForm.Load += mainForm_Load;
             mainForm.Shown += mainForm_AfterReady;

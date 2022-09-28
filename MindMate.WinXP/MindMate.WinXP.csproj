@@ -103,10 +103,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MindMate.WinFormsUI\MindMate.WinFormsUI.csproj">
-      <Project>{305b6e8d-8936-4d57-b4ac-6059d27e6a1a}</Project>
-      <Name>MindMate.WinFormsUI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MindMate\MindMate.csproj">
       <Project>{5940ee6d-1ef0-4745-9983-ba0f9b9fd5cd}</Project>
       <Name>MindMate</Name>
