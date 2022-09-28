@@ -34,11 +34,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\MindMate\Binaries\CustomFontDialog.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.mshtml">
-      <HintPath>..\..\..\..\..\..\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\PublicAssemblies\Microsoft.mshtml.dll</HintPath>
-      <Private>False</Private>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\NoteEditorCtrl.cs" />
     <Compile Include="Dialogs\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,57 +89,6 @@
     </Compile>
     <Compile Include="Dialogs\MultiLineNodeEdit.Designer.cs">
       <DependentUpon>MultiLineNodeEdit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainFormBase.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="NoteEditing\HtmlCodeCleaner.cs" />
-    <Compile Include="NoteEditing\HtmlSourceDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="NoteEditing\HtmlSourceDialog.Designer.cs">
-      <DependentUpon>HtmlSourceDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="NoteEditing\HtmlTableProperty.cs" />
-    <Compile Include="NoteEditing\ImageLocalPath.cs" />
-    <Compile Include="NoteEditing\ImageLocalProvider.cs" />
-    <Compile Include="NoteEditing\ImageLocalSaver.cs" />
-    <Compile Include="NoteEditing\ImagePaster.cs" />
-    <Compile Include="NoteEditing\MimeTypes.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\HtmlEditorException.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\HTMLElementHelper.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\HtmlImageCreator.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\HtmlTableHelper.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\IDisplayPointerRaw.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\IHTMLCaretRaw.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\IHTMLEditDesigner.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\IMarkupContainerRaw.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\IMarkupPointer2Raw.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\IMarkupPointerRaw.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\IMarkupServicesRaw.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\IOleUndoManager.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\MarkupContainer.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\MarkupPointer.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\MarkupRange.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\MshtmlMarkupServices.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\SelectionHelper.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\SelectionPreserver.cs" />
-    <Compile Include="NoteEditing\MsHtmlWrap\UndoUnit.cs" />
-    <Compile Include="NoteEditing\NoteEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="NoteEditing\NoteEditor.Designer.cs">
-      <DependentUpon>NoteEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="NoteEditing\NoteEditorContextMenu.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="NoteEditing\NoteMapGlue.cs" />
-    <Compile Include="NoteEditing\PluggableProtocol\ComSupport.cs" />
-    <Compile Include="NoteEditing\PluggableProtocol\EmbeddedProtocol.cs" />
-    <Compile Include="NoteEditing\PluggableProtocol\ProtocolBase.cs" />
-    <Compile Include="NoteEditing\TablePropertyForm.cs">
-      <SubType>Form</SubType>
     </Compile>
     <Compile Include="SearchControl.cs">
       <SubType>UserControl</SubType>
@@ -196,12 +139,10 @@
       <DependentUpon>MultiLineNodeEdit.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="NoteEditing\HtmlSourceDialog.resx">
-      <DependentUpon>HtmlSourceDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SearchControl.resx">
       <DependentUpon>SearchControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

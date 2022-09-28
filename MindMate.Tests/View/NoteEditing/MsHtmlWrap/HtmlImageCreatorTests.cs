@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MindMate.WinFormsUI.NoteEditing;
-using MindMate.WinFormsUI.NoteEditing.MsHtmlWrap;
+using MindMate.View.NoteEditing;
+using MindMate.View.NoteEditing.MsHtmlWrap;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

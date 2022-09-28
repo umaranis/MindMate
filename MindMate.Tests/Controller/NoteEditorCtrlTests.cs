@@ -2,7 +2,7 @@
 using MindMate.Controller;
 using MindMate.Model;
 using MindMate.Serialization;
-using MindMate.WinFormsUI.NoteEditing;
+using MindMate.View.NoteEditing;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,7 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MindMate.WinFormsUI.Controller;
 
 namespace MindMate.Tests.Controller
 {

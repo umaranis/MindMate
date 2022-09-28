@@ -1,4 +1,5 @@
-﻿using MindMate.View;
+﻿using MindMate.View.NoteEditing;
+using MindMate.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,6 @@ namespace MindMate.View
         /// <param name="control">should be a control (not Tab object). The control displayed using DockStyle.Fill</param>
         void AddTab(object control);
 
-        INoteEditor NoteEditor { get; }
+        NoteEditor NoteEditor { get; }
     }
 }

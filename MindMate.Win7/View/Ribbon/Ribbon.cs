@@ -10,7 +10,6 @@ using MindMate.MetaModel;
 using MindMate.Plugins;
 using MindMate.View.EditorTabs;
 using MindMate.Win7.Properties;
-using MindMate.WinFormsUI.NoteEditing;
 using RibbonLib;
 
 namespace MindMate.View.Ribbon
@@ -1319,7 +1318,7 @@ namespace MindMate.View.Ribbon
 
         private void NoteEditor_CursorMoved(object obj)
         {
-            if(mainForm.NoteEditor.InsideTable)
+            if(mainForm.NoteEditor.TableEditor.InsideTable())
             {
                 TabGroupNoteTable.ContextAvailable = ContextAvailability.Available;
             }

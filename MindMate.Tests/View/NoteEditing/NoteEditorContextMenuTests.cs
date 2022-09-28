@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MindMate.WinFormsUI.NoteEditing;
+using MindMate.View.NoteEditing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
