@@ -17,11 +17,6 @@ namespace MindMate.WinFormsUI
 {
     public partial class SearchControl : UserControl, ISearchControl
     {
-        /// <summary>
-        /// Trigger when:
-        /// 1- Search button is pressed
-        /// 2- Any search criteria is changed except Text.length < 2
-        /// </summary>
         public event EventHandler SearchTermChanged;
         public event EventHandler SearchResultSelected;
         public event EventHandler SearchResultAllSelected;
@@ -35,9 +30,7 @@ namespace MindMate.WinFormsUI
             // trigger events
             lstResults.SelectedIndexChanged += (s, e) => SearchResultSelected?.Invoke(s, e);
             btnSearch.Click += (s, e) => SearchTermChanged?.Invoke(s, e);
-            txtSearch.TextChanged += (s, e) => {
-                if (txtSearch.Text.Length > 1) { SearchTermChanged?.Invoke(s, e); }
-            };
+            txtSearch.TextChanged += (s, e) => SearchTermChanged?.Invoke(s, e);
             btnSelect.Click += (s, e) => SearchResultAllSelected?.Invoke(s, e);
         }        
 
