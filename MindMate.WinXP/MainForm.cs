@@ -9,7 +9,6 @@ using MindMate.Plugins;
 using MindMate.View.NoteEditing;
 using MindMate.View;
 using MindMate.View.EditorTabs;
-using MindMate.WinFormsUI;
 
 namespace MindMate.WinXP
 {
@@ -88,7 +87,7 @@ namespace MindMate.WinXP
         public MainMenuCtrl MainMenuCtrl { get; set; }        
 
         public EditorTabs EditorTabs { get; private set; }
-        public ISideBarControl SideBarTabs { get; private set; }
+        public SideTabControl SideBarTabs { get; private set; }
         public NoteEditor NoteEditor { get; private set; }
 
         public IStatusBar StatusBar { get { return this.statusStrip1; } }
@@ -100,12 +99,10 @@ namespace MindMate.WinXP
         
         private void SetupSideBar()
         {
-            var sideBar = new SideTabControl();
-
-            SideBarTabs = sideBar;
+            SideBarTabs = new SideTabControl();
             NoteEditor = SideBarTabs.NoteEditor;
             
-            this.splitContainer1.Panel2.Controls.Add(sideBar);
+            this.splitContainer1.Panel2.Controls.Add(SideBarTabs);
         }
 
         public void InsertMenuItems(MainMenuItem[] menuItems)

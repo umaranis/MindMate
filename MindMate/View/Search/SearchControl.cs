@@ -11,28 +11,15 @@ using MindMate.Controller;
 using MindMate.Model;
 using MindMate.View.Dialogs;
 using MindMate.MetaModel;
-using MindMate.View.Search;
 
-namespace MindMate.WinFormsUI
+namespace MindMate.View.Search
 {
-    public partial class SearchControl : UserControl, ISearchControl
+    public partial class SearchControl : UserControl
     {
-        public event EventHandler SearchTermChanged;
-        public event EventHandler SearchResultSelected;
-        public event EventHandler SearchResultAllSelected;
-
         public SearchControl()
         {
             InitializeComponent();
-
-            btnClear.Click += (o, e) => lstResults.Items.Clear();
-            
-            // trigger events
-            lstResults.SelectedIndexChanged += (s, e) => SearchResultSelected?.Invoke(s, e);
-            btnSearch.Click += (s, e) => SearchTermChanged?.Invoke(s, e);
-            txtSearch.TextChanged += (s, e) => SearchTermChanged?.Invoke(s, e);
-            btnSelect.Click += (s, e) => SearchResultAllSelected?.Invoke(s, e);
-        }        
+        }
 
         private void btnAddIcon_Click(object sender, EventArgs e)
         {
@@ -75,35 +62,6 @@ namespace MindMate.WinFormsUI
                 term.Icons.Add(p.Tag.ToString());
             }
             return term;
-        }
-
-        public void InvokeInUIThread(Action action)
-        {
-            this.Invoke(action);
-        }
-
-        public void ClearResults()
-        {
-            lstResults.Items.Clear();
-        }
-
-        public MapNode SelectedResultMapNode
-        {
-            get
-            {
-                if(this.lstResults.SelectedItem is MapNode node && node.Detached)
-                {
-                    lstResults.Items.Remove(lstResults.SelectedItem);
-                }
-                return this.lstResults.SelectedItem as MapNode;
-            }
-        }
-
-        public IEnumerable<MapNode> Results => lstResults.Items.OfType<MapNode>();        
-
-        public void AddResult(MapNode node)
-        {
-            lstResults.Items.Add(node);
         }
     }
 }

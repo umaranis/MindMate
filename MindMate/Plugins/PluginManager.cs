@@ -137,7 +137,7 @@ namespace MindMate.Plugins
             }
         }
 
-        public void InitializeSideBarWindow(ISideBarControl sidebar)
+        public void InitializeSideBarWindow(TabControl sidebar)
         {
             foreach(IPlugin plugin in Plugins)
             {
@@ -145,7 +145,10 @@ namespace MindMate.Plugins
                 
                 foreach(Control ctrl in controls)
                 {
-                    sidebar.AddTab(ctrl);
+                    TabPage tPage = new TabPage(ctrl.Text);
+                    ctrl.Dock = DockStyle.Fill;
+                    tPage.Controls.Add(ctrl);
+                    sidebar.TabPages.Add(tPage);
                 }
             }
         }

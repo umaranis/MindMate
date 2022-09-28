@@ -12,7 +12,7 @@ namespace MindMate.View
         EditorTabs.EditorTabs EditorTabs { get; }
         bool IsNoteEditorActive { get; }
         NoteEditor NoteEditor { get; }
-        ISideBarControl SideBarTabs { get; }
+        SideTabControl SideBarTabs { get; }
         IStatusBar StatusBar { get; }
         string Text { get; set; }
 

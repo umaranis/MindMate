@@ -1,4 +1,4 @@
-﻿namespace MindMate.WinFormsUI
+﻿namespace MindMate.View.Search
 {
     partial class SearchControl
     {

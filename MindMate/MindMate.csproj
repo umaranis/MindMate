@@ -142,7 +142,6 @@
       <DependentUpon>DefaultFormatSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Dialogs\DialogManager.cs" />
-    <Compile Include="View\ISideBarControl.cs" />
     <Compile Include="View\IStatusBar.cs" />
     <Compile Include="View\MapControls\ICanvasContainer.cs" />
     <Compile Include="View\MapControls\ImageView.cs" />
@@ -396,7 +395,15 @@
     <Compile Include="View\NoteEditing\NoteEditorContextMenu.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="View\Search\ISearchControl.cs" />
+    <Compile Include="View\Search\SearchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Search\SearchControl.Designer.cs">
+      <DependentUpon>SearchControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\SideTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="Plugins\Tasks\Calender\MindMateCalender.resx">
       <DependentUpon>MindMateCalender.cs</DependentUpon>
     </EmbeddedResource>
@@ -412,6 +419,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\NoteEditing\HtmlSourceDialog.resx">
       <DependentUpon>HtmlSourceDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\Search\SearchControl.resx">
+      <DependentUpon>SearchControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="images\filenew.png" />
     <None Include="Settings.Yaml">
