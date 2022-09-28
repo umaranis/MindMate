@@ -467,7 +467,7 @@ namespace MindMate.View.Ribbon
 
         private void HelpButton_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
-            mainCtrl.Dialogs.ShowAboutBox();
+            mainCtrl.ShowAboutBox();
         }
 
         #endregion

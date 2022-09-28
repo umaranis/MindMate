@@ -115,10 +115,5 @@ namespace MindMate.WinFormsUI.Dialogs
             StatusBarCtrl.SetStatusUpdate(msg);
         }
 
-        public void ShowAboutBox()
-        {
-            new AboutBox().ShowDialog();
-        }
-
     }
 }

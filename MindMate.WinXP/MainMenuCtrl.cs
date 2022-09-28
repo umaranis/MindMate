@@ -78,7 +78,7 @@ namespace MindMate.WinXP
         }
         void mAbout_Click(object sender, EventArgs e)
         {
-            mainCtrl.Dialogs.ShowAboutBox();
+            mainCtrl.ShowAboutBox();
         }
 
         void mBackColor_Click(object sender, EventArgs e)
