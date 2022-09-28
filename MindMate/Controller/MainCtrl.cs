@@ -206,6 +206,12 @@ namespace MindMate.Controller
             mainForm.FocusMapView();
         }       
 
+        public void ShowApplicationOptions()
+        {
+            Options frm = new Options(this, this.noteCrtl);
+            frm.ShowDialog();
+        }
+
         public void ExportAsBmp()
         {
             SaveFileDialog file = new SaveFileDialog();
