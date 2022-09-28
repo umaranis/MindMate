@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.View.Dialogs;
-using MindMate.WinFormsUI.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -57,14 +56,14 @@ namespace MindMate.Tests.View
         {
             void Instance_Shown(object sender, EventArgs e)
             {
-                SetForegroundWindow(IconSelectorExt.Instance.Handle);
+                SetForegroundWindow(MindMate.View.Dialogs.IconSelectorExt.Instance.Handle);
                 SendKeys.SendWait("{Enter}");
             };
             IconSelectorExt.Instance.Shown += Instance_Shown;
 
             IconSelectorExt.Instance.ShowDialog();
 
-            Assert.IsNotNull(IconSelectorExt.Instance.SelectedIcon);
+            Assert.IsNotNull(MindMate.View.Dialogs.IconSelectorExt.Instance.SelectedIcon);
             IconSelectorExt.Instance.Shown -= Instance_Shown;
 
         }
@@ -74,7 +73,7 @@ namespace MindMate.Tests.View
         {
             void Instance_Shown(object sender, EventArgs e)
             {
-                SetForegroundWindow(IconSelectorExt.Instance.Handle);
+                SetForegroundWindow(MindMate.View.Dialogs.IconSelectorExt.Instance.Handle);
                 SendKeys.SendWait("{Del}");
             }
             IconSelectorExt.Instance.Shown += Instance_Shown;
@@ -91,7 +90,7 @@ namespace MindMate.Tests.View
         {
             void Instance_Shown(object sender, EventArgs e)
             {
-                SetForegroundWindow(IconSelectorExt.Instance.Handle);
+                SetForegroundWindow(MindMate.View.Dialogs.IconSelectorExt.Instance.Handle);
                 SendKeys.SendWait("{Backspace}");
             }
             IconSelectorExt.Instance.Shown += Instance_Shown;

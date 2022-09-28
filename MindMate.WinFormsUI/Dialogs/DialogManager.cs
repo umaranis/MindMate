@@ -168,12 +168,5 @@ namespace MindMate.WinFormsUI.Dialogs
 
         }
 
-        public bool ShowIconSelector(out string selectedIcon)
-        {
-            var result = IconSelectorExt.Instance.ShowDialog();
-            selectedIcon = IconSelectorExt.Instance.SelectedIcon;
-            return result == DialogResult.OK;
-        }
-
     }
 }
