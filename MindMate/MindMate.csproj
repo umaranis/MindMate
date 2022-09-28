@@ -141,7 +141,7 @@
     <Compile Include="View\Dialogs\DefaultFormatSettings.Designer.cs">
       <DependentUpon>DefaultFormatSettings.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\IDialogManager.cs" />
+    <Compile Include="View\Dialogs\DialogManager.cs" />
     <Compile Include="View\ISideBarControl.cs" />
     <Compile Include="View\IStatusBar.cs" />
     <Compile Include="View\MapControls\ICanvasContainer.cs" />

@@ -1,6 +1,4 @@
 ﻿using MindMate.Controller;
-using MindMate.View;
-using MindMate.View.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MindMate.WinFormsUI.Dialogs
+namespace MindMate.View.Dialogs
 {
-    public class DialogManager : IDialogManager
+    public class DialogManager
     {
 #if DEBUG
         virtual
@@ -78,7 +76,7 @@ namespace MindMate.WinFormsUI.Dialogs
                 return System.Drawing.Color.Empty;
             }
         }
-
+        
         private CustomFontDialog.FontDialog fontDialog;
 #if DEBUG
         virtual

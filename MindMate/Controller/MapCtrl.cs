@@ -16,7 +16,6 @@ using MindMate.Model;
 using MindMate.Modules.Logging;
 using MindMate.Plugins.Tasks.Model;
 using MindMate.Serialization;
-using MindMate.View;
 using MindMate.View.Dialogs;
 using MindMate.View.MapControls;
 
@@ -29,7 +28,7 @@ namespace MindMate.Controller
     /// </summary>
     public class MapCtrl
     {
-        private readonly IDialogManager dialogs;
+        private readonly DialogManager dialogs;
 
         public MapView MapView;
 
@@ -37,7 +36,7 @@ namespace MindMate.Controller
         
         private MapTree tree { get { return MapView.Tree; } }
 
-        public MapCtrl(MapView mapView, IDialogManager dialogs, NodeContextMenu nodeContextMenu)
+        public MapCtrl(MapView mapView, DialogManager dialogs, NodeContextMenu nodeContextMenu)
         {
             this.dialogs = dialogs;
 
@@ -736,7 +735,7 @@ namespace MindMate.Controller
                 node.NodeView.FollowLink();
             }
             catch (Exception e)
-            {                
+            {
                 dialogs.ShowStatusNotification(e.Message);
             }   
         }               

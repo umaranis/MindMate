@@ -1,5 +1,4 @@
 ﻿using MindMate.Serialization;
-using MindMate.View;
 using MindMate.View.Dialogs;
 using MindMate.View.NoteEditing;
 using mshtml;
@@ -15,9 +14,9 @@ namespace MindMate.Controller
     public class NoteEditorCtrl
     {
         private readonly NoteMapGlue noteGlue;
-        private readonly IDialogManager dialogs;
+        private readonly DialogManager dialogs;
 
-        public NoteEditorCtrl(NoteEditor editor, PersistenceManager pManager, IDialogManager dialogs)
+        public NoteEditorCtrl(NoteEditor editor, PersistenceManager pManager, DialogManager dialogs)
         {
             this.noteGlue = new NoteMapGlue(editor, pManager);
             new ImageLocalSaver(editor, pManager);
