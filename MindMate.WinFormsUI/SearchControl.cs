@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using MindMate.Controller;
 using MindMate.Model;
 using MindMate.MetaModel;
-using MindMate.View;
+using MindMate.View.Search;
 using MindMate.WinFormsUI.Dialogs;
 
 namespace MindMate.WinFormsUI

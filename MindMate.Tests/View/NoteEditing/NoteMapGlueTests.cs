@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MindMate.Model;
 using MindMate.Serialization;
+using MindMate.View.Dialogs;
 using MindMate.View.NoteEditing;
 
 namespace MindMate.Tests.View

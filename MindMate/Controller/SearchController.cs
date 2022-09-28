@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MindMate.Model;
-using MindMate.View;
+using MindMate.View.Search;
 
 namespace MindMate.Controller
 {

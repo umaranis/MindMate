@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MindMate.View
+namespace MindMate.View.Search
 {    
     public interface ISearchControl
     {

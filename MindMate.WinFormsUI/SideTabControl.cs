@@ -1,7 +1,7 @@
 ﻿using MindMate.Plugins.Tasks.SideBar;
 using MindMate.View;
 using MindMate.View.NoteEditing;
-using MindMate.View;
+using MindMate.View.Search;
 using System;
 using System.Collections.Generic;
 using System.Linq;

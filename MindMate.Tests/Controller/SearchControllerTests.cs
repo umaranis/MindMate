@@ -6,6 +6,7 @@ using FakeItEasy;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MindMate.Controller;
 using MindMate.Model;
+using MindMate.View.Dialogs;
 using MindMate.WinFormsUI;
 using System.Linq;
 using MindMate.WinFormsUI.Dialogs;
