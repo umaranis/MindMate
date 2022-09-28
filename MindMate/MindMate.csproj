@@ -329,6 +329,12 @@
       <DependentUpon>IconSelectorExt.cs</DependentUpon>
     </Compile>
     <Compile Include="MetaModel\ISystemIcon.cs" />
+    <Compile Include="View\Dialogs\InputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Dialogs\InputBox.Designer.cs">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\EditorTabs\EditorTabs.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -394,6 +400,10 @@
     <EmbeddedResource Include="View\Dialogs\DefaultFormatSettings.resx">
       <DependentUpon>DefaultFormatSettings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\Dialogs\InputBox.resx">
+      <DependentUpon>InputBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\NoteEditing\HtmlSourceDialog.resx">
       <DependentUpon>HtmlSourceDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -407,6 +417,12 @@
     <None Include="View\Dialogs\IconSelector.Designer.cs">
       <DependentUpon>IconSelector.cs</DependentUpon>
     </None>
+    <Compile Include="View\Dialogs\LinkManualEdit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\Dialogs\LinkManualEdit.Designer.cs">
+      <DependentUpon>LinkManualEdit.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Dialogs\MultiLineNodeEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -456,6 +472,10 @@
       <DependentUpon>IconSelector.cs</DependentUpon>
       <SubType>Designer</SubType>
     </None>
+    <EmbeddedResource Include="View\Dialogs\LinkManualEdit.resx">
+      <DependentUpon>LinkManualEdit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Dialogs\MultiLineNodeEdit.resx">
       <DependentUpon>MultiLineNodeEdit.cs</DependentUpon>
       <SubType>Designer</SubType>

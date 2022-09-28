@@ -19,7 +19,5 @@ namespace MindMate.View
         void ShowStatusNotification(string msg);
 
         void ShowAboutBox();
-
-        bool LinkManualEditDialog(ref string link);
     }
 }
