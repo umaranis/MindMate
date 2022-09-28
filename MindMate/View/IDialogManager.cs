@@ -1,6 +1,5 @@
 ﻿using MindMate.Controller;
 using MindMate.View.Dialogs;
-using MindMate.View.MapControls;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -21,8 +20,6 @@ namespace MindMate.View
 
         void ShowAboutBox();
 
-        bool ShowLinkManualEditDialog(ref string link);
-
-        bool ShowMultiLineEditDialog(ref string text, TextCursorPosition pos = TextCursorPosition.Undefined);
+        bool LinkManualEditDialog(ref string link);
     }
 }

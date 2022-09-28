@@ -1,4 +1,4 @@
-﻿namespace MindMate.WinFormsUI.Dialogs
+﻿namespace MindMate.View.Dialogs
 {
     partial class MultiLineNodeEdit
     {

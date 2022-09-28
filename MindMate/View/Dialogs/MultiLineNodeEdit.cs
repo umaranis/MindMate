@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace MindMate.WinFormsUI.Dialogs
+namespace MindMate.View.Dialogs
 {
     public partial class MultiLineNodeEdit : Form
     {

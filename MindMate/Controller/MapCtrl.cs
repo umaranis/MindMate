@@ -67,7 +67,7 @@ namespace MindMate.Controller
             {
                 MapNode node = MapView.SelectedNodes.First;
                 string link = node.Link;
-                bool success = dialogs.ShowLinkManualEditDialog(ref link);
+                bool success = dialogs.LinkManualEditDialog(ref link);
                 if (success)
                 {
                     AddHyperlink(link == "" ? null : link);
@@ -168,10 +168,23 @@ namespace MindMate.Controller
 
         public void MultiLineNodeEdit(MapNode node, TextCursorPosition org)
         {
-            string text = node.Text;
-            if (dialogs.ShowMultiLineEditDialog(ref text, org))
+
+            MultiLineNodeEdit frm = new MultiLineNodeEdit();
+            frm.txt.Text = node.Text;
+             if (org == TextCursorPosition.End || org == TextCursorPosition.Undefined)
             {
-                node.Text = text;                
+                frm.txt.SelectionStart = node.Text.Length;                
+            }
+            else if (org == TextCursorPosition.Start)
+            {
+                frm.txt.SelectionStart = 0;                
+            }
+            frm.txt.SelectionLength = 0;
+            frm.txt.Focus();
+
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                node.Text = frm.txt.Text;                
             }
 
         }
@@ -246,11 +259,11 @@ namespace MindMate.Controller
             {
                 tree.ChangeManager.StartBatch("Add Child Node");
 
-                string text = "";
-                if (dialogs.ShowMultiLineEditDialog(ref text))
+                MultiLineNodeEdit frm = new MultiLineNodeEdit();
+                if (frm.ShowDialog() == DialogResult.OK)
                 {
                     MapNode newNode = this.AppendChildNode(MapView.SelectedNodes.First);
-                    newNode.Text = text;
+                    newNode.Text = frm.txt.Text;
                 }
 
                 tree.ChangeManager.EndBatch();

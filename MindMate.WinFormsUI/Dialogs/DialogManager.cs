@@ -1,8 +1,6 @@
 ﻿using MindMate.Controller;
-using MindMate.Model;
 using MindMate.View;
 using MindMate.View.Dialogs;
-using MindMate.View.MapControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -123,7 +121,7 @@ namespace MindMate.WinFormsUI.Dialogs
             new AboutBox().ShowDialog();
         }
 
-        public bool ShowLinkManualEditDialog(ref string link)
+        public bool LinkManualEditDialog(ref string link)
         {
             LinkManualEdit frm = new LinkManualEdit();
             frm.LinkText = link;
@@ -138,34 +136,6 @@ namespace MindMate.WinFormsUI.Dialogs
                 return false;
             }
                 
-        }
-
-        public bool ShowMultiLineEditDialog(ref string text, TextCursorPosition org = TextCursorPosition.Undefined)
-        {
-
-            MultiLineNodeEdit frm = new MultiLineNodeEdit();
-            frm.txt.Text = text;
-            if (org == TextCursorPosition.End || org == TextCursorPosition.Undefined)
-            {
-                frm.txt.SelectionStart = text.Length;
-            }
-            else if (org == TextCursorPosition.Start)
-            {
-                frm.txt.SelectionStart = 0;
-            }
-            frm.txt.SelectionLength = 0;
-            frm.txt.Focus();
-
-            if (frm.ShowDialog() == DialogResult.OK)
-            {
-                text = frm.txt.Text;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
         }
 
     }
