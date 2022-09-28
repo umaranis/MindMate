@@ -10,7 +10,6 @@ using MindMate.MetaModel;
 using MindMate.Plugins;
 using MindMate.View.EditorTabs;
 using MindMate.Win7.Properties;
-using MindMate.WinFormsUI;
 using MindMate.WinFormsUI.NoteEditing;
 using RibbonLib;
 
@@ -20,9 +19,9 @@ namespace MindMate.View.Ribbon
     {
         private readonly Controller.MainCtrl mainCtrl;
         private readonly RibbonLib.Ribbon ribbon;
-        private readonly MainFormBase mainForm;
+        private readonly IMainForm mainForm;
 
-        public Ribbon(RibbonLib.Ribbon ribbon, Controller.MainCtrl mainCtrl, MainFormBase mainForm)
+        public Ribbon(RibbonLib.Ribbon ribbon, Controller.MainCtrl mainCtrl, IMainForm mainForm)
         {
             this.ribbon = ribbon;
             this.mainCtrl = mainCtrl;
@@ -235,9 +234,9 @@ namespace MindMate.View.Ribbon
             //register for change events
             mainCtrl.PersistenceManager.CurrentTreeChanged += PersistenceManager_CurrentTreeChanged;
             MindMate.Model.ClipboardManager.StatusChanged += ClipboardManager_StatusChanged;
-            ((EditorTabs.EditorTabs)mainForm.EditorTabs).ControlAdded += Tabs_ControlAdded;
-            ((EditorTabs.EditorTabs)mainForm.EditorTabs).ControlRemoved += Tabs_ControlRemoved;
-            ((EditorTabs.EditorTabs)mainForm.EditorTabs).SelectedIndexChanged += Tabs_SelectedIndexChanged;
+            mainForm.EditorTabs.ControlAdded += Tabs_ControlAdded;
+            mainForm.EditorTabs.ControlRemoved += Tabs_ControlRemoved;
+            mainForm.EditorTabs.SelectedIndexChanged += Tabs_SelectedIndexChanged;
             mainForm.NoteEditor.CursorMoved += NoteEditor_CursorMoved;       
         }
 

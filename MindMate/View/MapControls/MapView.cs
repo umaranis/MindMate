@@ -68,6 +68,15 @@ namespace MindMate.View.MapControls
             get { return tree; }            
         }
 
+        public void CenterOnForm()
+        {
+            //Canvas.Left = (Canvas.Parent.Width - Canvas.Width) / 2;
+            //Canvas.Top = (Canvas.Parent.Height - Canvas.Height) / 2;
+
+            //Console.WriteLine($"Canvas: {Canvas.Size} | Parent: {Canvas.Parent.Size}");
+            ((EditorTabs.Tab)Canvas.Parent).ScrollToPoint((Canvas.Width - Canvas.Parent.Width) / 2, (Canvas.Height - Canvas.Parent.Height) / 2);
+        }
+
         private void RegisterTreeEvents()
         {
             this.tree.NodePropertyChanged += tree_NodePropertyChanged;

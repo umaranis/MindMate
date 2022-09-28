@@ -9,7 +9,7 @@ namespace MindMate.View
 
     public interface IMainForm
     {
-        IEditorTabs EditorTabs { get; }
+        EditorTabs.EditorTabs EditorTabs { get; }
         bool IsNoteEditorActive { get; }
         INoteEditor NoteEditor { get; }
         ISideBarControl SideBarTabs { get; }
@@ -26,7 +26,5 @@ namespace MindMate.View
         void RefreshRecentFilesMenuItems();
 
         INoteEditorCtrl CreateNoteEditorController(MainCtrl mainCtrl);
-
-        void SetupTabController(MainCtrl mainCtrl);
     }
 }

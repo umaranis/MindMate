@@ -20,6 +20,14 @@ namespace MindMate.Win7
         public MainForm(MainCtrl mainCtrl)
         {
             this.mainCtrl = mainCtrl;
+            Ribbon = new RibbonLib.Ribbon {ResourceName = "MindMate.Win7.View.Ribbon.RibbonMarkup.ribbon"};
+            this.Controls.Add(Ribbon);
+            
+            SetupSideBar();
+            EditorTabs = new EditorTabs();
+            splitContainer1.Panel1.Controls.Add(EditorTabs);
+
+
 #if (Win7)
             //this is required for Windows 7 & 8, otherwise sidebar is not laid out properly
             Load += (sender, args) => Ribbon.Minimized = true;
@@ -31,12 +39,9 @@ namespace MindMate.Win7
 
         public RibbonLib.Ribbon Ribbon { get; private set; }
         public View.Ribbon.Ribbon RibbonCtrl { get; set; }
+        
 
-        public override void CreateMenuSystem()
-        {
-            Ribbon = new RibbonLib.Ribbon {ResourceName = "MindMate.Win7.View.Ribbon.RibbonMarkup.ribbon"};
-            this.Controls.Add(Ribbon);
-        }
+        
 
         public override void InsertMenuItems(MainMenuItem[] menuItems)
         {

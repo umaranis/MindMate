@@ -52,7 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\NoteEditorCtrl.cs" />
-    <Compile Include="Controller\TabController.cs" />
     <Compile Include="Dialogs\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,9 +96,6 @@
     <Compile Include="Dialogs\MultiLineNodeEdit.Designer.cs">
       <DependentUpon>MultiLineNodeEdit.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditorTabs\EditorTabs.cs" />
-    <Compile Include="EditorTabs\Tab.cs" />
-    <Compile Include="EditorTabs\TabBase.cs" />
     <Compile Include="MainFormBase.cs">
       <SubType>Form</SubType>
     </Compile>

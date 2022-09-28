@@ -18,18 +18,22 @@ namespace MindMate.WinXP
     public partial class MainForm : MainFormBase
     {
 
-        public MainMenu MainMenu { get; private set; }
-        internal Toolbar Toolbar { get; private set; }
-        public MainMenuCtrl MainMenuCtrl { get; set; }
-
-        public override void CreateMenuSystem()
+        public MainForm()
         {
             Toolbar = new Toolbar();
             MainMenu = new MainMenu();
             Toolbar.MainMenu = MainMenu;
             this.Controls.Add(Toolbar);
             this.Controls.Add(MainMenu);
-        }
+            
+            SetupSideBar();
+            EditorTabs = new EditorTabs();
+            splitContainer1.Panel1.Controls.Add(EditorTabs);
+        }          
+
+        public MainMenu MainMenu { get; private set; }
+        internal Toolbar Toolbar { get; private set; }
+        public MainMenuCtrl MainMenuCtrl { get; set; }        
 
         public override void InsertMenuItems(MainMenuItem[] menuItems)
         {
