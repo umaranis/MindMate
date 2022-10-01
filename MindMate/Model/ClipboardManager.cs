@@ -101,7 +101,7 @@ namespace MindMate.Model
                 string link = GetBrowserSourceLink();
                 MapTextSerializer serializer = new MapTextSerializer();
 
-                serializer.Deserialize(Clipboard.GetText(TextDataFormat.Text), pasteLocation, 
+                serializer.Deserialize(Clipboard.GetText(), pasteLocation, 
                     (parent, text) =>
                     {
                         if (asText)

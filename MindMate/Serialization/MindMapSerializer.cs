@@ -25,7 +25,7 @@ namespace MindMate.Serialization
         /// <returns></returns>
         public void Serialize(Stream stream, MapTree tree)
         {
-            XmlTextWriter xml = new XmlTextWriter(stream, Encoding.ASCII);
+            XmlTextWriter xml = new XmlTextWriter(stream, Encoding.Unicode);
             //xml.WriteStartDocument();
             xml.WriteStartElement("map");
             xml.WriteAttributeString("version", "0.9.0");
