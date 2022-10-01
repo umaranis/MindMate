@@ -33,30 +33,29 @@ namespace MindMate.Controller
             ScheduleParallelTask = scheduleParallelTask;
             this.SearchControl = searchControl;
 
-            SearchControl.txtSearch.TextChanged += TxtSearch_TextChanged;
-            SearchControl.lstResults.SelectedIndexChanged += LstResults_SelectedIndexChanged;
-            SearchControl.btnSearch.Click += BtnSearch_Click;
-            SearchControl.btnClear.Click += BtnClear_Click;
-            SearchControl.btnSelect.Click += BtnSelect_Click;
+            SearchControl.SearchResultSelected += (s, t) => SearchControl.SelectedResultMapNode.Selected = true;
+            SearchControl.SearchTermChanged += (s, t) => Search(t);
+            SearchControl.SearchResultAllSelected += SearchControl_SearchResultAllSelected;
         }        
 
-        private void Search()
+        private void Search(SearchTerm searchTerm) 
         {
-            SearchTerm searchTerm = SearchControl.CreateSearchTerm();
-            if (searchTerm.IsEmpty) return;
+            if (searchTerm.IsEmpty || (!searchTerm.Force && searchTerm.Text.Length < 2))
+            {
+                SearchControl.ClearResults();
+                return;
+            }
             int instanceID = ++CurrentSearchID;
             MapTree tree = GetCurrentMapTree();            
             ScheduleParallelTask(() =>
             {
-                Action actClear = () => SearchControl.lstResults.Items.Clear();
-                SearchControl.Invoke(actClear);                
+                SearchControl.InvokeInUIThread(SearchControl.ClearResults);                
                 foreach (var n in GetNodesToSearch(tree, searchTerm.SearchSelectedHierarchy))
                 {
                     if (instanceID != CurrentSearchID) return;  //this is to cancel the search if searchTerm has changed
                     if (searchTerm.MatchNode(n)) 
                     {
-                        Action actAdd = () => SearchControl.lstResults.Items.Add(n);
-                        SearchControl.Invoke(actAdd);
+                        SearchControl.InvokeInUIThread(() => SearchControl.AddResult(n));
                     }
                 }                
             });
@@ -74,35 +73,10 @@ namespace MindMate.Controller
             }
         }        
 
-        private void BtnSearch_Click(object sender, EventArgs e)
-        {
-            Search();
-        }
-
-        private void TxtSearch_TextChanged(object sender, EventArgs e)
-        {
-            if(SearchControl.txtSearch.Text.Length > 1)
-                Search();
-        }        
-
-        private void LstResults_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (SearchControl.lstResults.SelectedItem is MapNode node && !node.Detached)
-                node.Selected = true;
-            else
-                SearchControl.lstResults.Items.Remove(SearchControl.lstResults.SelectedItem);
-
-        }
-
-        private void BtnClear_Click(object sender, EventArgs e)
-        {
-            SearchControl.lstResults.Items.Clear();
-        }
-
-        private void BtnSelect_Click(object sender, EventArgs e)
+        private void SearchControl_SearchResultAllSelected(object sender, SearchTerm term)
         {
             GetCurrentMapTree().SelectedNodes.Clear();
-            foreach (var n in SearchControl.lstResults.Items)
+            foreach (var n in SearchControl.Results)
             {
                 if (n is MapNode node && !node.Detached)
                     node.AddToSelection();

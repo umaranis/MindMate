@@ -18,6 +18,11 @@ namespace MindMate.Model
         public List<string> Icons { get; } = new List<string>();
         public bool MatchAllIcons { get; set; } = true;
 
+        /// <summary>
+        /// Search even if a single character is given
+        /// </summary>
+        public bool Force { get; set;  } = false;
+
         public bool IsEmpty => String.IsNullOrWhiteSpace(Text) && Icons.Count <= 0;
 
         public bool MatchNode(MapNode n)
