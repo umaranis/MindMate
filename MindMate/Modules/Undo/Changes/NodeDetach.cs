@@ -8,10 +8,10 @@ namespace MindMate.Modules.Undo.Changes
 {
     class NodeDetach : IChange
     {
-        MapNode node;
-        MapNode parent;
-        MapNode siblingAbove;
-        NodePosition position;
+        readonly MapNode node;
+        readonly MapNode parent;
+        readonly MapNode siblingAbove;
+        readonly NodePosition position;
 
         public NodeDetach(MapNode node)
         {

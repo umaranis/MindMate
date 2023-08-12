@@ -108,7 +108,7 @@ namespace MindMate.Model
         /// <summary>
         /// List of values are maintained if AttributeListOption is RestrictedList or OptionalList
         /// </summary>
-        private SortedSet<string> values;
+        private readonly SortedSet<string> values;
 
         /// <summary>
         /// List of values are maintained if AttributeListOption is RestrictedList or OptionalList

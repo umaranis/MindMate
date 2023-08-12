@@ -8,7 +8,7 @@ namespace MindMate.Modules.Undo.Changes
 {
     class MoveDown : IChange
     {
-        private MapNode node;
+        private readonly MapNode node;
 
         public MoveDown(MapNode node)
         {

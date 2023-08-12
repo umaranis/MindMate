@@ -17,7 +17,7 @@ namespace MindMate.Plugins.Tasks.Calender
 {
     public partial class MindMateCalendar : Form
     {
-        TaskPlugin taskPlugin;
+        readonly TaskPlugin taskPlugin;
 
         /// <summary>
         /// Flag is used to avoid refreshing the Calendar from task list when it is editing data internal

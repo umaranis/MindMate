@@ -8,8 +8,8 @@ namespace MindMate.Modules.Undo.Changes
 {
     public class LineWidthChange : IChange
     {
-        MapNode node;
-        int oldValue;
+        readonly MapNode node;
+        readonly int oldValue;
 
         public LineWidthChange(MapNode node, int oldValue)
         {

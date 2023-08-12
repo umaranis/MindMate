@@ -13,7 +13,7 @@ namespace MindMate.View.NoteEditing
     /// </summary>
     public class TablePropertyForm : System.Windows.Forms.Form
     {
-        private System.ComponentModel.Container components = null;
+        private readonly System.ComponentModel.Container components = null;
         private System.Windows.Forms.Button bCancel;
         private System.Windows.Forms.Button bInsert;
         private System.Windows.Forms.TextBox textTableCaption;

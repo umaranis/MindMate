@@ -16,7 +16,7 @@ namespace MindMate.View.NoteEditing
     [Guid("4C74EFBD-2028-4084-A99C-98CB29A6A69F")]
     public class ImageLocalProvider : EmbeddedProtocol
     {
-        private PersistenceManager persistence;
+        private readonly PersistenceManager persistence;
 
         public ImageLocalProvider(PersistenceManager persistence) : base(ImageLocalPath.ProtocolPrefix, "/")
         {

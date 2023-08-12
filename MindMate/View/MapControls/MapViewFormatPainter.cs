@@ -11,7 +11,7 @@ namespace MindMate.View.MapControls
     public class MapViewFormatPainter
     {
         private MapNode formatSource;
-        private MapView mapView;
+        private readonly MapView mapView;
 
         public MapViewFormatPainter(MapView mapView)
         {

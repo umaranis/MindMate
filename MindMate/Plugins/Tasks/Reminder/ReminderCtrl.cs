@@ -8,12 +8,12 @@ namespace MindMate.Plugins.Tasks.Reminder
 {
     public class ReminderCtrl
     {
-        private TaskPlugin taskPlugin;
+        private readonly TaskPlugin taskPlugin;
 
-        private TaskReminder reminder;
+        private readonly TaskReminder reminder;
         public TaskReminder TaskReminder { get { return reminder; } }
 
-        private List<TaskReminderDialog> openDialogs;
+        private readonly List<TaskReminderDialog> openDialogs;
 
         public ReminderCtrl(TaskPlugin taskPlugin)
         {

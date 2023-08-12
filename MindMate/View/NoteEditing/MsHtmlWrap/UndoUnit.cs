@@ -8,7 +8,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
 {
     public class UndoUnit : IDisposable
     {
-        IMarkupServicesRaw markupServices;
+        readonly IMarkupServicesRaw markupServices;
 
         // Begins Undo Unit
         public UndoUnit(HTMLDocument document, string title)

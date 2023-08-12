@@ -41,7 +41,7 @@ namespace MindMate.View.MapControls
             return p.X >= Location.X && p.Y >= Location.Y && p.X <= Location.X + Size.Width && p.Y <= Location.Y + Size.Height;
         }
 
-        Bitmap bitmap;
+        readonly Bitmap bitmap;
 
         public Bitmap Bitmap
         {

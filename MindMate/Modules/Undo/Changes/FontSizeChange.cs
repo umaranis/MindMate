@@ -8,8 +8,8 @@ namespace MindMate.Modules.Undo.Changes
 {
     class FontSizeChange : IChange
     {
-        MapNode node;
-        float OldValue;
+        readonly MapNode node;
+        readonly float OldValue;
 
         public FontSizeChange(MapNode node, float oldValue)
         {

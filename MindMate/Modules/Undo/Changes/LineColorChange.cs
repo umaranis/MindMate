@@ -8,8 +8,8 @@ namespace MindMate.Modules.Undo.Changes
 {
     class LineColorChange : IChange
     {
-        MapNode node;
-        System.Drawing.Color oldValue;
+        readonly MapNode node;
+        readonly System.Drawing.Color oldValue;
 
         public LineColorChange(MapNode node, System.Drawing.Color oldValue)
         {

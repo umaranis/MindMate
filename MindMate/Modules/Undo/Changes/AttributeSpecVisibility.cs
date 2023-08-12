@@ -8,8 +8,8 @@ namespace MindMate.Modules.Undo.Changes
 {
     class AttributeSpecVisibility : IChange
     {
-        MapTree.AttributeSpec spec;
-        bool oldValue;
+        readonly MapTree.AttributeSpec spec;
+        readonly bool oldValue;
 
         public AttributeSpecVisibility(MapTree.AttributeSpec spec, bool oldValue)
         {

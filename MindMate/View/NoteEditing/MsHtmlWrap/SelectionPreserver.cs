@@ -19,6 +19,6 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
             _preservedMarkupRange.ToTextRange().select();
         }
 
-        private MarkupRange _preservedMarkupRange = null;
+        private readonly MarkupRange _preservedMarkupRange = null;
     }
 }

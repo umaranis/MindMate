@@ -201,7 +201,7 @@ namespace MindMate.Plugins.Tasks.Model
 
         public event TaskSelectionChangedDelegate TaskSelectionChanged;
 
-        private CompletedTaskEventArgs completedTaskArgs;
+        private readonly CompletedTaskEventArgs completedTaskArgs;
         public event CompletedTaskChangedDelegate TaskChanged = delegate { };
 
         event CompletedTaskPropertyChanged CompletedTaskPropertyChanged;

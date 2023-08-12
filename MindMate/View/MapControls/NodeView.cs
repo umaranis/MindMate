@@ -37,7 +37,7 @@ namespace MindMate.View.MapControls
         public const int BOTTOM_PADDING = 2;
         public const int ICON_SIZE = 16;
 
-        private MapNode node;
+        private readonly MapNode node;
         public MapNode Node {get{ return node; }}
 
         private Link link;
@@ -58,7 +58,7 @@ namespace MindMate.View.MapControls
         /// </summary> 
         public RectangleF RecText {     get { return recText; } }
 
-        private List<IconView> recIcons = new List<IconView>(); 
+        private readonly List<IconView> recIcons = new List<IconView>(); 
         public List<IconView> RecIcons  {   get { return recIcons; }    }
 
         private NodeFormat nodeFomat;

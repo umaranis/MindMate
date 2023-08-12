@@ -8,8 +8,8 @@ namespace MindMate.Modules.Undo.Changes
 {
     class LinkChange : IChange
     {
-        MapNode node;
-        string oldValue;
+        readonly MapNode node;
+        readonly string oldValue;
 
         public LinkChange(MapNode node, string oldValue)
         {

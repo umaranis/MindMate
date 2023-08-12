@@ -33,8 +33,8 @@ namespace MindMate.View.MapControls
 
         public bool IsTextEditing { get; private set; }
 
-        private TextBox editBox;
-        private MapView mapView;
+        private readonly TextBox editBox;
+        private readonly MapView mapView;
         
         public MapViewTextEditor(MapView mapView, Font font)
         {

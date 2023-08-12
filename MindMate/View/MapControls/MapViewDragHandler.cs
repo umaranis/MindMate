@@ -86,8 +86,8 @@ namespace MindMate.View.MapControls
             get; private set;
         }
 
-        private Cursor nodeDragCursor;
-        private Cursor canvasDragCursor;
+        private readonly Cursor nodeDragCursor;
+        private readonly Cursor canvasDragCursor;
 
         #region Private Methods
 

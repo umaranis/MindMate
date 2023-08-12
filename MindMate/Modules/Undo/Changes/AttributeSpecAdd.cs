@@ -8,7 +8,7 @@ namespace MindMate.Modules.Undo.Changes
 {
     class AttributeSpecAdd : IChange
     {
-        MapTree.AttributeSpec spec;
+        readonly MapTree.AttributeSpec spec;
 
         public AttributeSpecAdd(MapTree.AttributeSpec spec)
         {

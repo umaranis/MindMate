@@ -8,8 +8,8 @@ namespace MindMate.Modules.Undo.Changes
 {
     class ShapeChange : IChange
     {
-        MapNode node;
-        NodeShape oldValue;
+        readonly MapNode node;
+        readonly NodeShape oldValue;
 
         public ShapeChange(MapNode node, NodeShape oldValue)
         {

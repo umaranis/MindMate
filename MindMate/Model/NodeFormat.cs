@@ -58,7 +58,7 @@ namespace MindMate.Model
             BackColorBrush = BackColor.IsEmpty ? null : new SolidBrush(BackColor);
         }
 
-        private static NodeFormat defaultObject;
+        private static readonly NodeFormat defaultObject;
         public static NodeFormat CreateDefaultFormat() => defaultObject;
 
         static NodeFormat()

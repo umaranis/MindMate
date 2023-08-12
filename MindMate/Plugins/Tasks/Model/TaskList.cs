@@ -13,8 +13,8 @@ namespace MindMate.Plugins.Tasks.Model
     public class TaskList : IEnumerable<MapNode> /*, IList<MapNode> */
     {
 
-        PendingTaskList pendingTasks;
-        CompletedTaskList completedTasks;
+        readonly PendingTaskList pendingTasks;
+        readonly CompletedTaskList completedTasks;
 
         public TaskList(PendingTaskList plist, CompletedTaskList clist)
         {

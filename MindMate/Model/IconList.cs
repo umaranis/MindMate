@@ -14,7 +14,7 @@ namespace MindMate.Model
     public partial class MapNode { 
     public class IconList : Collection<string>
     {
-        private MapNode node;
+        private readonly MapNode node;
 
         public IconList(MapNode node)
         {

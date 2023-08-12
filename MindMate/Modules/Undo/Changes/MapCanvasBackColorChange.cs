@@ -5,8 +5,8 @@ namespace MindMate.Modules.Undo.Changes
 {
     internal class MapCanvasBackColorChange : IChange
     {
-        private MapTree tree;
-        private Color oldValue;
+        private readonly MapTree tree;
+        private readonly Color oldValue;
 
         public MapCanvasBackColorChange(MapTree tree, Color oldValue)
         {

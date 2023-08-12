@@ -8,7 +8,7 @@ namespace MindMate.Modules.Undo.Changes
 {
     class AttributeUpdate : IChange
     {
-        MapNode node;
+        readonly MapNode node;
         MapNode.Attribute attribute;
 
         public AttributeUpdate(MapNode node, MapNode.Attribute oldAttribute)

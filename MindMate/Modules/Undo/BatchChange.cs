@@ -7,7 +7,7 @@ namespace MindMate.Modules.Undo
 {
     class BatchChange : IChange, IDisposable
     {
-        private ChangeManager changeManager;
+        private readonly ChangeManager changeManager;
 
         public BatchChange(string changeDescription, ChangeManager changeManager)
         {
@@ -15,7 +15,7 @@ namespace MindMate.Modules.Undo
             Description = changeDescription;
         }
 
-        private List<IChange> changes = new List<IChange>();
+        private readonly List<IChange> changes = new List<IChange>();
 
         public IList<IChange> Changes
         {

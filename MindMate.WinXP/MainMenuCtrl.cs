@@ -22,7 +22,7 @@ namespace MindMate.WinXP
     {
         public MainMenu mainMenu;
         public MapCtrl mapCtrl { get { return mainCtrl.CurrentMapCtrl; } }
-        private MainCtrl mainCtrl; 
+        private readonly MainCtrl mainCtrl; 
 
         public MainMenuCtrl(MainMenu mainMenu, MainCtrl mainCtrl)
         {

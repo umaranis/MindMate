@@ -20,7 +20,7 @@ namespace MindMate.Plugins.Tasks.SideBar
             MyInitializeComponent();
         }
 
-        private ControlGroupCollection controlGroups; 
+        private readonly ControlGroupCollection controlGroups; 
         public ControlGroupCollection ControlGroups 
         { 
             get

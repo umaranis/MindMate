@@ -37,7 +37,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
 {
     public class HtmlTableHelper
     {
-        NoteEditor editor;
+        readonly NoteEditor editor;
 
         private HtmlDocument Document
         { get { return (HtmlDocument)editor.Document.DomDocument; } }

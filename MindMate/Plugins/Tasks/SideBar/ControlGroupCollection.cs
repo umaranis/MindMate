@@ -11,7 +11,7 @@ namespace MindMate.Plugins.Tasks.SideBar
     {
         public class ControlGroupCollection : IList<ControlGroup>
         {
-            private SideBar sideBar;
+            private readonly SideBar sideBar;
 
             public ControlGroupCollection(SideBar sideBar)
             {
