@@ -89,7 +89,7 @@ namespace MindMate.Model
 
         #region AttributeSpec
 
-        private Dictionary<string, AttributeSpec> attributeSpecs = new Dictionary<string, AttributeSpec>();
+        private readonly Dictionary<string, AttributeSpec> attributeSpecs = new Dictionary<string, AttributeSpec>();
 
         public IEnumerable<AttributeSpec> AttributeSpecs
         {
@@ -380,7 +380,7 @@ namespace MindMate.Model
             }
         }
 
-        private TreeFormat treeFormat = new TreeFormat();
+        private readonly TreeFormat treeFormat = new TreeFormat();
 
         /// <summary>
         /// Background color of Map Canvas

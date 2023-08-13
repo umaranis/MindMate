@@ -8,8 +8,8 @@ namespace MindMate.Modules.Undo.Changes
 {
     class TextChange : IChange
     {
-        MapNode node;
-        string oldText;
+        readonly MapNode node;
+        readonly string oldText;
 
         public TextChange(MapNode node, string oldValue)
         {

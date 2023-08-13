@@ -9,8 +9,8 @@ namespace MindMate.Modules.Undo.Changes
 {
     class DefaultTreeFormatChange : IChange
     {
-        MapTree tree;
-        NodeFormat oldValue;
+        readonly MapTree tree;
+        readonly NodeFormat oldValue;
 
         public DefaultTreeFormatChange(MapTree tree, NodeFormat oldValue)
         {

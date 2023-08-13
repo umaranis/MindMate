@@ -20,7 +20,7 @@ namespace MindMate.Controller
     public class MapViewMouseEventHandler
     {
 
-        private MapCtrl mapCtrl = null;
+        private readonly MapCtrl mapCtrl = null;
         public MapViewMouseEventHandler(MapCtrl mapCtrl)
         {
             this.mapCtrl = mapCtrl;

@@ -202,7 +202,7 @@ namespace MindMate.Model
         public class MindMateClipboardDataObject : IDataObject
         {
 
-            private List<MapNode> mapNodes;
+            private readonly List<MapNode> mapNodes;
             public MindMateClipboardDataObject(List<MapNode> mapNodes)
             {
                 this.mapNodes = mapNodes;

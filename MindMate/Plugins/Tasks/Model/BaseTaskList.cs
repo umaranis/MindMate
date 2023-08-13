@@ -11,7 +11,7 @@ namespace MindMate.Plugins.Tasks.Model
     {
         protected List<MapNode> tasks;
 
-        private Func<MapNode, DateTime> GetDate;
+        private readonly Func<MapNode, DateTime> GetDate;
 
         public BaseTaskList(Func<MapNode, DateTime> GetDate)
         {

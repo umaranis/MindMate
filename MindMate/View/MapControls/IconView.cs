@@ -58,7 +58,7 @@ namespace MindMate.View.MapControls
             }
         }
 
-        IIcon iconSpec;
+        readonly IIcon iconSpec;
 
         public IIcon IconSpec
         {

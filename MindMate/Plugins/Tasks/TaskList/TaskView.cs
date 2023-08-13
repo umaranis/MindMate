@@ -124,7 +124,7 @@ namespace MindMate.Plugins.Tasks
         /// </summary>
         public bool ShowDeferOption { get; private set; }
 
-        private Action<TaskView, TaskViewEvent> OnTaskViewEvent;
+        private readonly Action<TaskView, TaskViewEvent> OnTaskViewEvent;
 
         protected override void OnMouseEnter(EventArgs e)
         {

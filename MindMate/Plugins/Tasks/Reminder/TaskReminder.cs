@@ -14,13 +14,13 @@ namespace MindMate.Plugins.Tasks.Reminder
     {
         public const int ADVANCED_REMINDER_MINUTES = 15;
         
-        private PendingTaskList taskList;
+        private readonly PendingTaskList taskList;
 
         public delegate void TaskDueDelegate(MapNode node, ReminderType reminderType);
 
         public event TaskDueDelegate TaskDue;
 
-        private System.Windows.Forms.Control syncControl;
+        private readonly System.Windows.Forms.Control syncControl;
 
         private DateTime lastAdvancedReminder = DateTime.Today;
         private DateTime lastReminder = DateTime.Today;

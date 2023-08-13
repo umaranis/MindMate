@@ -8,8 +8,8 @@ namespace MindMate.Modules.Undo.Changes
 {
     class LinePatternChange : IChange
     {
-        MapNode node;
-        System.Drawing.Drawing2D.DashStyle oldValue;
+        readonly MapNode node;
+        readonly System.Drawing.Drawing2D.DashStyle oldValue;
 
         public LinePatternChange(MapNode node, System.Drawing.Drawing2D.DashStyle oldValue)
         {

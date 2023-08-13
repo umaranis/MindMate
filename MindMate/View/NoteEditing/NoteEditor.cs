@@ -21,7 +21,7 @@ namespace MindMate.View.NoteEditing
     /// </summary>
     public partial class NoteEditor : WebBrowser, IHTMLChangeSink, MsHtmlWrap.IHTMLEditDesigner
     {
-        private IHTMLDocument2 htmlDoc;
+        private readonly IHTMLDocument2 htmlDoc;
 
         public NoteEditor()
         {

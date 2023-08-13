@@ -17,8 +17,8 @@ namespace MindMate.View.Dialogs
 {
     public partial class Options : Form
     {
-        private MainCtrl mainCtrl;
-        private NoteEditorCtrl noteCtrl;
+        private readonly MainCtrl mainCtrl;
+        private readonly NoteEditorCtrl noteCtrl;
 
         public Options(MainCtrl mainCtrl, NoteEditorCtrl noteCtrl)
         {

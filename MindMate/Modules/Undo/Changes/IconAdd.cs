@@ -8,8 +8,8 @@ namespace MindMate.Modules.Undo.Changes
 {
     class IconAdd : IChange
     {
-        MapNode node;
-        string icon;
+        readonly MapNode node;
+        readonly string icon;
 
         public IconAdd(MapNode node, string icon)
         {

@@ -210,7 +210,7 @@ namespace MindMate.Plugins.Tasks.Model
 
         public event TaskSelectionChangedDelegate TaskSelectionChanged;
 
-        private PendingTaskEventArgs pendingTaskArgs;
+        private readonly PendingTaskEventArgs pendingTaskArgs;
         public event PendingTaskChangedDelegate TaskChanged = delegate { };
 
         event PendingTaskPropertyChanged PendingTaskPropertyChanged;

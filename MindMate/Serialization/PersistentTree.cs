@@ -178,8 +178,8 @@ namespace MindMate.Serialization
 
         #region Lazy loaded Large Object Cache
 
-        private List<string> newLobs = new List<string>();      //not saved yet
-        private List<string> deletedLobs = new List<string>();  //to be deleted
+        private readonly List<string> newLobs = new List<string>();      //not saved yet
+        private readonly List<string> deletedLobs = new List<string>();  //to be deleted
 
         public IEnumerable<KeyValuePair<string, ILargeObject>> NewLargeObjects 
             => lobStore.Where(a => newLobs.Contains(a.Key));

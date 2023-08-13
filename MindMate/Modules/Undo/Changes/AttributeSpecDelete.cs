@@ -8,7 +8,7 @@ namespace MindMate.Modules.Undo.Changes
 {
     class AttributeSpecDelete : IChange
     {
-        MapTree.AttributeSpec spec;
+        readonly MapTree.AttributeSpec spec;
 
         public AttributeSpecDelete(MapTree.AttributeSpec spec)
         {

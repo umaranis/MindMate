@@ -19,7 +19,7 @@ namespace MindMate.Controller
     /// </summary>
     public class MapViewKeyEventHandler
     {
-        private MapCtrl mapCtrl;
+        private readonly MapCtrl mapCtrl;
 
         public MapViewKeyEventHandler(MapCtrl mapCtrl)
         {

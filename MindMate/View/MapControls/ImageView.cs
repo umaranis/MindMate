@@ -11,7 +11,7 @@ namespace MindMate.View.MapControls
 {
     public class ImageView
     {
-        private MapNode node;
+        private readonly MapNode node;
 
         public ImageView(MapNode node)
         {

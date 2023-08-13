@@ -8,8 +8,8 @@ namespace MindMate.Modules.Undo.Changes
 {
     class AttributeSpecListType : IChange
     {
-        MapTree.AttributeSpec spec;
-        MapTree.AttributeListOption oldValue;
+        readonly MapTree.AttributeSpec spec;
+        readonly MapTree.AttributeListOption oldValue;
 
         public AttributeSpecListType(MapTree.AttributeSpec spec, MapTree.AttributeListOption oldValue)
         {

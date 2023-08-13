@@ -8,8 +8,8 @@ namespace MindMate.Modules.Undo.Changes
 {
     class BoldChange : IChange
     {
-        private MapNode node;
-        private bool oldValue;
+        private readonly MapNode node;
+        private readonly bool oldValue;
 
         public BoldChange(MapNode node, bool oldValue)
         {

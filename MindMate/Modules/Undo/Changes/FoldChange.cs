@@ -8,8 +8,8 @@ namespace MindMate.Modules.Undo.Changes
 {
     class FoldChange : IChange
     {
-        MapNode node;
-        bool oldValue;
+        readonly MapNode node;
+        readonly bool oldValue;
 
         public FoldChange(MapNode node, bool oldValue)
         {

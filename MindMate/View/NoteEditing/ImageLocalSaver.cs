@@ -13,8 +13,8 @@ namespace MindMate.View.NoteEditing
 {
     public class ImageLocalSaver
     {
-        private NoteEditor editor;
-        private PersistenceManager persistence;
+        private readonly NoteEditor editor;
+        private readonly PersistenceManager persistence;
 
         public ImageLocalSaver(NoteEditor editor, PersistenceManager pManager)
         {

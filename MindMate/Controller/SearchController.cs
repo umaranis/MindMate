@@ -16,10 +16,10 @@ namespace MindMate.Controller
     /// </summary>
     public class SearchController
     {
-        private SearchControl SearchControl;
+        private readonly SearchControl SearchControl;
         private int CurrentSearchID { get; set; }
-        private Func<MapTree> GetCurrentMapTree;
-        private Action<Action> ScheduleParallelTask;
+        private readonly Func<MapTree> GetCurrentMapTree;
+        private readonly Action<Action> ScheduleParallelTask;
 
         /// <summary>
         /// 

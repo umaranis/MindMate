@@ -8,11 +8,11 @@ namespace MindMate.View.NoteEditing
 {
     public class NoteEditorContextMenu : ContextMenuStrip
     {
-        private NoteEditor editor;
+        private readonly NoteEditor editor;
 
-        private ToolStripItem mCut;
-        private ToolStripItem mCopy;
-        private ToolStripItem mPaste;
+        private readonly ToolStripItem mCut;
+        private readonly ToolStripItem mCopy;
+        private readonly ToolStripItem mPaste;
 
         public NoteEditorContextMenu(NoteEditor editor)
         {

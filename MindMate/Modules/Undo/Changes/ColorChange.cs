@@ -9,8 +9,8 @@ namespace MindMate.Modules.Undo.Changes
 {
     class ColorChange : IChange
     {
-        MapNode node;
-        Color OldColor;
+        readonly MapNode node;
+        readonly Color OldColor;
 
         public ColorChange(MapNode node, Color oldValue)
         {
