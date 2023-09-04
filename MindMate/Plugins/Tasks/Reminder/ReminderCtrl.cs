@@ -11,7 +11,7 @@ namespace MindMate.Plugins.Tasks.Reminder
         private readonly TaskPlugin taskPlugin;
 
         private readonly TaskReminder reminder;
-        public TaskReminder TaskReminder { get { return reminder; } }
+        public TaskReminder TaskReminder => reminder;
 
         private readonly List<TaskReminderDialog> openDialogs;
 

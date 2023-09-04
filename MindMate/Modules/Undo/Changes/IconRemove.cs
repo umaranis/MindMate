@@ -17,13 +17,7 @@ namespace MindMate.Modules.Undo.Changes
             this.icon = icon;
         }
 
-        public string Description
-        {
-            get
-            {
-                return "Icon Removed";
-            }
-        }
+        public string Description => "Icon Removed";
 
         public void Undo()
         {

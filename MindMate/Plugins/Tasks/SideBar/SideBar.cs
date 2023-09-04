@@ -20,14 +20,8 @@ namespace MindMate.Plugins.Tasks.SideBar
             MyInitializeComponent();
         }
 
-        private readonly ControlGroupCollection controlGroups; 
-        public ControlGroupCollection ControlGroups 
-        { 
-            get
-            {
-                return controlGroups;
-            }
-        }
+        private readonly ControlGroupCollection controlGroups;
+        public ControlGroupCollection ControlGroups => controlGroups;
 
         private void AdjustMainPanelHeight()
         {

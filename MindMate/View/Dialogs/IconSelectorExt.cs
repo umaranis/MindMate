@@ -212,10 +212,7 @@ namespace MindMate.View.Dialogs
 
         #region Customize Icon Selector Dialog *********************************
 
-        public bool IsCustomizing
-        {
-            get { return toolStrip2.Visible; }
-        }
+        public bool IsCustomizing => toolStrip2.Visible;
 
         private void StartCustomizing()
         {

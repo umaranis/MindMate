@@ -347,15 +347,9 @@ namespace MindMate.View.NoteEditing
         //    htmlDoc.execCommand("InsertImage", true, null);
         //}
 
-        public bool DocumentReady
-        {
-            get { return htmlDoc.readyState.Equals("complete", StringComparison.OrdinalIgnoreCase); }
-        }
+        public bool DocumentReady => htmlDoc.readyState.Equals("complete", StringComparison.OrdinalIgnoreCase);
 
-        public bool Empty
-        {
-            get { return htmlDoc.body.innerHTML == null || htmlDoc.body.innerHTML == "<P>&nbsp;</P>"; }
-        }
+        public bool Empty => htmlDoc.body.innerHTML == null || htmlDoc.body.innerHTML == "<P>&nbsp;</P>";
 
         /// <summary>
         /// Text color for the current selection

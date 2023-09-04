@@ -36,13 +36,7 @@ namespace MindMate.Model
         #region Selected Nodes
 
         private readonly SelectedNodes selectedNodes;
-        public SelectedNodes SelectedNodes
-        {
-            get
-            {
-                return selectedNodes;
-            }
-        }
+        public SelectedNodes SelectedNodes => selectedNodes;
 
         /// <summary>
         /// Select all visible nodes
@@ -91,10 +85,7 @@ namespace MindMate.Model
 
         private readonly Dictionary<string, AttributeSpec> attributeSpecs = new Dictionary<string, AttributeSpec>();
 
-        public IEnumerable<AttributeSpec> AttributeSpecs
-        {
-            get { return attributeSpecs.Values; }
-        }
+        public IEnumerable<AttributeSpec> AttributeSpecs => attributeSpecs.Values;
 
         /// <summary>
         /// Returns null if AttributeSpec doesn't exist
@@ -110,7 +101,7 @@ namespace MindMate.Model
                 return null;
         }
 
-        public int AttributeSpecCount { get { return attributeSpecs.Count; } }
+        public int AttributeSpecCount => attributeSpecs.Count;
 
         public event Action<AttributeSpec, AttributeSpecEventArgs> AttributeSpecChangeEvent = delegate { };
 
@@ -280,10 +271,7 @@ namespace MindMate.Model
             private set;
         }
 
-        public bool ChangeManagerOn
-        {
-            get { return ChangeManager != null; }
-        }
+        public bool ChangeManagerOn => ChangeManager != null;
 
         /// <summary>
         /// Change Manager is off by default (helps in deserialization).
@@ -350,13 +338,7 @@ namespace MindMate.Model
         /// <summary>
         /// Iterate over all nodes in the tree
         /// </summary>
-        public IEnumerable<MapNode> MapNodes
-        {
-            get
-            {
-                return (new[] { RootNode }).Concat(RootNode.Descendents);
-            }
-        }
+        public IEnumerable<MapNode> MapNodes => (new[] { RootNode }).Concat(RootNode.Descendents);
 
         #region Default Node Formatting / Theme
 

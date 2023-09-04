@@ -21,10 +21,10 @@ namespace MindMate.Plugins.Tasks
         public bool CanContain(DateTime dateTime) { return dateTime.Date < DateTime.Today; }
 
         public string ShortDueDateString(DateTime dateTime) { return dateTime.ToString("dd-MMM"); }
-        
-        public DateTime StartTime { get { return DateTime.MinValue; } }
 
-        public DateTime EndTime { get { return DateTime.Today.Subtract(TimeSpan.FromSeconds(1)); } }
+        public DateTime StartTime => DateTime.MinValue;
+
+        public DateTime EndTime => DateTime.Today.Subtract(TimeSpan.FromSeconds(1));
     }
 
 
@@ -34,9 +34,9 @@ namespace MindMate.Plugins.Tasks
 
         public string ShortDueDateString(DateTime dateTime) { return dateTime.ToShortTimeString(); }
 
-        public DateTime StartTime { get { return DateTime.Today; } }
+        public DateTime StartTime => DateTime.Today;
 
-        public DateTime EndTime { get { return DateTime.Today.Add(new TimeSpan(23, 59, 59)); } }
+        public DateTime EndTime => DateTime.Today.Add(new TimeSpan(23, 59, 59));
     }
 
     public class TaskGroupTomorrow : ITaskGroup
@@ -45,9 +45,9 @@ namespace MindMate.Plugins.Tasks
 
         public string ShortDueDateString(DateTime dateTime) { return dateTime.ToShortTimeString(); }
 
-        public DateTime StartTime { get { return DateTime.Today.AddDays(1).Date; } }
+        public DateTime StartTime => DateTime.Today.AddDays(1).Date;
 
-        public DateTime EndTime { get { return StartTime.Add(new TimeSpan(23, 59, 59)); } }
+        public DateTime EndTime => StartTime.Add(new TimeSpan(23, 59, 59));
     }
 
     public class TaskGroupThisWeek : ITaskGroup
@@ -90,9 +90,9 @@ namespace MindMate.Plugins.Tasks
 
         public string ShortDueDateString(DateTime dateTime) { return dateTime.ToString("dd-MMM"); }
 
-        public DateTime StartTime { get { return DateHelper.GetFirstDayOfMonth(DateTime.Now); } }
+        public DateTime StartTime => DateHelper.GetFirstDayOfMonth(DateTime.Now);
 
-        public DateTime EndTime { get { return DateHelper.GetLastDayOfMonth(DateTime.Now).Add(new TimeSpan(23, 59, 59)); } }
+        public DateTime EndTime => DateHelper.GetLastDayOfMonth(DateTime.Now).Add(new TimeSpan(23, 59, 59));
     }
 
     public class TaskGroupNextMonth : ITaskGroup
@@ -104,9 +104,9 @@ namespace MindMate.Plugins.Tasks
 
         public string ShortDueDateString(DateTime dateTime) { return dateTime.ToString("dd-MMM"); }
 
-        public DateTime StartTime { get { return DateHelper.GetFirstDayOfMonth(DateTime.Now.AddMonths(1)); } }
+        public DateTime StartTime => DateHelper.GetFirstDayOfMonth(DateTime.Now.AddMonths(1));
 
-        public DateTime EndTime { get { return DateHelper.GetLastDayOfMonth(DateTime.Now.AddMonths(1)).Add(new TimeSpan(23, 59, 59)); } }
+        public DateTime EndTime => DateHelper.GetLastDayOfMonth(DateTime.Now.AddMonths(1)).Add(new TimeSpan(23, 59, 59));
     }
 
 }

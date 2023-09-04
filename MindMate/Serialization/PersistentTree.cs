@@ -59,13 +59,7 @@ namespace MindMate.Serialization
 
         public string FileName { get; private set; }
 
-        public bool IsNewMap
-        {
-            get
-            {
-                return FileName == null;
-            }
-        }
+        public bool IsNewMap => FileName == null;
 
         private bool isDirty;
         public bool IsDirty

@@ -22,7 +22,7 @@ namespace MindMate.Model
 
             public static Attribute Empty = new Attribute(null, null);
             public bool IsEmpty() { return AttributeSpec == null; }
-            public string ValueString { get { return Value?.ToString(); } }
+            public string ValueString => Value?.ToString();
             public override string ToString()
             {
                 return (AttributeSpec != null ? AttributeSpec.Name : "") + " : " + (ValueString ?? "");
@@ -35,14 +35,11 @@ namespace MindMate.Model
         /// returns null if no attributes
         /// </summary>
         [Serialized(Order = 25)]
-        public IEnumerable<Attribute> Attributes { get { return attributeList; } }
+        public IEnumerable<Attribute> Attributes => attributeList;
 
-        public bool HasAttributes
-        {
-            get { return attributeList != null && attributeList.Count > 0; }
-        }
+        public bool HasAttributes => attributeList != null && attributeList.Count > 0;
 
-        public int AttributeCount { get { return attributeList == null ? 0 : attributeList.Count; } }
+        public int AttributeCount => attributeList == null ? 0 : attributeList.Count;
 
         public Attribute GetAttribute(int index) { return attributeList[index]; }
 

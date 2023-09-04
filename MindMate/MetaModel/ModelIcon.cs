@@ -63,9 +63,6 @@ namespace MindMate.MetaModel
 
         private Bitmap bitmap;
 
-        public Bitmap Bitmap
-        {
-            get { return bitmap; }
-        }
+        public Bitmap Bitmap => bitmap;
     }
 }

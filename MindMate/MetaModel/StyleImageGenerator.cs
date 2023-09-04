@@ -49,13 +49,8 @@ namespace MindMate.MetaModel
             return mapNode.NodeView;
         }
 
-        public MapTree Tree {
-            get { return mapNode.Tree; }
-        }
+        public MapTree Tree => mapNode.Tree;
 
-        public MapNode HighlightedNode
-        {
-            get { return null; }
-        }
+        public MapNode HighlightedNode => null;
     }
 }

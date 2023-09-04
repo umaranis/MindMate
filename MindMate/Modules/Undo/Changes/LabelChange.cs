@@ -17,13 +17,7 @@ namespace MindMate.Modules.Undo.Changes
             this.oldText = oldValue;
         }
 
-        public string Description
-        {
-            get
-            {
-                return "Label Change";
-            }
-        }
+        public string Description => "Label Change";
 
         public void Undo()
         {

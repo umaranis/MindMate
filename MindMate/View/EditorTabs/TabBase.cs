@@ -21,6 +21,6 @@ namespace MindMate.View.EditorTabs
         /// <summary>
         /// Child Control of the tab. All tabs should have one control only.
         /// </summary>
-        public Control Control { get { return Controls[0]; } }
+        public Control Control => Controls[0];
     }
 }

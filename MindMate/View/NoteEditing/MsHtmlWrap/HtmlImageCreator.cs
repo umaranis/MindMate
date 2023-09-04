@@ -42,8 +42,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
     {
         readonly NoteEditor editor;
 
-        private HtmlDocument Document
-        { get { return (HtmlDocument)editor.Document.DomDocument; } }
+        private HtmlDocument Document => (HtmlDocument)editor.Document.DomDocument;
 
         public HtmlImageCreator(NoteEditor editor)
         {

@@ -27,14 +27,8 @@ namespace MindMate.View.MapControls
             set { location = value; }
         }
 
-               
-        public Size Size
-        {
-            get 
-            { 
-                return bitmap.Size; 
-            }            
-        }
+
+        public Size Size => bitmap.Size;
 
         public bool Contains(Point p)
         {
@@ -43,13 +37,7 @@ namespace MindMate.View.MapControls
 
         readonly Bitmap bitmap;
 
-        public Bitmap Bitmap
-        {
-            get 
-            { 
-                return bitmap; 
-            }            
-        }
+        public Bitmap Bitmap => bitmap;
 
         public void Draw(Graphics g)
         {

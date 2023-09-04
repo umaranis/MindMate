@@ -17,13 +17,7 @@ namespace MindMate.Modules.Undo.Changes
             this.oldValue = oldValue;
         }
 
-        public string Description
-        {
-            get
-            {
-                return "Rich Content Text Change";
-            }
-        }
+        public string Description => "Rich Content Text Change";
 
         public void Undo()
         {

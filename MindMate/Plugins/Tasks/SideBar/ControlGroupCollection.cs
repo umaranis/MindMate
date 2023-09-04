@@ -16,12 +16,9 @@ namespace MindMate.Plugins.Tasks.SideBar
             public ControlGroupCollection(SideBar sideBar)
             {
                 this.sideBar = sideBar;
-            }            
-
-            private TableLayoutPanel Table
-            {
-                get { return sideBar.tablePanelMain; }
             }
+
+            private TableLayoutPanel Table => sideBar.tablePanelMain;
 
             public ControlGroup Add(string headerText, System.Drawing.Color headerTextColor)
             {
@@ -164,15 +161,9 @@ namespace MindMate.Plugins.Tasks.SideBar
                 }
             }
 
-            public int Count
-            {
-                get { return Table.RowCount; }
-            }
+            public int Count => Table.RowCount;
 
-            public bool IsReadOnly
-            {
-                get { return false; }
-            }
+            public bool IsReadOnly => false;
 
             public bool Remove(ControlGroup item)
             {

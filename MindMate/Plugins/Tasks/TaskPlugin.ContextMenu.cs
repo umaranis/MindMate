@@ -12,12 +12,12 @@ namespace MindMate.Plugins.Tasks
     {
         private MenuItem[] menuItems;
 
-        private MenuItem SetDueDateMenu { get { return menuItems[0]; } }
-        private MenuItem UpdateDueDateMenu { get { return menuItems[1]; } }
-        private MenuItem CompleteTaskMenu { get { return menuItems[3]; } }
-        private MenuItem RemoveTaskMenu { get { return menuItems[4]; } }
+        private MenuItem SetDueDateMenu => menuItems[0];
+        private MenuItem UpdateDueDateMenu => menuItems[1];
+        private MenuItem CompleteTaskMenu => menuItems[3];
+        private MenuItem RemoveTaskMenu => menuItems[4];
 
-        
+
         public MenuItem[] CreateContextMenuItemsForNode()
         {
             var t1 = new MenuItem("Set Due Date ...", TaskRes.date_add, SetDueDate_Click);

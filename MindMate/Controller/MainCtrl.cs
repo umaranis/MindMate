@@ -43,18 +43,12 @@ namespace MindMate.Controller
             }
         }
 
-        public ChangeManager ChangeManager { get { return CurrentMapCtrl.MapView.Tree.ChangeManager; } }
+        public ChangeManager ChangeManager => CurrentMapCtrl.MapView.Tree.ChangeManager;
 
         public WinFormsStatusBarCtrl statusBarCtrl;
 
         private NoteEditorCtrl noteCrtl;
-        public NoteEditorCtrl NoteCrtl
-        {
-            get
-            {
-                return noteCrtl;
-            }            
-        }
+        public NoteEditorCtrl NoteCrtl => noteCrtl;
 
 
         public NodeContextMenu NodeContextMenu { get; private set; }        
@@ -443,13 +437,7 @@ namespace MindMate.Controller
         /// <summary>
         /// Selected Nodes of the currently active MapView
         /// </summary>
-        public SelectedNodes ActiveNodes
-        {
-            get
-            {
-                return CurrentMapCtrl.MapView.Tree.SelectedNodes;
-            }
-        }
+        public SelectedNodes ActiveNodes => CurrentMapCtrl.MapView.Tree.SelectedNodes;
 
         public void StartNoteEditing()
         {

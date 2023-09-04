@@ -17,13 +17,7 @@ namespace MindMate.Modules.Undo.Changes
             this.oldValue = oldValue;
         }
 
-        public string Description
-        {
-            get
-            {
-                return "Toggle Italic";
-            }
-        }
+        public string Description => "Toggle Italic";
 
         public void Undo()
         {

@@ -44,29 +44,11 @@ namespace MindMate.View
         public TabPage NoteTab { get; private set; }
 
         //TODO: Should be handled the way 'View Calendar' ribbon command is done.
-        public TabPage TaskListTab
-        {
-            get
-            {
-                return TabPages.Cast<TabPage>().FirstOrDefault(p => p.Text == TaskListTabTitle);
-            }
-        }
+        public TabPage TaskListTab => TabPages.Cast<TabPage>().FirstOrDefault(p => p.Text == TaskListTabTitle);
 
-        public TabPage SearchTab
-        {
-            get
-            {
-                return TabPages.Cast<TabPage>().First(p => p.Text == SearchTabTitle);
-            }
-        }
+        public TabPage SearchTab => TabPages.Cast<TabPage>().First(p => p.Text == SearchTabTitle);
 
-        public SearchControl SearchControl
-        {
-            get
-            {
-                return SearchTab.Controls[0] as SearchControl;
-            }
-        }
+        public SearchControl SearchControl => SearchTab.Controls[0] as SearchControl;
 
     }
 }

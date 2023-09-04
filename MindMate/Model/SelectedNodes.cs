@@ -55,17 +55,11 @@ namespace MindMate.Model
             }
         }
 
-        public int Count
-        {
-            get
-            {
-                return selectedNodes.Count;
-            }
-        }
+        public int Count => selectedNodes.Count;
 
-        public bool IsEmpty { get { return Count == 0; } }
+        public bool IsEmpty => Count == 0;
 
-        public bool IsMultiple { get { return Count > 1; } }
+        public bool IsMultiple => Count > 1;
 
         public MapNode this [int index]
         {
