@@ -1,10 +1,6 @@
 ﻿using MindMate.View;
 using MindMate.View.EditorTabs;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 
 namespace MindMate.Controller
 {
