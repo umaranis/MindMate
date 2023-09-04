@@ -3,13 +3,8 @@
  * This software is licensed under MIT (see LICENSE.txt)    
  */
 
-using MindMate.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using MindMate.View.MapControls;
+using System.Windows.Forms;
 
 namespace MindMate.Controller
 {
