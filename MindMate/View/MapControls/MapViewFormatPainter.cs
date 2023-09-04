@@ -20,7 +20,7 @@ namespace MindMate.View.MapControls
         
         public FormatPainterStatus Status { get; private set; }
 
-        public bool Active { get { return Status != FormatPainterStatus.Empty; } }
+        public bool Active => Status != FormatPainterStatus.Empty;
 
         public event Action<MapViewFormatPainter> StateChanged;
 

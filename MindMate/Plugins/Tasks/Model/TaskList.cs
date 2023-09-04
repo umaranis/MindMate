@@ -40,13 +40,7 @@ namespace MindMate.Plugins.Tasks.Model
             //}
         }
 
-        public int Count
-        {
-            get
-            {
-                return pendingTasks.Count + completedTasks.Count;
-            }
-        }
+        public int Count => pendingTasks.Count + completedTasks.Count;
 
         //public bool IsReadOnly
         //{

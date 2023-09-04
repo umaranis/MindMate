@@ -27,18 +27,12 @@ namespace MindMate.Serialization
             fileList = new List<PersistentTree>();
         }
 
-        public bool IsDirty
-        {
-            get
-            {
-                return !fileList.TrueForAll(t => !t.IsDirty);
-            }
-        }
+        public bool IsDirty => !fileList.TrueForAll(t => !t.IsDirty);
 
         #region Tree List
 
         private readonly List<PersistentTree> fileList;
-        public int FileCount { get { return fileList.Count; } }
+        public int FileCount => fileList.Count;
 
         public IEnumerator<PersistentTree> GetEnumerator()
         {

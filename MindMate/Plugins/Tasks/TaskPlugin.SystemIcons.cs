@@ -20,8 +20,8 @@ namespace MindMate.Plugins.Tasks
             return systemIcons;
         }
 
-        private TaskDueIcon TaskDueIcon { get { return (TaskDueIcon)systemIcons[0]; } }
+        private TaskDueIcon TaskDueIcon => (TaskDueIcon)systemIcons[0];
 
-        private TaskCompleteIcon TaskCompleteIcon { get { return (TaskCompleteIcon)systemIcons[1]; } }
+        private TaskCompleteIcon TaskCompleteIcon => (TaskCompleteIcon)systemIcons[1];
     }
 }

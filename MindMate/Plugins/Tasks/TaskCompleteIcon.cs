@@ -27,8 +27,8 @@ namespace MindMate.Plugins.Tasks
                 }
             };
         }
-        
-        public string Name { get { return "TaskCompleted"; } }
+
+        public string Name => "TaskCompleted";
 
         public bool ShowIcon(MapNode node)
         {
@@ -37,10 +37,7 @@ namespace MindMate.Plugins.Tasks
 
         public event Action<MapNode, ISystemIcon, SystemIconStatusChange> StatusChange;
 
-        public System.Drawing.Bitmap Bitmap
-        {
-            get { return TaskRes.tick; }
-        }
-        
+        public System.Drawing.Bitmap Bitmap => TaskRes.tick;
+
     }
 }

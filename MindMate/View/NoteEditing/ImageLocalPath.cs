@@ -21,11 +21,11 @@ namespace MindMate.View.NoteEditing
         /// <summary>
         /// Name of file with extension
         /// </summary>
-        public string FileName { get { return FileNameWithoutExt + "." + Extension; } }
+        public string FileName => FileNameWithoutExt + "." + Extension;
         /// <summary>
         /// Url with mm protocol, file name and extension
         /// </summary>
-        public string Url { get { return Protocol + FileName; } }
+        public string Url => Protocol + FileName;
 
         private ImageLocalPath(string fileNameWithoutExt, string extension)
         {

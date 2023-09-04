@@ -17,13 +17,7 @@ namespace MindMate.Modules.Undo.Changes
             this.oldValue = oldValue;
         }
 
-        public string Description
-        {
-            get
-            {
-                return "Toggle Bold";
-            }
-        }
+        public string Description => "Toggle Bold";
 
         public void Undo()
         {

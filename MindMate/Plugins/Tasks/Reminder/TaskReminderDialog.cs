@@ -37,8 +37,8 @@ namespace MindMate.Plugins.Tasks.Reminder
             TaskViewEvent = null;
         }
 
-        public TaskView TaskView { get { return (TaskView)Controls[0]; } }
-                
+        public TaskView TaskView => (TaskView)Controls[0];
+
 
         private void onTaskViewEvent(TaskView taskView, TaskView.TaskViewEvent e)
         {

@@ -39,29 +39,17 @@ namespace MindMate.MetaModel
 
         private static MetaModel instance;
 
-        public static MetaModel Instance
-        {
-            get 
-            {
-                return instance; 
-            }            
-        }
+        public static MetaModel Instance => instance;
 
         #endregion
 
         private readonly List<ModelIcon> iconsList = new List<ModelIcon>();
 
         //[ProtoBuf.ProtoMember(1)]
-        public List<ModelIcon> IconsList
-        {
-            get { return iconsList;  }
-        }
+        public List<ModelIcon> IconsList => iconsList;
 
         private readonly List<ISystemIcon> systemIconList = new List<ISystemIcon>();
-        public List<ISystemIcon> SystemIconList
-        {
-            get { return systemIconList; }
-        }
+        public List<ISystemIcon> SystemIconList => systemIconList;
 
         //[ProtoBuf.ProtoMember(2)]
         public string LastOpenedFile { get; set; }
@@ -70,12 +58,7 @@ namespace MindMate.MetaModel
 
         private readonly CustomFontDialog.RecentlyUsedList<string> recentFiles = new CustomFontDialog.RecentlyUsedList<string>(RecentFilesCount);
         //[ProtoBuf.ProtoMember(3)]
-        public CustomFontDialog.RecentlyUsedList<string> RecentFiles { 
-            get
-            {
-                return recentFiles;
-            }
-        }
+        public CustomFontDialog.RecentlyUsedList<string> RecentFiles => recentFiles;
 
         public System.Drawing.Color MapEditorBackColor { get; set; }
 
@@ -97,10 +80,7 @@ namespace MindMate.MetaModel
 
         private readonly List<NodeStyle> nodeStyles = new List<NodeStyle>();
 
-        public List<NodeStyle> NodeStyles
-        {
-            get { return nodeStyles; }
-        }
+        public List<NodeStyle> NodeStyles => nodeStyles;
 
         public ThemeManager Themes { get; } = new ThemeManager();
 

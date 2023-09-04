@@ -15,7 +15,7 @@ namespace MindMate.Plugins.Tasks.Model
         /// Due to batch updates, OldDueDate may be different than current even if PendingTaskChange is not DueDateUpdated.
         /// </summary>
         public DateTime OldDueDate { get; set; }
-        public bool IsOldDueDateEmpty { get { return DateTime.MinValue.Equals(OldDueDate); } }
+        public bool IsOldDueDateEmpty => DateTime.MinValue.Equals(OldDueDate);
         /// <summary>
         /// OldTaskStatus will be same as current if there is no change.
         /// </summary>

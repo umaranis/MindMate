@@ -31,13 +31,7 @@ namespace MindMate.Plugins.Tasks.Model
             //}
         }
 
-        public int Count
-        {
-            get
-            {
-                return ((IList<MapNode>)tasks).Count;
-            }
-        }
+        public int Count => ((IList<MapNode>)tasks).Count;
 
         //public bool IsReadOnly
         //{

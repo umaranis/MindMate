@@ -17,10 +17,7 @@ namespace MindMate.Modules.Undo.Changes
             this.oldValue = oldValue;
         }
 
-        public string Description
-        {
-            get { return "Attribute Spec ListOption Change"; }
-        }
+        public string Description => "Attribute Spec ListOption Change";
 
         public void Undo()
         {

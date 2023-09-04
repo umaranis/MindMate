@@ -17,13 +17,7 @@ namespace MindMate.Modules.Undo.Changes
             this.oldValue = oldValue;
         }
 
-        public string Description
-        {
-            get
-            {
-                return "Line Width Change";
-            }
-        }
+        public string Description => "Line Width Change";
 
         public void Undo()
         {

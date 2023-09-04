@@ -63,10 +63,7 @@ namespace MindMate.View.MapControls
         }
 
         private readonly MapTree tree;
-        public MapTree Tree
-        {
-            get { return tree; }            
-        }
+        public MapTree Tree => tree;
 
         public void CenterOnForm()
         {
@@ -89,33 +86,15 @@ namespace MindMate.View.MapControls
 
         public MapViewPanel Canvas { get; set; }
 
-        public SelectedNodes SelectedNodes
-        {
-            get
-            {
-                return Tree.SelectedNodes;
-            }
-        }        
+        public SelectedNodes SelectedNodes => Tree.SelectedNodes;
 
         private readonly MapViewTextEditor nodeTextEditor;
-        public MapViewTextEditor NodeTextEditor
-        {
-            get
-            {
-                return nodeTextEditor;
-            }
-        }
+        public MapViewTextEditor NodeTextEditor => nodeTextEditor;
 
         public MapViewFormatPainter FormatPainter { get; private set; }
 
         private MapNode highlightedNode;
-        public MapNode HighlightedNode
-        {
-            get
-            {
-                return highlightedNode;
-            }
-        }
+        public MapNode HighlightedNode => highlightedNode;
 
         public void HighlightNode(MapNode node) { highlightedNode = node; Canvas.Invalidate(); }
 

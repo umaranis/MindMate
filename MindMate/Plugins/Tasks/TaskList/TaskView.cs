@@ -111,13 +111,7 @@ namespace MindMate.Plugins.Tasks
             }
         }
 
-        public DateTime DueDate 
-        {
-            get
-            {
-                return MapNode.GetDueDate();
-            }            
-        }
+        public DateTime DueDate => MapNode.GetDueDate();
 
         /// <summary>
         /// Determines if Defer and Expedite task actions are to be shown

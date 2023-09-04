@@ -17,13 +17,7 @@ namespace MindMate.Modules.Undo.Changes
             this.oldValue = oldValue;
         }
 
-        public string Description
-        {
-            get
-            {
-                return "Line Pattern Change";
-            }
-        }
+        public string Description => "Line Pattern Change";
 
         public void Undo()
         {

@@ -28,10 +28,7 @@ namespace MindMate.Plugins.Tasks.SideBar
             //table.TabIndex = 3;  
         }
 
-        private TableLayoutPanel Table
-        {
-            get { return (TableLayoutPanel)this.Controls[1]; }
-        }
+        private TableLayoutPanel Table => (TableLayoutPanel)this.Controls[1];
 
         public new event ControlEventHandler ControlAdded
         {
@@ -156,15 +153,9 @@ namespace MindMate.Plugins.Tasks.SideBar
             }
         }
 
-        public int Count
-        {
-            get { return Table.RowCount; }
-        }
+        public int Count => Table.RowCount;
 
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly => false;
 
         public bool Remove(Control item)
         {

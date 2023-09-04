@@ -21,13 +21,7 @@ namespace MindMate.Modules.Undo.Changes
             this.position = node.Pos;
         }
 
-        public string Description
-        {
-            get
-            {
-                return "Node detached";
-            }
-        }
+        public string Description => "Node detached";
 
         public void Undo()
         {

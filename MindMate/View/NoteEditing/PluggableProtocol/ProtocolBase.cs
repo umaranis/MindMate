@@ -101,13 +101,7 @@ namespace MindMate.View.NoteEditing.PluggableProtocol
 
         private int position = 0;
 
-        private int RemainingDataLength
-        {
-            get
-            {
-                return data.Length - position;
-            }
-        } 
+        private int RemainingDataLength => data.Length - position;
     }
 
 

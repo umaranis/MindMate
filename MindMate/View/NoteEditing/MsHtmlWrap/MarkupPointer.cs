@@ -21,13 +21,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
             _pointerRaw = pointer;
         }
 
-        public IMarkupPointerRaw PointerRaw
-        {
-            get
-            {
-                return _pointerRaw;
-            }
-        }
+        public IMarkupPointerRaw PointerRaw => _pointerRaw;
 
         /// <summary>
         /// Enable/Disable the cling attribute for this markup pointer.

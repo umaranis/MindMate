@@ -17,10 +17,7 @@ namespace MindMate.Modules.Undo.Changes
             this.attribute = attribute;
         }
 
-        public string Description
-        {
-            get { return "Add Attribute"; }
-        }
+        public string Description => "Add Attribute";
 
         public void Undo()
         {

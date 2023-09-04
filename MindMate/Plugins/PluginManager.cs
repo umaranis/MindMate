@@ -231,18 +231,12 @@ namespace MindMate.Plugins
         /// <summary>
         /// Currently active MapTree
         /// </summary>
-        public MapTree ActiveTree
-        {
-            get { return mainCtrl.CurrentMapCtrl.MapView.Tree; }
-        }
+        public MapTree ActiveTree => mainCtrl.CurrentMapCtrl.MapView.Tree;
 
         /// <summary>
         /// Selected Nodes of the currently active MapTree
         /// </summary>
-        public SelectedNodes ActiveNodes
-        {
-            get { return mainCtrl.ActiveNodes; }
-        }
+        public SelectedNodes ActiveNodes => mainCtrl.ActiveNodes;
 
         #endregion IPluginManager Interface
     }

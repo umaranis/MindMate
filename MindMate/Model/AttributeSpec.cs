@@ -110,12 +110,12 @@ namespace MindMate.Model
         /// </summary>
         private readonly SortedSet<string> values;
 
-        /// <summary>
-        /// List of values are maintained if AttributeListOption is RestrictedList or OptionalList
-        /// </summary>
-        public IEnumerable<string> Values { get { return values; } }
+            /// <summary>
+            /// List of values are maintained if AttributeListOption is RestrictedList or OptionalList
+            /// </summary>
+            public IEnumerable<string> Values => values;
 
-        public int GetValuesCount() {  return values != null? 0 : values.Count; }
+            public int GetValuesCount() {  return values != null? 0 : values.Count; }
 
         public void AddValue(string value) 
         { 

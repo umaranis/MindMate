@@ -15,10 +15,7 @@ namespace MindMate.Modules.Undo.Changes
             this.spec = spec;
         }
 
-        public string Description
-        {
-            get { return "Attribute Spec Added"; }
-        }
+        public string Description => "Attribute Spec Added";
 
         public void Undo()
         {
