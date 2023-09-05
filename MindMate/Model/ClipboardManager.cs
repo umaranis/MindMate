@@ -1,6 +1,4 @@
-﻿using MindMate.Model;
-using MindMate.Modules.Logging;
-using MindMate.Serialization;
+﻿using MindMate.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -31,41 +29,39 @@ namespace MindMate.Model
 
         public static void Copy(SelectedNodes nodes)
         {
-            if (nodes.Count > 0)
+            if (nodes.Count <= 0) return;
+
+            internalClipboard.Clear();
+            foreach (var n in nodes.ExcludeNodesAlreadyPartOfHierarchy())
             {
-                internalClipboard.Clear();
-                foreach (var n in nodes.ExcludeNodesAlreadyPartOfHierarchy())
-                {
-                    internalClipboard.Add(n.CloneAsDetached());
-                }                
-                
-                var cbData = new MindMateClipboardDataObject(internalClipboard);
-                Clipboard.SetDataObject(cbData);
-
-                hasCutNode = false;
-
-                StatusChanged?.Invoke();
+                internalClipboard.Add(n.CloneAsDetached());
             }
+
+            var cbData = new MindMateClipboardDataObject(internalClipboard);
+            Clipboard.SetDataObject(cbData);
+
+            hasCutNode = false;
+
+            StatusChanged?.Invoke();
         }
 
         public static void Cut(SelectedNodes nodes)
         {
-            if(nodes.Count > 0)
+            if (nodes.Count <= 0) return;
+
+            internalClipboard.Clear();
+            foreach (var n in nodes.ExcludeNodesAlreadyPartOfHierarchy())
             {
-                internalClipboard.Clear();
-                foreach (var n in nodes.ExcludeNodesAlreadyPartOfHierarchy())
-                {
-                   internalClipboard.Add(n);
-                }
-                internalClipboard.ForEach(n => n.Detach());
-                
-
-                var cbData = new MindMateClipboardDataObject(internalClipboard);
-                Clipboard.SetDataObject(cbData);
-
-                hasCutNode = true;
-                StatusChanged?.Invoke();
+                internalClipboard.Add(n);
             }
+            internalClipboard.ForEach(n => n.Detach());
+
+
+            var cbData = new MindMateClipboardDataObject(internalClipboard);
+            Clipboard.SetDataObject(cbData);
+
+            hasCutNode = true;
+            StatusChanged?.Invoke();
         }
 
         public static void Paste(MapNode pasteLocation, bool asText = false, bool pasteFileAsImage = false)
@@ -89,7 +85,7 @@ namespace MindMate.Model
                 string link = GetBrowserSourceLink();
                 MapTextSerializer serializer = new MapTextSerializer();
 
-                serializer.Deserialize(Clipboard.GetText(), pasteLocation, 
+                serializer.Deserialize(Clipboard.GetText(), pasteLocation,
                     (parent, text) =>
                     {
                         if (asText)
@@ -130,7 +126,7 @@ namespace MindMate.Model
             Image image;
             if (fileList.Count == 1 && !pasteLocation.HasImage && ImageHelper.GetImageFromFile(fileList[0], out image))
             {
-                pasteLocation.InsertImage(image, true);                
+                pasteLocation.InsertImage(image, true);
             }
             else
             {
@@ -162,30 +158,32 @@ namespace MindMate.Model
 
         private static void PasteImage(MapNode pasteLocation)
         {
-            new MapNode(pasteLocation, "").InsertImage(Clipboard.GetImage(), true);            
+            new MapNode(pasteLocation, "").InsertImage(Clipboard.GetImage(), true);
         }
 
         private static string GetBrowserSourceLink()
         {
-            if (Clipboard.ContainsText(TextDataFormat.Html))
+            if (!Clipboard.ContainsText(TextDataFormat.Html)) return null;
+
+            string text = Clipboard.GetText(TextDataFormat.Html);
+            int i = text.IndexOf("SourceURL:");
+
+            if (i <= 0) return null;
+
+            i += 10; // TODO: Magic number should be a constant
+
+            int j = text.IndexOf('\r', i);
+
+            if (j == -1)
             {
-                string text = Clipboard.GetText(TextDataFormat.Html);
-                int i = text.IndexOf("SourceURL:");                
-                if(i > 0)
-                {
-                    i += 10;
-                    int j = text.IndexOf('\r', i);
-                    if (j == -1) j = text.IndexOf('\n', i);
-                    if (j > 0)
-                    {
-                        text = text.Substring(i, j - i);
-                        return text;
-                    }
-                }
+                j = text.IndexOf('\n', i);
             }
 
-            return null;            
-        }        
+            if (j <= 0) return null;
+
+            text = text.Substring(i, j - i);
+            return text;
+        }
 
         public class MindMateClipboardDataObject : IDataObject
         {
@@ -291,6 +289,5 @@ namespace MindMate.Model
                 throw new NotImplementedException();
             }
         }
-                
     }
 }
