@@ -1,12 +1,9 @@
 ﻿using MindMate.Model;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace MindMate.Serialization
 {
@@ -64,17 +61,14 @@ namespace MindMate.Serialization
         private bool isDirty;
         public bool IsDirty
         {
-            get
-            {
-                return isDirty;
-            }
+            get => isDirty;
             set
             {
                 if (isDirty == value) return;
                 isDirty = !isDirty;
                 DirtyChanged?.Invoke(this);
             }
-                    
+
         }
 
         /// <summary>
