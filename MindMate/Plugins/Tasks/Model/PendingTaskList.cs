@@ -1,9 +1,5 @@
 ﻿using MindMate.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections;
 
 namespace MindMate.Plugins.Tasks.Model
 {
@@ -127,23 +123,21 @@ namespace MindMate.Plugins.Tasks.Model
         {
             if (TaskTextChanged == null) return;
 
-            if (e.ChangedProperty == NodeProperties.Text)
-            {
-                // update task title
-                if (node.DueDateExists())
-                {
-                    TaskTextChanged(node, new TaskTextEventArgs() { ChangeType = TaskTextChange.TextChange, OldText = (string)e.OldValue });
-                }
+            if (e.ChangedProperty != NodeProperties.Text) return;
 
-                // update task parent
-                if(node.HasChildren)
-                {
-                    foreach(MapNode n in this)
-                    {
-                        if (n.IsDescendent(node))
-                            TaskTextChanged(n, new TaskTextEventArgs() { ChangeType = TaskTextChange.AncestorTextChange, ChangedAncestor = node, OldText = (string)e.OldValue });
-                    }
-                }
+            // update task title
+            if (node.DueDateExists())
+            {
+                TaskTextChanged(node, new TaskTextEventArgs { ChangeType = TaskTextChange.TextChange, OldText = (string)e.OldValue });
+            }
+
+            // update task parent
+            if (!node.HasChildren) return;
+
+            foreach (MapNode n in this)
+            {
+                if (!n.IsDescendent(node)) continue;
+                TaskTextChanged(n, new TaskTextEventArgs { ChangeType = TaskTextChange.AncestorTextChange, ChangedAncestor = node, OldText = (string)e.OldValue });
             }
         }
 
