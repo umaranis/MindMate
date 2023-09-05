@@ -32,16 +32,15 @@ namespace MindMate.MetaModel
 
         private void CreateNodeView()
         {
-            if (mapNode.NodeView == null)
-            {
-                mapNode.NodeView = new NodeView(mapNode);
-                if (mapNode.NodeView.Width < Width || mapNode.NodeView.Height < Height)
-                {
-                    float left = (Width - mapNode.NodeView.Width) / 2;
-                    float top = (Height - mapNode.NodeView.Height) / 2;
-                    mapNode.NodeView.RefreshPosition(left, top);
-                }
-            }
+            if (mapNode.NodeView != null) return;
+
+            mapNode.NodeView = new NodeView(mapNode);
+            
+            if (mapNode.NodeView.Width >= Width && mapNode.NodeView.Height >= Height) return;
+            
+            float left = (Width - mapNode.NodeView.Width) / 2;
+            float top = (Height - mapNode.NodeView.Height) / 2;
+            mapNode.NodeView.RefreshPosition(left, top);
         }
 
         public NodeView GetNodeView(MapNode node)
