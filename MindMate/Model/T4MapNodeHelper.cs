@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using MindMate.Plugins.Tasks;
 
 #if DEBUG
 
@@ -13,7 +12,7 @@ namespace MindMate.Model
     /// A helper class for writing T4 code generation templates.
     /// Only available in DEBUG build.
     /// </summary>
-    public class T4MapNodeHelper
+    public sealed class T4MapNodeHelper
     {
         public PropertyInfo[] GetProperties()
         {
@@ -22,36 +21,30 @@ namespace MindMate.Model
 
         public IEnumerable<PropertyInfo> GetSerializedProperties()
         {
-            var props = from p in typeof (MapNode).GetProperties()
-                where p.GetCustomAttributes(true).Any(a => a.GetType() == typeof (MindMate.Serialization.SerializedAttribute))
-                select p;
-            
-            return props;
+            return from p in typeof (MapNode).GetProperties()
+                   where p.GetCustomAttributes(true).Any(a => a.GetType() == typeof (MindMate.Serialization.SerializedAttribute))
+                   select p;
         }
 
         public IEnumerable<PropertyInfo> GetSerializedPropertiesInOrder()
         {
-            var props = from p in typeof(MapNode).GetProperties()
-                        let a = (MindMate.Serialization.SerializedAttribute)Attribute.GetCustomAttribute(p, typeof(MindMate.Serialization.SerializedAttribute))
-                        where a != null
-                        orderby a.Order ascending 
-                        select p;
-
-            return props;
+            return from p in typeof(MapNode).GetProperties()
+                   let a = (MindMate.Serialization.SerializedAttribute)Attribute.GetCustomAttribute(p, typeof(MindMate.Serialization.SerializedAttribute))
+                   where a != null
+                   orderby a.Order ascending 
+                   select p;
         }
 
         public IEnumerable<PropertyInfo> GetSerializedScalarPropertiesInOrder()
         {
-            var props = from p in typeof(MapNode).GetProperties()
-                        let a = (MindMate.Serialization.SerializedAttribute)Attribute.GetCustomAttribute(p, typeof(MindMate.Serialization.SerializedAttribute))
-                        where a != null && 
-                            (!p.PropertyType.GetInterfaces().Contains(typeof(System.Collections.IEnumerable))
-                            ||
-                            p.PropertyType == typeof(string))
-                        orderby a.Order ascending
-                        select p;
-
-            return props;
+            return from p in typeof(MapNode).GetProperties()
+                   let a = (MindMate.Serialization.SerializedAttribute)Attribute.GetCustomAttribute(p, typeof(MindMate.Serialization.SerializedAttribute))
+                   where a != null && 
+                       (!p.PropertyType.GetInterfaces().Contains(typeof(System.Collections.IEnumerable))
+                       ||
+                       p.PropertyType == typeof(string))
+                   orderby a.Order ascending
+                   select p;
         }
 
         public string GetToStringStatement(PropertyInfo p, string objIdentifier)
