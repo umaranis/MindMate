@@ -164,23 +164,16 @@ namespace MindMate.Model
         private static string GetBrowserSourceLink()
         {
             if (!Clipboard.ContainsText(TextDataFormat.Html)) return null;
-
             string text = Clipboard.GetText(TextDataFormat.Html);
             int i = text.IndexOf("SourceURL:");
-
             if (i <= 0) return null;
-
             i += 10; // TODO: Magic number should be a constant
-
             int j = text.IndexOf('\r', i);
-
             if (j == -1)
             {
                 j = text.IndexOf('\n', i);
             }
-
             if (j <= 0) return null;
-
             text = text.Substring(i, j - i);
             return text;
         }
