@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MindMate.View.NoteEditing.MsHtmlWrap
 {
@@ -13,14 +10,8 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
         // property for the operation name
         public string Operation
         {
-            get
-            {
-                return _operationName;
-            }
-            set
-            {
-                _operationName = value;
-            }
+            get => _operationName;
+            set => _operationName = value;
 
         } //OperationName
 

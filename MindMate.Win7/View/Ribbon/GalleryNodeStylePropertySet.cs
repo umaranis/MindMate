@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
-using MindMate.MetaModel;
+﻿using MindMate.MetaModel;
 using RibbonLib.Interop;
+using System.Diagnostics;
 
 namespace MindMate.View.Ribbon
 {
@@ -16,36 +16,18 @@ namespace MindMate.View.Ribbon
         private uint? categoryId;
         private IUIImage itemImage;
 
-        public NodeStyle NodeStyle
-        {
-            get
-            {
-                return style;
-            }
-        }
+        public NodeStyle NodeStyle => style;
 
         public uint CategoryID
         {
-            get
-            {
-                return categoryId.GetValueOrDefault(Constants.UI_Collection_InvalidIndex);
-            }
-            set
-            {
-                categoryId = value;
-            }
+            get => categoryId.GetValueOrDefault(Constants.UI_Collection_InvalidIndex);
+            set => categoryId = value;
         }
 
         public IUIImage ItemImage
         {
-            get
-            {
-                return itemImage;
-            }
-            set
-            {
-                itemImage = value;
-            }
+            get => itemImage;
+            set => itemImage = value;
         }
 
         #region IUISimplePropertySet Members
