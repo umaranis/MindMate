@@ -1,33 +1,26 @@
 ﻿using MindMate.Modules.Logging;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MindMate.Model
 {
     public static class ImageHelper
     {
         public static string GetExtension(Image image)
-        {                     
-            string ext;
+        {
             if (image.RawFormat.Equals(ImageFormat.Bmp))
-                ext = "bmp";
+                return "bmp";
             else if (image.RawFormat.Equals(ImageFormat.Gif))
-                ext = "gif";
+                return "gif";
             else if (image.RawFormat.Equals(ImageFormat.Icon))
-                ext = "ico";
+                return "ico";
             else if (image.RawFormat.Equals(ImageFormat.Jpeg))
-                ext = "jpg";
+                return "jpg";
             else if (image.RawFormat.Equals(ImageFormat.Tiff))
-                ext = "tiff";
+                return "tiff";
             else
-                ext = "png";
-
-            return ext;
+                return "png";
         }
 
         public const int IMAGE_DEFAULT_MAX_HEIGHT = 300;
