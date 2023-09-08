@@ -43,17 +43,13 @@ namespace MindMate.Modules.Undo
             state = State.None;
         }
 
-        public bool CanUndo { get { return undoStack.Count > 0; } }
+        public bool CanUndo => undoStack.Count > 0;
 
-        public bool CanRedo { get { return redoStack.Count > 0; } }
+        public bool CanRedo => redoStack.Count > 0;
 
-        public int UndoStackCount {
-            get { return undoStack.Count; }
-        }
+        public int UndoStackCount => undoStack.Count;
 
-        public int RedoStackCount {
-            get { return redoStack.Count; }
-        }
+        public int RedoStackCount => redoStack.Count;
 
         public void RegisterMap(MapTree tree)
         {
@@ -142,13 +138,7 @@ namespace MindMate.Modules.Undo
         /// Are batch changes in progress.
         /// While batch is open, all changes are added to the batch till EndBatch is called.
         /// </summary>
-        public bool IsBatchOpen
-        {
-            get
-            {
-                return batch != null;
-            }
-        }
+        public bool IsBatchOpen => batch != null;
 
         public IDisposable StartBatch(string changeDescription)
         {

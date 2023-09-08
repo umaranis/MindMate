@@ -1,12 +1,9 @@
 ﻿using MindMate.Model;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace MindMate.Serialization
 {
@@ -59,28 +56,19 @@ namespace MindMate.Serialization
 
         public string FileName { get; private set; }
 
-        public bool IsNewMap
-        {
-            get
-            {
-                return FileName == null;
-            }
-        }
+        public bool IsNewMap => FileName == null;
 
         private bool isDirty;
         public bool IsDirty
         {
-            get
-            {
-                return isDirty;
-            }
+            get => isDirty;
             set
             {
                 if (isDirty == value) return;
                 isDirty = !isDirty;
                 DirtyChanged?.Invoke(this);
             }
-                    
+
         }
 
         /// <summary>

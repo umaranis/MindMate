@@ -38,28 +38,25 @@ namespace MindMate.View.MapControls
         public const int ICON_SIZE = 16;
 
         private readonly MapNode node;
-        public MapNode Node {get{ return node; }}
+        public MapNode Node => node;
 
         private Link link;
-        public Link Link
-        {
-            get { return link; }            
-        }
+        public Link Link => link;
 
         private NoteIcon noteIcon;
         /// <summary>
         /// Gets NoteIcon
         /// </summary>
-        public NoteIcon NoteIcon {  get { return noteIcon; }    }
+        public NoteIcon NoteIcon => noteIcon;
 
         private RectangleF recText;
         /// <summary>
         /// Gets the rectangle for the node text
         /// </summary> 
-        public RectangleF RecText {     get { return recText; } }
+        public RectangleF RecText => recText;
 
-        private readonly List<IconView> recIcons = new List<IconView>(); 
-        public List<IconView> RecIcons  {   get { return recIcons; }    }
+        private readonly List<IconView> recIcons = new List<IconView>();
+        public List<IconView> RecIcons => recIcons;
 
         private NodeFormat nodeFomat;
         public NodeFormat NodeFormat => nodeFomat;
@@ -84,55 +81,31 @@ namespace MindMate.View.MapControls
                 
         private float left;
 
-        public float Left
-        {
-            get { return left; }            
-        }
+        public float Left => left;
 
         private float top;
 
-        public float Top
-        {
-            get { return top; }            
-        }
+        public float Top => top;
 
         private float height;
 
         /// <summary>
         /// Height of the node (without considering child nodes)
         /// </summary>
-        public float Height
-        {
-            get { return height; }            
-        }
+        public float Height => height;
 
         private float width;
 
         /// <summary>
         /// Width of the node (without considering child nodes)
         /// </summary>
-        public float Width
-        {
-            get { return width; }            
-        }
+        public float Width => width;
 
-        public float Bottom
-        {
-            get { return top + height; }
-        }
+        public float Bottom => top + height;
 
-        public float Right
-        {
-            get { return left + width; }
-        }
+        public float Right => left + width;
 
-        public bool IsMultiline
-        {
-            get
-            {
-                return NodeFormat.Font.Height*2 <= recText.Height;
-            }
-        }
+        public bool IsMultiline => NodeFormat.Font.Height * 2 <= recText.Height;
 
         /// <summary>
         /// Returns last selected child node or the first child

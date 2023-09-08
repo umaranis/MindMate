@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MindMate.Plugins.Tasks.SideBar
@@ -28,33 +26,18 @@ namespace MindMate.Plugins.Tasks.SideBar
             //table.TabIndex = 3;  
         }
 
-        private TableLayoutPanel Table
-        {
-            get { return (TableLayoutPanel)this.Controls[1]; }
-        }
+        private TableLayoutPanel Table => (TableLayoutPanel)this.Controls[1];
 
         public new event ControlEventHandler ControlAdded
         {
-            add
-            {
-                Table.ControlAdded += value;
-            }
-            remove
-            {
-                Table.ControlAdded -= value;
-            }
+            add => Table.ControlAdded += value;
+            remove => Table.ControlAdded -= value;
         }
 
         public new event ControlEventHandler ControlRemoved
         {
-            add
-            {
-                Table.ControlRemoved += value;
-            }
-            remove
-            {
-                Table.ControlRemoved -= value;
-            }
+            add => Table.ControlRemoved += value;
+            remove => Table.ControlRemoved -= value;
         }
 
         private void AdjustHeightOnAdd(Control item)
@@ -108,14 +91,8 @@ namespace MindMate.Plugins.Tasks.SideBar
 
         public Control this[int index]
         {
-            get
-            {
-                return (Control)Table.GetControlFromPosition(0, index);
-            }
-            set
-            {
-                Insert(index, value);
-            }
+            get => (Control)Table.GetControlFromPosition(0, index);
+            set => Insert(index, value);
         }
 
         public IEnumerator<Control> GetEnumerator()
@@ -156,15 +133,9 @@ namespace MindMate.Plugins.Tasks.SideBar
             }
         }
 
-        public int Count
-        {
-            get { return Table.RowCount; }
-        }
+        public int Count => Table.RowCount;
 
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly => false;
 
         public bool Remove(Control item)
         {

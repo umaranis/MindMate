@@ -15,7 +15,7 @@ namespace MindMate.Plugins.Tasks.Model
         /// Due to batch updates, OldCompletionDate may be different than current even if TaskChange is not CompletionDateUpdated.
         /// </summary>
         public DateTime OldCompletionDate { get; set; }
-        public bool IsOldCompletionDateEmpty { get { return DateTime.MinValue.Equals(OldCompletionDate); } }
+        public bool IsOldCompletionDateEmpty => DateTime.MinValue.Equals(OldCompletionDate);
         /// <summary>
         /// OldTaskStatus will be same as current if there is no change.
         /// </summary>

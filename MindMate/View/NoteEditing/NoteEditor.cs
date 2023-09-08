@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MindMate.View.NoteEditing.MsHtmlWrap;
+using mshtml;
+using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using mshtml;
 using System.Runtime.InteropServices;
-using MindMate.View.NoteEditing.MsHtmlWrap;
-using System.Text.RegularExpressions;
-using MindMate.Modules.Logging;
+using System.Windows.Forms;
 using Convert = MindMate.Serialization.Convert;
 
 namespace MindMate.View.NoteEditing
@@ -135,10 +129,7 @@ namespace MindMate.View.NoteEditing
         /// </summary>
         public override Color BackColor
         {
-            get
-            {
-                return base.BackColor;
-            }
+            get => base.BackColor;
             set
             {
                 base.BackColor = value;
@@ -148,7 +139,7 @@ namespace MindMate.View.NoteEditing
                 }
             }
         }
-                
+
         /// <summary>
         /// Get/Set the foreground color of the editor.
         /// Note that if this is called before the document is rendered and 
@@ -198,13 +189,13 @@ namespace MindMate.View.NoteEditing
         /// </summary>
         public string HTML
         {
-            get { return this.Document.Body.InnerHtml; } 
-            set 
+            get => this.Document.Body.InnerHtml;
+            set
             {
                 Dirty = false;
                 if (this.Document.Body.InnerHtml == null && value == null) return; //should not set ignore dirty flag in this case
                 ignoreDirtyNotification = true;
-                this.Document.Body.InnerHtml = value;                
+                this.Document.Body.InnerHtml = value;
                 CursorMoved?.Invoke(this);
             }
         }
@@ -221,8 +212,8 @@ namespace MindMate.View.NoteEditing
 
         public new bool Enabled
         {
-            get { return ((Control)this).Enabled; }
-            set { ((Control)this).Enabled = value; }
+            get => ((Control)this).Enabled;
+            set => ((Control)this).Enabled = value;
         }
 
         /// <summary>
@@ -347,15 +338,9 @@ namespace MindMate.View.NoteEditing
         //    htmlDoc.execCommand("InsertImage", true, null);
         //}
 
-        public bool DocumentReady
-        {
-            get { return htmlDoc.readyState.Equals("complete", StringComparison.OrdinalIgnoreCase); }
-        }
+        public bool DocumentReady => htmlDoc.readyState.Equals("complete", StringComparison.OrdinalIgnoreCase);
 
-        public bool Empty
-        {
-            get { return htmlDoc.body.innerHTML == null || htmlDoc.body.innerHTML == "<P>&nbsp;</P>"; }
-        }
+        public bool Empty => htmlDoc.body.innerHTML == null || htmlDoc.body.innerHTML == "<P>&nbsp;</P>";
 
         /// <summary>
         /// Text color for the current selection

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MindMate.Model
 {
@@ -37,85 +35,85 @@ namespace MindMate.Model
         /// <summary>
         /// Name is unique across all attributes except Calculated type. Calculated type attribute has same name as the attribute it aggregates on.
         /// </summary>
-        public string Name 
-        {
-            get { return name; }
-            set 
+        public string Name
             {
-                object oldValue = name;
-                name = value;
-                Tree.FireEvent(this, new AttributeSpecEventArgs() { Change = AttributeSpecChange.NameChanged, OldValue = oldValue });
+                get => name;
+                set
+                {
+                    object oldValue = name;
+                    name = value;
+                    Tree.FireEvent(this, new AttributeSpecEventArgs() { Change = AttributeSpecChange.NameChanged, OldValue = oldValue });
+                }
             }
-        }
 
-        private bool visible;
+            private bool visible;
         /// <summary>
         /// Show attribute in the Map
         /// </summary>
-        public bool Visible 
-        {
-            get { return visible; }
-            set
+        public bool Visible
             {
-                visible = value;
-                Tree.FireEvent(this, new AttributeSpecEventArgs() { Change = AttributeSpecChange.VisibilityChanged });
+                get => visible;
+                set
+                {
+                    visible = value;
+                    Tree.FireEvent(this, new AttributeSpecEventArgs() { Change = AttributeSpecChange.VisibilityChanged });
+                }
             }
-        }
 
-        private AttributeType type;
-        public AttributeType Type 
-        {
-            get { return type; }
-            set
+            private AttributeType type;
+        public AttributeType Type
             {
-                object oldValue = type;
-                type = value;
-                Tree.FireEvent(this, new AttributeSpecEventArgs() { Change = AttributeSpecChange.TypeChanged, OldValue = oldValue });
+                get => type;
+                set
+                {
+                    object oldValue = type;
+                    type = value;
+                    Tree.FireEvent(this, new AttributeSpecEventArgs() { Change = AttributeSpecChange.TypeChanged, OldValue = oldValue });
+                }
             }
-        }
 
-        private AttributeDataType dataType;
-        public AttributeDataType DataType 
-        {
-            get { return dataType; }
-            set
+            private AttributeDataType dataType;
+        public AttributeDataType DataType
             {
-                object oldValue = dataType;
-                dataType = value;
-                Tree.FireEvent(this, new AttributeSpecEventArgs() { Change = AttributeSpecChange.DataTypedChanged, OldValue = oldValue });
+                get => dataType;
+                set
+                {
+                    object oldValue = dataType;
+                    dataType = value;
+                    Tree.FireEvent(this, new AttributeSpecEventArgs() { Change = AttributeSpecChange.DataTypedChanged, OldValue = oldValue });
+                }
             }
-        }
 
-        private AttributeListOption listType;
+            private AttributeListOption listType;
         /// <summary>
         /// Always NoList for DateTime and Date
         /// </summary>
-        public AttributeListOption ListType 
-        {
-            get { return listType; }
-            set
+        public AttributeListOption ListType
             {
-                object oldValue = listType;
-                listType = value;
-                Tree.FireEvent(this, new AttributeSpecEventArgs() { Change = AttributeSpecChange.ListTypeChanged, OldValue = oldValue });
+                get => listType;
+                set
+                {
+                    object oldValue = listType;
+                    listType = value;
+                    Tree.FireEvent(this, new AttributeSpecEventArgs() { Change = AttributeSpecChange.ListTypeChanged, OldValue = oldValue });
+                }
             }
-        }
 
 
-        
-        #region Attribute List of Values **********************
 
-        /// <summary>
-        /// List of values are maintained if AttributeListOption is RestrictedList or OptionalList
-        /// </summary>
-        private readonly SortedSet<string> values;
+            #region Attribute List of Values **********************
 
-        /// <summary>
-        /// List of values are maintained if AttributeListOption is RestrictedList or OptionalList
-        /// </summary>
-        public IEnumerable<string> Values { get { return values; } }
+            /// <summary>
+            /// List of values are maintained if AttributeListOption is RestrictedList or OptionalList
+            /// </summary>
+            private readonly SortedSet<string> values;
 
-        public int GetValuesCount() {  return values != null? 0 : values.Count; }
+            /// <summary>
+            /// List of values are maintained if AttributeListOption is RestrictedList or OptionalList
+            /// </summary>
+            public IEnumerable<string> Values => values;
+
+            public int GetValuesCount() {  return values != null? 0 : values.Count; }
 
         public void AddValue(string value) 
         { 

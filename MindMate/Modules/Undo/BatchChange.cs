@@ -17,13 +17,7 @@ namespace MindMate.Modules.Undo
 
         private readonly List<IChange> changes = new List<IChange>();
 
-        public IList<IChange> Changes
-        {
-            get
-            {
-                return changes;
-            }
-        }
+        public IList<IChange> Changes => changes;
 
         public string Description
         {

@@ -1,10 +1,8 @@
-﻿using System;
+﻿using MindMate.Model;
+using MindMate.View.Search;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MindMate.Model;
-using MindMate.View.Search;
 
 namespace MindMate.Controller
 {

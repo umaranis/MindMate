@@ -17,10 +17,7 @@ namespace MindMate.Modules.Undo.Changes
             this.oldValue = oldValue;
         }
 
-        public string Description
-        {
-            get { return "Attribute Spec Visibility"; }
-        }
+        public string Description => "Attribute Spec Visibility";
 
         public void Undo()
         {

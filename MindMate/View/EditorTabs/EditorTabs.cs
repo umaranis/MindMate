@@ -1,12 +1,7 @@
-﻿using MindMate.Controller;
-using MindMate.Model;
-using MindMate.Serialization;
+﻿using MindMate.Serialization;
 using MindMate.View.MapControls;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MindMate.View.EditorTabs
@@ -40,8 +35,8 @@ namespace MindMate.View.EditorTabs
 
         public new TabBase SelectedTab
         {
-            get { return (TabBase)base.SelectedTab; }
-            set { base.SelectedTab = value; }
+            get => (TabBase)base.SelectedTab;
+            set => base.SelectedTab = value;
         }
 
         /// <summary>

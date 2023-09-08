@@ -3,11 +3,6 @@
  * This software is licensed under MIT (see LICENSE.txt)    
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Drawing;
 
 namespace MindMate.MetaModel
@@ -38,8 +33,9 @@ namespace MindMate.MetaModel
         //[ProtoBuf.ProtoMember(1)]
         public string Name
         {
-            get { return name; }
-            set { 
+            get => name;
+            set
+            {
                 name = value;
                 this.bitmap = MindMate.Serialization.IconImageLoader.GetIcon(name);
             }
@@ -49,23 +45,20 @@ namespace MindMate.MetaModel
         //[ProtoBuf.ProtoMember(2)]
         public string Title
         {
-            get { return title; }
-            set { title = value; }
+            get => title;
+            set => title = value;
         }
         private string shortcut;
 
         //[ProtoBuf.ProtoMember(3)]
         public string Shortcut
         {
-            get { return shortcut; }
-            set { shortcut = value; }
+            get => shortcut;
+            set => shortcut = value;
         }
 
         private Bitmap bitmap;
 
-        public Bitmap Bitmap
-        {
-            get { return bitmap; }
-        }
+        public Bitmap Bitmap => bitmap;
     }
 }

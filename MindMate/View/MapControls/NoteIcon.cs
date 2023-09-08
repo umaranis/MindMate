@@ -3,10 +3,6 @@
  * This software is licensed under MIT (see LICENSE.txt)    
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing;
 
 namespace MindMate.View.MapControls
@@ -23,18 +19,12 @@ namespace MindMate.View.MapControls
 
         public PointF Location
         {
-            get { return location; }
-            set { location = value; }
+            get => location;
+            set => location = value;
         }
 
-               
-        public Size Size
-        {
-            get 
-            { 
-                return bitmap.Size; 
-            }            
-        }
+
+        public Size Size => bitmap.Size;
 
         public bool Contains(Point p)
         {
@@ -43,13 +33,7 @@ namespace MindMate.View.MapControls
 
         readonly Bitmap bitmap;
 
-        public Bitmap Bitmap
-        {
-            get 
-            { 
-                return bitmap; 
-            }            
-        }
+        public Bitmap Bitmap => bitmap;
 
         public void Draw(Graphics g)
         {

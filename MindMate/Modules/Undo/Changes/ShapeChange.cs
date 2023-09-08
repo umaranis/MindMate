@@ -17,13 +17,7 @@ namespace MindMate.Modules.Undo.Changes
             this.oldValue = oldValue;
         }
 
-        public string Description
-        {
-            get
-            {
-                return "Node Shape Change";
-            }
-        }
+        public string Description => "Node Shape Change";
 
         public void Undo()
         {

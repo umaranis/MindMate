@@ -15,13 +15,7 @@ namespace MindMate.Modules.Undo.Changes
             this.node = node;
         }
 
-        public string Description
-        {
-            get
-            {
-                return "Node deleted";
-            }
-        }
+        public string Description => "Node deleted";
 
         public void Undo()
         {

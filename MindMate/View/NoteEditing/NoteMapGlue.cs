@@ -23,13 +23,7 @@ namespace MindMate.View.NoteEditing
     {
         
         private readonly NoteEditor editor;
-        public NoteEditor Editor
-        {
-            get
-            {
-                return editor;
-            }
-        }
+        public NoteEditor Editor => editor;
 
 
         public MapNode CurrentMapNpde { get; private set; }

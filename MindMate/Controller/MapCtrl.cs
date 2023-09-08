@@ -33,8 +33,8 @@ namespace MindMate.Controller
         public MapView MapView;
 
         public ContextMenuCtrl ContextMenuCtrl { get; private set; }
-        
-        private MapTree tree { get { return MapView.Tree; } }
+
+        private MapTree tree => MapView.Tree;
 
         public MapCtrl(MapView mapView, DialogManager dialogs, NodeContextMenu nodeContextMenu)
         {

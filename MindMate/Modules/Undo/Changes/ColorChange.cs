@@ -18,13 +18,7 @@ namespace MindMate.Modules.Undo.Changes
             this.OldColor = oldValue;
         }
 
-        public string Description
-        {
-            get
-            {
-                return "Text Color Change";
-            }
-        }
+        public string Description => "Text Color Change";
 
         public void Undo()
         {

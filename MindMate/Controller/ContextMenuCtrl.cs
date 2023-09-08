@@ -19,7 +19,7 @@ namespace MindMate.Controller
     /// </summary>
     public class ContextMenuCtrl
     {
-        private MapCtrl CurrentMapCtrl { get { return mainCtrl.CurrentMapCtrl; } }
+        private MapCtrl CurrentMapCtrl => mainCtrl.CurrentMapCtrl;
 
         private readonly MainCtrl mainCtrl;
 

@@ -17,13 +17,7 @@ namespace MindMate.Modules.Undo.Changes
             this.oldValue = oldValue;
         }
 
-        public string Description
-        {
-            get
-            {
-                return "Toggle Strikeout";
-            }
-        }
+        public string Description => "Toggle Strikeout";
 
         public void Undo()
         {

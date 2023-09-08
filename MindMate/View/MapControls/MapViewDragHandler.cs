@@ -66,20 +66,11 @@ namespace MindMate.View.MapControls
         /// </summary>
         /// <param name="e"></param>
         /// <returns></returns>
-        public bool IsDragging
-        {
-            get { return this.dragObject != null; }
-        }
+        public bool IsDragging => this.dragObject != null;
 
-        public bool IsCanvasDragging
-        {
-            get { return dragObject == MapView.Canvas; }
-        }
+        public bool IsCanvasDragging => dragObject == MapView.Canvas;
 
-        public bool IsNodeDragging
-        {
-            get { return dragObject != null && dragObject != MapView.Canvas;  }
-        }
+        public bool IsNodeDragging => dragObject != null && dragObject != MapView.Canvas;
 
         public DropLocation NodeDropLocation
         {
@@ -204,11 +195,8 @@ namespace MindMate.View.MapControls
         public MapNode Parent;
         public MapNode Sibling;
         public bool InsertAfterSibling;
-        
-        public bool IsEmpty
-        {
-            get { return Parent == null; }
-        }
+
+        public bool IsEmpty => Parent == null;
 
         public override bool Equals(object obj)
         {

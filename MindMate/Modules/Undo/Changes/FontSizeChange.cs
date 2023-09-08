@@ -17,13 +17,7 @@ namespace MindMate.Modules.Undo.Changes
             this.OldValue = oldValue;
         }
 
-        public string Description
-        {
-            get
-            {
-                return "Font Size Change";
-            }
-        }
+        public string Description => "Font Size Change";
 
         public void Undo()
         {

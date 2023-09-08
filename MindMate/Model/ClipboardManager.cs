@@ -22,24 +22,12 @@ namespace MindMate.Model
         /// <summary>
         /// Clipboard contains cut node (detached node)
         /// </summary>
-        public static bool HasCutNode
-        {
-            get
-            {
-                return internalClipboard.Count > 0 && hasCutNode;
-            }
-        }
+        public static bool HasCutNode => internalClipboard.Count > 0 && hasCutNode;
 
-        public static bool CanPaste
-        {
-            get
-            {
-                return Clipboard.ContainsData(MindMateClipboardFormat) || 
+        public static bool CanPaste => Clipboard.ContainsData(MindMateClipboardFormat) ||
                        Clipboard.ContainsText() ||
                        Clipboard.ContainsFileDropList() ||
                        Clipboard.ContainsImage();
-            }
-        }
 
         public static void Copy(SelectedNodes nodes)
         {

@@ -18,13 +18,7 @@ namespace MindMate.Modules.Undo.Changes
             this.oldValue = oldValue;
         }
 
-        public string Description
-        {
-            get
-            {
-                return "Image Changed";
-            }
-        }
+        public string Description => "Image Changed";
 
         public void Undo()
         {

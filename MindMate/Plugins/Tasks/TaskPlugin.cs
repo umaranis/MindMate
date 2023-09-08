@@ -13,7 +13,7 @@ namespace MindMate.Plugins.Tasks
     {
 
         private PendingTaskList pendingTasks;
-        public PendingTaskList PendingTasks { get { return pendingTasks; } }
+        public PendingTaskList PendingTasks => pendingTasks;
 
         private CompletedTaskList completedTasks;
 
@@ -25,7 +25,7 @@ namespace MindMate.Plugins.Tasks
         private DateTimePicker dateTimePicker;
 
         private TaskListView taskListView;
-        public TaskListView TaskListView { get { return taskListView; } }
+        public TaskListView TaskListView => taskListView;
 
         public IPluginManager PluginManager { get; private set; }
 

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.IO;
 using System.Runtime.InteropServices;
 
 namespace MindMate.View.NoteEditing.PluggableProtocol
@@ -87,10 +86,7 @@ namespace MindMate.View.NoteEditing.PluggableProtocol
         private byte[] data;
         protected byte[] Data
         {
-            get
-            {
-                return data;
-            }
+            get => data;
 
             set
             {
@@ -101,13 +97,7 @@ namespace MindMate.View.NoteEditing.PluggableProtocol
 
         private int position = 0;
 
-        private int RemainingDataLength
-        {
-            get
-            {
-                return data.Length - position;
-            }
-        } 
+        private int RemainingDataLength => data.Length - position;
     }
 
 

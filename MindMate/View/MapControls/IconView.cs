@@ -3,12 +3,8 @@
  * This software is licensed under MIT (see LICENSE.txt)    
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
 using MindMate.MetaModel;
+using System.Drawing;
 
 namespace MindMate.View.MapControls
 {
@@ -32,41 +28,23 @@ namespace MindMate.View.MapControls
 
         public PointF Location
         {
-            get { return location; }
-            set { location = value; }
+            get => location;
+            set => location = value;
         }
 
-               
-        public Size Size
-        {
-            get 
-            { 
-                return iconSpec.Bitmap.Size; 
-            }            
-        }
+
+        public Size Size => iconSpec.Bitmap.Size;
 
         public bool Contains(Point p)
         {
             return p.X >= Location.X && p.Y >= Location.Y && p.X <= Location.X + Size.Width && p.Y <= Location.Y + Size.Height;
         }
 
-        public string Name
-        {
-            get
-            {
-                return iconSpec.Name;
-            }
-        }
+        public string Name => iconSpec.Name;
 
         readonly IIcon iconSpec;
 
-        public IIcon IconSpec
-        {
-            get 
-            { 
-                return iconSpec; 
-            }            
-        }
+        public IIcon IconSpec => iconSpec;
 
         public void Draw(Graphics g)
         {

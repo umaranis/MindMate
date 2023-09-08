@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Drawing;
-using System.Drawing.Text;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
 
 namespace MindMate.View.NoteEditing
 {
@@ -151,14 +146,8 @@ namespace MindMate.View.NoteEditing
 
         public bool UpdateTable
         {
-            get
-            {
-                return !bInsert.Text.Equals("Insert");
-            }
-            set
-            {
-                bInsert.Text = value ? "Update" : "Insert";
-            }
+            get => !bInsert.Text.Equals("Insert");
+            set => bInsert.Text = value ? "Update" : "Insert";
         }
 
 
