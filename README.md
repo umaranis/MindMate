@@ -16,6 +16,5 @@ For creating a custom theme, use 'Default Format' dialog from Format menu.
 
 Find more about [themes here](https://github.com/umaranis/MindMate/blob/master/Miscellaneous/Docs/theme/readme.md).
 
-### Download (v0.7 beta)
-- Windows 10 & 8 ([Installer](https://github.com/umaranis/MindMate/releases/download/v0.7/Windows-8-10-Installer-MindMate-v0.7.exe), [Portable Zip](https://github.com/umaranis/MindMate/releases/download/v0.7/Windows-8-10-Portable-MindMate-v0.7.zip))
-- Windows 7 ([Installer](https://github.com/umaranis/MindMate/releases/download/v0.7/Windows-7-Installer-MindMate-v0.7.exe), [Portable Zip](https://github.com/umaranis/MindMate/releases/download/v0.7/Windows-7-Portable-MindMate-v0.7.zip))
+### Download (v0.8 beta)
+- Windows ([Installer](https://github.com/umaranis/MindMate/releases/download/v0.8/Windows-Installer-MindMate-v0.8.exe), [Portable Zip](https://github.com/umaranis/MindMate/releases/download/v0.8/Windows-Portable-MindMate-v0.8.zip))
