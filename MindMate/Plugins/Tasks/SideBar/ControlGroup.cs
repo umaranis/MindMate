@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MindMate.Plugins.Tasks.SideBar
@@ -32,26 +30,14 @@ namespace MindMate.Plugins.Tasks.SideBar
 
         public new event ControlEventHandler ControlAdded
         {
-            add
-            {
-                Table.ControlAdded += value;
-            }
-            remove
-            {
-                Table.ControlAdded -= value;
-            }
+            add => Table.ControlAdded += value;
+            remove => Table.ControlAdded -= value;
         }
 
         public new event ControlEventHandler ControlRemoved
         {
-            add
-            {
-                Table.ControlRemoved += value;
-            }
-            remove
-            {
-                Table.ControlRemoved -= value;
-            }
+            add => Table.ControlRemoved += value;
+            remove => Table.ControlRemoved -= value;
         }
 
         private void AdjustHeightOnAdd(Control item)
@@ -105,14 +91,8 @@ namespace MindMate.Plugins.Tasks.SideBar
 
         public Control this[int index]
         {
-            get
-            {
-                return (Control)Table.GetControlFromPosition(0, index);
-            }
-            set
-            {
-                Insert(index, value);
-            }
+            get => (Control)Table.GetControlFromPosition(0, index);
+            set => Insert(index, value);
         }
 
         public IEnumerator<Control> GetEnumerator()

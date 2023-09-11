@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MindMate.Serialization
 {
@@ -67,10 +65,7 @@ namespace MindMate.Serialization
         private PersistentTree currentTree;
         public PersistentTree CurrentTree
         {
-            get
-            {
-                return currentTree;
-            }
+            get => currentTree;
             set
             {
                 if (currentTree == value) return;

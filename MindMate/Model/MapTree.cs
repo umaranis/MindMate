@@ -3,11 +3,11 @@
  * This software is licensed under MIT (see LICENSE.txt)    
  */
 
+using MindMate.Modules.Undo;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using MindMate.Modules.Undo;
 
 namespace MindMate.Model
 {
@@ -23,14 +23,8 @@ namespace MindMate.Model
         private MapNode rootNode;
         public MapNode RootNode
         {
-            get
-            {
-                return rootNode;
-            }
-            set
-            {
-                rootNode = value;
-            }
+            get => rootNode;
+            set => rootNode = value;
         }
 
         #region Selected Nodes

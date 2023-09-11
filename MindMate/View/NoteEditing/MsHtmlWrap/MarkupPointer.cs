@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Globalization;
-using System.Text;
-using mshtml;
+﻿using mshtml;
+using System;
 
 namespace MindMate.View.NoteEditing.MsHtmlWrap
 {
@@ -34,12 +31,9 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                 PointerRaw.Cling(out b);
                 return b;
             }
-            set
-            {
-                PointerRaw.SetCling(value);
-            }
+            set => PointerRaw.SetCling(value);
         }
-                
+
         /// <summary>
         /// Retrieves the IHTMLElement positioned in this pointer.
         /// </summary>
@@ -81,10 +75,7 @@ namespace MindMate.View.NoteEditing.MsHtmlWrap
                 PointerRaw.Gravity(out gravity);
                 return gravity;
             }
-            set
-            {
-                PointerRaw.SetGravity(value);
-            }
+            set => PointerRaw.SetGravity(value);
         }
 
         /// <summary>

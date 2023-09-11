@@ -5,10 +5,7 @@
 
 using MindMate.Model;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MindMate.View.MapControls
@@ -92,20 +89,14 @@ namespace MindMate.View.MapControls
 
         public bool Enabled
         {
-            get { return enabled; }
-            set { enabled = value; }
+            get => enabled;
+            set => enabled = value;
         }
 
         public ContextMenuStrip ContextMenu
         {
-            get
-            {
-                return editBox.ContextMenuStrip;
-            }
-            set
-            {
-                editBox.ContextMenuStrip = value;
-            }
+            get => editBox.ContextMenuStrip;
+            set => editBox.ContextMenuStrip = value;
         }
 
         public void BeginNodeEdit(NodeView nView, TextCursorPosition org)
