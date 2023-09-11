@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Text;
-using System.Windows.Forms;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 //using MindMate.Plugins.Tasks.Properties;
 
 namespace MindMate.Plugins.Tasks.SideBar
@@ -39,15 +36,8 @@ namespace MindMate.Plugins.Tasks.SideBar
         [Browsable(false)]
         public new Color BackColor
         {
-            get
-            {
-                return Color.Transparent;
-
-            }
-            set
-            {
-                base.BackColor = Color.Transparent;
-            }
+            get => Color.Transparent;
+            set => base.BackColor = Color.Transparent;
         }
 
         [DefaultValue(false)]
@@ -55,8 +45,8 @@ namespace MindMate.Plugins.Tasks.SideBar
         [Category("CollapsiblePanel")]
         public bool Collapse
         {
-            get { return collapse; }
-            set 
+            get => collapse;
+            set
             {
                 // If using animation make sure to ignore requests for collapse or expand while a previous
                 // operation is in progress.
@@ -79,14 +69,11 @@ namespace MindMate.Plugins.Tasks.SideBar
         [Description("Specifies the speed (in ms) of Expand/Collapse operation when using animation. UseAnimation property must be set to true.")]
         public int AnimationInterval
         {
-            get 
-            {
-                return timerAnimation.Interval ;
-            }
+            get => timerAnimation.Interval;
             set
             {
                 // Update animation interval only during idle times.
-                if(!timerAnimation.Enabled )
+                if (!timerAnimation.Enabled)
                     timerAnimation.Interval = value;
             }
         }
@@ -96,8 +83,8 @@ namespace MindMate.Plugins.Tasks.SideBar
         [Description("Indicate if the panel uses amination during Expand/Collapse operation")]
         public bool UseAnimation
         {
-            get { return useAnimation; }
-            set { useAnimation = value; }
+            get => useAnimation;
+            set => useAnimation = value;
         }
 
         [DefaultValue(true)]
@@ -105,7 +92,7 @@ namespace MindMate.Plugins.Tasks.SideBar
         [Description("When set to true draws panel borders, and shows a line separating the panel's header from the rest of the control")]
         public bool ShowHeaderSeparator
         {
-            get { return showHeaderSeparator; }
+            get => showHeaderSeparator;
             set
             {
                 showHeaderSeparator = value;
@@ -118,10 +105,7 @@ namespace MindMate.Plugins.Tasks.SideBar
         [Description("When set to true, draws a panel with rounded top corners, the radius can bet set through HeaderCornersRadius property")]
         public bool RoundedCorners
         {
-            get
-            {
-                return roundedCorners;
-            }
+            get => roundedCorners;
             set
             {
                 roundedCorners = value;
@@ -135,10 +119,7 @@ namespace MindMate.Plugins.Tasks.SideBar
         [Description("Top corners radius, it should be in [1, 15] range")]
         public int HeaderCornersRadius
         {
-            get
-            {
-                return headerCornersRadius;
-            }
+            get => headerCornersRadius;
 
             set
             {
@@ -159,7 +140,7 @@ namespace MindMate.Plugins.Tasks.SideBar
         [Description("Enables the automatic handling of text that extends beyond the width of the label control.")]
         public bool HeaderTextAutoEllipsis
         {
-            get { return headerTextAutoEllipsis; }
+            get => headerTextAutoEllipsis;
             set
             {
                 headerTextAutoEllipsis = value;
@@ -171,7 +152,7 @@ namespace MindMate.Plugins.Tasks.SideBar
         [Description("Text to show in panel's header")]
         public string HeaderText
         {
-            get { return headerText; }
+            get => headerText;
             set
             {
                 headerText = value;
@@ -183,7 +164,7 @@ namespace MindMate.Plugins.Tasks.SideBar
         [Description("Color of text header, and panel's borders when ShowHeaderSeparator is set to true")]
         public Color HeaderTextColor
         {
-            get { return headerTextColor; }
+            get => headerTextColor;
             set
             {
                 headerTextColor = value;
@@ -196,7 +177,7 @@ namespace MindMate.Plugins.Tasks.SideBar
         [Description("Image that will be displayed in the top left corner of the panel")]
         public Image HeaderImage
         {
-            get { return headerImage; }
+            get => headerImage;
             set
             {
                 headerImage = value;
@@ -209,7 +190,7 @@ namespace MindMate.Plugins.Tasks.SideBar
         [Description("The font used to display text in the panel's header.")]
         public Font HeaderFont
         {
-            get { return headerFont; }
+            get => headerFont;
             set
             {
                 headerFont = value;

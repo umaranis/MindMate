@@ -4,47 +4,44 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace MindMate.Model
 {
-    public class NodePropertyChangedEventArgs : EventArgs
+    public sealed class NodePropertyChangedEventArgs : EventArgs
     {
         public NodeProperties ChangedProperty { get; set; }
         public object OldValue { get; set; }
     }
 
-    public class TreeStructureChangedEventArgs : EventArgs
+    public sealed class TreeStructureChangedEventArgs : EventArgs
     {
         public TreeStructureChange ChangeType { get; set; }
 
     }
 
-    public class IconChangedEventArgs : EventArgs
+    public sealed class IconChangedEventArgs : EventArgs
     {
         public IconChange ChangeType { get; set; }
         public string Icon { get; set; }
     }
 
-    public class AttributeChangeEventArgs : EventArgs
+    public sealed class AttributeChangeEventArgs : EventArgs
     {
         public AttributeChange ChangeType { get; set; }
         public MapTree.AttributeSpec AttributeSpec { get; set; }
         public string oldValue { get; set; }
     }
 
-    public class AttributeChangingEventArgs : EventArgs
+    public sealed class AttributeChangingEventArgs : EventArgs
     {
         public AttributeChange ChangeType { get; set; }
         public MapTree.AttributeSpec AttributeSpec { get; set; }
-        public string NewValue { get; set; }        
+        public string NewValue { get; set; }
     }
 
-    public class TreeDefaultFormatChangedEventArgs : EventArgs
+    public sealed class TreeDefaultFormatChangedEventArgs : EventArgs
     {
         public TreeFormatChange ChangeType { get; set; }
-        public object OldValue { get; set; }        
+        public object OldValue { get; set; }
     }
 }

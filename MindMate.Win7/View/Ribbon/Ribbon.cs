@@ -1,16 +1,16 @@
-﻿using MindMate.Model;
-using RibbonLib.Controls.Events;
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using RibbonLib.Interop;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using MindMate.MetaModel;
+﻿using MindMate.MetaModel;
+using MindMate.Model;
 using MindMate.Plugins;
 using MindMate.View.EditorTabs;
 using MindMate.Win7.Properties;
 using RibbonLib;
+using RibbonLib.Controls.Events;
+using RibbonLib.Interop;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace MindMate.View.Ribbon
 {
@@ -840,7 +840,7 @@ namespace MindMate.View.Ribbon
         private const string AscendingOrderString = "Ascending Order";
         private const string DescendingOrderString = "Descending Order";
 
-        private bool IsAscendingSortOrder { get { return SortOrder.Label == AscendingOrderString || SortOrder.Label == null; }}
+        private bool IsAscendingSortOrder => SortOrder.Label == AscendingOrderString || SortOrder.Label == null;
 
         private void SortAlphabetic_ExecuteEvent(object sender, ExecuteEventArgs e)
         {
