@@ -3,12 +3,12 @@
  * This software is licensed under MIT (see LICENSE.txt)    
  */
 
-using System;
-using System.Windows.Forms;
 using MindMate.Plugins;
-using MindMate.View.NoteEditing;
 using MindMate.View;
 using MindMate.View.EditorTabs;
+using MindMate.View.NoteEditing;
+using System;
+using System.Windows.Forms;
 
 namespace MindMate.WinXP
 {
@@ -35,17 +35,14 @@ namespace MindMate.WinXP
         private Control focusedControl;
         public Control FocusedControl
         {
-            get
-            {
-                return focusedControl;
-            }
+            get => focusedControl;
 
             set
             {
                 if (focusedControl != value)
                 {
                     var oldvalue = focusedControl;
-                    focusedControl = value;                    
+                    focusedControl = value;
                     FocusedControlChanged?.Invoke(value, oldvalue);
                 }
             }
@@ -83,20 +80,17 @@ namespace MindMate.WinXP
 
         #endregion
 
-		public MainMenu MainMenu { get { return menuStrip; } }
+        public MainMenu MainMenu => menuStrip;
         public MainMenuCtrl MainMenuCtrl { get; set; }        
 
         public EditorTabs EditorTabs { get; private set; }
         public SideTabControl SideBarTabs { get; private set; }
         public NoteEditor NoteEditor { get; private set; }
 
-        public View.StatusBar StatusBar { get { return this.statusStrip1; } }
+        public View.StatusBar StatusBar => this.statusStrip1;
 
-        public bool IsNoteEditorActive
-        {
-            get { return ActiveControl == splitContainer1 && splitContainer1.ActiveControl == NoteEditor; }
-        }
-        
+        public bool IsNoteEditorActive => ActiveControl == splitContainer1 && splitContainer1.ActiveControl == NoteEditor;
+
         private void SetupSideBar()
         {
             SideBarTabs = new SideTabControl();

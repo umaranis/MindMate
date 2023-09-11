@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using MindMate.Model;
+﻿using MindMate.Model;
 using MindMate.Plugins.Tasks.Model;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace MindMate.Plugins.Tasks
 {
@@ -65,50 +60,26 @@ namespace MindMate.Plugins.Tasks
 
         public string TaskTitle
         {
-            get
-            {
-                return this.lblNodeName.Text; 
-            }
-            set
-            {
-                this.lblNodeName.Text = value;
-            }
+            get => this.lblNodeName.Text;
+            set => this.lblNodeName.Text = value;
         }
 
         public string TaskPath
         {
-            get
-            {
-                return this.lblTaskPath.Text;
-            }
-            set
-            {
-                this.lblTaskPath.Text = value;
-            }
+            get => this.lblTaskPath.Text;
+            set => this.lblTaskPath.Text = value;
         }
 
         public string TaskDueOnText
         {
-            get
-            {
-                return this.lblDueOn.Text;
-            }
-            set
-            {
-                this.lblDueOn.Text = value;
-            }
+            get => this.lblDueOn.Text;
+            set => this.lblDueOn.Text = value;
         }
 
         public MapNode MapNode
         {
-            get
-            {
-                return (MapNode)this.Tag;
-            }
-            set
-            {
-                this.Tag = value;
-            }
+            get => (MapNode)this.Tag;
+            set => this.Tag = value;
         }
 
         public DateTime DueDate => MapNode.GetDueDate();
@@ -185,17 +156,15 @@ namespace MindMate.Plugins.Tasks
         public enum TaskViewEvent { Remove, Edit, Complete, Expedite, Defer, Today, Tomorrow, NextWeek, NextMonth, NextQuarter, Select }
 
 
-        public bool Selected { 
-            get 
+        public bool Selected
+        {
+            get => BackColor == Color.AliceBlue;
+            set
             {
-                return BackColor == Color.AliceBlue;
-            }
-            set 
-            { 
-                if(value)
+                if (value)
                     BackColor = Color.AliceBlue;
                 else
-                    BackColor = SystemColors.ControlLight; 
+                    BackColor = SystemColors.ControlLight;
             }
         }
 
