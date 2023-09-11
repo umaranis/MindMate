@@ -3,14 +3,10 @@
  * This software is licensed under MIT (see LICENSE.txt)    
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MindMate.View;
-using System.Windows.Forms;
 using MindMate.Controller;
 using MindMate.Plugins;
+using System;
+using System.Windows.Forms;
 
 namespace MindMate.WinXP
 {
@@ -21,7 +17,7 @@ namespace MindMate.WinXP
     public class MainMenuCtrl
     {
         public MainMenu mainMenu;
-        public MapCtrl mapCtrl { get { return mainCtrl.CurrentMapCtrl; } }
+        public MapCtrl mapCtrl => mainCtrl.CurrentMapCtrl;
         private readonly MainCtrl mainCtrl; 
 
         public MainMenuCtrl(MainMenu mainMenu, MainCtrl mainCtrl)

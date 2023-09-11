@@ -3,12 +3,8 @@
  * This software is licensed under MIT (see LICENSE.txt)    
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
 using MindMate.MetaModel;
+using System.Drawing;
 
 namespace MindMate.View.MapControls
 {
@@ -32,8 +28,8 @@ namespace MindMate.View.MapControls
 
         public PointF Location
         {
-            get { return location; }
-            set { location = value; }
+            get => location;
+            set => location = value;
         }
 
 

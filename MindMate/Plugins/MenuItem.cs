@@ -1,9 +1,6 @@
 ﻿using MindMate.Model;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MindMate.Plugins
@@ -13,10 +10,7 @@ namespace MindMate.Plugins
         private ToolStripMenuItem underlyingMenuItem;
         public ToolStripMenuItem UnderlyingMenuItem
         {
-            get
-            {
-                return underlyingMenuItem;
-            }
+            get => underlyingMenuItem;
 
             private set
             {
@@ -90,28 +84,16 @@ namespace MindMate.Plugins
             UnderlyingMenuItem.DropDownItems.Add(new ToolStripSeparator());
         }
 
-        public bool Enabled 
+        public bool Enabled
         {
-            get
-            {
-                return UnderlyingMenuItem.Enabled;
-            }
-            set
-            {
-                UnderlyingMenuItem.Enabled = value;
-            }
+            get => UnderlyingMenuItem.Enabled;
+            set => UnderlyingMenuItem.Enabled = value;
         }
 
         public bool Visible
         {
-            get
-            {
-                return UnderlyingMenuItem.Visible;
-            }
-            set
-            {
-                UnderlyingMenuItem.Visible = value;
-            }
+            get => UnderlyingMenuItem.Visible;
+            set => UnderlyingMenuItem.Visible = value;
         }
     }
 }
