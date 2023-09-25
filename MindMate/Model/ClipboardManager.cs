@@ -92,14 +92,11 @@ namespace MindMate.Model
                         {
                             return new MapNode(parent, text);
                         }
-                        else
-                        {
-                            string tempLink = link; // add link to source website in case text itself is not a URL (if text is URL, link to it)
-                            if (text.StartsWith("http://", StringComparison.OrdinalIgnoreCase)
-                                || text.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
-                                tempLink = text;
-                            return new MapNode(parent, text) { Link = tempLink };
-                        }
+                        string tempLink = link; // add link to source website in case text itself is not a URL (if text is URL, link to it)
+                        if (text.StartsWith("http://", StringComparison.OrdinalIgnoreCase)
+                            || text.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+                            tempLink = text;
+                        return new MapNode(parent, text) { Link = tempLink };
                     });
 
             }
